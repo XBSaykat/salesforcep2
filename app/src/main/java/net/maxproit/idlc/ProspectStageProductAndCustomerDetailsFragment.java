@@ -33,9 +33,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //    Spinner productDetail;
 
 
-    AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
+    private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship;
-    EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
+
+    private EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
                 etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
                 etPermanentAddress, etMobileNumber;
 
