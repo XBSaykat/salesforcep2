@@ -12,13 +12,19 @@ import android.widget.Button;
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.common.base.BaseActivity;
 import net.maxproit.idlc.databinding.ActivityMyProspectBinding;
+import net.maxproit.idlc.feature.salesOfficer.myProspect.adapter.MyNewProspectAdapter;
 import net.maxproit.idlc.feature.salesOfficer.myProspect.adapter.MyProspectAdapter;
+import net.maxproit.idlc.feature.salesOfficer.mylead.MyLeadActivity;
+import net.maxproit.idlc.feature.salesOfficer.mylead.adapter.MyLeadAdapter;
 import net.maxproit.idlc.feature.salesOfficer.newProspect.NewProspectActivity;
 import net.maxproit.idlc.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.idlc.model.login.LocalLogin;
 import net.maxproit.idlc.model.myprospect.MyProspect;
+import net.maxproit.idlc.model.newlead.MyNewLead;
+import net.maxproit.idlc.sqlite.MyLeadDbController;
 import net.maxproit.idlc.util.SharedPreferencesEnum;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -31,11 +37,14 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 
     ActivityMyProspectBinding binding;
     LocalLogin localLogin;
-    MyProspectAdapter myProspectAdapter;
+    MyNewProspectAdapter myProspectAdapter;
     String userName;
     Bundle extras;
     boolean isPerfomance = false;
+    MyLeadAdapter myLeadAdapter;
+    MyLeadDbController myLeadDbController;
 
+    ArrayList<MyNewLead> leadList, filterList;
     Button btnAddProspect;
 
 
@@ -50,30 +59,44 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 
         binding = (ActivityMyProspectBinding) getBinding();
         binding.btnBack.setOnClickListener(v -> finish());
+        leadList = new ArrayList<>();
+        filterList = new ArrayList<>();
+        myLeadDbController = new MyLeadDbController(this);
 
+        if (!leadList.isEmpty()) {
+            leadList.clear();
+        }
+
+        leadList.addAll(myLeadDbController.getProspectData());
 
         localLogin = new LocalLogin(getApplicationContext());
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
-
+        myProspectAdapter = new MyNewProspectAdapter(MyProspectActivity.this, leadList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        binding.rvMyProspect.setLayoutManager(mLayoutManager);
+        binding.rvMyProspect.setAdapter(myProspectAdapter);
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                filterList = getFilterData(leadList, query);
+                myLeadAdapter.setFilter(filterList);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                myProspectAdapter.getFilter().filter(newText);
-                return false;
+                filterList = getFilterData(leadList, newText);
+                myLeadAdapter.setFilter(filterList);
+                return true;
             }
         });
 
-        try {
-            callApi();
-        } catch (Exception e) {
-            showAlertDialog("Error", e.getMessage());
-        }
+//        try {
+//            callApi();
+//        } catch (Exception e) {
+//            showAlertDialog("Error", e.getMessage());
+//        }
 
         btnAddProspect = findViewById(R.id.btnAddProspect);
         btnAddProspect.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +109,29 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 
 
     }
+    //filter  data
+    private ArrayList<MyNewLead> getFilterData(ArrayList<MyNewLead> models, CharSequence searchKey) {
+        searchKey = searchKey.toString().toLowerCase();
+
+        final ArrayList<MyNewLead> filteredModelList = new ArrayList<>();
+        for (MyNewLead model : models) {
+            final String uName = model.getUserName().toLowerCase();
+            final String phone = model.getPhone().toLowerCase();
+
+            if (uName.contains(searchKey) || phone.contains(searchKey)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
+    }
+
+    private void loadFilterData() {
+        if (!filterList.isEmpty()) {
+            filterList.clear();
+        }
+        filterList.addAll(myLeadAdapter.getDataList());
+    }
+
 
     private void callApi() {
         if (isNetworkAvailable()) {
@@ -96,10 +142,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                     hideProgressDialog();
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            myProspectAdapter = new MyProspectAdapter(MyProspectActivity.this, response.body(), isPerfomance);
-                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                            binding.rvMyProspect.setLayoutManager(mLayoutManager);
-                            binding.rvMyProspect.setAdapter(myProspectAdapter);
+
                         } else showAlertDialog("Error", response.body().getMessage());
 
                     } else showAlertDialog("Error", response.message());

@@ -28,7 +28,7 @@ public class LeadStageActivity extends AppCompatActivity {
     private TextView btnSave;
     private MyLeadDbController myLeadDbController;
 
-    Spinner spnClientType;
+    private Spinner spnClientType;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
