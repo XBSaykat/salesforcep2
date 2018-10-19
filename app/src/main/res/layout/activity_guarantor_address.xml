@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="model"
+            type="net.maxproit.idlc.model.newprospect.Address" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvheader"
+            android:layout_width="match_parent"
+            android:text="Address"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18sp"
+            android:padding="@dimen/size_16dp"
+            android:layout_height="?attr/actionBarSize" />
+
+        <RelativeLayout
+            android:id="@+id/rvCif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvheader"
+            android:padding="@dimen/size_8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/size_30dp">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:drawableRight="@drawable/ic_required"
+                        android:text="Address Type" />
+
+                    <com.isapanah.awesomespinner.AwesomeSpinner
+                        android:id="@+id/spAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:spinnerDirection="ltr"
+                        app:spinnerHint="Select Ownership Status" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextViewQuestion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/size_8dp"
+                                android:drawableRight="@drawable/ic_required"
+                                android:text="Select District" />
+
+                            <com.isapanah.awesomespinner.AwesomeSpinner
+                                android:id="@+id/spDistrict"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:spinnerDirection="ltr"
+                                app:spinnerHint="Select District" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextViewQuestion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/size_8dp"
+                                android:drawableRight="@drawable/ic_required"
+                                android:text="Select Upazilla" />
+
+                            <com.isapanah.awesomespinner.AwesomeSpinner
+                                android:id="@+id/spUpozila"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:spinnerDirection="ltr"
+                                app:spinnerHint="Select Upazilla" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <!--Start Area Name -->
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/ic_required"
+                            android:text="Ownership Status" />
+
+                        <com.isapanah.awesomespinner.AwesomeSpinner
+                            android:id="@+id/spOwnership"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:spinnerDirection="ltr"
+                            app:spinnerHint="Select Ownership Status" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Area Name" />
+
+                        <EditText
+                            android:id="@+id/arName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="@={model.area}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <!--Finish Area Name-->
+
+                    <!--Start Village -->
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Village" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="@={model.village}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <!--Finish Village-->
+
+                    <!--Start Apartment Number -->
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Apartment or Shop No" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="@={model.appartmentNo}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Floor No" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="@={model.floor}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Apartment/House/Building Name" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="@={model.houseName}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <!--Start Holding -->
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Holding Number" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="@={model.holdingNumber}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <!--Finish Holding-->
+
+                    <!--Start Road -->
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Road Number" />
+
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="@={model.road}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+
+
+
+                    <!--Start Nearest Lank Mark -->
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nearest Land Mark" />
+
+                        <com.isapanah.awesomespinner.AwesomeSpinner
+                            android:id="@+id/spLandmark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:spinnerDirection="ltr"
+                            app:spinnerHint="Select Nearest Land Mark" />
+
+
+                        <EditText
+                            android:id="@+id/etLandmark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:focusable="false"
+                            android:maxLines="1"
+                            android:text="@={model.nearestLandMark}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+        </RelativeLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/size_8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/size_16dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="Save"/>
+
+
+    </RelativeLayout>
+</layout>
+

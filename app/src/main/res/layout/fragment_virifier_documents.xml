@@ -1,0 +1,70 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/titleCamera1"
+            style="@style/TextViewQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_8dp"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:text="Image Upload" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleCamera1"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ibCamera1"
+                android:layout_width="@dimen/size_80dp"
+                android:layout_height="@dimen/size_80dp"
+                android:layout_margin="@dimen/size_16dp"
+                android:background="@drawable/camera"
+                android:text="Button" />
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/size_30dp"
+                android:layout_margin="@dimen/size_8dp"
+                android:layout_width="@dimen/size_100dp"
+                android:layout_height="@dimen/size_100dp">
+
+                <ImageView
+                    android:id="@+id/ivCamera1"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/tvImgSize"
+                    style="@style/TextViewQuestion"
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:text=""
+                    android:padding="@dimen/size_4dp"
+                    android:layout_alignParentRight="true" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#D9534F</color>
+    <color name="colorPrimaryDark">#D9534F</color>
+    <color name="colorAccent">#D9534F</color>
+
+    <color name="colorQuestionText">#c51117</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="white">#ffffff</color>
+    <color name="white100">#64ffffff</color>
+
+    <color name="white_transparent_1">#52ffffff</color>
+    <color name="white_transparent_2">#30ffffff</color>
+    <color name="white_transparent_3">#f8f5ff</color>
+
+    <color name="black">@android:color/black</color>
+    <color name="black_2">#050505</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay_2">#28000000</color>
+
+    <color name="gradient_light">#6175b6</color>
+    <color name="gradient_deep">#340739</color>
+    <color name="btn_gradient_light">#fe5d7b</color>
+    <color name="btn_gradient_light_pressed">#b4fe5d7b</color>
+    <color name="btn_gradient_deep">#ff1c87</color>
+    <color name="btn_gradient_deep_pressed">#b4ff1c87</color>
+    <color name="btn_disable">#cccace</color>
+    <color name="btn_facebook_light">#3474c1</color>
+    <color name="btn_facebook_light_pressed">#b43474c1</color>
+    <color name="btn_facebook_deep">#3d5c9e</color>
+    <color name="btn_facebook_deep_pressed">#b43d5c9e</color>
+
+    <color name="text_color">#383a3e</color>
+    <color name="hint_text_color">#cccace</color>
+    <color name="info_text_color">#909090</color>
+    <color name="text_disable">#a5a5a5</color>
+    <color name="text_color_gem">#d683eb</color>
+
+    <color name="blue">#4466ad</color>
+    <color name="blue_clicked">#824466ad</color>
+    <color name="grey">#8b878b</color>
+    <color name="blueGrey">#a5aed3</color>
+    <color name="blueLight">#3fc2ff</color>
+    <color name="greyDark">#4b4c54</color>
+    <color name="blackMedium">#676767</color>
+    <color name="red">#ff3a4d</color>
+    <color name="green">#36d421</color>
+    <color name="green1">#00c853</color>
+
+    <color name="greenDark">#01579b</color>
+    <color name="blueNavy">#5f70b0</color>
+    <color name="teal">#00c989</color>
+    <color name="greyLight">#cbcbcb</color>
+    <color name="greyWhite">#eaeaea</color>
+    <color name="grey300">#b6b6b6</color>
+    <color name="grey400">#6689898e</color>
+
+    <color name="tab_unselected">#9371c0</color>
+    <color name="tab_selected">#cfafff</color>
+    <color name="tab_indicator">#cfafff</color>
+
+    <color name="indicator_selected">#ff2585</color>
+    <color name="indicator_unselected">#cbcbcb</color>
+
+    <color name="et_cursor">#fe5d7b</color>
+
+    <color name="pink">#fe587c</color>
+
+    <color name="rb_orange">#fe8507</color>
+    <color name="rb_green">#00c976</color>
+    <color name="rb_pink">#ff2086</color>
+    <color name="rb_purple">#a400e9</color>
+    <color name="rb_blue">#00a0e2</color>
+
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/creditItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/size_4dp">
+
+
+    <TextView
+        android:id="@+id/tvRrfNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Reference Numbe"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/tvCName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvRrfNumber"
+        android:text="Customer Name"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/tvPrAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvCName"
+        android:text="Proposed Amoun"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvPrAmount"
+        android:text="Status"
+        android:layout_alignParentLeft="true" />
+</RelativeLayout>

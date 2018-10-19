@@ -1,0 +1,170 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="net.maxproit.idlc.model.newlead.LegalStructure" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/basicInfoLead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_4dp"
+            android:layout_marginLeft="@dimen/size_16dp"
+            android:layout_marginRight="@dimen/size_16dp"
+            android:layout_marginTop="@dimen/size_4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Legal Structure" />
+
+                <Spinner
+                    android:id="@+id/legalStructureSpinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_4dp"
+                    android:entries="@array/legalStructure_array"
+                    android:padding="@dimen/size_8dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:background="#EEE" />
+            </LinearLayout>
+            <!--Finish Legal Structure-->
+
+            <!--Start Organization Name -->
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Organization Name" />
+
+                <EditText
+                    android:id="@+id/OrganizationName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:text="@={model.orgName}"
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
+            <!--Finish Organization Name-->
+
+            <!--Start Registered Office address -->
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Registered Office Address" />
+
+                <EditText
+                    android:id="@+id/RegisteredOfficeaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:text="@={model.offAddress}"
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
+            <!--Finish Registered Office address-->
+
+            <!--Factory and Store address -->
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Factory and Store address" />
+
+                <EditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:text="@={model.storeAddress}"
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
+            <!--Finish Factory and Store address-->
+
+            <!--Formation Date -->
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Registration and Commencement" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:text="@={model.reg}"
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
+            <!--Formation Date-->
+
+            <!--Meeting Date -->
+
+            <!--Meeting Date-->
+
+            <!--Follow up Date -->
+            <!--Follow up Date-->
+
+            <!--Visit purpose -->
+            <!--Visit Purpose-->
+
+            <!--Remarks -->
+
+            <!--Remarks-->
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

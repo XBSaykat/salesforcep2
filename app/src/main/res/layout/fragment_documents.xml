@@ -1,0 +1,188 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="net.maxproit.idlc.model.newlead.Document" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="@dimen/size_16dp"
+            android:text="Document List"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/doc1"
+            android:layout_below="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="@dimen/size_16dp"
+            android:text="Document List"
+            android:textColor="@color/white" />
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/clLeadItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/doc1"
+            android:layout_marginBottom="@dimen/size_4dp"
+            android:background="@color/greyWhite"
+            android:visibility="gone">
+
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Doc Item :"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:layout_marginTop="8dp"
+                android:text="Visiting Card"
+                app:layout_constraintBottom_toBottomOf="@+id/id"
+                app:layout_constraintEnd_toStartOf="@+id/btnDownload"
+                app:layout_constraintStart_toEndOf="@+id/id"
+                app:layout_constraintTop_toTopOf="@+id/id" />
+
+            <ImageView
+                android:id="@+id/btnDownload"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_upload" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/clLeadItem2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/clLeadItem"
+            android:layout_marginBottom="@dimen/size_4dp"
+            android:background="@color/greyWhite"
+            android:visibility="gone">
+
+
+            <TextView
+                android:id="@+id/id2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Doc Item :"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvId2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:layout_marginTop="8dp"
+                android:text="Others document"
+                app:layout_constraintBottom_toBottomOf="@+id/id2"
+                app:layout_constraintEnd_toStartOf="@+id/btnDownload2"
+                app:layout_constraintStart_toEndOf="@+id/id2"
+                app:layout_constraintTop_toTopOf="@+id/id2" />
+
+            <ImageView
+                android:id="@+id/btnDownload2"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_upload" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/doc2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/doc1"
+            android:layout_marginBottom="4dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="@dimen/size_16dp"
+            android:text="Other Document Upload"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvDocument"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/clLeadItem2" />
+
+        <Button
+            android:id="@+id/add"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:text="Add Other"
+            android:layout_margin="@dimen/size_16dp"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+
+</layout>

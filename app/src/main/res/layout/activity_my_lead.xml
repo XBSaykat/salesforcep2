@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.salesOfficer.mylead.MyLeadActivity">
+
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_8dp"
+                android:src="@drawable/ic_back" />
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:focusable="false"
+                app:divider="@color/green"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search Lead"
+                app:searchIcon="@null" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/emtyHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:gravity="center"
+            android:text="No data found"
+            android:textSize="@dimen/text_size_24sp"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvMyLead"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentLeft="true" />
+
+
+    </RelativeLayout>
+</layout>
+

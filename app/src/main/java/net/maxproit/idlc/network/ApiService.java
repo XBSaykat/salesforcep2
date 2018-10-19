@@ -1,0 +1,301 @@
+package net.maxproit.idlc.network;
+
+/**
+ * Created by Rezwan Khan Chowdhury on 4/12/18.
+ */
+
+
+import net.maxproit.idlc.model.cib.notRequestedCIB.NotRequestedCIBData;
+import net.maxproit.idlc.model.cib.post.CibPost;
+import net.maxproit.idlc.model.cib.postResponce.CibPostResponce;
+import net.maxproit.idlc.model.cib.requestedCIB.RequestedCIBData;
+import net.maxproit.idlc.model.cif.notRequestedCIF.NotRequestedCifData;
+import net.maxproit.idlc.model.cif.post.CifPost;
+import net.maxproit.idlc.model.cif.postResponce.CifPostResponce;
+import net.maxproit.idlc.model.cif.requestedCIf.RequestedCIfData;
+import net.maxproit.idlc.model.deviation.DeviationEntities;
+import net.maxproit.idlc.model.deviation.getlist.Daviationlist;
+import net.maxproit.idlc.model.deviation.head.DevAccountHeadEntities;
+import net.maxproit.idlc.model.deviation.post.DeviationPost;
+import net.maxproit.idlc.model.deviation.postresponce.DaviationPostResponce;
+import net.maxproit.idlc.model.folowup.FollowupList;
+import net.maxproit.idlc.model.login.Login;
+import net.maxproit.idlc.model.login.LoginResponse;
+import net.maxproit.idlc.model.mylead.MyLeadApproval;
+import net.maxproit.idlc.model.mylead.Mylead;
+import net.maxproit.idlc.model.mylead.approvalresponce.ApprovalResponce;
+import net.maxproit.idlc.model.mylead.updateLead.OldLead;
+import net.maxproit.idlc.model.myprospect.MyProspect;
+import net.maxproit.idlc.model.myprospect.documentlist.ProspectDocList;
+import net.maxproit.idlc.model.myprospect.updateProspect.OleProspect;
+import net.maxproit.idlc.model.newlead.NewLead;
+import net.maxproit.idlc.model.newprospect.NewProspect;
+import net.maxproit.idlc.model.salesOfficer.disbursement.Disbursement;
+import net.maxproit.idlc.model.salesOfficer.myPerfomance.MyPerfomance;
+import net.maxproit.idlc.model.sd.DisbursementList;
+import net.maxproit.idlc.model.search.DisbursementSearch;
+import net.maxproit.idlc.model.search.Search;
+import net.maxproit.idlc.model.search.guarantor.SearchGuarantor;
+import net.maxproit.idlc.model.search.proprietor.SearchProprietor;
+import net.maxproit.idlc.model.search.searchlist.SearchList;
+import net.maxproit.idlc.model.search.searchlist.disbursementsearch.DisbursementItemData;
+import net.maxproit.idlc.model.search.searchlist.disbursementsearch.DisbursementSearchResponceList;
+import net.maxproit.idlc.model.setting.GlobalSettings;
+import net.maxproit.idlc.model.supervisor.calls.Calls;
+import net.maxproit.idlc.model.supervisor.dashboard.SupProspect;
+import net.maxproit.idlc.model.supervisor.lead.Lead;
+import net.maxproit.idlc.model.supervisor.prospects.Prospects;
+import net.maxproit.idlc.model.supervisor.salesofficers.SalesOfficers;
+import net.maxproit.idlc.model.supervisor.sanctions.Sanctions;
+import net.maxproit.idlc.model.supervisor.user.UseList;
+import net.maxproit.idlc.model.supervisor.visits.Visits;
+import net.maxproit.idlc.model.uploads.file.FileUploadResponce;
+import net.maxproit.idlc.model.virifier.virifierlist.Virifier;
+
+import okhttp3.MultipartBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
+
+/**
+ * Contains all API call declarations
+ */
+public interface ApiService {
+
+
+    @POST("Authenticate")
+    Call<LoginResponse> login(@Body Login login);
+
+
+    @GET("GlobalSettings/1")
+    Call<GlobalSettings> getSetting();
+
+
+
+    /*
+     Lead Api
+    */
+
+    // Lead Step 1. Create new Lead
+    @POST("lead")
+    Call<OldLead> createNewLead(@Body NewLead newLead);
+
+    // Lead Step 2. My lead
+    @GET("MyLead/{user}/{random}")
+    Call<Mylead> getMyLead(@Path("user") String user, @Path("random") String random);
+
+    // Lead Step 3. Lead Approval
+    @POST("proceedLead")
+    Call<ApprovalResponce> myleadApproval(@Body MyLeadApproval myLeadApproval);
+
+    // Lead Step 4. Get Lead By id
+    @GET("Lead/{id}/{random}")
+    Call<OldLead> getLeadById(@Path("id") String id, @Path("random") String random);
+
+
+    @POST("approval")
+    Call<ApprovalResponce> supervisorApproval(@Body MyLeadApproval myLeadApproval);
+
+
+    //----------------------------------
+
+    @GET("ProspectDataForDisbursement/{id}/{random}")
+    Call<DisbursementItemData> getDisbursement(@Path("id") String id, @Path("random") String random);
+
+    @POST("FindApprovedProspect")
+    Call<DisbursementSearchResponceList> searchDisbursement(@Body DisbursementSearch search);
+
+
+
+    /*
+     Prospect Api
+    */
+
+    // Prospect Stem 1. My Prospect list
+    @GET("MyProspect/{user}/{random}")
+    Call<MyProspect> getMyProspect(@Path("user") String user, @Path("random") String random);
+
+    @POST("Prospect")
+    Call<OleProspect> myProspect(@Body NewProspect newProspect);
+
+
+    @GET("Prospect/{id}/{random}")
+    Call<OleProspect> getProspect(@Path("id") String id, @Path("random") String random);
+
+    @POST("proceed")
+    Call<ApprovalResponce> myProspectApproval(@Body MyLeadApproval myLeadApproval);
+
+    @GET("SalesOfficer/DashboardInformation/{user}/{random}")
+    Call<MyPerfomance> getMyPerfomance(@Path("user") String user,@Path("random") String random);
+
+
+    @GET("SalesOfficer/Disbursements/{user}/{random}")
+    Call<Disbursement> getDisbursements(@Path("user") String user,@Path("random") String random);
+
+    @GET("SalesOfficer/Leads/{user}/{random}")
+    Call<Mylead> getSalesOfficerLead(@Path("user") String user,@Path("random") String random);
+
+
+
+    @GET("SalesOfficer/Disbursements/{user}/{random}")
+    Call<DisbursementList> getSalesOfficerDes(@Path("user") String user, @Path("random") String random);
+
+
+    @GET("SalesOffice/Calls/{user}")
+    Call<Calls> getSalesOfficerCall(@Path("user") String user);
+
+    @GET("SalesOfficer/Followup/{user}/{random}")
+    Call<FollowupList> getSalesOfficerFolloUp(@Path("user") String user, @Path("random") String random);
+
+    @GET("SalesOfficer/Prospects/{user}/{random}")
+    Call<MyProspect> getSalesOfficerProspect(@Path("user") String user,@Path("random") String random);
+
+    @GET("SalesOffice/SalesOfficers/{user}")
+    Call<SalesOfficers> getSalesOfficerSalesOfficer(@Path("user") String user);
+
+    @GET("SalesOfficer/Sanctions/{user}/{random}")
+    Call<Sanctions> getSalesOfficerSanctions(@Path("user") String user,@Path("random") String random);
+
+    @GET("SalesOffice/Visits/{user}/{random}")
+    Call<Visits> getSalesOfficerVisit(@Path("user") String user,@Path("random") String random);
+
+    @GET("Documentlist/{user}")
+    Call<ProspectDocList> getDockList(@Path("user") String user);
+
+    @GET("DocumentlistLead/{user}/{random}")
+    Call<ProspectDocList> getLeadDockList(@Path("user") String user, @Path("random") String random);
+
+    @GET("EMICalculation/{interest}/{month}/{amount}")
+    Call<String> getInstalmentAmount(@Path("interest") String interest, @Path("month") String month, @Path("amount") String amount);
+
+
+    /*
+     Parallel Request
+    */
+    // CIF Request
+    @GET("CIF/RequestedCIF/{id}/{random}")
+    Call<RequestedCIfData> cifRequestById(@Path("id") String id, @Path("random") String random);
+
+    @GET("CIF/NotRequestedCIF/{id}/{random}")
+    Call<NotRequestedCifData> cifNewRequestById(@Path("id") String id, @Path("random") String random);
+
+    @POST("CIF/CIFRequest")
+    Call<CifPostResponce> cifPost(@Body CifPost cifPost);
+
+
+    // CIB Request--------------------------------
+    @GET("CIB/RequestedCIB/{id}/{random}")
+    Call<RequestedCIBData> cibRequestById(@Path("id") String id, @Path("random") String random);
+
+
+    @GET("CIB/NotRequestedCIB/{id}/{random}")
+    Call<NotRequestedCIBData> cibNewRequestById(@Path("id") String id, @Path("random") String random);
+
+    @POST("CIB/RequestCIB")
+    Call<CibPostResponce> cibPost(@Body CibPost cibPost);
+    // CIB Request--------------------------------
+
+
+    @GET("Deviation/{id}/{random}")
+    Call<Daviationlist> daviationRequestById(@Path("id") String id, @Path("random") String random);
+
+
+    // Deviation Request
+    @GET("Deviation/{id}")
+    Call<DeviationEntities> deviationRequestById(@Path("id") String id);
+
+
+    @GET("DeviationAccHeads/{id}")
+    Call<DevAccountHeadEntities> deviationHeadById(@Path("id") String id);
+
+
+    @POST("Deviation/DeviationRequest")
+    Call<DaviationPostResponce> deviationPost(@Body DeviationPost deviationPost);
+
+
+
+
+
+    /*
+     Search Api
+    */
+
+    // Cif Search
+    @POST("CIF")
+    Call<SearchList> searchUserInfo(@Body Search search);
+    // Get Lead
+    @GET("LeadPopulate/{id}/{random}")
+    Call<OldLead> getLeadByLeadIndexId(@Path("id") String id, @Path("random") String random);
+
+    @GET("Proprietor/{id}/{random}")
+    Call<SearchProprietor> getProprietor(@Path("id") String id, @Path("random") String random);
+    @GET("Guarantor/{id}/{random}")
+    Call<SearchGuarantor> getGuarantor(@Path("id") String id, @Path("random") String random);
+
+
+
+
+    /*
+     Supervisor Api
+    */
+
+    // 1. Supervisor Lead
+    @GET("SalesOfficer/DashboardInformation/{user}/{random}")
+    Call<SupProspect> getSupervisorDashboard(@Path("user") String user, @Path("random") String random);
+
+    @GET("Suppervisor/Leads/{user}/{random}")
+    Call<UseList> getSupervisorLead(@Path("user") String user, @Path("random") String random);
+    @GET("Suppervisor/Prospects/{user}/ff/{random}")
+    Call<UseList> getSupervisorProspect(@Path("user") String user, @Path("random") String random);
+
+    @GET("Suppervisor/Sanctions/{user}/{random}")
+    Call<UseList> getSupervisorSanctions(@Path("user") String user, @Path("random") String random);
+
+
+    @GET("Suppervisor/Disbursements/{user}/{random}")
+    Call<UseList> getSupervisorDisbursements(@Path("user") String user, @Path("random") String random);
+
+
+    @GET("Suppervisor/Followups/{user}/{random}")
+    Call<UseList> getSupervisorFup(@Path("user") String user, @Path("random") String random);
+
+
+
+    @GET("Suppervisor/Calls/{user}")
+    Call<Calls> getSupervisorCall(@Path("user") String user);
+
+
+
+
+
+    @GET("Prospect/ProspectsForAapproval/{user}/{random}")
+    Call<Prospects> getSupervisorProspectForApp(@Path("user") String user, @Path("random") String random);
+
+    @GET("Suppervisor/SalesOfficers/{user}")
+    Call<SalesOfficers> getSupervisorSalesOfficer(@Path("user") String user);
+
+
+
+    @GET("Suppervisor/Visits/{user}")
+    Call<Visits> getSupervisorVisit(@Path("user") String user);
+
+
+    //Virifier
+    @GET("ListOfProspectVarification/{user}'")
+    Call<Virifier> getvirifierList(@Path("user") String user);
+
+
+    @Multipart
+    @POST("uploadfile")
+    Call<FileUploadResponce> fileUpload(@Part MultipartBody.Part file1);
+
+
+    @GET("LeadDocumentlist/{user}")
+    Call<String> getfileByid(@Path("user") String user);
+
+
+}

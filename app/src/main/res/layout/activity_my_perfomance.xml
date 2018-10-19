@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="net.maxproit.idlc.model.salesOfficer.myPerfomance.Data" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:padding="@dimen/size_8dp"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="My Perfomance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20sp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+
+            <LinearLayout
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:padding="@dimen/size_16dp">
+
+                <!--1st-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--(1)No of Leads-->
+                    <LinearLayout
+                        android:id="@+id/leads"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:background="@color/colorPrimary"
+                        android:elevation="@dimen/size_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/size_4dp">
+
+
+                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="My Pending Plans"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_20sp" />
+
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:orientation="horizontal">
+                           <LinearLayout
+                           android:layout_width="0dp"
+                               android:layout_weight="1"
+                           android:layout_height="wrap_content"
+                           android:orientation="vertical">
+
+                               <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   android:gravity="center"
+                                   android:text="No. of Lead"
+                                   android:textColor="@color/greyWhite"
+                                   android:textSize="@dimen/text_size_12sp" />
+                           <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:gravity="center"
+                               android:textSize="@dimen/text_size_12sp"
+                               android:textColor="@color/greyWhite"
+                               android:text="@{``+model.noOfLeads}"/>
+                       </LinearLayout>
+
+
+
+                       </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <!--(2)No of Prospects-->
+                    <LinearLayout
+                        android:id="@+id/prospects"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:background="@color/colorPrimary"
+                        android:elevation="@dimen/size_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/size_4dp">
+
+
+                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="My Pending Activities"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_20sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="No. of Lead"
+                                    android:textColor="@color/greyWhite"
+                                    android:textSize="@dimen/text_size_12sp" />
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text="@{``+model.noOfProspects}"/>
+                            </LinearLayout>
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:textColor="@color/greyWhite"-->
+                                    <!--android:textSize="@dimen/text_size_12sp" />-->
+                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:textSize="@dimen/text_size_12sp"-->
+                                    <!--android:textColor="@color/greyWhite"-->
+                                    <!--android:text="@{``+model.prospectsAmount}"/>-->
+                            <!--</LinearLayout>-->
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--2nd-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--(3)No of Sanction-->
+                    <LinearLayout
+                        android:id="@+id/sen"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:background="@color/colorPrimary"
+                        android:elevation="@dimen/size_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/size_4dp">
+
+                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="AI Rule Engine Passed Prospects on Hold"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_20sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="No. of Lead"
+                                    android:textColor="@color/greyWhite"
+                                    android:textSize="@dimen/text_size_12sp" />
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text="@{``+model.noOfSanction}"/>
+                            </LinearLayout>
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:textColor="@color/greyWhite"-->
+                                    <!--android:textSize="@dimen/text_size_12sp" />-->
+                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:textSize="@dimen/text_size_12sp"-->
+                                    <!--android:textColor="@color/greyWhite"-->
+                                    <!--android:text="@{``+model.sanctionAmount}"/>-->
+                            <!--</LinearLayout>-->
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <!--(4)No of Visits-->
+                    <LinearLayout
+                        android:id="@+id/Disbursement"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:background="@color/colorPrimary"
+                        android:elevation="@dimen/size_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/size_4dp">
+
+                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="Files submitted at CRM"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_20sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="No. of Lead"
+                                    android:textColor="@color/greyWhite"
+                                    android:textSize="@dimen/text_size_12sp" />
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text="@{``+model.noOfDisbursement}"/>
+                            </LinearLayout>
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:textColor="@color/greyWhite"-->
+                                    <!--android:textSize="@dimen/text_size_12sp" />-->
+                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:textSize="@dimen/text_size_12sp"-->
+                                    <!--android:textColor="@color/greyWhite"-->
+                                    <!--android:text="@{``+model.disbursementAmount}"/>-->
+                            <!--</LinearLayout>-->
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!--3rd-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--(3)No of Sanction-->
+                    <LinearLayout
+                        android:id="@+id/Follow"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:background="@color/colorPrimary"
+                        android:elevation="@dimen/size_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/size_4dp">
+
+                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="Unsuccessful Prospects"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_20sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text=""/>
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text=""/>
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <!--(4)No of Visits-->
+                    <LinearLayout
+                        android:id="@+id/visit1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:background="@color/colorPrimary"
+                        android:elevation="@dimen/size_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/size_4dp">
+
+                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:lines="2"
+                            android:text="Performance Summary"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_20sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text="Customer"/>
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text="@{``+model.noOfCustomer}"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text="No. of visit"/>
+                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="@dimen/text_size_12sp"
+                                    android:textColor="@color/greyWhite"
+                                    android:text="@{``+model.noOfVisits}"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/call"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:background="@drawable/dashboard_item"
+                    android:elevation="@dimen/size_4dp"
+                    android:padding="@dimen/size_16dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/size_16dp"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_no_call" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:padding="@dimen/size_4dp"
+                            android:text="No of Calls"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_20sp" />
+
+                        <net.maxproit.idlc.custom.textView.RobotoCondensedBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:padding="@dimen/size_4dp"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_20sp" />
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+
+                <!--(7)Sales Officer Name-->
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:background="@drawable/dashboard_item"
+                    android:elevation="@dimen/size_4dp"
+                    android:padding="@dimen/size_16dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/size_16dp"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/name" />
+
+
+                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/size_4dp"
+                        android:text="Disbursements"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_20sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>

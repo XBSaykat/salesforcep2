@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:padding="@dimen/size_8dp"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Sales Officer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/size_10dp"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:background="@color/transparent"
+                android:text="Log out"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <LinearLayout
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:padding="@dimen/size_16dp">
+
+                <LinearLayout
+                    android:id="@+id/visitPlan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:background="@drawable/dashboard_item"
+                    android:elevation="@dimen/size_4dp"
+                    android:padding="@dimen/size_16dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/size_16dp"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/prospect" />
+
+
+                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/size_4dp"
+                        android:text="Visit Plan"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_20sp" />
+                </LinearLayout>
+
+                <!--1st-->
+                <LinearLayout
+                    android:id="@+id/newLead"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:background="@drawable/dashboard_item"
+                    android:elevation="@dimen/size_4dp"
+                    android:padding="@dimen/size_16dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/size_16dp"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/prospect" />
+
+
+                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/size_4dp"
+                        android:text="Create Lead"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/myLeads"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:background="@drawable/dashboard_item"
+                    android:elevation="@dimen/size_4dp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_16dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/size_16dp"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/lead" />
+
+
+                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/size_4dp"
+                        android:text="My Leads"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/prospect"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:background="@drawable/dashboard_item"
+                    android:elevation="@dimen/size_4dp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_16dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/size_16dp"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/lead" />
+
+
+                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/size_4dp"
+                        android:text="My Prospect"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                android:id="@+id/verification"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/size_8dp"
+                android:background="@drawable/dashboard_item"
+                android:elevation="@dimen/size_4dp"
+                android:orientation="horizontal"
+                android:padding="@dimen/size_16dp">
+
+                <ImageView
+                    android:layout_width="@dimen/size_50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/size_16dp"
+                    android:layout_marginStart="@dimen/size_16dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/verification" />
+
+
+                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/size_4dp"
+                    android:text="My Performance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20sp" />
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:background="@drawable/dashboard_item"
+                    android:elevation="@dimen/size_4dp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_16dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/size_16dp"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/upload" />
+
+
+                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/size_4dp"
+                        android:text="Disbursement Request"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_20sp" />
+
+                </LinearLayout>
+
+                <!--2nd-->
+
+                <LinearLayout
+                    android:id="@+id/l2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+
+                    <LinearLayout
+                        android:id="@+id/disbursement"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:background="#ce3d91"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="invisible">
+
+
+                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                            android:id="@+id/des1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="Disbursement"
+                            android:textColor="@color/white"
+                            android:textSize="25sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!--3rd-->
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="net.maxproit.idlc">
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".feature.splash.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
+        <activity
+            android:name=".feature.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".feature.salesOfficer.newlead.NewLeadActivity" />
+        <activity android:name=".feature.salesOfficer.newProspect.NewProspectActivity" />
+        <activity android:name=".feature.upload.UploadActivity" />
+        <activity android:name=".feature.dashboard.DashboardVirifierActivity" />
+        <activity android:name=".feature.dashboard.supervisor.DashboardSupervisorActivity" />
+        <activity android:name=".feature.supervisor.SupervisorProspectActivity" />
+        <activity
+            android:name=".feature.search.SearchUserActivity"
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".feature.salesOfficer.mylead.MyLeadActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+
+        </activity>
+        <activity
+            android:name=".feature.salesOfficer.myProspect.MyProspectActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity" >
+
+        </activity>
+        <activity android:name=".feature.supervisor.SupervisorVisitsActivity" />
+        <activity android:name=".feature.supervisor.SupervisorSanctionActivity" />
+        <activity android:name=".feature.supervisor.SupervisorDisbursementActivity" />
+        <activity android:name=".feature.supervisor.SupervisorSalesofficerCifActivity" />
+        <activity android:name=".feature.supervisor.SupervisorSalesofficerNameActivity" />
+        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceActivity" />
+        <activity android:name=".feature.salesOfficer.parallelprocess.cif.CifActivity" />
+        <activity android:name=".feature.salesOfficer.parallelprocess.cib.CibActivity" />
+        <activity android:name=".feature.salesOfficer.parallelprocess.cib.CibActivityNew" />
+        <activity android:name=".feature.salesOfficer.myPerfomance.disbursement.MyPerfomanceDisbursementsActivity" />
+        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceProspectActivity" />
+        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceLeadActivity" />
+        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomancFollowUpCallsActivity" />
+        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceSanctionActivity" />
+        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerformanceVisitsActivity" />
+        <activity
+            android:name=".feature.salesOfficer.parallelprocess.DeviationActivity"
+            android:label="Deviation Request"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth" />
+        <activity android:name=".feature.virifier.VirifierListActivity" />
+        <activity android:name=".feature.virifier.VerifierActivity" />
+        <activity
+            android:name=".feature.salesOfficer.parallelprocess.cib.CibDialog"
+            android:label="Cib Request"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        <activity android:name=".feature.salesOfficer.parallelprocess.cif.CifActivityNew" />
+        <activity
+            android:name=".feature.salesOfficer.parallelprocess.cif.CifDialog"
+            android:label="Cif Request"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        <activity android:name=".feature.upload.UploadProspectActivity" />
+        <activity android:name=".feature.salesOfficer.parallelprocess.daviation.DaviationListActivity" />
+        <activity android:name=".feature.supervisor.prospectview.ProspectViewActivity" />
+        <activity
+            android:name=".feature.salesOfficer.newProspect.guarantorinfo.GuarantorInfoActivity"
+            android:label="Guarantor Info"
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".feature.salesOfficer.newProspect.guarantorinfo.GuarantorAddressActivity"
+            android:label=""
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".feature.salesOfficer.newProspect.ownersinfo.OwnersInfoActivity"
+            android:theme="@style/AppThemeDialog" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAGtDC-bNybal6562n0HfNhxM1nzWiRbuQ" />
+
+        <activity
+            android:name=".feature.salesOfficer.newProspect.ownersinfo.PersonalAssetsActivity"
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementSearchActivity"
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementsActivity"
+            android:theme="@style/AppThemeDialog" />
+        <activity android:name=".feature.dashboard.supervisor.MainDashboardSupervisorActivity" />
+        <activity android:name=".feature.salesOfficer.parallelprocess.daviation.NewDeviationActivity" />
+        <activity android:name=".feature.supervisor.SupervisorFollowUpActivity" />
+        <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
+        <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
+        <activity android:name=".feature.salesOfficer.VisitPlanActivity" />
+        <activity android:name=".LeadStageActivity">
+
+        </activity>
+        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity"></activity>
+    </application>
+
+</manifest>

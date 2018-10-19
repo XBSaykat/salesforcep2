@@ -1,0 +1,182 @@
+<resources>
+    <string name="app_name">IDLC Salesforce</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Sells Officer</string>
+    <string name="nav_header_subtitle">Salma Begom</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_new_user">Create new User</string>
+    <string name="lead_activity_title">Create nLead</string>
+    <string name="prospect_activity_title">Add new Prospect</string>
+    <string name="notification_activity">New Notifications !</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="server_error">Server Error</string>
+
+    <string name="google_place_api_key">AIzaSyDgeGFfb30M5w85K0q3nOtRM41FUGDDLl0</string>
+
+
+    <string name="pdf_ext">.pdf</string>
+    <string name="pdf_dir">/PDFfiles</string>
+    <string name="pdf_type">application/pdf</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="st_cancle">Cancle</string>
+    <string name="st_ok">Ok</string>
+    <string name="api_unsuccess_message">No data found</string>
+    <string name="api_responce_failed">Failed</string>
+    <string name="api_responce_ok">Success</string>
+
+    <string-array name="industry_array">
+        <item>Select industry type</item>
+    </string-array>
+    <string-array name="construction_category_array">
+        <item>Select Construction Category</item>
+    </string-array>
+
+    <string-array name="legalStructure_array">
+        <item>Select legal Structure</item>
+    </string-array>
+    <string-array name="address_array">
+        <item>Address Type</item>
+    </string-array>
+
+    <string-array name="district_array">
+        <item>Select district</item>
+    </string-array>
+
+    <string-array name="upazilla_array">
+        <item>Select upazilla</item>
+
+    </string-array>
+    <string-array name="booth_array">
+        <item>Booth 1</item>
+        <item>Booth 2</item>
+        <item>Booth 3</item>
+    </string-array>
+    <string-array name="type_array">
+        <item>Sales Officer</item>
+        <item>Team Leader</item>
+        <item>Verifier</item>
+    </string-array>
+
+
+    <string-array name="source_of_reference_array">
+        <item>Developer</item>
+        <item>Vendor</item>
+        <item>Existing Client</item>
+        <item>Walk-in</item>
+        <item>Others-open</item>
+    </string-array>
+
+    <string-array name="decision_array">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="branch_array">
+        <item>Branch 1</item>
+        <item>Branch 2</item>
+        <item>Branch 3</item>
+    </string-array>
+    <string-array name="profession_array">
+        <item>Profession 1</item>
+        <item>Profession 2</item>
+        <item>Profession 3</item>
+    </string-array>
+    <string-array name="product_type_array">
+        <item>Product Type 1</item>
+        <item>Product Type 2</item>
+        <item>Product Type 3</item>
+    </string-array>
+
+    <string-array name="product_categories_array">
+        <item>Home Loan</item>
+        <item>Car Loan</item>
+        <item>Personal Loan</item>
+    </string-array>
+
+    <string-array name="relationship_array">
+        <item>Relationship 1</item>
+        <item>Relationship 2</item>
+        <item>Relationship 3</item>
+          </string-array>
+
+    <string-array name="hl_array">
+        <item>Apartment Purchase</item>
+        <item>Construction</item>
+        <item>Home Equity</item>
+        <item>Land Purchase</item>
+        <item>Commercial Space Purchase</item>
+        <item>Shop Financing</item>
+        <item>Registra Loan</item>
+    </string-array>
+
+    <string-array name="cl_array">
+        <item>Brand New</item>
+        <item>Registered</item>
+        <item>Recondition</item>
+    </string-array>
+
+    <string-array name="pl_array">
+        <item>Secured</item>
+        <item>Unsecured</item>
+    </string-array>
+
+    <string-array name="segment_array">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+
+    <string-array name="monthly_net_salary_array">
+        <item>Bank Reflected</item>
+        <item>Cash</item>
+    </string-array>
+
+    <string-array name="monthly_rental_income">
+        <item>Multi-storied Building/ Apartment</item>
+        <item>Semipaka</item>
+        <item>Office Space/ Shop Space/ Commercial Space</item>
+        <item>Warehouse/ Go down/ Factory</item>
+    </string-array>
+    <string-array name="car_brands">
+        <item>Tata</item>
+        <item>Maruti</item>
+        <item>Toyota</item>
+        <item>Hyundai</item>
+    </string-array>
+
+    <string-array name="client_types">
+        <item>Individual</item>
+        <item>Developer</item>
+        <item>Vendor</item>
+        <item>Corporate House</item>
+    </string-array>
+
+    <string-array name="years">
+        <item>2015</item>
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+    </string-array>
+
+    <string-array name="countries">
+        <item>Bangladesh</item>
+        <item>India</item>
+        <item>Pakistan</item>
+        <item>Srilanka</item>
+    </string-array>
+    <string-array name="vehicle_types">
+        <item>Bus</item>
+        <item>Truck</item>
+        <item>Private Car</item>
+        <item>CNG</item>
+    </string-array>
+</resources>
+
+

@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="fab_margin">@dimen/size_16dp</dimen>
+    <dimen name="activity_horizontal_margin">@dimen/size_16dp</dimen>
+    <dimen name="activity_vertical_margin">@dimen/size_16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">@dimen/size_8dp</dimen>
+    <dimen name="nav_header_height">@dimen/size_180dp</dimen>
+    <dimen name="tab_height">@dimen/size_50dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+    <!--Floating action button-->
+    <dimen name="design_fab_image_size" tools:override="true">@dimen/size_35dp</dimen>
+</resources>

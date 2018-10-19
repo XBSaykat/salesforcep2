@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rvCif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Start Relationship-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/size_4dp"
+                    android:layout_marginLeft="@dimen/size_16dp"
+                    android:layout_marginRight="@dimen/size_16dp"
+                    android:layout_marginTop="@dimen/size_4dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Deviation category" />
+
+                        <Spinner
+                            android:id="@+id/dvcategory"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_4dp"
+                            android:padding="@dimen/size_8dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_2dp"
+                            android:background="#EEE" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Deviation Heads" />
+
+                        <Spinner
+                            android:id="@+id/dvhead"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_4dp"
+                            android:padding="@dimen/size_8dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_2dp"
+                            android:background="#EEE" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Current Value" />
+
+                        <EditText
+                            android:id="@+id/etCurrebt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textSize="@dimen/text_size_16sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Proposed Value" />
+
+                        <EditText
+                            android:id="@+id/etPrppese"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textSize="@dimen/text_size_16sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Remark" />
+
+                        <EditText
+                            android:id="@+id/etRemark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textSize="@dimen/text_size_16sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="match_parent"
+                        android:text="Submit"
+                        android:padding="@dimen/size_16dp"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:gravity="center"
+                        android:background="@color/colorPrimary"
+                        android:textColor="@color/white"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+        </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+</layout>
+

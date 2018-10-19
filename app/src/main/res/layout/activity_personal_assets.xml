@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="model"
+            type="net.maxproit.idlc.model.newprospect.PersonalAssets" />
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvheader"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/size_16dp"
+            android:text="Personal Assets"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18sp" />
+
+        <RelativeLayout
+            android:id="@+id/rvCif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvheader"
+            android:padding="@dimen/size_8dp">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/size_30dp">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:text="RealState Type" />
+
+                    <com.isapanah.awesomespinner.AwesomeSpinner
+                        android:id="@+id/spRealStateType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:spinnerDirection="ltr"
+                        app:spinnerHint="Select RealState Type" />
+
+
+
+
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:text="Property Type" />
+
+                    <com.isapanah.awesomespinner.AwesomeSpinner
+                        android:id="@+id/spPropertyType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:spinnerDirection="ltr"
+                        app:spinnerHint="Select RealState Type" />
+
+
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PropertySize" />
+
+                        <EditText
+                            android:id="@+id/etOwStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:text="@={model.propertySize}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Total amount" />
+
+                        <EditText
+                            android:id="@+id/arName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text="@={model.total}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Property Location" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="@={model.locationNTenureofOwnership}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="@dimen/size_8dp"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_16dp" />
+
+
+    </RelativeLayout>
+</layout>
+

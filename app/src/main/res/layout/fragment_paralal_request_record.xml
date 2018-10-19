@@ -1,0 +1,55 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/basicInfoLead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_4dp"
+            android:layout_marginLeft="@dimen/size_16dp"
+            android:layout_marginRight="@dimen/size_16dp"
+            android:layout_marginTop="@dimen/size_4dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/sif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorPrimary"
+                android:padding="@dimen/size_16dp"
+                android:text="CIF Request"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/cib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorPrimary"
+                android:padding="@dimen/size_16dp"
+                android:text="CIB Request"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/deviation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorPrimary"
+                android:padding="@dimen/size_16dp"
+                android:text="Deviation Request"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>
