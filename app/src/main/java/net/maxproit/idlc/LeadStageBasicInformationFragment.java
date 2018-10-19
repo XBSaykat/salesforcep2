@@ -26,7 +26,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
     private static Spinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession,branchName;
+    public static String profession=null,branchName=null;
     private String[] branchArray={"Mirpur","SegunBagicha","Polton","Dhanmondi","Azimpur"};
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

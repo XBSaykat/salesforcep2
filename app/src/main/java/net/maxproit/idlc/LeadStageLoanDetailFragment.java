@@ -24,7 +24,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
     private Spinner spinnerRef,spinnerProductType,spinnerSubCategory;
     public static EditText etLoadAmount,etFee,etInterest;
-    public static int ref,subCategory,productType;
+    public static int ref=0,subCategory=0,productType=0;
 
     private OnFragmentInteractionListener mListener;
 
