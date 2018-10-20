@@ -12,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import java.util.Calendar;
 
@@ -33,7 +36,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private Spinner spinnerFollowUp;
+    private AwesomeSpinner spinnerFollowUp;
     public static String followUp;
     public  static EditText etVisitDate,etRemark;
 
@@ -86,26 +89,41 @@ public class LeadStageVisitRecordFragment extends Fragment {
     }
 
     private void initView(View rootView) {
-        spinnerFollowUp=rootView.findViewById(R.id.spinner_follow_up);
+        spinnerFollowUp=rootView.findViewById(R.id.awe_spinner_lead_follow_up);
         etVisitDate=rootView.findViewById(R.id.dtpVisitDT);
         etRemark=rootView.findViewById(R.id.input_remarks);
+        initSpinnerAdapter();
+    }
+
+    private void initSpinnerAdapter() {
+        ArrayAdapter<CharSequence> decisionAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.decision_array,
+                android.R.layout.simple_spinner_dropdown_item);
+        spinnerFollowUp.setAdapter(decisionAdapter, 0);
 
     }
 
 
     private void initListener(){
-        spinnerFollowUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                followUp= String.valueOf(position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onItemSelected(int i, String s) {
+                followUp = s;
             }
         });
+//        spinnerFollowUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                followUp= String.valueOf(position);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         etVisitDate.setOnClickListener(new View.OnClickListener() {
             @Override

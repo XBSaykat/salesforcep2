@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.isapanah.awesomespinner.AwesomeSpinner;
 
 
 public class LeadStageLoanDetailFragment extends Fragment {
@@ -22,7 +25,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Spinner spinnerRef,spinnerProductType,spinnerSubCategory;
+    private AwesomeSpinner spinnerRef,spinnerProductType,spinnerSubCategory;
     public static EditText etLoadAmount,etFee,etInterest;
     public static int ref=0,subCategory=0,productType=0;
 
@@ -63,52 +66,83 @@ public class LeadStageLoanDetailFragment extends Fragment {
     }
 
     private void initListener() {
-        spinnerRef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ref= position;
-            }
 
+        spinnerRef.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onItemSelected(int i, String s) {
+                ref = i;
             }
         });
-
-        spinnerSubCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerProductType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subCategory=position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onItemSelected(int i, String s) {
+                productType = i;
             }
         });
-
-        spinnerProductType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerSubCategory.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                productType= position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onItemSelected(int i, String s) {
+                subCategory = i;
             }
         });
+//        spinnerRef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                ref= position;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        spinnerSubCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                subCategory=position;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        spinnerProductType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                productType= position;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
     }
 
     private void initView(View rootView) {
-        spinnerRef=rootView.findViewById(R.id.spinner_reference);
-        spinnerProductType=rootView.findViewById(R.id.spinner_product_type);
-        spinnerSubCategory=rootView.findViewById(R.id.spinner_product_subcategory);
+        spinnerRef=rootView.findViewById(R.id.awe_spinner_lead_reference);
+        spinnerProductType=rootView.findViewById(R.id.awe_spinner_lead_product_type);
+        spinnerSubCategory=rootView.findViewById(R.id.awe_spinner_lead_product_sub_type);
         etLoadAmount=rootView.findViewById(R.id.et_load_amount);
         etInterest=rootView.findViewById(R.id.et_interest);
         etFee=rootView.findViewById(R.id.et_fee);
 
+        initSpinnerAdapter();
+    }
+
+    private void initSpinnerAdapter() {
+        ArrayAdapter<CharSequence> refAdapter = ArrayAdapter.createFromResource(getContext(), R.array.source_of_reference_array, android.R.layout.simple_spinner_item);
+        spinnerRef.setAdapter(refAdapter, 0);
+
+        ArrayAdapter<CharSequence> productTypeAdapter = ArrayAdapter.createFromResource(getContext(), R.array.product_type_array, android.R.layout.simple_spinner_item);
+        spinnerProductType.setAdapter(productTypeAdapter, 0);
+
+        ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(), R.array.product_categories_array, android.R.layout.simple_spinner_item);
+        spinnerSubCategory.setAdapter(productSubAdapter, 0);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

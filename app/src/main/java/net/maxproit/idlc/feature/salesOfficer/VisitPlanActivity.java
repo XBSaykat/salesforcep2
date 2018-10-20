@@ -50,43 +50,16 @@ public class VisitPlanActivity extends AppCompatActivity {
 
 
     AwesomeSpinner spinnerClientType, spinnerProductType, spinnerArea, spinnerPurposeOfVisit;
+    TextView VlblClientType, lblHeading, VlblMobileNo, VlblProductType, VlblArea, VlblPurpose, VlblVisitDT, VlblRemarks, buttonSave;
+    LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
+    View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
+    EditText txtMobileNo, dtpVisitDT, txtRemarks;
+    String clientType, mobileNo, productType, area, purposeOfVisit, dateOfvisit, remarks;
+
+
+    List<String> listClientType, listProductType, listArea, listPurpose;
 
     VisitPlanDbController visitPlanDbController;
-
-    TextView lblHeading;
-    LinearLayout secClientType;
-    View lineClientType;
-    TextView VlblClientType;
-    Spinner spnClientType;
-    LinearLayout secMobileNo;
-    View lineMobileNo;
-    TextView VlblMobileNo;
-    EditText txtMobileNo;
-    LinearLayout secProductType;
-    View lineProductType;
-    TextView VlblProductType;
-    Spinner spnProductType;
-    LinearLayout secArea;
-    View lineArea;
-    TextView VlblArea;
-    Spinner spnArea;
-    LinearLayout secPurpose;
-    View linePurpose;
-    TextView VlblPurpose;
-    Spinner spnPurpose;
-    LinearLayout secVisitDT;
-    View lineVisitDT;
-    TextView VlblVisitDT;
-    EditText dtpVisitDT;
-    LinearLayout secRemarks;
-    View lineRemarks;
-    TextView VlblRemarks;
-    EditText txtRemarks;
-
-    List<String> listClientType;
-    List<String> listProductType;
-
-    TextView buttonSave;
 
     Context context = this;
     Global g;
@@ -111,9 +84,25 @@ public class VisitPlanActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Visit Plan");
         g = Global.getInstance();
+        visitPlanDbController = new VisitPlanDbController(this);
 
+        secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
+        secMobileNo.setVisibility(View.GONE);
+
+        spinnerClientType = findViewById(R.id.awe_spinner_visit_plan_client_type);
+        spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
+        spinnerArea = findViewById(R.id.awe_spinner_visit_plan_area);
+        spinnerPurposeOfVisit = findViewById(R.id.awe_spinner_visit_plan_Purpose);
+
+        txtMobileNo = (EditText) findViewById(R.id.input_mobile_no);
         dtpVisitDT = (EditText) findViewById(R.id.dtpVisitDT);
+        txtRemarks = (EditText) findViewById(R.id.input_remarks);
+
         buttonSave = findViewById(R.id.btn_save);
+
+        initArrayListForSpinners();
+        initAdapterForSpinners();
+        initListener();
 
 
         // init - set date to current date
@@ -156,83 +145,47 @@ public class VisitPlanActivity extends AppCompatActivity {
 
 //        spnClientType=(Spinner) findViewById(R.id.spinner_client);
 
-        secMobileNo=(LinearLayout)findViewById(R.id.secinput_mobile_no);
-        secMobileNo.setVisibility(View.GONE);
-        spinnerClientType = findViewById(R.id.awe_spinner_visit_plan_client_type);
-        listClientType = new ArrayList<String>();
 
-        listClientType.add("Individual");
-        listClientType.add("Developer");
-        listClientType.add("Vendor");
-        listClientType.add("Corporate House");
-        ArrayAdapter<String> adptrClientType= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
-        spinnerClientType.setAdapter(adptrClientType);
+
+
 
 
 
         //lineMobileNo=(View)findViewById(R.id.lineMobileNo);
         // VlblMobileNo=(TextView) findViewById(R.id.VlblMobileNo);
-        txtMobileNo=(EditText) findViewById(R.id.input_mobile_no);
         // secProductType=(LinearLayout)findViewById(R.id.secProductType);
         //  lineProductType=(View)findViewById(R.id.lineProductType);
         // VlblProductType=(TextView) findViewById(R.id.VlblProductType);
 //        spnProductType=(Spinner) findViewById(R.id.spinner_product_type);
 
-        spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
 
-        listProductType = new ArrayList<String>();
-
-
-        listProductType.add("1-Home Loan");
-        listProductType.add("2-Car Loan");
-        listProductType.add("3-Personal Loan");
-        listProductType.add("4-Deposit");
-        listProductType.add("5-Investment");
-        ArrayAdapter<String> productTypeAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
-        spinnerProductType.setAdapter(productTypeAdapter);
 
         //  secArea=(LinearLayout)findViewById(R.id.secArea);
         //  lineArea=(View)findViewById(R.id.lineArea);
         //  VlblArea=(TextView) findViewById(R.id.VlblArea);
 //        spnArea=(Spinner) findViewById(R.id.spinner_area);
-        spinnerArea= findViewById(R.id.awe_spinner_visit_plan_area);
 
-        List<String> listArea = new ArrayList<String>();
-
-
-        listArea.add("1-syd");
-        ArrayAdapter<String> adptrArea= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listArea);
-        spinnerArea.setAdapter(adptrArea);
 
         // secPurpose=(LinearLayout)findViewById(R.id.secPurpose);
         // linePurpose=(View)findViewById(R.id.linePurpose);
         // VlblPurpose=(TextView) findViewById(R.id.VlblPurpose);
 //        spnPurpose=(Spinner) findViewById(R.id.spinner_purpose_of_visit);
 
-        spinnerPurposeOfVisit= findViewById(R.id.awe_spinner_visit_plan_Purpose);
-        List<String> listPurpose = new ArrayList<String>();
 
 
-        listPurpose.add("1-Fresh");
-        listPurpose.add("2-Lead Generation");
-        listPurpose.add("3- Relationship Mgt");
-        listPurpose.add("4- Pre-Disbursement");
-        listPurpose.add("5- Post Disbursement");
-        ArrayAdapter<String> adptrPurpose= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
-        spinnerPurposeOfVisit.setAdapter(adptrPurpose);
 
         //  secVisitDT=(LinearLayout)findViewById(R.id.secVisitDT);
         // lineVisitDT=(View)findViewById(R.id.lineVisitDT);
         //  VlblVisitDT=(TextView) findViewById(R.id.VlblVisitDT);
-        dtpVisitDT=(EditText) findViewById(R.id.dtpVisitDT);
 
         dtpVisitDT.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT  = 2;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (dtpVisitDT.getRight() - dtpVisitDT.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        VariableID = "btnVisitDT"; showDialog(DATE_DIALOG);
+                final int DRAWABLE_RIGHT = 2;
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (dtpVisitDT.getRight() - dtpVisitDT.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        VariableID = "btnVisitDT";
+                        showDialog(DATE_DIALOG);
                         return true;
                     }
                 }
@@ -241,12 +194,9 @@ public class VisitPlanActivity extends AppCompatActivity {
         });
 
 
-
-
         // secRemarks=(LinearLayout)findViewById(R.id.secRemarks);
         // lineRemarks=(View)findViewById(R.id.lineRemarks);
         // VlblRemarks=(TextView) findViewById(R.id.VlblRemarks);
-        txtRemarks=(EditText) findViewById(R.id.input_remarks);
 
 //        final Calendar calendar = Calendar.getInstance();
 //
@@ -271,7 +221,50 @@ public class VisitPlanActivity extends AppCompatActivity {
 //                }
 //        });
 
-        initListener();
+    }
+
+    private void initAdapterForSpinners() {
+
+        ArrayAdapter<String> adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
+        spinnerClientType.setAdapter(adptrClientType);
+
+        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
+        spinnerProductType.setAdapter(productTypeAdapter);
+
+        ArrayAdapter<String> adptrArea = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listArea);
+        spinnerArea.setAdapter(adptrArea);
+
+        ArrayAdapter<String> adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
+        spinnerPurposeOfVisit.setAdapter(adptrPurpose);
+    }
+
+    private void initArrayListForSpinners() {
+        listClientType = new ArrayList<String>();
+        listProductType = new ArrayList<String>();
+        listArea = new ArrayList<String>();
+        listPurpose = new ArrayList<String>();
+
+
+        listClientType.add("Individual");
+        listClientType.add("Developer");
+        listClientType.add("Vendor");
+        listClientType.add("Corporate House");
+
+        listProductType.add("Home Loan");
+        listProductType.add("Car Loan");
+        listProductType.add("Personal Loan");
+        listProductType.add("Deposit");
+        listProductType.add("Investment");
+
+        listArea.add("1-syd");
+
+        listPurpose.add("Fresh");
+        listPurpose.add("Lead Generation");
+        listPurpose.add("Relationship Mgt");
+        listPurpose.add("Pre-Disbursement");
+        listPurpose.add("Post Disbursement");
+
+
     }
 
     private void updateDate() {
@@ -284,15 +277,17 @@ public class VisitPlanActivity extends AppCompatActivity {
         minute = c.get(Calendar.MINUTE);
         switch (id) {
             case DATE_DIALOG:
-                return new DatePickerDialog(this, mDateSetListener,g.mYear,g.mMonth-1,g.mDay);
+                return new DatePickerDialog(this, mDateSetListener, g.mYear, g.mMonth - 1, g.mDay);
             case TIME_DIALOG:
-                return new TimePickerDialog(this, timePickerListener, hour, minute,false);
+                return new TimePickerDialog(this, timePickerListener, hour, minute, false);
         }
         return null;
     }
+
     private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-            hour = selectedHour; minute = selectedMinute;
+            hour = selectedHour;
+            minute = selectedMinute;
             EditText tpTime;
 
 
@@ -303,45 +298,57 @@ public class VisitPlanActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            mYear = year; mMonth = monthOfYear+1; mDay = dayOfMonth;
+            mYear = year;
+            mMonth = monthOfYear + 1;
+            mDay = dayOfMonth;
             EditText dtpDate;
 
 
-            dtpDate = (EditText)findViewById(R.id.dtpVisitDT);
-            if (VariableID.equals("btnVisitDT"))
-            {
-                dtpDate = (EditText)findViewById(R.id.dtpVisitDT);
+            dtpDate = (EditText) findViewById(R.id.dtpVisitDT);
+            if (VariableID.equals("btnVisitDT")) {
+                dtpDate = (EditText) findViewById(R.id.dtpVisitDT);
             }
             dtpDate.setText(new StringBuilder()
-                    .append(Global.Right("00"+mDay,2)).append("/")
-                    .append(Global.Right("00"+mMonth,2)).append("/")
+                    .append(Global.Right("00" + mDay, 2)).append("/")
+                    .append(Global.Right("00" + mMonth, 2)).append("/")
                     .append(mYear));
         }
     };
 
-    public void saveVisitPlan(){
+
+
+
+
+
+
+    public void initListener() {
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                mobileNo= txtMobileNo.getText().toString().trim();
+                dateOfvisit= dtpVisitDT.getText().toString().trim();
+                remarks = txtRemarks.getText().toString().trim();
 
-
-
+                int insert=visitPlanDbController.insertData(clientType, mobileNo,
+                        productType, area, purposeOfVisit, dateOfvisit, remarks);
+                if (insert>0){
+                    Toast.makeText(getApplicationContext(), "data inserted", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "data not inserted", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
-
-
-    }
-
-
-    public void initListener(){
         spinnerClientType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                if (s.equals("Individual")){
+
+                clientType = s;
+                if (s.equals("Individual")) {
                     secMobileNo.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     secMobileNo.setVisibility(View.GONE);
 
                 }
@@ -351,21 +358,21 @@ public class VisitPlanActivity extends AppCompatActivity {
         spinnerProductType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                productType = s;
             }
         });
 
         spinnerArea.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                area = s;
             }
         });
 
         spinnerPurposeOfVisit.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                purposeOfVisit = s;
             }
         });
 //        spnClientType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
