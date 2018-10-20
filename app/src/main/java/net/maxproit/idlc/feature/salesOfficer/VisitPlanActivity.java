@@ -324,16 +324,6 @@ public class VisitPlanActivity extends AppCompatActivity {
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString().trim();
 
-                int insert=dbController.insertData(clientType, mobileNo,
-                        productType, area, purposeOfVisit, dateOfvisit, remarks,"status");
-                int insert = visitPlanDbController.insertData(clientType, mobileNo,
-                        productType, area, purposeOfVisit, dateOfvisit, remarks);
-                if (insert>0){
-                    Toast.makeText(getApplicationContext(), "data inserted", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "data not inserted", Toast.LENGTH_SHORT).show();
-                }
-
             }
         });
         spinnerClientType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {

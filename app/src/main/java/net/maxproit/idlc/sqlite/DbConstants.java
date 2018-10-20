@@ -144,7 +144,8 @@ public class DbConstants {
                     VISIT_PLAN_PURPOSE_OF_VISIT+ TEXT_TYPE +
                     VISIT_PLAN_DATE_OF_VISIT+ TEXT_TYPE +
                     VISIT_PLAN_REMARKS+ TEXT_TYPE +
-                    LEAD_STATUS+ TEXT_TYPE + ")";
+
+                    ")";
 
 
     public static final String SQL_DELETE_LEAD_ENTRIES =

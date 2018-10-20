@@ -78,7 +78,33 @@ public class ProspectStageActivity extends AppCompatActivity {
                 String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
                         relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
                         companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber;
+                String brandName, year, country, vehicleType, securityValue, loanRequired, loanTerm, proposedInterest,
+                        fee, calculatedEMI;
+                String monthlyNetSalary, rentalIncome, monthlySalaryAmount, monthlyBusinessIncome,etMonthlyRentalAmount,
+                        agriculturalIncome, practiceConsultancyTution, remittance, interestIncome,
+                        monthlyFamilyExpenditure, emiOfOtherLoans ;
 
+
+//              <<<<<<< ProspectStageFinancialFragment >>>>>>>>>>
+                monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
+                rentalIncome = ProspectStageFinancialFragment.rentalIncome;
+
+                monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
+                monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
+                etMonthlyRentalAmount = ProspectStageFinancialFragment.etMonthlyRentalAmount.getText().toString();
+                agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
+                practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
+                remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
+                interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
+                monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
+                emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
+
+
+                productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
+//
+
+
+//                <<<<<< ProspectStageProductAndCustomerDetailsFragment >>>>>>>
                 productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
                 productDetails = ProspectStageProductAndCustomerDetailsFragment.productDetails;
                 branchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
@@ -87,7 +113,6 @@ public class ProspectStageActivity extends AppCompatActivity {
                 districtOfBirth = ProspectStageProductAndCustomerDetailsFragment.districtOfBirth;
                 profession = ProspectStageProductAndCustomerDetailsFragment.profession;
                 relationship = ProspectStageProductAndCustomerDetailsFragment.relationship;
-
 
                 name = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
                 age = ProspectStageProductAndCustomerDetailsFragment.etAge.getText().toString();
@@ -111,9 +136,20 @@ public class ProspectStageActivity extends AppCompatActivity {
                 } else {
 
                     Toast.makeText(ProspectStageActivity.this, "data not insert", Toast.LENGTH_SHORT).show();
+//                <<<<<<< ProspectStageLoanAndSecurityDetailFragment >>>>>>
+                brandName = ProspectStageLoanAndSecurityDetailFragment.brandName;
+                year = ProspectStageLoanAndSecurityDetailFragment.year;
+                country = ProspectStageLoanAndSecurityDetailFragment.country;
+                vehicleType = ProspectStageLoanAndSecurityDetailFragment.vehicleType;
 
                 }
 
+                securityValue = ProspectStageLoanAndSecurityDetailFragment.etSecurityValue.getText().toString();
+                loanRequired = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
+                loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
+                proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
+                fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
+                calculatedEMI = ProspectStageLoanAndSecurityDetailFragment.etCalculatedEMI.getText().toString();
 
             }
         });
