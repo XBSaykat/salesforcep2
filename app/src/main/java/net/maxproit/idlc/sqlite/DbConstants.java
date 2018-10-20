@@ -66,6 +66,7 @@ public class DbConstants {
     public static final String PROSPECT_MONTHLY_EMI = "monthly_emi";
     public static final String LEAD_STATUS = "status";
 
+    //visit plan
     public static final String _V_ID = "_id";
     public static final String VISIT_PLAN_CLIENT_TYPE = "client_type";
     public static final String VISIT_PLAN_MOBILE_NUMBER = "mobile_number";
@@ -135,7 +136,7 @@ public class DbConstants {
     //visit plan table
     public static final String SQL_CREATE_VISIT_PLAN_ENTRIES =
             "CREATE TABLE " + TABLE_VISIT_PLAN + " (" +
-                    _V_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    _V_ID + " INTEGER PRIMARY KEY," +
                     VISIT_PLAN_CLIENT_TYPE+ TEXT_TYPE +
                     VISIT_PLAN_MOBILE_NUMBER+ TEXT_TYPE +
                     VISIT_PLAN_PRODUCT_TYPE+ TEXT_TYPE +
@@ -143,7 +144,7 @@ public class DbConstants {
                     VISIT_PLAN_PURPOSE_OF_VISIT+ TEXT_TYPE +
                     VISIT_PLAN_DATE_OF_VISIT+ TEXT_TYPE +
                     VISIT_PLAN_REMARKS+ TEXT_TYPE +
-                    ")";
+                    LEAD_STATUS+ TEXT_TYPE + ")";
 
 
     public static final String SQL_DELETE_LEAD_ENTRIES =

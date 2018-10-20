@@ -94,7 +94,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         initAdapters();
         initListener();
-        MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+        if (prospectStageActivity.getDataFromProspect()!=null){
+            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+        }
+
 
 
 //        productCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
