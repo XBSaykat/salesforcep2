@@ -145,16 +145,18 @@ public class MyLeadDbController {
 
 
 
-    public int updateLeadDataStatus(int id) {
+    public int updateLeadDataStatus(int id,String status) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_PROSPECT);
+        values.put(DbConstants.LEAD_STATUS, status);
 
 
        return db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID+"="+id, null);
 
 
     }
+
+
 
     public ArrayList<MyNewLead> getProspectData() {
 

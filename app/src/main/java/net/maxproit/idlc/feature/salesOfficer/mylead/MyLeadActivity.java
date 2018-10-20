@@ -8,6 +8,7 @@ import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
 
+import net.maxproit.idlc.AppConstant;
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.common.base.BaseActivity;
 import net.maxproit.idlc.databinding.ActivityMyLeadBinding;
@@ -30,6 +31,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     MyLeadAdapter myLeadAdapter;
     MyLeadDbController myLeadDbController;
     LocalLogin localLogin;
+    MyNewLead myNewLead;
     String username;
     ArrayList<MyNewLead> leadList, filterList;
 
@@ -88,28 +90,31 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 switch (view.getId()) {
                     case R.id.btnApproved:
                         //insert data into prospect
-                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId());
-                        removeItemFromList(position);
+                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
+                        removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
+
                         break;
                     case R.id.btnReject:
-                        myLeadDbController.deleteFavoriteItem(filterList.get(position).getId());
-                        removeItemFromList(position);
+                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
+                        removeItemFromList(position,AppConstant.LEAD_STATUS_REJECT);
                         break;
                 }
             }
         });
     }
 
+
+
     @Override
     protected void getIntentData() {
 
     }
 
-    private void removeItemFromList(int position) {
+    private void removeItemFromList(int position,String status) {
         for (int i = 0; i < leadList.size(); i++) {
             if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.remove(i);
-                myLeadAdapter.notifyItemRemoved(position);
+                leadList.get(i).setStatus(status);
+                myLeadAdapter.notifyDataSetChanged();
                 break;
 
             }

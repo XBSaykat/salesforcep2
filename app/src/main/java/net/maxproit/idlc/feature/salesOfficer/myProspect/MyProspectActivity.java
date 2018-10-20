@@ -18,10 +18,12 @@ import net.maxproit.idlc.feature.salesOfficer.mylead.MyLeadActivity;
 import net.maxproit.idlc.feature.salesOfficer.mylead.adapter.MyLeadAdapter;
 import net.maxproit.idlc.feature.salesOfficer.newProspect.NewProspectActivity;
 import net.maxproit.idlc.feature.supervisor.adapter.AdapterInfo;
+import net.maxproit.idlc.listener.OnItemClickListener;
 import net.maxproit.idlc.model.login.LocalLogin;
 import net.maxproit.idlc.model.myprospect.MyProspect;
 import net.maxproit.idlc.model.newlead.MyNewLead;
 import net.maxproit.idlc.sqlite.MyLeadDbController;
+import net.maxproit.idlc.util.ActivityUtils;
 import net.maxproit.idlc.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
@@ -40,8 +42,6 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
     MyNewProspectAdapter myProspectAdapter;
     String userName;
     Bundle extras;
-    boolean isPerfomance = false;
-    MyLeadAdapter myLeadAdapter;
     MyLeadDbController myLeadDbController;
 
     ArrayList<MyNewLead> leadList, filterList;
@@ -80,14 +80,14 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 filterList = getFilterData(leadList, query);
-                myLeadAdapter.setFilter(filterList);
+                myProspectAdapter.setFilter(filterList);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterList = getFilterData(leadList, newText);
-                myLeadAdapter.setFilter(filterList);
+                myProspectAdapter.setFilter(filterList);
                 return true;
             }
         });
@@ -102,13 +102,58 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
         btnAddProspect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                Intent activityChangeIntent = new Intent(MyProspectActivity.this, ProspectStageActivity.class);
+                Intent activityChangeIntent = new Intent(
+                        MyProspectActivity.this, ProspectStageActivity.class);
                 startActivity(activityChangeIntent);
             }
         });
 
+        initListener();
+
 
     }
+
+    private void initListener() {
+
+        myProspectAdapter.setItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void itemClickListener(View view, int position) {
+                loadFilterData();
+                switch (view.getId()){
+                    case R.id.btnApproved:
+                        sentDataToDetail(position);
+                        break;
+                    case R.id.btnReject:
+                        break;
+                }
+            }
+        });
+
+    }
+
+    private void sentDataToDetail(int position) {
+        MyNewLead myNewLead=new MyNewLead(filterList.get(position).getId(),
+                filterList.get(position).getBranchName(),
+                filterList.get(position).getUserName(),
+                filterList.get(position).getProfession(),
+                filterList.get(position).getOrganization(),
+                filterList.get(position).getDesignation(),
+                filterList.get(position).getPhone(),
+                filterList.get(position).getAddress(),
+                filterList.get(position).getSourceRef(),
+                filterList.get(position).getProductType(),
+                filterList.get(position).getProductSubcategory(),
+                filterList.get(position).getLoanAmount(),
+                filterList.get(position).getOrInterest(),
+                filterList.get(position).getOpFee(),
+                filterList.get(position).getVisitDate(),
+                filterList.get(position).getFollowUp(),
+                filterList.get(position).getRemark(),
+                filterList.get(position).getStatus());
+        ActivityUtils.invokLeadDetailForProspectStage(this,myNewLead);
+    }
+
     //filter  data
     private ArrayList<MyNewLead> getFilterData(ArrayList<MyNewLead> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
@@ -129,7 +174,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
         if (!filterList.isEmpty()) {
             filterList.clear();
         }
-        filterList.addAll(myLeadAdapter.getDataList());
+        filterList.addAll(myProspectAdapter.getDataList());
     }
 
 

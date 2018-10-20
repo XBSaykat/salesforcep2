@@ -23,12 +23,12 @@ public class DbConstants {
     public static final String LEAD_DESIGNATION = "designation";
     public static final String LEAD_PHONE = "phone";
     public static final String LEAD_ADDRESS = "address";
-    public static final String LEAD_REF = "red";
+    public static final String LEAD_REF = "ref";
     public static final String LEAD_PRODUCT_TYPE = "product";
     public static final String LEAD_PRODUCT_SUBCATEGORY = "subcat";
     public static final String LEAD_AMOUNT = "amount";
     public static final String LEAD_OR_INTEREST = "interest";
-    public static final String LEAD_OP_FEE = "fee";
+    public static final String LEAD_OP_FEE = "op_fee";
     public static final String LEAD_VISIT_DATE = "date";
     public static final String LEAD_FOLLOW_UP = "follow";
     public static final String LEAD_REMARK = "remark";
