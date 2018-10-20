@@ -1,6 +1,7 @@
 package net.maxproit.idlc.sqlite;
 
 import android.content.Context;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -31,7 +32,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DbConstants.SQL_CREATE_LEAD_ENTRIES);
         db.execSQL(DbConstants.SQL_CREATE_VISIT_PLAN_ENTRIES);
-
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -43,7 +43,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
-
 
 
 }

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import net.maxproit.idlc.AppConstant;
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.listener.OnItemClickListener;
 import net.maxproit.idlc.model.newlead.MyNewLead;
@@ -45,6 +47,12 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
             imgApproved=itemView.findViewById(R.id.btnApproved);
             imgReject=itemView.findViewById(R.id.btnReject);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.itemClickListener(view,getLayoutPosition());
+                }
+            });
             imgApproved.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,7 +89,6 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
         holder.tvName.setText(leadList.get(position).getUserName());
         holder.tvBranch.setText(leadList.get(position).getBranchName());
         holder.tvStatus.setText(leadList.get(position).getStatus());
-
 
     }
     public void setFilter(ArrayList<MyNewLead> newDataList) {

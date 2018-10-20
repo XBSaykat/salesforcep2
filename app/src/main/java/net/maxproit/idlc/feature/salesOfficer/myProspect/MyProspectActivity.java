@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import net.maxproit.idlc.AppConstant;
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.common.base.BaseActivity;
 import net.maxproit.idlc.databinding.ActivityMyProspectBinding;
@@ -98,15 +99,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 //            showAlertDialog("Error", e.getMessage());
 //        }
 
-        btnAddProspect = findViewById(R.id.btnAddProspect);
-        btnAddProspect.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-                Intent activityChangeIntent = new Intent(
-                        MyProspectActivity.this, ProspectStageActivity.class);
-                startActivity(activityChangeIntent);
-            }
-        });
+
 
         initListener();
 
@@ -122,15 +115,46 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 loadFilterData();
                 switch (view.getId()){
                     case R.id.btnApproved:
-                        sentDataToDetail(position);
+                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROCEED);
+                        removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
                         break;
                     case R.id.btnReject:
+                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
+                        changeItemStatus(position,AppConstant.LEAD_STATUS_REJECT_FROM_PROSPECT);
+                        break;
+                    default:
+                        sentDataToDetail(position);
                         break;
                 }
             }
         });
 
     }
+
+
+    private void removeItemFromList(int position,String status) {
+        for (int i = 0; i < leadList.size(); i++) {
+            if (leadList.get(i).getId() == filterList.get(position).getId()) {
+                leadList.get(i).setStatus(status);
+                leadList.remove(i);
+                myProspectAdapter.notifyItemRemoved(position);
+                break;
+
+            }
+        }
+    }
+
+    private void changeItemStatus(int position,String status) {
+        for (int i = 0; i < leadList.size(); i++) {
+            if (leadList.get(i).getId() == filterList.get(position).getId()) {
+                leadList.get(i).setStatus(status);
+                myProspectAdapter.notifyDataSetChanged();
+                break;
+
+            }
+        }
+    }
+
 
     private void sentDataToDetail(int position) {
         MyNewLead myNewLead=new MyNewLead(filterList.get(position).getId(),

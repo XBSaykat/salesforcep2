@@ -17,8 +17,7 @@ import net.maxproit.idlc.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.idlc.feature.salesOfficer.myPerfomance.disbursement.MyPerfomanceDisbursementsActivity;
 import net.maxproit.idlc.feature.salesOfficer.myProspect.MyProspectActivity;
 import net.maxproit.idlc.feature.salesOfficer.mylead.MyLeadActivity;
-import net.maxproit.idlc.feature.salesOfficer.newlead.NewLeadActivity;
-import net.maxproit.idlc.feature.upload.UploadActivity;
+
 import net.maxproit.idlc.util.ActivityUtils;
 import net.maxproit.idlc.util.SharedPreferencesEnum;
 
@@ -54,7 +53,6 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
        @Override
        public void onClick(View view) {
            ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,MyVisitPlanListActivity.class,false);
-           Toast.makeText(DashboardSalesOfficerActivity.this, "click", Toast.LENGTH_SHORT).show();
        }
    });
     }

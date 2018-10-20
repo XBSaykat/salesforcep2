@@ -92,11 +92,10 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                         //insert data into prospect
                         myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
                         removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
-
                         break;
                     case R.id.btnReject:
                         myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
-                        removeItemFromList(position,AppConstant.LEAD_STATUS_REJECT);
+                        changeItemStatus(position,AppConstant.LEAD_STATUS_REJECT);
                         break;
                 }
             }
@@ -111,6 +110,18 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     }
 
     private void removeItemFromList(int position,String status) {
+        for (int i = 0; i < leadList.size(); i++) {
+            if (leadList.get(i).getId() == filterList.get(position).getId()) {
+                leadList.get(i).setStatus(status);
+                leadList.remove(i);
+                myLeadAdapter.notifyItemRemoved(position);
+                break;
+
+            }
+        }
+    }
+
+    private void changeItemStatus(int position,String status) {
         for (int i = 0; i < leadList.size(); i++) {
             if (leadList.get(i).getId() == filterList.get(position).getId()) {
                 leadList.get(i).setStatus(status);
