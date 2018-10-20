@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -41,6 +42,8 @@ public class ProspectStageActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+    TextView buttonSave;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +60,54 @@ public class ProspectStageActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        buttonSave = findViewById(R.id.btnSave);
+
 
         getDataFromProspect();
+        initListener();
+    }
+
+    private void initListener() {
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                 String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
+                        relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
+                        companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress,mobileNumber;
+
+                 productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
+                productDetails = ProspectStageProductAndCustomerDetailsFragment.productDetails;
+                branchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
+                segment = ProspectStageProductAndCustomerDetailsFragment.segment;
+                countOfBirth = ProspectStageProductAndCustomerDetailsFragment.countOfBirth;
+                districtOfBirth = ProspectStageProductAndCustomerDetailsFragment.districtOfBirth;
+                profession = ProspectStageProductAndCustomerDetailsFragment.profession;
+                relationship = ProspectStageProductAndCustomerDetailsFragment.relationship;
+
+
+                name = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
+                age = ProspectStageProductAndCustomerDetailsFragment.etAge.getText().toString();
+                photoId = ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
+                photoIdDate = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
+                eTin = ProspectStageProductAndCustomerDetailsFragment.etETin.getText().toString();
+                fatherName = ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString();
+                motherName = ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString();
+                spouseName = ProspectStageProductAndCustomerDetailsFragment.etSpouseName.getText().toString();
+                companyName = ProspectStageProductAndCustomerDetailsFragment.etCompanyName.getText().toString();
+                designation = ProspectStageProductAndCustomerDetailsFragment.etDesignation.getText().toString();
+                noYrsInCureentJob = ProspectStageProductAndCustomerDetailsFragment.etNoYrsInCurrentJob.getText().toString();
+                presentAddress = ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
+                permanentAddress = ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
+                mobileNumber = ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
+
+
+
+
+            }
+        });
+
     }
 
     public MyNewLead getDataFromProspect() {
@@ -104,4 +153,6 @@ public class ProspectStageActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
 }
