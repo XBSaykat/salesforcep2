@@ -30,7 +30,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    EditText etCalculatedEMI;
+    EditText etSecurity, etCalculatedEMI;
     AwesomeSpinner spinnerBrand, spinnerYear, spinnerCountry, spinnerVehicleType;
 
     public ProspectStageLoanAndSecurityDetailFragment() {

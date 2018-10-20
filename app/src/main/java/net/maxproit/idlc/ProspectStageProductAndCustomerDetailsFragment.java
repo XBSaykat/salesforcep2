@@ -36,12 +36,16 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //    Spinner productDetail;
 
 
-    private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
+    public AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship;
 
-    private EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
+    public static EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
                 etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
                 etPermanentAddress, etMobileNumber;
+
+    public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
+            relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
+            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress,mobileNumber;
 
 
     private SharedViewModel model;
@@ -78,6 +82,29 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         prospectStageActivity= (ProspectStageActivity) getActivity();
 //        productCategory = (Spinner) view.findViewById(R.id.spinner_product_category);
 //        productDetail = (Spinner) view.findViewById(R.id.spinner_product_detail);
+
+//        private EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
+//                etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
+//                etPermanentAddress, etMobileNumber;
+
+
+        etName = view.findViewById(R.id.input_name);
+        etAge = view.findViewById(R.id.input_age);
+        etPhotoId = view.findViewById(R.id.input_valid_photo_id_no);
+        etPhotoIdDate = view.findViewById(R.id.input_valid_photo_id_issue_date);
+        etETin = view.findViewById(R.id.input_etin);
+        etFatherName = view.findViewById(R.id.input_father_name);
+        etMotherName = view.findViewById(R.id.input_mother_name);
+        etSpouseName = view.findViewById(R.id.input_spouse_name);
+        etCompanyName = view.findViewById(R.id.input_company_name);
+        etDesignation = view.findViewById(R.id.input_designation);
+        etNoYrsInCurrentJob = view.findViewById(R.id.input_current_job_years);
+        etPresentAddress = view.findViewById(R.id.input_present_address);
+        etPermanentAddress = view.findViewById(R.id.input_permanent_address);
+        etMobileNumber = view.findViewById(R.id.input_mobile_no);
+
+
+
 
 
         spinnerProductCat = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_category);
@@ -182,6 +209,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
 
+                productCat = s;
+
                 if (s.equals("Home Loan")) {
                     ArrayAdapter<CharSequence> productDetailAdapter = ArrayAdapter.createFromResource(getContext(),
                             R.array.hl_array,
@@ -210,35 +239,35 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerProductDetail.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                productDetails = s;
             }
         });
 
         spinnerBranchName.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                branchName = s;
             }
         });
 
         spinnerSegment.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                segment = s;
             }
         });
 
         spinnerDistOfBirth.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                districtOfBirth = s;
             }
         });
 
         spinnerCountOfBirth.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                countOfBirth = s;
             }
         });
 
@@ -247,14 +276,14 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerProfession.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                profession = s;
             }
         });
 
         spinnerRelationship.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                relationship = s;
             }
         });
 
