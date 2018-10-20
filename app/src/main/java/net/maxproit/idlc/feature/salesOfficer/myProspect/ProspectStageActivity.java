@@ -66,7 +66,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         if (extraDetail !=null){
             myNewLead = (MyNewLead) extraDetail.getSerializable(AppConstant.INTENT_KEY);
         }
-       
+
         return  myNewLead;
 
     }

@@ -50,8 +50,6 @@ public class MyLeadDbController {
                 DbConstants.TABLE_LEAD,
                 DbConstants.COLUMN_NAME_NULLABLE,
                 values);
-
-
     }
 /*
     PROSPECT_LOAN_TYPE + TEXT_TYPE + COMMA_SEP +

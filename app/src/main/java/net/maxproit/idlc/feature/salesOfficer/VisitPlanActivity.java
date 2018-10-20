@@ -7,15 +7,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.widget.TimePicker;
@@ -49,17 +45,15 @@ public class VisitPlanActivity extends AppCompatActivity {
     static final int TIME_DIALOG = 2;
 
 
-    AwesomeSpinner spinnerClientType, spinnerProductType, spinnerArea, spinnerPurposeOfVisit;
+    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerArea, spinnerPurposeOfVisit;
     TextView VlblClientType, lblHeading, VlblMobileNo, VlblProductType, VlblArea, VlblPurpose, VlblVisitDT, VlblRemarks, buttonSave;
     LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
     View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
     EditText txtMobileNo, dtpVisitDT, txtRemarks;
     String clientType, mobileNo, productType, area, purposeOfVisit, dateOfvisit, remarks;
-
+   private VisitPlanDbController dbController;
 
     List<String> listClientType, listProductType, listArea, listPurpose;
-
-    VisitPlanDbController visitPlanDbController;
 
     Context context = this;
     Global g;
@@ -84,7 +78,6 @@ public class VisitPlanActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Visit Plan");
         g = Global.getInstance();
-        visitPlanDbController = new VisitPlanDbController(VisitPlanActivity.this);
 
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
         secMobileNo.setVisibility(View.GONE);
@@ -99,7 +92,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         txtRemarks = (EditText) findViewById(R.id.input_remarks);
 
         buttonSave = findViewById(R.id.btn_save);
-
+       dbController=new VisitPlanDbController(VisitPlanActivity.this);
         initArrayListForSpinners();
         initAdapterForSpinners();
         initListener();
@@ -331,7 +324,7 @@ public class VisitPlanActivity extends AppCompatActivity {
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString().trim();
 
-                int insert=visitPlanDbController.insertData(clientType, mobileNo,
+                int insert=dbController.insertData(clientType, mobileNo,
                         productType, area, purposeOfVisit, dateOfvisit, remarks,"status");
                 if (insert>0){
                     Toast.makeText(getApplicationContext(), "data inserted", Toast.LENGTH_SHORT).show();

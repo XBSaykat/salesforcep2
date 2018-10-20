@@ -9,10 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.maxproit.idlc.R;
-import net.maxproit.idlc.feature.salesOfficer.mylead.adapter.MyLeadAdapter;
 import net.maxproit.idlc.listener.OnItemClickListener;
 import net.maxproit.idlc.model.VisitPlan;
-import net.maxproit.idlc.model.newlead.MyNewLead;
 
 import java.util.ArrayList;
 
@@ -20,7 +18,7 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
     private Context context;
     public ArrayList<VisitPlan> leadList;
     public static OnItemClickListener mListener;
-    private boolean isChange=false;
+
 
 
 
