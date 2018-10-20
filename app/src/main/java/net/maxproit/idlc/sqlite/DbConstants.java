@@ -135,7 +135,7 @@ public class DbConstants {
     //visit plan table
     public static final String SQL_CREATE_VISIT_PLAN_ENTRIES =
             "CREATE TABLE " + TABLE_VISIT_PLAN + " (" +
-                    _V_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    _V_ID + " INTEGER PRIMARY KEY, " +
                     VISIT_PLAN_CLIENT_TYPE+ TEXT_TYPE +
                     VISIT_PLAN_MOBILE_NUMBER+ TEXT_TYPE +
                     VISIT_PLAN_PRODUCT_TYPE+ TEXT_TYPE +

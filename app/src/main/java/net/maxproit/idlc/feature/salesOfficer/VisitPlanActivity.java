@@ -331,7 +331,7 @@ public class VisitPlanActivity extends AppCompatActivity {
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString().trim();
 
-                int insert=visitPlanDbController.insertData(clientType, mobileNo,
+                int insert = visitPlanDbController.insertData(clientType, mobileNo,
                         productType, area, purposeOfVisit, dateOfvisit, remarks);
                 if (insert>0){
                     Toast.makeText(getApplicationContext(), "data inserted", Toast.LENGTH_SHORT).show();
