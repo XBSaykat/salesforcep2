@@ -45,7 +45,21 @@
     </string-array>
 
     <string-array name="district_array">
-        <item>Select district</item>
+        <item>Dhaka</item>
+        <item>Chattogram</item>
+        <item>Syhlet</item>
+        <item>Barishal</item>
+        <item>Cumilla</item>
+        <item>Jashore</item>
+        <item>Bogura</item>
+        <item>Gazipur</item>
+        <item>Narayangonj</item>
+        <item>Tangil</item>
+        <item>Foridpur</item>
+        <item>Madaripur</item>
+        <item>Dinajpur</item>
+        <item>Manikgonj</item>
+
     </string-array>
 
     <string-array name="upazilla_array">
