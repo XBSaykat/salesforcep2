@@ -30,8 +30,11 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    EditText etSecurity, etCalculatedEMI;
+    public static EditText etSecurityValue, etLoanRequired, etLoanTerm, etProposedInterest, etFee, etCalculatedEMI;
+
     AwesomeSpinner spinnerBrand, spinnerYear, spinnerCountry, spinnerVehicleType;
+    public static String brandName, year, country, vehicleType;
+
 
     public ProspectStageLoanAndSecurityDetailFragment() {
         // Required empty public constructor
@@ -77,7 +80,14 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         LinearLayout secManCountryLabel = (LinearLayout) view.findViewById(R.id.manufacturing_country_label);
         LinearLayout secVehicleTypeLabel = (LinearLayout) view.findViewById(R.id.vehicle_type_label);
 
-        etCalculatedEMI = view.findViewById(R.id.input_calculated_emi);
+
+
+
+        etSecurityValue = view.findViewById(R.id.input_security_value);
+        etLoanRequired = view.findViewById(R.id.input_loan_required);
+        etLoanTerm = view.findViewById(R.id.input_loan_term);
+        etProposedInterest = view.findViewById(R.id.input_proposed_interest_rate);
+        etFee = view.findViewById(R.id.input_calculated_emi);
         etCalculatedEMI.setEnabled(false);
 
 
@@ -117,28 +127,28 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         spinnerBrand.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                brandName = s;
             }
         });
 
         spinnerYear.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                year = s;
             }
         });
 
         spinnerCountry.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                country = s;
             }
         });
 
         spinnerVehicleType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                vehicleType = s;
             }
         });
     }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -24,8 +25,11 @@ public class ProspectStageFinancialFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-
+    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,etMonthlyRentalAmount,
+                    etAgriculturalIncome, etPracticeConsultancyTuition, etRemittance, etInterestIncome,
+                    etMonthlyFamilyExpenditure, etEMIOfOtherLoans;
     AwesomeSpinner spinnerMonthlyNetSalary, spinnerRentalIncome;
+    public static String monthlyNetSalary, rentalIncome;
 
     public ProspectStageFinancialFragment() {
         // Required empty public constructor
@@ -63,19 +67,24 @@ public class ProspectStageFinancialFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_prospect_stage_financial, container, false);
+//
+
+        etMonthlySalaryAmount = view.findViewById(R.id.input_monthly_net_salary_amount);
+        etMonthlyBusinessIncome = view.findViewById(R.id.input_monthly_business_income);
+        etMonthlyRentalAmount = view.findViewById(R.id.input_monthly_rental_income_amount);
+        etAgriculturalIncome = view.findViewById(R.id.input_agricultural_income);
+        etPracticeConsultancyTuition = view.findViewById(R.id.input_practice_consultancy_tution);
+        etRemittance = view.findViewById(R.id.input_remittance);
+        etInterestIncome = view.findViewById(R.id.input_interest_income);
+        etMonthlyFamilyExpenditure = view.findViewById(R.id.input_total_monthly_family_expenditure);
+        etEMIOfOtherLoans = view.findViewById(R.id.input_emi_of_other_loans);
+
 
         spinnerMonthlyNetSalary = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_net_salary);
         spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
 
         initAdapters();
         initListener();
-
-
-
-
-
-
-
 
         return view;
     }
@@ -85,14 +94,14 @@ public class ProspectStageFinancialFragment extends Fragment {
         spinnerMonthlyNetSalary.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                monthlyNetSalary = s;
             }
         });
 
         spinnerRentalIncome.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                rentalIncome = s;
             }
         });
     }

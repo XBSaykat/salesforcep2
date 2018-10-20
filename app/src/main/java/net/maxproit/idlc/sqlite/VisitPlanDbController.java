@@ -24,14 +24,14 @@ public class VisitPlanDbController {
             String dateOfVisit, String remarks,String status) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.VISIT_PLAN_CLIENT_TYPE, "");
-        values.put(DbConstants.VISIT_PLAN_MOBILE_NUMBER, "");
-        values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, "");
-        values.put(DbConstants.VISIT_PLAN_AREA, "");
-        values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT, "");
-        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, "");
-        values.put(DbConstants.VISIT_PLAN_REMARKS, "");
-        values.put(DbConstants.LEAD_STATUS, "");
+        values.put(DbConstants.VISIT_PLAN_CLIENT_TYPE, clientType);
+        values.put(DbConstants.VISIT_PLAN_MOBILE_NUMBER, mobileNumber);
+        values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, productType);
+        values.put(DbConstants.VISIT_PLAN_AREA, area);
+        values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT, purposeOfVisit);
+        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, dateOfVisit);
+        values.put(DbConstants.VISIT_PLAN_REMARKS, remarks);
+
 
         // Insert the new row, returning the primary key value of the new row
         return (int) db.insert(
