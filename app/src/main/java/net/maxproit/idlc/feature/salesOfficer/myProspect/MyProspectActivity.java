@@ -99,15 +99,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 //            showAlertDialog("Error", e.getMessage());
 //        }
 
-        btnAddProspect = findViewById(R.id.btnAddProspect);
-        btnAddProspect.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-                Intent activityChangeIntent = new Intent(
-                        MyProspectActivity.this, ProspectStageActivity.class);
-                startActivity(activityChangeIntent);
-            }
-        });
+
 
         initListener();
 
@@ -123,7 +115,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 loadFilterData();
                 switch (view.getId()){
                     case R.id.btnApproved:
-                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
+                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROCEED);
                         removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
                         break;
                     case R.id.btnReject:

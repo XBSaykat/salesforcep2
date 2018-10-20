@@ -85,7 +85,7 @@ public class MyLeadDbController {
     PROSPECT_FEE + TEXT_TYPE + COMMA_SEP +
     PROSPECT_MONTHLY_EMI + TEXT_TYPE + COMMA_SEP +*/
 
-    public int upDateProspectData(MyNewProspect myProspect){
+    public int upDateProspectData(MyNewProspect myProspect,int id){
         ContentValues values = new ContentValues();
         values.put(DbConstants.LEAD_BRANCH_NAME, myProspect.getBranchName());
         values.put(DbConstants.LEAD_USER_NAME, myProspect.getUserName());
@@ -135,9 +135,9 @@ public class MyLeadDbController {
         values.put(DbConstants.PROSPECT_PI_RATE, myProspect.getPiRate());
         values.put(DbConstants.PROSPECT_FEE, myProspect.getFee());
         values.put(DbConstants.PROSPECT_MONTHLY_EMI, myProspect.getMonthlyEmi());
-        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_NEW);
+        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_PROSPECT);
 
-        return db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID+"="+myProspect.getId(), null);
+        return db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID+"="+id, null);
 
     }
 
