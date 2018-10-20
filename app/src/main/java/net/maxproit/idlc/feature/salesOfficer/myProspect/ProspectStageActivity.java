@@ -31,7 +31,9 @@ import net.maxproit.idlc.ProspectStageFinancialFragment;
 import net.maxproit.idlc.ProspectStageLoanAndSecurityDetailFragment;
 import net.maxproit.idlc.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.idlc.R;
+import net.maxproit.idlc.model.MyNewProspect;
 import net.maxproit.idlc.model.newlead.MyNewLead;
+import net.maxproit.idlc.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ public class ProspectStageActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    MyLeadDbController myLeadDbController;
     TextView buttonSave;
 
     @Override
@@ -52,7 +54,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage");
         setSupportActionBar(toolbar);
-
+        myLeadDbController = new MyLeadDbController(ProspectStageActivity.this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -73,11 +75,11 @@ public class ProspectStageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
+                String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
                         relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
-                        companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress,mobileNumber;
+                        companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber;
 
-                 productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
+                productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
                 productDetails = ProspectStageProductAndCustomerDetailsFragment.productDetails;
                 branchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
                 segment = ProspectStageProductAndCustomerDetailsFragment.segment;
@@ -102,7 +104,15 @@ public class ProspectStageActivity extends AppCompatActivity {
                 permanentAddress = ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
                 mobileNumber = ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
 
+                MyNewProspect myNewProspect = new MyNewProspect("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", AppConstant.LEAD_STATUS_PROCEED, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                int insert = myLeadDbController.insertProspectData(myNewProspect);
+                if (insert > 0) {
+                    Toast.makeText(ProspectStageActivity.this, "data insert:" + insert, Toast.LENGTH_SHORT).show();
+                } else {
 
+                    Toast.makeText(ProspectStageActivity.this, "data not insert", Toast.LENGTH_SHORT).show();
+
+                }
 
 
             }
@@ -111,13 +121,13 @@ public class ProspectStageActivity extends AppCompatActivity {
     }
 
     public MyNewLead getDataFromProspect() {
-        MyNewLead myNewLead=null;
+        MyNewLead myNewLead = null;
         Bundle extraDetail = getIntent().getExtras();
-        if (extraDetail !=null){
+        if (extraDetail != null) {
             myNewLead = (MyNewLead) extraDetail.getSerializable(AppConstant.INTENT_KEY);
         }
 
-        return  myNewLead;
+        return myNewLead;
 
     }
 
