@@ -32,7 +32,6 @@
         <activity
             android:name=".feature.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,15 +53,11 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".feature.salesOfficer.mylead.MyLeadActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity
             android:name=".feature.salesOfficer.myProspect.MyProspectActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity" >
-
-        </activity>
+        <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity"></activity>
         <activity android:name=".feature.supervisor.SupervisorVisitsActivity" />
         <activity android:name=".feature.supervisor.SupervisorSanctionActivity" />
         <activity android:name=".feature.supervisor.SupervisorDisbursementActivity" />
@@ -130,10 +125,9 @@
         <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
         <activity android:name=".feature.salesOfficer.VisitPlanActivity" />
-        <activity android:name=".LeadStageActivity">
-
-        </activity>
-        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity"></activity>
+        <activity android:name=".LeadStageActivity"></activity>
+        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
+        <activity android:name=".feature.masum.MyVisitPlanListActivity"></activity>
     </application>
 
 </manifest>
