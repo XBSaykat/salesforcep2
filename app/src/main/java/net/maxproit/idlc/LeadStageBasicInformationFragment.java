@@ -11,6 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.isapanah.awesomespinner.AwesomeSpinner;
 
 
 /**
@@ -24,7 +27,8 @@ import android.widget.Spinner;
 public class LeadStageBasicInformationFragment extends Fragment {
 
 
-    private static Spinner spinnerBranchName, spinnerProfession;
+
+    private static AwesomeSpinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
     public static String profession=null,branchName=null;
     private String[] branchArray={"Mirpur","SegunBagicha","Polton","Dhanmondi","Azimpur"};
@@ -78,50 +82,82 @@ public class LeadStageBasicInformationFragment extends Fragment {
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_basic_information, container, false);
         initView(rootView);
+        initSpinnerAdapter();
         initListener();
         // Inflate the layout for this fragment
         return rootView;
     }
 
+
+
     private void initListener() {
-        spinnerProfession.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerBranchName.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                profession= String.valueOf(position);
-
+            public void onItemSelected(int i, String s) {
+                branchName = s;
+                Toast.makeText(getContext(), branchName, Toast.LENGTH_SHORT).show();
             }
+        });
 
+        spinnerProfession.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onItemSelected(int i, String s) {
+                profession = String.valueOf(i);
             }
         });
 
 
-        spinnerBranchName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                branchName=branchArray[position];
-            }
+//        spinnerProfession.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                profession= String.valueOf(position);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+//        spinnerBranchName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                branchName=branchArray[position];
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
     }
 
     private void initView(View rootView) {
-        spinnerBranchName = rootView.findViewById(R.id.spinner_lead_branch_name);
-        spinnerProfession = rootView.findViewById(R.id.spinner_lead_profession);
+        spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
+        spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
         etUserName = rootView.findViewById(R.id.et_lead_user_name);
         etUserOrganization = rootView.findViewById(R.id.et_lead_organization);
         etDesignattion = rootView.findViewById(R.id.et_lead_designation);
         etPhone = rootView.findViewById(R.id.et_lead_phone);
         etAddress = rootView.findViewById(R.id.et_lead_address);
-        ArrayAdapter<String> branchAdapter=new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_dropdown_item,branchArray);
-        spinnerBranchName.setAdapter(branchAdapter);
+
+
+
+        initSpinnerAdapter();
      }
+
+    private void initSpinnerAdapter() {
+        ArrayAdapter<String> branchAdapter=new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, branchArray);
+        spinnerBranchName.setAdapter(branchAdapter);
+
+        ArrayAdapter<CharSequence> professionAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.profession_array,
+                android.R.layout.simple_spinner_item);
+        spinnerProfession.setAdapter(professionAdapter, 0);
+    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

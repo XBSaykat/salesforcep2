@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LeadStageLoanDetailFragment">
 
     <ScrollView
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,21 +33,20 @@
                     android:drawableRight="@drawable/ic_required"
                     android:text="Source of Reference" />
 
-                <Spinner
-                    android:id="@+id/spinner_reference"
+                <!--<Spinner-->
+                    <!--android:id="@+id/spinner_reference"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:drawSelectorOnTop="true"-->
+                    <!--android:entries="@array/source_of_reference_array"-->
+                    <!--android:textSize="20sp" />-->
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/awe_spinner_lead_reference"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:drawSelectorOnTop="true"
-                    android:entries="@array/source_of_reference_array"
-                    android:textSize="20sp" />
-                <!--<com.isapanah.awesomespinner.AwesomeSpinner-->
-                <!--android:id="@+id/spinner_client"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--app:spinnerDirection="ltr"-->
-                <!--app:spinnerHint="Select Client" />-->
-
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Reference" />
 
             </LinearLayout>
 
@@ -62,14 +63,21 @@
                     android:layout_height="wrap_content"
                     android:text="Product Type" />
 
-                <Spinner
-                    android:id="@+id/spinner_product_type"
+                <!--<Spinner-->
+                    <!--android:id="@+id/spinner_product_type"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:drawSelectorOnTop="true"-->
+                    <!--android:entries="@array/product_type_array"-->
+                    <!--android:textSize="20sp" />-->
+
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/awe_spinner_lead_product_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:drawSelectorOnTop="true"
-                    android:entries="@array/product_type_array"
-                    android:textSize="20sp" />
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Product Type" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,14 +92,21 @@
                     android:layout_height="wrap_content"
                     android:text="Product Subcategory" />
 
-                <Spinner
-                    android:id="@+id/spinner_product_subcategory"
+                <!--<Spinner-->
+                    <!--android:id="@+id/spinner_product_subcategory"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:drawSelectorOnTop="true"-->
+                    <!--android:entries="@array/product_type_array"-->
+                    <!--android:textSize="20sp" />-->
+
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/awe_spinner_lead_product_sub_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:drawSelectorOnTop="true"
-                    android:entries="@array/product_type_array"
-                    android:textSize="20sp" />
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Subcategory" />
             </LinearLayout>
 
             <LinearLayout
@@ -146,6 +161,8 @@
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="?attr/actionBarSize"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -163,7 +180,9 @@
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:textSize="@dimen/text_size_16sp"
+
+                    />
             </LinearLayout>
 
 
