@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.idlc.feature.salesOfficer.myProspect.ProspectStageActivity;
+import net.maxproit.idlc.model.newlead.MyNewLead;
+
 public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
 
@@ -24,7 +27,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private static ProspectStageActivity prospectStageActivity;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -72,7 +75,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
-
+        prospectStageActivity= (ProspectStageActivity) getActivity();
 //        productCategory = (Spinner) view.findViewById(R.id.spinner_product_category);
 //        productDetail = (Spinner) view.findViewById(R.id.spinner_product_detail);
 
@@ -91,6 +94,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         initAdapters();
         initListener();
+        MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
 
 
 //        productCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

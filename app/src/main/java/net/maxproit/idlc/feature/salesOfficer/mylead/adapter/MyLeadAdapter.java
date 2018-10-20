@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.maxproit.idlc.AppConstant;
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.listener.OnItemClickListener;
 import net.maxproit.idlc.model.newlead.MyNewLead;
@@ -18,6 +19,7 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
     private Context context;
     public ArrayList<MyNewLead> leadList;
     public static OnItemClickListener mListener;
+    private boolean isChange=false;
 
 
 
@@ -83,8 +85,8 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
         holder.tvBranch.setText(leadList.get(position).getBranchName());
         holder.tvStatus.setText(leadList.get(position).getStatus());
 
-
     }
+
     public void setFilter(ArrayList<MyNewLead> newDataList) {
         leadList =new ArrayList<>();
         leadList.addAll(newDataList);

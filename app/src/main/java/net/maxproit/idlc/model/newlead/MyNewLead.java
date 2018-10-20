@@ -1,6 +1,8 @@
 package net.maxproit.idlc.model.newlead;
 
-public class MyNewLead {
+import java.io.Serializable;
+
+public class MyNewLead implements Serializable {
 
    private  String branchName,userName,profession,
             organization,designation,phone,address,
@@ -60,6 +62,9 @@ public class MyNewLead {
         this.status = status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getStatus() {
         return status;
