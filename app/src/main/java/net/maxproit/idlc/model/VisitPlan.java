@@ -6,7 +6,7 @@ public class VisitPlan {
     private String clientType, mobileNumber, productType, area, purposeOfVisit, dateOfVisit, remarks,status;
     private int id;
 
-    public VisitPlan(int id, String clientType, String mobileNumber, String productType, String area, String purposeOfVisit, String dateOfVisit, String remarks,String status ) {
+    public VisitPlan(int id, String clientType, String mobileNumber, String productType, String area, String purposeOfVisit, String dateOfVisit, String remarks, String status ) {
 
         this.id = id;
         this.clientType = clientType;
