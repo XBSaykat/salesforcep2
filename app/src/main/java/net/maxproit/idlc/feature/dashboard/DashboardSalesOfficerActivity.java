@@ -3,6 +3,8 @@ package net.maxproit.idlc.feature.dashboard;
 import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import net.maxproit.idlc.LeadStageActivity;
 import net.maxproit.idlc.R;
@@ -46,6 +48,12 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         binding.prospect.setOnClickListener(v -> startActivity(MyProspectActivity.class, false, mBundle));
         binding.upload.setOnClickListener(v -> startActivity(MyPerfomanceDisbursementsActivity.class, false));
         binding.verification.setOnClickListener(v -> startActivity(MyPerfomanceActivity.class, false));
+   binding.myVisit.setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View view) {
+           Toast.makeText(DashboardSalesOfficerActivity.this, "click", Toast.LENGTH_SHORT).show();
+       }
+   });
     }
 
     @Override

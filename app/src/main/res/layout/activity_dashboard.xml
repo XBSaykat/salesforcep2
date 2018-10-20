@@ -98,6 +98,36 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/myVisit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:background="@drawable/dashboard_item"
+                    android:elevation="@dimen/size_4dp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_16dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/size_16dp"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/lead" />
+
+
+                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/size_4dp"
+                        android:text="My Visit"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_20sp" />
+                </LinearLayout>
 
                 <!--1st-->
                 <LinearLayout

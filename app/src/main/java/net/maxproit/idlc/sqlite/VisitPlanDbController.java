@@ -89,7 +89,7 @@ public class VisitPlanDbController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new VisitPlan(id, clientType, mobileNumber, productType, area, purposeOfVisit, dateOfVisit, remarks));
+                    favDataArray.add(new VisitPlan(id, clientType, mobileNumber, productType, area, purposeOfVisit, dateOfVisit, remarks,""));
                 } while (c.moveToNext());
             }
             c.close();

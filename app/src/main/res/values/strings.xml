@@ -103,7 +103,7 @@
         <item>Relationship 1</item>
         <item>Relationship 2</item>
         <item>Relationship 3</item>
-          </string-array>
+    </string-array>
 
     <string-array name="hl_array">
         <item>Apartment Purchase</item>
