@@ -36,7 +36,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DbConstants.SQL_DELETE_LEAD_ENTRIES);
-
         db.execSQL(DbConstants.SQL_DELETE_VISIT_PLAN_ENTRIES);
         onCreate(db);
     }

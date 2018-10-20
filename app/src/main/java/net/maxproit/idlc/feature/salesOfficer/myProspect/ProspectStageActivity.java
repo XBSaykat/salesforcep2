@@ -111,9 +111,14 @@ public class ProspectStageActivity extends AppCompatActivity {
     }
 
     public MyNewLead getDataFromProspect() {
+        MyNewLead myNewLead=null;
         Bundle extraDetail = getIntent().getExtras();
-        MyNewLead myNewLead = (MyNewLead) extraDetail.getSerializable(AppConstant.INTENT_KEY);
-        return myNewLead;
+        if (extraDetail !=null){
+            myNewLead = (MyNewLead) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+        }
+
+        return  myNewLead;
+
     }
 
 

@@ -84,7 +84,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Visit Plan");
         g = Global.getInstance();
-        visitPlanDbController = new VisitPlanDbController(this);
+        visitPlanDbController = new VisitPlanDbController(VisitPlanActivity.this);
 
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
         secMobileNo.setVisibility(View.GONE);
@@ -331,8 +331,8 @@ public class VisitPlanActivity extends AppCompatActivity {
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString().trim();
 
-                int insert = visitPlanDbController.insertData(clientType, mobileNo,
-                        productType, area, purposeOfVisit, dateOfvisit, remarks);
+                int insert=visitPlanDbController.insertData(clientType, mobileNo,
+                        productType, area, purposeOfVisit, dateOfvisit, remarks,"status");
                 if (insert>0){
                     Toast.makeText(getApplicationContext(), "data inserted", Toast.LENGTH_SHORT).show();
                 }else{
