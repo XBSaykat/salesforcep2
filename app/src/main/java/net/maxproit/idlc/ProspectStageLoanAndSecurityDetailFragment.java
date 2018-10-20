@@ -87,7 +87,9 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         etLoanRequired = view.findViewById(R.id.input_loan_required);
         etLoanTerm = view.findViewById(R.id.input_loan_term);
         etProposedInterest = view.findViewById(R.id.input_proposed_interest_rate);
-        etFee = view.findViewById(R.id.input_calculated_emi);
+        etFee = view.findViewById(R.id.input_fee);
+        
+        etCalculatedEMI = view.findViewById(R.id.input_calculated_emi);
         etCalculatedEMI.setEnabled(false);
 
 
