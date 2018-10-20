@@ -43,6 +43,7 @@ public class VisitPlanActivity extends AppCompatActivity {
     private int mYear;
     static final int DATE_DIALOG = 1;
     static final int TIME_DIALOG = 2;
+    private VisitPlanDbController dbController;
 
 
     private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerArea, spinnerPurposeOfVisit;
@@ -51,7 +52,6 @@ public class VisitPlanActivity extends AppCompatActivity {
     View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
     EditText txtMobileNo, dtpVisitDT, txtRemarks;
     String clientType, mobileNo, productType, area, purposeOfVisit, dateOfvisit, remarks;
-   private VisitPlanDbController dbController;
 
     List<String> listClientType, listProductType, listArea, listPurpose;
 
@@ -78,7 +78,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Visit Plan");
         g = Global.getInstance();
-
+        dbController=new VisitPlanDbController(VisitPlanActivity.this);
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
         secMobileNo.setVisibility(View.GONE);
 
@@ -92,7 +92,6 @@ public class VisitPlanActivity extends AppCompatActivity {
         txtRemarks = (EditText) findViewById(R.id.input_remarks);
 
         buttonSave = findViewById(R.id.btn_save);
-       dbController=new VisitPlanDbController(VisitPlanActivity.this);
         initArrayListForSpinners();
         initAdapterForSpinners();
         initListener();
@@ -322,8 +321,16 @@ public class VisitPlanActivity extends AppCompatActivity {
 
                 mobileNo= txtMobileNo.getText().toString().trim();
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
-                remarks = txtRemarks.getText().toString().trim();
+                remarks = txtRemarks.getText().toString();
 
+                int insert=dbController.insertData(clientType,mobileNo,productType,area,purposeOfVisit,dateOfvisit,remarks);
+                if (insert>0){
+                    Toast.makeText(VisitPlanActivity.this, "inserted", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(VisitPlanActivity.this, "inserted failed", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
         spinnerClientType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
