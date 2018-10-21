@@ -37,8 +37,8 @@ public class LeadStageVisitRecordFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private AwesomeSpinner spinnerFollowUp;
-    public static String followUp;
-    public  static EditText etVisitDate,etRemark;
+    public static String followUp = null, visitDate = null, remark = null;
+    public  EditText etVisitDate, etRemark;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -92,6 +92,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
         spinnerFollowUp=rootView.findViewById(R.id.awe_spinner_lead_follow_up);
         etVisitDate=rootView.findViewById(R.id.dtpVisitDT);
         etRemark=rootView.findViewById(R.id.input_remarks);
+        remark = etRemark.getText().toString();
         initSpinnerAdapter();
     }
 
@@ -143,7 +144,8 @@ public class LeadStageVisitRecordFragment extends Fragment {
                 month += 1;
                 String selectedDate = (dayOfMonth +"/"+ month +"/"+ year);
                 etVisitDate.getText().clear();
-                etVisitDate.setText(selectedDate);
+                 etVisitDate.setText(selectedDate);
+                visitDate = etVisitDate.getText().toString();
             }
         };
 

@@ -96,6 +96,17 @@
         <item>Branch 2</item>
         <item>Branch 3</item>
     </string-array>
+
+
+    <string-array name="branch_name_array">
+        <item>Mirpur</item>
+        <item>SegunBagicha</item>
+        <item>Polton </item>
+        <item>Dhanmondi </item>
+        <item>Azimpur</item>
+
+    </string-array>
+
     <string-array name="profession_array">
         <item>Profession 1</item>
         <item>Profession 2</item>

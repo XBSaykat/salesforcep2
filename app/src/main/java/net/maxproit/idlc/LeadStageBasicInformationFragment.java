@@ -28,9 +28,9 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
 
 
-    private static AwesomeSpinner spinnerBranchName, spinnerProfession;
+    private AwesomeSpinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession=null,branchName=null;
+    public static String profession = null, branchName = null;
     private String[] branchArray={"Mirpur","SegunBagicha","Polton","Dhanmondi","Azimpur"};
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +82,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_basic_information, container, false);
         initView(rootView);
-        initSpinnerAdapter();
         initListener();
         // Inflate the layout for this fragment
         return rootView;
@@ -95,14 +94,13 @@ public class LeadStageBasicInformationFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 branchName = s;
-                Toast.makeText(getContext(), branchName, Toast.LENGTH_SHORT).show();
             }
         });
 
         spinnerProfession.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                profession = String.valueOf(i);
+                profession = s;
             }
         });
 
@@ -142,16 +140,14 @@ public class LeadStageBasicInformationFragment extends Fragment {
         etDesignattion = rootView.findViewById(R.id.et_lead_designation);
         etPhone = rootView.findViewById(R.id.et_lead_phone);
         etAddress = rootView.findViewById(R.id.et_lead_address);
-
-
-
         initSpinnerAdapter();
      }
 
     private void initSpinnerAdapter() {
-        ArrayAdapter<String> branchAdapter=new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_dropdown_item, branchArray);
-        spinnerBranchName.setAdapter(branchAdapter);
+        ArrayAdapter<CharSequence> branchAdapter=ArrayAdapter.createFromResource(getContext(),
+                R.array.branch_name_array,
+                android.R.layout.simple_spinner_item);
+        spinnerBranchName.setAdapter(branchAdapter, 0);
 
         ArrayAdapter<CharSequence> professionAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.profession_array,

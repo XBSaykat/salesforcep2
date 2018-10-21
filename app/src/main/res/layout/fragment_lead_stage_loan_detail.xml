@@ -181,13 +181,12 @@
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp"
+                    android:layout_marginBottom="?attr/actionBarSize"
 
                     />
             </LinearLayout>
 
-
         </LinearLayout>
-
 
     </ScrollView>
 

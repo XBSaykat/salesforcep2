@@ -1,5 +1,6 @@
 package net.maxproit.idlc;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.idlc.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.idlc.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
@@ -69,12 +71,41 @@ public class LeadStageActivity extends AppCompatActivity {
                 this.followUp = followUp;
                 this.remark = remark;
                 */
-                if(LeadStageBasicInformationFragment.etUserName!=null || LeadStageVisitRecordFragment.etVisitDate !=null || LeadStageBasicInformationFragment.branchName!=null || LeadStageVisitRecordFragment.etVisitDate !=null){
-                    String BranchName = LeadStageBasicInformationFragment.branchName;
-                    String profession = LeadStageBasicInformationFragment.profession;
-                    String name = LeadStageBasicInformationFragment.etUserName.getText().toString();
-                    String organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString();
-                    String designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString();
+
+
+//                if(LeadStageBasicInformationFragment.etUserName.getText()!=null ||
+//
+//
+//
+//                        LeadStageBasicInformationFragment.etUserOrganization.getText()!= null||
+//                        LeadStageBasicInformationFragment.profession != null||
+//                        LeadStageBasicInformationFragment.etDesignattion != null||
+//                        LeadStageBasicInformationFragment.etPhone != null||
+//                        LeadStageBasicInformationFragment.etAddress != null||
+//                        LeadStageLoanDetailFragment.etLoadAmount != null||
+//                        LeadStageLoanDetailFragment.etInterest != null||
+//                        LeadStageLoanDetailFragment.etFee != null||
+//                        LeadStageVisitRecordFragment.etRemark != null ||
+//                        LeadStageLoanDetailFragment.productType <= 0 ||
+//                        LeadStageLoanDetailFragment.subCategory <= 0
+//
+//
+//                        )
+
+
+                if( LeadStageLoanDetailFragment.ref > 0 &&
+
+                        LeadStageBasicInformationFragment.branchName != null &&
+
+                        LeadStageVisitRecordFragment.followUp != null &&
+                        LeadStageVisitRecordFragment.visitDate != null)
+                {
+
+                    String BranchName = LeadStageBasicInformationFragment.branchName; //
+                    String profession = LeadStageBasicInformationFragment.profession; //
+                    String name = LeadStageBasicInformationFragment.etUserName.getText().toString(); //
+                    String organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString(); //
+                    String designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
                     String phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
                     String address = LeadStageBasicInformationFragment.etAddress.getText().toString();
                     String loanAmount=LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
@@ -83,11 +114,15 @@ public class LeadStageActivity extends AppCompatActivity {
                     String refArray[]=getResources().getStringArray(R.array.source_of_reference_array);
                     String subCatArray[]=getResources().getStringArray(R.array.product_type_array);
                     String productTypeArray[]=getResources().getStringArray(R.array.product_type_array);
+
                     String ref=refArray[LeadStageLoanDetailFragment.ref];
+
                     String productType=productTypeArray[LeadStageLoanDetailFragment.productType];
+
                     String subCat=subCatArray[LeadStageLoanDetailFragment.subCategory];
-                    String visitDate=LeadStageVisitRecordFragment.etVisitDate.getText().toString();
-                    String remark=LeadStageVisitRecordFragment.etRemark.getText().toString();
+
+                    String visitDate=LeadStageVisitRecordFragment.visitDate; //
+                    String remark=LeadStageVisitRecordFragment.remark;
                     String followUp=LeadStageVisitRecordFragment.followUp;
 
                   /*  MyNewLead myNewLead=new MyNewLead(BranchName,name,profession,organization,
@@ -153,5 +188,14 @@ public class LeadStageActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+
+        super.onBackPressed();
+        startActivity(new Intent(LeadStageActivity.this, DashboardSalesOfficerActivity.class));
+        finish();
     }
 }
