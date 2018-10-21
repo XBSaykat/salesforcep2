@@ -71,7 +71,7 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
     public MyVisitPlanListAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_lead, null);
+        View view = inflater.inflate(R.layout.item_visit_plan, null);
         MyVisitPlanListAdapter.CustomViewHolder viewHolder = new MyVisitPlanListAdapter.CustomViewHolder(view, context, leadList);
         return viewHolder;
     }

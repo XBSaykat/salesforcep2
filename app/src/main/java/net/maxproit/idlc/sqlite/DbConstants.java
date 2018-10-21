@@ -132,20 +132,18 @@ public class DbConstants {
                     LEAD_STATUS + TEXT_TYPE + " )";
 
 
-
-    //visit plan table
-    public static final String SQL_CREATE_VISIT_PLAN_ENTRIES =
+    //lead table sql
+    public static final String SQL_CREATE_VISIT_ENTRIES =
             "CREATE TABLE " + TABLE_VISIT_PLAN + " (" +
-                    _V_ID + " INTEGER PRIMARY KEY," +
-                    VISIT_PLAN_CLIENT_TYPE+ TEXT_TYPE +
-                    VISIT_PLAN_MOBILE_NUMBER+ TEXT_TYPE +
-                    VISIT_PLAN_PRODUCT_TYPE+ TEXT_TYPE +
-                    VISIT_PLAN_AREA+ TEXT_TYPE +
-                    VISIT_PLAN_PURPOSE_OF_VISIT+ TEXT_TYPE +
-                    VISIT_PLAN_DATE_OF_VISIT+ TEXT_TYPE +
-                    VISIT_PLAN_REMARKS+ TEXT_TYPE +
-
-                    ")";
+                    _L_ID + " INTEGER PRIMARY KEY," +
+                    VISIT_PLAN_CLIENT_TYPE + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_MOBILE_NUMBER + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_AREA + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_PURPOSE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_DATE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_REMARKS + TEXT_TYPE + COMMA_SEP +
+                    LEAD_STATUS + TEXT_TYPE + " )";
 
 
     public static final String SQL_DELETE_LEAD_ENTRIES =

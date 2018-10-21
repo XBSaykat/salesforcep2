@@ -86,14 +86,7 @@ public class MyVisitPlanListActivity extends BaseActivity {
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
-
-        leadList.add(new VisitPlan(1,"Developer","0135456","Home Loan","1-syd","lead generation","5.10.2018","",""));
-        leadList.add(new VisitPlan(2,"Vendor","0135456","Home Loan","1-syd","lead generation","5.10.2018","",""));
-        leadList.add(new VisitPlan(3,"Corporate House","0135456","Home Loan","1-syd","lead generation","5.10.2018","",""));
-        leadList.add(new VisitPlan(4,"Developer","0135456","Car Loan","1-syd","lead generation","5.10.2018","",""));
-        leadList.add(new VisitPlan(5,"Developer","0135456","Home Loan","1-syd","lead generation","5.10.2018","",""));
-        leadList.add(new VisitPlan(6,"Developer","0135456","Car Loan","1-syd","lead generation","5.10.2018","",""));
-      //  leadList.addAll(myDbController.getAllData());
+       leadList.addAll(myDbController.getAllData());
 
         searchView = findViewById(R.id.search_view);
         rvMyLead=findViewById(R.id.rvMyLead);
