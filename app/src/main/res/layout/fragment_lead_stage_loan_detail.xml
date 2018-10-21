@@ -31,7 +31,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_required"
-                    android:text="Source of Reference" />
+                    android:text="Source of Reference"
+
+                    />
 
                 <!--<Spinner-->
                     <!--android:id="@+id/spinner_reference"-->
