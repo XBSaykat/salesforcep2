@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
@@ -39,6 +41,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
     private AwesomeSpinner spinnerFollowUp;
     public static String followUp = null, visitDate = null, remark = null;
     public  EditText etVisitDate, etRemark;
+    private LinearLayout followDateLayout;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -90,6 +93,8 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
     private void initView(View rootView) {
         spinnerFollowUp=rootView.findViewById(R.id.awe_spinner_lead_follow_up);
+        followDateLayout = rootView.findViewById(R.id.follow_date_layout);
+        followDateLayout.setVisibility(View.GONE);
         etVisitDate=rootView.findViewById(R.id.dtpVisitDT);
         etRemark=rootView.findViewById(R.id.input_remarks);
         remark = etRemark.getText().toString();
@@ -111,7 +116,16 @@ public class LeadStageVisitRecordFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 followUp = s;
+
+                if (s.equals("Yes")){
+                    followDateLayout.setVisibility(View.VISIBLE);
+                }
+                else {
+                    followDateLayout.setVisibility(View.GONE);
+                }
+
             }
+
         });
 //        spinnerFollowUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
