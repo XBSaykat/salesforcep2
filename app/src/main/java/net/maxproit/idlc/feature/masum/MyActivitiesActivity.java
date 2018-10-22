@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.common.base.BaseActivity;
@@ -17,12 +19,13 @@ import net.maxproit.idlc.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 
-public class MyVisitPlanListActivity extends BaseActivity {
+public class MyActivitiesActivity extends BaseActivity {
     private static final String TAG = "MyLeadActivity";
     public static final int APPROVED = 101;
 
     MyVisitPlanListAdapter myLeadAdapter;
     VisitPlanDbController myDbController;
+    private ImageView backButton, addButton;
     private SearchView searchView;
     private RecyclerView rvMyLead;
     LocalLogin localLogin;
@@ -73,7 +76,7 @@ public class MyVisitPlanListActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.activity_my_visit_plan_list;
+        return R.layout.activity_my_activites;
     }
 
     @Override
@@ -89,7 +92,15 @@ public class MyVisitPlanListActivity extends BaseActivity {
        leadList.addAll(myDbController.getAllData());
 
         searchView = findViewById(R.id.search_view);
-        rvMyLead=findViewById(R.id.rvMyLead);
+        rvMyLead = findViewById(R.id.rvMyLead);
+
+        backButton = findViewById(R.id.btn_back);
+        addButton = findViewById(R.id.btn_add);
+        rvMyLead = findViewById(R.id.rvMyLead);
+
+
+
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -117,6 +128,20 @@ public class MyVisitPlanListActivity extends BaseActivity {
         myLeadAdapter.notifyDataSetChanged();
 
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyActivitiesActivity.super.onBackPressed();
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "add button pressed", Toast.LENGTH_LONG).show();
+            }
+        });
+
         myLeadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
@@ -135,6 +160,10 @@ public class MyVisitPlanListActivity extends BaseActivity {
                 }
             }
         });
+
+
+
+
     }
 
     @Override
