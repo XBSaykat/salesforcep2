@@ -64,13 +64,6 @@ public class VisitPlanActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener date;
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
 
-//    Context context = this;
-//    EditText editDate;
-//    Calendar myCalendar = Calendar.getInstance();
-//    String dateFormat = "dd.MM.yyyy";
-//    DatePickerDialog.OnDateSetListener date;
-//    SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.BANGLADESH);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,13 +94,10 @@ public class VisitPlanActivity extends AppCompatActivity {
         initAdapterForSpinners();
         initListener();
 
-
-        // init - set date to current date
         long currentdate = System.currentTimeMillis();
         String dateString = sdf.format(currentdate);
         dtpVisitDT.setText(dateString);
 
-        // set calendar date and update editDate
         date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -121,60 +111,6 @@ public class VisitPlanActivity extends AppCompatActivity {
             }
 
         };
-
-        // onclick - popup datepicker
-//        dtpVisitDT.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                // TODO Auto-generated method stub
-//                new DatePickerDialog(context, date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-//            }
-//        });
-//
-
-        //  secClientType=(LinearLayout)findViewById(R.id.secClientType);
-        //lineClientType=(View)findViewById(R.id.lineClientType);
-        // VlblClientType=(TextView) findViewById(R.id.VlblClientType);
-
-
-//        spnClientType=(Spinner) findViewById(R.id.spinner_client);
-
-
-
-
-
-
-
-        //lineMobileNo=(View)findViewById(R.id.lineMobileNo);
-        // VlblMobileNo=(TextView) findViewById(R.id.VlblMobileNo);
-        // secProductType=(LinearLayout)findViewById(R.id.secProductType);
-        //  lineProductType=(View)findViewById(R.id.lineProductType);
-        // VlblProductType=(TextView) findViewById(R.id.VlblProductType);
-//        spnProductType=(Spinner) findViewById(R.id.spinner_product_type);
-
-
-
-        //  secArea=(LinearLayout)findViewById(R.id.secArea);
-        //  lineArea=(View)findViewById(R.id.lineArea);
-        //  VlblArea=(TextView) findViewById(R.id.VlblArea);
-//        spnArea=(Spinner) findViewById(R.id.spinner_area);
-
-
-        // secPurpose=(LinearLayout)findViewById(R.id.secPurpose);
-        // linePurpose=(View)findViewById(R.id.linePurpose);
-        // VlblPurpose=(TextView) findViewById(R.id.VlblPurpose);
-//        spnPurpose=(Spinner) findViewById(R.id.spinner_purpose_of_visit);
-
-
-
-
-        //  secVisitDT=(LinearLayout)findViewById(R.id.secVisitDT);
-        // lineVisitDT=(View)findViewById(R.id.lineVisitDT);
-        //  VlblVisitDT=(TextView) findViewById(R.id.VlblVisitDT);
-
         dtpVisitDT.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -189,34 +125,6 @@ public class VisitPlanActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-        // secRemarks=(LinearLayout)findViewById(R.id.secRemarks);
-        // lineRemarks=(View)findViewById(R.id.lineRemarks);
-        // VlblRemarks=(TextView) findViewById(R.id.VlblRemarks);
-
-//        final Calendar calendar = Calendar.getInstance();
-//
-//        EditText dateOfVisit= (EditText) findViewById(R.id.datepicker_purpose_of_visit);
-//        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-//
-//                @Override
-//                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//
-//                    calendar.set(Calendar.YEAR, year);
-//                    calendar.set(Calendar.MONTH, monthOfYear);
-//                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-////                    updateLabel();
-//                }
-//        };
-
-//        dateOfVisit.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    new DatePickerDialog(this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-//                }
-//        });
 
     }
 
@@ -286,10 +194,6 @@ public class VisitPlanActivity extends AppCompatActivity {
             hour = selectedHour;
             minute = selectedMinute;
             EditText tpTime;
-
-
-            //  tpTime.setText(new StringBuilder().append(Global.Right("00"+hour,2)).append(":").append(Global.Right("00"+minute,2)));
-
         }
     };
 
@@ -311,12 +215,6 @@ public class VisitPlanActivity extends AppCompatActivity {
                     .append(mYear));
         }
     };
-
-
-
-
-
-
 
     public void initListener() {
 
@@ -341,6 +239,7 @@ public class VisitPlanActivity extends AppCompatActivity {
                 }
             }
         });
+
         spinnerClientType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
@@ -380,24 +279,6 @@ public class VisitPlanActivity extends AppCompatActivity {
                 purposeOfVisit = s;
             }
         });
-//        spnClientType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                String selectedItemText = (String) parentView.getSelectedItem().toString();
-//                if(selectedItemText.equals("Individual")){
-//                     secMobileNo.setVisibility(View.VISIBLE);
-//                }else{
-//                    secMobileNo.setVisibility(View.GONE);
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//                // your code here
-//            }
-//
-//        });
-
 
     }
 

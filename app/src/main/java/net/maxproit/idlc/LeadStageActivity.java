@@ -54,43 +54,6 @@ public class LeadStageActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            /*    this.branchName = branchName;
-                this.userName = userName;
-                this.profession = profession;
-                this.organization = organization;
-                this.designation = designation;
-                this.phone = phone;
-                this.address = address;
-                this.sourceRef = sourceRef;
-                this.productType = productType;
-                this.productSubcategory = productSubcategory;
-                this.loadAmount = loadAmount;
-                this.orInterest = orInterest;
-                this.opFee = opFee;
-                this.visitDate = visitDate;
-                this.followUp = followUp;
-                this.remark = remark;
-                */
-
-
-//                if(LeadStageBasicInformationFragment.etUserName.getText()!=null ||
-//
-//
-//
-//                        LeadStageBasicInformationFragment.etUserOrganization.getText()!= null||
-//                        LeadStageBasicInformationFragment.profession != null||
-//                        LeadStageBasicInformationFragment.etDesignattion != null||
-//                        LeadStageBasicInformationFragment.etPhone != null||
-//                        LeadStageBasicInformationFragment.etAddress != null||
-//                        LeadStageLoanDetailFragment.etLoadAmount != null||
-//                        LeadStageLoanDetailFragment.etInterest != null||
-//                        LeadStageLoanDetailFragment.etFee != null||
-//                        LeadStageVisitRecordFragment.etRemark != null ||
-//                        LeadStageLoanDetailFragment.productType <= 0 ||
-//                        LeadStageLoanDetailFragment.subCategory <= 0
-//
-//
-//                        )
 
 
                 if( LeadStageLoanDetailFragment.ref > 0 &&
@@ -125,15 +88,14 @@ public class LeadStageActivity extends AppCompatActivity {
                     String remark=LeadStageVisitRecordFragment.remark;
                     String followUp=LeadStageVisitRecordFragment.followUp;
 
-                  /*  MyNewLead myNewLead=new MyNewLead(BranchName,name,profession,organization,
-                            designation,phone,address,ref,productType,subCat,
-                            loanAmount,interest,fee,visitDate,followUp,remark);*/
-
                    int insert= myLeadDbController.insertLeadData(BranchName,name,profession,organization,
                             designation,phone,address,ref,productType,subCat,
                             loanAmount,interest,fee,visitDate,followUp,remark);
                     if (insert>0){
-                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LeadStageActivity.this, "Data saved successfully", Toast.LENGTH_SHORT).show();
+//                        Intent dasboardIntent = new Intent(LeadStageActivity.this, DashboardSalesOfficerActivity.class);
+//                        startActivity(dasboardIntent);
+//                        finish();
                     }
                     else {
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
@@ -143,9 +105,6 @@ public class LeadStageActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
                 }
-
-//                Toast.makeText(LeadStageActivity.this, "save data", Toast.LENGTH_SHORT).show();
-
             }
         });
 
