@@ -82,7 +82,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         g = Global.getInstance();
         dbController=new VisitPlanDbController(VisitPlanActivity.this);
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
-        secProductType = (LinearLayout) findViewById(R.id.secClientType);
+        secProductType = (LinearLayout) findViewById(R.id.secProductType);
         secMobileNo.setVisibility(View.GONE);
         secProductType.setVisibility(View.GONE);
 
@@ -348,11 +348,11 @@ public class VisitPlanActivity extends AppCompatActivity {
                 clientType = s;
                 if (s.equals("Individual")) {
                     secMobileNo.setVisibility(View.VISIBLE);
-                    secClientType.setVisibility(View.VISIBLE);
+                    secProductType.setVisibility(View.VISIBLE);
 
                 } else {
                     secMobileNo.setVisibility(View.GONE);
-                    secClientType.setVisibility(View.GONE);
+                    secProductType.setVisibility(View.GONE);
 
 
 
