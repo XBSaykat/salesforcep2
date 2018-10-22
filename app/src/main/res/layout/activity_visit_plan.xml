@@ -59,6 +59,7 @@
                     android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/secClientType"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,6 +116,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/secProductType"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
