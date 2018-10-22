@@ -34,7 +34,30 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
+            <LinearLayout
+                android:id="@+id/secinput_client_name"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Client Name" />
+
+                <EditText
+                    android:id="@+id/input_client_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
             <LinearLayout
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
@@ -236,8 +259,8 @@
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>

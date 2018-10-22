@@ -52,8 +52,8 @@ public class VisitPlanActivity extends AppCompatActivity {
     TextView VlblClientType, lblHeading, VlblMobileNo, VlblProductType, VlblArea, VlblPurpose, VlblVisitDT, VlblRemarks, buttonSave;
     LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
     View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
-    EditText txtMobileNo, dtpVisitDT, txtRemarks;
-    String clientType, mobileNo, productType, area, purposeOfVisit, dateOfvisit, remarks;
+    EditText txtClientName, txtMobileNo, dtpVisitDT, txtRemarks;
+    String clientName, clientType, mobileNo, productType, area, purposeOfVisit, dateOfvisit, remarks;
 
     List<String> listClientType, listProductType, listArea, listPurpose;
 
@@ -82,13 +82,16 @@ public class VisitPlanActivity extends AppCompatActivity {
         g = Global.getInstance();
         dbController=new VisitPlanDbController(VisitPlanActivity.this);
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
+        secProductType = (LinearLayout) findViewById(R.id.secClientType);
         secMobileNo.setVisibility(View.GONE);
+        secProductType.setVisibility(View.GONE);
 
         spinnerClientType = findViewById(R.id.awe_spinner_visit_plan_client_type);
         spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
         spinnerArea = findViewById(R.id.awe_spinner_visit_plan_area);
         spinnerPurposeOfVisit = findViewById(R.id.awe_spinner_visit_plan_Purpose);
 
+        txtClientName = (EditText) findViewById(R.id.input_client_name);
         txtMobileNo = (EditText) findViewById(R.id.input_mobile_no);
         dtpVisitDT = (EditText) findViewById(R.id.dtpVisitDT);
         txtRemarks = (EditText) findViewById(R.id.input_remarks);
@@ -320,12 +323,12 @@ public class VisitPlanActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                clientName = txtClientName.getText().toString().trim();
                 mobileNo= txtMobileNo.getText().toString().trim();
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString();
 
-                int insert=dbController.insertData(clientType,mobileNo,productType,area,purposeOfVisit,dateOfvisit,remarks);
+                int insert=dbController.insertData(clientName, clientType,mobileNo,productType,area,purposeOfVisit,dateOfvisit,remarks);
                 if (insert>0){
                     Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
                     Intent dasboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
@@ -345,8 +348,13 @@ public class VisitPlanActivity extends AppCompatActivity {
                 clientType = s;
                 if (s.equals("Individual")) {
                     secMobileNo.setVisibility(View.VISIBLE);
+                    secClientType.setVisibility(View.VISIBLE);
+
                 } else {
                     secMobileNo.setVisibility(View.GONE);
+                    secClientType.setVisibility(View.GONE);
+
+
 
                 }
             }

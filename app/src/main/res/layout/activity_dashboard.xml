@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:padding="@dimen/size_4dp"
-                        android:text="My Visit"
+                        android:text="My Activities"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>

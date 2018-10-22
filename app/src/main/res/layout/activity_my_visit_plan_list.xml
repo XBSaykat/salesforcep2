@@ -12,6 +12,7 @@
         tools:context=".feature.salesOfficer.mylead.MyLeadActivity">
 
         <LinearLayout
+            android:orientation="horizontal"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_50dp"
@@ -24,9 +25,11 @@
                 android:padding="@dimen/size_8dp"
                 android:src="@drawable/ic_back" />
 
+
+
             <android.support.v7.widget.SearchView
                 android:id="@+id/search_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
                 android:focusable="false"
@@ -34,6 +37,15 @@
                 app:iconifiedByDefault="false"
                 app:queryHint="Search Lead"
                 app:searchIcon="@null" />
+
+            <ImageView
+                android:id="@+id/btn_add"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_8dp"
+                android:src="@drawable/ic_add" />
+
+
 
 
         </LinearLayout>
