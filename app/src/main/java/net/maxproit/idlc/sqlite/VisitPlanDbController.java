@@ -32,10 +32,11 @@ public class VisitPlanDbController {
         dbHelper.close();
     }
 
-    public int insertData(String clientType, String mobileNumber, String productType, String area, String purposeOfVisit,
+    public int insertData(String clientName, String clientType, String mobileNumber, String productType, String area, String purposeOfVisit,
                           String dateOfVisit, String remarks) {
 
         ContentValues values = new ContentValues();
+        values.put(DbConstants.VISIT_PLAN_CLIENT_NAME, clientName);
         values.put(DbConstants.VISIT_PLAN_CLIENT_TYPE, clientType);
         values.put(DbConstants.VISIT_PLAN_MOBILE_NUMBER, mobileNumber);
         values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, productType);
@@ -56,6 +57,7 @@ public class VisitPlanDbController {
 
         String[] projection = {
                 DbConstants._V_ID,
+                DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
                 DbConstants.VISIT_PLAN_PRODUCT_TYPE,
@@ -92,6 +94,7 @@ public class VisitPlanDbController {
                 do {
                     // get  the  data into array,or class variable
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants._V_ID));
+                    String clientName = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_CLIENT_NAME));
                     String clientType = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_CLIENT_TYPE));
                     String mobileNumber = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_MOBILE_NUMBER));
                     String productType = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_PRODUCT_TYPE));

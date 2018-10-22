@@ -68,6 +68,7 @@ public class DbConstants {
 
     //visit plan
     public static final String _V_ID = "_id";
+    public static final String VISIT_PLAN_CLIENT_NAME = "client_name";
     public static final String VISIT_PLAN_CLIENT_TYPE = "client_type";
     public static final String VISIT_PLAN_MOBILE_NUMBER = "mobile_number";
     public static final String VISIT_PLAN_PRODUCT_TYPE = "product_type";
@@ -136,6 +137,7 @@ public class DbConstants {
     public static final String SQL_CREATE_VISIT_ENTRIES =
             "CREATE TABLE " + TABLE_VISIT_PLAN + " (" +
                     _L_ID + " INTEGER PRIMARY KEY," +
+                    VISIT_PLAN_CLIENT_NAME + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_CLIENT_TYPE + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_MOBILE_NUMBER + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
