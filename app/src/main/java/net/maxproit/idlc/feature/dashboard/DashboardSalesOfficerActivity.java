@@ -4,14 +4,13 @@ import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import net.maxproit.idlc.LeadStageActivity;
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.common.base.BaseActivity;
 import net.maxproit.idlc.databinding.ActivityDashboardBinding;
 import net.maxproit.idlc.feature.login.LoginActivity;
-import net.maxproit.idlc.feature.masum.MyVisitPlanListActivity;
+import net.maxproit.idlc.feature.masum.MyActivitiesActivity;
 import net.maxproit.idlc.feature.salesOfficer.VisitPlanActivity;
 import net.maxproit.idlc.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.idlc.feature.salesOfficer.myPerfomance.disbursement.MyPerfomanceDisbursementsActivity;
@@ -52,7 +51,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
    binding.myVisit.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,MyVisitPlanListActivity.class,false);
+           ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,MyActivitiesActivity.class,false);
        }
    });
     }
