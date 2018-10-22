@@ -2,6 +2,7 @@ package net.maxproit.idlc.feature.salesOfficer;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.common.base.Global;
+import net.maxproit.idlc.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.idlc.sqlite.VisitPlanDbController;
 
 import java.text.SimpleDateFormat;
@@ -328,10 +330,13 @@ public class VisitPlanActivity extends AppCompatActivity {
 
                 int insert=dbController.insertData(clientName, clientType,mobileNo,productType,area,purposeOfVisit,dateOfvisit,remarks);
                 if (insert>0){
-                    Toast.makeText(VisitPlanActivity.this, "inserted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
+                    Intent dasboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
+                    startActivity(dasboardIntent);
+                    finish();
                 }
                 else {
-                    Toast.makeText(VisitPlanActivity.this, "inserted failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VisitPlanActivity.this, "Save failed", Toast.LENGTH_SHORT).show();
 
                 }
             }
