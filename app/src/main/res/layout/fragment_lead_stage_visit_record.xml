@@ -68,7 +68,7 @@
                     android:text="Date of Visit" />
 
                 <EditText android:id="@+id/dtpVisitDT"
-                    android:drawableRight="@drawable/ic_calender"
+                    android:drawableRight="@drawable/ic_datepicker_calender"
                     android:layout_width="match_parent"
 
                     android:inputType="text"
