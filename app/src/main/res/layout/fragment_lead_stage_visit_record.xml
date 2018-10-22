@@ -54,7 +54,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/FollowupDateLayout"
+                android:id="@+id/follow_date_layout"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
