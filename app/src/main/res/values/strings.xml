@@ -62,6 +62,30 @@
 
     </string-array>
 
+    <string-array name="city_array">
+        <item>Dhaka North</item>
+        <item>Dhaka South</item>
+        <item>Narayanganj</item>
+    </string-array>
+
+    <string-array name="dhaka_north_police_station_array">
+        <item>Tejgaon I/A</item>
+        <item>Gulshan</item>
+        <item>Kalabagan</item>
+    </string-array>
+
+    <string-array name="dhaka_south_police_station_array">
+        <item>Sutrapur</item>
+        <item>Sabujbagh</item>
+        <item>Newmarket</item>
+    </string-array>
+
+    <string-array name="narayanganj_police_station_array">
+        <item>Siddirganj</item>
+        <item>Fatullah</item>
+        <item>Bandar</item>
+    </string-array>
+
     <string-array name="upazilla_array">
         <item>Select upazilla</item>
 
