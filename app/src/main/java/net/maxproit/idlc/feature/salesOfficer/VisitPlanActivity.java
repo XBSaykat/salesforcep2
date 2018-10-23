@@ -3,12 +3,14 @@ package net.maxproit.idlc.feature.salesOfficer;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,7 +38,8 @@ import java.util.Locale;
 
 public class VisitPlanActivity extends AppCompatActivity {
 
-    Toolbar toolbarVisitPlan;
+//    Toolbar toolbarVisitPlan;
+
 
     String VariableID;
     private int hour;
@@ -49,14 +52,16 @@ public class VisitPlanActivity extends AppCompatActivity {
     private VisitPlanDbController dbController;
 
 
+    static final String PRE_DISBURSEMENT = "Pre- Disbursement";
+    static final String POST_DISBURSEMENT = "Post- Disbursement";
+    static final String INDIVIDUAL = "Individual";
 
-
-    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerArea, spinnerPurposeOfVisit;
+    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerCity,  spinnerPoliceStation, spinnerPurposeOfVisit;
     TextView VlblClientType, lblHeading, VlblMobileNo, VlblProductType, VlblArea, VlblPurpose, VlblVisitDT, VlblRemarks, buttonSave;
     LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
     View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
     EditText txtClientName, txtMobileNo, dtpVisitDT, txtRemarks;
-    String clientName, clientType, mobileNo, productType, area, purposeOfVisit, dateOfvisit, remarks;
+    String clientName, clientType, mobileNo, productType, city, purposeOfVisit, dateOfvisit, remarks;
 
     List<String> listClientType, listProductType, listArea, listPurpose;
     ImageView backButton;
@@ -80,9 +85,9 @@ public class VisitPlanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_plan);
 
-        toolbarVisitPlan = (Toolbar) findViewById(R.id.toolbar_visit_plan);
-        toolbarVisitPlan.setTitle("Visit Plan");
-        toolbarVisitPlan.setTitleTextColor(getResources().getColor(R.color.white));
+//        toolbarVisitPlan = (Toolbar) findViewById(R.id.toolbar_visit_plan);
+//        toolbarVisitPlan.setTitle("Visit Plan");
+//        toolbarVisitPlan.setTitleTextColor(getResources().getColor(R.color.white));
         backButton = findViewById(R.id.btn_back);
 
         g = Global.getInstance();
@@ -94,7 +99,8 @@ public class VisitPlanActivity extends AppCompatActivity {
 
         spinnerClientType = findViewById(R.id.awe_spinner_visit_plan_client_type);
         spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
-        spinnerArea = findViewById(R.id.awe_spinner_visit_plan_area);
+        spinnerCity = findViewById(R.id.awe_spinner_visit_plan_city);
+        spinnerPoliceStation = findViewById(R.id.awe_spinner_visit_plan_police_station);
         spinnerPurposeOfVisit = findViewById(R.id.awe_spinner_visit_plan_Purpose);
 
         txtClientName = (EditText) findViewById(R.id.input_client_name);
@@ -208,8 +214,8 @@ public class VisitPlanActivity extends AppCompatActivity {
         ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
         spinnerProductType.setAdapter(productTypeAdapter);
 
-        ArrayAdapter<String> adptrArea = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listArea);
-        spinnerArea.setAdapter(adptrArea);
+        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listArea);
+        spinnerCity.setAdapter(adapterCity);
 
         ArrayAdapter<String> adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
@@ -222,7 +228,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         listPurpose = new ArrayList<String>();
 
 
-        listClientType.add("Individual");
+        listClientType.add(INDIVIDUAL);
         listClientType.add("Developer");
         listClientType.add("Vendor");
         listClientType.add("Corporate House");
@@ -238,8 +244,8 @@ public class VisitPlanActivity extends AppCompatActivity {
         listPurpose.add("Fresh");
         listPurpose.add("Lead Generation");
         listPurpose.add("Relationship Mgt");
-        listPurpose.add("Pre-Disbursement");
-        listPurpose.add("Post Disbursement");
+        listPurpose.add(PRE_DISBURSEMENT);
+        listPurpose.add(POST_DISBURSEMENT);
 
 
     }
@@ -316,7 +322,7 @@ public class VisitPlanActivity extends AppCompatActivity {
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString();
 
-                int insert=dbController.insertData(clientName, clientType,mobileNo,productType,area,purposeOfVisit,dateOfvisit,remarks);
+                int insert=dbController.insertData(clientName, clientType,mobileNo,productType, city,purposeOfVisit,dateOfvisit,remarks);
                 if (insert>0){
                     Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
                     Intent dashboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
@@ -334,7 +340,7 @@ public class VisitPlanActivity extends AppCompatActivity {
             public void onItemSelected(int i, String s) {
 
                 clientType = s;
-                if (s.equals("Individual")) {
+                if (s.equals(INDIVIDUAL)) {
                     secMobileNo.setVisibility(View.VISIBLE);
                     secProductType.setVisibility(View.VISIBLE);
 
@@ -355,10 +361,10 @@ public class VisitPlanActivity extends AppCompatActivity {
             }
         });
 
-        spinnerArea.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+        spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                area = s;
+                city = s;
             }
         });
 
@@ -366,6 +372,13 @@ public class VisitPlanActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(int i, String s) {
                 purposeOfVisit = s;
+
+                if (s.equals(PRE_DISBURSEMENT)){
+                    throwAlertDialogForCIF();
+
+                }if(s.equals(POST_DISBURSEMENT)){
+                    throwAlertDialogForCIF();
+                }
             }
         });
 //        spnClientType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -387,6 +400,35 @@ public class VisitPlanActivity extends AppCompatActivity {
 //        });
 
 
+    }
+
+
+    private void throwAlertDialogForCIF(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        final AlertDialog dialog = builder.create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View cifDialog = inflater.inflate(R.layout.activity_cib_dialog, null);
+
+        final EditText editText = (EditText) cifDialog.findViewById(R.id.et_dialog_cif_number);
+        Button cifSubmit = (Button) cifDialog.findViewById(R.id.btn_dialog_cif_submit);
+        Button cifCancel = (Button) cifDialog.findViewById(R.id.btn_dialog_cif_cancel);
+
+        cifSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        cifCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setView(cifDialog);
+        dialog.show();
     }
 
 }

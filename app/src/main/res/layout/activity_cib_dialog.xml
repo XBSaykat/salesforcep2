@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etRemark"
+            android:id="@+id/et_dialog_cif_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -22,24 +22,36 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Remark"
-            android:inputType="textPersonName"
+            android:hint="CIF Number"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnSubmit"
+            android:id="@+id/btn_dialog_cif_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="Submot"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Submit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etRemark" />
+            app:layout_constraintTop_toBottomOf="@+id/et_dialog_cif_number" />
+
+        <Button
+            android:id="@+id/btn_dialog_cif_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Cancel"
+            app:layout_constraintEnd_toStartOf="@+id/btn_dialog_cif_submit"
+            app:layout_constraintTop_toBottomOf="@+id/et_dialog_cif_number" />
+
+
     </android.support.constraint.ConstraintLayout>
 
 
