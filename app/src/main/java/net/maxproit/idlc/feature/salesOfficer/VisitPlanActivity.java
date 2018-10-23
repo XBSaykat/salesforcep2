@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.app.Dialog;
@@ -35,7 +36,7 @@ import java.util.Locale;
 
 public class VisitPlanActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+    Toolbar toolbarVisitPlan;
 
     String VariableID;
     private int hour;
@@ -56,6 +57,7 @@ public class VisitPlanActivity extends AppCompatActivity {
     String clientName, clientType, mobileNo, productType, area, purposeOfVisit, dateOfvisit, remarks;
 
     List<String> listClientType, listProductType, listArea, listPurpose;
+    ImageView backButton;
 
     Context context = this;
     Global g;
@@ -76,9 +78,11 @@ public class VisitPlanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_plan);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Visit Plan");
+        toolbarVisitPlan = (Toolbar) findViewById(R.id.toolbar_visit_plan);
+        toolbarVisitPlan.setTitle("Visit Plan");
+        toolbarVisitPlan.setTitleTextColor(getResources().getColor(R.color.white));
+        backButton = findViewById(R.id.btn_back);
+
         g = Global.getInstance();
         dbController=new VisitPlanDbController(VisitPlanActivity.this);
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
@@ -122,7 +126,7 @@ public class VisitPlanActivity extends AppCompatActivity {
 
         };
 
-        // onclick - popup datepicker
+
 //        dtpVisitDT.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override
@@ -148,32 +152,6 @@ public class VisitPlanActivity extends AppCompatActivity {
 
 
 
-        //lineMobileNo=(View)findViewById(R.id.lineMobileNo);
-        // VlblMobileNo=(TextView) findViewById(R.id.VlblMobileNo);
-        // secProductType=(LinearLayout)findViewById(R.id.secProductType);
-        //  lineProductType=(View)findViewById(R.id.lineProductType);
-        // VlblProductType=(TextView) findViewById(R.id.VlblProductType);
-//        spnProductType=(Spinner) findViewById(R.id.spinner_product_type);
-
-
-
-        //  secArea=(LinearLayout)findViewById(R.id.secArea);
-        //  lineArea=(View)findViewById(R.id.lineArea);
-        //  VlblArea=(TextView) findViewById(R.id.VlblArea);
-//        spnArea=(Spinner) findViewById(R.id.spinner_area);
-
-
-        // secPurpose=(LinearLayout)findViewById(R.id.secPurpose);
-        // linePurpose=(View)findViewById(R.id.linePurpose);
-        // VlblPurpose=(TextView) findViewById(R.id.VlblPurpose);
-//        spnPurpose=(Spinner) findViewById(R.id.spinner_purpose_of_visit);
-
-
-
-
-        //  secVisitDT=(LinearLayout)findViewById(R.id.secVisitDT);
-        // lineVisitDT=(View)findViewById(R.id.lineVisitDT);
-        //  VlblVisitDT=(TextView) findViewById(R.id.VlblVisitDT);
 
         dtpVisitDT.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -319,6 +297,14 @@ public class VisitPlanActivity extends AppCompatActivity {
 
 
     public void initListener() {
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VisitPlanActivity.super.onBackPressed();
+                finish();
+            }
+        });
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
