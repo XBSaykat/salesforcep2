@@ -1,5 +1,6 @@
 package net.maxproit.idlc;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,10 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 public class LeadStageLoanDetailFragment extends Fragment {
@@ -20,6 +26,9 @@ public class LeadStageLoanDetailFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    EditText edittext;
+    Calendar myCalendar = Calendar.getInstance();
 
     //TODO: Rename and change types of parameters
     private String mParam1;
@@ -131,7 +140,43 @@ public class LeadStageLoanDetailFragment extends Fragment {
         etInterest=rootView.findViewById(R.id.et_interest);
         etFee=rootView.findViewById(R.id.et_fee);
 
+
+
+        edittext= (EditText) rootView.findViewById(R.id.et_disbursement_date);
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        edittext.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(getContext(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
         initSpinnerAdapter();
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd-mm-yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        edittext.setText(sdf.format(myCalendar.getTime()));
     }
 
     private void initSpinnerAdapter() {

@@ -83,7 +83,7 @@
         <item>Vendor</item>
         <item>Existing Client</item>
         <item>Walk-in</item>
-        <item>Others-open</item>
+        <item>Others</item>
     </string-array>
 
     <string-array name="decision_array">

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class VisitPlanActivity extends AppCompatActivity {
@@ -95,6 +99,31 @@ public class VisitPlanActivity extends AppCompatActivity {
         txtMobileNo = (EditText) findViewById(R.id.input_mobile_no);
         dtpVisitDT = (EditText) findViewById(R.id.dtpVisitDT);
         txtRemarks = (EditText) findViewById(R.id.input_remarks);
+
+        txtMobileNo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(mobileNo);
+                if(!mobileNo.isEmpty() && matcher.matches()){
+
+                }else{
+                    txtMobileNo.setError("You entered invalid mobile no.");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         buttonSave = findViewById(R.id.btn_save);
         initArrayListForSpinners();

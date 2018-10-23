@@ -163,7 +163,8 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mobile Number" />
+                    android:text="Mobile Number"
+                    />
 
                 <EditText
                     android:id="@+id/et_lead_phone"
