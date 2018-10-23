@@ -33,7 +33,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
     @Override
     protected void initComponents() {
         binding = (ActivityDashboardBinding) getBinding();
-        binding.btnBack.setOnClickListener(v -> finish());
+//        binding.btnBack.setOnClickListener(v -> finish());
         binding.logout.setOnClickListener(v -> logout());
 
 
@@ -48,7 +48,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         binding.newLead.setOnClickListener(v -> startActivity(LeadStageActivity.class, false, mBundle));
         binding.myLeads.setOnClickListener(v -> startActivity(MyLeadActivity.class, false));
         binding.prospect.setOnClickListener(v -> startActivity(MyProspectActivity.class, false, mBundle));
-        binding.upload.setOnClickListener(v -> startActivity(MyPerfomanceDisbursementsActivity.class, false));
+//        binding.upload.setOnClickListener(v -> startActivity(MyPerfomanceDisbursementsActivity.class, false));
         binding.verification.setOnClickListener(v -> startActivity(MyPerfomanceActivity.class, false));
 
         binding.myVisit.setOnClickListener(new View.OnClickListener() {

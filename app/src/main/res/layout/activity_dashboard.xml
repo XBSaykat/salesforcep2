@@ -15,15 +15,15 @@
             android:layout_height="@dimen/size_50dp"
             android:background="@color/colorPrimary">
 
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="@dimen/size_40dp"
-                android:layout_height="@dimen/size_40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/size_8dp"
-                android:layout_marginLeft="@dimen/size_8dp"
-                android:padding="@dimen/size_8dp"
-                android:src="@drawable/ic_back" />
+            <!--<ImageView-->
+                <!--android:id="@+id/btnBack"-->
+                <!--android:layout_width="@dimen/size_40dp"-->
+                <!--android:layout_height="@dimen/size_40dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginStart="@dimen/size_8dp"-->
+                <!--android:layout_marginLeft="@dimen/size_8dp"-->
+                <!--android:padding="@dimen/size_8dp"-->
+                <!--android:src="@drawable/ic_back" />-->
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -256,37 +256,37 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/upload"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/size_8dp"
-                    android:background="@drawable/dashboard_item"
-                    android:elevation="@dimen/size_4dp"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/size_16dp">
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/upload"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_margin="@dimen/size_8dp"-->
+                    <!--android:background="@drawable/dashboard_item"-->
+                    <!--android:elevation="@dimen/size_4dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:padding="@dimen/size_16dp">-->
 
-                    <ImageView
-                        android:layout_width="@dimen/size_50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/size_16dp"
-                        android:layout_marginEnd="@dimen/size_16dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/upload" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="@dimen/size_50dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:layout_marginStart="@dimen/size_16dp"-->
+                        <!--android:layout_marginEnd="@dimen/size_16dp"-->
+                        <!--android:adjustViewBounds="true"-->
+                        <!--android:scaleType="fitCenter"-->
+                        <!--android:src="@drawable/upload" />-->
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="@dimen/size_4dp"
-                        android:text="Disbursement Request"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_20sp" />
+                    <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:padding="@dimen/size_4dp"-->
+                        <!--android:text="Disbursement Request"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:textSize="@dimen/text_size_20sp" />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
                 <!--2nd-->
 

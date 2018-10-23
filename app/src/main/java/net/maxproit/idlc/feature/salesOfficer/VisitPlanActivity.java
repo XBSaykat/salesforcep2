@@ -49,6 +49,8 @@ public class VisitPlanActivity extends AppCompatActivity {
     private VisitPlanDbController dbController;
 
 
+
+
     private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerArea, spinnerPurposeOfVisit;
     TextView VlblClientType, lblHeading, VlblMobileNo, VlblProductType, VlblArea, VlblPurpose, VlblVisitDT, VlblRemarks, buttonSave;
     LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
@@ -317,8 +319,8 @@ public class VisitPlanActivity extends AppCompatActivity {
                 int insert=dbController.insertData(clientName, clientType,mobileNo,productType,area,purposeOfVisit,dateOfvisit,remarks);
                 if (insert>0){
                     Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
-                    Intent dasboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
-                    startActivity(dasboardIntent);
+                    Intent dashboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
+                    startActivity(dashboardIntent);
                     finish();
                 }
                 else {
