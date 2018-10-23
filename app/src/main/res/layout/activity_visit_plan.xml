@@ -7,22 +7,43 @@
     android:orientation="vertical"
     tools:context=".feature.salesOfficer.VisitPlanActivity">
 
-    <android.support.design.widget.AppBarLayout
+
+
+    <RelativeLayout
+        android:id="@+id/visit_plan_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+
+
+        >
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/size_40dp"
+            android:layout_height="@dimen/size_40dp"
+            android:padding="@dimen/size_8dp"
+            android:src="@drawable/ic_back"
+            android:layout_centerVertical="true"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            />
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_visit_plan"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            >
 
-    </android.support.design.widget.AppBarLayout>
+        </android.support.v7.widget.Toolbar>
+
+
+
+    </RelativeLayout>
+
 
     <ScrollView
+        android:layout_marginTop="?android:actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -53,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp" />
@@ -224,7 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10sp"
-                    android:drawableRight="@drawable/ic_calender"
+                    android:drawableRight="@drawable/ic_datepicker_calender"
                     android:focusable="false"
                     android:inputType="text"
                     android:textSize="20sp" />

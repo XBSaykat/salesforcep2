@@ -1,23 +1,24 @@
 package net.maxproit.idlc.feature.dashboard;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import net.maxproit.idlc.LeadStageActivity;
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.common.base.BaseActivity;
 import net.maxproit.idlc.databinding.ActivityDashboardBinding;
 import net.maxproit.idlc.feature.login.LoginActivity;
-import net.maxproit.idlc.feature.masum.MyVisitPlanListActivity;
+import net.maxproit.idlc.feature.masum.MyActivitiesActivity;
 import net.maxproit.idlc.feature.salesOfficer.VisitPlanActivity;
 import net.maxproit.idlc.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.idlc.feature.salesOfficer.myPerfomance.disbursement.MyPerfomanceDisbursementsActivity;
 import net.maxproit.idlc.feature.salesOfficer.myProspect.MyProspectActivity;
 import net.maxproit.idlc.feature.salesOfficer.mylead.MyLeadActivity;
 
+import net.maxproit.idlc.feature.masum.MyActivitiesActivityNew;
 import net.maxproit.idlc.util.ActivityUtils;
 import net.maxproit.idlc.util.SharedPreferencesEnum;
 
@@ -49,10 +50,12 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         binding.prospect.setOnClickListener(v -> startActivity(MyProspectActivity.class, false, mBundle));
         binding.upload.setOnClickListener(v -> startActivity(MyPerfomanceDisbursementsActivity.class, false));
         binding.verification.setOnClickListener(v -> startActivity(MyPerfomanceActivity.class, false));
-   binding.myVisit.setOnClickListener(new View.OnClickListener() {
+
+        binding.myVisit.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,MyVisitPlanListActivity.class,false);
+           ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,MyActivitiesActivity.class,false);
+
        }
    });
     }

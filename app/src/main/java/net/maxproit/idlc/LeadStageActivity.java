@@ -50,7 +50,7 @@ public class LeadStageActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         btnSave=findViewById(R.id.btnSave);
-        myLeadDbController=new MyLeadDbController(LeadStageActivity.this);
+        myLeadDbController = new MyLeadDbController(LeadStageActivity.this);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

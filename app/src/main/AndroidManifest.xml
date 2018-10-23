@@ -127,7 +127,8 @@
         <activity android:name=".feature.salesOfficer.VisitPlanActivity" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".LeadStageActivity" android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
-        <activity android:name=".feature.masum.MyVisitPlanListActivity"></activity>
+        <activity android:name=".feature.masum.MyActivitiesActivity"></activity>
+        <activity android:name=".feature.masum.MyActivitiesActivityNew"></activity>
     </application>
 
 </manifest>
