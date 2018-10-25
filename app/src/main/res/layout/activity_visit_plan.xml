@@ -7,57 +7,54 @@
     android:orientation="vertical"
     tools:context=".feature.salesOfficer.VisitPlanActivity">
 
-    <android.support.design.widget.AppBarLayout
+
+
+    <LinearLayout
+        android:id="@+id/visit_plan_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+
+
+        >
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/size_40dp"
+            android:layout_height="@dimen/size_40dp"
+            android:padding="@dimen/size_8dp"
+            android:src="@drawable/ic_back"
+            android:layout_gravity="center"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            />
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
+            android:id="@+id/toolbar_visit_plan"
+            android:layout_width="wrap_content"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:title="Visit Plan"
+            app:titleTextColor="@color/white"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
-    </android.support.design.widget.AppBarLayout>
+        </android.support.v7.widget.Toolbar>
+
+
+
+    </LinearLayout>
+
 
     <ScrollView
+        android:layout_marginTop="?android:actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-            <LinearLayout
-                android:id="@+id/secinput_client_name"
-                style="@style/LayoutQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Client Name" />
-
-                <EditText
-                    android:id="@+id/input_client_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/secClientType"
                 style="@style/LayoutQuestion"
@@ -89,6 +86,62 @@
 
 
             </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
+                    android:text="Purpose of Visit" />
+
+                <!--<Spinner-->
+                <!--android:id="@+id/spinner_purpose_of_visit"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0"-->
+                <!--android:drawSelectorOnTop="true"-->
+                <!--android:textSize="20sp" />-->
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/awe_spinner_visit_plan_Purpose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Purpose" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/secinput_client_name"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Client Name" />
+
+                <EditText
+                    android:id="@+id/input_client_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/secinput_mobile_no"
@@ -157,7 +210,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_required"
-                    android:text="Area" />
+                    android:text="City" />
 
                 <!--<Spinner-->
                 <!--android:id="@+id/spinner_area"-->
@@ -167,11 +220,11 @@
                 <!--android:drawSelectorOnTop="true"-->
                 <!--android:textSize="20sp" />-->
                 <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_visit_plan_area"
+                    android:id="@+id/awe_spinner_visit_plan_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Area" />
+                    app:spinnerHint="Select City" />
 
 
             </LinearLayout>
@@ -187,24 +240,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_required"
-                    android:text="Purpose of Visit" />
+                    android:text="Police Station" />
 
                 <!--<Spinner-->
-                <!--android:id="@+id/spinner_purpose_of_visit"-->
+                <!--android:id="@+id/spinner_area"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:layout_weight="0"-->
                 <!--android:drawSelectorOnTop="true"-->
                 <!--android:textSize="20sp" />-->
                 <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_visit_plan_Purpose"
+                    android:id="@+id/awe_spinner_visit_plan_police_station"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Purpose" />
+                    app:spinnerHint="Select Police Station" />
 
 
             </LinearLayout>
+
 
             <LinearLayout
                 style="@style/LayoutQuestion"
@@ -224,7 +278,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10sp"
-                    android:drawableRight="@drawable/ic_calender"
+                    android:drawableRight="@drawable/ic_datepicker_calender"
                     android:focusable="false"
                     android:inputType="text"
                     android:textSize="20sp" />

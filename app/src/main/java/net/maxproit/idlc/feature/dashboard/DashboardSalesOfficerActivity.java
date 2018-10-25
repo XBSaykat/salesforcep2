@@ -1,6 +1,7 @@
 package net.maxproit.idlc.feature.dashboard;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import net.maxproit.idlc.feature.salesOfficer.myPerfomance.disbursement.MyPerfom
 import net.maxproit.idlc.feature.salesOfficer.myProspect.MyProspectActivity;
 import net.maxproit.idlc.feature.salesOfficer.mylead.MyLeadActivity;
 
+import net.maxproit.idlc.feature.masum.MyActivitiesActivityNew;
 import net.maxproit.idlc.util.ActivityUtils;
 import net.maxproit.idlc.util.SharedPreferencesEnum;
 
@@ -31,7 +33,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
     @Override
     protected void initComponents() {
         binding = (ActivityDashboardBinding) getBinding();
-        binding.btnBack.setOnClickListener(v -> finish());
+//        binding.btnBack.setOnClickListener(v -> finish());
         binding.logout.setOnClickListener(v -> logout());
 
 
@@ -46,12 +48,15 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         binding.newLead.setOnClickListener(v -> startActivity(LeadStageActivity.class, false, mBundle));
         binding.myLeads.setOnClickListener(v -> startActivity(MyLeadActivity.class, false));
         binding.prospect.setOnClickListener(v -> startActivity(MyProspectActivity.class, false, mBundle));
-        binding.upload.setOnClickListener(v -> startActivity(MyPerfomanceDisbursementsActivity.class, false));
+//        binding.upload.setOnClickListener(v -> startActivity(MyPerfomanceDisbursementsActivity.class, false));
         binding.verification.setOnClickListener(v -> startActivity(MyPerfomanceActivity.class, false));
-   binding.myVisit.setOnClickListener(new View.OnClickListener() {
+
+        binding.myVisit.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,MyActivitiesActivity.class,false);
+           ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,
+                   MyActivitiesActivityNew.class,false);
+
        }
    });
     }

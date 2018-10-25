@@ -3,14 +3,17 @@ package net.maxproit.idlc.feature.salesOfficer;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.app.Dialog;
@@ -32,10 +35,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import static net.maxproit.idlc.util.MyApplication.getContext;
+
 
 public class VisitPlanActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+//    Toolbar toolbarVisitPlan;
+
 
     String VariableID;
     private int hour;
@@ -48,14 +54,22 @@ public class VisitPlanActivity extends AppCompatActivity {
     private VisitPlanDbController dbController;
 
 
-    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerArea, spinnerPurposeOfVisit;
+    static final String PRE_DISBURSEMENT = "Pre- Disbursement";
+    static final String POST_DISBURSEMENT = "Post- Disbursement";
+    static final String INDIVIDUAL = "Individual";
+    static final String DHAKA_NORTH = "Dhaka North";
+    static final String DHAKA_SOUTH = "Dhaka South";
+    static final String NARAYANGONJ = "Narayanganj";
+
+    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerCity,  spinnerPoliceStation, spinnerPurposeOfVisit;
     TextView VlblClientType, lblHeading, VlblMobileNo, VlblProductType, VlblArea, VlblPurpose, VlblVisitDT, VlblRemarks, buttonSave;
     LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
     View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
     EditText txtClientName, txtMobileNo, dtpVisitDT, txtRemarks;
-    String clientName, clientType, mobileNo, productType, area, purposeOfVisit, dateOfvisit, remarks;
+    String clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit, remarks;
 
     List<String> listClientType, listProductType, listArea, listPurpose;
+    ImageView backButton;
 
     Context context = this;
     Global g;
@@ -64,14 +78,23 @@ public class VisitPlanActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener date;
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
 
+//    Context context = this;
+//    EditText editDate;
+//    Calendar myCalendar = Calendar.getInstance();
+//    String dateFormat = "dd.MM.yyyy";
+//    DatePickerDialog.OnDateSetListener date;
+//    SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.BANGLADESH);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_plan);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Visit Plan");
+//        toolbarVisitPlan = (Toolbar) findViewById(R.id.toolbar_visit_plan);
+//        toolbarVisitPlan.setTitle("Visit Plan");
+//        toolbarVisitPlan.setTitleTextColor(getResources().getColor(R.color.white));
+        backButton = findViewById(R.id.btn_back);
+
         g = Global.getInstance();
         dbController=new VisitPlanDbController(VisitPlanActivity.this);
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
@@ -81,7 +104,8 @@ public class VisitPlanActivity extends AppCompatActivity {
 
         spinnerClientType = findViewById(R.id.awe_spinner_visit_plan_client_type);
         spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
-        spinnerArea = findViewById(R.id.awe_spinner_visit_plan_area);
+        spinnerCity = findViewById(R.id.awe_spinner_visit_plan_city);
+        spinnerPoliceStation = findViewById(R.id.awe_spinner_visit_plan_police_station);
         spinnerPurposeOfVisit = findViewById(R.id.awe_spinner_visit_plan_Purpose);
 
         txtClientName = (EditText) findViewById(R.id.input_client_name);
@@ -91,13 +115,16 @@ public class VisitPlanActivity extends AppCompatActivity {
 
         buttonSave = findViewById(R.id.btn_save);
         initArrayListForSpinners();
-        initAdapterForSpinners();
-        initListener();
+        initAdapterForSpinners(context);
+        initListener(context);
 
+
+        // init - set date to current date
         long currentdate = System.currentTimeMillis();
         String dateString = sdf.format(currentdate);
         dtpVisitDT.setText(dateString);
 
+        // set calendar date and update editDate
         date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -111,6 +138,34 @@ public class VisitPlanActivity extends AppCompatActivity {
             }
 
         };
+
+
+//        dtpVisitDT.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//                new DatePickerDialog(context, date, myCalendar
+//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+//                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//            }
+//        });
+//
+
+        //  secClientType=(LinearLayout)findViewById(R.id.secClientType);
+        //lineClientType=(View)findViewById(R.id.lineClientType);
+        // VlblClientType=(TextView) findViewById(R.id.VlblClientType);
+
+
+//        spnClientType=(Spinner) findViewById(R.id.spinner_client);
+
+
+
+
+
+
+
+
         dtpVisitDT.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -126,9 +181,37 @@ public class VisitPlanActivity extends AppCompatActivity {
             }
         });
 
+
+        // secRemarks=(LinearLayout)findViewById(R.id.secRemarks);
+        // lineRemarks=(View)findViewById(R.id.lineRemarks);
+        // VlblRemarks=(TextView) findViewById(R.id.VlblRemarks);
+
+//        final Calendar calendar = Calendar.getInstance();
+//
+//        EditText dateOfVisit= (EditText) findViewById(R.id.datepicker_purpose_of_visit);
+//        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+//
+//                @Override
+//                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//
+//                    calendar.set(Calendar.YEAR, year);
+//                    calendar.set(Calendar.MONTH, monthOfYear);
+//                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+////                    updateLabel();
+//                }
+//        };
+
+//        dateOfVisit.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    new DatePickerDialog(this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+//                }
+//        });
+
     }
 
-    private void initAdapterForSpinners() {
+    private void initAdapterForSpinners(Context context) {
 
         ArrayAdapter<String> adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
         spinnerClientType.setAdapter(adptrClientType);
@@ -136,8 +219,10 @@ public class VisitPlanActivity extends AppCompatActivity {
         ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
         spinnerProductType.setAdapter(productTypeAdapter);
 
-        ArrayAdapter<String> adptrArea = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listArea);
-        spinnerArea.setAdapter(adptrArea);
+        ArrayAdapter<CharSequence> adapterCity = ArrayAdapter.createFromResource(context,
+                R.array.city_array,
+                android.R.layout.simple_spinner_item);
+        spinnerCity.setAdapter(adapterCity, 0);
 
         ArrayAdapter<String> adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
@@ -150,7 +235,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         listPurpose = new ArrayList<String>();
 
 
-        listClientType.add("Individual");
+        listClientType.add(INDIVIDUAL);
         listClientType.add("Developer");
         listClientType.add("Vendor");
         listClientType.add("Corporate House");
@@ -166,8 +251,8 @@ public class VisitPlanActivity extends AppCompatActivity {
         listPurpose.add("Fresh");
         listPurpose.add("Lead Generation");
         listPurpose.add("Relationship Mgt");
-        listPurpose.add("Pre-Disbursement");
-        listPurpose.add("Post Disbursement");
+        listPurpose.add(PRE_DISBURSEMENT);
+        listPurpose.add(POST_DISBURSEMENT);
 
 
     }
@@ -194,6 +279,10 @@ public class VisitPlanActivity extends AppCompatActivity {
             hour = selectedHour;
             minute = selectedMinute;
             EditText tpTime;
+
+
+            //  tpTime.setText(new StringBuilder().append(Global.Right("00"+hour,2)).append(":").append(Global.Right("00"+minute,2)));
+
         }
     };
 
@@ -216,7 +305,21 @@ public class VisitPlanActivity extends AppCompatActivity {
         }
     };
 
-    public void initListener() {
+
+
+
+
+
+
+    public void initListener(Context context) {
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VisitPlanActivity.super.onBackPressed();
+                finish();
+            }
+        });
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,11 +329,11 @@ public class VisitPlanActivity extends AppCompatActivity {
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString();
 
-                int insert=dbController.insertData(clientName, clientType,mobileNo,productType,area,purposeOfVisit,dateOfvisit,remarks);
+                int insert=dbController.insertData(clientName, clientType,mobileNo,productType, city,purposeOfVisit,dateOfvisit,remarks);
                 if (insert>0){
                     Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
-                    Intent dasboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
-                    startActivity(dasboardIntent);
+                    Intent dashboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
+                    startActivity(dashboardIntent);
                     finish();
                 }
                 else {
@@ -245,7 +348,7 @@ public class VisitPlanActivity extends AppCompatActivity {
             public void onItemSelected(int i, String s) {
 
                 clientType = s;
-                if (s.equals("Individual")) {
+                if (s.equals(INDIVIDUAL)) {
                     secMobileNo.setVisibility(View.VISIBLE);
                     secProductType.setVisibility(View.VISIBLE);
 
@@ -266,20 +369,120 @@ public class VisitPlanActivity extends AppCompatActivity {
             }
         });
 
-        spinnerArea.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
-                area = s;
-            }
-        });
+
 
         spinnerPurposeOfVisit.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 purposeOfVisit = s;
+
+                if (s.equals(PRE_DISBURSEMENT)){
+                    throwAlertDialogForCIF();
+
+                }if(s.equals(POST_DISBURSEMENT)){
+                    throwAlertDialogForCIF();
+                }
             }
         });
 
+        spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                city = s;
+
+                if ( s.equals(DHAKA_NORTH)){
+
+                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+                            R.array.dhaka_north_police_station_array,
+                            android.R.layout.simple_spinner_item);
+                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+
+                }
+                if ( s.equals(DHAKA_SOUTH)){
+
+                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+                            R.array.dhaka_south_police_station_array,
+                            android.R.layout.simple_spinner_item);
+                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+
+
+                }
+                if ( s.equals(NARAYANGONJ)){
+
+                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+                            R.array.narayanganj_police_station_array,
+                            android.R.layout.simple_spinner_item);
+                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+
+
+
+                }
+            }
+        });
+
+        spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                policeStation = s;
+            }
+        });
+
+
+
+
+
+
+//        spnClientType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                String selectedItemText = (String) parentView.getSelectedItem().toString();
+//                if(selectedItemText.equals("Individual")){
+//                     secMobileNo.setVisibility(View.VISIBLE);
+//                }else{
+//                    secMobileNo.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                // your code here
+//            }
+//
+//        });
+
+
+    }
+
+
+    private void throwAlertDialogForCIF(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_visit_plan_cif_dialog, null);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(), R.style.Theme_AppCompat);
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        View cifDialog = inflater.inflate(R.layout., null);
+//        builder.setView(cifDialog);
+//        final AlertDialog dialog = builder.create();
+
+        EditText editText = (EditText) dialogView.findViewById(R.id.et_dialog_cif_number);
+        Button cifSubmit = (Button) dialogView.findViewById(R.id.btn_dialog_cif_submit);
+        Button cifCancel = (Button) dialogView.findViewById(R.id.btn_dialog_cif_cancel);
+
+        cifSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogBuilder.dismiss();
+            }
+        });
+
+        cifCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
 }
