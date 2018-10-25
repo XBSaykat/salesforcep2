@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="net.maxproit.idlc.feature.mehedi.MyActivityActivity">
+    tools:context="net.maxproit.salesforce.feature.mehedi.MyActivityActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

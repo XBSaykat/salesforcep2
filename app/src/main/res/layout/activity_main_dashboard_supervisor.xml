@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"

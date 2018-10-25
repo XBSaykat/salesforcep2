@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.newprospect.Address" />
+            type="net.maxproit.salesforce.model.newprospect.Address" />
     </data>
 
     <android.support.constraint.ConstraintLayout

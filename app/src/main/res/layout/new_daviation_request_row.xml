@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.deviation.post.DeviationDetail" />
+            type="net.maxproit.salesforce.model.deviation.post.DeviationDetail" />
     </data>
 
     <android.support.constraint.ConstraintLayout

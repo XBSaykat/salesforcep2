@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.mylead.Data" />
+            type="net.maxproit.salesforce.model.mylead.Data" />
     </data>
 
     <android.support.constraint.ConstraintLayout

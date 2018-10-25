@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.deviation.getlist.Daviation" />
+            type="net.maxproit.salesforce.model.deviation.getlist.Daviation" />
     </data>
 
     <android.support.constraint.ConstraintLayout
