@@ -4,15 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.idlc.AppConstant;
 import net.maxproit.idlc.R;
+import net.maxproit.idlc.listener.OnItemClickListener;
+import net.maxproit.idlc.model.VisitPlan;
+import net.maxproit.idlc.model.login.LocalLogin;
+import net.maxproit.idlc.sqlite.VisitPlanDbController;
+import net.maxproit.idlc.util.SharedPreferencesEnum;
+
+import java.util.ArrayList;
 
 
 /**
@@ -27,10 +39,17 @@ public class MyActivityListFragment extends Fragment {
 
 
 
-    private AwesomeSpinner spinnerBranchName, spinnerProfession;
-    public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession = null, branchName = null;
-    private String[] branchArray={"Mirpur","SegunBagicha","Polton","Dhanmondi","Azimpur"};
+
+    MyVisitPlanListAdapter myLeadAdapter;
+    VisitPlanDbController myDbController;
+    private ImageView backButton, addButton;
+    private SearchView searchView;
+    private RecyclerView rvMyActivity;
+    LocalLogin localLogin;
+    String username;
+    ArrayList<VisitPlan> leadList, filterList;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -80,78 +99,119 @@ public class MyActivityListFragment extends Fragment {
 
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_my_activity_list, container, false);
+
+        leadList = new ArrayList<>();
+        filterList = new ArrayList<>();
+        myDbController = new VisitPlanDbController(getContext());
+        username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
+
+        if (!leadList.isEmpty()) {
+            leadList.clear();
+        }
+        leadList.addAll(myDbController.getAllData());
+
+//        searchView = findViewById(R.id.search_view);
+        rvMyActivity = rootView.findViewById(R.id.rv_my_activity);
+
+//        backButton = findViewById(R.id.btn_back);
+//        addButton = findViewById(R.id.btn_add);
+//        rvMyLead = findViewById(R.id.rvMyLead);
+
+
+
+
+
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                filterList = getFilterData(leadList, query);
+//                myLeadAdapter.setFilter(filterList);
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                // If remove data on test dataBase it Will be ok
+//                // myLeadAdapter.getFilter().filter(newText);
+//                filterList = getFilterData(leadList, newText);
+//                myLeadAdapter.setFilter(filterList);
+//                return true;
+//            }
+//        });
+
+
+        myLeadAdapter = new MyVisitPlanListAdapter(getContext(), leadList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        rvMyActivity.setLayoutManager(mLayoutManager);
+        rvMyActivity.setAdapter(myLeadAdapter);
+        myLeadAdapter.notifyDataSetChanged();
+
 //        initView(rootView);
 //        initListener();
         // Inflate the layout for this fragment
         return rootView;
+
+
+
+
     }
+
+    private ArrayList<VisitPlan> getFilterData(ArrayList<VisitPlan> models, CharSequence searchKey) {
+        searchKey = searchKey.toString().toLowerCase();
+
+        final ArrayList<VisitPlan> filteredModelList = new ArrayList<>();
+        for (VisitPlan model : models) {
+            final String uName = model.getArea().toLowerCase();
+            final String phone = model.getClientType().toLowerCase();
+
+            if (uName.contains(searchKey) || phone.contains(searchKey)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
+    }
+
+//    private void loadFilterData() {
+//        if (!filterList.isEmpty()) {
+//            filterList.clear();
+//        }
+//        filterList.addAll(myLeadAdapter.getDataList());
+//    }
+
 
 
 
     private void initListener() {
-        spinnerBranchName.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+        myLeadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemSelected(int i, String s) {
-                branchName = s;
+            public void itemClickListener(View view, int position) {
+//                loadFilterData();
+                switch (view.getId()) {
+                    case R.id.btnApproved:
+                        //insert data into prospect
+//                          myDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
+//                         removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
+
+                        break;
+                    case R.id.btnReject:
+//                         myLeadAdapter.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
+//                        removeItemFromList(position,AppConstant.LEAD_STATUS_REJECT);
+                        break;
+                }
             }
         });
 
-        spinnerProfession.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
-                profession = s;
-            }
-        });
-
-
-//        spinnerProfession.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                profession= String.valueOf(position);
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
-
-//        spinnerBranchName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                branchName=branchArray[position];
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
     }
 
     private void initView(View rootView) {
-        spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
-        spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
-        etUserName = rootView.findViewById(R.id.et_lead_user_name);
-        etUserOrganization = rootView.findViewById(R.id.et_lead_organization);
-        etDesignattion = rootView.findViewById(R.id.et_lead_designation);
-        etPhone = rootView.findViewById(R.id.et_lead_phone);
-        etAddress = rootView.findViewById(R.id.et_lead_address);
+
+
+
         initSpinnerAdapter();
      }
 
     private void initSpinnerAdapter() {
-        ArrayAdapter<CharSequence> branchAdapter=ArrayAdapter.createFromResource(getContext(),
-                R.array.branch_name_array,
-                android.R.layout.simple_spinner_item);
-        spinnerBranchName.setAdapter(branchAdapter, 0);
 
-        ArrayAdapter<CharSequence> professionAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.profession_array,
-                android.R.layout.simple_spinner_item);
-        spinnerProfession.setAdapter(professionAdapter, 0);
     }
 
 

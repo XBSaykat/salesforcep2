@@ -13,12 +13,12 @@
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:paddingLeft="@dimen/size_8dp"
+            android:paddingRight="@dimen/size_8dp">
 
 
             <TextView
-                android:id="@+id/emtyHeader"
+                android:id="@+id/tv_empty_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -28,12 +28,10 @@
 
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/my_activities_previous"
+                android:id="@+id/rv_my_activity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/toolbar"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true" />
+                 />
 
             </LinearLayout>
 

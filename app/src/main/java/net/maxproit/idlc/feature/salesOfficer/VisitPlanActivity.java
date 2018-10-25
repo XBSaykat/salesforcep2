@@ -35,6 +35,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import static net.maxproit.idlc.util.MyApplication.getContext;
+
 
 public class VisitPlanActivity extends AppCompatActivity {
 
@@ -55,13 +57,16 @@ public class VisitPlanActivity extends AppCompatActivity {
     static final String PRE_DISBURSEMENT = "Pre- Disbursement";
     static final String POST_DISBURSEMENT = "Post- Disbursement";
     static final String INDIVIDUAL = "Individual";
+    static final String DHAKA_NORTH = "Dhaka North";
+    static final String DHAKA_SOUTH = "Dhaka South";
+    static final String NARAYANGONJ = "Narayanganj";
 
     private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerCity,  spinnerPoliceStation, spinnerPurposeOfVisit;
     TextView VlblClientType, lblHeading, VlblMobileNo, VlblProductType, VlblArea, VlblPurpose, VlblVisitDT, VlblRemarks, buttonSave;
     LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
     View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
     EditText txtClientName, txtMobileNo, dtpVisitDT, txtRemarks;
-    String clientName, clientType, mobileNo, productType, city, purposeOfVisit, dateOfvisit, remarks;
+    String clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit, remarks;
 
     List<String> listClientType, listProductType, listArea, listPurpose;
     ImageView backButton;
@@ -110,8 +115,8 @@ public class VisitPlanActivity extends AppCompatActivity {
 
         buttonSave = findViewById(R.id.btn_save);
         initArrayListForSpinners();
-        initAdapterForSpinners();
-        initListener();
+        initAdapterForSpinners(context);
+        initListener(context);
 
 
         // init - set date to current date
@@ -206,7 +211,7 @@ public class VisitPlanActivity extends AppCompatActivity {
 
     }
 
-    private void initAdapterForSpinners() {
+    private void initAdapterForSpinners(Context context) {
 
         ArrayAdapter<String> adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
         spinnerClientType.setAdapter(adptrClientType);
@@ -214,8 +219,10 @@ public class VisitPlanActivity extends AppCompatActivity {
         ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
         spinnerProductType.setAdapter(productTypeAdapter);
 
-        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listArea);
-        spinnerCity.setAdapter(adapterCity);
+        ArrayAdapter<CharSequence> adapterCity = ArrayAdapter.createFromResource(context,
+                R.array.city_array,
+                android.R.layout.simple_spinner_item);
+        spinnerCity.setAdapter(adapterCity, 0);
 
         ArrayAdapter<String> adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
@@ -304,7 +311,7 @@ public class VisitPlanActivity extends AppCompatActivity {
 
 
 
-    public void initListener() {
+    public void initListener(Context context) {
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -335,6 +342,7 @@ public class VisitPlanActivity extends AppCompatActivity {
                 }
             }
         });
+
         spinnerClientType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
@@ -382,16 +390,45 @@ public class VisitPlanActivity extends AppCompatActivity {
             public void onItemSelected(int i, String s) {
                 city = s;
 
-//                if ()
+                if ( s.equals(DHAKA_NORTH)){
+
+                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+                            R.array.dhaka_north_police_station_array,
+                            android.R.layout.simple_spinner_item);
+                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+
+                }
+                if ( s.equals(DHAKA_SOUTH)){
+
+                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+                            R.array.dhaka_south_police_station_array,
+                            android.R.layout.simple_spinner_item);
+                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+
+
+                }
+                if ( s.equals(NARAYANGONJ)){
+
+                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+                            R.array.narayanganj_police_station_array,
+                            android.R.layout.simple_spinner_item);
+                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+
+
+
+                }
             }
         });
 
         spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-
+                policeStation = s;
             }
         });
+
+
+
 
 
 

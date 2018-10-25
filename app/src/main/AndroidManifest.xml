@@ -37,8 +37,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
         <activity
@@ -131,7 +129,7 @@
         <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
         <activity android:name=".feature.masum.MyActivitiesActivity" />
         <activity android:name=".feature.masum.MyActivitiesActivityNew" />
-
+        <activity android:name=".ActivityDetailsActivity"></activity>
     </application>
 
 </manifest>
