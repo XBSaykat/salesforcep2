@@ -37,6 +37,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
         <activity
@@ -53,11 +55,11 @@
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".feature.salesOfficer.mylead.MyLeadActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".feature.salesOfficer.myProspect.MyProspectActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity"></activity>
+        <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity" />
         <activity android:name=".feature.supervisor.SupervisorVisitsActivity" />
         <activity android:name=".feature.supervisor.SupervisorSanctionActivity" />
         <activity android:name=".feature.supervisor.SupervisorDisbursementActivity" />
@@ -125,10 +127,11 @@
         <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
         <activity android:name=".feature.salesOfficer.VisitPlanActivity" />
-        <activity android:name=".LeadStageActivity"></activity>
+        <activity android:name=".LeadStageActivity" />
         <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
-        <activity android:name=".feature.masum.MyActivitiesActivity"></activity>
-        <activity android:name=".feature.masum.MyActivitiesActivityNew"></activity>
+        <activity android:name=".feature.masum.MyActivitiesActivity" />
+        <activity android:name=".feature.masum.MyActivitiesActivityNew" />
+
     </application>
 
 </manifest>

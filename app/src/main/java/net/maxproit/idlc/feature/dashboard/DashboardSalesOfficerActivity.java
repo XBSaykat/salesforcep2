@@ -54,7 +54,8 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         binding.myVisit.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,MyActivitiesActivity.class,false);
+           ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,
+                   MyActivitiesActivityNew.class,false);
 
        }
    });

@@ -361,12 +361,7 @@ public class VisitPlanActivity extends AppCompatActivity {
             }
         });
 
-        spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
-                city = s;
-            }
-        });
+
 
         spinnerPurposeOfVisit.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -381,6 +376,25 @@ public class VisitPlanActivity extends AppCompatActivity {
                 }
             }
         });
+
+        spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                city = s;
+
+//                if ()
+            }
+        });
+
+        spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+
+            }
+        });
+
+
+
 //        spnClientType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -404,31 +418,34 @@ public class VisitPlanActivity extends AppCompatActivity {
 
 
     private void throwAlertDialogForCIF(){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-        final AlertDialog dialog = builder.create();
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
-        View cifDialog = inflater.inflate(R.layout.activity_cib_dialog, null);
+        View dialogView = inflater.inflate(R.layout.activity_visit_plan_cif_dialog, null);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(), R.style.Theme_AppCompat);
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        View cifDialog = inflater.inflate(R.layout., null);
+//        builder.setView(cifDialog);
+//        final AlertDialog dialog = builder.create();
 
-        final EditText editText = (EditText) cifDialog.findViewById(R.id.et_dialog_cif_number);
-        Button cifSubmit = (Button) cifDialog.findViewById(R.id.btn_dialog_cif_submit);
-        Button cifCancel = (Button) cifDialog.findViewById(R.id.btn_dialog_cif_cancel);
+        EditText editText = (EditText) dialogView.findViewById(R.id.et_dialog_cif_number);
+        Button cifSubmit = (Button) dialogView.findViewById(R.id.btn_dialog_cif_submit);
+        Button cifCancel = (Button) dialogView.findViewById(R.id.btn_dialog_cif_cancel);
 
         cifSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialogBuilder.dismiss();
             }
         });
 
         cifCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialogBuilder.dismiss();
             }
         });
-        dialog.setView(cifDialog);
-        dialog.show();
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
 }

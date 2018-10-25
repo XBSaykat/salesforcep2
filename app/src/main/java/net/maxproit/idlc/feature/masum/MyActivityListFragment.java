@@ -18,12 +18,12 @@ import net.maxproit.idlc.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PreviousActivitiesFragment.OnFragmentInteractionListener} interface
+ * {@link MyActivityListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PreviousActivitiesFragment#newInstance} factory method to
+ * Use the {@link MyActivityListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PreviousActivitiesFragment extends Fragment {
+public class MyActivityListFragment extends Fragment {
 
 
 
@@ -43,7 +43,7 @@ public class PreviousActivitiesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PreviousActivitiesFragment() {
+    public MyActivityListFragment() {
         // Required empty public constructor
     }
 
@@ -56,8 +56,8 @@ public class PreviousActivitiesFragment extends Fragment {
      * @return A new instance of fragment LeadStageBasicInformationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PreviousActivitiesFragment newInstance(String param1, String param2) {
-        PreviousActivitiesFragment fragment = new PreviousActivitiesFragment();
+    public static MyActivityListFragment newInstance(String param1, String param2) {
+        MyActivityListFragment fragment = new MyActivityListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,9 +79,9 @@ public class PreviousActivitiesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = null;
-        rootView = inflater.inflate(R.layout.fragment_my_activities_previous, container, false);
-        initView(rootView);
-        initListener();
+        rootView = inflater.inflate(R.layout.fragment_my_activity_list, container, false);
+//        initView(rootView);
+//        initListener();
         // Inflate the layout for this fragment
         return rootView;
     }

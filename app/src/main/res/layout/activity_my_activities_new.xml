@@ -12,14 +12,16 @@
         tools:context=".feature.salesOfficer.mylead.MyLeadActivity">
 
 
+
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
+
             <LinearLayout
-                android:id="@+id/toolbar"
+                android:id="@+id/linear_layout_my_activity_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_50dp"
                 android:background="@color/colorPrimary"
@@ -44,8 +46,9 @@
                     android:focusable="false"
                     app:divider="@color/green"
                     app:iconifiedByDefault="false"
-                    app:queryHint="Search Lead"
+                    app:queryHint="Search Activity"
                     android:shadowColor="@color/white"
+
                     app:searchIcon="@null" />
 
                 <ImageView
@@ -55,25 +58,31 @@
                     android:layout_weight="1"
                     android:padding="@dimen/size_4dp"
                     android:src="@drawable/ic_add" />
+
+
             </LinearLayout>
+
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:id="@+id/tb_activity_toolbar"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--android:background="?attr/colorPrimary"-->
+                <!--app:layout_scrollFlags="scroll|enterAlways"-->
+                <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+
             <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
+                android:id="@+id/tab_layout_my_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabGravity="fill"
                 app:tabMode="scrollable"/>
         </android.support.design.widget.AppBarLayout>
 
-
-
-
-
         <android.support.v4.view.ViewPager
-            android:id="@+id/my_activities_viewpager"
+            android:id="@+id/vp_my_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
-
 
     </RelativeLayout>
 </layout>

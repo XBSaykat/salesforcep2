@@ -48,7 +48,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        btnSave=findViewById(R.id.btnSave);
+        btnSave = findViewById(R.id.btnSave);
         myLeadDbController = new MyLeadDbController(LeadStageActivity.this);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -93,13 +93,10 @@ public class LeadStageActivity extends AppCompatActivity {
 //                        )
 
 
-                if( LeadStageLoanDetailFragment.ref > 0 &&
-
-                        LeadStageBasicInformationFragment.branchName != null &&
-
-                        LeadStageVisitRecordFragment.followUp != null &&
-                        LeadStageVisitRecordFragment.visitDate != null)
-                {
+                if (LeadStageLoanDetailFragment.ref > 0 &&
+                        LeadStageBasicInformationFragment.branchName != null &
+                                LeadStageVisitRecordFragment.followUp != null &&
+                        LeadStageVisitRecordFragment.visitDate != null) {
 
                     String BranchName = LeadStageBasicInformationFragment.branchName; //
                     String profession = LeadStageBasicInformationFragment.profession; //
@@ -108,39 +105,37 @@ public class LeadStageActivity extends AppCompatActivity {
                     String designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
                     String phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
                     String address = LeadStageBasicInformationFragment.etAddress.getText().toString();
-                    String loanAmount=LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
-                    String interest=LeadStageLoanDetailFragment.etInterest.getText().toString();
-                    String fee=LeadStageLoanDetailFragment.etFee.getText().toString();
-                    String refArray[]=getResources().getStringArray(R.array.source_of_reference_array);
-                    String subCatArray[]=getResources().getStringArray(R.array.product_type_array);
-                    String productTypeArray[]=getResources().getStringArray(R.array.product_type_array);
+                    String loanAmount = LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
+                    String interest = LeadStageLoanDetailFragment.etInterest.getText().toString();
+                    String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
+                    String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
+                    String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
+                    String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
 
-                    String ref=refArray[LeadStageLoanDetailFragment.ref];
+                    String ref = refArray[LeadStageLoanDetailFragment.ref];
 
-                    String productType=productTypeArray[LeadStageLoanDetailFragment.productType];
+                    String productType = productTypeArray[LeadStageLoanDetailFragment.productType];
 
-                    String subCat=subCatArray[LeadStageLoanDetailFragment.subCategory];
+                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
 
-                    String visitDate=LeadStageVisitRecordFragment.visitDate; //
-                    String remark=LeadStageVisitRecordFragment.remark;
-                    String followUp=LeadStageVisitRecordFragment.followUp;
+                    String visitDate = LeadStageVisitRecordFragment.visitDate; //
+                    String remark = LeadStageVisitRecordFragment.remark;
+                    String followUp = LeadStageVisitRecordFragment.followUp;
 
                   /*  MyNewLead myNewLead=new MyNewLead(BranchName,name,profession,organization,
                             designation,phone,address,ref,productType,subCat,
                             loanAmount,interest,fee,visitDate,followUp,remark);*/
 
-                   int insert= myLeadDbController.insertLeadData(BranchName,name,profession,organization,
-                            designation,phone,address,ref,productType,subCat,
-                            loanAmount,interest,fee,visitDate,followUp,remark);
-                    if (insert>0){
+                    int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, visitDate, followUp, remark);
+                    if (insert > 0) {
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else{
+                } else {
                     Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
                 }
 

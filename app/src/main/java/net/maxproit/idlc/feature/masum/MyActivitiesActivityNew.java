@@ -5,10 +5,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import net.maxproit.idlc.R;
 import net.maxproit.idlc.common.base.BaseActivity;
+import net.maxproit.idlc.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +22,16 @@ import java.util.List;
 public class MyActivitiesActivityNew extends BaseActivity {
 
 
-    private Toolbar toolbar;
-        private TabLayout tabLayout;
+    private android.support.v7.widget.Toolbar toolbar;
+    private TabLayout tabLayout;
     private ViewPager viewPager;
+    private LinearLayout linearLayoutToolbar;
+    private TextView btnSave;
+    private MyLeadDbController myLeadDbController;
+    private ImageView backButton, addButton;
+
+
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_my_activities_new;
@@ -27,11 +40,40 @@ public class MyActivitiesActivityNew extends BaseActivity {
     @Override
     protected void initComponents() {
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
+//        setSupportActionBar(toolbar);
+//
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
-        viewPager = (ViewPager) findViewById(R.id.my_activities_viewpager);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout_my_activity);
         tabLayout.setupWithViewPager(viewPager);
+
+
+        backButton = findViewById(R.id.btn_back);
+        addButton = findViewById(R.id.btn_add);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyActivitiesActivityNew.super.onBackPressed();
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "add button pressed", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+//        tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        setupViewPager(viewPager);
+//        viewPager = (ViewPager) findViewById(R.id.my_activities_viewpager);
+//        tabLayout.setupWithViewPager(viewPager);
 
 
 
@@ -75,9 +117,9 @@ public class MyActivitiesActivityNew extends BaseActivity {
 //
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CurrentActivitiesFragment(), "Current");
-        adapter.addFragment(new PreviousActivitiesFragment(), "Previous");
-        adapter.addFragment(new UpcomingActivitiesFragment(), "Upcoming");
+        adapter.addFragment(new MyActivityListFragment(), "Current Activity");
+        adapter.addFragment(new MyActivityListFragment(), "Previous Activity");
+        adapter.addFragment(new MyActivityListFragment(), "Upcoming Activity");
         viewPager.setAdapter(adapter);
     }
 //
