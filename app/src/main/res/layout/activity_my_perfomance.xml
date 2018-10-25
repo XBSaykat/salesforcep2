@@ -83,7 +83,7 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
                             android:lines="2"
-                            android:text="My Pending Plans"
+                            android:text="My Activity"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_20sp" />
 
@@ -101,7 +101,7 @@
                                    android:layout_width="match_parent"
                                    android:layout_height="wrap_content"
                                    android:gravity="center"
-                                   android:text="No. of Lead"
+                                   android:text="No. of Activity"
                                    android:textColor="@color/greyWhite"
                                    android:textSize="@dimen/text_size_12sp" />
                            <net.maxproit.idlc.custom.textView.RobotoRegularTextView
@@ -139,7 +139,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:lines="2"
-                            android:text="My Pending Activities"
+                            android:text="My Lead"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_20sp" />
                         <LinearLayout
@@ -218,7 +218,7 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
                             android:lines="2"
-                            android:text="AI Rule Engine Passed Prospects on Hold"
+                            android:text="My Prospect"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_20sp" />
                         <LinearLayout
@@ -235,7 +235,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="No. of Lead"
+                                    android:text="No. of Prospect"
                                     android:textColor="@color/greyWhite"
                                     android:textSize="@dimen/text_size_12sp" />
                                 <net.maxproit.idlc.custom.textView.RobotoRegularTextView
@@ -277,9 +277,9 @@
                     <LinearLayout
                         android:id="@+id/Disbursement"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/size_8dp"
+                        android:layout_weight="1"
                         android:background="@color/colorPrimary"
                         android:elevation="@dimen/size_4dp"
                         android:orientation="vertical"
@@ -287,11 +287,11 @@
 
                         <net.maxproit.idlc.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
                             android:lines="2"
-                            android:text="Files submitted at CRM"
+                            android:text="Performance Summary"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_20sp" />
 
@@ -299,10 +299,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <net.maxproit.idlc.custom.textView.RobotoRegularTextView
@@ -312,34 +313,35 @@
                                     android:text="No. of Lead"
                                     android:textColor="@color/greyWhite"
                                     android:textSize="@dimen/text_size_12sp" />
+
                                 <net.maxproit.idlc.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:textSize="@dimen/text_size_12sp"
+                                    android:text="@{``+model.noOfDisbursement}"
                                     android:textColor="@color/greyWhite"
-                                    android:text="@{``+model.noOfDisbursement}"/>
+                                    android:textSize="@dimen/text_size_12sp" />
                             </LinearLayout>
 
                             <!--<LinearLayout-->
-                                <!--android:layout_width="0dp"-->
-                                <!--android:layout_weight="1"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:orientation="vertical">-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:orientation="vertical">-->
 
-                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
-                                    <!--android:layout_width="match_parent"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:gravity="center"-->
-                                    <!--android:textColor="@color/greyWhite"-->
-                                    <!--android:textSize="@dimen/text_size_12sp" />-->
-                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
-                                    <!--android:layout_width="match_parent"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:gravity="center"-->
-                                    <!--android:textSize="@dimen/text_size_12sp"-->
-                                    <!--android:textColor="@color/greyWhite"-->
-                                    <!--android:text="@{``+model.disbursementAmount}"/>-->
+                            <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:textColor="@color/greyWhite"-->
+                            <!--android:textSize="@dimen/text_size_12sp" />-->
+                            <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:textSize="@dimen/text_size_12sp"-->
+                            <!--android:textColor="@color/greyWhite"-->
+                            <!--android:text="@{``+model.disbursementAmount}"/>-->
                             <!--</LinearLayout>-->
 
                         </LinearLayout>
