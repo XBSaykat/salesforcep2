@@ -110,13 +110,15 @@ public class LeadStageActivity extends AppCompatActivity {
                     String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
                     String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
                     String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
-                    String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
+//                    String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
 
                     String ref = refArray[LeadStageLoanDetailFragment.ref];
 
-                    String productType = productTypeArray[LeadStageLoanDetailFragment.productType];
+//                    String productType = productTypeArray[LeadStageLoanDetailFragment.productType];
+                    String productType = LeadStageLoanDetailFragment.productType;
 
-                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
+//                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
+                    String subCat = LeadStageLoanDetailFragment.subCategory;
 
                     String visitDate = LeadStageVisitRecordFragment.visitDate; //
                     String remark = LeadStageVisitRecordFragment.remark;

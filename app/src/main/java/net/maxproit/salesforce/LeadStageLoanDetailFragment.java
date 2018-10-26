@@ -25,7 +25,17 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
     private AwesomeSpinner spinnerRef,spinnerProductType,spinnerSubCategory;
     public static EditText etLoadAmount,etFee,etInterest;
-    public static int ref=0,subCategory=0,productType=0;
+    public static int ref=0;
+    public static String productType = null;
+    public static String subCategory = null;
+    public static final String HOME_LOAN = "Home Loan";
+    public static final String CAR_LOAN = "Car Loan";
+    public static final String PERSONAL_LOAN = "Personal Loan";
+
+
+//    <item>Home Loan</item>
+//    <item>Car Loan</item>
+//    <item>Personal Loan</item>
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,13 +84,34 @@ public class LeadStageLoanDetailFragment extends Fragment {
         spinnerProductType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                productType = i;
+//                productType = i;
+                productType = s;
+
+                if(s.equals(HOME_LOAN)){
+                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
+                            R.array.hl_array, android.R.layout.simple_spinner_item);
+                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+
+                }
+                if(s.equals(CAR_LOAN)){
+                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
+                            R.array.cl_array, android.R.layout.simple_spinner_item);
+                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+
+                }
+                if(s.equals(PERSONAL_LOAN)){
+                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
+                            R.array.pl_array, android.R.layout.simple_spinner_item);
+                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+
+                }
+
             }
         });
         spinnerSubCategory.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                subCategory = i;
+                subCategory = s;
             }
         });
 //        spinnerRef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -136,11 +167,11 @@ public class LeadStageLoanDetailFragment extends Fragment {
         ArrayAdapter<CharSequence> refAdapter = ArrayAdapter.createFromResource(getContext(), R.array.source_of_reference_array, android.R.layout.simple_spinner_item);
         spinnerRef.setAdapter(refAdapter, 0);
 
-        ArrayAdapter<CharSequence> productTypeAdapter = ArrayAdapter.createFromResource(getContext(), R.array.product_type_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> productTypeAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.product_categories_array, android.R.layout.simple_spinner_item);
         spinnerProductType.setAdapter(productTypeAdapter, 0);
 
-        ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(), R.array.product_categories_array, android.R.layout.simple_spinner_item);
-        spinnerSubCategory.setAdapter(productSubAdapter, 0);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

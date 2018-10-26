@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.listener.OnItemClickListener;
@@ -37,6 +38,7 @@ public class MyActivityListFragment extends Fragment {
 
     MyVisitPlanListAdapter myLeadAdapter;
     VisitPlanDbController myDbController;
+//    MyLeadDbController myDbController;
     private ImageView backButton, addButton;
     private SearchView searchView;
     private RecyclerView rvMyActivity;
@@ -142,7 +144,7 @@ public class MyActivityListFragment extends Fragment {
         myLeadAdapter.notifyDataSetChanged();
 
 //        initView(rootView);
-//        initListener();
+        initListener();
         // Inflate the layout for this fragment
         return rootView;
 
@@ -177,18 +179,23 @@ public class MyActivityListFragment extends Fragment {
 
 
     private void initListener() {
+
+
+
         myLeadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
 //                loadFilterData();
                 switch (view.getId()) {
                     case R.id.btnApproved:
+                        Toast.makeText(getActivity(), "Approved", Toast.LENGTH_SHORT).show();
                         //insert data into prospect
 //                          myDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
 //                         removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
 
                         break;
                     case R.id.btnReject:
+                        Toast.makeText(getActivity(), "Rejected", Toast.LENGTH_SHORT).show();
 //                         myLeadAdapter.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
 //                        removeItemFromList(position,AppConstant.LEAD_STATUS_REJECT);
                         break;
@@ -197,17 +204,38 @@ public class MyActivityListFragment extends Fragment {
         });
 
     }
+//    private void removeItemFromList(int position,String status) {
+//        for (int i = 0; i < leadList.size(); i++) {
+//            if (leadList.get(i).getId() == filterList.get(position).getId()) {
+//                leadList.get(i).setStatus(status);
+//                leadList.remove(i);
+//                myLeadAdapter.notifyItemRemoved(position);
+//                break;
+//
+//            }
+//        }
+//    }
+//
+//    private void changeItemStatus(int position,String status) {
+//        for (int i = 0; i < leadList.size(); i++) {
+//            if (leadList.get(i).getId() == filterList.get(position).getId()) {
+//                leadList.get(i).setStatus(status);
+//                myLeadAdapter.notifyDataSetChanged();
+//                break;
+//
+//            }
+//        }
+//    }
+
 
     private void initView(View rootView) {
 
 
 
-        initSpinnerAdapter();
+
      }
 
-    private void initSpinnerAdapter() {
 
-    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

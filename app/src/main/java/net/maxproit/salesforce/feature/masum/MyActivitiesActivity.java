@@ -149,8 +149,8 @@ public class MyActivitiesActivity extends BaseActivity {
                 switch (view.getId()) {
                     case R.id.btnApproved:
                         //insert data into prospect
-                        //  myDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
-                        // removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
+//                          myDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
+//                         removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
 
                         break;
                     case R.id.btnReject:

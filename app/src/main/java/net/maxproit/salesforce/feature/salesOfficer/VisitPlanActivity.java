@@ -1,13 +1,16 @@
 package net.maxproit.salesforce.feature.salesOfficer;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,11 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.widget.TimePicker;
 import android.widget.Toast;
-//import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+//import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 
 public class VisitPlanActivity extends AppCompatActivity {
@@ -160,24 +162,32 @@ public class VisitPlanActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-        dtpVisitDT.setOnTouchListener(new View.OnTouchListener() {
+        dtpVisitDT.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (dtpVisitDT.getRight() - dtpVisitDT.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        VariableID = "btnVisitDT";
-                        showDialog(DATE_DIALOG);
-                        return true;
-                    }
-                }
-                return false;
+            public void onClick(View v) {
+
+                datePickerDialog(context);
+
+
             }
         });
+
+
+
+//        dtpVisitDT.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                final int DRAWABLE_RIGHT = 2;
+//                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    if (event.getRawX() >= (dtpVisitDT.getRight() - dtpVisitDT.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                        VariableID = "btnVisitDT";
+//                        showDialog(DATE_DIALOG);
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
 
         // secRemarks=(LinearLayout)findViewById(R.id.secRemarks);
@@ -206,6 +216,33 @@ public class VisitPlanActivity extends AppCompatActivity {
 //                    new DatePickerDialog(this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
 //                }
 //        });
+
+    }
+
+    public void datePickerDialog(Context context){
+
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month += 1;
+                String selectedDate = (dayOfMonth +"."+ month +"."+ year);
+                dtpVisitDT.getText().clear();
+                dtpVisitDT.setText(selectedDate);
+                dateOfvisit = dtpVisitDT.getText().toString();
+            }
+        };
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(context,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                listener,
+                year, month, day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        dialog.show();
 
     }
 

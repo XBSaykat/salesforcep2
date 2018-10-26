@@ -1,5 +1,8 @@
 package net.maxproit.salesforce.feature.masum;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,8 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import net.maxproit.salesforce.LeadStageActivity;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.sqlite.MyLeadDbController;
@@ -63,9 +66,27 @@ public class MyActivitiesActivityNew extends BaseActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "add button pressed", Toast.LENGTH_LONG).show();
+                AlertDialog dialog = new AlertDialog.Builder(MyActivitiesActivityNew.this).create();
+                dialog.setTitle("Create new Lead?");
+                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(MyActivitiesActivityNew.this, LeadStageActivity.class));
+                        finish();
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+
             }
         });
+
 
 
 //        tabLayout = (TabLayout) findViewById(R.id.tabs);

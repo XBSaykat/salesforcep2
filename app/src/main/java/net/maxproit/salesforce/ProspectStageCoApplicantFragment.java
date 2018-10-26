@@ -65,6 +65,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, container, false);
+//        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
