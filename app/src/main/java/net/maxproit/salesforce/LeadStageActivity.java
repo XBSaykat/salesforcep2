@@ -40,6 +40,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Create Lead");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

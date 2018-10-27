@@ -1,16 +1,34 @@
 package net.maxproit.salesforce;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
+
+import net.maxproit.salesforce.util.NumberToWordsConverter;
+
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 public class LeadStageLoanDetailFragment extends Fragment {
@@ -18,6 +36,11 @@ public class LeadStageLoanDetailFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    EditText edittext;
+    Calendar myCalendar = Calendar.getInstance();
+
+    TextView tvTentativeNumberToWord;
 
     //TODO: Rename and change types of parameters
     private String mParam1;
@@ -160,7 +183,83 @@ public class LeadStageLoanDetailFragment extends Fragment {
         etInterest=rootView.findViewById(R.id.et_interest);
         etFee=rootView.findViewById(R.id.et_fee);
 
+
+        tvTentativeNumberToWord = (TextView) rootView.findViewById(R.id.tv_tentative_number_to_word);
+        if(tvTentativeNumberToWord != null){
+            tvTentativeNumberToWord.setText("");
+        }
+
+
+        edittext= (EditText) rootView.findViewById(R.id.et_disbursement_date);
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        edittext.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(getContext(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
+        etLoadAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                etLoadAmount.removeTextChangedListener(this);
+                try{
+
+                    String originalTentativeLoanAmount = editable.toString();
+                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
+                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
+
+                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
+                    formatter.applyPattern("#,###,###,###");
+                    String formattedString = formatter.format(longVal);
+
+                    etLoadAmount.setText(formattedString);
+                    etLoadAmount.setSelection(etLoadAmount.getText().length());
+                    tvTentativeNumberToWord.setText(formattedString.isEmpty()? "" : NumberToWords.convert(longVal));
+                }catch (NumberFormatException nfe){
+                    nfe.printStackTrace();
+                }
+                etLoadAmount.addTextChangedListener(this);
+            }
+        });
+
         initSpinnerAdapter();
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd-mm-yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        edittext.setText(sdf.format(myCalendar.getTime()));
     }
 
     private void initSpinnerAdapter() {

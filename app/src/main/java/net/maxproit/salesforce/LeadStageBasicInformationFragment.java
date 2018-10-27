@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -22,7 +27,6 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
  * create an instance of this fragment.
  */
 public class LeadStageBasicInformationFragment extends Fragment {
-
 
 
     private AwesomeSpinner spinnerBranchName, spinnerProfession;
@@ -137,6 +141,34 @@ public class LeadStageBasicInformationFragment extends Fragment {
         etDesignattion = rootView.findViewById(R.id.et_lead_designation);
         etPhone = rootView.findViewById(R.id.et_lead_phone);
         etAddress = rootView.findViewById(R.id.et_lead_address);
+
+        etPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(mobileNo);
+                if(!mobileNo.isEmpty() && matcher.matches()){
+
+                }else{
+                    etPhone.setError("You entered invalid mobile no.");
+                }
+
+
+//                Toast.makeText(getContext(), charSequence.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         initSpinnerAdapter();
      }
 

@@ -133,6 +133,11 @@
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_tentative_number_to_word"
+                    android:textColor="@color/red"/>
             </LinearLayout>
 
             <LinearLayout
@@ -146,24 +151,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Offered Rate of Interest" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_interest"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                            <EditText
+                                android:id="@+id/et_interest"
+                                android:layout_width="258dp"
+                                android:layout_height="wrap_content"
+                                android:focusable="true"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textSize="@dimen/text_size_16sp" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="%"/>
+                        </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="?attr/actionBarSize"
 
                 android:orientation="vertical">
 
@@ -182,9 +196,36 @@
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:text=""
+                    android:textSize="@dimen/text_size_16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?attr/actionBarSize"
+
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Disbursement Date" />
+
+
+                <EditText
+                    android:id="@+id/et_disbursement_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text=""
                     android:textSize="@dimen/text_size_16sp"
                     android:layout_marginBottom="?attr/actionBarSize"
-
+                    android:drawableRight="@drawable/ic_datepicker_calender"
                     />
             </LinearLayout>
 
