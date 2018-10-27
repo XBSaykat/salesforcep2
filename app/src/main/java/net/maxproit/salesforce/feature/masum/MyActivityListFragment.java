@@ -162,7 +162,7 @@ public class MyActivityListFragment extends Fragment {
 
         final ArrayList<VisitPlan> filteredModelList = new ArrayList<>();
         for (VisitPlan model : models) {
-            final String uName = model.getArea().toLowerCase();
+            final String uName = model.getCity().toLowerCase();
             final String phone = model.getClientType().toLowerCase();
 
             if (uName.contains(searchKey) || phone.contains(searchKey)) {

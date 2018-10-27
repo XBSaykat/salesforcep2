@@ -72,7 +72,8 @@ public class DbConstants {
     public static final String VISIT_PLAN_CLIENT_TYPE = "client_type";
     public static final String VISIT_PLAN_MOBILE_NUMBER = "mobile_number";
     public static final String VISIT_PLAN_PRODUCT_TYPE = "product_type";
-    public static final String VISIT_PLAN_AREA = "area";
+    public static final String VISIT_PLAN_CITY = "city";
+    public static final String VISIT_PLAN_POLICE_STATION = "police_station";
     public static final String VISIT_PLAN_PURPOSE_OF_VISIT = "purpose_of_visit";
     public static final String VISIT_PLAN_DATE_OF_VISIT = "date_of_visit";
     public static final String VISIT_PLAN_REMARKS = "remarks";
@@ -141,7 +142,8 @@ public class DbConstants {
                     VISIT_PLAN_CLIENT_TYPE + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_MOBILE_NUMBER + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
-                    VISIT_PLAN_AREA + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_CITY + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_POLICE_STATION + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_PURPOSE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_DATE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_REMARKS + TEXT_TYPE + COMMA_SEP +

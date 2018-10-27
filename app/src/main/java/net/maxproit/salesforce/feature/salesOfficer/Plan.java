@@ -347,7 +347,7 @@ import java.util.List;
              spnClientType.setSelection(Global.SpinnerItemPositionAnyLength(spnClientType, item.getClientType()));
              txtMobileNo.setText(item.getMobileNo());
              spnProductType.setSelection(Global.SpinnerItemPositionAnyLength(spnProductType, item.getProductType()));
-             spnArea.setSelection(Global.SpinnerItemPositionAnyLength(spnArea, item.getArea()));
+             spnArea.setSelection(Global.SpinnerItemPositionAnyLength(spnArea, item.getCity()));
              spnPurpose.setSelection(Global.SpinnerItemPositionAnyLength(spnPurpose, item.getPurpose()));
              dtpVisitDT.setText(item.getVisitDT().toString().length()==0 ? "" : Global.DateConvertDMY(item.getVisitDT()));
              txtRemarks.setText(item.getRemarks());

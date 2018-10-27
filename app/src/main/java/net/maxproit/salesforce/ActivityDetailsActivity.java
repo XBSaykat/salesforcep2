@@ -1,8 +1,11 @@
 package net.maxproit.salesforce;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,5 +78,53 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
 
         tvClientName.setText(visitPlanArrayList.get(itemPosition).getClientName());
+        tvClientType.setText(visitPlanArrayList.get(itemPosition).getClientType());
+        tvVisitPurpose.setText(visitPlanArrayList.get(itemPosition).getPurposeOfVisit());
+        tvMobileNumber.setText(visitPlanArrayList.get(itemPosition).getMobileNumber());
+        tvProductType.setText(visitPlanArrayList.get(itemPosition).getProductType());
+        tvCity.setText(visitPlanArrayList.get(itemPosition).getCity());
+        tvPoliceStation.setText(visitPlanArrayList.get(itemPosition).getPoliceStation());
+        tvVisitDate.setText(visitPlanArrayList.get(itemPosition).getDateOfVisit());
+        tvRemarks.setText(visitPlanArrayList.get(itemPosition).getRemarks());
+
+        tvProceedToLead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent proceedToLeadIntent = new Intent(ActivityDetailsActivity.this, LeadStageActivity.class);
+                proceedToLeadIntent.putExtra(AppConstant.INTENT_KEY, itemPosition);
+                startActivity(proceedToLeadIntent);
+                finish();
+            }
+        });
+
+        tvRejected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Rejected", Toast.LENGTH_SHORT).show();
+                visitPlanDbController.deleteItem(visitPlanArrayList.get(itemPosition).getId());
+                AlertDialog dialog = new AlertDialog.Builder(getApplicationContext()).create();
+                dialog.setTitle("Reject this Activity? ");
+                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        ActivityDetailsActivity.super.onBackPressed();
+                        visitPlanDbController.deleteItem(visitPlanArrayList.get(itemPosition).getId());
+                    }
+                });
+
+            }
+        });
+
+        tvReappointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Reappointment", Toast.LENGTH_SHORT).show();
+
+
+
+            }
+        });
+
     }
 }
