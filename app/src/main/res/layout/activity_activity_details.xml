@@ -1,9 +1,388 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityDetailsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/visit_plan_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+
+
+        >
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/size_40dp"
+            android:layout_height="@dimen/size_40dp"
+            android:padding="@dimen/size_8dp"
+            android:src="@drawable/ic_back"
+            android:layout_gravity="center"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_visit_plan"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Activity Details"
+            app:titleTextColor="@color/white"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+
+        </android.support.v7.widget.Toolbar>
+
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="?android:actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <LinearLayout
+                android:id="@+id/activity_details_client_type"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Client Type" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_client_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Purpose of Visit" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_visit_Purpose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/secinput_client_name"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Client Name" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_client_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/secinput_mobile_no"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile Number" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_mobile_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/secProductType"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product Type" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_product_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="City" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Police Station" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_police_station"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date of Visit" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_dtpVisitDT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remarks" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_remarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    android:background="#808080" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_activity_details_proceed_to_lead"
+                    android:textSize="@dimen/size_18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@color/red"
+                    android:layout_margin="@dimen/size_2dp"
+                    android:layout_height="@dimen/size_30dp"
+                    android:textColor="@color/white"
+                    android:text="Proceed to Lead" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_reappointment"
+                    android:textSize="@dimen/size_18dp"
+                    android:textColor="@color/white"
+                    android:background="@color/red"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/size_2dp"
+                    android:layout_height="@dimen/size_30dp"
+                    android:text="Reappointment" />
+
+                <TextView
+                    android:id="@+id/tv_activity_details_rejected"
+                    android:textSize="@dimen/size_18dp"
+                    android:layout_width="wrap_content"
+                    android:background="@color/red"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/size_2dp"
+                    android:layout_height="@dimen/size_30dp"
+                    android:text="Rejected" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?actionBarSize"
+                android:orientation="vertical">
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+
+    <!--</RelativeLayout>-->
+    <!--<Button android:id="@+id/btnGetMoreResults"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:text="Get more"-->
+    <!--android:layout_alignParentBottom="true" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/btn_save"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+
+        <!--android:layout_margin="0dp"-->
+        <!--android:padding="@dimen/size_4dp"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Save"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/text_size_24sp" />-->
+
+</RelativeLayout>
