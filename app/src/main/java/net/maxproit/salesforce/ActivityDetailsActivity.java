@@ -10,7 +10,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
     Intent myActivityItemIntent;
     int itemPosition;
-        @Override
+
     public TextView tvClientType, tvVisitPurpose, tvClientName, tvMobileNumber, tvProductType,tvCity,tvPoliceStation,
     tvVisitDate, tvRemarks, tvProceedToLead, tvRejected, tvReappointment;
 
