@@ -154,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:maxLength="11"
+                    android:text=""
                     android:textSize="@dimen/text_size_16sp" />
 
                 <View

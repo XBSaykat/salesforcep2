@@ -2,6 +2,7 @@ package net.maxproit.salesforce;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,15 +10,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+import net.maxproit.salesforce.model.VisitPlan;
 import net.maxproit.salesforce.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.sqlite.VisitPlanDbController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,28 @@ public class LeadStageActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TextView btnSave;
     private MyLeadDbController myLeadDbController;
+    private ArrayList<VisitPlan> visitPlanArrayList;
+    private VisitPlanDbController visitPlanDbController;
+    private LeadStageBasicInformationFragment leadStageBasicInformationFragment;
+    private LeadStageAttachmentFragment leadStageAttachmentFragment;
+    private LeadStageVisitRecordFragment leadStageVisitRecordFragment;
+    private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
 
-    private Spinner spnClientType;
+
+
+    private int activityPosition;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead_stage);
+
+        leadStageAttachmentFragment = new LeadStageAttachmentFragment();
+        leadStageBasicInformationFragment = new LeadStageBasicInformationFragment();
+        leadStageLoanDetailFragment = new LeadStageLoanDetailFragment();
+        leadStageVisitRecordFragment = new LeadStageVisitRecordFragment();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,9 +67,27 @@ public class LeadStageActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         myLeadDbController = new MyLeadDbController(LeadStageActivity.this);
 
+        Intent myActivityDetails = getIntent();
+        if (myActivityDetails != null) {
+            activityPosition = myActivityDetails.getIntExtra(AppConstant.INTENT_KEY, -1);
+
+        }if (activityPosition < 0){
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            }else{
+            setFieldsFromActivity();
+            }
+
+
+
+
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
             /*    this.branchName = branchName;
                 this.userName = userName;
                 this.profession = profession;
@@ -94,10 +127,10 @@ public class LeadStageActivity extends AppCompatActivity {
 //                        )
 
 
-                if (LeadStageLoanDetailFragment.ref > 0 &&
-                        LeadStageBasicInformationFragment.branchName != null &
-                                LeadStageVisitRecordFragment.followUp != null &&
-                        LeadStageVisitRecordFragment.visitDate != null) {
+//                if (LeadStageLoanDetailFragment.ref > 0 &&
+//                        LeadStageBasicInformationFragment.branchName != null &
+//                                LeadStageVisitRecordFragment.followUp != null &&
+//                        LeadStageVisitRecordFragment.visitDate != null) {
 
                     String BranchName = LeadStageBasicInformationFragment.branchName; //
                     String profession = LeadStageBasicInformationFragment.profession; //
@@ -111,7 +144,7 @@ public class LeadStageActivity extends AppCompatActivity {
                     String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
                     String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
                     String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
-//                    String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
+//                  String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
 
                     String ref = refArray[LeadStageLoanDetailFragment.ref];
 
@@ -138,9 +171,9 @@ public class LeadStageActivity extends AppCompatActivity {
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                     }
 
-                } else {
-                    Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
+//                }
 
 //                Toast.makeText(LeadStageActivity.this, "save data", Toast.LENGTH_SHORT).show();
 
@@ -149,12 +182,39 @@ public class LeadStageActivity extends AppCompatActivity {
 
     }
 
+    private void setFieldsFromActivity() {
+
+        visitPlanArrayList = new ArrayList<VisitPlan>();
+        visitPlanDbController = new VisitPlanDbController(LeadStageActivity.this);
+        visitPlanArrayList.addAll(visitPlanDbController.getAllData());
+
+
+        LeadStageBasicInformationFragment.etUserName.setText(visitPlanArrayList.get(activityPosition).getClientName());
+        LeadStageBasicInformationFragment.etPhone.setText(visitPlanArrayList.get(activityPosition).getMobileNumber());
+        LeadStageBasicInformationFragment.
+                etAddress.
+                setText(visitPlanArrayList.
+                        get(activityPosition).
+                        getPoliceStation()+", "+visitPlanArrayList.
+                        get(activityPosition).
+                        getCity());
+
+
+
+
+
+
+
+
+
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new LeadStageBasicInformationFragment(), "Basic Information");
-        adapter.addFragment(new LeadStageLoanDetailFragment(), "Loan Detail");
-        adapter.addFragment(new LeadStageVisitRecordFragment(), "Visit Record");
-        adapter.addFragment(new LeadStageAttachmentFragment(), "Attachment");
+        adapter.addFragment(leadStageBasicInformationFragment, "Basic Information");
+        adapter.addFragment(leadStageLoanDetailFragment, "Loan Detail");
+        adapter.addFragment(leadStageVisitRecordFragment, "Visit Record");
+        adapter.addFragment(leadStageAttachmentFragment, "Attachment");
         viewPager.setAdapter(adapter);
     }
 

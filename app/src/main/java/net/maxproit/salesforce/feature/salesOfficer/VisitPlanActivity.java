@@ -394,7 +394,7 @@ public class VisitPlanActivity extends AppCompatActivity {
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString();
 
-                int insert=dbController.insertData(clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit,dateOfvisit,remarks);
+                int insert=dbController.insertData(clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit,remarks);
                 if (insert>0){
                     Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
                     Intent dashboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);

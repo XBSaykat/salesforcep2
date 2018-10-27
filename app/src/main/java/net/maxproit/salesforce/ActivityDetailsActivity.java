@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.feature.masum.MyActivitiesActivityNew;
 import net.maxproit.salesforce.model.VisitPlan;
 import net.maxproit.salesforce.sqlite.VisitPlanDbController;
 
@@ -110,7 +111,8 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
 
                         visitPlanDbController.deleteItem(visitPlanArrayList.get(itemPosition).getId());
-                        ActivityDetailsActivity.super.onBackPressed();
+                        startActivity(new Intent(ActivityDetailsActivity.this, MyActivitiesActivityNew.class));
+                        finish();
                     }
                 });
                 dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
@@ -119,6 +121,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+                dialog.show();
 
             }
         });
