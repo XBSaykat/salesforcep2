@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.newlead.BasicInfo" />
+            type="net.maxproit.salesforce.model.newlead.BasicInfo" />
     </data>
 
     <android.support.v4.widget.NestedScrollView

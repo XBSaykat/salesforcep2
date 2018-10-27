@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.supervisor.visits.Datum" />
+            type="net.maxproit.salesforce.model.supervisor.visits.Datum" />
     </data>
 
     <android.support.constraint.ConstraintLayout

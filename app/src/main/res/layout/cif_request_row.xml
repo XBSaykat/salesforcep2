@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.cif.requestedCIf.RequestedCIf" />
+            type="net.maxproit.salesforce.model.cif.requestedCIf.RequestedCIf" />
     </data>
 
     <android.support.constraint.ConstraintLayout

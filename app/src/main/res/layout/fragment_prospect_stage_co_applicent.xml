@@ -7,35 +7,36 @@
     tools:context=".ProspectStageCoApplicantFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.constraint.ConstraintLayout
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_prospect_stage_co_applicant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="32dp"
+            android:layout_margin="@dimen/size_40dp"
             android:text="Add Co Applicant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+             />
 
         <ScrollView
 
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_prospect_stage_co_applicant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
 
         </ScrollView>
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 
 </FrameLayout>

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="net.maxproit.idlc.model.search.searchlist.disbursementsearch.DisbursementItem"/>
+            type="net.maxproit.salesforce.model.search.searchlist.disbursementsearch.DisbursementItem"/>
 
     </data>
 

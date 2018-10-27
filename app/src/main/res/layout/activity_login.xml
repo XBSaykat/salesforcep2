@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.login.Login" />
+            type="net.maxproit.salesforce.model.login.Login" />
 
     </data>
 

@@ -4,7 +4,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.virifier.VisitRecord" />
+            type="net.maxproit.salesforce.model.virifier.VisitRecord" />
     </data>
 
     <android.support.v4.widget.NestedScrollView

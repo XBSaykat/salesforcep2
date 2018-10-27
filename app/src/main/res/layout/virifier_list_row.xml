@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.virifier.virifierlist.Datum" />
+            type="net.maxproit.salesforce.model.virifier.virifierlist.Datum" />
     </data>
 
     <android.support.constraint.ConstraintLayout

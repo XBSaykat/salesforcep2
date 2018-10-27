@@ -89,7 +89,7 @@
                         android:src="@drawable/prospect" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -120,7 +120,7 @@
                         android:src="@drawable/lead" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -151,7 +151,7 @@
                         android:src="@drawable/prospect" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -182,7 +182,7 @@
                         android:src="@drawable/lead" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -213,7 +213,7 @@
                         android:src="@drawable/lead" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -245,7 +245,7 @@
                         android:src="@drawable/verification" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -313,7 +313,7 @@
                         android:visibility="invisible">
 
 
-                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                             android:id="@+id/des1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

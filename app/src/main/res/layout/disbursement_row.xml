@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.salesOfficer.disbursement.Datum" />
+            type="net.maxproit.salesforce.model.salesOfficer.disbursement.Datum" />
     </data>
 
     <android.support.constraint.ConstraintLayout
