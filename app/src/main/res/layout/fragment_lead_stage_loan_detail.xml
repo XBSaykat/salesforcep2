@@ -162,7 +162,7 @@
                                 android:layout_height="wrap_content"
                                 android:focusable="true"
                                 android:imeOptions="actionNext"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:maxLines="1"
                                 android:text=""
                                 android:textSize="@dimen/text_size_16sp" />

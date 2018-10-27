@@ -65,6 +65,14 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
                 }
             });
 
+            constraintLayoutLeadItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.itemClickListener(v,getLayoutPosition());
+                }
+            });
+
+
         }
 
     }

@@ -8,6 +8,7 @@ import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
 
+import net.maxproit.salesforce.LeadStageActivity;
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.AppConstant;
 import net.maxproit.salesforce.R;
@@ -98,6 +99,11 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                         myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
                         changeItemStatus(position,AppConstant.LEAD_STATUS_REJECT);
                         break;
+                    case R.id.clLeadItem:
+                        Intent createLeadIntent = new Intent(MyLeadActivity.this, LeadStageActivity.class);
+                        createLeadIntent.putExtra(AppConstant.LEAD_INTENT_KEY, position);
+                        startActivity(createLeadIntent);
+                        finish();
                 }
             }
         });
