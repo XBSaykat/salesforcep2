@@ -309,11 +309,11 @@
 
                 <TextView
                     android:id="@+id/tv_activity_details_proceed_to_lead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/size_30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
                     android:layout_margin="@dimen/size_2dp"
                     android:layout_weight="1"
-                    android:background="@color/red"
+                    android:background="@color/colorAccent"
                     android:gravity="center"
                     android:text="Proceed to Lead"
                     android:textColor="@color/white"
@@ -321,11 +321,11 @@
 
                 <TextView
                     android:id="@+id/tv_activity_details_reappointment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/size_30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
                     android:layout_margin="@dimen/size_2dp"
                     android:layout_weight="1"
-                    android:background="@color/red"
+                    android:background="@color/colorAccent"
                     android:gravity="center"
                     android:text="Reappointment"
                     android:textColor="@color/white"
@@ -333,11 +333,11 @@
 
                 <TextView
                     android:id="@+id/tv_activity_details_rejected"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/size_30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
                     android:layout_margin="@dimen/size_2dp"
                     android:layout_weight="1"
-                    android:background="@color/red"
+                    android:background="@color/colorAccent"
                     android:gravity="center"
                     android:text="Rejected"
                     android:textColor="@color/white"
