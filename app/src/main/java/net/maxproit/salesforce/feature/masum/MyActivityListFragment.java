@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.feature.masum;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.ActivityDetailsActivity;
+import net.maxproit.salesforce.AppConstant;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.listener.OnItemClickListener;
 import net.maxproit.salesforce.model.VisitPlan;
@@ -42,6 +45,7 @@ public class MyActivityListFragment extends Fragment {
     private ImageView backButton, addButton;
     private SearchView searchView;
     private RecyclerView rvMyActivity;
+    public static int itemPosition = 0;
     LocalLogin localLogin;
     String username;
     ArrayList<VisitPlan> leadList, filterList;
@@ -199,33 +203,42 @@ public class MyActivityListFragment extends Fragment {
 //                         myLeadAdapter.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
 //                        removeItemFromList(position,AppConstant.LEAD_STATUS_REJECT);
                         break;
+
+                    case R.id.cl_visit_plan_item:
+                        itemPosition  = leadList.get(position).getId();
+                        Intent intentActivityDetails = new Intent(getActivity(), ActivityDetailsActivity.class);
+                        intentActivityDetails.putExtra(AppConstant.INTENT_KEY, itemPosition);
+                        startActivity(intentActivityDetails);
+                        Toast.makeText(getActivity(), "item selected", Toast.LENGTH_SHORT).show();
+                        break;
+
                 }
             }
         });
 
     }
-//    private void removeItemFromList(int position,String status) {
-//        for (int i = 0; i < leadList.size(); i++) {
-//            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-//                leadList.get(i).setStatus(status);
-//                leadList.remove(i);
-//                myLeadAdapter.notifyItemRemoved(position);
-//                break;
-//
-//            }
-//        }
-//    }
-//
-//    private void changeItemStatus(int position,String status) {
-//        for (int i = 0; i < leadList.size(); i++) {
-//            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-//                leadList.get(i).setStatus(status);
-//                myLeadAdapter.notifyDataSetChanged();
-//                break;
-//
-//            }
-//        }
-//    }
+    private void removeItemFromList(int position,String status) {
+        for (int i = 0; i < leadList.size(); i++) {
+            if (leadList.get(i).getId() == filterList.get(position).getId()) {
+                leadList.get(i).setStatus(status);
+                leadList.remove(i);
+                myLeadAdapter.notifyItemRemoved(position);
+                break;
+
+            }
+        }
+    }
+
+    private void changeItemStatus(int position,String status) {
+        for (int i = 0; i < leadList.size(); i++) {
+            if (leadList.get(i).getId() == filterList.get(position).getId()) {
+                leadList.get(i).setStatus(status);
+                myLeadAdapter.notifyDataSetChanged();
+                break;
+
+            }
+        }
+    }
 
 
     private void initView(View rootView) {

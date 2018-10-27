@@ -1,11 +1,16 @@
 package net.maxproit.salesforce;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 import android.widget.TextView;
 
 public class ActivityDetailsActivity extends AppCompatActivity {
 
+    Intent myActivityItemIntent;
+    int itemPosition;
+        @Override
     public TextView tvClientType, tvVisitPurpose, tvClientName, tvMobileNumber, tvProductType,tvCity,tvPoliceStation,
     tvVisitDate, tvRemarks, tvProceedToLead, tvRejected, tvReappointment;
 
@@ -13,6 +18,12 @@ public class ActivityDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_details);
+         myActivityItemIntent = getIntent();
+            itemPosition = myActivityItemIntent.getIntExtra(AppConstant.INTENT_KEY, -1);
+
+            Toast.makeText(this, ""+itemPosition, Toast.LENGTH_SHORT).show();
+
+
 
         tvClientType = (TextView)findViewById(R.id.tv_activity_details_client_type);
         tvVisitPurpose = (TextView)findViewById(R.id.tv_activity_details_visit_Purpose);

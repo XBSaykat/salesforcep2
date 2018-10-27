@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.feature.masum;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
         ArrayList<VisitPlan> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
         private ImageView imgApproved,imgReject;
+        private ConstraintLayout clListItem;
 
 
         public CustomViewHolder(View itemView, Context context, ArrayList<VisitPlan> leadList) {
@@ -44,6 +46,7 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
             tvName=itemView.findViewById(R.id.tvName);
             tvBranch=itemView.findViewById(R.id.tvBranch);
             tvStatus=itemView.findViewById(R.id.tvStatus);
+            clListItem = itemView.findViewById(R.id.cl_visit_plan_item);
             imgApproved=itemView.findViewById(R.id.btnApproved);
             imgReject=itemView.findViewById(R.id.btnReject);
 
@@ -62,6 +65,12 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
                 }
             });
 
+            clListItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.itemClickListener(v, getLayoutPosition());
+                }
+            });
         }
 
     }
