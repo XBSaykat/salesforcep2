@@ -326,6 +326,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLines="1"
+                    android:maxLength="11"
                     android:text="@={model.mobilenumber}"
                     android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>
