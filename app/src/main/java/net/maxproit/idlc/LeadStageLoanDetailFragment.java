@@ -5,6 +5,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,17 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.idlc.util.NumberToWordsConverter;
+
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -29,6 +39,8 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
     EditText edittext;
     Calendar myCalendar = Calendar.getInstance();
+
+    TextView tvTentativeNumberToWord;
 
     //TODO: Rename and change types of parameters
     private String mParam1;
@@ -141,6 +153,11 @@ public class LeadStageLoanDetailFragment extends Fragment {
         etFee=rootView.findViewById(R.id.et_fee);
 
 
+        tvTentativeNumberToWord = (TextView) rootView.findViewById(R.id.tv_tentative_number_to_word);
+        if(tvTentativeNumberToWord != null){
+            tvTentativeNumberToWord.setText("");
+        }
+
 
         edittext= (EditText) rootView.findViewById(R.id.et_disbursement_date);
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -168,6 +185,41 @@ public class LeadStageLoanDetailFragment extends Fragment {
             }
         });
 
+
+        etLoadAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                etLoadAmount.removeTextChangedListener(this);
+                try{
+
+                    String originalTentativeLoanAmount = editable.toString();
+                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
+                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
+
+                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
+                    formatter.applyPattern("#,###,###,###");
+                    String formattedString = formatter.format(longVal);
+
+                    etLoadAmount.setText(formattedString);
+                    etLoadAmount.setSelection(etLoadAmount.getText().length());
+                    tvTentativeNumberToWord.setText(formattedString.isEmpty()? "" : NumberToWords.convert(longVal));
+                }catch (NumberFormatException nfe){
+                    nfe.printStackTrace();
+                }
+                etLoadAmount.addTextChangedListener(this);
+            }
+        });
 
         initSpinnerAdapter();
     }

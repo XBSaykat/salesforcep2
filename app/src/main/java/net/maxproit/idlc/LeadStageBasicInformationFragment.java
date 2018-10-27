@@ -163,6 +163,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
                     etPhone.setError("You entered invalid mobile no.");
                 }
 
+
 //                Toast.makeText(getContext(), charSequence.toString(), Toast.LENGTH_SHORT).show();
             }
 
