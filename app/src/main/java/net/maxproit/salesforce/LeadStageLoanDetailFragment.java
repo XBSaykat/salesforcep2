@@ -244,6 +244,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
             }
         });
 
+        etInterest.addTextChangedListener(new NumberTextWatcher(etInterest));
         initSpinnerAdapter();
     }
 

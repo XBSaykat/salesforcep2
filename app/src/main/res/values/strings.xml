@@ -226,6 +226,13 @@
         <item>Private Car</item>
         <item>CNG</item>
     </string-array>
+
+    <string-array name="remarks_arr">
+        <item>Remarks 1</item>
+        <item>Remarks 2</item>
+        <item>Remarks 3</item>
+    </string-array>
+
     <string name="title_activity_my_activity">MyActivityActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>

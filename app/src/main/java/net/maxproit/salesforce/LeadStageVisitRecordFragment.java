@@ -34,10 +34,10 @@ public class LeadStageVisitRecordFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private AwesomeSpinner spinnerFollowUp;
+    private AwesomeSpinner spinnerFollowUp, spinnerRemarks;
     public static String followUp = null, visitDate = null, remark = null;
     public  EditText etVisitDate, etRemark;
-    private LinearLayout followDateLayout;
+    private LinearLayout followDateLayout, etRemarksLayout, spRemarksLayout;;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -89,11 +89,17 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
     private void initView(View rootView) {
         spinnerFollowUp=rootView.findViewById(R.id.awe_spinner_lead_follow_up);
+        spinnerRemarks=rootView.findViewById(R.id.sp_remarks);
         followDateLayout = rootView.findViewById(R.id.follow_date_layout);
         followDateLayout.setVisibility(View.GONE);
         etVisitDate=rootView.findViewById(R.id.dtpVisitDT);
         etRemark=rootView.findViewById(R.id.input_remarks);
         remark = etRemark.getText().toString();
+
+        etRemarksLayout = rootView.findViewById(R.id.et_remarks_layout);
+        spRemarksLayout = rootView.findViewById(R.id.sp_remarks_layout);
+        spRemarksLayout.setVisibility(View.GONE);
+
         initSpinnerAdapter();
     }
 
@@ -102,6 +108,10 @@ public class LeadStageVisitRecordFragment extends Fragment {
                 R.array.decision_array,
                 android.R.layout.simple_spinner_dropdown_item);
         spinnerFollowUp.setAdapter(decisionAdapter, 0);
+        ArrayAdapter<CharSequence> remarksAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.remarks_arr,
+                android.R.layout.simple_spinner_dropdown_item);
+        spinnerRemarks.setAdapter(remarksAdapter, 0);
 
     }
 
@@ -115,14 +125,26 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
                 if (s.equals("Yes")){
                     followDateLayout.setVisibility(View.VISIBLE);
+                    etRemarksLayout.setVisibility(View.VISIBLE);
+                    spRemarksLayout.setVisibility(View.GONE);
                 }
                 else {
                     followDateLayout.setVisibility(View.GONE);
+                    etRemarksLayout.setVisibility(View.GONE);
+                    spRemarksLayout.setVisibility(View.VISIBLE);
                 }
 
             }
 
         });
+
+        spinnerRemarks.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+            }
+
+        });
+
 //        spinnerFollowUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

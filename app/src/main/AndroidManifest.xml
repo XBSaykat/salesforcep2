@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
-        android:name="net.maxproit.salesforce.App"
+        android:name=".App"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,7 +29,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-
         <activity
             android:name=".feature.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -38,8 +37,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
         <activity
@@ -129,14 +126,10 @@
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
         <activity android:name=".feature.salesOfficer.VisitPlanActivity" />
         <activity android:name=".LeadStageActivity" />
-        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" >
-
-        </activity>
+        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity"></activity>
         <activity android:name=".feature.masum.MyActivitiesActivity" />
         <activity android:name=".feature.masum.MyActivitiesActivityNew" />
-        <activity android:name=".ActivityDetailsActivity"></activity>
-
-
+        <activity android:name=".ActivityDetailsActivity" />
     </application>
 
 </manifest>
