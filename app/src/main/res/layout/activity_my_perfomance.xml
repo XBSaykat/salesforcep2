@@ -277,9 +277,9 @@
                     <LinearLayout
                         android:id="@+id/Disbursement"
                         android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/size_8dp"
-                        android:layout_weight="1"
                         android:background="@color/colorPrimary"
                         android:elevation="@dimen/size_4dp"
                         android:orientation="vertical"
@@ -302,8 +302,8 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
                                 <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
@@ -313,12 +313,7 @@
                                     android:text="No. of Lead"
                                     android:textColor="@color/greyWhite"
                                     android:textSize="@dimen/text_size_12sp" />
-<<<<<<< HEAD
                                 <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-=======
-
-                                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
->>>>>>> aa9b90abf5aa4eab61f5589c0a3057486aa28d67
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -328,24 +323,24 @@
                             </LinearLayout>
 
                             <!--<LinearLayout-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:orientation="vertical">-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:orientation="vertical">-->
 
-                            <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:textColor="@color/greyWhite"-->
-                            <!--android:textSize="@dimen/text_size_12sp" />-->
-                            <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:textSize="@dimen/text_size_12sp"-->
-                            <!--android:textColor="@color/greyWhite"-->
-                            <!--android:text="@{``+model.disbursementAmount}"/>-->
+                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:textColor="@color/greyWhite"-->
+                                    <!--android:textSize="@dimen/text_size_12sp" />-->
+                                <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:textSize="@dimen/text_size_12sp"-->
+                                    <!--android:textColor="@color/greyWhite"-->
+                                    <!--android:text="@{``+model.disbursementAmount}"/>-->
                             <!--</LinearLayout>-->
 
                         </LinearLayout>
