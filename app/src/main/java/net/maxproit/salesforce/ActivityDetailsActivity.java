@@ -3,6 +3,7 @@ package net.maxproit.salesforce;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class ActivityDetailsActivity extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
          myActivityItemIntent = getIntent();
             itemPosition = myActivityItemIntent.getIntExtra(AppConstant.INTENT_KEY, -1);
 
-
+            Toast.makeText(this, ""+itemPosition, Toast.LENGTH_SHORT).show();
 
 
 
