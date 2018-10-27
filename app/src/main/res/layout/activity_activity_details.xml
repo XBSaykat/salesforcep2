@@ -153,6 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
+                    android:maxLength="11"
                     android:textSize="@dimen/text_size_16sp" />
 
                 <View
@@ -259,7 +260,7 @@
                     android:text="Date of Visit" />
 
                 <TextView
-                    android:id="@+id/tv_activity_details_dtpVisitDT"
+                    android:id="@+id/tv_activity_details_visit_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
@@ -303,44 +304,44 @@
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:weightSum="3"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="3">
 
                 <TextView
                     android:id="@+id/tv_activity_details_proceed_to_lead"
-                    android:textSize="@dimen/size_18dp"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="@color/red"
-                    android:layout_margin="@dimen/size_2dp"
                     android:layout_height="@dimen/size_30dp"
+                    android:layout_margin="@dimen/size_2dp"
+                    android:layout_weight="1"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:text="Proceed to Lead"
                     android:textColor="@color/white"
-                    android:text="Proceed to Lead" />
+                    android:textSize="@dimen/size_18dp" />
 
                 <TextView
                     android:id="@+id/tv_activity_details_reappointment"
-                    android:textSize="@dimen/size_18dp"
-                    android:textColor="@color/white"
-                    android:background="@color/red"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_margin="@dimen/size_2dp"
                     android:layout_height="@dimen/size_30dp"
-                    android:text="Reappointment" />
+                    android:layout_margin="@dimen/size_2dp"
+                    android:layout_weight="1"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:text="Reappointment"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_18dp" />
 
                 <TextView
                     android:id="@+id/tv_activity_details_rejected"
-                    android:textSize="@dimen/size_18dp"
                     android:layout_width="wrap_content"
-                    android:background="@color/red"
-                    android:textColor="@color/white"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_margin="@dimen/size_2dp"
                     android:layout_height="@dimen/size_30dp"
-                    android:text="Rejected" />
+                    android:layout_margin="@dimen/size_2dp"
+                    android:layout_weight="1"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:text="Rejected"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_18dp" />
 
             </LinearLayout>
 
@@ -350,8 +351,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="?actionBarSize"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
 
         </LinearLayout>
 
