@@ -33,12 +33,12 @@
         <activity
             android:name=".feature.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
         </activity>
         <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
@@ -129,7 +129,9 @@
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
         <activity android:name=".feature.salesOfficer.VisitPlanActivity" />
         <activity android:name=".LeadStageActivity" />
-        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
+        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" >
+
+        </activity>
         <activity android:name=".feature.masum.MyActivitiesActivity" />
         <activity android:name=".feature.masum.MyActivitiesActivityNew" />
         <activity android:name=".ActivityDetailsActivity"></activity>

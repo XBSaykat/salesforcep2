@@ -205,9 +205,10 @@ public class MyActivityListFragment extends Fragment {
                         break;
 
                     case R.id.cl_visit_plan_item:
-                        itemPosition  = leadList.get(position).getId();
+                        itemPosition  = position;
                         Intent intentActivityDetails = new Intent(getActivity(), ActivityDetailsActivity.class);
-                        intentActivityDetails.putExtra(AppConstant.INTENT_KEY, itemPosition);
+
+                        intentActivityDetails.putExtra(AppConstant.INTENT_KEY, position);
                         startActivity(intentActivityDetails);
                         Toast.makeText(getActivity(), "item selected", Toast.LENGTH_SHORT).show();
                         break;

@@ -105,7 +105,7 @@ public class VisitPlanDbController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new VisitPlan(id, clientType, mobileNumber, productType, area, purposeOfVisit, dateOfVisit, remarks,status));
+                    favDataArray.add(new VisitPlan(id, clientName, clientType, mobileNumber, productType, area, purposeOfVisit, dateOfVisit, remarks,status));
                 } while (c.moveToNext());
             }
             c.close();

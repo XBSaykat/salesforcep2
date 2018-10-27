@@ -1,10 +1,15 @@
 package net.maxproit.salesforce;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import net.maxproit.salesforce.model.VisitPlan;
+import net.maxproit.salesforce.sqlite.VisitPlanDbController;
+
+import java.util.ArrayList;
 
 public class ActivityDetailsActivity extends AppCompatActivity {
 
@@ -14,18 +19,31 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
     Intent myActivityItemIntent;
     int itemPosition;
+
+    ArrayList<VisitPlan> visitPlanArrayList;
+    VisitPlanDbController visitPlanDbController;
+    VisitPlan visitPlanModel;
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+            initView();
+
+
+
+
+
+
+
+
+
+    }
+
+    private void initView() {
+
         setContentView(R.layout.activity_activity_details);
-         myActivityItemIntent = getIntent();
-            itemPosition = myActivityItemIntent.getIntExtra(AppConstant.INTENT_KEY, -1);
-
-            Toast.makeText(this, ""+itemPosition, Toast.LENGTH_SHORT).show();
-
-
-
-        tvClientType = (TextView)findViewById(R.id.tv_activity_details_client_type);
+//        tvClientType = (TextView)findViewById(R.id.tv_activity_details_client_type);
         tvVisitPurpose = (TextView)findViewById(R.id.tv_activity_details_visit_Purpose);
         tvClientType  = (TextView)findViewById(R.id.tv_activity_details_client_type);
         tvClientName = (TextView)findViewById(R.id.tv_activity_details_client_name);
@@ -40,5 +58,22 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         tvReappointment = (TextView)findViewById(R.id.tv_activity_details_reappointment);
 
 
+
+
+
+        myActivityItemIntent = getIntent();
+        itemPosition = myActivityItemIntent.getIntExtra(AppConstant.INTENT_KEY, -1);
+
+        Toast.makeText(this, ""+itemPosition, Toast.LENGTH_SHORT).show();
+
+
+
+        visitPlanDbController = new VisitPlanDbController(this);
+        visitPlanArrayList = new ArrayList<>();
+        visitPlanArrayList.addAll(visitPlanDbController.getAllData());
+//        visitPlanModel = visitPlanArrayList.get(itemPosition);
+
+
+        tvClientName.setText(visitPlanArrayList.get(itemPosition).getClientName());
     }
 }

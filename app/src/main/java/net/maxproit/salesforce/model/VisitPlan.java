@@ -3,11 +3,12 @@ package net.maxproit.salesforce.model;
 public class VisitPlan {
 
 
-    private String clientType, mobileNumber, productType, area, purposeOfVisit, dateOfVisit, remarks,status;
+    private String clientName, clientType,  mobileNumber, productType, area, purposeOfVisit, dateOfVisit, remarks,status;
     private int id;
 
-    public VisitPlan(int id, String clientType, String mobileNumber, String productType, String area, String purposeOfVisit, String dateOfVisit, String remarks, String status ) {
+    public VisitPlan(int id, String clientName, String clientType,  String mobileNumber, String productType, String area, String purposeOfVisit, String dateOfVisit, String remarks, String status ) {
 
+        this.clientName = clientName;
         this.id = id;
         this.clientType = clientType;
         this.mobileNumber = mobileNumber;
@@ -18,6 +19,10 @@ public class VisitPlan {
         this.remarks = remarks;
         this.status = status;
     }
+
+    public String getClientName() {
+        return clientName; }
+
 
     public String getStatus() {
         return status;
