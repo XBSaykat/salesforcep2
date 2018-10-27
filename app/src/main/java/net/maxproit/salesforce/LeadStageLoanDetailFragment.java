@@ -237,7 +237,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
                     etLoadAmount.setText(formattedString);
                     etLoadAmount.setSelection(etLoadAmount.getText().length());
-//                    tvTentativeNumberToWord.setText(formattedString.isEmpty()? "" : NumberToWords.convert(longVal));
+                    tvTentativeNumberToWord.setText(formattedString.isEmpty()? "" : NumberToWords.convert(longVal));
                 }catch (NumberFormatException nfe){
                     nfe.printStackTrace();
                 }
