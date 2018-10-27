@@ -26,7 +26,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
     ArrayList<VisitPlan> visitPlanArrayList;
     VisitPlanDbController visitPlanDbController;
     VisitPlan visitPlanModel;
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -108,8 +108,15 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        ActivityDetailsActivity.super.onBackPressed();
+
                         visitPlanDbController.deleteItem(visitPlanArrayList.get(itemPosition).getId());
+                        ActivityDetailsActivity.super.onBackPressed();
+                    }
+                });
+                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 });
 
