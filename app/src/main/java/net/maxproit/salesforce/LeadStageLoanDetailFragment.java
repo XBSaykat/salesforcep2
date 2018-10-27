@@ -10,19 +10,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
-
-import net.maxproit.salesforce.util.NumberToWordsConverter;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -244,7 +237,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
                     etLoadAmount.setText(formattedString);
                     etLoadAmount.setSelection(etLoadAmount.getText().length());
-                    tvTentativeNumberToWord.setText(formattedString.isEmpty()? "" : NumberToWords.convert(longVal));
+//                    tvTentativeNumberToWord.setText(formattedString.isEmpty()? "" : NumberToWords.convert(longVal));
                 }catch (NumberFormatException nfe){
                     nfe.printStackTrace();
                 }
