@@ -4,11 +4,33 @@ import java.io.Serializable;
 
 public class MyNewLead implements Serializable {
 
-   private  String branchName,userName,profession,
-            organization,designation,phone,address,
-            sourceRef,productType,productSubcategory,
-            loadAmount,orInterest,opFee,visitDate,
-            followUp,remark,status;
+   private  String branchName;
+    private String userName;
+    private String profession;
+    private String organization;
+    private String designation;
+    private String phone;
+    private String address;
+    private String sourceRef;
+    private String productType;
+    private String productSubcategory;
+    private String loadAmount;
+    private String orInterest;
+    private String opFee;
+
+    public String getLoadAmount() {
+        return loadAmount;
+    }
+
+    public String getDisDate() {
+        return disDate;
+    }
+
+    private String disDate;
+    private String visitDate;
+    private String followUp;
+    private String remark;
+    private String status;
     private int id;
 
 
@@ -16,7 +38,7 @@ public class MyNewLead implements Serializable {
                      String organization, String designation, String phone,
                      String address, String sourceRef, String productType,
                      String productSubcategory, String loadAmount, String orInterest,
-                     String opFee, String visitDate, String followUp, String remark,String status) {
+                     String opFee, String disDate, String visitDate, String followUp, String remark,String status) {
 
         this.branchName = branchName;
         this.userName = userName;
@@ -31,6 +53,7 @@ public class MyNewLead implements Serializable {
         this.loadAmount = loadAmount;
         this.orInterest = orInterest;
         this.opFee = opFee;
+        this.disDate = disDate;
         this.visitDate = visitDate;
         this.followUp = followUp;
         this.remark = remark;
@@ -41,7 +64,7 @@ public class MyNewLead implements Serializable {
                      String organization, String designation, String phone,
                      String address, String sourceRef, String productType,
                      String productSubcategory, String loadAmount, String orInterest,
-                     String opFee, String visitDate, String followUp, String remark,String status) {
+                     String opFee, String disDate, String visitDate, String followUp, String remark,String status) {
         this.id=id;
         this.branchName = branchName;
         this.userName = userName;
@@ -56,6 +79,7 @@ public class MyNewLead implements Serializable {
         this.loadAmount = loadAmount;
         this.orInterest = orInterest;
         this.opFee = opFee;
+        this.disDate = disDate;
         this.visitDate = visitDate;
         this.followUp = followUp;
         this.remark = remark;

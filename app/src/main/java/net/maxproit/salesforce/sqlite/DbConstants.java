@@ -29,6 +29,7 @@ public class DbConstants {
     public static final String LEAD_AMOUNT = "amount";
     public static final String LEAD_OR_INTEREST = "interest";
     public static final String LEAD_OP_FEE = "op_fee";
+    public static final String LEAD_DISBURSEMENT_DATE = "disbursement_date";
     public static final String LEAD_VISIT_DATE = "date";
     public static final String LEAD_FOLLOW_UP = "follow";
     public static final String LEAD_REMARK = "remark";
@@ -96,6 +97,7 @@ public class DbConstants {
                     LEAD_AMOUNT + TEXT_TYPE + COMMA_SEP +
                     LEAD_OR_INTEREST + TEXT_TYPE + COMMA_SEP +
                     LEAD_OP_FEE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_DISBURSEMENT_DATE + TEXT_TYPE + COMMA_SEP +
                     LEAD_VISIT_DATE + TEXT_TYPE + COMMA_SEP +
                     LEAD_FOLLOW_UP + TEXT_TYPE + COMMA_SEP +
                     LEAD_REMARK + TEXT_TYPE + COMMA_SEP +

@@ -14,6 +14,10 @@ import android.widget.EditText;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.salesforce.model.newlead.MyNewLead;
+import net.maxproit.salesforce.sqlite.MyLeadDbController;
+
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +33,9 @@ import java.util.regex.Pattern;
 public class LeadStageBasicInformationFragment extends Fragment {
 
 
+
+    private MyLeadDbController myLeadDbController;
+    private ArrayList<MyNewLead> myNewLeadArrayList;
     private AwesomeSpinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
     public static String profession = null, branchName = null;
@@ -80,17 +87,42 @@ public class LeadStageBasicInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
+
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_basic_information, container, false);
         initView(rootView);
         initListener();
         // Inflate the layout for this fragment
+
+
+
+
+
+
+
         return rootView;
     }
 
 
 
     private void initListener() {
+
+        if (getArguments() != null){
+            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
+            myLeadDbController = new MyLeadDbController(getActivity());
+            myNewLeadArrayList = new ArrayList<>();
+            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
+
+            etUserName.setText(myNewLeadArrayList.get(position).getUserName());
+            etUserOrganization.setText(myNewLeadArrayList.get(position).getOrganization());
+            etDesignattion.setText(myNewLeadArrayList.get(position).getDesignation());
+            etPhone.setText(myNewLeadArrayList.get(position).getPhone());
+            etAddress.setText(myNewLeadArrayList.get(position).getAddress());
+
+
+        }
         spinnerBranchName.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
@@ -134,6 +166,10 @@ public class LeadStageBasicInformationFragment extends Fragment {
     }
 
     private void initView(View rootView) {
+
+
+
+
         spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
         spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
         etUserName = rootView.findViewById(R.id.et_lead_user_name);
@@ -141,6 +177,9 @@ public class LeadStageBasicInformationFragment extends Fragment {
         etDesignattion = rootView.findViewById(R.id.et_lead_designation);
         etPhone = rootView.findViewById(R.id.et_lead_phone);
         etAddress = rootView.findViewById(R.id.et_lead_address);
+
+
+
 
         etPhone.addTextChangedListener(new TextWatcher() {
             @Override
@@ -170,6 +209,18 @@ public class LeadStageBasicInformationFragment extends Fragment {
             }
         });
         initSpinnerAdapter();
+
+//        if ( LeadStageActivity.myLeadPosition >= 0){
+//
+//            myNewLeadArrayList = new ArrayList<MyNewLead>();
+//            myLeadDbController = new MyLeadDbController(getActivity());
+//
+//            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
+//
+////            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
+//            etUserName.setText(myNewLeadArrayList.get(LeadStageActivity.myLeadPosition).getUserName().toString());
+
+//        }
      }
 
     private void initSpinnerAdapter() {

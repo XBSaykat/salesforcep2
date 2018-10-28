@@ -17,6 +17,10 @@ import android.widget.LinearLayout;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.salesforce.model.newlead.MyNewLead;
+import net.maxproit.salesforce.sqlite.MyLeadDbController;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -37,7 +41,9 @@ public class LeadStageVisitRecordFragment extends Fragment {
     private AwesomeSpinner spinnerFollowUp, spinnerRemarks;
     public static String followUp = null, visitDate = null, remark = null;
     public  EditText etVisitDate, etRemark;
-    private LinearLayout followDateLayout, etRemarksLayout, spRemarksLayout;;
+    private LinearLayout followDateLayout, etRemarksLayout, spRemarksLayout;
+    private ArrayList<MyNewLead> myNewLeadArrayList;
+    private MyLeadDbController myLeadDbController;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -117,6 +123,18 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
 
     private void initListener(){
+
+        if (getArguments() != null){
+            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
+            myLeadDbController = new MyLeadDbController(getActivity());
+            myNewLeadArrayList = new ArrayList<>();
+            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
+
+            etVisitDate.setText(myNewLeadArrayList.get(position).getVisitDate());
+            etRemark.setText(myNewLeadArrayList.get(position).getRemark());
+
+
+        }
 
         spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override

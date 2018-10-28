@@ -138,7 +138,8 @@ public class ProspectStageActivity extends AppCompatActivity {
                             getProductType(), getDataFromProspect().getProductSubcategory(),
                             getDataFromProspect().getLoanAmount(), getDataFromProspect().
                             getOrInterest(), getDataFromProspect().getOpFee(),
-                            getDataFromProspect().getVisitDate(), getDataFromProspect().
+                            getDataFromProspect().getVisitDate(),
+                            getDataFromProspect().getDisDate(),getDataFromProspect().
                             getFollowUp(), getDataFromProspect().getRemark(),
                             AppConstant.LEAD_STATUS_PROCEED, productCat,
                             productDetails, segment, age, districtOfBirth,
