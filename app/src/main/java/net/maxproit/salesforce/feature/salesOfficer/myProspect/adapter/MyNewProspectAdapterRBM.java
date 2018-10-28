@@ -33,6 +33,8 @@ public class MyNewProspectAdapterRBM extends RecyclerView.Adapter<MyNewProspectA
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.prospect_list_item_rbm, null);
         MyNewProspectAdapterRBM.ViewHolder viewHolder = new MyNewProspectAdapterRBM.ViewHolder(view, context, prospectList);
+
+
         return viewHolder;
 
 
@@ -56,7 +58,7 @@ public class MyNewProspectAdapterRBM extends RecyclerView.Adapter<MyNewProspectA
     class ViewHolder extends RecyclerView.ViewHolder{
 
         Context context;
-        ArrayList<MyNewProspect> myNewProspectArrayList;
+        public ArrayList<MyNewProspect> myNewProspectArrayList;
         private TextView tvId,tvName;
         private ConstraintLayout clItem;
 
@@ -76,6 +78,9 @@ public class MyNewProspectAdapterRBM extends RecyclerView.Adapter<MyNewProspectA
             });
 
         }
+    }
+    public void setItemClickListener(OnItemClickListener mListener) {
+        this.mListener = mListener;
     }
 
 }
