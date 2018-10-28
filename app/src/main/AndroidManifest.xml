@@ -131,7 +131,8 @@
         <activity android:name=".feature.masum.MyActivitiesActivityNew" />
         <activity android:name=".ActivityDetailsActivity" />
         <activity android:name=".ProspectViewRbm" />
-        <activity android:name=".MyPerformancePhaseTwo"></activity>
+        <activity android:name=".MyPerformancePhaseTwo" />
+        <activity android:name=".SupervisorRbmProspect"></activity>
     </application>
 
 </manifest>
