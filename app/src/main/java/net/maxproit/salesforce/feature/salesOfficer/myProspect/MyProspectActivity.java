@@ -171,6 +171,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getOrInterest(),
                 filterList.get(position).getOpFee(),
                 filterList.get(position).getVisitDate(),
+                filterList.get(position).getDisDate(),
                 filterList.get(position).getFollowUp(),
                 filterList.get(position).getRemark(),
                 filterList.get(position).getStatus());

@@ -24,7 +24,7 @@ public class MyLeadDbController {
 
     public int insertLeadData(String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
-                                  interest, String fee, String date, String follow, String remark) {
+                                  interest, String fee, String disDate, String date, String follow, String remark) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
@@ -40,6 +40,7 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_AMOUNT, amount);
         values.put(DbConstants.LEAD_OR_INTEREST, interest);
         values.put(DbConstants.LEAD_OP_FEE, fee);
+        values.put(DbConstants.LEAD_DISBURSEMENT_DATE, disDate);
         values.put(DbConstants.LEAD_VISIT_DATE, date);
         values.put(DbConstants.LEAD_FOLLOW_UP, follow);
         values.put(DbConstants.LEAD_REMARK, remark);
@@ -100,6 +101,7 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_AMOUNT, myProspect.getLoanAmount());
         values.put(DbConstants.LEAD_OR_INTEREST, myProspect.getOrInterest());
         values.put(DbConstants.LEAD_OP_FEE, myProspect.getOpFee());
+        values.put(DbConstants.LEAD_DISBURSEMENT_DATE, myProspect.getDisDate());
         values.put(DbConstants.LEAD_VISIT_DATE, myProspect.getVisitDate());
         values.put(DbConstants.LEAD_FOLLOW_UP, myProspect.getFollowUp());
         values.put(DbConstants.LEAD_REMARK, myProspect.getRemark());
@@ -174,6 +176,7 @@ public class MyLeadDbController {
                 DbConstants.LEAD_OR_INTEREST,
                 DbConstants.LEAD_OP_FEE,
                 DbConstants.LEAD_VISIT_DATE,
+                DbConstants.LEAD_DISBURSEMENT_DATE,
                 DbConstants.LEAD_FOLLOW_UP,
                 DbConstants.LEAD_REMARK,
                 DbConstants.LEAD_STATUS,
@@ -214,6 +217,7 @@ public class MyLeadDbController {
                 DbConstants.LEAD_AMOUNT,
                 DbConstants.LEAD_OR_INTEREST,
                 DbConstants.LEAD_OP_FEE,
+                DbConstants.LEAD_DISBURSEMENT_DATE,
                 DbConstants.LEAD_VISIT_DATE,
                 DbConstants.LEAD_FOLLOW_UP,
                 DbConstants.LEAD_REMARK,
@@ -258,6 +262,7 @@ public class MyLeadDbController {
                     String amount = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_AMOUNT));
                     String interest = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_OR_INTEREST));
                     String fee = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_OP_FEE));
+                    String disDate = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_DISBURSEMENT_DATE));
                     String visitDate = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_VISIT_DATE));
                     String followUp = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_FOLLOW_UP));
                     String remark = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_REMARK));
@@ -267,7 +272,7 @@ public class MyLeadDbController {
 
                     // wrap up data list and return
                     favDataArray.add(new MyNewLead(id,branchName, userName, profession, organization, designation, phone,address,ref
-                            ,productType,subCategory,amount,interest,fee,visitDate,followUp,remark,status));
+                            ,productType,subCategory,amount,interest,fee,disDate,visitDate,followUp,remark,status));
                 } while (c.moveToNext());
             }
             c.close();

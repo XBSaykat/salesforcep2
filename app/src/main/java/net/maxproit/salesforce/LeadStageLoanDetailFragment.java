@@ -19,9 +19,13 @@ import android.widget.TextView;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.salesforce.model.newlead.MyNewLead;
+import net.maxproit.salesforce.sqlite.MyLeadDbController;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -32,7 +36,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    EditText etDisbursementDate;
+
     Calendar myCalendar = Calendar.getInstance();
 
     TextView tvTentativeNumberToWord;
@@ -40,9 +44,11 @@ public class LeadStageLoanDetailFragment extends Fragment {
     //TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<MyNewLead> myNewLeadArrayList;
+    private MyLeadDbController myLeadDbController;
 
     private AwesomeSpinner spinnerRef,spinnerProductType,spinnerSubCategory;
-    public static EditText etLoadAmount,etFee,etInterest;
+    public static EditText etLoadAmount,etFee,etInterest,etDisbursementDate;
     public static int ref=0;
     public static String productType = null;
     public static String subCategory = null;
@@ -92,6 +98,20 @@ public class LeadStageLoanDetailFragment extends Fragment {
     }
 
     private void initListener() {
+
+
+        if (getArguments() != null){
+            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
+            myLeadDbController = new MyLeadDbController(getActivity());
+            myNewLeadArrayList = new ArrayList<>();
+            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
+
+            etLoadAmount.setText(myNewLeadArrayList.get(position).getLoanAmount());
+            etInterest.setText(myNewLeadArrayList.get(position).getOrInterest());
+            etFee.setText(myNewLeadArrayList.get(position).getOpFee());
+            etDisbursementDate.setText(myNewLeadArrayList.get(position).getDisDate());
+
+        }
 
         spinnerRef.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override

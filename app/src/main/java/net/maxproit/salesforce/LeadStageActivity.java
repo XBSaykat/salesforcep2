@@ -40,6 +40,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
 
     private int activityPosition;
+    public static int myLeadPosition  = -1;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -47,11 +48,8 @@ public class LeadStageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead_stage);
+        initFragments();
 
-        leadStageAttachmentFragment = new LeadStageAttachmentFragment();
-        leadStageBasicInformationFragment = new LeadStageBasicInformationFragment();
-        leadStageLoanDetailFragment = new LeadStageLoanDetailFragment();
-        leadStageVisitRecordFragment = new LeadStageVisitRecordFragment();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,14 +66,26 @@ public class LeadStageActivity extends AppCompatActivity {
         myLeadDbController = new MyLeadDbController(LeadStageActivity.this);
 
         Intent myActivityDetails = getIntent();
-        if (myActivityDetails != null) {
-            activityPosition = myActivityDetails.getIntExtra(AppConstant.INTENT_KEY, -1);
 
-        }if (activityPosition < 0){
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-            }else{
-            setFieldsFromActivity();
-            }
+
+        myLeadPosition = myActivityDetails.getIntExtra(AppConstant.LEAD_INTENT_KEY, -1);
+
+        if (myLeadPosition >= 0){
+            Bundle bundle = new Bundle();
+            bundle.putInt(AppConstant.LEAD_INTENT_KEY, myLeadPosition);
+           leadStageBasicInformationFragment.setArguments(bundle);
+           leadStageLoanDetailFragment.setArguments(bundle);
+           leadStageVisitRecordFragment.setArguments(bundle);
+           leadStageAttachmentFragment.setArguments(bundle);
+
+        }
+
+
+
+//        Toast.makeText(this, ""+myLeadPosition, Toast.LENGTH_SHORT).show();
+
+
+
 
 
 
@@ -153,7 +163,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
 //                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
                     String subCat = LeadStageLoanDetailFragment.subCategory;
-
+                    String disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
                     String visitDate = LeadStageVisitRecordFragment.visitDate; //
                     String remark = LeadStageVisitRecordFragment.remark;
                     String followUp = LeadStageVisitRecordFragment.followUp;
@@ -164,7 +174,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
                     int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, visitDate, followUp, remark);
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark);
                     if (insert > 0) {
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                     } else {
@@ -182,23 +192,22 @@ public class LeadStageActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
+    private void initFragments(){
+        leadStageAttachmentFragment = new LeadStageAttachmentFragment();
+        leadStageBasicInformationFragment = new LeadStageBasicInformationFragment();
+        leadStageLoanDetailFragment = new LeadStageLoanDetailFragment();
+        leadStageVisitRecordFragment = new LeadStageVisitRecordFragment();
+
+
+
+
+    }
+
     private void setFieldsFromActivity() {
-
-        visitPlanArrayList = new ArrayList<VisitPlan>();
-        visitPlanDbController = new VisitPlanDbController(LeadStageActivity.this);
-        visitPlanArrayList.addAll(visitPlanDbController.getAllData());
-
-
-        LeadStageBasicInformationFragment.etUserName.setText(visitPlanArrayList.get(activityPosition).getClientName());
-        LeadStageBasicInformationFragment.etPhone.setText(visitPlanArrayList.get(activityPosition).getMobileNumber());
-        LeadStageBasicInformationFragment.
-                etAddress.
-                setText(visitPlanArrayList.
-                        get(activityPosition).
-                        getPoliceStation()+", "+visitPlanArrayList.
-                        get(activityPosition).
-                        getCity());
-
 
 
 

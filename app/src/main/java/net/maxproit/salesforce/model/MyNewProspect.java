@@ -7,13 +7,19 @@ public class MyNewProspect extends MyNewLead{
     private String pLoanType,productDetail,segment,age,dob,cob,pIdNumber
             ,pIssueDate,etin,fName,mName,
             sName,exList,currentJob,applicant,
-            pAddress,netSalary,salaryAmount,rentIncome,rentIncomeAmount,
+            pAddress,netSalary,salaryAmount,rentIncome,rentIncomeAmount, disDate,
             ag_Income,tution,remitance,inFdr,fExpense,emiOther,sValue,loanReq,
             loanTerm,piRate,fee,monthlyEmi;
 
 
-    public MyNewProspect(int id, String branchName, String userName, String profession, String organization, String designation, String phone, String address, String sourceRef, String productType, String productSubcategory, String loadAmount, String orInterest, String opFee, String visitDate, String followUp, String remark, String status,String pLoanType, String productDetail, String segment, String age, String dob, String cob, String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String rentIncome,String rentIncomeAmount, String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String fee, String monthlyEmi) {
-        super(id, branchName, userName, profession, organization, designation, phone, address, sourceRef, productType, productSubcategory, loadAmount, orInterest, opFee, visitDate, followUp, remark, status);
+    public MyNewProspect(int id, String branchName, String userName, String profession,
+                         String organization, String designation, String phone,
+                         String address, String sourceRef, String productType,
+                         String productSubcategory, String loadAmount,
+                         String orInterest, String opFee,String disDate, String visitDate, String followUp, String remark, String status,String pLoanType, String productDetail, String segment, String age, String dob, String cob, String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String rentIncome,String rentIncomeAmount, String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String fee, String monthlyEmi) {
+        super(id, branchName, userName, profession, organization, designation,
+                phone, address, sourceRef, productType, productSubcategory,
+                loadAmount, orInterest, opFee, disDate, visitDate, followUp, remark, status);
         this.pLoanType = pLoanType;
         this.productDetail = productDetail;
         this.segment = segment;
@@ -48,8 +54,13 @@ public class MyNewProspect extends MyNewLead{
         this.monthlyEmi = monthlyEmi;
     }
 
-    public MyNewProspect(String branchName, String userName, String profession, String organization, String designation, String phone, String address, String sourceRef, String productType, String productSubcategory, String loadAmount, String orInterest, String opFee, String visitDate, String followUp, String remark, String status,String pLoanType, String productDetail, String segment, String age, String dob, String cob, String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String rentIncome,String rentIncomeAmount, String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String fee, String monthlyEmi) {
-        super(branchName, userName, profession, organization, designation, phone, address, sourceRef, productType, productSubcategory, loadAmount, orInterest, opFee, visitDate, followUp, remark, status);
+    public MyNewProspect(String branchName, String userName, String profession, String organization,
+                         String designation, String phone, String address, String sourceRef,
+                         String productType, String productSubcategory, String loadAmount,
+                         String orInterest, String opFee, String disDate, String visitDate, String followUp, String remark, String status,String pLoanType, String productDetail, String segment, String age, String dob, String cob, String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String rentIncome,String rentIncomeAmount, String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String fee, String monthlyEmi) {
+        super(branchName, userName, profession, organization, designation, phone, address, sourceRef,
+                productType, productSubcategory, loadAmount, orInterest, disDate, opFee,
+                visitDate, followUp, remark, status);
         this.pLoanType = pLoanType;
         this.productDetail = productDetail;
         this.segment = segment;
@@ -213,4 +224,8 @@ public class MyNewProspect extends MyNewLead{
         return monthlyEmi;
     }
 
+    @Override
+    public String getDisDate() {
+        return disDate;
+    }
 }
