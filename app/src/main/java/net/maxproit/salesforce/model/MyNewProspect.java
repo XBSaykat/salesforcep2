@@ -57,7 +57,15 @@ public class MyNewProspect extends MyNewLead{
     public MyNewProspect(String branchName, String userName, String profession, String organization,
                          String designation, String phone, String address, String sourceRef,
                          String productType, String productSubcategory, String loadAmount,
-                         String orInterest, String opFee, String disDate, String visitDate, String followUp, String remark, String status,String pLoanType, String productDetail, String segment, String age, String dob, String cob, String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String rentIncome,String rentIncomeAmount, String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String fee, String monthlyEmi) {
+                         String orInterest, String opFee, String disDate, String visitDate,
+                         String followUp, String remark, String status,String pLoanType,
+                         String productDetail, String segment, String age, String dob,
+                         String cob, String pIdNumber, String pIssueDate, String etin, String fName,
+                         String mName, String sName, String exList, String currentJob,
+                         String applicant, String pAddress, String netSalary, String salaryAmount,
+                         String rentIncome,String rentIncomeAmount, String ag_Income, String tution,
+                         String remitance, String inFdr, String fExpense, String emiOther, String sValue,
+                         String loanReq, String loanTerm, String piRate, String fee, String monthlyEmi) {
         super(branchName, userName, profession, organization, designation, phone, address, sourceRef,
                 productType, productSubcategory, loadAmount, orInterest, disDate, opFee,
                 visitDate, followUp, remark, status);

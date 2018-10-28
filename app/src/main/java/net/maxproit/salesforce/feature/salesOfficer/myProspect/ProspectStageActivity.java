@@ -133,22 +133,28 @@ public class ProspectStageActivity extends AppCompatActivity {
                 loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
                 proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
                 fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
-                calculatedGrossIncome = ProspectStageFinancialCalculatorFragment.etCalculatedGrossIncome.getText().toString();
-                calculatedGrossIncome = "0";
+//                calculatedGrossIncome = ProspectStageFinancialCalculatorFragment.etCalculatedGrossIncome.getText().toString();
+                calculatedGrossIncome = "";
                 if (getDataFromProspect() != null) {
                     MyNewProspect myNewProspect = new MyNewProspect(getDataFromProspect().getBranchName(),
-                            getDataFromProspect().getUserName(), getDataFromProspect().
-                            getProfession(), getDataFromProspect().getOrganization(),
-                            getDataFromProspect().getDesignation(), mobileNumber, presentAddress,
-                            getDataFromProspect().getSourceRef(), getDataFromProspect().
-                            getProductType(), getDataFromProspect().getProductSubcategory(),
-                            getDataFromProspect().getLoanAmount(), getDataFromProspect().
-                            getOrInterest(), getDataFromProspect().getOpFee(),
+                            getDataFromProspect().getUserName(),
+                            getDataFromProspect().getProfession(),
+                            getDataFromProspect().getOrganization(),
+                            getDataFromProspect().getDesignation(),
+                            mobileNumber, presentAddress,
+                            getDataFromProspect().getSourceRef(),
+                            getDataFromProspect().getProductType(),
+                            getDataFromProspect().getProductSubcategory(),
+                            getDataFromProspect().getLoanAmount(),
+                            getDataFromProspect().getOrInterest(),
+                            getDataFromProspect().getOpFee(),
                             getDataFromProspect().getVisitDate(),
-                            getDataFromProspect().getDisDate(),getDataFromProspect().
-                            getFollowUp(), getDataFromProspect().getRemark(),
-                            AppConstant.LEAD_STATUS_PROCEED, productCat,
-                            productDetails, segment, age, districtOfBirth,
+                            getDataFromProspect().getDisDate(),
+                            getDataFromProspect().getFollowUp(),
+                            getDataFromProspect().getRemark(),
+                            AppConstant.LEAD_STATUS_PROCEED,
+                            productCat, productDetails,
+                            segment, age, districtOfBirth,
                             countOfBirth, photoId, photoIdDate, eTin, fatherName,
                             motherName, spouseName, "", noYrsInCureentJob,
                             relationship, permanentAddress, monthlyNetSalary,
@@ -158,7 +164,7 @@ public class ProspectStageActivity extends AppCompatActivity {
                             securityValue, loanRequired, loanTerm, proposedInterest,
                             fee, calculatedGrossIncome);
 
-                    int update =myLeadDbController.upDateProspectData(myNewProspect,getDataFromProspect().getId());
+                    int update = myLeadDbController.upDateProspectData(myNewProspect,getDataFromProspect().getId());
                     if (update>0){
                         Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
                     }
