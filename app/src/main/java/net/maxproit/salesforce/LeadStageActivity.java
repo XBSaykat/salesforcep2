@@ -56,6 +56,12 @@ public class LeadStageActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Create Lead");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);

@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.salesforce.feature.salesOfficer.myProspect.ProspectStageActivity;
+import net.maxproit.salesforce.model.newlead.MyNewLead;
+
 public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +33,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
     AwesomeSpinner spinnerBrand, spinnerYear, spinnerCountry, spinnerVehicleType;
     public static String brandName, year, country, vehicleType;
+    ProspectStageActivity prospectStageActivity;
 
 
     public ProspectStageLoanAndSecurityDetailFragment() {
@@ -70,6 +74,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_prospect_stage_loan_and_security_detail, container, false);
 
         final SharedViewModel model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        prospectStageActivity= (ProspectStageActivity) getActivity();
 
         LinearLayout secBrandNameLabel = (LinearLayout) view.findViewById(R.id.brand_name_label);
         LinearLayout secManYearLabel = (LinearLayout) view.findViewById(R.id.manufacturing_year_label);
@@ -85,8 +90,8 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         etProposedInterest = view.findViewById(R.id.input_proposed_interest_rate);
         etFee = view.findViewById(R.id.input_fee);
 
-        etCalculatedEMI = view.findViewById(R.id.input_calculated_emi);
-        etCalculatedEMI.setEnabled(false);
+//        etCalculatedEMI = view.findViewById(R.id.input_calculated_emi);
+//        etCalculatedEMI.setEnabled(false);
 
 
         spinnerBrand = view.findViewById(R.id.awe_spinner_prospect_stage_brand_name);
@@ -116,6 +121,20 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 //        });
         initAdapters();
         initListener();
+        if (prospectStageActivity.getDataFromProspect()!=null){
+
+            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+            etLoanRequired.setText(myNewLead.getLoanAmount());
+            etProposedInterest.setText(myNewLead.getOrInterest());
+            etFee.setText(myNewLead.getOpFee());
+
+
+//            etMonthlySalaryAmount.setText(myNewLead.get);
+//            etPresentAddress.setText(myNewLead.getAddress());
+//            etDesignation.setText(myNewLead.getDesignation());
+//            etMobileNumber.setText(myNewLead.getPhone());
+//            etPresentAddress.setText(myNewLead.getAddress());
+        }
 
         return view;
     }

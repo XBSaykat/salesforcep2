@@ -273,31 +273,12 @@
                     android:inputType="number"
                     android:maxLines="1"
                     android:text=""
+                    android:layout_marginBottom="?attr/actionBarSize"
+
                     android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/LayoutQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?attr/actionBarSize"
-                android:orientation="vertical">
 
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Monthly Installment/ EMI" />
-
-                <EditText
-                    android:id="@+id/input_calculated_emi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
-            </LinearLayout>
 
         </LinearLayout>
     </FrameLayout>
