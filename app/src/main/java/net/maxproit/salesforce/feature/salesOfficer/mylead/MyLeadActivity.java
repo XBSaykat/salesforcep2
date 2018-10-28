@@ -100,10 +100,20 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                         changeItemStatus(position,AppConstant.LEAD_STATUS_REJECT);
                         break;
                     case R.id.clLeadItem:
+
+                        int a=leadList.get(position).getId();
                         Intent createLeadIntent = new Intent(MyLeadActivity.this, LeadStageActivity.class);
                         createLeadIntent.putExtra(AppConstant.LEAD_INTENT_KEY, position);
                         startActivity(createLeadIntent);
                         finish();
+                      /*  Bundle IDbundle;
+                        IDbundle=new Bundle();
+                        IDbundle.putString("PreEnrollmentID", txtPreEnrollmentID.getText().toString());
+                        //IDbundle.putString("WFollowNo", txtFollowupNo.getText().toString());
+                        //IDbundle.putString("WVisitNo", txtVisitNo.getText().toString());
+                        Intent f1 = new Intent(getApplicationContext(), Followup90Days.class);
+                        f1.putExtras(IDbundle);
+                        startActivityForResult(f1,1);*/
                 }
             }
         });

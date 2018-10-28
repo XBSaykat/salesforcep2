@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import net.maxproit.salesforce.LeadStageActivity;
+import net.maxproit.salesforce.MyPerformancePhaseTwo;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDashboardBinding;
@@ -45,7 +46,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         binding.myLeads.setOnClickListener(v -> startActivity(MyLeadActivity.class, false));
         binding.prospect.setOnClickListener(v -> startActivity(MyProspectActivity.class, false, mBundle));
 //        binding.upload.setOnClickListener(v -> startActivity(MyPerfomanceDisbursementsActivity.class, false));
-        binding.verification.setOnClickListener(v -> startActivity(MyPerfomanceActivity.class, false));
+        binding.verification.setOnClickListener(v -> startActivity(MyPerformancePhaseTwo.class, false));
 
         binding.myVisit.setOnClickListener(new View.OnClickListener() {
        @Override
