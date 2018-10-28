@@ -24,7 +24,7 @@ public class MainDashboardSupervisorActivity extends BaseActivity {
         binding = (ActivityMainDashboardSupervisorBinding) getBinding();
         binding.logout.setOnClickListener(v -> logout());
         binding.btnBack.setOnClickListener(v -> finish());
-        binding.dashboard.setOnClickListener(v -> startActivity(DashboardSupervisorActivity.class, false));
+//        binding.dashboard.setOnClickListener(v -> startActivity(DashboardSupervisorActivity.class, false));
         binding.prospect.setOnClickListener(v -> startActivity(SupervisorMaiProspectActivity.class, false));
 
     }
