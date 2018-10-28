@@ -558,7 +558,7 @@
                     android:orientation="horizontal">
                     <!--Rpproval Reject Return-->
                     <TextView
-                        android:id="@+id/Approval"
+                        android:id="@+id/tv_approval"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/size_4dp"
@@ -569,7 +569,7 @@
                         android:textColor="@color/white" />
 
                     <TextView
-                        android:id="@+id/Reject"
+                        android:id="@+id/tv_reject"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/size_4dp"
@@ -580,7 +580,7 @@
                         android:textColor="@color/white" />
 
                     <TextView
-                        android:id="@+id/Return"
+                        android:id="@+id/tv_return"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/size_4dp"

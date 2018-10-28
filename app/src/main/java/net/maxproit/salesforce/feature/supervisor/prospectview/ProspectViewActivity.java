@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.GsonBuilder;
@@ -60,6 +61,8 @@ public class ProspectViewActivity extends BaseActivity {
     private ActivityProspectViewBinding binding;
     private LinearLayout parentLinearLayout;
 
+    TextView tvApproval, tvReject, tvReturn;
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_prospect_view;
@@ -86,17 +89,39 @@ public class ProspectViewActivity extends BaseActivity {
 
 
 
+        tvApproval = (TextView) findViewById(R.id.tv_approval);
+        tvApproval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProspectViewActivity.this, "Prospect is apporved", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        tvReject = (TextView) findViewById(R.id.tv_reject);
+        tvReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProspectViewActivity.this, "Prospect is rejected", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        binding.Approval.setOnClickListener(v ->
-                approv(oleProspect.getData().getProspectReferenceNo(),
-                        Integer.parseInt(approvalId),
-                        Integer.parseInt(currentLeavel)));
+        tvReturn = (TextView) findViewById(R.id.tv_return);
+        tvReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProspectViewActivity.this, "Return prospect", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        binding.Reject.setOnClickListener(v ->
-                reject(oleProspect.getData().getProspectReferenceNo(),
-                        Integer.parseInt(approvalId),
-                        Integer.parseInt(currentLeavel)));
+//        binding.Approval.setOnClickListener(v ->
+//                approv(oleProspect.getData().getProspectReferenceNo(),
+//                        Integer.parseInt(approvalId),
+//                        Integer.parseInt(currentLeavel)));
+//
+//        binding.Reject.setOnClickListener(v ->
+//                reject(oleProspect.getData().getProspectReferenceNo(),
+//                        Integer.parseInt(approvalId),
+//                        Integer.parseInt(currentLeavel)));
 
 
     }
