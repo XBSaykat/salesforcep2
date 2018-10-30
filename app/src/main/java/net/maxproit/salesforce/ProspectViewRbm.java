@@ -16,7 +16,6 @@ public class ProspectViewRbm extends AppCompatActivity {
             tvRentalIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
             tvFee;
-    TextView tvApproval, tvReject, tvReturn;
     ImageView backButton;
 
     @Override
