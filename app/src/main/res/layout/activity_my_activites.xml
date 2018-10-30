@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.salesOfficer.mylead.MyLeadActivity">
+        tools:context=".masum.mylead.MyLeadActivity">
 
         <LinearLayout
             android:id="@+id/toolbar"

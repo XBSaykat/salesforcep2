@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.mylead.adapter;
+package net.maxproit.salesforce.masum.mylead.adapter;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;

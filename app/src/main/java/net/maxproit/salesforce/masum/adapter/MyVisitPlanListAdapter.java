@@ -48,20 +48,20 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
             imgApproved=itemView.findViewById(R.id.btnApproved);
             imgReject=itemView.findViewById(R.id.btnReject);
 
-            imgApproved.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.itemClickListener(v,getLayoutPosition());
-                }
-            });
-
-
-            imgReject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.itemClickListener(v,getLayoutPosition());
-                }
-            });
+//            imgApproved.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mListener.itemClickListener(v,getLayoutPosition());
+//                }
+//            });
+//
+//
+//            imgReject.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mListener.itemClickListener(v,getLayoutPosition());
+//                }
+//            });
 
             clListItem.setOnClickListener(new View.OnClickListener() {
                 @Override

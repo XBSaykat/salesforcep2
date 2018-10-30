@@ -28,6 +28,13 @@ import net.maxproit.salesforce.network.ApiService;
 import net.maxproit.salesforce.network.RestClient;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 
 /**
  * Created by Sadiq Md. Asif on 26-Oct-17.
@@ -114,7 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Shows a Alert Dialog with title and message and a OK button
      *
-     * @param title Title of the Alert Dialog
+     * @param title   Title of the Alert Dialog
      * @param message Message of Alert Dialog
      */
     public void showAlertDialog(String title, String message) {
@@ -248,5 +255,31 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
     }
+
+    public boolean isPending(String dateString) throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        Date date1 = null;
+        Date date2 = null;
+
+        boolean isTrue = false;
+        try {
+            date1 = sdf.parse(dateString);
+            Date d = new Date();
+            String currentDate = sdf.format(d);
+            date2 = sdf.parse(currentDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (date1.compareTo(date2) > 0) {
+            isTrue = false;
+        } else if (date1.compareTo(date2) <= 0) {
+            isTrue = true;
+        }
+        return isTrue;
+    }
+
 
 }

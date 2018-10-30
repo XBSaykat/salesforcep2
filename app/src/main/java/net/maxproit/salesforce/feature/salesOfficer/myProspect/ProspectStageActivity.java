@@ -59,9 +59,6 @@ public class ProspectStageActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         buttonSave = findViewById(R.id.btnSave);
-
-
-        getDataFromProspect();
         initListener();
     }
 

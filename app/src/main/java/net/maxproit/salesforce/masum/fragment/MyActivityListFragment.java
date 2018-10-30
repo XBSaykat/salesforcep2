@@ -38,8 +38,6 @@ import java.util.ArrayList;
 public class MyActivityListFragment extends Fragment {
 
 
-
-
     MyVisitPlanListAdapter myLeadAdapter;
     VisitPlanDbController myDbController;
 //    MyLeadDbController myDbController;

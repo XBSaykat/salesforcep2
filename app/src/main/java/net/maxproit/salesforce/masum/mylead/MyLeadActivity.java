@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.mylead;
+package net.maxproit.salesforce.masum.mylead;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
-import net.maxproit.salesforce.feature.salesOfficer.mylead.adapter.MyLeadAdapter;
+import net.maxproit.salesforce.masum.mylead.adapter.MyLeadAdapter;
 import net.maxproit.salesforce.feature.salesOfficer.newlead.NewLeadActivity;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;

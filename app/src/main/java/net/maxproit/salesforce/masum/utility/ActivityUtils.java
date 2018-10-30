@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import net.maxproit.salesforce.masum.activity.ActivityDetailsActivity;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.feature.salesOfficer.myProspect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
@@ -31,6 +33,15 @@ public class ActivityUtils {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         Intent intent = new Intent(activity, ProspectStageActivity.class);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+
+    public static void invokVisitPlanDetail(Activity activity, VisitPlan visitPlan){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
+        Intent intent = new Intent(activity, ActivityDetailsActivity.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }

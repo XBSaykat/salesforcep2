@@ -52,7 +52,7 @@
             android:name=".feature.search.SearchUserActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
-            android:name=".feature.salesOfficer.mylead.MyLeadActivity"
+            android:name=".masum.mylead.MyLeadActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".feature.salesOfficer.myProspect.MyProspectActivity"
@@ -124,7 +124,7 @@
         <activity android:name=".feature.supervisor.SupervisorFollowUpActivity" />
         <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
-        <activity android:name=".feature.salesOfficer.VisitPlanActivity" />
+        <activity android:name=".masum.activity.VisitPlanActivity" />
         <activity android:name=".masum.activity.LeadStageActivity" />
         <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
         <activity android:name=".masum.activity.MyActivitiesActivity" />

@@ -89,9 +89,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
-
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_basic_information, container, false);
         initView(rootView);
