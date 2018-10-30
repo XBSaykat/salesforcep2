@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.masum;
+package net.maxproit.salesforce.masum.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.ActivityDetailsActivity;
-import net.maxproit.salesforce.AppConstant;
+import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.activity.ActivityDetailsActivity;
+import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.listener.OnItemClickListener;
-import net.maxproit.salesforce.model.VisitPlan;
+import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.model.login.LocalLogin;
-import net.maxproit.salesforce.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;

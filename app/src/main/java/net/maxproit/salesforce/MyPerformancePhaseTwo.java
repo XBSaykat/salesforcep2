@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import net.maxproit.salesforce.feature.masum.MyActivitiesActivity;
-import net.maxproit.salesforce.feature.masum.MyActivitiesActivityNew;
-import net.maxproit.salesforce.feature.masum.MyActivityListFragment;
+import net.maxproit.salesforce.masum.activity.MyActivitiesActivityNew;
 import net.maxproit.salesforce.feature.salesOfficer.myProspect.MyProspectActivity;
 import net.maxproit.salesforce.feature.salesOfficer.mylead.MyLeadActivity;
 

@@ -1,13 +1,12 @@
-package net.maxproit.salesforce.sqlite;
+package net.maxproit.salesforce.masum.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import net.maxproit.salesforce.AppConstant;
-import net.maxproit.salesforce.model.MyNewProspect;
-import net.maxproit.salesforce.model.newlead.MyNewLead;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.MyNewLead;
 
 
 import java.util.ArrayList;

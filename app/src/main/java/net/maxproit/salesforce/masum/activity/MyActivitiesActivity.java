@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.masum;
+package net.maxproit.salesforce.masum.activity;
 
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +11,11 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
-import net.maxproit.salesforce.listener.OnItemClickListener;
-import net.maxproit.salesforce.model.VisitPlan;
+import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.model.login.LocalLogin;
-import net.maxproit.salesforce.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;

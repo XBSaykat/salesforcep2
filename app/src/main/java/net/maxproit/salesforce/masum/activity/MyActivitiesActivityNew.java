@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.masum;
+package net.maxproit.salesforce.masum.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,10 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import net.maxproit.salesforce.LeadStageActivity;
+import net.maxproit.salesforce.masum.fragment.MyActivityListFragment;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
-import net.maxproit.salesforce.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
 import java.util.List;

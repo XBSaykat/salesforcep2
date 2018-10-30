@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.sqlite;
+package net.maxproit.salesforce.masum.sqlite;
 
 /**
  * Created by Masum on 3/11/2018.

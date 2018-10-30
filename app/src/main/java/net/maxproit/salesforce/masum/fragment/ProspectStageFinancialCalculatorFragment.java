@@ -1,4 +1,4 @@
-package net.maxproit.salesforce;
+package net.maxproit.salesforce.masum.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import net.maxproit.salesforce.R;
 
 
 /**

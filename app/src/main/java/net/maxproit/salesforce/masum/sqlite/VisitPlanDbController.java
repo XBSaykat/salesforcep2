@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.sqlite;
+package net.maxproit.salesforce.masum.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import net.maxproit.salesforce.AppConstant;
-import net.maxproit.salesforce.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 
 import java.util.ArrayList;
 

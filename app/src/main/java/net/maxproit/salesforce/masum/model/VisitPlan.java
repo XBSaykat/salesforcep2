@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.model;
+package net.maxproit.salesforce.masum.model;
 
 public class VisitPlan {
 

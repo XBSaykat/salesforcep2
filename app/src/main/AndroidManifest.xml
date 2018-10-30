@@ -125,14 +125,15 @@
         <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
         <activity android:name=".feature.salesOfficer.VisitPlanActivity" />
-        <activity android:name=".LeadStageActivity" />
+        <activity android:name=".masum.activity.LeadStageActivity" />
         <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
-        <activity android:name=".feature.masum.MyActivitiesActivity" />
-        <activity android:name=".feature.masum.MyActivitiesActivityNew" />
-        <activity android:name=".ActivityDetailsActivity" />
+        <activity android:name=".masum.activity.MyActivitiesActivity" />
+        <activity android:name=".masum.activity.MyActivitiesActivityNew" />
+        <activity android:name=".masum.activity.ActivityDetailsActivity" />
         <activity android:name=".ProspectViewRbm" />
         <activity android:name=".MyPerformancePhaseTwo" />
-        <activity android:name=".SupervisorRbmProspect"></activity>
+        <activity android:name=".SupervisorRbmProspect" />
+        <activity android:name=".masum.activity.VisitPlanListActivity"></activity>
     </application>
 
 </manifest>

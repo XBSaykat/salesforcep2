@@ -1,6 +1,4 @@
-package net.maxproit.salesforce.model;
-
-import net.maxproit.salesforce.model.newlead.MyNewLead;
+package net.maxproit.salesforce.masum.model;
 
 public class MyNewProspect extends MyNewLead{
 

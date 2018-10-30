@@ -5,18 +5,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import net.maxproit.salesforce.LeadStageActivity;
+import net.maxproit.salesforce.masum.activity.LeadStageActivity;
 import net.maxproit.salesforce.MyPerformancePhaseTwo;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDashboardBinding;
 import net.maxproit.salesforce.feature.login.LoginActivity;
-import net.maxproit.salesforce.feature.masum.MyActivitiesActivityNew;
+import net.maxproit.salesforce.masum.activity.MyActivitiesActivityNew;
 import net.maxproit.salesforce.feature.salesOfficer.VisitPlanActivity;
-import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.salesforce.feature.salesOfficer.myProspect.MyProspectActivity;
 import net.maxproit.salesforce.feature.salesOfficer.mylead.MyLeadActivity;
-import net.maxproit.salesforce.util.ActivityUtils;
+import net.maxproit.salesforce.masum.activity.VisitPlanListActivity;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 public class DashboardSalesOfficerActivity extends BaseActivity {
@@ -40,7 +40,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         Bundle mBundle = new Bundle();
         mBundle.putString("ROOT", "new");
 
-        binding.visitPlan.setOnClickListener(v -> startActivity(VisitPlanActivity.class, false, mBundle));
+        binding.visitPlan.setOnClickListener(v -> startActivity(VisitPlanListActivity.class, false, mBundle));
         //binding.newLead.setOnClickListener(v -> startActivity(NewLeadActivity.class, false, mBundle));
         binding.newLead.setOnClickListener(v -> startActivity(LeadStageActivity.class, false, mBundle));
         binding.myLeads.setOnClickListener(v -> startActivity(MyLeadActivity.class, false));

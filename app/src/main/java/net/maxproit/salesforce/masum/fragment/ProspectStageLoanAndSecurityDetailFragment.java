@@ -1,4 +1,4 @@
-package net.maxproit.salesforce;
+package net.maxproit.salesforce.masum.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -14,8 +14,10 @@ import android.widget.LinearLayout;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.feature.salesOfficer.myProspect.ProspectStageActivity;
-import net.maxproit.salesforce.model.newlead.MyNewLead;
+import net.maxproit.salesforce.masum.model.MyNewLead;
 
 public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

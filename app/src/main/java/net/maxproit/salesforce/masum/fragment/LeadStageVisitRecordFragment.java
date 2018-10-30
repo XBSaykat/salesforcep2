@@ -1,4 +1,4 @@
-package net.maxproit.salesforce;
+package net.maxproit.salesforce.masum.fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -17,8 +17,10 @@ import android.widget.LinearLayout;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
-import net.maxproit.salesforce.model.newlead.MyNewLead;
-import net.maxproit.salesforce.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.model.MyNewLead;
 
 import java.util.ArrayList;
 import java.util.Calendar;

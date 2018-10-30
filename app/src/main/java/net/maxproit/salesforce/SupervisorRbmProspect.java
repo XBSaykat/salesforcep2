@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.salesOfficer.myProspect.adapter.MyNewProspectAdapterRBM;
-import net.maxproit.salesforce.listener.OnItemClickListener;
-import net.maxproit.salesforce.model.MyNewProspect;
-import net.maxproit.salesforce.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
 

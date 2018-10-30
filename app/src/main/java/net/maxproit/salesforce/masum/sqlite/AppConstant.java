@@ -1,4 +1,4 @@
-package net.maxproit.salesforce;
+package net.maxproit.salesforce.masum.sqlite;
 
 public class AppConstant {
 

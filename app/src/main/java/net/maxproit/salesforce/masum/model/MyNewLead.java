@@ -1,10 +1,10 @@
-package net.maxproit.salesforce.model.newlead;
+package net.maxproit.salesforce.masum.model;
 
 import java.io.Serializable;
 
 public class MyNewLead implements Serializable {
 
-   private  String branchName;
+    private String branchName;
     private String userName;
     private String profession;
     private String organization;
@@ -38,7 +38,7 @@ public class MyNewLead implements Serializable {
                      String organization, String designation, String phone,
                      String address, String sourceRef, String productType,
                      String productSubcategory, String loadAmount, String orInterest,
-                     String opFee, String disDate, String visitDate, String followUp, String remark,String status) {
+                     String opFee, String disDate, String visitDate, String followUp, String remark, String status) {
 
         this.branchName = branchName;
         this.userName = userName;
@@ -60,12 +60,12 @@ public class MyNewLead implements Serializable {
         this.status = status;
     }
 
-    public MyNewLead(int id,String branchName, String userName, String profession,
+    public MyNewLead(int id, String branchName, String userName, String profession,
                      String organization, String designation, String phone,
                      String address, String sourceRef, String productType,
                      String productSubcategory, String loadAmount, String orInterest,
-                     String opFee, String disDate, String visitDate, String followUp, String remark,String status) {
-        this.id=id;
+                     String opFee, String disDate, String visitDate, String followUp, String remark, String status) {
+        this.id = id;
         this.branchName = branchName;
         this.userName = userName;
         this.profession = profession;

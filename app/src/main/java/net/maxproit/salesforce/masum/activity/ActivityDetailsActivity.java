@@ -1,4 +1,4 @@
-package net.maxproit.salesforce;
+package net.maxproit.salesforce.masum.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,9 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.feature.masum.MyActivitiesActivityNew;
-import net.maxproit.salesforce.model.VisitPlan;
-import net.maxproit.salesforce.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 
 import java.util.ArrayList;
 

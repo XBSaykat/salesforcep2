@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.sqlite;
+package net.maxproit.salesforce.masum.sqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.masum;
+package net.maxproit.salesforce.masum.adapter;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.listener.OnItemClickListener;
-import net.maxproit.salesforce.model.VisitPlan;
+import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 
 import java.util.ArrayList;
 
@@ -19,8 +19,6 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
     private Context context;
     public ArrayList<VisitPlan> leadList;
     public static OnItemClickListener mListener;
-
-
 
 
     public MyVisitPlanListAdapter(Context context, ArrayList<VisitPlan> leadList) {

@@ -1,4 +1,4 @@
-package net.maxproit.salesforce;
+package net.maxproit.salesforce.masum.activity;
 
 import android.content.Intent;
 import android.os.Build;
@@ -15,10 +15,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
-import net.maxproit.salesforce.model.VisitPlan;
-import net.maxproit.salesforce.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.fragment.LeadStageAttachmentFragment;
+import net.maxproit.salesforce.masum.fragment.LeadStageBasicInformationFragment;
+import net.maxproit.salesforce.masum.fragment.LeadStageLoanDetailFragment;
+import net.maxproit.salesforce.masum.fragment.LeadStageVisitRecordFragment;
+import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 
 import java.util.ArrayList;
 import java.util.List;

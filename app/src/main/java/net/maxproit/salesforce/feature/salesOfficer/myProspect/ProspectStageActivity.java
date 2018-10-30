@@ -14,16 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import net.maxproit.salesforce.AppConstant;
-import net.maxproit.salesforce.ProspectStageCoApplicantFragment;
-import net.maxproit.salesforce.ProspectStageFinancialCalculatorFragment;
-import net.maxproit.salesforce.ProspectStageFinancialFragment;
-import net.maxproit.salesforce.ProspectStageLoanAndSecurityDetailFragment;
-import net.maxproit.salesforce.ProspectStageProductAndCustomerDetailsFragment;
+import net.maxproit.salesforce.masum.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.fragment.ProspectStageCoApplicantFragment;
+import net.maxproit.salesforce.masum.fragment.ProspectStageFinancialCalculatorFragment;
+import net.maxproit.salesforce.masum.fragment.ProspectStageFinancialFragment;
+import net.maxproit.salesforce.masum.fragment.ProspectStageLoanAndSecurityDetailFragment;
+import net.maxproit.salesforce.masum.fragment.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.model.MyNewProspect;
-import net.maxproit.salesforce.model.newlead.MyNewLead;
-import net.maxproit.salesforce.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
 import java.util.List;
