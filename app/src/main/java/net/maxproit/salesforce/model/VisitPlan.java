@@ -1,6 +1,8 @@
 package net.maxproit.salesforce.model;
 
-public class VisitPlan {
+import java.io.Serializable;
+
+public class VisitPlan implements Serializable {
 
 
     private String clientName;

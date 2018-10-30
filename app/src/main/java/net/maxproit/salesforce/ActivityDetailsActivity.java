@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import net.maxproit.salesforce.util.ActivityUtils;
 
 import net.maxproit.salesforce.feature.masum.MyActivitiesActivityNew;
 import net.maxproit.salesforce.model.VisitPlan;
@@ -27,7 +28,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
     ImageView backButton;
 
-    ArrayList<VisitPlan> visitPlanArrayList;
+    ArrayList<VisitPlan> visitPlanArrayList, visitPlanFilterList;
     VisitPlanDbController visitPlanDbController;
     VisitPlan visitPlanModel;
     @Override
@@ -36,12 +37,6 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
 
             initView();
-
-
-
-
-
-
 
 
 
@@ -96,12 +91,15 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         tvProceedToLead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent proceedToLeadIntent = new Intent(ActivityDetailsActivity.this, LeadStageActivity.class);
-                proceedToLeadIntent.putExtra(AppConstant.INTENT_KEY, itemPosition);
-                startActivity(proceedToLeadIntent);
-                finish();
+//                Intent proceedToLeadIntent = new Intent(ActivityDetailsActivity.this, LeadStageActivity.class);
+//                proceedToLeadIntent.putExtra(AppConstant.INTENT_KEY, itemPosition);
+//                startActivity(proceedToLeadIntent);
+//                finish();
+
+                sentDataToDetail(itemPosition);
             }
         });
+
 
         tvRejected.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,4 +147,21 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         });
 
     }
+
+    private void sentDataToDetail(int position) {
+        VisitPlan visitPlan=new VisitPlan(visitPlanArrayList.get(position).getId(),
+                visitPlanArrayList.get(position).getClientType(),
+                visitPlanArrayList.get(position).getPurposeOfVisit(),
+                visitPlanArrayList.get(position).getClientName(),
+                visitPlanArrayList.get(position).getMobileNumber(),
+                visitPlanArrayList.get(position).getProductType(),
+                visitPlanArrayList.get(position).getCity(),
+                visitPlanArrayList.get(position).getPoliceStation(),
+                visitPlanArrayList.get(position).getDateOfVisit(),
+                visitPlanArrayList.get(position).getRemarks(),
+                visitPlanArrayList.get(position).getStatus());
+        ActivityUtils.invokVisitPlanDetailsCreateLead(this,visitPlan);
+    }
+
+
 }

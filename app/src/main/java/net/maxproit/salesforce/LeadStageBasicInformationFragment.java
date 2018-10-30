@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.model.newlead.MyNewLead;
@@ -92,16 +93,10 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_basic_information, container, false);
+
         initView(rootView);
         initListener();
         // Inflate the layout for this fragment
-
-
-
-
-
-
-
         return rootView;
     }
 
@@ -178,8 +173,10 @@ public class LeadStageBasicInformationFragment extends Fragment {
         etPhone = rootView.findViewById(R.id.et_lead_phone);
         etAddress = rootView.findViewById(R.id.et_lead_address);
 
-
-
+//        if (!LeadStageActivity.visitPlan.getClientName().equals(null)) {
+//            etUserName.setText(LeadStageActivity.visitPlan.getMobileNumber());
+//            etPhone.setText(LeadStageActivity.visitPlan.getPoliceStation());
+//        }
 
         etPhone.addTextChangedListener(new TextWatcher() {
             @Override

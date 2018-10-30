@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import net.maxproit.salesforce.AppConstant;
+import net.maxproit.salesforce.LeadStageActivity;
 import net.maxproit.salesforce.feature.salesOfficer.myProspect.ProspectStageActivity;
+import net.maxproit.salesforce.model.VisitPlan;
 import net.maxproit.salesforce.model.newlead.MyNewLead;
 
 
@@ -31,6 +33,14 @@ public class ActivityUtils {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         Intent intent = new Intent(activity, ProspectStageActivity.class);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+    public static void invokVisitPlanDetailsCreateLead(Activity activity, VisitPlan visitPlan){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
+        Intent intent = new Intent(activity, LeadStageActivity.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }
