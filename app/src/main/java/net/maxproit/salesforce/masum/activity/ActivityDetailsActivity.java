@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,9 @@ public class ActivityDetailsActivity extends AppCompatActivity {
     Intent myActivityItemIntent;
     int itemPosition;
 
-    ArrayList<VisitPlan> visitPlanArrayList;
+    ImageView backButton;
+
+    ArrayList<VisitPlan> visitPlanArrayList, visitPlanFilterList;
     VisitPlanDbController visitPlanDbController;
     VisitPlan visitPlanModel;
 
@@ -70,16 +74,21 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         tvRejected = (TextView) findViewById(R.id.tv_activity_details_rejected);
         tvReappointment = (TextView) findViewById(R.id.tv_activity_details_reappointment);
 
+        backButton = (ImageView) findViewById(R.id.btn_back);
+
 
         tvProceedToLead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent proceedToLeadIntent = new Intent(ActivityDetailsActivity.this, LeadStageActivity.class);
-                proceedToLeadIntent.putExtra(AppConstant.INTENT_KEY, itemPosition);
-                startActivity(proceedToLeadIntent);
-                finish();
+//                Intent proceedToLeadIntent = new Intent(ActivityDetailsActivity.this, LeadStageActivity.class);
+//                proceedToLeadIntent.putExtra(AppConstant.INTENT_KEY, itemPosition);
+//                startActivity(proceedToLeadIntent);
+//                finish();
+
+                sentDataToDetail(itemPosition);
             }
         });
+
 
         tvRejected.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +127,16 @@ public class ActivityDetailsActivity extends AppCompatActivity {
             }
         });
 
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
     }
+
 
     public VisitPlan getDataFromVisitPlan() {
         VisitPlan visitPlan = null;
@@ -129,5 +147,23 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
         return visitPlan;
 
+
     }
+
+    private void sentDataToDetail(int position) {
+        VisitPlan visitPlan=new VisitPlan(visitPlanArrayList.get(position).getId(),
+                visitPlanArrayList.get(position).getClientType(),
+                visitPlanArrayList.get(position).getPurposeOfVisit(),
+                visitPlanArrayList.get(position).getClientName(),
+                visitPlanArrayList.get(position).getMobileNumber(),
+                visitPlanArrayList.get(position).getProductType(),
+                visitPlanArrayList.get(position).getCity(),
+                visitPlanArrayList.get(position).getPoliceStation(),
+                visitPlanArrayList.get(position).getDateOfVisit(),
+                visitPlanArrayList.get(position).getRemarks(),
+                visitPlanArrayList.get(position).getStatus());
+        ActivityUtils.invokVisitPlanDetailsCreateLead(this,visitPlan);
+    }
+
+
 }

@@ -47,6 +47,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
     private int activityPosition;
     public static int myLeadPosition  = -1;
+    public static VisitPlan visitPlan=null;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -55,6 +56,11 @@ public class LeadStageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead_stage);
         initFragments();
+
+
+
+        visitPlan=getDataFromVisitPlan();
+
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -95,11 +101,6 @@ public class LeadStageActivity extends AppCompatActivity {
 
 
 //        Toast.makeText(this, ""+myLeadPosition, Toast.LENGTH_SHORT).show();
-
-
-
-
-
 
 
 
@@ -275,4 +276,18 @@ public class LeadStageActivity extends AppCompatActivity {
         startActivity(new Intent(LeadStageActivity.this, DashboardSalesOfficerActivity.class));
         finish();
     }
+
+
+    public VisitPlan getDataFromVisitPlan() {
+        VisitPlan visitPlan = null;
+        Bundle extraDetail = getIntent().getExtras();
+        if (extraDetail != null) {
+            visitPlan = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+        }
+
+
+        return visitPlan;
+
+    }
+
 }
