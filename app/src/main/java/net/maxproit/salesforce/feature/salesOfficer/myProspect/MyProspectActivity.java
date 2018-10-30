@@ -115,10 +115,12 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                         myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROCEED);
                         removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
                         break;
+
                     case R.id.btnReject:
                         myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
                         changeItemStatus(position,AppConstant.LEAD_STATUS_REJECT_FROM_PROSPECT);
                         break;
+
                     default:
                         sentDataToDetail(position);
                         break;
@@ -169,6 +171,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getOrInterest(),
                 filterList.get(position).getOpFee(),
                 filterList.get(position).getVisitDate(),
+                filterList.get(position).getDisDate(),
                 filterList.get(position).getFollowUp(),
                 filterList.get(position).getRemark(),
                 filterList.get(position).getStatus());

@@ -46,6 +46,12 @@ public class ProspectStageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         myLeadDbController = new MyLeadDbController(ProspectStageActivity.this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -69,7 +75,7 @@ public class ProspectStageActivity extends AppCompatActivity {
                         relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
                         companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber;
                 String brandName, year, country, vehicleType, securityValue, loanRequired, loanTerm, proposedInterest,
-                        fee, calculatedEMI;
+                        fee, calculatedGrossIncome;
                 String monthlyNetSalary, rentalIncome, monthlySalaryAmount, monthlyBusinessIncome, etMonthlyRentalAmount,
                         agriculturalIncome, practiceConsultancyTution, remittance, interestIncome,
                         monthlyFamilyExpenditure, emiOfOtherLoans;
@@ -127,21 +133,28 @@ public class ProspectStageActivity extends AppCompatActivity {
                 loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
                 proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
                 fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
-                calculatedEMI = ProspectStageLoanAndSecurityDetailFragment.etCalculatedEMI.getText().toString();
-                calculatedEMI = "0";
+//                calculatedGrossIncome = ProspectStageFinancialCalculatorFragment.etCalculatedGrossIncome.getText().toString();
+                calculatedGrossIncome = "";
                 if (getDataFromProspect() != null) {
                     MyNewProspect myNewProspect = new MyNewProspect(getDataFromProspect().getBranchName(),
-                            getDataFromProspect().getUserName(), getDataFromProspect().
-                            getProfession(), getDataFromProspect().getOrganization(),
-                            getDataFromProspect().getDesignation(), mobileNumber, presentAddress,
-                            getDataFromProspect().getSourceRef(), getDataFromProspect().
-                            getProductType(), getDataFromProspect().getProductSubcategory(),
-                            getDataFromProspect().getLoanAmount(), getDataFromProspect().
-                            getOrInterest(), getDataFromProspect().getOpFee(),
-                            getDataFromProspect().getVisitDate(), getDataFromProspect().
-                            getFollowUp(), getDataFromProspect().getRemark(),
-                            AppConstant.LEAD_STATUS_PROCEED, productCat,
-                            productDetails, segment, age, districtOfBirth,
+                            getDataFromProspect().getUserName(),
+                            getDataFromProspect().getProfession(),
+                            getDataFromProspect().getOrganization(),
+                            getDataFromProspect().getDesignation(),
+                            mobileNumber, presentAddress,
+                            getDataFromProspect().getSourceRef(),
+                            getDataFromProspect().getProductType(),
+                            getDataFromProspect().getProductSubcategory(),
+                            getDataFromProspect().getLoanAmount(),
+                            getDataFromProspect().getOrInterest(),
+                            getDataFromProspect().getOpFee(),
+                            getDataFromProspect().getVisitDate(),
+                            getDataFromProspect().getDisDate(),
+                            getDataFromProspect().getFollowUp(),
+                            getDataFromProspect().getRemark(),
+                            AppConstant.LEAD_STATUS_PROCEED,
+                            productCat, productDetails,
+                            segment, age, districtOfBirth,
                             countOfBirth, photoId, photoIdDate, eTin, fatherName,
                             motherName, spouseName, "", noYrsInCureentJob,
                             relationship, permanentAddress, monthlyNetSalary,
@@ -149,9 +162,9 @@ public class ProspectStageActivity extends AppCompatActivity {
                             agriculturalIncome, practiceConsultancyTution, remittance,
                             interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
                             securityValue, loanRequired, loanTerm, proposedInterest,
-                            fee, calculatedEMI);
+                            fee, calculatedGrossIncome);
 
-                    int update =myLeadDbController.upDateProspectData(myNewProspect,getDataFromProspect().getId());
+                    int update = myLeadDbController.upDateProspectData(myNewProspect,getDataFromProspect().getId());
                     if (update>0){
                         Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
                     }

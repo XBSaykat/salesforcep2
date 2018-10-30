@@ -2,6 +2,7 @@ package net.maxproit.salesforce;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,15 +10,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+import net.maxproit.salesforce.model.VisitPlan;
 import net.maxproit.salesforce.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.sqlite.VisitPlanDbController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,20 +30,38 @@ public class LeadStageActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TextView btnSave;
     private MyLeadDbController myLeadDbController;
+    private ArrayList<VisitPlan> visitPlanArrayList;
+    private VisitPlanDbController visitPlanDbController;
+    private LeadStageBasicInformationFragment leadStageBasicInformationFragment;
+    private LeadStageAttachmentFragment leadStageAttachmentFragment;
+    private LeadStageVisitRecordFragment leadStageVisitRecordFragment;
+    private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
 
-    private Spinner spnClientType;
+
+
+    private int activityPosition;
+    public static int myLeadPosition  = -1;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead_stage);
+        initFragments();
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Create Lead");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -52,9 +71,39 @@ public class LeadStageActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         myLeadDbController = new MyLeadDbController(LeadStageActivity.this);
 
+        Intent myActivityDetails = getIntent();
+
+
+        myLeadPosition = myActivityDetails.getIntExtra(AppConstant.LEAD_INTENT_KEY, -1);
+
+        if (myLeadPosition >= 0){
+            Bundle bundle = new Bundle();
+            bundle.putInt(AppConstant.LEAD_INTENT_KEY, myLeadPosition);
+           leadStageBasicInformationFragment.setArguments(bundle);
+           leadStageLoanDetailFragment.setArguments(bundle);
+           leadStageVisitRecordFragment.setArguments(bundle);
+           leadStageAttachmentFragment.setArguments(bundle);
+
+        }
+
+
+
+//        Toast.makeText(this, ""+myLeadPosition, Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
             /*    this.branchName = branchName;
                 this.userName = userName;
                 this.profession = profession;
@@ -94,10 +143,10 @@ public class LeadStageActivity extends AppCompatActivity {
 //                        )
 
 
-                if (LeadStageLoanDetailFragment.ref > 0 &&
-                        LeadStageBasicInformationFragment.branchName != null &
-                                LeadStageVisitRecordFragment.followUp != null &&
-                        LeadStageVisitRecordFragment.visitDate != null) {
+//                if (LeadStageLoanDetailFragment.ref > 0 &&
+//                        LeadStageBasicInformationFragment.branchName != null &
+//                                LeadStageVisitRecordFragment.followUp != null &&
+//                        LeadStageVisitRecordFragment.visitDate != null) {
 
                     String BranchName = LeadStageBasicInformationFragment.branchName; //
                     String profession = LeadStageBasicInformationFragment.profession; //
@@ -111,7 +160,7 @@ public class LeadStageActivity extends AppCompatActivity {
                     String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
                     String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
                     String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
-//                    String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
+//                  String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
 
                     String ref = refArray[LeadStageLoanDetailFragment.ref];
 
@@ -120,7 +169,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
 //                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
                     String subCat = LeadStageLoanDetailFragment.subCategory;
-
+                    String disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
                     String visitDate = LeadStageVisitRecordFragment.visitDate; //
                     String remark = LeadStageVisitRecordFragment.remark;
                     String followUp = LeadStageVisitRecordFragment.followUp;
@@ -131,16 +180,16 @@ public class LeadStageActivity extends AppCompatActivity {
 
                     int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, visitDate, followUp, remark);
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark);
                     if (insert > 0) {
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                     }
 
-                } else {
-                    Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
+//                }
 
 //                Toast.makeText(LeadStageActivity.this, "save data", Toast.LENGTH_SHORT).show();
 
@@ -149,12 +198,38 @@ public class LeadStageActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
+    private void initFragments(){
+        leadStageAttachmentFragment = new LeadStageAttachmentFragment();
+        leadStageBasicInformationFragment = new LeadStageBasicInformationFragment();
+        leadStageLoanDetailFragment = new LeadStageLoanDetailFragment();
+        leadStageVisitRecordFragment = new LeadStageVisitRecordFragment();
+
+
+
+
+    }
+
+    private void setFieldsFromActivity() {
+
+
+
+
+
+
+
+
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new LeadStageBasicInformationFragment(), "Basic Information");
-        adapter.addFragment(new LeadStageLoanDetailFragment(), "Loan Detail");
-        adapter.addFragment(new LeadStageVisitRecordFragment(), "Visit Record");
-        adapter.addFragment(new LeadStageAttachmentFragment(), "Attachment");
+        adapter.addFragment(leadStageBasicInformationFragment, "Basic Information");
+        adapter.addFragment(leadStageLoanDetailFragment, "Loan Detail");
+        adapter.addFragment(leadStageVisitRecordFragment, "Visit Record");
+        adapter.addFragment(leadStageAttachmentFragment, "Attachment");
         viewPager.setAdapter(adapter);
     }
 

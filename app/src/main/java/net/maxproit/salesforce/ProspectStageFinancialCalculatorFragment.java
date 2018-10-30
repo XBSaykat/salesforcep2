@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
@@ -26,6 +29,8 @@ public class ProspectStageFinancialCalculatorFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    public static EditText etCalculatedGrossIncome;
+    public static Button btnCalculate;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +69,118 @@ public class ProspectStageFinancialCalculatorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_prospect_stage_financial_calculator, container, false);
+        View view = inflater.inflate(R.layout.fragment_prospect_stage_financial_calculator,
+                container, false);
+        etCalculatedGrossIncome = view.findViewById(R.id.et_prospect_stage_calculated_gross_income);
+        btnCalculate = view.findViewById(R.id.btn_prospect_stage_financial_calculator);
+
+        initListener();
+
+        return view;
+    }
+
+    private void initListener() {
+
+        btnCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                financialCalculate();
+
+
+            }
+
+            private void financialCalculate() {
+
+                int monthlySalary, monthlyRentalIncome, monthlyBusinessIncome, agriculturalIncome, monthlyExpanse;
+
+
+                if (ProspectStageFinancialFragment
+                        .etMonthlySalaryAmount != null &&
+                        ProspectStageFinancialFragment
+                                .etMonthlyBusinessIncome != null &&
+                        ProspectStageFinancialFragment
+                                .etMonthlyRentalAmount != null &&
+                        ProspectStageFinancialFragment
+                                .etAgriculturalIncome != null &&
+                        ProspectStageFinancialFragment
+                                .etMonthlyFamilyExpenditure != null){
+
+
+
+                    if(ProspectStageFinancialFragment
+                            .etMonthlySalaryAmount.getText().toString().equals("")){
+                        monthlySalary = 0;
+                    }else{
+                        monthlySalary = Integer.valueOf(ProspectStageFinancialFragment
+                                .etMonthlySalaryAmount.getText().toString());
+                    }
+
+                    if(ProspectStageFinancialFragment
+                            .etMonthlyBusinessIncome.getText().toString().equals("")){
+                        monthlyBusinessIncome = 0;
+                    }else{
+                        monthlyBusinessIncome = Integer.valueOf(ProspectStageFinancialFragment
+                                .etMonthlyBusinessIncome.getText().toString());
+                    }
+
+
+                    if(ProspectStageFinancialFragment
+                            .etAgriculturalIncome.getText().toString().equals("")){
+                        agriculturalIncome = 0;
+                    }else{
+                        agriculturalIncome = Integer.valueOf(ProspectStageFinancialFragment
+                                .etAgriculturalIncome.getText().toString());
+                    }
+
+                    if(ProspectStageFinancialFragment
+                            .etMonthlyRentalAmount.getText().toString().equals("")){
+                        monthlyRentalIncome = 0;
+                    }else{
+                        monthlyRentalIncome = Integer.valueOf(ProspectStageFinancialFragment
+                                .etMonthlyRentalAmount.getText().toString());
+                    }
+
+                    if(ProspectStageFinancialFragment
+                            .etMonthlyFamilyExpenditure.getText().toString().equals("")){
+                        monthlyExpanse = 0;
+                    }else{
+                        monthlyExpanse = Integer.valueOf(ProspectStageFinancialFragment
+                                .etMonthlyFamilyExpenditure.getText().toString());
+                    }
+
+//                    int monthlyBusinessIncome = Integer.valueOf(ProspectStageFinancialFragment
+//                            .etMonthlyBusinessIncome.getText().toString());
+//                    int monthlyRentalIncome = Integer.valueOf(ProspectStageFinancialFragment
+//                            .etMonthlyRentalAmount.getText().toString());
+//                    int agriculturalIncome = Integer.valueOf(ProspectStageFinancialFragment
+//                            .etAgriculturalIncome.getText().toString());
+//                    int monthlyExpanse = Integer.valueOf(ProspectStageFinancialFragment
+//                            .etMonthlyFamilyExpenditure.getText().toString());
+
+
+                    int calculatedMonthlySavings = (monthlySalary +
+                            monthlyBusinessIncome +
+                            monthlyRentalIncome +
+                            agriculturalIncome) - monthlyExpanse;
+
+                    etCalculatedGrossIncome.setText(String.valueOf(calculatedMonthlySavings));
+                }else{
+                    Toast.makeText(getActivity(), "Fields empty", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -77,12 +193,12 @@ public class ProspectStageFinancialCalculatorFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override

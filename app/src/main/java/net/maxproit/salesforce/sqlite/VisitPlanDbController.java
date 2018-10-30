@@ -30,7 +30,7 @@ public class VisitPlanDbController {
         dbHelper.close();
     }
 
-    public int insertData(String clientName, String clientType, String mobileNumber, String productType, String area, String purposeOfVisit,
+    public int insertData(String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
                           String dateOfVisit, String remarks) {
 
         ContentValues values = new ContentValues();
@@ -38,7 +38,8 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_CLIENT_TYPE, clientType);
         values.put(DbConstants.VISIT_PLAN_MOBILE_NUMBER, mobileNumber);
         values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, productType);
-        values.put(DbConstants.VISIT_PLAN_AREA, area);
+        values.put(DbConstants.VISIT_PLAN_CITY, city);
+        values.put(DbConstants.VISIT_PLAN_POLICE_STATION, policeStation);
         values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,purposeOfVisit);
         values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, dateOfVisit);
         values.put(DbConstants.VISIT_PLAN_REMARKS,remarks);
@@ -59,7 +60,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
                 DbConstants.VISIT_PLAN_PRODUCT_TYPE,
-                DbConstants.VISIT_PLAN_AREA,
+                DbConstants.VISIT_PLAN_CITY,
+                DbConstants.VISIT_PLAN_POLICE_STATION,
                 DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
@@ -96,7 +98,8 @@ public class VisitPlanDbController {
                     String clientType = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_CLIENT_TYPE));
                     String mobileNumber = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_MOBILE_NUMBER));
                     String productType = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_PRODUCT_TYPE));
-                    String area = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_AREA));
+                    String city = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_CITY));
+                    String policeStation = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_POLICE_STATION));
                     String purposeOfVisit = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT));
                     String dateOfVisit = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_DATE_OF_VISIT));
                     String remarks = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_REMARKS));
@@ -105,7 +108,7 @@ public class VisitPlanDbController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new VisitPlan(id, clientType, mobileNumber, productType, area, purposeOfVisit, dateOfVisit, remarks,status));
+                    favDataArray.add(new VisitPlan(id, clientName, clientType, mobileNumber, productType, city, policeStation, purposeOfVisit, dateOfVisit, remarks,status));
                 } while (c.moveToNext());
             }
             c.close();

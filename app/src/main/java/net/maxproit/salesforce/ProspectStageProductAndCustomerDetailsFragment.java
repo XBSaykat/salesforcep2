@@ -118,8 +118,13 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         initAdapters();
         initListener();
         if (prospectStageActivity.getDataFromProspect()!=null){
+
             MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+
             etName.setText(myNewLead.getUserName());
+            etPresentAddress.setText(myNewLead.getAddress());
+            etDesignation.setText(myNewLead.getDesignation());
+            etMobileNumber.setText(myNewLead.getPhone());
             etPresentAddress.setText(myNewLead.getAddress());
         }
 

@@ -2,6 +2,8 @@ package net.maxproit.salesforce;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,9 +19,13 @@ import android.widget.TextView;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.salesforce.model.newlead.MyNewLead;
+import net.maxproit.salesforce.sqlite.MyLeadDbController;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -30,7 +36,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    EditText edittext;
+
     Calendar myCalendar = Calendar.getInstance();
 
     TextView tvTentativeNumberToWord;
@@ -38,9 +44,11 @@ public class LeadStageLoanDetailFragment extends Fragment {
     //TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<MyNewLead> myNewLeadArrayList;
+    private MyLeadDbController myLeadDbController;
 
     private AwesomeSpinner spinnerRef,spinnerProductType,spinnerSubCategory;
-    public static EditText etLoadAmount,etFee,etInterest;
+    public static EditText etLoadAmount,etFee,etInterest,etDisbursementDate;
     public static int ref=0;
     public static String productType = null;
     public static String subCategory = null;
@@ -90,6 +98,20 @@ public class LeadStageLoanDetailFragment extends Fragment {
     }
 
     private void initListener() {
+
+
+        if (getArguments() != null){
+            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
+            myLeadDbController = new MyLeadDbController(getActivity());
+            myNewLeadArrayList = new ArrayList<>();
+            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
+
+            etLoadAmount.setText(myNewLeadArrayList.get(position).getLoanAmount());
+            etInterest.setText(myNewLeadArrayList.get(position).getOrInterest());
+            etFee.setText(myNewLeadArrayList.get(position).getOpFee());
+            etDisbursementDate.setText(myNewLeadArrayList.get(position).getDisDate());
+
+        }
 
         spinnerRef.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -183,7 +205,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
         }
 
 
-        edittext= (EditText) rootView.findViewById(R.id.et_disbursement_date);
+        etDisbursementDate= (EditText) rootView.findViewById(R.id.et_disbursement_date);
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -198,14 +220,11 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
         };
 
-        edittext.setOnClickListener(new View.OnClickListener() {
+        etDisbursementDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(getContext(), date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                datePickerDialog(getContext());
             }
         });
 
@@ -245,14 +264,40 @@ public class LeadStageLoanDetailFragment extends Fragment {
             }
         });
 
+        etInterest.addTextChangedListener(new NumberTextWatcher(etInterest));
         initSpinnerAdapter();
+    }
+
+    public void datePickerDialog(Context context){
+
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month += 1;
+                String selectedDate = (dayOfMonth +"."+ month +"."+ year);
+                etDisbursementDate.getText().clear();
+                etDisbursementDate.setText(selectedDate);
+            }
+        };
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(context,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                listener,
+                year, month, day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
     }
 
     private void updateLabel() {
         String myFormat = "dd-mm-yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        edittext.setText(sdf.format(myCalendar.getTime()));
+        etDisbursementDate.setText(sdf.format(myCalendar.getTime()));
     }
 
     private void initSpinnerAdapter() {

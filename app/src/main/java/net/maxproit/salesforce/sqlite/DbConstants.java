@@ -29,6 +29,7 @@ public class DbConstants {
     public static final String LEAD_AMOUNT = "amount";
     public static final String LEAD_OR_INTEREST = "interest";
     public static final String LEAD_OP_FEE = "op_fee";
+    public static final String LEAD_DISBURSEMENT_DATE = "disbursement_date";
     public static final String LEAD_VISIT_DATE = "date";
     public static final String LEAD_FOLLOW_UP = "follow";
     public static final String LEAD_REMARK = "remark";
@@ -72,7 +73,8 @@ public class DbConstants {
     public static final String VISIT_PLAN_CLIENT_TYPE = "client_type";
     public static final String VISIT_PLAN_MOBILE_NUMBER = "mobile_number";
     public static final String VISIT_PLAN_PRODUCT_TYPE = "product_type";
-    public static final String VISIT_PLAN_AREA = "area";
+    public static final String VISIT_PLAN_CITY = "city";
+    public static final String VISIT_PLAN_POLICE_STATION = "police_station";
     public static final String VISIT_PLAN_PURPOSE_OF_VISIT = "purpose_of_visit";
     public static final String VISIT_PLAN_DATE_OF_VISIT = "date_of_visit";
     public static final String VISIT_PLAN_REMARKS = "remarks";
@@ -95,6 +97,7 @@ public class DbConstants {
                     LEAD_AMOUNT + TEXT_TYPE + COMMA_SEP +
                     LEAD_OR_INTEREST + TEXT_TYPE + COMMA_SEP +
                     LEAD_OP_FEE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_DISBURSEMENT_DATE + TEXT_TYPE + COMMA_SEP +
                     LEAD_VISIT_DATE + TEXT_TYPE + COMMA_SEP +
                     LEAD_FOLLOW_UP + TEXT_TYPE + COMMA_SEP +
                     LEAD_REMARK + TEXT_TYPE + COMMA_SEP +
@@ -141,7 +144,8 @@ public class DbConstants {
                     VISIT_PLAN_CLIENT_TYPE + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_MOBILE_NUMBER + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
-                    VISIT_PLAN_AREA + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_CITY + TEXT_TYPE + COMMA_SEP +
+                    VISIT_PLAN_POLICE_STATION + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_PURPOSE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_DATE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_REMARKS + TEXT_TYPE + COMMA_SEP +

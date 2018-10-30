@@ -26,9 +26,13 @@ public class AppConstant {
     public static final String LEAD_STATUS_REJECT ="rejected" ;
 
     public static final String INTENT_KEY ="key" ;
+    public static final String LEAD_INTENT_KEY ="lead_key" ;
+
+
 
 
     public static final String LEAD_STATUS_REJECT_FROM_PROSPECT = "rejected_prospect";
     public static final String LEAD_STATUS_PROCEED = "process";
     public static final String LEAD_STATUS_New_PLAN = "new_plan";
+
 }

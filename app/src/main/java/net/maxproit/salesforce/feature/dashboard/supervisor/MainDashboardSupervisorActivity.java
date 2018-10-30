@@ -4,10 +4,10 @@ import android.app.AlertDialog;
 import android.os.Build;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.SupervisorRbmProspect;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMainDashboardSupervisorBinding;
 import net.maxproit.salesforce.feature.login.LoginActivity;
-import net.maxproit.salesforce.feature.supervisor.SupervisorMaiProspectActivity;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 public class MainDashboardSupervisorActivity extends BaseActivity {
@@ -24,8 +24,8 @@ public class MainDashboardSupervisorActivity extends BaseActivity {
         binding = (ActivityMainDashboardSupervisorBinding) getBinding();
         binding.logout.setOnClickListener(v -> logout());
         binding.btnBack.setOnClickListener(v -> finish());
-        binding.dashboard.setOnClickListener(v -> startActivity(DashboardSupervisorActivity.class, false));
-        binding.prospect.setOnClickListener(v -> startActivity(SupervisorMaiProspectActivity.class, false));
+//        binding.dashboard.setOnClickListener(v -> startActivity(DashboardSupervisorActivity.class, false));
+        binding.prospect.setOnClickListener(v -> startActivity(SupervisorRbmProspect.class, false));
 
     }
 

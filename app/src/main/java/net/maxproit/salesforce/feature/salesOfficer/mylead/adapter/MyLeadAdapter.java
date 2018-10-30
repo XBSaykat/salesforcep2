@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.feature.salesOfficer.mylead.adapter;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
         ArrayList<MyNewLead> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
         private ImageView imgApproved,imgReject;
+        private ConstraintLayout constraintLayoutLeadItem;
 
 
         public CustomViewHolder(View itemView, Context context, ArrayList<MyNewLead> leadList) {
@@ -44,6 +46,7 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
             tvName=itemView.findViewById(R.id.tvName);
             tvBranch=itemView.findViewById(R.id.tvBranch);
             tvStatus=itemView.findViewById(R.id.tvStatus);
+            constraintLayoutLeadItem = itemView.findViewById(R.id.clLeadItem);
             imgApproved=itemView.findViewById(R.id.btnApproved);
             imgReject=itemView.findViewById(R.id.btnReject);
 
@@ -61,6 +64,14 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
                     mListener.itemClickListener(v,getLayoutPosition());
                 }
             });
+
+            constraintLayoutLeadItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.itemClickListener(v,getLayoutPosition());
+                }
+            });
+
 
         }
 
@@ -83,6 +94,7 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
         holder.tvName.setText(leadList.get(position).getUserName());
         holder.tvBranch.setText(leadList.get(position).getBranchName());
         holder.tvStatus.setText(leadList.get(position).getStatus());
+
 
     }
 
