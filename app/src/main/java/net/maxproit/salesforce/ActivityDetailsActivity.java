@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
     Intent myActivityItemIntent;
     int itemPosition;
+
+    ImageView backButton;
 
     ArrayList<VisitPlan> visitPlanArrayList;
     VisitPlanDbController visitPlanDbController;
@@ -60,6 +63,8 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         tvProceedToLead = (TextView)findViewById(R.id.tv_activity_details_proceed_to_lead);
         tvRejected = (TextView)findViewById(R.id.tv_activity_details_rejected);
         tvReappointment = (TextView)findViewById(R.id.tv_activity_details_reappointment);
+
+        backButton = (ImageView) findViewById(R.id.btn_back);
 
 
 
@@ -133,6 +138,13 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
