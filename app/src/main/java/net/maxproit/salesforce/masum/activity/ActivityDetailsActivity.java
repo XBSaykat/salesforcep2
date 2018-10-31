@@ -162,7 +162,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                 visitPlanArrayList.get(position).getDateOfVisit(),
                 visitPlanArrayList.get(position).getRemarks(),
                 visitPlanArrayList.get(position).getStatus());
-        ActivityUtils.invokVisitPlanDetailsCreateLead(this,visitPlan);
+        ActivityUtils.invokVisitPlanDetail(this,visitPlan);
     }
 
 

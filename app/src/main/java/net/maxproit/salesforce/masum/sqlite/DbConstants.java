@@ -247,117 +247,117 @@ public class DbConstants {
 
     // SPINNER TABLES
     public static final String SQL_SPINNER_CLIENT_TYPE =
-            "CREATE TABLE" + TABLE_CLIENT_TYPE + " ("+
+            "CREATE TABLE " + TABLE_CLIENT_TYPE + " ("+
                     CLIENT_TYPE_ID + " INTEGER PRIMARY KEY,"+
                     CLIENT_TYPE + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_PURPOSE_OF_VISIT =
-            "CREATE TABLE" + TABLE_PURPOSE_OF_VISIT +" ("+
+            "CREATE TABLE " + TABLE_PURPOSE_OF_VISIT +" ("+
                     PURPOSE_OF_VISIT_ID + " INTEGER PRIMARY KEY,"+
                     PURPOSE_OF_VISIT + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_CITY =
-            "CREATE TABLE" + TABLE_CITY + " ("+
+            "CREATE TABLE " + TABLE_CITY + " ("+
                     CITY_ID + " INTEGER PRIMARY KEY,"+
                     CITY + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_POLICE_STATION =
-            "CREATE TABLE" + TABLE_POLICE_STATION + " ("+
+            "CREATE TABLE " + TABLE_POLICE_STATION + " ("+
                     POLICE_STATION_ID + " INTEGER PRIMARY KEY,"+
                     POLICE_STATION + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_BRANCH =
-            "CREATE TABLE" + TABLE_BRANCH +" ("+
+            "CREATE TABLE " + TABLE_BRANCH +" ("+
                     BRANCH_ID + " INTEGER PRIMARY KEY,"+
                     BRANCH + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_PROFESSION =
-            "CREATE TABLE" + TABLE_PROFESSION +" ("+
+            "CREATE TABLE " + TABLE_PROFESSION +" ("+
                     PROFESSION_ID + " INTEGER PRIMARY KEY,"+
                     PROFESSION + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_SOURCE_OF_REFERENCE =
-            "CREATE TABLE" + TABLE_SOURCE_OF_REFERENCE +" ("+
+            "CREATE TABLE " + TABLE_SOURCE_OF_REFERENCE +" ("+
                     SOURCE_OF_REFERENCE_ID + " INTEGER PRIMARY KEY,"+
                     SOURCE_OF_REFERENCE + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_PRODUCT_TYPE =
-            "CREATE TABLE" + TABLE_PRODUCT_TYPE +" ("+
+            "CREATE TABLE " + TABLE_PRODUCT_TYPE +" ("+
                     PRODUCT_TYPE_ID + " INTEGER PRIMARY KEY,"+
                     PRODUCT_TYPE + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_PRODUCT_SUBCATEGORY =
-            "CREATE TABLE" + TABLE_PRODUCT_SUBCATEGORY + " ("+
+            "CREATE TABLE " + TABLE_PRODUCT_SUBCATEGORY + " ("+
                     PRODUCT_SUBCATEGORY_ID + " INTEGER PRIMARY KEY,"+
                     PRODUCT_SUBCATEGORY + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_FOLLOW_UP =
-            "CREATE TABLE" + TABLE_FOLLOW_UP + " ("+
+            "CREATE TABLE " + TABLE_FOLLOW_UP + " ("+
                     FOLLOW_UP_ID + " INTEGER PRIMARY KEY,"+
                     FOLLOW_UP + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_REMARKS =
-            "CREATE TABLE" + TABLE_REMARKS +" ("+
+            "CREATE TABLE " + TABLE_REMARKS +" ("+
                     REMARKS_ID + " INTEGER PRIMARY KEY,"+
                     REMARKS + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_PRODUCT_CATEGORY =
-            "CREATE TABLE" + TABLE_PRODUCT_CATEGORY +" ("+
+            "CREATE TABLE " + TABLE_PRODUCT_CATEGORY +" ("+
                     PRODUCT_CATEGORY_ID + " INTEGER PRIMARY KEY,"+
                     PRODUCT_CATEGORY + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_PRODUCT_DETAIL =
-            "CREATE TABLE" + TABLE_PRODUCT_DETAIL +" ("+
+            "CREATE TABLE " + TABLE_PRODUCT_DETAIL +" ("+
                     PRODUCT_DETAIL_ID + " INTEGER PRIMARY KEY,"+
                     PRODUCT_DETAIL + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_SEGMENT =
-            "CREATE TABLE" + TABLE_SEGMENT +" ("+
+            "CREATE TABLE " + TABLE_SEGMENT +" ("+
                     SEGMENT_ID + " INTEGER PRIMARY KEY,"+
                     SEGMENT + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_BIRTH_DISTRICT =
-            "CREATE TABLE" + TABLE_BIRTH_DISTRICT +" ("+
+            "CREATE TABLE " + TABLE_BIRTH_DISTRICT +" ("+
                     BIRTH_DISTRICT_ID + " INTEGER PRIMARY KEY,"+
                     BIRTH_DISTRICT + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_BIRTH_COUNTRY =
-            "CREATE TABLE" + TABLE_BIRTH_COUNTRY +" ("+
+            "CREATE TABLE " + TABLE_BIRTH_COUNTRY +" ("+
                     BIRTH_COUNTRY_ID + " INTEGER PRIMARY KEY,"+
                     BIRTH_COUNTRY + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_RELATIONSHIP_WITH_APPLICANT =
-            "CREATE TABLE" + TABLE_RELATIONSHIP_WITH_APPLICANT + " ("+
+            "CREATE TABLE " + TABLE_RELATIONSHIP_WITH_APPLICANT + " ("+
                     RELATIONSHIP_WITH_APPLICANT_ID + " INTEGER PRIMARY KEY,"+
                     RELATIONSHIP_WITH_APPLICANT + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_MONTHLY_SALARY =
-            "CREATE TABLE" + TABLE_MONTHLY_SALARY +" ("+
+            "CREATE TABLE " + TABLE_MONTHLY_SALARY +" ("+
                     MONTHLY_SALARY_ID + " INTEGER PRIMARY KEY,"+
                     MONTHLY_SALARY + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_MONTHLY_RENTAL_INCOME =
-            "CREATE TABLE" + TABLE_MONTHLY_RENTAL_INCOME +" ("+
+            "CREATE TABLE " + TABLE_MONTHLY_RENTAL_INCOME +" ("+
                     MONTHLY_RENTAL_INCOME_ID + " INTEGER PRIMARY KEY,"+
                     MONTHLY_RENTAL_INCOME + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_BRAND_NAME =
-            "CREATE TABLE" + TABLE_BRAND_NAME +" ("+
+            "CREATE TABLE " + TABLE_BRAND_NAME +" ("+
                     BRAND_NAME_ID + " INTEGER PRIMARY KEY,"+
                     BRAND_NAME + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_MANUFACTURING_YEAR =
-            "CREATE TABLE" + TABLE_MANUFACTURING_YEAR +" ("+
+            "CREATE TABLE " + TABLE_MANUFACTURING_YEAR +" ("+
                     MANUFACTURING_YEAR_ID + " INTEGER PRIMARY KEY,"+
                     MANUFACTURING_YEAR + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_MANUFACTURING_COUNTRY =
-            "CREATE TABLE" + TABLE_MANUFACTURING_COUNTRY +" ("+
+            "CREATE TABLE " + TABLE_MANUFACTURING_COUNTRY +" ("+
                     MANUFACTURING_COUNTRY_ID + " INTEGER PRIMARY KEY,"+
                     MANUFACTURING_COUNTRY + TEXT_TYPE+ ")";
 
     public static final String SQL_SPINNER_VEHICLE_TYPE =
-            "CREATE TABLE" + TABLE_VEHICLE_TYPE +" ("+
+            "CREATE TABLE " + TABLE_VEHICLE_TYPE +" ("+
                     VEHICLE_TYPE_ID + " INTEGER PRIMARY KEY,"+
                     VEHICLE_TYPE + TEXT_TYPE+ ")";
 
