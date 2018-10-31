@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment;
+package net.maxproit.salesforce.masum.fragment.lead;
 
 import android.content.Context;
 import android.net.Uri;
@@ -153,7 +153,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
     private void initView(View rootView) {
 
-<<<<<<< HEAD:app/src/main/java/net/maxproit/salesforce/masum/fragment/LeadStageBasicInformationFragment.java
         spinnerDbController = new SpinnerDbController(getActivity());
 
 
@@ -163,8 +162,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
         listProfessionArray.addAll(spinnerDbController.getProfessionData());
 
 
-=======
->>>>>>> a89ec544c7a25153553eaab40252f00e1c454ceb:app/src/main/java/net/maxproit/salesforce/masum/fragment/lead/LeadStageBasicInformationFragment.java
         spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
         spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
         etUserName = rootView.findViewById(R.id.et_lead_user_name);

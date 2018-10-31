@@ -367,7 +367,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //                android.R.layout.simple_spinner_item);
 //        spinnerDistOfBirth.setAdapter(distOfBirthAdapter, 0);
 
-<<<<<<< HEAD:app/src/main/java/net/maxproit/salesforce/masum/fragment/ProspectStageProductAndCustomerDetailsFragment.java
         ArrayAdapter<String> disBirth=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBirthDistric);
         spinnerDistOfBirth.setAdapter(disBirth);
 
@@ -378,7 +377,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //                R.array.countries,
 //                android.R.layout.simple_spinner_item);
 //        spinnerCountOfBirth.setAdapter(countryOfBirthAdapter, 0);
-=======
         ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.branch_name_array,
                 android.R.layout.simple_spinner_item);
@@ -388,12 +386,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 R.array.segment_array,
                 android.R.layout.simple_spinner_item);
         spinnerSegment.setAdapter(segmentAdapter, 0);
->>>>>>> a89ec544c7a25153553eaab40252f00e1c454ceb:app/src/main/java/net/maxproit/salesforce/masum/fragment/prospect/ProspectStageProductAndCustomerDetailsFragment.java
-
-//        ArrayAdapter<CharSequence> ProfessionAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.profession_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerProfession.setAdapter(ProfessionAdapter, 0);
 
         ArrayAdapter<String> profession=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProfession);
         spinnerProfession.setAdapter(profession);
@@ -415,7 +407,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etDesignation.setText(myNewLead.getDesignation());
             etMobileNumber.setText(myNewLead.getPhone());
             spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
-            spinnerProductCat.setSelection(productCatAdapter.getPosition(myNewLead.getProductType()));
+            spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
 
         }
 
