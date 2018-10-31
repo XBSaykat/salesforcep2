@@ -104,18 +104,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private void initListener() {
 
 
-        if (getArguments() != null){
-            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
-            myLeadDbController = new MyLeadDbController(getActivity());
-            myNewLeadArrayList = new ArrayList<>();
-            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
 
-            etLoadAmount.setText(myNewLeadArrayList.get(position).getLoanAmount());
-            etInterest.setText(myNewLeadArrayList.get(position).getOrInterest());
-            etFee.setText(myNewLeadArrayList.get(position).getOpFee());
-            etDisbursementDate.setText(myNewLeadArrayList.get(position).getDisDate());
-
-        }
 
         spinnerRef.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override

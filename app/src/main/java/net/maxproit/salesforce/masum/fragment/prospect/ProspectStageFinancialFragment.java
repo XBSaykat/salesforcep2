@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment;
+package net.maxproit.salesforce.masum.fragment.prospect;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -15,7 +15,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
-import net.maxproit.salesforce.feature.salesOfficer.myProspect.ProspectStageActivity;
+import net.maxproit.salesforce.masum.activity.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 
 

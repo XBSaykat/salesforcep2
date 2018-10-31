@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment;
+package net.maxproit.salesforce.masum.fragment.prospect;
 
 import android.content.Context;
 import android.net.Uri;

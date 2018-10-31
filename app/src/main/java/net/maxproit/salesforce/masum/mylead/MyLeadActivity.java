@@ -17,6 +17,7 @@ import net.maxproit.salesforce.masum.mylead.adapter.MyLeadAdapter;
 import net.maxproit.salesforce.feature.salesOfficer.newlead.NewLeadActivity;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
@@ -100,25 +101,35 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                         changeItemStatus(position,AppConstant.LEAD_STATUS_REJECT);
                         break;
                     case R.id.clLeadItem:
-
-                        int a=leadList.get(position).getId();
-                        Intent createLeadIntent = new Intent(MyLeadActivity.this, LeadStageActivity.class);
-                        createLeadIntent.putExtra(AppConstant.LEAD_INTENT_KEY, position);
-                        startActivity(createLeadIntent);
-                        finish();
-                      /*  Bundle IDbundle;
-                        IDbundle=new Bundle();
-                        IDbundle.putString("PreEnrollmentID", txtPreEnrollmentID.getText().toString());
-                        //IDbundle.putString("WFollowNo", txtFollowupNo.getText().toString());
-                        //IDbundle.putString("WVisitNo", txtVisitNo.getText().toString());
-                        Intent f1 = new Intent(getApplicationContext(), Followup90Days.class);
-                        f1.putExtras(IDbundle);
-                        startActivityForResult(f1,1);*/
+                        sentDataToDetail(position);
+                        break;
                 }
             }
         });
     }
 
+    private void sentDataToDetail(int position) {
+        MyNewLead myNewLead=new MyNewLead(filterList.get(position).getId(),
+                filterList.get(position).getBranchName(),
+                filterList.get(position).getUserName(),
+                filterList.get(position).getProfession(),
+                filterList.get(position).getOrganization(),
+                filterList.get(position).getDesignation(),
+                filterList.get(position).getPhone(),
+                filterList.get(position).getAddress(),
+                filterList.get(position).getSourceRef(),
+                filterList.get(position).getProductType(),
+                filterList.get(position).getProductSubcategory(),
+                filterList.get(position).getLoanAmount(),
+                filterList.get(position).getOrInterest(),
+                filterList.get(position).getOpFee(),
+                filterList.get(position).getVisitDate(),
+                filterList.get(position).getDisDate(),
+                filterList.get(position).getFollowUp(),
+                filterList.get(position).getRemark(),
+                filterList.get(position).getStatus());
+        ActivityUtils.invokLeadDetailForLeadStage(this,myNewLead);
+    }
 
 
     @Override

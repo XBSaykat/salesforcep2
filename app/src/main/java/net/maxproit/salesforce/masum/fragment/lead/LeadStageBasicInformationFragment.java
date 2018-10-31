@@ -16,6 +16,7 @@ import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
@@ -95,6 +96,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
         initView(rootView);
         initListener();
+        setIntentData();
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -103,20 +105,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
     private void initListener() {
 
-        if (getArguments() != null){
-            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
-            myLeadDbController = new MyLeadDbController(getActivity());
-            myNewLeadArrayList = new ArrayList<>();
-            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
-
-            etUserName.setText(myNewLeadArrayList.get(position).getUserName());
-            etUserOrganization.setText(myNewLeadArrayList.get(position).getOrganization());
-            etDesignattion.setText(myNewLeadArrayList.get(position).getDesignation());
-            etPhone.setText(myNewLeadArrayList.get(position).getPhone());
-            etAddress.setText(myNewLeadArrayList.get(position).getAddress());
-
-
-        }
         spinnerBranchName.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
@@ -161,9 +149,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
     private void initView(View rootView) {
 
-
-
-
         spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
         spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
         etUserName = rootView.findViewById(R.id.et_lead_user_name);
@@ -206,17 +191,35 @@ public class LeadStageBasicInformationFragment extends Fragment {
         });
         initSpinnerAdapter();
 
-//        if ( LeadStageActivity.myLeadPosition >= 0){
-//
-//            myNewLeadArrayList = new ArrayList<MyNewLead>();
-//            myLeadDbController = new MyLeadDbController(getActivity());
-//
-//            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
-//
-////            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
-//            etUserName.setText(myNewLeadArrayList.get(LeadStageActivity.myLeadPosition).getUserName().toString());
+     }
 
-//        }
+     private void setIntentData(){
+
+         if (getArguments()!=null ){
+             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
+
+             if (status==0){
+                 VisitPlan visitPlan= (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                 if (visitPlan !=null){
+                     etUserName.setText(visitPlan.getClientName());
+                     etPhone.setText(visitPlan.getMobileNumber());
+                     etAddress.setText(visitPlan.getPoliceStation()+","+visitPlan.getCity());
+                 }
+             }
+             else {
+                 MyNewLead myNewLead= (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                 if (myNewLead !=null){
+                     etUserName.setText(myNewLead.getUserName());
+                     etPhone.setText(myNewLead.getPhone());
+                     etAddress.setText(myNewLead.getAddress());
+                     etUserOrganization.setText(myNewLead.getOrganization());
+                 }
+
+
+             }
+
+         }
+
      }
 
     private void initSpinnerAdapter() {

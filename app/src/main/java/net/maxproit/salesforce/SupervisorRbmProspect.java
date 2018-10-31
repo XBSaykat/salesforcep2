@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.feature.salesOfficer.myProspect.adapter.MyNewProspectAdapterRBM;
+import net.maxproit.salesforce.masum.activity.adapter.MyNewProspectAdapterRBM;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
