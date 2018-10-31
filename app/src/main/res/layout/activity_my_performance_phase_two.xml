@@ -95,10 +95,11 @@
                                 android:orientation="vertical">
 
                                 <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                    android:id="@+id/tvActivity"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text=""
+                                    android:text="number"
                                     android:textColor="@color/greyWhite"
                                     android:textSize="@dimen/text_size_12sp" />
                                 <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
@@ -149,6 +150,7 @@
                                 android:orientation="vertical">
 
                                 <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                    android:id="@+id/tvLead"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -204,6 +206,7 @@
                                 android:orientation="vertical">
 
                                 <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                    android:id="@+id/tvProspect"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"

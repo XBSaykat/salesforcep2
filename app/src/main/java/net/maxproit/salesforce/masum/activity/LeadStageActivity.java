@@ -17,10 +17,10 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.fragment.LeadStageAttachmentFragment;
-import net.maxproit.salesforce.masum.fragment.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.fragment.LeadStageVisitRecordFragment;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
