@@ -18,6 +18,10 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.feature.salesOfficer.myProspect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +34,13 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private SpinnerDbController spinnerDbController;
+
+    private List<String> listBrandName=null;
+    private List<String> listManufacturingYear=null;
+    private List<String> listManufacturingCountry=null;
+    private List<String> listvehicleType=null;
 
     public static EditText etSecurityValue, etLoanRequired, etLoanTerm, etProposedInterest, etFee, etCalculatedEMI;
 
@@ -72,6 +83,14 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        spinnerDbController = new SpinnerDbController(getActivity());
+
+        listBrandName = new ArrayList<String>();
+        listManufacturingYear = new ArrayList<String>();
+        listManufacturingCountry = new ArrayList<String>();
+        listvehicleType = new ArrayList<String>();
 
         View view = inflater.inflate(R.layout.fragment_prospect_stage_loan_and_security_detail, container, false);
 
@@ -174,25 +193,37 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
     private void initAdapters() {
 
-        ArrayAdapter<CharSequence> BrandAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.car_brands,
-                android.R.layout.simple_spinner_item);
-        spinnerBrand.setAdapter(BrandAdapter, 0);
+        ArrayAdapter<String> brand=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBrandName);
+        spinnerBrand.setAdapter(brand);
 
-        ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.years,
-                android.R.layout.simple_spinner_item);
-        spinnerYear.setAdapter(yearAdapter, 0);
+//        ArrayAdapter<CharSequence> BrandAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.car_brands,
+//                android.R.layout.simple_spinner_item);
+//        spinnerBrand.setAdapter(BrandAdapter, 0);
 
-        ArrayAdapter<CharSequence> countryAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.countries,
-                android.R.layout.simple_spinner_item);
-        spinnerCountry.setAdapter(countryAdapter, 0);
+        ArrayAdapter<String> manufacturingYear=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingYear);
+        spinnerYear.setAdapter(manufacturingYear);
+//        ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.years,
+//                android.R.layout.simple_spinner_item);
+//        spinnerYear.setAdapter(yearAdapter, 0);
 
-        ArrayAdapter<CharSequence> vehicleAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.vehicle_types,
-                android.R.layout.simple_spinner_item);
-        spinnerVehicleType.setAdapter(vehicleAdapter, 0);
+//        ArrayAdapter<CharSequence> countryAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.countries,
+//                android.R.layout.simple_spinner_item);
+//        spinnerCountry.setAdapter(countryAdapter, 0);
+
+        ArrayAdapter<String> manufacturingCountry=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingCountry);
+        spinnerCountry.setAdapter(manufacturingCountry);
+
+//        ArrayAdapter<CharSequence> vehicleAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.vehicle_types,
+//                android.R.layout.simple_spinner_item);
+//        spinnerVehicleType.setAdapter(vehicleAdapter, 0);
+
+
+        ArrayAdapter<String> vehicleType=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listvehicleType);
+        spinnerVehicleType.setAdapter(vehicleType);
 
 
     }

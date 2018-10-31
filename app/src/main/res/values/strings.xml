@@ -207,6 +207,14 @@
         <item>Corporate House</item>
     </string-array>
 
+    <string-array name="purpose_of_visit">
+        <item>Fresh</item>
+        <item>Lead Generation</item>
+        <item>Relationship Mgt</item>
+        <item>Pre- Disbursement</item>
+        <item>Post- Disbursement</item>
+    </string-array>
+
     <string-array name="years">
         <item>2015</item>
         <item>2016</item>

@@ -30,6 +30,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.Global;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
 
 import java.text.SimpleDateFormat;
@@ -57,6 +58,7 @@ public class VisitPlanActivity extends AppCompatActivity {
     static final int DATE_DIALOG = 1;
     static final int TIME_DIALOG = 2;
     private VisitPlanDbController dbController;
+    private SpinnerDbController spinnerDbController;
 
 
     static final String PRE_DISBURSEMENT = "Pre- Disbursement";
@@ -73,7 +75,7 @@ public class VisitPlanActivity extends AppCompatActivity {
     EditText txtClientName, txtMobileNo, dtpVisitDT, txtRemarks;
     String clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit, remarks;
 
-    List<String> listClientType, listProductType, listArea, listPurpose;
+    List<String> listClientType, listProductType, listArea, listPurpose, listCity,listDhakaSouth, listDhakaNorth, listNarayanganj;
     ImageView backButton;
 
     Context context = this;
@@ -102,6 +104,23 @@ public class VisitPlanActivity extends AppCompatActivity {
 
         g = Global.getInstance();
         dbController=new VisitPlanDbController(VisitPlanActivity.this);
+        spinnerDbController = new SpinnerDbController(VisitPlanActivity.this);
+
+
+//        int insert=spinnerDbController.insertCityData("dhaka");
+//        if (insert>0){
+//            Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
+//        }
+//        else {
+//            Toast.makeText(VisitPlanActivity.this, "Save failed", Toast.LENGTH_SHORT).show();
+//
+//        }
+
+
+
+//        Toast.makeText(context,"data"+ spinnerDbController.getCityData(), Toast.LENGTH_SHORT).show();
+
+
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
         secProductType = (LinearLayout) findViewById(R.id.secProductType);
         secMobileNo.setVisibility(View.GONE);
@@ -284,10 +303,13 @@ public class VisitPlanActivity extends AppCompatActivity {
         ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
         spinnerProductType.setAdapter(productTypeAdapter);
 
-        ArrayAdapter<CharSequence> adapterCity = ArrayAdapter.createFromResource(context,
-                R.array.city_array,
-                android.R.layout.simple_spinner_item);
-        spinnerCity.setAdapter(adapterCity, 0);
+
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listCity);
+        spinnerCity.setAdapter(cityAdapter);
+//        ArrayAdapter<CharSequence> adapterCity = ArrayAdapter.createFromResource(context,
+//                R.array.city_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerCity.setAdapter(adapterCity, 0);
 
         ArrayAdapter<String> adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
@@ -298,26 +320,30 @@ public class VisitPlanActivity extends AppCompatActivity {
         listProductType = new ArrayList<String>();
         listArea = new ArrayList<String>();
         listPurpose = new ArrayList<String>();
+        listCity = new ArrayList<String>();
+        listDhakaSouth = new ArrayList<String>();
+        listDhakaNorth = new ArrayList<String>();
+        listNarayanganj = new ArrayList<String>();
 
+        if (!listPurpose.isEmpty()){
+            listPurpose.clear();
+        }
+        listClientType.addAll(spinnerDbController.getClientTypeData());
+        listProductType.addAll(spinnerDbController.getProductTypeData());
+        listPurpose.addAll(spinnerDbController.getPurposeOfVisitData());
+        listCity.addAll(spinnerDbController.getCityData());
+        listDhakaNorth.addAll(spinnerDbController.getDhakaNorthData());
+        listDhakaSouth.addAll(spinnerDbController.getDhakaSouthData());
+        listNarayanganj.addAll(spinnerDbController.getNarayanganjData());
 
-        listClientType.add(INDIVIDUAL);
-        listClientType.add("Developer");
-        listClientType.add("Vendor");
-        listClientType.add("Corporate House");
-
-        listProductType.add("Home Loan");
-        listProductType.add("Car Loan");
-        listProductType.add("Personal Loan");
-        listProductType.add("Deposit");
-        listProductType.add("Investment");
 
         listArea.add("1-syd");
 
-        listPurpose.add("Fresh");
-        listPurpose.add("Lead Generation");
-        listPurpose.add("Relationship Mgt");
-        listPurpose.add(PRE_DISBURSEMENT);
-        listPurpose.add(POST_DISBURSEMENT);
+//        listPurpose.add("Fresh");
+//        listPurpose.add("Lead Generation");
+//        listPurpose.add("Relationship Mgt");
+//        listPurpose.add(PRE_DISBURSEMENT);
+//        listPurpose.add(POST_DISBURSEMENT);
 
 
     }
@@ -457,27 +483,36 @@ public class VisitPlanActivity extends AppCompatActivity {
 
                 if ( s.equals(DHAKA_NORTH)){
 
-                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
-                            R.array.dhaka_north_police_station_array,
-                            android.R.layout.simple_spinner_item);
-                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+//                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+//                            R.array.dhaka_north_police_station_array,
+//                            android.R.layout.simple_spinner_item);
+//                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+
+                    ArrayAdapter<String> dhakaNorth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listDhakaNorth);
+                    spinnerPoliceStation.setAdapter(dhakaNorth);
 
                 }
                 if ( s.equals(DHAKA_SOUTH)){
 
-                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
-                            R.array.dhaka_south_police_station_array,
-                            android.R.layout.simple_spinner_item);
-                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+                    ArrayAdapter<String> dhakaSouth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listDhakaSouth);
+                    spinnerPoliceStation.setAdapter(dhakaSouth);
+
+//                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+//                            R.array.dhaka_south_police_station_array,
+//                            android.R.layout.simple_spinner_item);
+//                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
 
 
                 }
                 if ( s.equals(NARAYANGONJ)){
 
-                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
-                            R.array.narayanganj_police_station_array,
-                            android.R.layout.simple_spinner_item);
-                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
+
+                    ArrayAdapter<String> narayanganj = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listNarayanganj);
+                    spinnerPoliceStation.setAdapter(narayanganj);
+//                    ArrayAdapter<CharSequence> adapterPoliceStation = ArrayAdapter.createFromResource(context,
+//                            R.array.narayanganj_police_station_array,
+//                            android.R.layout.simple_spinner_item);
+//                    spinnerPoliceStation.setAdapter(adapterPoliceStation, 0);
 
 
 

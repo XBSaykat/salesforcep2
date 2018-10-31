@@ -1,11 +1,13 @@
 package net.maxproit.salesforce.feature.splash;
 
 import android.os.Handler;
+import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivitySplashBinding;
 import net.maxproit.salesforce.feature.login.LoginActivity;
+import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
 
 public class SplashActivity extends BaseActivity {
     ActivitySplashBinding binding;
@@ -23,6 +25,8 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void run() {
+
+
                 startActivity(LoginActivity.class, true);
                 SplashActivity.this.finish();
             }

@@ -17,6 +17,10 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.feature.salesOfficer.myProspect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
@@ -29,6 +33,20 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private SpinnerDbController spinnerDbController;
+
+    private List<String> listProductCategory=null;
+    private List<String> listPoroductDetail=null;
+    private List<String> listCarloan=null;
+    private List<String> listHomeloan=null;
+    private List<String> listPersonalloan=null;
+    private List<String> listBranch=null;
+    private List<String> listSegment=null;
+    private List<String> listBirthDistric=null;
+    private List<String> listBirthCountry=null;
+    private List<String> listProfession=null;
+    private List<String> listRelationshipWithApplicant=null;
 
 //    Spinner productCategory;
 //    Spinner productDetail;
@@ -102,6 +120,30 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
 
 
+        spinnerDbController = new SpinnerDbController(getActivity());
+        listProductCategory = new ArrayList<String>();
+        listPoroductDetail = new ArrayList<String>();
+        listBranch = new ArrayList<String>();
+        listSegment = new ArrayList<String>();
+        listBirthDistric = new ArrayList<String>();
+        listBirthCountry = new ArrayList<String>();
+        listProfession = new ArrayList<String>();
+        listRelationshipWithApplicant = new ArrayList<String>();
+        listCarloan = new ArrayList<String>();
+        listHomeloan = new ArrayList<String>();
+        listPersonalloan = new ArrayList<String>();
+
+        listProductCategory.addAll(spinnerDbController.getProductCategoryData());
+        listPoroductDetail.addAll(spinnerDbController.getProductDetailData());
+        listCarloan.addAll(spinnerDbController.getCarLoanData());
+        listHomeloan.addAll(spinnerDbController.getHomeLoanData());
+        listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
+        listBranch.addAll(spinnerDbController.getBranchData());
+        listSegment.addAll(spinnerDbController.getSegmentData());
+        listProfession.addAll(spinnerDbController.getProfessionData());
+        listBirthDistric.addAll(spinnerDbController.getBirthDistrictData());
+        listBirthCountry.addAll(spinnerDbController.getBirthCountryData());
+        listRelationshipWithApplicant.addAll(spinnerDbController.getRelationshipWithApplicantData());
 
 
 
@@ -217,24 +259,30 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 productCat = s;
 
                 if (s.equals("Home Loan")) {
-                    ArrayAdapter<CharSequence> productDetailAdapter = ArrayAdapter.createFromResource(getContext(),
-                            R.array.hl_array,
-                            android.R.layout.simple_spinner_item);
-                    spinnerProductDetail.setAdapter(productDetailAdapter, 0);
+                    ArrayAdapter<String> homeLoan=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listHomeloan);
+                    spinnerProductDetail.setAdapter(homeLoan);
+//                    ArrayAdapter<CharSequence> productDetailAdapter = ArrayAdapter.createFromResource(getContext(),
+//                            R.array.hl_array,
+//                            android.R.layout.simple_spinner_item);
+//                    spinnerProductDetail.setAdapter(productDetailAdapter, 0);
 
 
                 } else if (s.equals("Car Loan")) {
-                    ArrayAdapter<CharSequence> productDetailAdapter = ArrayAdapter.createFromResource(getContext(),
-                            R.array.cl_array,
-                            android.R.layout.simple_spinner_item);
-                    spinnerProductDetail.setAdapter(productDetailAdapter, 0);
+                    ArrayAdapter<String> carLoan=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listCarloan);
+                    spinnerProductDetail.setAdapter(carLoan);
+//                    ArrayAdapter<CharSequence> productDetailAdapter = ArrayAdapter.createFromResource(getContext(),
+//                            R.array.cl_array,
+//                            android.R.layout.simple_spinner_item);
+//                    spinnerProductDetail.setAdapter(productDetailAdapter, 0);
 
 
                 } else if (s.equals("Personal Loan")) {
-                    ArrayAdapter<CharSequence> productDetailAdapter = ArrayAdapter.createFromResource(getContext(),
-                            R.array.pl_array,
-                            android.R.layout.simple_spinner_item);
-                    spinnerProductDetail.setAdapter(productDetailAdapter, 0);
+                    ArrayAdapter<String> personalLoan=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listPersonalloan);
+                    spinnerProductDetail.setAdapter(personalLoan);
+//                    ArrayAdapter<CharSequence> productDetailAdapter = ArrayAdapter.createFromResource(getContext(),
+//                            R.array.pl_array,
+//                            android.R.layout.simple_spinner_item);
+//                    spinnerProductDetail.setAdapter(productDetailAdapter, 0);
                 }
             }
         });
@@ -298,42 +346,63 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     public void initAdapters() {
 
 
-        ArrayAdapter<CharSequence> productCatAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.product_categories_array,
-                android.R.layout.simple_spinner_item);
-        spinnerProductCat.setAdapter(productCatAdapter, 0);
+//        ArrayAdapter<CharSequence> productCatAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.product_categories_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerProductCat.setAdapter(productCatAdapter, 0);
+
+        ArrayAdapter<String> productCat=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProductCategory);
+        spinnerProductCat.setAdapter(productCat);
 
 
-        ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.branch_array,
-                android.R.layout.simple_spinner_item);
-        spinnerBranchName.setAdapter(branchNameAdapter, 0);
+
+//        ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.branch_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerBranchName.setAdapter(branchNameAdapter, 0);
+        ArrayAdapter<String> branch=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBranch);
+        spinnerBranchName.setAdapter(branch);
 
 
-        ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.segment_array,
-                android.R.layout.simple_spinner_item);
-        spinnerSegment.setAdapter(segmentAdapter, 0);
+//        ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.segment_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerSegment.setAdapter(segmentAdapter, 0);
 
-        ArrayAdapter<CharSequence> distOfBirthAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.district_array,
-                android.R.layout.simple_spinner_item);
-        spinnerDistOfBirth.setAdapter(distOfBirthAdapter, 0);
+        ArrayAdapter<String> segment=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listSegment);
+        spinnerSegment.setAdapter(segment);
 
-        ArrayAdapter<CharSequence> countryOfBirthAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.countries,
-                android.R.layout.simple_spinner_item);
-        spinnerCountOfBirth.setAdapter(countryOfBirthAdapter, 0);
+//        ArrayAdapter<CharSequence> distOfBirthAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.district_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerDistOfBirth.setAdapter(distOfBirthAdapter, 0);
 
-        ArrayAdapter<CharSequence> ProfessionAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.profession_array,
-                android.R.layout.simple_spinner_item);
-        spinnerProfession.setAdapter(ProfessionAdapter, 0);
+        ArrayAdapter<String> disBirth=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBirthDistric);
+        spinnerDistOfBirth.setAdapter(disBirth);
 
-        ArrayAdapter<CharSequence> relationshipAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.relationship_array,
-                android.R.layout.simple_spinner_item);
-        spinnerRelationship.setAdapter(relationshipAdapter, 0);
+        ArrayAdapter<String> disCountry=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBirthCountry);
+        spinnerCountOfBirth.setAdapter(disCountry);
+
+//        ArrayAdapter<CharSequence> countryOfBirthAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.countries,
+//                android.R.layout.simple_spinner_item);
+//        spinnerCountOfBirth.setAdapter(countryOfBirthAdapter, 0);
+
+//        ArrayAdapter<CharSequence> ProfessionAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.profession_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerProfession.setAdapter(ProfessionAdapter, 0);
+
+        ArrayAdapter<String> profession=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProfession);
+        spinnerProfession.setAdapter(profession);
+
+        ArrayAdapter<String> relation=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listRelationshipWithApplicant);
+        spinnerRelationship.setAdapter(relation);
+
+//        ArrayAdapter<CharSequence> relationshipAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.relationship_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerRelationship.setAdapter(relationshipAdapter, 0);
 
 
     }

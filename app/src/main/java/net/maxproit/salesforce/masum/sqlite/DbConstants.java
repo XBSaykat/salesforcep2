@@ -18,6 +18,12 @@ public class DbConstants {
     public static final String TABLE_PURPOSE_OF_VISIT = "purpose_of_visit_table";
     public static final String TABLE_CITY = "city_table";
     public static final String TABLE_POLICE_STATION = "police_station_table";
+    public static final String TABLE_DHAKA_NORTH_POLICE_STATION = "dhaka_north_police_station_table";
+    public static final String TABLE_DHAKA_SOUTH_POLICE_STATION = "dhaka_south_police_station_table";
+    public static final String TABLE_NARAYANGANJ_POLICE_STATION = "narayanganj_police_station_table";
+    public static final String TABLE_HOME_LOAN = "home_loan_table";
+    public static final String TABLE_CAR_LOAN = "car_loan_table";
+    public static final String TABLE_PERSONAL_LAON = "personal_loan_table";
     public static final String TABLE_BRANCH = "branch_table";
     public static final String TABLE_PROFESSION = "profession_table";
     public static final String TABLE_SOURCE_OF_REFERENCE = "source_of_reference_table";
@@ -116,6 +122,26 @@ public class DbConstants {
 
     public static final String POLICE_STATION_ID = "_id";
     public static final String POLICE_STATION = "police_station";
+
+
+    public static final String DHAKA_NORHT_POLICE_STATION_ID = "_id";
+    public static final String DHAKA_NORHT_POLICE_STATION = "dhaka_north_police_station";
+
+    public static final String DHAKA_SOUTH_POLICE_STATION_ID = "_id";
+    public static final String DHAKA_SOUTH_POLICE_STATION = "dhaka_south_police_station";
+
+    public static final String NARAYANGANJ_POLICE_STATION_ID = "_id";
+    public static final String NARAYANGANJ_POLICE_STATION = "narayanganj_police_station";
+
+    public static final String HOME_LOAN_ID = "_id";
+    public static final String HOME_LOAN = "home_loan";
+
+    public static final String CAR_LOAN_ID = "_id";
+    public static final String CAR_LOAN = "car_loan";
+
+    public static final String PERSONAL_LOAN_ID = "_id";
+    public static final String PERSONAL_LOAN = "personal_loan";
+
 
     public static final String BRANCH_ID = "_id";
     public static final String BRANCH = "branch";
@@ -266,6 +292,21 @@ public class DbConstants {
                     POLICE_STATION_ID + " INTEGER PRIMARY KEY,"+
                     POLICE_STATION + TEXT_TYPE+ ")";
 
+    public static final String SQL_SPINNER_DHAKA_NORTH_POLICE_STATION =
+            "CREATE TABLE " + TABLE_DHAKA_NORTH_POLICE_STATION + " ("+
+                    DHAKA_NORHT_POLICE_STATION_ID + " INTEGER PRIMARY KEY,"+
+                    DHAKA_NORHT_POLICE_STATION + TEXT_TYPE+ ")";
+
+    public static final String SQL_SPINNER_DHAKA_SOUTH_POLICE_STATION =
+            "CREATE TABLE " + TABLE_DHAKA_SOUTH_POLICE_STATION + " ("+
+                    DHAKA_SOUTH_POLICE_STATION_ID + " INTEGER PRIMARY KEY,"+
+                    DHAKA_SOUTH_POLICE_STATION + TEXT_TYPE+ ")";
+
+    public static final String SQL_SPINNER_NARAYANGANJ_POLICE_STATION =
+            "CREATE TABLE " + TABLE_NARAYANGANJ_POLICE_STATION + " ("+
+                    NARAYANGANJ_POLICE_STATION_ID + " INTEGER PRIMARY KEY,"+
+                    NARAYANGANJ_POLICE_STATION + TEXT_TYPE+ ")";
+
     public static final String SQL_SPINNER_BRANCH =
             "CREATE TABLE " + TABLE_BRANCH +" ("+
                     BRANCH_ID + " INTEGER PRIMARY KEY,"+
@@ -361,6 +402,21 @@ public class DbConstants {
                     VEHICLE_TYPE_ID + " INTEGER PRIMARY KEY,"+
                     VEHICLE_TYPE + TEXT_TYPE+ ")";
 
+
+    public static final String SQL_SPINNER_HOME_LOAN =
+            "CREATE TABLE " + TABLE_HOME_LOAN +" ("+
+                    HOME_LOAN_ID + " INTEGER PRIMARY KEY,"+
+                    HOME_LOAN + TEXT_TYPE+ ")";
+
+    public static final String SQL_SPINNER_CAR_LAON =
+            "CREATE TABLE " + TABLE_CAR_LOAN +" ("+
+                    CAR_LOAN_ID + " INTEGER PRIMARY KEY,"+
+                    CAR_LOAN + TEXT_TYPE+ ")";
+
+    public static final String SQL_SPINNER_PERSONAL_LOAN =
+            "CREATE TABLE " + TABLE_PERSONAL_LAON +" ("+
+                    PERSONAL_LOAN_ID + " INTEGER PRIMARY KEY,"+
+                    PERSONAL_LOAN + TEXT_TYPE+ ")";
     //SPINNER TABLES
 
     public static final String SQL_DELETE_LEAD_ENTRIES =
@@ -380,6 +436,15 @@ public class DbConstants {
 
     public static final String SQL_DELETE_POLICE_STATION =
             "DROP TABLE IF EXISTS " + TABLE_POLICE_STATION;
+
+    public static final String SQL_DELETE_DHAKA_NORTH_POLICE_STATION =
+            "DROP TABLE IF EXISTS " + TABLE_DHAKA_NORTH_POLICE_STATION;
+
+    public static final String SQL_DELETE_DHAKA_SOUTH_POLICE_STATION =
+            "DROP TABLE IF EXISTS " + TABLE_DHAKA_SOUTH_POLICE_STATION;
+
+    public static final String SQL_DELETE_NARAYANGANJ_POLICE_STATION =
+            "DROP TABLE IF EXISTS " + TABLE_NARAYANGANJ_POLICE_STATION;
 
     public static final String SQL_DELETE_BRANCH =
             "DROP TABLE IF EXISTS " + TABLE_BRANCH;
@@ -437,6 +502,16 @@ public class DbConstants {
 
     public static final String SQL_DELETE_VEHICLE_TYPE =
             "DROP TABLE IF EXISTS " + TABLE_VEHICLE_TYPE;
+
+    public static final String SQL_DELETE_HOME_LAON =
+            "DROP TABLE IF EXISTS " + TABLE_HOME_LOAN;
+
+    public static final String SQL_DELETE_CAR_LOAN =
+            "DROP TABLE IF EXISTS " + TABLE_CAR_LOAN;
+
+    public static final String SQL_DELETE_PERSONAL_LAON =
+            "DROP TABLE IF EXISTS " + TABLE_PERSONAL_LAON;
+
 
 
 }
