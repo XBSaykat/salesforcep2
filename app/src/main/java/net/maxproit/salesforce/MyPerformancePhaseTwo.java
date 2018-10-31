@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import net.maxproit.salesforce.masum.activity.MyActivitiesActivityNew;
-import net.maxproit.salesforce.feature.salesOfficer.myProspect.MyProspectActivity;
+import net.maxproit.salesforce.masum.activity.MyProspectActivity;
 import net.maxproit.salesforce.masum.mylead.MyLeadActivity;
 
 public class MyPerformancePhaseTwo extends AppCompatActivity {

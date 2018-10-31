@@ -55,7 +55,7 @@
             android:name=".masum.mylead.MyLeadActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".feature.salesOfficer.myProspect.MyProspectActivity"
+            android:name=".masum.activity.MyProspectActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity" />
         <activity android:name=".feature.supervisor.SupervisorVisitsActivity" />
@@ -126,10 +126,10 @@
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
         <activity android:name=".masum.activity.VisitPlanActivity" />
         <activity android:name=".masum.activity.LeadStageActivity" />
-        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
+        <activity android:name=".masum.activity.ProspectStageActivity" />
         <activity android:name=".masum.activity.MyActivitiesActivity" />
         <activity android:name=".masum.activity.MyActivitiesActivityNew" />
-        <activity android:name=".masum.activity.ActivityDetailsActivity" />
+        <activity android:name=".masum.activity.VisitPLanDetailsActivity" />
         <activity android:name=".ProspectViewRbm" />
         <activity android:name=".MyPerformancePhaseTwo" />
         <activity android:name=".SupervisorRbmProspect" />

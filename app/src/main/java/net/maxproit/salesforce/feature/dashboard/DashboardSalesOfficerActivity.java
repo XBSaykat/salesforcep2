@@ -12,7 +12,7 @@ import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDashboardBinding;
 import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.activity.MyActivitiesActivityNew;
-import net.maxproit.salesforce.feature.salesOfficer.myProspect.MyProspectActivity;
+import net.maxproit.salesforce.masum.activity.MyProspectActivity;
 import net.maxproit.salesforce.masum.mylead.MyLeadActivity;
 import net.maxproit.salesforce.masum.activity.VisitPlanListActivity;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;

@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.myProspect;
+package net.maxproit.salesforce.masum.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,12 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
+import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialCalculatorFragment;
+import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
+import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageLoanAndSecurityDetailFragment;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
-import net.maxproit.salesforce.masum.fragment.ProspectStageCoApplicantFragment;
-import net.maxproit.salesforce.masum.fragment.ProspectStageFinancialCalculatorFragment;
-import net.maxproit.salesforce.masum.fragment.ProspectStageFinancialFragment;
-import net.maxproit.salesforce.masum.fragment.ProspectStageLoanAndSecurityDetailFragment;
-import net.maxproit.salesforce.masum.fragment.ProspectStageProductAndCustomerDetailsFragment;
+import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.MyNewLead;

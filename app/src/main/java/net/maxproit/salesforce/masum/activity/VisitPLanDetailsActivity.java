@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.VisitPlan;
@@ -19,7 +18,7 @@ import net.maxproit.salesforce.masum.utility.ActivityUtils;
 
 import java.util.ArrayList;
 
-public class ActivityDetailsActivity extends AppCompatActivity {
+public class VisitPLanDetailsActivity extends AppCompatActivity {
 
     public TextView tvClientType, tvVisitPurpose, tvClientName, tvMobileNumber, tvProductType, tvCity, tvPoliceStation,
             tvVisitDate, tvRemarks, tvProceedToLead, tvRejected, tvReappointment;
@@ -39,7 +38,6 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initView();
-
         setAllData();
 
 
@@ -58,7 +56,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
+        visitPlanDbController=new VisitPlanDbController(this);
         setContentView(R.layout.activity_activity_details);
 //        tvClientType = (TextView)findViewById(R.id.tv_activity_details_client_type);
         tvVisitPurpose = (TextView) findViewById(R.id.tv_activity_details_visit_Purpose);
@@ -80,12 +78,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         tvProceedToLead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent proceedToLeadIntent = new Intent(ActivityDetailsActivity.this, LeadStageActivity.class);
-//                proceedToLeadIntent.putExtra(AppConstant.INTENT_KEY, itemPosition);
-//                startActivity(proceedToLeadIntent);
-//                finish();
-
-                sentDataToDetail(itemPosition);
+                processToLeadDetails();
             }
         });
 
@@ -94,16 +87,14 @@ public class ActivityDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Rejected", Toast.LENGTH_SHORT).show();
-                visitPlanDbController.deleteItem(visitPlanArrayList.get(itemPosition).getId());
                 AlertDialog dialog = new AlertDialog.Builder(getApplicationContext()).create();
                 dialog.setTitle("Reject this Activity? ");
                 dialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-
-                        visitPlanDbController.deleteItem(visitPlanArrayList.get(itemPosition).getId());
-                        startActivity(new Intent(ActivityDetailsActivity.this, MyActivitiesActivityNew.class));
+                        visitPlanDbController.deleteItem(getDataFromVisitPlan().getId());
+                        startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivityNew.class));
                         finish();
                     }
                 });
@@ -150,19 +141,21 @@ public class ActivityDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void sentDataToDetail(int position) {
-        VisitPlan visitPlan=new VisitPlan(visitPlanArrayList.get(position).getId(),
-                visitPlanArrayList.get(position).getClientType(),
-                visitPlanArrayList.get(position).getPurposeOfVisit(),
-                visitPlanArrayList.get(position).getClientName(),
-                visitPlanArrayList.get(position).getMobileNumber(),
-                visitPlanArrayList.get(position).getProductType(),
-                visitPlanArrayList.get(position).getCity(),
-                visitPlanArrayList.get(position).getPoliceStation(),
-                visitPlanArrayList.get(position).getDateOfVisit(),
-                visitPlanArrayList.get(position).getRemarks(),
-                visitPlanArrayList.get(position).getStatus());
-        ActivityUtils.invokVisitPlanDetail(this,visitPlan);
+    private void processToLeadDetails() {
+        visitPlanDbController.updateVisitPlanDataStatus(getDataFromVisitPlan().getId(),
+                AppConstant.VISITED);
+        VisitPlan visitPlan=new VisitPlan(getDataFromVisitPlan().getId(),
+                getDataFromVisitPlan().getClientName(),
+                getDataFromVisitPlan().getClientType(),
+                getDataFromVisitPlan().getMobileNumber(),
+                getDataFromVisitPlan().getPoliceStation(),
+                getDataFromVisitPlan().getProductType(),
+                getDataFromVisitPlan().getCity(),
+                getDataFromVisitPlan().getPurposeOfVisit(),
+                getDataFromVisitPlan().getDateOfVisit(),
+                getDataFromVisitPlan().getRemarks(),
+                getDataFromVisitPlan().getStatus());
+        ActivityUtils.invokVisitPlanDetail(this,LeadStageActivity.class,visitPlan);
     }
 
 

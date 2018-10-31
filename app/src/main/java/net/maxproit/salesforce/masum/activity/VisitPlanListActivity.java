@@ -4,9 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,23 +15,16 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
-import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.databinding.ActivityVisitPlanListBinding;
 import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
-import net.maxproit.salesforce.masum.fragment.MyActivityListFragment;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
-import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class VisitPlanListActivity extends BaseActivity {
 
@@ -77,7 +67,8 @@ public class VisitPlanListActivity extends BaseActivity {
             for (int i=0;i<leadList.size();i++){
 
                 try {
-                    if (isPending(leadList.get(i).getDateOfVisit())){
+                    if (isPending(leadList.get(i).getDateOfVisit()) &&
+                            leadList.get(i).getStatus().equalsIgnoreCase(AppConstant.LEAD_STATUS_New_PLAN)){
                         visitPlanList.add(leadList.get(i));
                     }
                 } catch (ParseException e) {
@@ -163,7 +154,7 @@ public class VisitPlanListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog dialog = new AlertDialog.Builder(VisitPlanListActivity.this).create();
-                dialog.setTitle("Create new Lead?");
+                dialog.setTitle("Create new Plan?");
                 dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -223,6 +214,6 @@ public class VisitPlanListActivity extends BaseActivity {
                 visitPlanList.get(position).getDateOfVisit(),
                 visitPlanList.get(position).getRemarks(),
                 visitPlanList.get(position).getStatus());
-        ActivityUtils.invokVisitPlanDetail(this,visitPlan);
+        ActivityUtils.invokVisitPlanDetail(this,VisitPLanDetailsActivity.class,visitPlan);
     }
 }

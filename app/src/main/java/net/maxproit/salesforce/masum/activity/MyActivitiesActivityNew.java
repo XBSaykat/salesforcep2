@@ -12,10 +12,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import net.maxproit.salesforce.masum.fragment.MyActivityListFragment;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
+import net.maxproit.salesforce.masum.fragment.myactivity.FragmentCurrentActivity;
+import net.maxproit.salesforce.masum.fragment.myactivity.FragmentPreViousList;
+import net.maxproit.salesforce.masum.fragment.myactivity.FragmentUpComingList;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
@@ -43,10 +44,6 @@ public class MyActivitiesActivityNew extends BaseActivity {
     protected void initComponents() {
 
         linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_my_activity);
@@ -137,9 +134,9 @@ public class MyActivitiesActivityNew extends BaseActivity {
 //
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MyActivityListFragment(), "Current Activity");
-        adapter.addFragment(new MyActivityListFragment(), "Previous Activity");
-        adapter.addFragment(new MyActivityListFragment(), "Upcoming Activity");
+        adapter.addFragment(new FragmentCurrentActivity(), "Current Activity");
+        adapter.addFragment(new FragmentPreViousList(), "Previous Activity");
+        adapter.addFragment(new FragmentUpComingList(), "Upcoming Activity");
         viewPager.setAdapter(adapter);
     }
 //

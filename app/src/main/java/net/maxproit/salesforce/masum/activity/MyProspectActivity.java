@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.myProspect;
+package net.maxproit.salesforce.masum.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyProspectBinding;
-import net.maxproit.salesforce.feature.salesOfficer.myProspect.adapter.MyNewProspectAdapter;
+import net.maxproit.salesforce.masum.activity.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.feature.salesOfficer.newProspect.NewProspectActivity;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;

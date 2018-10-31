@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import net.maxproit.salesforce.masum.activity.ActivityDetailsActivity;
+import net.maxproit.salesforce.masum.activity.LeadStageActivity;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
-import net.maxproit.salesforce.feature.salesOfficer.myProspect.ProspectStageActivity;
+import net.maxproit.salesforce.masum.activity.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 
 
@@ -32,16 +32,27 @@ public class ActivityUtils {
     public static void invokLeadDetailForProspectStage(Activity activity, MyNewLead myNewLead){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
         Intent intent = new Intent(activity, ProspectStageActivity.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }
 
+    public static void invokLeadDetailForLeadStage(Activity activity, MyNewLead myNewLead){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
+        Intent intent = new Intent(activity, LeadStageActivity.class);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
 
-    public static void invokVisitPlanDetail(Activity activity, VisitPlan visitPlan){
+
+    public static void invokVisitPlanDetail(Activity activity,Class<?> tClass, VisitPlan visitPlan){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
-        Intent intent = new Intent(activity, ActivityDetailsActivity.class);
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY, 0);
+        Intent intent = new Intent(activity, tClass);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }

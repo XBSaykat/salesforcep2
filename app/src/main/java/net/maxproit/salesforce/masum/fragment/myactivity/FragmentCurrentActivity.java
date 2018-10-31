@@ -1,7 +1,6 @@
-package net.maxproit.salesforce.masum.fragment;
+package net.maxproit.salesforce.masum.fragment.myactivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,40 +13,36 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
-import net.maxproit.salesforce.masum.activity.ActivityDetailsActivity;
-import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.activity.VisitPLanDetailsActivity;
+import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
-import net.maxproit.salesforce.model.login.LocalLogin;
+import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.FragmentUtils;
+import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+public class FragmentCurrentActivity extends Fragment {
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MyActivityListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MyActivityListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MyActivityListFragment extends Fragment {
-
-
-    MyVisitPlanListAdapter myLeadAdapter;
-    VisitPlanDbController myDbController;
-//    MyLeadDbController myDbController;
+    private MyVisitPlanListAdapter myLeadAdapter;
+    private VisitPlanDbController myDbController;
+    //    MyLeadDbController myDbController;
     private ImageView backButton, addButton;
     private SearchView searchView;
     private RecyclerView rvMyActivity;
     public static int itemPosition = 0;
     LocalLogin localLogin;
     String username;
-    ArrayList<VisitPlan> leadList, filterList;
+    private ArrayList<VisitPlan> leadList, filterList, visitPlanList;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -62,7 +57,7 @@ public class MyActivityListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MyActivityListFragment() {
+    public FragmentCurrentActivity() {
         // Required empty public constructor
     }
 
@@ -75,8 +70,8 @@ public class MyActivityListFragment extends Fragment {
      * @return A new instance of fragment LeadStageBasicInformationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyActivityListFragment newInstance(String param1, String param2) {
-        MyActivityListFragment fragment = new MyActivityListFragment();
+    public static FragmentCurrentActivity newInstance(String param1, String param2) {
+        FragmentCurrentActivity fragment = new FragmentCurrentActivity();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -93,32 +88,34 @@ public class MyActivityListFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_my_activity_list, container, false);
-
         leadList = new ArrayList<>();
         filterList = new ArrayList<>();
+        visitPlanList = new ArrayList<>();
         myDbController = new VisitPlanDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
 
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
-        leadList.addAll(myDbController.getAllData());
+        if (!visitPlanList.isEmpty()) {
+            visitPlanList.clear();
+        }
 
-//        searchView = findViewById(R.id.search_view);
+        visitPlanList.addAll(myDbController.getCurrentData(FragmentUtils.getDateString()));
+
+//      searchView = findViewById(R.id.search_view);
         rvMyActivity = rootView.findViewById(R.id.rv_my_activity);
 
 //        backButton = findViewById(R.id.btn_back);
 //        addButton = findViewById(R.id.btn_add);
 //        rvMyLead = findViewById(R.id.rvMyLead);
-
-
-
 
 
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -140,21 +137,20 @@ public class MyActivityListFragment extends Fragment {
 //        });
 
 
-        myLeadAdapter = new MyVisitPlanListAdapter(getContext(), leadList);
+        myLeadAdapter = new MyVisitPlanListAdapter(getContext(), visitPlanList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rvMyActivity.setLayoutManager(mLayoutManager);
         rvMyActivity.setAdapter(myLeadAdapter);
         myLeadAdapter.notifyDataSetChanged();
 
-//        initView(rootView);
+//      initView(rootView);
         initListener();
         // Inflate the layout for this fragment
         return rootView;
 
 
-
-
     }
+
 
     private ArrayList<VisitPlan> getFilterData(ArrayList<VisitPlan> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
@@ -179,37 +175,16 @@ public class MyActivityListFragment extends Fragment {
 //    }
 
 
-
-
     private void initListener() {
-
 
 
         myLeadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
-//                loadFilterData();
+                //loadFilterData();
                 switch (view.getId()) {
-                    case R.id.btnApproved:
-                        Toast.makeText(getActivity(), "Approved", Toast.LENGTH_SHORT).show();
-                        //insert data into prospect
-//                          myDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
-//                         removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
-
-                        break;
-                    case R.id.btnReject:
-                        Toast.makeText(getActivity(), "Rejected", Toast.LENGTH_SHORT).show();
-//                         myLeadAdapter.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
-//                        removeItemFromList(position,AppConstant.LEAD_STATUS_REJECT);
-                        break;
-
                     case R.id.cl_visit_plan_item:
-                        itemPosition  = position;
-                        Intent intentActivityDetails = new Intent(getActivity(), ActivityDetailsActivity.class);
-
-                        intentActivityDetails.putExtra(AppConstant.INTENT_KEY, position);
-                        startActivity(intentActivityDetails);
-                        Toast.makeText(getActivity(), "item selected", Toast.LENGTH_SHORT).show();
+                        sentDataToDetail(position);
                         break;
 
                 }
@@ -217,7 +192,8 @@ public class MyActivityListFragment extends Fragment {
         });
 
     }
-    private void removeItemFromList(int position,String status) {
+
+    private void removeItemFromList(int position, String status) {
         for (int i = 0; i < leadList.size(); i++) {
             if (leadList.get(i).getId() == filterList.get(position).getId()) {
                 leadList.get(i).setStatus(status);
@@ -229,7 +205,7 @@ public class MyActivityListFragment extends Fragment {
         }
     }
 
-    private void changeItemStatus(int position,String status) {
+    private void changeItemStatus(int position, String status) {
         for (int i = 0; i < leadList.size(); i++) {
             if (leadList.get(i).getId() == filterList.get(position).getId()) {
                 leadList.get(i).setStatus(status);
@@ -240,15 +216,27 @@ public class MyActivityListFragment extends Fragment {
         }
     }
 
+    private void sentDataToDetail(int position) {
+        VisitPlan visitPlan = new VisitPlan(
+                visitPlanList.get(position).getId(),
+                visitPlanList.get(position).getClientName(),
+                visitPlanList.get(position).getClientType(),
+                visitPlanList.get(position).getMobileNumber(),
+                visitPlanList.get(position).getProductType(),
+                visitPlanList.get(position).getCity(),
+                visitPlanList.get(position).getPoliceStation(),
+                visitPlanList.get(position).getPurposeOfVisit(),
+                visitPlanList.get(position).getDateOfVisit(),
+                visitPlanList.get(position).getRemarks(),
+                visitPlanList.get(position).getStatus());
+        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+    }
+
 
     private void initView(View rootView) {
 
 
-
-
-     }
-
-
+    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -35,4 +35,6 @@ public class AppConstant {
     public static final String LEAD_STATUS_PROCEED = "process";
     public static final String LEAD_STATUS_New_PLAN = "new_plan";
 
+    public static final String STATUS_INTENT_KEY ="status_key" ;
+    public static final String VISITED = "visited";
 }
