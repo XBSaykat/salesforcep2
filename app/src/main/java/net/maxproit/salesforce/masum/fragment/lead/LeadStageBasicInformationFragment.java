@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment;
+package net.maxproit.salesforce.masum.fragment.lead;
 
 import android.content.Context;
 import android.net.Uri;
@@ -20,8 +20,10 @@ import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +45,9 @@ public class LeadStageBasicInformationFragment extends Fragment {
     private AwesomeSpinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
     public static String profession = null, branchName = null;
-    private String[] branchArray={"Mirpur","SegunBagicha","Polton","Dhanmondi","Azimpur"};
+    private List<String> listBranchArray=null;
+    private List<String> listProfessionArray=null;
+    private SpinnerDbController spinnerDbController;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -149,6 +153,15 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
     private void initView(View rootView) {
 
+        spinnerDbController = new SpinnerDbController(getActivity());
+
+
+        listBranchArray = new ArrayList<String>();
+        listProfessionArray = new ArrayList<String>();
+        listBranchArray.addAll(spinnerDbController.getBranchData());
+        listProfessionArray.addAll(spinnerDbController.getProfessionData());
+
+
         spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
         spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
         etUserName = rootView.findViewById(R.id.et_lead_user_name);
@@ -223,15 +236,18 @@ public class LeadStageBasicInformationFragment extends Fragment {
      }
 
     private void initSpinnerAdapter() {
-        ArrayAdapter<CharSequence> branchAdapter=ArrayAdapter.createFromResource(getContext(),
-                R.array.branch_name_array,
-                android.R.layout.simple_spinner_item);
-        spinnerBranchName.setAdapter(branchAdapter, 0);
 
-        ArrayAdapter<CharSequence> professionAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.profession_array,
-                android.R.layout.simple_spinner_item);
-        spinnerProfession.setAdapter(professionAdapter, 0);
+        ArrayAdapter<String> branchAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBranchArray);
+        spinnerBranchName.setAdapter(branchAdapter);
+
+        ArrayAdapter<String> professionAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProfessionArray);
+        spinnerProfession.setAdapter(professionAdapter);
+
+
+//        ArrayAdapter<String> professionAdapter = new ArrayAdapter.createFromResource(getContext(),
+//                R.array.profession_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerProfession.setAdapter(professionAdapter, 0);
     }
 
 

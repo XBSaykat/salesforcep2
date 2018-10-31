@@ -54,6 +54,12 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(DbConstants.SQL_SPINNER_MANUFACTURING_YEAR);
         db.execSQL(DbConstants.SQL_SPINNER_MANUFACTURING_COUNTRY);
         db.execSQL(DbConstants.SQL_SPINNER_VEHICLE_TYPE);
+        db.execSQL(DbConstants.SQL_SPINNER_DHAKA_NORTH_POLICE_STATION);
+        db.execSQL(DbConstants.SQL_SPINNER_DHAKA_SOUTH_POLICE_STATION);
+        db.execSQL(DbConstants.SQL_SPINNER_NARAYANGANJ_POLICE_STATION);
+        db.execSQL(DbConstants.SQL_SPINNER_HOME_LOAN);
+        db.execSQL(DbConstants.SQL_SPINNER_CAR_LAON);
+        db.execSQL(DbConstants.SQL_SPINNER_PERSONAL_LOAN);
 
     }
 
@@ -83,6 +89,12 @@ public class DbHelper extends SQLiteOpenHelper {
        db.execSQL(DbConstants.SQL_DELETE_MANUFACTURING_YEAR);
        db.execSQL(DbConstants.SQL_DELETE_MANUFACTURING_COUNTRY);
        db.execSQL(DbConstants.SQL_DELETE_VEHICLE_TYPE);
+       db.execSQL(DbConstants.SQL_DELETE_DHAKA_NORTH_POLICE_STATION);
+       db.execSQL(DbConstants.SQL_DELETE_DHAKA_SOUTH_POLICE_STATION);
+       db.execSQL(DbConstants.SQL_DELETE_NARAYANGANJ_POLICE_STATION);
+       db.execSQL(DbConstants.SQL_DELETE_HOME_LAON);
+       db.execSQL(DbConstants.SQL_DELETE_CAR_LOAN);
+       db.execSQL(DbConstants.SQL_DELETE_PERSONAL_LAON);
 
         onCreate(db);
     }

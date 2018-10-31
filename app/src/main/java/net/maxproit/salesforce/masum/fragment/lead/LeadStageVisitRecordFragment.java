@@ -21,9 +21,11 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 /**
@@ -46,6 +48,10 @@ public class LeadStageVisitRecordFragment extends Fragment {
     private LinearLayout followDateLayout, etRemarksLayout, spRemarksLayout;
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private MyLeadDbController myLeadDbController;
+    private SpinnerDbController spinnerDbController;
+
+    private List<String> listfollowUp=null;
+    private List<String> listRemark=null;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -96,6 +102,15 @@ public class LeadStageVisitRecordFragment extends Fragment {
     }
 
     private void initView(View rootView) {
+
+        spinnerDbController =new SpinnerDbController(getActivity());
+
+        listfollowUp = new ArrayList<String>();
+        listRemark = new ArrayList<String>();
+
+        listfollowUp.addAll(spinnerDbController.getFollowUpData());
+        listRemark.addAll(spinnerDbController.getRemarkData());
+
         spinnerFollowUp=rootView.findViewById(R.id.awe_spinner_lead_follow_up);
         spinnerRemarks=rootView.findViewById(R.id.sp_remarks);
         followDateLayout = rootView.findViewById(R.id.follow_date_layout);
@@ -112,14 +127,21 @@ public class LeadStageVisitRecordFragment extends Fragment {
     }
 
     private void initSpinnerAdapter() {
-        ArrayAdapter<CharSequence> decisionAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.decision_array,
-                android.R.layout.simple_spinner_dropdown_item);
-        spinnerFollowUp.setAdapter(decisionAdapter, 0);
-        ArrayAdapter<CharSequence> remarksAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.remarks_arr,
-                android.R.layout.simple_spinner_dropdown_item);
-        spinnerRemarks.setAdapter(remarksAdapter, 0);
+//        ArrayAdapter<CharSequence> decisionAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.decision_array,
+//                android.R.layout.simple_spinner_dropdown_item);
+//        spinnerFollowUp.setAdapter(decisionAdapter, 0);
+
+        ArrayAdapter<String> followUp=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listfollowUp);
+        spinnerFollowUp.setAdapter(followUp);
+
+        ArrayAdapter<String> remark=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listRemark);
+        spinnerRemarks.setAdapter(remark);
+
+//        ArrayAdapter<CharSequence> remarksAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.remarks_arr,
+//                android.R.layout.simple_spinner_dropdown_item);
+//        spinnerRemarks.setAdapter(remarksAdapter, 0);
 
     }
 

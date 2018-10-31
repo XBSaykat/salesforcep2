@@ -17,6 +17,10 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProspectStageFinancialFragment extends Fragment {
@@ -30,6 +34,11 @@ public class ProspectStageFinancialFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private SpinnerDbController spinnerDbController;
+
+    private List<String> listMonthlySalary=null;
+    private List<String> listMonthlyRentalSalary=null;
 
     public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,etMonthlyRentalAmount,
                     etAgriculturalIncome, etPracticeConsultancyTuition, etRemittance, etInterestIncome,
@@ -72,6 +81,15 @@ public class ProspectStageFinancialFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        spinnerDbController = new SpinnerDbController(getActivity());
+
+        listMonthlySalary = new ArrayList<String>();
+        listMonthlyRentalSalary = new ArrayList<String>();
+
+        listMonthlySalary.addAll(spinnerDbController.getMonthlySalaryData());
+        listMonthlyRentalSalary.addAll(spinnerDbController.getMonthlyRentalIncomeData());
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_prospect_stage_financial, container, false);
         prospectStageActivity= (ProspectStageActivity) getActivity();
@@ -127,15 +145,22 @@ public class ProspectStageFinancialFragment extends Fragment {
     }
 
     private void initAdapters() {
-        ArrayAdapter<CharSequence> monthlyNetSalaryAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.monthly_net_salary_array,
-                android.R.layout.simple_spinner_item);
-        spinnerMonthlyNetSalary.setAdapter(monthlyNetSalaryAdapter, 0);
 
-        ArrayAdapter<CharSequence> monthlyRentalIncomeAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.monthly_rental_income,
-                android.R.layout.simple_spinner_item);
-        spinnerRentalIncome.setAdapter(monthlyRentalIncomeAdapter, 0);
+        ArrayAdapter<String> monthlySalary=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlySalary);
+        spinnerMonthlyNetSalary.setAdapter(monthlySalary);
+//        ArrayAdapter<CharSequence> monthlyNetSalaryAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.monthly_net_salary_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerMonthlyNetSalary.setAdapter(monthlyNetSalaryAdapter, 0);
+
+
+        ArrayAdapter<String> rentalIncome=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlyRentalSalary);
+        spinnerRentalIncome.setAdapter(rentalIncome);
+
+//        ArrayAdapter<CharSequence> monthlyRentalIncomeAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.monthly_rental_income,
+//                android.R.layout.simple_spinner_item);
+//        spinnerRentalIncome.setAdapter(monthlyRentalIncomeAdapter, 0);
 
 
     }

@@ -25,12 +25,14 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -50,6 +52,14 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private String mParam2;
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private MyLeadDbController myLeadDbController;
+    private SpinnerDbController spinnerDbController;
+
+    private List<String> listSourceReference=null;
+    private List<String> listProductType=null;
+    private List<String> listProductSubCategory=null;
+    private List<String> listCarloan=null;
+    private List<String> listHomeloan=null;
+    private List<String> listPersonalloan=null;
 
     private AwesomeSpinner spinnerRef,spinnerProductType,spinnerSubCategory;
     public static EditText etLoadAmount,etFee,etInterest,etDisbursementDate;
@@ -119,21 +129,27 @@ public class LeadStageLoanDetailFragment extends Fragment {
                 productType = s;
 
                 if(s.equals(HOME_LOAN)){
-                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
-                            R.array.hl_array, android.R.layout.simple_spinner_item);
-                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+//                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
+//                            R.array.hl_array, android.R.layout.simple_spinner_item);
+//                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+                    ArrayAdapter<String> productSub=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listHomeloan);
+                    spinnerSubCategory.setAdapter(productSub);
 
                 }
                 if(s.equals(CAR_LOAN)){
-                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
-                            R.array.cl_array, android.R.layout.simple_spinner_item);
-                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+//                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
+//                            R.array.cl_array, android.R.layout.simple_spinner_item);
+//                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+                    ArrayAdapter<String> productSub=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listCarloan);
+                    spinnerSubCategory.setAdapter(productSub);
 
                 }
                 if(s.equals(PERSONAL_LOAN)){
-                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
-                            R.array.pl_array, android.R.layout.simple_spinner_item);
-                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+//                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
+//                            R.array.pl_array, android.R.layout.simple_spinner_item);
+//                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
+                    ArrayAdapter<String> productSub=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listPersonalloan);
+                    spinnerSubCategory.setAdapter(productSub);
 
                 }
 
@@ -184,6 +200,22 @@ public class LeadStageLoanDetailFragment extends Fragment {
     }
 
     private void initView(View rootView) {
+
+        spinnerDbController =new SpinnerDbController(getActivity());
+
+        listSourceReference = new ArrayList<String>();
+        listProductType = new ArrayList<String>();
+        listProductSubCategory = new ArrayList<String>();
+        listCarloan = new ArrayList<String>();
+        listHomeloan = new ArrayList<String>();
+        listPersonalloan = new ArrayList<String>();
+        listSourceReference.addAll(spinnerDbController.getSourceOfReferenceData());
+        listProductType.addAll(spinnerDbController.getProductTypeData());
+        listProductSubCategory.addAll(spinnerDbController.getProductSubcategoryData());
+        listHomeloan.addAll(spinnerDbController.getHomeLoanData());
+        listCarloan.addAll(spinnerDbController.getCarLoanData());
+        listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
+
         spinnerRef=rootView.findViewById(R.id.awe_spinner_lead_reference);
         spinnerProductType=rootView.findViewById(R.id.awe_spinner_lead_product_type);
         spinnerSubCategory=rootView.findViewById(R.id.awe_spinner_lead_product_sub_type);
@@ -294,12 +326,18 @@ public class LeadStageLoanDetailFragment extends Fragment {
     }
 
     private void initSpinnerAdapter() {
-        ArrayAdapter<CharSequence> refAdapter = ArrayAdapter.createFromResource(getContext(), R.array.source_of_reference_array, android.R.layout.simple_spinner_item);
-        spinnerRef.setAdapter(refAdapter, 0);
+//        ArrayAdapter<CharSequence> refAdapter = ArrayAdapter.createFromResource(getContext(), R.array.source_of_reference_array, android.R.layout.simple_spinner_item);
+//        spinnerRef.setAdapter(refAdapter, 0);
 
-        ArrayAdapter<CharSequence> productTypeAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.product_categories_array, android.R.layout.simple_spinner_item);
-        spinnerProductType.setAdapter(productTypeAdapter, 0);
+        ArrayAdapter<String> sourceReference=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listSourceReference);
+        spinnerRef.setAdapter(sourceReference);
+
+        ArrayAdapter<String> productType=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProductType);
+        spinnerProductType.setAdapter(productType);
+
+//        ArrayAdapter<CharSequence> productTypeAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.product_categories_array, android.R.layout.simple_spinner_item);
+//        spinnerProductType.setAdapter(productTypeAdapter, 0);
 
 
     }
