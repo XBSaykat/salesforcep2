@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.activity;
+package net.maxproit.salesforce.masum.activity.visitplan;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -232,7 +232,6 @@ public class VisitPlanListActivity extends BaseActivity {
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
             startActivity(new Intent(VisitPlanListActivity.this, VisitPlanActivity.class));
-
         });
         AlertDialog dialog = builder.create();
         dialog.show();

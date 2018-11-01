@@ -5,16 +5,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import net.maxproit.salesforce.masum.activity.LeadStageActivity;
+import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.MyPerformancePhaseTwo;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDashboardBinding;
 import net.maxproit.salesforce.feature.login.LoginActivity;
-import net.maxproit.salesforce.masum.activity.MyActivitiesActivityNew;
-import net.maxproit.salesforce.masum.activity.MyProspectActivity;
-import net.maxproit.salesforce.masum.activity.MyLeadActivity;
-import net.maxproit.salesforce.masum.activity.VisitPlanListActivity;
+import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivityNew;
+import net.maxproit.salesforce.masum.activity.prospect.MyProspectActivity;
+import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 

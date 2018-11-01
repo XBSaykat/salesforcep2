@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.activity;
+package net.maxproit.salesforce.masum.activity.lead;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.adapter.MyLeadAdapter;

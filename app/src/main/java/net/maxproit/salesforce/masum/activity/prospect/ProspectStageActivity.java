@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.activity;
+package net.maxproit.salesforce.masum.activity.prospect;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;

@@ -52,10 +52,10 @@
             android:name=".feature.search.SearchUserActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
-            android:name=".masum.activity.MyLeadActivity"
+            android:name=".masum.activity.lead.MyLeadActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".masum.activity.MyProspectActivity"
+            android:name=".masum.activity.prospect.MyProspectActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity" />
         <activity android:name=".feature.supervisor.SupervisorVisitsActivity" />
@@ -124,16 +124,16 @@
         <activity android:name=".feature.supervisor.SupervisorFollowUpActivity" />
         <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
-        <activity android:name=".masum.activity.VisitPlanActivity" />
-        <activity android:name=".masum.activity.LeadStageActivity" />
-        <activity android:name=".masum.activity.ProspectStageActivity" />
-        <activity android:name=".masum.activity.MyActivitiesActivity" />
-        <activity android:name=".masum.activity.MyActivitiesActivityNew" />
-        <activity android:name=".masum.activity.VisitPLanDetailsActivity" />
+        <activity android:name=".masum.activity.visitplan.VisitPlanActivity" />
+        <activity android:name=".masum.activity.lead.LeadStageActivity" />
+        <activity android:name=".masum.activity.prospect.ProspectStageActivity" />
+        <activity android:name=".masum.activity.visitplan.MyActivitiesActivity" />
+        <activity android:name=".masum.activity.visitplan.MyActivitiesActivityNew" />
+        <activity android:name=".masum.activity.visitplan.VisitPLanDetailsActivity" />
         <activity android:name=".ProspectViewRbm" />
         <activity android:name=".MyPerformancePhaseTwo" />
         <activity android:name=".SupervisorRbmProspect" />
-        <activity android:name=".masum.activity.VisitPlanListActivity"></activity>
+        <activity android:name=".masum.activity.visitplan.VisitPlanListActivity"></activity>
     </application>
 
 </manifest>

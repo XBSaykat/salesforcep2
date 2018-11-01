@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.activity;
+package net.maxproit.salesforce.masum.activity.lead;
 
 import android.content.Intent;
 import android.os.Build;

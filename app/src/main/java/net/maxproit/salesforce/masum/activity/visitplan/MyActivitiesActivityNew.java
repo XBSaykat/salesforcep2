@@ -1,7 +1,6 @@
-package net.maxproit.salesforce.masum.activity;
+package net.maxproit.salesforce.masum.activity.visitplan;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.TabLayout;

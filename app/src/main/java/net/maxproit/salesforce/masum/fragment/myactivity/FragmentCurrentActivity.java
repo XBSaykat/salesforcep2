@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.activity.VisitPLanDetailsActivity;
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.CurrentPLanListAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
