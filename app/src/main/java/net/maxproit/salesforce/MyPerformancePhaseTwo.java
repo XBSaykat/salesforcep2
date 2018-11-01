@@ -6,51 +6,37 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import net.maxproit.salesforce.masum.activity.MyActivitiesActivityNew;
 import net.maxproit.salesforce.masum.activity.MyProspectActivity;
 import net.maxproit.salesforce.masum.mylead.MyLeadActivity;
+import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
 
 public class MyPerformancePhaseTwo extends AppCompatActivity {
 
     LinearLayout myActivitiesPerformance, myLeadsPerformance, myProspectsPerformance;
     ImageView backBtn;
+    TextView tvPlan,tvLead,tvProspect;
+    VisitPlanDbController planDbController;
+    MyLeadDbController leadDbController;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_performance_phase_two);
+        planDbController=new VisitPlanDbController(this);
+        leadDbController=new MyLeadDbController(this);
+        tvPlan=findViewById(R.id.tvActivity);
+        tvLead=findViewById(R.id.tvLead);
+        tvProspect=findViewById(R.id.tvProspect);
 
-        myActivitiesPerformance = (LinearLayout)findViewById(R.id.ll_my_activities_performance);
-        myActivitiesPerformance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myActivitiesPerformanceIntent = new Intent(MyPerformancePhaseTwo.this,MyActivitiesActivityNew.class);
-                startActivity(myActivitiesPerformanceIntent);
-                finish();
-            }
-        });
+        tvPlan.setText(""+planDbController.getAllData().size());
+        tvLead.setText(""+leadDbController.myNewProspectGetAllData().size());
+        tvProspect.setText(""+leadDbController.getProspectData().size());
 
-        myLeadsPerformance = (LinearLayout)findViewById(R.id.ll_my_leads_performance);
-        myLeadsPerformance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myLeadPerformanceIntent = new Intent(MyPerformancePhaseTwo.this,MyLeadActivity.class);
-                startActivity(myLeadPerformanceIntent);
-                finish();
-            }
-        });
-
-        myProspectsPerformance = (LinearLayout)findViewById(R.id.ll_my_prospects_performance);
-        myProspectsPerformance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myProspectsPerformanceIntent = new Intent(MyPerformancePhaseTwo.this,MyProspectActivity.class);
-                startActivity(myProspectsPerformanceIntent);
-                finish();
-            }
-        });
 
         backBtn = (ImageView)findViewById(R.id.btnBack);
         backBtn.setOnClickListener(new View.OnClickListener() {

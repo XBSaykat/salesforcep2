@@ -353,7 +353,15 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> branch=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBranch);
         spinnerBranchName.setAdapter(branch);
 
+        ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.branch_name_array,
+                android.R.layout.simple_spinner_item);
+        spinnerBranchName.setAdapter(branchNameAdapter, 0);
 
+        ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.segment_array,
+                android.R.layout.simple_spinner_item);
+        spinnerSegment.setAdapter(segmentAdapter, 0);
 //        ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
 //                R.array.segment_array,
 //                android.R.layout.simple_spinner_item);
@@ -377,15 +385,11 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //                R.array.countries,
 //                android.R.layout.simple_spinner_item);
 //        spinnerCountOfBirth.setAdapter(countryOfBirthAdapter, 0);
-        ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.branch_name_array,
-                android.R.layout.simple_spinner_item);
-        spinnerBranchName.setAdapter(branchNameAdapter, 0);
 
-        ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.segment_array,
-                android.R.layout.simple_spinner_item);
-        spinnerSegment.setAdapter(segmentAdapter, 0);
+//        ArrayAdapter<CharSequence> ProfessionAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.profession_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerProfession.setAdapter(ProfessionAdapter, 0);
 
         ArrayAdapter<String> profession=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProfession);
         spinnerProfession.setAdapter(profession);
