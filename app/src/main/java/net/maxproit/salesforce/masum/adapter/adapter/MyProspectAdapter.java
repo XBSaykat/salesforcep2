@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.activity.adapter;
+package net.maxproit.salesforce.masum.adapter.adapter;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

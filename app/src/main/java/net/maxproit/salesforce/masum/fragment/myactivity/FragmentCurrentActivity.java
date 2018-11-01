@@ -11,24 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
-import net.maxproit.salesforce.masum.sqlite.AppConstant;
-import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.FragmentUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class FragmentCurrentActivity extends Fragment {
 

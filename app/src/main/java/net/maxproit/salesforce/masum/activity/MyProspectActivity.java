@@ -10,18 +10,18 @@ import android.view.View;
 import android.widget.Button;
 
 import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyProspectBinding;
-import net.maxproit.salesforce.masum.activity.adapter.MyNewProspectAdapter;
+import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.feature.salesOfficer.newProspect.NewProspectActivity;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.model.myprospect.MyProspect;
 import net.maxproit.salesforce.masum.model.MyNewLead;
-import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 

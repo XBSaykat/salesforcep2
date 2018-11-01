@@ -30,8 +30,8 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.Global;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
-import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
-import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

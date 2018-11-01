@@ -15,7 +15,7 @@ import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.model.login.LocalLogin;
-import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;

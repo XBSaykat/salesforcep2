@@ -12,16 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
-import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
-import net.maxproit.salesforce.masum.sqlite.AppConstant;
-import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
-import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 
 import java.util.ArrayList;
 import java.util.List;

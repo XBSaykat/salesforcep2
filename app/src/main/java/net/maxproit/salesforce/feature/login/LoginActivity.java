@@ -3,6 +3,7 @@ package net.maxproit.salesforce.feature.login;
 import android.Manifest;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -16,7 +17,9 @@ import net.maxproit.salesforce.databinding.ActivityLoginBinding;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardVirifierActivity;
 import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervisorActivity;
-import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
+import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
+import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.model.login.Login;
 import net.maxproit.salesforce.model.login.LoginResponse;
 import net.maxproit.salesforce.model.setting.GlobalSettings;
@@ -69,6 +72,13 @@ public class LoginActivity extends BaseActivity {
         binding = (ActivityLoginBinding) getBinding();
         binding.setModel(new Login());
         spinnerDbController=new SpinnerDbController(this);
+        if (!AppPreference.getInstance(LoginActivity.this).getBoolean(PrefKey.IS_LOADED)){
+            AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOADED,true);
+            setSpinnerData();
+        }
+        else {
+            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        }
 
         String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
         if (st.isEmpty()) {
@@ -111,7 +121,7 @@ public class LoginActivity extends BaseActivity {
                             if (lr.getCode().equals("401")) {
                                 showToast("Invalid UserId or Password");
                             } else {
-                                setSpinnerData();
+
                                 gotoBoard(lr.getData().getUserTypeId());
                                 String lg = toJson(response.body());
                                 localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);

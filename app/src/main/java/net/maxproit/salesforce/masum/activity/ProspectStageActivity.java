@@ -18,12 +18,12 @@ import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantF
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialCalculatorFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageLoanAndSecurityDetailFragment;
-import net.maxproit.salesforce.masum.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.MyNewLead;
-import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
 import java.util.List;

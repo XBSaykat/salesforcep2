@@ -11,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.sqlite.AppConstant;
-import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 

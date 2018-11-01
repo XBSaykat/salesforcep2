@@ -17,7 +17,7 @@ import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.fragment.myactivity.FragmentCurrentActivity;
 import net.maxproit.salesforce.masum.fragment.myactivity.FragmentPreViousList;
 import net.maxproit.salesforce.masum.fragment.myactivity.FragmentUpComingList;
-import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,10 +8,9 @@ import net.maxproit.salesforce.ProspectViewRbm;
 import net.maxproit.salesforce.masum.activity.LeadStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
-import net.maxproit.salesforce.masum.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.activity.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
-import net.maxproit.salesforce.model.myprospect.MyProspect;
 
 
 public class ActivityUtils {

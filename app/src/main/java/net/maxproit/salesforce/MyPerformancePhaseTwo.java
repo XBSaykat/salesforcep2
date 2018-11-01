@@ -1,6 +1,5 @@
 package net.maxproit.salesforce;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,11 +7,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import net.maxproit.salesforce.masum.activity.MyActivitiesActivityNew;
-import net.maxproit.salesforce.masum.activity.MyProspectActivity;
-import net.maxproit.salesforce.masum.mylead.MyLeadActivity;
-import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 
 public class MyPerformancePhaseTwo extends AppCompatActivity {
 

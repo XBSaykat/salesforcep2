@@ -24,10 +24,10 @@ import net.maxproit.salesforce.NumberToWords;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
-import net.maxproit.salesforce.masum.sqlite.AppConstant;
-import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
-import net.maxproit.salesforce.masum.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
