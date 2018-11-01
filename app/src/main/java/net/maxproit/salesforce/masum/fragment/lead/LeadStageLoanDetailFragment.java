@@ -317,7 +317,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
                 MyNewProspect myNewLead= (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead !=null){
                     spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getLoanReq()));
-                     spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
+                  //   spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
 //                    spinnerSubCategory.setSelection(productSubAdapter.getPosition(myNewLead.getProductSubcategory()));
                     etLoadAmount.setText(myNewLead.getLoadAmount());
                     etInterest.setText(myNewLead.getOrInterest());
