@@ -41,13 +41,10 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
-
 
 public class VisitPlanActivity extends AppCompatActivity {
 
 //    Toolbar toolbarVisitPlan;
-
 
     String VariableID;
     private int hour;

@@ -81,9 +81,6 @@ public class LeadStageActivity extends AppCompatActivity {
         myLeadDbController = new MyLeadDbController(LeadStageActivity.this);
 
 
-
-
-
 //        Toast.makeText(this, ""+myLeadPosition, Toast.LENGTH_SHORT).show();
 
 
@@ -255,25 +252,23 @@ public class LeadStageActivity extends AppCompatActivity {
         MyNewProspect myNewLead = null;
         Bundle extraDetail = getIntent().getExtras();
         if (!getIntent().getExtras().equals(null)) {
-            int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
+            int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
             Bundle bundle = new Bundle();
-            if (status==0){
+            if (status == 0) {
                 visitPlan = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
-                bundle.putInt(AppConstant.STATUS_INTENT_KEY,0);
-            }
-            else {
+                bundle.putInt(AppConstant.STATUS_INTENT_KEY, 0);
+            } else {
                 myNewLead = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
-                bundle.putInt(AppConstant.STATUS_INTENT_KEY,1);
+                bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
             }
             leadStageBasicInformationFragment.setArguments(bundle);
             leadStageLoanDetailFragment.setArguments(bundle);
             //leadStageVisitRecordFragment.setArguments(bundle);
             //leadStageAttachmentFragment.setArguments(bundle);
 
-        }
-        else {
+        } else {
             //dda
             Toast.makeText(this, "check", Toast.LENGTH_SHORT).show();
         }
