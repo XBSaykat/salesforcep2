@@ -308,6 +308,79 @@ public class MyLeadDbController {
         return myNewProspectFetchData(c);
     }
 
+    public ArrayList<MyNewProspect> myNewLeadGetAllData() {
+
+        String[] projection = {
+                DbConstants._L_ID,
+                DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_USER_NAME,
+                DbConstants.LEAD_PROFESSION,
+                DbConstants.LEAD_ORGANIZATION,
+                DbConstants.LEAD_DESIGNATION,
+                DbConstants.LEAD_PHONE,
+                DbConstants.LEAD_ADDRESS,
+                DbConstants.LEAD_REF,
+                DbConstants.LEAD_PRODUCT_TYPE,
+                DbConstants.LEAD_PRODUCT_SUBCATEGORY,
+                DbConstants.LEAD_AMOUNT,
+                DbConstants.LEAD_OR_INTEREST,
+                DbConstants.LEAD_OP_FEE,
+                DbConstants.LEAD_DISBURSEMENT_DATE,
+                DbConstants.LEAD_VISIT_DATE,
+                DbConstants.LEAD_FOLLOW_UP,
+                DbConstants.LEAD_REMARK,
+                DbConstants.PROSPECT_LOAN_TYPE,
+                DbConstants.PROSPECT_PRODUCT_DETAIL,
+                DbConstants.PROSPECT_SEGMENT,
+                DbConstants.PROSPECT_AGE,
+                DbConstants.PROSPECT_DOB,
+                DbConstants.PROSPECT_COB,
+                DbConstants.PROSPECT_PHOTO_ID_NUMBER,
+                DbConstants.PROSPECT_PHOTO_ID_ISSUE_DATE,
+                DbConstants.PROSPECT_ETIN,
+                DbConstants.PROSPECT_FATHER_NAME,
+                DbConstants.PROSPECT_MOTHER_NAME,
+                DbConstants.PROSPECT_SPOUSE_NAME,
+                DbConstants.PROSPECT_EXCEPTION_LIST,
+                DbConstants.PROSPECT_NOY_CURRENT_JOB,
+                DbConstants.PROSPECT_RW_APPLICANT,
+                DbConstants.PROSPECT_PERMANENT_ADDRESS,
+                DbConstants.PROSPECT_NET_SALARY,
+                DbConstants.PROSPECT_SALARY_AMOUNT,
+                DbConstants.PROSPECT_RENTAL_INCOME,
+                DbConstants.PROSPECT_RENTAL_INCOME_AMOUNT,
+                DbConstants.PROSPECT_ACRICULTURAL_INCOME,
+                DbConstants.PROSPECT_TUTION,
+                DbConstants.PROSPECT_REMITANCE,
+                DbConstants.PROSPECT_INTEREST_FDR,
+                DbConstants.PROSPECT_FAMILY_EXPENSE,
+                DbConstants.PROSPECT_EMI_OTHER,
+                DbConstants.PROSPECT_SECURITY_VALUE,
+                DbConstants.PROSPECT_LOAN_REQUIRED,
+                DbConstants.PROSPECT_LOAD_TERM,
+                DbConstants.PROSPECT_PI_RATE,
+                DbConstants.PROSPECT_FEE,
+                DbConstants.PROSPECT_MONTHLY_EMI,
+                DbConstants.LEAD_STATUS,
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = DbConstants._L_ID + " DESC";
+        String WHERE = DbConstants.LEAD_STATUS + "=?";
+        Cursor c = db.query(
+                DbConstants.TABLE_LEAD,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{AppConstant.LEAD_STATUS_NEW},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return myNewProspectFetchData(c);
+    }
+
+
     public ArrayList<MyNewProspect> myNewProspectGetAllData() {
 
         String[] projection = {
