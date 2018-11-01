@@ -133,7 +133,8 @@ public class ProspectStageActivity extends AppCompatActivity {
 //                calculatedGrossIncome = ProspectStageFinancialCalculatorFragment.etCalculatedGrossIncome.getText().toString();
                 calculatedGrossIncome = "";
                 if (getDataFromProspect() != null) {
-                    MyNewProspect myNewProspect = new MyNewProspect(getDataFromProspect().getBranchName(),
+                    MyNewProspect myNewProspect = new MyNewProspect(
+                            getDataFromProspect().getBranchName(),
                             getDataFromProspect().getUserName(),
                             getDataFromProspect().getProfession(),
                             getDataFromProspect().getOrganization(),

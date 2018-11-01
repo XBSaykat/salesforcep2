@@ -350,25 +350,25 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //                R.array.branch_array,
 //                android.R.layout.simple_spinner_item);
 //        spinnerBranchName.setAdapter(branchNameAdapter, 0);
-        ArrayAdapter<String> branch=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBranch);
-        spinnerBranchName.setAdapter(branch);
+        ArrayAdapter<String> branchNameAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBranch);
+        spinnerBranchName.setAdapter(branchNameAdapter);
 
-        ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getActivity(),
+      /*  ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.branch_name_array,
                 android.R.layout.simple_spinner_item);
-        spinnerBranchName.setAdapter(branchNameAdapter, 0);
+        spinnerBranchName.setAdapter(branchNameAdapter, 0);*/
 
-        ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
+    /*    ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.segment_array,
                 android.R.layout.simple_spinner_item);
-        spinnerSegment.setAdapter(segmentAdapter, 0);
+        spinnerSegment.setAdapter(segmentAdapter, 0);*/
 //        ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
 //                R.array.segment_array,
 //                android.R.layout.simple_spinner_item);
 //        spinnerSegment.setAdapter(segmentAdapter, 0);
 
-        ArrayAdapter<String> segment=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listSegment);
-        spinnerSegment.setAdapter(segment);
+        ArrayAdapter<String> segmentAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listSegment);
+        spinnerSegment.setAdapter(segmentAdapter);
 
 //        ArrayAdapter<CharSequence> distOfBirthAdapter = ArrayAdapter.createFromResource(getContext(),
 //                R.array.district_array,

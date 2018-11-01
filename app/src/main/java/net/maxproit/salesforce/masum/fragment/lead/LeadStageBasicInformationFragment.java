@@ -16,6 +16,7 @@ import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
@@ -100,7 +101,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
         initView(rootView);
         initListener();
-        setIntentData();
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -206,34 +206,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
      }
 
-     private void setIntentData(){
-
-         if (getArguments()!=null ){
-             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
-
-             if (status==0){
-                 VisitPlan visitPlan= (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                 if (visitPlan !=null){
-                     etUserName.setText(visitPlan.getClientName());
-                     etPhone.setText(visitPlan.getMobileNumber());
-                     etAddress.setText(visitPlan.getPoliceStation()+","+visitPlan.getCity());
-                 }
-             }
-             else {
-                 MyNewLead myNewLead= (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                 if (myNewLead !=null){
-                     etUserName.setText(myNewLead.getUserName());
-                     etPhone.setText(myNewLead.getPhone());
-                     etAddress.setText(myNewLead.getAddress());
-                     etUserOrganization.setText(myNewLead.getOrganization());
-                 }
-
-
-             }
-
-         }
-
-     }
 
     private void initSpinnerAdapter() {
 
@@ -242,7 +214,33 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
         ArrayAdapter<String> professionAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProfessionArray);
         spinnerProfession.setAdapter(professionAdapter);
+        if (getArguments()!=null ){
+            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
+            if (status==0){
+                VisitPlan visitPlan= (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (visitPlan !=null){
+                    etUserName.setText(visitPlan.getClientName());
+                    etPhone.setText(visitPlan.getMobileNumber());
+                    etAddress.setText(visitPlan.getPoliceStation()+","+visitPlan.getCity());
+                }
+            }
+            else {
+                MyNewProspect myNewLead= (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead !=null){
+                    etUserName.setText(myNewLead.getUserName());
+                    etPhone.setText(myNewLead.getPhone());
+                    etAddress.setText(myNewLead.getAddress());
+                    etUserOrganization.setText(myNewLead.getOrganization());
+                    spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
+                    spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
+
+                }
+
+
+            }
+
+        }
 
 //        ArrayAdapter<String> professionAdapter = new ArrayAdapter.createFromResource(getContext(),
 //                R.array.profession_array,

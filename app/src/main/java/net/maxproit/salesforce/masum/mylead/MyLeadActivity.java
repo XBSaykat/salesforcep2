@@ -10,6 +10,7 @@ import android.view.View;
 
 import net.maxproit.salesforce.masum.activity.LeadStageActivity;
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -36,7 +37,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     LocalLogin localLogin;
     MyNewLead myNewLead;
     String username;
-    ArrayList<MyNewLead> leadList, filterList;
+    ArrayList<MyNewProspect> leadList, filterList;
 
 
     @Override
@@ -58,7 +59,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             leadList.clear();
         }
 
-        leadList.addAll(myLeadDbController.getAllData());
+        leadList.addAll(myLeadDbController.myNewProspectGetAllData());
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -109,7 +110,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     }
 
     private void sentDataToDetail(int position) {
-        MyNewLead myNewLead=new MyNewLead(filterList.get(position).getId(),
+        MyNewProspect myNewLead=new MyNewProspect(filterList.get(position).getId(),
                 filterList.get(position).getBranchName(),
                 filterList.get(position).getUserName(),
                 filterList.get(position).getProfession(),
@@ -127,7 +128,39 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getDisDate(),
                 filterList.get(position).getFollowUp(),
                 filterList.get(position).getRemark(),
-                filterList.get(position).getStatus());
+                filterList.get(position).getStatus(),
+                filterList.get(position).getpLoanType(),
+                filterList.get(position).getProductDetail(),
+                filterList.get(position).getSegment(),
+                filterList.get(position).getAge(),
+                filterList.get(position).getDob(),
+                filterList.get(position).getCob(),
+                filterList.get(position).getpIdNumber(),
+                filterList.get(position).getpIssueDate(),
+                filterList.get(position).getEtin(),
+                filterList.get(position).getfName(),
+                filterList.get(position).getmName(),
+                filterList.get(position).getsName(),
+                filterList.get(position).getExList(),
+                filterList.get(position).getCurrentJob(),
+                filterList.get(position).getApplicant(),
+                filterList.get(position).getpAddress(),
+                filterList.get(position).getNetSalary(),
+                filterList.get(position).getSalaryAmount(),
+                filterList.get(position).getRentIncome(),
+                filterList.get(position).getRentIncomeAmount(),
+                filterList.get(position).getAg_Income(),
+                filterList.get(position).getTution(),
+                filterList.get(position).getRemitance(),
+                filterList.get(position).getInFdr(),
+                filterList.get(position).getfExpense(),
+                filterList.get(position).getEmiOther(),
+                filterList.get(position).getsValue(),
+                filterList.get(position).getLoanReq(),
+                filterList.get(position).getLoanTerm(),
+                filterList.get(position).getPiRate(),
+                filterList.get(position).getFee(),
+                filterList.get(position).getMonthlyEmi());
         ActivityUtils.invokLeadDetailForLeadStage(this,myNewLead);
     }
 
@@ -162,11 +195,11 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
 
     //filter  data
-    private ArrayList<MyNewLead> getFilterData(ArrayList<MyNewLead> models, CharSequence searchKey) {
+    private ArrayList<MyNewProspect> getFilterData(ArrayList<MyNewProspect> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<MyNewLead> filteredModelList = new ArrayList<>();
-        for (MyNewLead model : models) {
+        final ArrayList<MyNewProspect> filteredModelList = new ArrayList<>();
+        for (MyNewProspect model : models) {
             final String uName = model.getUserName().toLowerCase();
             final String phone = model.getPhone().toLowerCase();
 

@@ -136,7 +136,7 @@ public class MyLeadDbController {
         values.put(DbConstants.PROSPECT_PI_RATE, myProspect.getPiRate());
         values.put(DbConstants.PROSPECT_FEE, myProspect.getFee());
         values.put(DbConstants.PROSPECT_MONTHLY_EMI, myProspect.getMonthlyEmi());
-        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_PROSPECT);
+        values.put(DbConstants.LEAD_STATUS, myProspect.getStatus());
 
         return db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
 
@@ -239,6 +239,7 @@ public class MyLeadDbController {
     public ArrayList<MyNewProspect> myNewProspectGetAllData() {
 
         String[] projection = {
+                DbConstants._L_ID,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
