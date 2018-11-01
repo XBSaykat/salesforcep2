@@ -111,8 +111,56 @@ public class ProspectViewRbm extends AppCompatActivity {
 
     }
 
+
+    /*
+            ,
+            tvRentalIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
+            tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
+            tvFee;*/
+
     private void setAllData() {
         tvBranchName.setText(getDataFromProspect().getBranchName());
+        tvProdecutCategory.setText(getDataFromProspect().getProductType());
+        tvProductDetail.setText(getDataFromProspect().getProductDetail());
+        tvUserName.setText(getDataFromProspect().getUserName());
+        tvSegment.setText(getDataFromProspect().getSegment());
+        tvAge.setText(getDataFromProspect().getAge());
+        tvBirthDistrict.setText(getDataFromProspect().getDob());
+        tvBirthCountry.setText(getDataFromProspect().getCob());
+        tvValidPhotoId.setText(getDataFromProspect().getpIdNumber());
+        tvPhotoIssudate.setText(getDataFromProspect().getpIssueDate());
+        tvEtin.setText(getDataFromProspect().getEtin());
+        tvFatherName.setText(getDataFromProspect().getfName());
+        tvMotherName.setText(getDataFromProspect().getmName());
+        tvSpouseName.setText(getDataFromProspect().getsName());
+        tvProfession.setText(getDataFromProspect().getProfession());
+        tvCompanyName.setText(getDataFromProspect().getOrganization());
+        tvDesignation.setText(getDataFromProspect().getDesignation());
+        tvCurrentJobYear.setText(getDataFromProspect().getCurrentJob());
+        tvRelationshipWithApplicant.setText(getDataFromProspect().getApplicant());
+        tvPermanentAddress.setText(getDataFromProspect().getpAddress());
+        tvPresentAddress.setText(getDataFromProspect().getAddress());
+        tvMobileNumber.setText(getDataFromProspect().getPhone());
+        tvMonthlySalary.setText(getDataFromProspect().getNetSalary());
+        tvSalaryAmount.setText(getDataFromProspect().getSalaryAmount());
+//        tvMonthlyBusinessIncome.setText(getDataFromProspect().);
+        tvMonthlyRentalIncome.setText(getDataFromProspect().getRentIncome());
+        tvRentalIncome.setText(getDataFromProspect().getRentIncomeAmount());
+        tvAgricultureIncome.setText(getDataFromProspect().getAg_Income());
+        tvOtherIncome.setText(getDataFromProspect().getEmiOther());
+        tvRemittance.setText(getDataFromProspect().getRemitance());
+        tvFdr.setText(getDataFromProspect().getInFdr());
+        tvFamilyExpenditure.setText(getDataFromProspect().getfExpense());
+        tvEmi.setText(getDataFromProspect().getMonthlyEmi());
+        tvSecurityValue.setText(getDataFromProspect().getsValue());
+        tvLoanRequired.setText(getDataFromProspect().getLoanReq());
+        tvLoanTerm.setText(getDataFromProspect().getLoanTerm());
+        tvInteresterRate.setText(getDataFromProspect().getOrInterest());
+        tvFee.setText(getDataFromProspect().getFee());
+//        tvVehicleType.setText(getDataFromProspect());
+//        tvManufacturingCountry.setText(getDataFromProspect());
+//        tvManufacturingYear.setText(getDataFromProspect());
+//        tvBrandName.setText(getDataFromProspect());
     }
 
 
