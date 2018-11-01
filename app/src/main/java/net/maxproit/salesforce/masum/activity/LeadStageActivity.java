@@ -18,10 +18,11 @@ import android.widget.Toast;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
+import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.fragment.LeadStageAttachmentFragment;
-import net.maxproit.salesforce.masum.fragment.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.fragment.LeadStageVisitRecordFragment;
 import net.maxproit.salesforce.masum.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.sqlite.VisitPlanDbController;
@@ -252,7 +253,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
     private void getDataFromIntent() {
         VisitPlan visitPlan = null;
-        MyNewLead myNewLead = null;
+        MyNewProspect myNewLead = null;
         Bundle extraDetail = getIntent().getExtras();
         if (!getIntent().getExtras().equals(null)) {
             int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
@@ -263,13 +264,12 @@ public class LeadStageActivity extends AppCompatActivity {
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY,0);
             }
             else {
-                myNewLead = (MyNewLead) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+                myNewLead = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY,1);
             }
             leadStageBasicInformationFragment.setArguments(bundle);
-
-            //leadStageLoanDetailFragment.setArguments(bundle);
+            leadStageLoanDetailFragment.setArguments(bundle);
             //leadStageVisitRecordFragment.setArguments(bundle);
             //leadStageAttachmentFragment.setArguments(bundle);
 

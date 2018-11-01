@@ -12,18 +12,19 @@ import android.widget.TextView;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.util.ArrayList;
 
 public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomViewHolder>  {
     private Context context;
-    public ArrayList<MyNewLead> leadList;
+    public ArrayList<MyNewProspect> leadList;
     public static OnItemClickListener mListener;
     private boolean isChange=false;
 
 
 
-    public MyLeadAdapter(Context context, ArrayList<MyNewLead> leadList) {
+    public MyLeadAdapter(Context context, ArrayList<MyNewProspect> leadList) {
         this.context = context;
         this.leadList = leadList;
     }
@@ -32,13 +33,13 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         Context context;
-        ArrayList<MyNewLead> leadList;
+        ArrayList<MyNewProspect> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
         private ImageView imgApproved,imgReject;
         private ConstraintLayout constraintLayoutLeadItem;
 
 
-        public CustomViewHolder(View itemView, Context context, ArrayList<MyNewLead> leadList) {
+        public CustomViewHolder(View itemView, Context context, ArrayList<MyNewProspect> leadList) {
             super(itemView);
             this.context = context;
             this.leadList = leadList;
@@ -98,13 +99,13 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
 
     }
 
-    public void setFilter(ArrayList<MyNewLead> newDataList) {
+    public void setFilter(ArrayList<MyNewProspect> newDataList) {
         leadList =new ArrayList<>();
         leadList.addAll(newDataList);
         notifyDataSetChanged();
     }
 
-    public ArrayList<MyNewLead> getDataList() {
+    public ArrayList<MyNewProspect> getDataList() {
         return leadList;
     }
 
