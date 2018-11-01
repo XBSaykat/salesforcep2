@@ -28,7 +28,7 @@ public class VisitPlanDbController {
     public void close() {
         dbHelper.close();
     }
-
+    //                           clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit,remarks
     public int insertData(String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
                           String dateOfVisit, String remarks) {
 
@@ -216,11 +216,8 @@ public class VisitPlanDbController {
                     String dateOfVisit = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_DATE_OF_VISIT));
                     String remarks = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_REMARKS));
                     String status = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_STATUS));
-
-
-
                     // wrap up data list and return
-                    favDataArray.add(new VisitPlan(id, clientName, clientType, mobileNumber, productType, city, policeStation, purposeOfVisit, dateOfVisit, remarks,status));
+                    favDataArray.add(new VisitPlan(id, clientName, clientType, mobileNumber,policeStation, productType, city, purposeOfVisit, dateOfVisit, remarks,status));
                 } while (c.moveToNext());
             }
             c.close();

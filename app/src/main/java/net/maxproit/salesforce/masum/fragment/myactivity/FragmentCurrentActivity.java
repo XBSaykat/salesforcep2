@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.VisitPLanDetailsActivity;
-import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.adapter.adapterplanlist.CurrentPLanListAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class FragmentCurrentActivity extends Fragment {
 
 
-    private MyVisitPlanListAdapter myLeadAdapter;
+    private CurrentPLanListAdapter myLeadAdapter;
     private VisitPlanDbController myDbController;
     //    MyLeadDbController myDbController;
     private ImageView backButton, addButton;
@@ -132,7 +132,7 @@ public class FragmentCurrentActivity extends Fragment {
 //        });
 
 
-        myLeadAdapter = new MyVisitPlanListAdapter(getContext(), visitPlanList);
+        myLeadAdapter = new CurrentPLanListAdapter(getContext(), visitPlanList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rvMyActivity.setLayoutManager(mLayoutManager);
         rvMyActivity.setAdapter(myLeadAdapter);
@@ -217,9 +217,9 @@ public class FragmentCurrentActivity extends Fragment {
                 visitPlanList.get(position).getClientName(),
                 visitPlanList.get(position).getClientType(),
                 visitPlanList.get(position).getMobileNumber(),
+                visitPlanList.get(position).getPoliceStation(),
                 visitPlanList.get(position).getProductType(),
                 visitPlanList.get(position).getCity(),
-                visitPlanList.get(position).getPoliceStation(),
                 visitPlanList.get(position).getPurposeOfVisit(),
                 visitPlanList.get(position).getDateOfVisit(),
                 visitPlanList.get(position).getRemarks(),

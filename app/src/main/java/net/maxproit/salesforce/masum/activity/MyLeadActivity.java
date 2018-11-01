@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.mylead;
+package net.maxproit.salesforce.masum.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
-import net.maxproit.salesforce.masum.mylead.adapter.MyLeadAdapter;
+import net.maxproit.salesforce.masum.adapter.MyLeadAdapter;
 import net.maxproit.salesforce.feature.salesOfficer.newlead.NewLeadActivity;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
@@ -90,15 +90,6 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             public void itemClickListener(View view, int position) {
                 loadFilterData();
                 switch (view.getId()) {
-                    case R.id.btnApproved:
-                        //insert data into prospect
-                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
-                        removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
-                        break;
-                    case R.id.btnReject:
-                        myLeadDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
-                        changeItemStatus(position,AppConstant.LEAD_STATUS_REJECT);
-                        break;
                     case R.id.clLeadItem:
                         sentDataToDetail(position);
                         break;

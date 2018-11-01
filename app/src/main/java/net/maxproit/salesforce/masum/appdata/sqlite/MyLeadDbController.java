@@ -147,8 +147,6 @@ public class MyLeadDbController {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.LEAD_STATUS, status);
-
-
         return db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
 
 

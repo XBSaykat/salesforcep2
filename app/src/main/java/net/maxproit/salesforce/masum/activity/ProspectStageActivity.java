@@ -55,7 +55,7 @@ public class ProspectStageActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
+        viewPager.setOffscreenPageLimit(4);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         buttonSave = findViewById(R.id.btnSave);
@@ -68,7 +68,7 @@ public class ProspectStageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
+                 String productCat, productDetails, mybranchName, segment, countOfBirth, districtOfBirth, profession,
                         relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
                         companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber;
                 String brandName, year, country, vehicleType, securityValue, loanRequired, loanTerm, proposedInterest,
@@ -100,7 +100,7 @@ public class ProspectStageActivity extends AppCompatActivity {
 //                <<<<<< ProspectStageProductAndCustomerDetailsFragment >>>>>>>
                 productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
                 productDetails = ProspectStageProductAndCustomerDetailsFragment.productDetails;
-                branchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
+                mybranchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
                 segment = ProspectStageProductAndCustomerDetailsFragment.segment;
                 countOfBirth = ProspectStageProductAndCustomerDetailsFragment.countOfBirth;
                 districtOfBirth = ProspectStageProductAndCustomerDetailsFragment.districtOfBirth;

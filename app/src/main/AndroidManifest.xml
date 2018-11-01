@@ -52,7 +52,7 @@
             android:name=".feature.search.SearchUserActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
-            android:name=".masum.mylead.MyLeadActivity"
+            android:name=".masum.activity.MyLeadActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".masum.activity.MyProspectActivity"

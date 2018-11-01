@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.databinding.DocumentListRowBinding;
-import net.maxproit.salesforce.masum.mylead.MyLeadActivity;
+import net.maxproit.salesforce.masum.activity.MyLeadActivity;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.model.mylead.Data;

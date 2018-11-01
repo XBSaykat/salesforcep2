@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.VisitPLanDetailsActivity;
-import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
 
+import net.maxproit.salesforce.masum.adapter.adapterplanlist.PreviousPlanListAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class FragmentPreViousList extends Fragment {
 
 
-    private MyVisitPlanListAdapter myLeadAdapter;
+    private PreviousPlanListAdapter myLeadAdapter;
     private VisitPlanDbController myDbController;
     //    MyLeadDbController myDbController;
     private ImageView backButton, addButton;
@@ -154,7 +154,7 @@ public class FragmentPreViousList extends Fragment {
 //        });
 
 
-        myLeadAdapter = new MyVisitPlanListAdapter(getActivity(), visitPlanList);
+        myLeadAdapter = new PreviousPlanListAdapter(getActivity(), visitPlanList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rvMyActivity.setLayoutManager(mLayoutManager);
         rvMyActivity.setAdapter(myLeadAdapter);
@@ -239,9 +239,9 @@ public class FragmentPreViousList extends Fragment {
                 visitPlanList.get(position).getClientName(),
                 visitPlanList.get(position).getClientType(),
                 visitPlanList.get(position).getMobileNumber(),
+                visitPlanList.get(position).getPoliceStation(),
                 visitPlanList.get(position).getProductType(),
                 visitPlanList.get(position).getCity(),
-                visitPlanList.get(position).getPoliceStation(),
                 visitPlanList.get(position).getPurposeOfVisit(),
                 visitPlanList.get(position).getDateOfVisit(),
                 visitPlanList.get(position).getRemarks(),

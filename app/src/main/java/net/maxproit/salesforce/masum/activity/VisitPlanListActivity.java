@@ -1,8 +1,8 @@
 package net.maxproit.salesforce.masum.activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +16,7 @@ import android.widget.Toast;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityVisitPlanListBinding;
-import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
@@ -153,7 +153,9 @@ public class VisitPlanListActivity extends BaseActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog dialog = new AlertDialog.Builder(VisitPlanListActivity.this).create();
+
+                alertDialog();
+           /*     AlertDialog dialog = new AlertDialog.Builder(VisitPlanListActivity.this).create();
                 dialog.setTitle("Create new Plan?");
                 dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -168,7 +170,7 @@ public class VisitPlanListActivity extends BaseActivity {
                         dialog.dismiss();
                     }
                 });
-                dialog.show();
+                dialog.show();*/
 
             }
         });
@@ -202,18 +204,37 @@ public class VisitPlanListActivity extends BaseActivity {
     }
 
     private void sentDataToDetail(int position) {
-        VisitPlan visitPlan=new VisitPlan(
+        VisitPlan visitPlan = new VisitPlan(
                 visitPlanList.get(position).getId(),
                 visitPlanList.get(position).getClientName(),
                 visitPlanList.get(position).getClientType(),
                 visitPlanList.get(position).getMobileNumber(),
+                visitPlanList.get(position).getPoliceStation(),
                 visitPlanList.get(position).getProductType(),
                 visitPlanList.get(position).getCity(),
-                visitPlanList.get(position).getPoliceStation(),
                 visitPlanList.get(position).getPurposeOfVisit(),
                 visitPlanList.get(position).getDateOfVisit(),
                 visitPlanList.get(position).getRemarks(),
                 visitPlanList.get(position).getStatus());
-        ActivityUtils.invokVisitPlanDetail(this,VisitPLanDetailsActivity.class,visitPlan);
+        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+    }
+
+    private void alertDialog() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(VisitPlanListActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(VisitPlanListActivity.this);
+        }
+        builder.setTitle(getString(R.string.visit_plan));
+        builder.setMessage(getString(R.string.create_plan));
+        builder.setIcon(R.drawable.lead);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            startActivity(new Intent(VisitPlanListActivity.this, VisitPlanActivity.class));
+
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

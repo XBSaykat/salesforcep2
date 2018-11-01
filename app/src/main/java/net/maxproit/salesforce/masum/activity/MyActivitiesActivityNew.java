@@ -3,6 +3,7 @@ package net.maxproit.salesforce.masum.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -46,10 +47,9 @@ public class MyActivitiesActivityNew extends BaseActivity {
         linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
         viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(3);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_my_activity);
         tabLayout.setupWithViewPager(viewPager);
-
-
         backButton = findViewById(R.id.btn_back);
         addButton = findViewById(R.id.btn_add);
 
@@ -63,23 +63,7 @@ public class MyActivitiesActivityNew extends BaseActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog dialog = new AlertDialog.Builder(MyActivitiesActivityNew.this).create();
-                dialog.setTitle("Create new Lead?");
-                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(MyActivitiesActivityNew.this, LeadStageActivity.class));
-                        finish();
-                        dialog.dismiss();
-                    }
-                });
-                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                alertDialog();
 
             }
         });
@@ -138,6 +122,24 @@ public class MyActivitiesActivityNew extends BaseActivity {
         adapter.addFragment(new FragmentPreViousList(), "Previous Activity");
         adapter.addFragment(new FragmentUpComingList(), "Upcoming Activity");
         viewPager.setAdapter(adapter);
+    }
+    private void alertDialog() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(MyActivitiesActivityNew.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(MyActivitiesActivityNew.this);
+        }
+        builder.setTitle(getString(R.string.visit_plan));
+        builder.setMessage(getString(R.string.create_plan));
+        builder.setIcon(R.drawable.lead);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            startActivity(new Intent(MyActivitiesActivityNew.this, VisitPlanActivity.class));
+
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 //
     class ViewPagerAdapter extends FragmentPagerAdapter {

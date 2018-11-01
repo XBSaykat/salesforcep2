@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.mylead.adapter;
+package net.maxproit.salesforce.masum.adapter;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
         Context context;
         ArrayList<MyNewProspect> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
-        private ImageView imgApproved,imgReject;
         private ConstraintLayout constraintLayoutLeadItem;
 
 
@@ -48,23 +46,7 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
             tvBranch=itemView.findViewById(R.id.tvBranch);
             tvStatus=itemView.findViewById(R.id.tvStatus);
             constraintLayoutLeadItem = itemView.findViewById(R.id.clLeadItem);
-            imgApproved=itemView.findViewById(R.id.btnApproved);
-            imgReject=itemView.findViewById(R.id.btnReject);
 
-            imgApproved.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.itemClickListener(v,getLayoutPosition());
-                }
-            });
-
-
-            imgReject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.itemClickListener(v,getLayoutPosition());
-                }
-            });
 
             constraintLayoutLeadItem.setOnClickListener(new View.OnClickListener() {
                 @Override

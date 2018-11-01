@@ -32,7 +32,6 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
         Context context;
         ArrayList<MyNewProspect> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
-        private ImageView imgApproved,imgReject;
 
 
         public CustomViewHolder(View itemView, Context context, ArrayList<MyNewProspect> leadList) {
@@ -43,8 +42,7 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
             tvName=itemView.findViewById(R.id.tvName);
             tvBranch=itemView.findViewById(R.id.tvBranch);
             tvStatus=itemView.findViewById(R.id.tvStatus);
-            imgApproved=itemView.findViewById(R.id.btnApproved);
-            imgReject=itemView.findViewById(R.id.btnReject);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -52,21 +50,6 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
                     mListener.itemClickListener(view,getLayoutPosition());
                 }
             });
-            imgApproved.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.itemClickListener(v,getLayoutPosition());
-                }
-            });
-
-
-            imgReject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.itemClickListener(v,getLayoutPosition());
-                }
-            });
-
         }
 
     }

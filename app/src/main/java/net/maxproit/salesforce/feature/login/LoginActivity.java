@@ -76,9 +76,6 @@ public class LoginActivity extends BaseActivity {
             AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOADED,true);
             setSpinnerData();
         }
-        else {
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-        }
 
         String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
         if (st.isEmpty()) {

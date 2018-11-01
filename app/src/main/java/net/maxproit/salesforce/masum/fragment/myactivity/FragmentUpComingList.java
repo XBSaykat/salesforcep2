@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.VisitPLanDetailsActivity;
-import net.maxproit.salesforce.masum.adapter.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
@@ -190,7 +190,6 @@ public class FragmentUpComingList extends Fragment {
 
     private void initListener() {
 
-
         myLeadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
@@ -235,9 +234,9 @@ public class FragmentUpComingList extends Fragment {
                 visitPlanList.get(position).getClientName(),
                 visitPlanList.get(position).getClientType(),
                 visitPlanList.get(position).getMobileNumber(),
+                visitPlanList.get(position).getPoliceStation(),
                 visitPlanList.get(position).getProductType(),
                 visitPlanList.get(position).getCity(),
-                visitPlanList.get(position).getPoliceStation(),
                 visitPlanList.get(position).getPurposeOfVisit(),
                 visitPlanList.get(position).getDateOfVisit(),
                 visitPlanList.get(position).getRemarks(),

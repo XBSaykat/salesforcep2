@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.adapter;
+package net.maxproit.salesforce.masum.adapter.adapterplanlist;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -15,13 +15,13 @@ import net.maxproit.salesforce.masum.model.VisitPlan;
 
 import java.util.ArrayList;
 
-public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanListAdapter.CustomViewHolder>  {
+public class CurrentPLanListAdapter extends RecyclerView.Adapter<CurrentPLanListAdapter.CustomViewHolder>  {
     private Context context;
     public ArrayList<VisitPlan> leadList;
     public static OnItemClickListener mListener;
 
 
-    public MyVisitPlanListAdapter(Context context, ArrayList<VisitPlan> leadList) {
+    public CurrentPLanListAdapter(Context context, ArrayList<VisitPlan> leadList) {
         this.context = context;
         this.leadList = leadList;
     }
@@ -75,20 +75,20 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
 
 
     @Override
-    public MyVisitPlanListAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CurrentPLanListAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_visit_plan, null);
-        MyVisitPlanListAdapter.CustomViewHolder viewHolder = new MyVisitPlanListAdapter.CustomViewHolder(view, context, leadList);
+        CurrentPLanListAdapter.CustomViewHolder viewHolder = new CurrentPLanListAdapter.CustomViewHolder(view, context, leadList);
         return viewHolder;
     }
 
 
     @Override
-    public void onBindViewHolder(MyVisitPlanListAdapter.CustomViewHolder holder, final int position) {
+    public void onBindViewHolder(CurrentPLanListAdapter.CustomViewHolder holder, final int position) {
         holder.tvId.setText(""+leadList.get(position).getId());
         holder.tvName.setText(leadList.get(position).getClientType());
-        holder.tvBranch.setText(leadList.get(position).getProductType());
+        holder.tvBranch.setText(leadList.get(position).getClientName());
         holder.tvStatus.setText(leadList.get(position).getStatus());
 
     }
