@@ -11,17 +11,18 @@ import android.widget.TextView;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.util.ArrayList;
 
 public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAdapter.CustomViewHolder>  {
     private Context context;
-    public ArrayList<MyNewLead> leadList;
+    public ArrayList<MyNewProspect> leadList;
     public static OnItemClickListener mListener;
 
 
 
-    public MyNewProspectAdapter(Context context, ArrayList<MyNewLead> leadList) {
+    public MyNewProspectAdapter(Context context, ArrayList<MyNewProspect> leadList) {
         this.context = context;
         this.leadList = leadList;
     }
@@ -30,12 +31,12 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         Context context;
-        ArrayList<MyNewLead> leadList;
+        ArrayList<MyNewProspect> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
         private ImageView imgApproved,imgReject;
 
 
-        public CustomViewHolder(View itemView, Context context, ArrayList<MyNewLead> leadList) {
+        public CustomViewHolder(View itemView, Context context, ArrayList<MyNewProspect> leadList) {
             super(itemView);
             this.context = context;
             this.leadList = leadList;
@@ -90,13 +91,13 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
         holder.tvStatus.setText(leadList.get(position).getStatus());
 
     }
-    public void setFilter(ArrayList<MyNewLead> newDataList) {
+    public void setFilter(ArrayList<MyNewProspect> newDataList) {
         leadList =new ArrayList<>();
         leadList.addAll(newDataList);
         notifyDataSetChanged();
     }
 
-    public ArrayList<MyNewLead> getDataList() {
+    public ArrayList<MyNewProspect> getDataList() {
         return leadList;
     }
 

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.sqlite.AppConstant;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -42,7 +43,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
     Bundle extras;
     MyLeadDbController myLeadDbController;
 
-    ArrayList<MyNewLead> leadList, filterList;
+    ArrayList<MyNewProspect> leadList, filterList;
     Button btnAddProspect;
 
 
@@ -65,7 +66,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
             leadList.clear();
         }
 
-        leadList.addAll(myLeadDbController.getProspectData());
+        leadList.addAll(myLeadDbController.myNewProspectGetAllData());
 
         localLogin = new LocalLogin(getApplicationContext());
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
@@ -179,11 +180,11 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
     }
 
     //filter  data
-    private ArrayList<MyNewLead> getFilterData(ArrayList<MyNewLead> models, CharSequence searchKey) {
+    private ArrayList<MyNewProspect> getFilterData(ArrayList<MyNewProspect> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<MyNewLead> filteredModelList = new ArrayList<>();
-        for (MyNewLead model : models) {
+        final ArrayList<MyNewProspect> filteredModelList = new ArrayList<>();
+        for (MyNewProspect model : models) {
             final String uName = model.getUserName().toLowerCase();
             final String phone = model.getPhone().toLowerCase();
 

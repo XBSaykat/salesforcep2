@@ -7,6 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.sqlite.AppConstant;
+
 public class ProspectViewRbm extends AppCompatActivity {
 
     TextView tvApproval, tvReject, tvReturn, tvProdecutCategory, tvProductDetail, tvBranchName, tvUserName,tvSegment, tvAge,
@@ -101,6 +105,26 @@ public class ProspectViewRbm extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+
+        setAllData();
+
+    }
+
+    private void setAllData() {
+        tvBranchName.setText(getDataFromProspect().getBranchName());
+    }
+
+
+    public MyNewProspect getDataFromProspect() {
+        MyNewProspect propect = null;
+        Bundle extraDetail = getIntent().getExtras();
+        if (extraDetail != null) {
+            propect = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+        }
+
+        return propect;
+
 
     }
 }
