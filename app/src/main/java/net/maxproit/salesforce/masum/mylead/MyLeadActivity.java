@@ -59,7 +59,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             leadList.clear();
         }
 
-        leadList.addAll(myLeadDbController.myNewProspectGetAllData());
+        leadList.addAll(myLeadDbController.myNewLeadGetAllData());
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
