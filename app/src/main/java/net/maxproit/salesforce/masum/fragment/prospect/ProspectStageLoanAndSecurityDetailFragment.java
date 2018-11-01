@@ -92,6 +92,11 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         listManufacturingCountry = new ArrayList<String>();
         listvehicleType = new ArrayList<String>();
 
+        listBrandName.addAll(spinnerDbController.getBrandNameData());
+        listManufacturingYear.addAll(spinnerDbController.getManufacturingYearData());
+        listManufacturingCountry.addAll(spinnerDbController.getManufacturingCountryData());
+        listvehicleType.addAll(spinnerDbController.getVehicleTypeData());
+
         View view = inflater.inflate(R.layout.fragment_prospect_stage_loan_and_security_detail, container, false);
 
         final SharedViewModel model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
