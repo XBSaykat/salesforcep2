@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import net.maxproit.salesforce.ProspectViewRbm;
 import net.maxproit.salesforce.masum.activity.LeadStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
@@ -45,6 +46,15 @@ public class ActivityUtils {
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
         Intent intent = new Intent(activity, LeadStageActivity.class);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+    public static void invokProspectRbmViewStage(Activity activity, MyNewProspect myNewLead){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+
+        Intent intent = new Intent(activity,ProspectViewRbm.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }
