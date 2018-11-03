@@ -32,6 +32,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(DbConstants.SQL_CREATE_LEAD_ENTRIES);
         db.execSQL(DbConstants.SQL_CREATE_VISIT_ENTRIES);
         db.execSQL(DbConstants.SQL_CREATE_CO_APPLICANT_ENTRIES);
+        db.execSQL(DbConstants.SQL_CREATE_ATTACHMENT_ENTRIES );
         db.execSQL(DbConstants.SQL_SPINNER_CLIENT_TYPE);
         db.execSQL(DbConstants.SQL_SPINNER_PURPOSE_OF_VISIT);
         db.execSQL(DbConstants.SQL_SPINNER_CITY);
@@ -97,6 +98,7 @@ public class DbHelper extends SQLiteOpenHelper {
        db.execSQL(DbConstants.SQL_DELETE_HOME_LAON);
        db.execSQL(DbConstants.SQL_DELETE_CAR_LOAN);
        db.execSQL(DbConstants.SQL_DELETE_PERSONAL_LAON);
+       db.execSQL(DbConstants.SQL_DELETE_ATTACHMENT_LAON);
 
         onCreate(db);
     }

@@ -42,4 +42,7 @@ public class AppConstant {
     public static final String STATUS_INTENT_KEY ="status_key" ;
     public static final String CO_APPLICANT_STATUS_INTENT_KEY ="co_applicant_status_key" ;
     public static final String VISITED = "visited";
+    public static final int REQUEST_IMAGE_CAPTURE =0 ;
+    public static final int REQUEST_ID_CARD_CAPTURE =1 ;
+    public static final int REQUEST_VCARD_CAPTURE = 2;
 }

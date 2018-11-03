@@ -9,11 +9,13 @@ public class DbConstants {
     // commons
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
+    private static final String BLOB_TYPE = " blob";
     private static final String COMMA_SEP = ",";
     public static final String COLUMN_NAME_NULLABLE = null;
     public static final String TABLE_LEAD = "lead_table";
     public static final String TABLE_VISIT_PLAN = "visit_plan_table";
     public static final String TABLE_CO_APPLICANT = "co_applicant_table";
+    public static final String TABLE_ATACHMENT= "atachment_table";
 
     public static final String CO_APPLICANT_ID = "_id";
     public static final String LEAD_ID_FOR_CO = "lead_id";
@@ -203,6 +205,14 @@ public class DbConstants {
     public static final String VEHICLE_TYPE_ID = "_id";
     public static final String VEHICLE_TYPE = "vehicle_type";
 
+
+    //attachment
+    public static final String ATACHMENT_ID="_id";
+    public static final String LEAD_ID="lead_id";
+    public static final String ATACH_PP="pp";
+    public static final String ATACH_ID_CARD="id_card";
+    public static final String ATACH_V_CARD="v_card";
+
     //lead table sql
     public static final String SQL_CREATE_LEAD_ENTRIES =
             "CREATE TABLE " + TABLE_LEAD + " (" +
@@ -315,7 +325,7 @@ public class DbConstants {
                     LEAD_STATUS + TEXT_TYPE + " )";
 
 
-    //lead table sql
+    //visit table sql
     public static final String SQL_CREATE_VISIT_ENTRIES =
             "CREATE TABLE " + TABLE_VISIT_PLAN + " (" +
                     _L_ID + " INTEGER PRIMARY KEY," +
@@ -329,6 +339,15 @@ public class DbConstants {
                     VISIT_PLAN_DATE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_REMARKS + TEXT_TYPE + COMMA_SEP +
                     LEAD_STATUS + TEXT_TYPE + " )";
+
+    //attachment table sql
+    public static final String SQL_CREATE_ATTACHMENT_ENTRIES =
+            "CREATE TABLE " + TABLE_ATACHMENT + " (" +
+                    ATACHMENT_ID + " INTEGER PRIMARY KEY," +
+                    LEAD_ID + INTEGER_TYPE + COMMA_SEP +
+                    ATACH_PP + BLOB_TYPE + COMMA_SEP +
+                    ATACH_ID_CARD + BLOB_TYPE + COMMA_SEP +
+                    ATACH_V_CARD + BLOB_TYPE +" )";
 
     // SPINNER TABLES
     public static final String SQL_SPINNER_CLIENT_TYPE =
@@ -573,6 +592,10 @@ public class DbConstants {
 
     public static final String SQL_DELETE_PERSONAL_LAON =
             "DROP TABLE IF EXISTS " + TABLE_PERSONAL_LAON;
+
+
+    public static final String SQL_DELETE_ATTACHMENT_LAON =
+            "DROP TABLE IF EXISTS " + TABLE_ATACHMENT;
 
 
 

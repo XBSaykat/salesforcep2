@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -22,6 +23,8 @@ import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.VisitPlan;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,7 +45,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private AwesomeSpinner spinnerFollowUp, spinnerRemarks;
+    private static AwesomeSpinner spinnerFollowUp, spinnerRemarks;
     public static String followUp = null, visitDate = null, remark = null;
     public EditText etVisitDate, etRemark;
     private LinearLayout followDateLayout, etRemarksLayout, spRemarksLayout;
@@ -132,33 +135,58 @@ public class LeadStageVisitRecordFragment extends Fragment {
 //                android.R.layout.simple_spinner_dropdown_item);
 //        spinnerFollowUp.setAdapter(decisionAdapter, 0);
 
-        ArrayAdapter<String> followUp = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listfollowUp);
-        spinnerFollowUp.setAdapter(followUp);
+        ArrayAdapter<String> followUpAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listfollowUp);
+        spinnerFollowUp.setAdapter(followUpAdapter);
 
-        ArrayAdapter<String> remark = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRemark);
-        spinnerRemarks.setAdapter(remark);
+        ArrayAdapter<String> remarkAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRemark);
+        spinnerRemarks.setAdapter(remarkAdapter);
 
 //        ArrayAdapter<CharSequence> remarksAdapter = ArrayAdapter.createFromResource(getContext(),
 //                R.array.remarks_arr,
 //                android.R.layout.simple_spinner_dropdown_item);
 //        spinnerRemarks.setAdapter(remarksAdapter, 0);
 
+        if (getArguments() != null) {
+            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
+
+            if (status == 0) {
+                VisitPlan visitPlan = (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (visitPlan != null) {
+
+                }
+            } else if (status==1){
+                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead != null) {
+//                    spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
+                    if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")){
+                        if (etVisitDate.getVisibility()!=View.VISIBLE){
+                            etVisitDate.setVisibility(View.VISIBLE);
+                            etVisitDate.setText(myNewLead.getVisitDate());
+                            etRemark.setText(myNewLead.getRemark());
+                        }
+
+                    }
+                    else if (myNewLead.getFollowUp().equalsIgnoreCase("No")){
+                        spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                    }
+
+
+                }
+
+
+            }
+        }
+        
+        else {
+            Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
 
     private void initListener() {
 
-        if (getArguments() != null) {
-            int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
-            myLeadDbController = new MyLeadDbController(getActivity());
-            myNewLeadArrayList = new ArrayList<>();
-            myNewLeadArrayList.addAll(myLeadDbController.getAllData());
 
-            etVisitDate.setText(myNewLeadArrayList.get(position).getVisitDate());
-            etRemark.setText(myNewLeadArrayList.get(position).getRemark());
-
-
-        }
 
         spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override

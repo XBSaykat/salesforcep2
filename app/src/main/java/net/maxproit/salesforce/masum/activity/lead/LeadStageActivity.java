@@ -1,5 +1,6 @@
 package net.maxproit.salesforce.masum.activity.lead;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,15 +19,20 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+
+import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
+import net.maxproit.salesforce.masum.fragment.lead.LeadStageAttachmentFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageVisitRecordFragment;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
-import net.maxproit.salesforce.masum.fragment.LeadStageAttachmentFragment;
+
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +42,9 @@ public class LeadStageActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TextView btnSave,btnProceed,btnReject,btnReAppoint;
+    private TextView btnSave, btnProceed, btnReject, btnReAppoint;
     private MyLeadDbController myLeadDbController;
+    private AttachmentDbController attachmentDbController;
     private ArrayList<VisitPlan> visitPlanArrayList;
     private VisitPlanDbController visitPlanDbController;
     private LeadStageBasicInformationFragment leadStageBasicInformationFragment;
@@ -81,9 +88,10 @@ public class LeadStageActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         btnSave = findViewById(R.id.btnSave);
         myLeadDbController = new MyLeadDbController(LeadStageActivity.this);
-        mLayout=findViewById(R.id.btn_layout_lead);
-        btnProceed=findViewById(R.id.tv_activity_details_proceed_to_prospect);
-        btnReject=findViewById(R.id.tv_activity_details_rejected);
+        attachmentDbController = new AttachmentDbController(LeadStageActivity.this);
+        mLayout = findViewById(R.id.btn_layout_lead);
+        btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
+        btnReject = findViewById(R.id.tv_activity_details_rejected);
         getDataFromIntent();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -167,14 +175,41 @@ public class LeadStageActivity extends AppCompatActivity {
                             designation,phone,address,ref,productType,subCat,
                             loanAmount,interest,fee,visitDate,followUp,remark);*/
 
-                int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
-                        designation, phone, address, ref, productType, subCat,
-                        loanAmount, interest, fee, disDate, visitDate, followUp, remark);
-                if (insert > 0) {
-                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+
+                byte[] bytesAtachpp = null;
+                byte[] bytesAtachIdCard = null;
+                byte[] bytesAtachVCard = null;
+                if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
+                        && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
+                        && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
+
+                    int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark);
+                    if (insert > 0) {
+                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                    }
+                    bytesAtachpp = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgAtach);
+                    bytesAtachIdCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgIdCard);
+                    bytesAtachVCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgVisitingCard);
+
+                    int insertAttach=attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
+                    if (insertAttach > 0) {
+                        Toast.makeText(LeadStageActivity.this, "Attach data save successfully", Toast.LENGTH_SHORT).show();
+                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,DashboardSalesOfficerActivity.class,true);
+
+                    } else {
+                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
+                else {
+                    Toast.makeText(LeadStageActivity.this, "Attachment Can not be Empty", Toast.LENGTH_SHORT).show();
+                }
+
+
 
 //                } else {
 //                    Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
@@ -186,7 +221,6 @@ public class LeadStageActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 
@@ -195,8 +229,6 @@ public class LeadStageActivity extends AppCompatActivity {
         leadStageBasicInformationFragment = new LeadStageBasicInformationFragment();
         leadStageLoanDetailFragment = new LeadStageLoanDetailFragment();
         leadStageVisitRecordFragment = new LeadStageVisitRecordFragment();
-
-
     }
 
     private void setFieldsFromActivity() {
@@ -255,14 +287,14 @@ public class LeadStageActivity extends AppCompatActivity {
         VisitPlan visitPlan = null;
         MyNewProspect myNewLead = null;
         Bundle extraDetail = getIntent().getExtras();
-        if (!getIntent().getExtras().equals(null)) {
+        if (getIntent() != null) {
             int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
             Bundle bundle = new Bundle();
             if (status == 0) {
                 visitPlan = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 0);
-            } else if (status==1){
+            } else if (status == 1) {
                 myNewLead = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
@@ -272,7 +304,7 @@ public class LeadStageActivity extends AppCompatActivity {
             }
             leadStageBasicInformationFragment.setArguments(bundle);
             leadStageLoanDetailFragment.setArguments(bundle);
-            //leadStageVisitRecordFragment.setArguments(bundle);
+            leadStageVisitRecordFragment.setArguments(bundle);
             //leadStageAttachmentFragment.setArguments(bundle);
 
         } else {
@@ -310,16 +342,13 @@ public class LeadStageActivity extends AppCompatActivity {
                 String visitDate = LeadStageVisitRecordFragment.visitDate; //
                 String remark = LeadStageVisitRecordFragment.remark;
                 String followUp = LeadStageVisitRecordFragment.followUp;
-
-                  /*  MyNewLead myNewLead=new MyNewLead(BranchName,name,profession,organization,
-                            designation,phone,address,ref,productType,subCat,
-                            loanAmount,interest,fee,visitDate,followUp,remark);*/
-
-                int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(),BranchName, name, profession, organization,
+                int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
                         designation, phone, address, ref, productType, subCat,
                         loanAmount, interest, fee, disDate, visitDate, followUp, remark);
                 if (insert > 0) {
                     Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,DashboardSalesOfficerActivity.class,true);
+
                 } else {
                     Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                 }
@@ -332,7 +361,34 @@ public class LeadStageActivity extends AppCompatActivity {
             }
         });
 
+
+        btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog(finalMyNewLead.getId());
+            }
+        });
+
     }
 
+
+    private void alertDialog(int id) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(LeadStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(LeadStageActivity.this);
+        }
+        builder.setTitle(getString(R.string.Reject));
+        builder.setMessage(getString(R.string.reject_item));
+        builder.setIcon(R.drawable.ic_reject);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
+            ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 }

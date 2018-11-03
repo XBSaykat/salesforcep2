@@ -2,6 +2,7 @@ package net.maxproit.salesforce.masum.activity.visitplan;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -87,25 +88,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvRejected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Rejected", Toast.LENGTH_SHORT).show();
-                AlertDialog dialog = new AlertDialog.Builder(getApplicationContext()).create();
-                dialog.setTitle("Reject this Activity? ");
-                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        visitPlanDbController.deleteItem(getDataFromVisitPlan().getId());
-                        startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivityNew.class));
-                        finish();
-                    }
-                });
-                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                alertDialog();
 
             }
         });
@@ -140,6 +123,26 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         return visitPlan;
 
 
+    }
+
+
+    private void alertDialog() {
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+        }
+        builder.setTitle(getString(R.string.visit_plan));
+        builder.setMessage(getString(R.string.reject_plan));
+        builder.setIcon(R.drawable.lead);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            visitPlanDbController.deleteItem(getDataFromVisitPlan().getId());
+            startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivityNew.class));
+            finish();        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void processToLeadDetails() {

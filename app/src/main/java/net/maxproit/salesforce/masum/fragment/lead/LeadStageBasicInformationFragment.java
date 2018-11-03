@@ -39,14 +39,13 @@ import java.util.regex.Pattern;
 public class LeadStageBasicInformationFragment extends Fragment {
 
 
-
     private MyLeadDbController myLeadDbController;
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private AwesomeSpinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
     public static String profession = null, branchName = null;
-    private List<String> listBranchArray=null;
-    private List<String> listProfessionArray=null;
+    private List<String> listBranchArray = null;
+    private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,7 +102,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
-
 
 
     private void initListener() {
@@ -186,9 +184,9 @@ public class LeadStageBasicInformationFragment extends Fragment {
                 String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(mobileNo);
-                if(!mobileNo.isEmpty() && matcher.matches()){
+                if (!mobileNo.isEmpty() && matcher.matches()) {
 
-                }else{
+                } else {
                     etPhone.setError("You entered invalid mobile no.");
                 }
 
@@ -203,37 +201,39 @@ public class LeadStageBasicInformationFragment extends Fragment {
         });
         initSpinnerAdapter();
 
-     }
+    }
 
 
     private void initSpinnerAdapter() {
 
-        ArrayAdapter<String> branchAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBranchArray);
+        ArrayAdapter<String> branchAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBranchArray);
         spinnerBranchName.setAdapter(branchAdapter);
 
-        ArrayAdapter<String> professionAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProfessionArray);
+        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProfessionArray);
         spinnerProfession.setAdapter(professionAdapter);
-        if (getArguments()!=null ){
+        if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
-            if (status==0){
-                VisitPlan visitPlan= (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                if (visitPlan !=null){
+            if (status == 0) {
+                VisitPlan visitPlan = (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (visitPlan != null) {
                     etUserName.setText(visitPlan.getClientName());
                     etPhone.setText(visitPlan.getMobileNumber());
-                    etAddress.setText(visitPlan.getPoliceStation()+","+visitPlan.getCity());
+                    etAddress.setText(visitPlan.getPoliceStation() + "," + visitPlan.getCity());
                 }
-            }
-            else {
-                MyNewProspect myNewLead= (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                if (myNewLead !=null){
+            } else {
+                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead != null) {
                     etUserName.setText(myNewLead.getUserName());
                     etPhone.setText(myNewLead.getPhone());
                     etAddress.setText(myNewLead.getAddress());
                     etUserOrganization.setText(myNewLead.getOrganization());
-                    if (!myNewLead.getBranchName().equals("") && !myNewLead.getProfession().equals("") ){
-                        spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
-                        //spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
+                    etDesignattion.setText(myNewLead.getDesignation());
+                    if (!myNewLead.getBranchName().equals(null) && !myNewLead.getProfession().equals(null)) {
+                    //    spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
+                     //   spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
+
+
                     }
 
 

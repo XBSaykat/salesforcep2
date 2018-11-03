@@ -410,6 +410,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etPresentAddress.setText(myNewLead.getAddress());
             etDesignation.setText(myNewLead.getDesignation());
             etMobileNumber.setText(myNewLead.getPhone());
+            etCompanyName.setText(myNewLead.getOrganization());
             spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
             spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
 
