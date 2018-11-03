@@ -190,8 +190,6 @@ public class ProspectStageActivity extends AppCompatActivity {
                     }
                 }
 
-
-
             }
         });
 
