@@ -1,5 +1,6 @@
 package net.maxproit.salesforce.masum.activity.prospect;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +25,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,9 @@ public class ProspectStageActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     MyLeadDbController myLeadDbController;
+    public static int CO_APPLICANT_REQUEST_CODE = 1;
+
+
     TextView buttonSave;
 
     @Override
@@ -230,5 +235,26 @@ public class ProspectStageActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 1){
+//            Toast.makeText(getApplicationContext(), "request matched", Toast.LENGTH_LONG).show();
+            if (resultCode == RESULT_OK){
+                Toast.makeText(getApplicationContext(), "result ok", Toast.LENGTH_LONG).show();
+                String coApplitantName = data.getStringExtra(AppConstant.CO_APPLICANT_INTENT_KEY);
 
+//                ActivityUtils.toaster(getApplicationContext(), coApplitantName);
+                Toast.makeText(getApplicationContext(), coApplitantName, Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
+            }
+
+
+//        }else{
+//            Toast.makeText(getApplicationContext(), "request failed", Toast.LENGTH_LONG).show();
+//        }
+
+
+    }
 }

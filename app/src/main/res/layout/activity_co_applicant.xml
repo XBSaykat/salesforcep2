@@ -32,28 +32,13 @@ android:layout_height="match_parent">
     app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 
 
-<TextView
-    android:id="@+id/btnSave"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:padding="@dimen/size_8dp"
-    android:layout_alignParentBottom="true"
-    android:layout_marginBottom="0dp"
-    android:background="@color/colorPrimary"
-    android:text="Save"
-    android:visibility="gone"
-    android:textColor="@color/white"
-    android:textSize="@dimen/text_size_24sp" />
 <LinearLayout
     android:id="@+id/btnUpdate"
-    style="@style/LayoutQuestion"
     android:layout_alignParentBottom="true"
-    android:layout_marginBottom="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:weightSum="3">
+    >
 
     <TextView
     android:id="@+id/btn_save"
@@ -61,11 +46,10 @@ android:layout_height="match_parent">
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
 
-    android:layout_margin="0dp"
-    android:padding="@dimen/size_4dp"
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:text="Save"
+        android:padding="@dimen/size_8dp"
     android:textColor="@color/white"
     android:textSize="@dimen/text_size_24sp" />
 

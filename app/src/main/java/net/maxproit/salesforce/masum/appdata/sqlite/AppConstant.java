@@ -26,6 +26,8 @@ public class AppConstant {
     public static final String LEAD_STATUS_REJECT ="rejected" ;
 
     public static final String INTENT_KEY ="key" ;
+    public static final String CO_APPLICANT_INTENT_KEY ="co_applicant_intent_key" ;
+    public static final int CO_APPLICANT_REQUEST_CODE = 200 ;
     public static final String LEAD_INTENT_KEY ="lead_key" ;
 
 

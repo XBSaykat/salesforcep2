@@ -13,6 +13,9 @@ import android.widget.Button;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+
+import static net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity.CO_APPLICANT_REQUEST_CODE;
 
 
 /**
@@ -88,12 +91,16 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         btnCoApplicant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivityForResult(new Intent(getActivity(), CoApplicantActivity.class), CO_APPLICANT_REQUEST_CODE);
-                startActivity(new Intent(getActivity(), CoApplicantActivity.class));
+
+                Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
+                startActivityForResult(intent, 1);
+//                startActivity(new Intent(getActivity(), CoApplicantActivity.class));
 
             }
         });
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
