@@ -133,7 +133,8 @@
         <activity android:name=".ProspectViewRbm" />
         <activity android:name=".MyPerformancePhaseTwo" />
         <activity android:name=".SupervisorRbmProspect" />
-        <activity android:name=".masum.activity.visitplan.VisitPlanListActivity"></activity>
+        <activity android:name=".masum.activity.visitplan.VisitPlanListActivity" />
+        <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity"></activity>
     </application>
 
 </manifest>
