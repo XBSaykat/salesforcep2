@@ -41,21 +41,21 @@
         android:layout_marginBottom="0dp"
         android:background="@color/colorPrimary"
         android:text="Save"
-        android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_24sp" />
     <LinearLayout
-        android:id="@+id/btnUpdate"
+        android:id="@+id/btn_layout_lead"
         style="@style/LayoutQuestion"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:weightSum="3">
 
         <TextView
-            android:id="@+id/tv_activity_details_proceed_to_lead"
+            android:id="@+id/tv_activity_details_proceed_to_prospect"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_margin="@dimen/size_2dp"

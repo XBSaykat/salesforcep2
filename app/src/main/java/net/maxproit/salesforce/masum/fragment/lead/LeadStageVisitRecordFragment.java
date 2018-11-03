@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment;
+package net.maxproit.salesforce.masum.fragment.lead;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -44,14 +44,14 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
     private AwesomeSpinner spinnerFollowUp, spinnerRemarks;
     public static String followUp = null, visitDate = null, remark = null;
-    public  EditText etVisitDate, etRemark;
+    public EditText etVisitDate, etRemark;
     private LinearLayout followDateLayout, etRemarksLayout, spRemarksLayout;
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private MyLeadDbController myLeadDbController;
     private SpinnerDbController spinnerDbController;
 
-    private List<String> listfollowUp=null;
-    private List<String> listRemark=null;
+    private List<String> listfollowUp = null;
+    private List<String> listRemark = null;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -93,8 +93,8 @@ public class LeadStageVisitRecordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView=null;
-        rootView=inflater.inflate(R.layout.fragment_lead_stage_visit_record, container, false);
+        View rootView = null;
+        rootView = inflater.inflate(R.layout.fragment_lead_stage_visit_record, container, false);
         initView(rootView);
         initListener();
         return rootView;
@@ -103,7 +103,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
     private void initView(View rootView) {
 
-        spinnerDbController =new SpinnerDbController(getActivity());
+        spinnerDbController = new SpinnerDbController(getActivity());
 
         listfollowUp = new ArrayList<String>();
         listRemark = new ArrayList<String>();
@@ -111,12 +111,12 @@ public class LeadStageVisitRecordFragment extends Fragment {
         listfollowUp.addAll(spinnerDbController.getFollowUpData());
         listRemark.addAll(spinnerDbController.getRemarkData());
 
-        spinnerFollowUp=rootView.findViewById(R.id.awe_spinner_lead_follow_up);
-        spinnerRemarks=rootView.findViewById(R.id.sp_remarks);
+        spinnerFollowUp = rootView.findViewById(R.id.awe_spinner_lead_follow_up);
+        spinnerRemarks = rootView.findViewById(R.id.sp_remarks);
         followDateLayout = rootView.findViewById(R.id.follow_date_layout);
         followDateLayout.setVisibility(View.GONE);
-        etVisitDate=rootView.findViewById(R.id.dtpVisitDT);
-        etRemark=rootView.findViewById(R.id.input_remarks);
+        etVisitDate = rootView.findViewById(R.id.dtpVisitDT);
+        etRemark = rootView.findViewById(R.id.input_remarks);
         remark = etRemark.getText().toString();
 
         etRemarksLayout = rootView.findViewById(R.id.et_remarks_layout);
@@ -132,10 +132,10 @@ public class LeadStageVisitRecordFragment extends Fragment {
 //                android.R.layout.simple_spinner_dropdown_item);
 //        spinnerFollowUp.setAdapter(decisionAdapter, 0);
 
-        ArrayAdapter<String> followUp=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listfollowUp);
+        ArrayAdapter<String> followUp = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listfollowUp);
         spinnerFollowUp.setAdapter(followUp);
 
-        ArrayAdapter<String> remark=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listRemark);
+        ArrayAdapter<String> remark = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRemark);
         spinnerRemarks.setAdapter(remark);
 
 //        ArrayAdapter<CharSequence> remarksAdapter = ArrayAdapter.createFromResource(getContext(),
@@ -146,9 +146,9 @@ public class LeadStageVisitRecordFragment extends Fragment {
     }
 
 
-    private void initListener(){
+    private void initListener() {
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             int position = getArguments().getInt(AppConstant.LEAD_INTENT_KEY);
             myLeadDbController = new MyLeadDbController(getActivity());
             myNewLeadArrayList = new ArrayList<>();
@@ -165,12 +165,11 @@ public class LeadStageVisitRecordFragment extends Fragment {
             public void onItemSelected(int i, String s) {
                 followUp = s;
 
-                if (s.equals("Yes")){
+                if (s.equals("Yes")) {
                     followDateLayout.setVisibility(View.VISIBLE);
                     etRemarksLayout.setVisibility(View.VISIBLE);
                     spRemarksLayout.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     followDateLayout.setVisibility(View.GONE);
                     etRemarksLayout.setVisibility(View.GONE);
                     spRemarksLayout.setVisibility(View.VISIBLE);
@@ -209,16 +208,15 @@ public class LeadStageVisitRecordFragment extends Fragment {
     }
 
 
-
-    public void datePickerDialog(){
+    public void datePickerDialog() {
 
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
-                String selectedDate = (dayOfMonth +"/"+ month +"/"+ year);
+                String selectedDate = (dayOfMonth + "/" + month + "/" + year);
                 etVisitDate.getText().clear();
-                 etVisitDate.setText(selectedDate);
+                etVisitDate.setText(selectedDate);
                 visitDate = etVisitDate.getText().toString();
             }
         };

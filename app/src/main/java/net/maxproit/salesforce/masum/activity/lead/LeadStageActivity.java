@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,10 +20,10 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
+import net.maxproit.salesforce.masum.fragment.lead.LeadStageVisitRecordFragment;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.fragment.LeadStageAttachmentFragment;
-import net.maxproit.salesforce.masum.fragment.LeadStageVisitRecordFragment;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.VisitPlan;
@@ -35,7 +36,7 @@ public class LeadStageActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TextView btnSave;
+    private TextView btnSave,btnProceed,btnReject,btnReAppoint;
     private MyLeadDbController myLeadDbController;
     private ArrayList<VisitPlan> visitPlanArrayList;
     private VisitPlanDbController visitPlanDbController;
@@ -43,6 +44,7 @@ public class LeadStageActivity extends AppCompatActivity {
     private LeadStageAttachmentFragment leadStageAttachmentFragment;
     private LeadStageVisitRecordFragment leadStageVisitRecordFragment;
     private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
+    private LinearLayout mLayout;
 
 
     private int activityPosition;
@@ -57,7 +59,7 @@ public class LeadStageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lead_stage);
         initFragments();
 
-        getDataFromIntent();
+
         //getDataFromLead();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -79,10 +81,10 @@ public class LeadStageActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         btnSave = findViewById(R.id.btnSave);
         myLeadDbController = new MyLeadDbController(LeadStageActivity.this);
-
-
-//        Toast.makeText(this, ""+myLeadPosition, Toast.LENGTH_SHORT).show();
-
+        mLayout=findViewById(R.id.btn_layout_lead);
+        btnProceed=findViewById(R.id.tv_activity_details_proceed_to_prospect);
+        btnReject=findViewById(R.id.tv_activity_details_rejected);
+        getDataFromIntent();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +185,8 @@ public class LeadStageActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
 
@@ -258,10 +262,13 @@ public class LeadStageActivity extends AppCompatActivity {
                 visitPlan = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 0);
-            } else {
+            } else if (status==1){
                 myNewLead = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
+                btnSave.setVisibility(View.GONE);
+                mLayout.setVisibility(View.VISIBLE);
+
             }
             leadStageBasicInformationFragment.setArguments(bundle);
             leadStageLoanDetailFragment.setArguments(bundle);
@@ -272,6 +279,58 @@ public class LeadStageActivity extends AppCompatActivity {
             //dda
             Toast.makeText(this, "check", Toast.LENGTH_SHORT).show();
         }
+
+
+        MyNewProspect finalMyNewLead = myNewLead;
+        btnProceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String BranchName = LeadStageBasicInformationFragment.branchName; //
+                String profession = LeadStageBasicInformationFragment.profession; //
+                String name = LeadStageBasicInformationFragment.etUserName.getText().toString(); //
+                String organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString(); //
+                String designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
+                String phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
+                String address = LeadStageBasicInformationFragment.etAddress.getText().toString();
+                String loanAmount = LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
+                String interest = LeadStageLoanDetailFragment.etInterest.getText().toString();
+                String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
+                String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
+                String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
+//                  String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
+
+                String ref = refArray[LeadStageLoanDetailFragment.ref];
+
+//                    String productType = productTypeArray[LeadStageLoanDetailFragment.productType];
+                String productType = LeadStageLoanDetailFragment.productType;
+
+//                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
+                String subCat = LeadStageLoanDetailFragment.subCategory;
+                String disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
+                String visitDate = LeadStageVisitRecordFragment.visitDate; //
+                String remark = LeadStageVisitRecordFragment.remark;
+                String followUp = LeadStageVisitRecordFragment.followUp;
+
+                  /*  MyNewLead myNewLead=new MyNewLead(BranchName,name,profession,organization,
+                            designation,phone,address,ref,productType,subCat,
+                            loanAmount,interest,fee,visitDate,followUp,remark);*/
+
+                int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(),BranchName, name, profession, organization,
+                        designation, phone, address, ref, productType, subCat,
+                        loanAmount, interest, fee, disDate, visitDate, followUp, remark);
+                if (insert > 0) {
+                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                }
+
+//                } else {
+//                    Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
+//                }
+
+//                Toast.makeText(LeadStageActivity.this, "save data", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
