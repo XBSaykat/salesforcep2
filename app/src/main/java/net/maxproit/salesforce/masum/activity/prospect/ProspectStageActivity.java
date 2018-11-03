@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,14 +34,15 @@ public class ProspectStageActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    MyLeadDbController myLeadDbController;
-    TextView buttonSave;
-
+    private MyLeadDbController myLeadDbController;
+    private TextView buttonSave,btnProceed,btnReject;
+    private LinearLayout mLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead_stage);
-
+        btnProceed=findViewById(R.id.tv_activity_details_proceed_to_prospect);
+        btnReject=findViewById(R.id.tv_activity_details_rejected);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage");
         setSupportActionBar(toolbar);
@@ -59,12 +61,13 @@ public class ProspectStageActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         buttonSave = findViewById(R.id.btnSave);
+        mLayout=findViewById(R.id.btn_layout_lead);
         initListener();
     }
 
     private void initListener() {
 
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -177,6 +180,14 @@ public class ProspectStageActivity extends AppCompatActivity {
             }
         });
 
+
+        btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     public MyNewLead getDataFromProspect() {
@@ -184,6 +195,8 @@ public class ProspectStageActivity extends AppCompatActivity {
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
             myNewLead = (MyNewLead) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+            mLayout.setVisibility(View.VISIBLE);
+            buttonSave.setVisibility(View.GONE);
         }
 
         return myNewLead;

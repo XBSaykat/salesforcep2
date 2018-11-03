@@ -317,12 +317,31 @@ public class LeadStageLoanDetailFragment extends Fragment {
                 MyNewProspect myNewLead= (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead !=null){
                     spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getLoanReq()));
-                  //   spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
-//                    spinnerSubCategory.setSelection(productSubAdapter.getPosition(myNewLead.getProductSubcategory()));
+                    spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
+
+                    if (myNewLead.getProductType().equals(HOME_LOAN)){
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+                    }
+                    else if (myNewLead.getProductType().equals(CAR_LOAN)){
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
+
+                    else if (myNewLead.getProductType().equals(PERSONAL_LOAN)){
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
+
+                    spinnerSubCategory.setSelection(productSubAdapter.
+                            getPosition(myNewLead.getProductSubcategory()));
                     etLoadAmount.setText(myNewLead.getLoadAmount());
                     etInterest.setText(myNewLead.getOrInterest());
                     etDisbursementDate.setText(myNewLead.getDisDate());
                     etFee.setText(myNewLead.getOpFee());
+
 
                 }
 

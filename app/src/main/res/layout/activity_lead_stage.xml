@@ -52,38 +52,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:visibility="gone"
-        android:weightSum="3">
+        android:background="@color/red"
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/tv_activity_details_proceed_to_prospect"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_margin="@dimen/size_2dp"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:background="@color/colorAccent"
             android:gravity="center"
-            android:text="Proceed to prospect"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size_18dp" />
-
-        <TextView
-            android:id="@+id/tv_activity_details_reappointment"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_margin="@dimen/size_2dp"
-            android:layout_weight="1"
-            android:background="@color/colorAccent"
-            android:gravity="center"
-            android:text="Reappointment"
+            android:text="Proceed"
             android:textColor="@color/white"
             android:textSize="@dimen/size_18dp" />
 
         <TextView
             android:id="@+id/tv_activity_details_rejected"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="@dimen/size_40dp"
             android:layout_margin="@dimen/size_2dp"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="Rejected"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".masum.fragment.LeadStageLoanDetailFragment">
+    tools:context=".masum.fragment.lead.LeadStageLoanDetailFragment">
 
     <ScrollView
         android:layout_marginTop="?attr/actionBarSize"
@@ -131,7 +131,6 @@
                     android:imeOptions="actionNext"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
-                    android:text=""
                     android:textSize="@dimen/text_size_16sp" />
                 <TextView
                     android:layout_width="match_parent"
