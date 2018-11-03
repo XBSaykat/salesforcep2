@@ -258,7 +258,7 @@ public class ProspectStageActivity extends AppCompatActivity {
 
                if (bundle != null) {
                 coApplicant = (MyNewProspect) bundle.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
-                   Toast.makeText(getApplicationContext(),"co applicant",Toast.LENGTH_LONG).show();
+                   Toast.makeText(getApplicationContext(),"co-applicant data saved",Toast.LENGTH_LONG).show();
 
                }
 //
