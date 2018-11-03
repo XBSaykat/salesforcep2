@@ -1,14 +1,22 @@
 package net.maxproit.salesforce.masum.fragment.lead;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -28,7 +36,8 @@ public class LeadStageAttachmentFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    public static ImageView imgAtach,imgIdCard,imgVisitingCard;
+    private Button btnImgCap,btnIDCard,btnVCard;
     private OnFragmentInteractionListener mListener;
 
     public LeadStageAttachmentFragment() {
@@ -66,7 +75,80 @@ public class LeadStageAttachmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
+        initView(rootView);
+        initListener();
+        return rootView;
+    }
+
+    private void initView(View rootView) {
+        imgAtach = rootView.findViewById(R.id.img_atach_pp);
+        imgIdCard=rootView.findViewById(R.id.img_atach_id_card);
+        imgVisitingCard=rootView.findViewById(R.id.img_atach_v_card);
+        btnImgCap=rootView.findViewById(R.id.btn_capture_pp);
+        btnIDCard=rootView.findViewById(R.id.btn_atach_id);
+        btnVCard=rootView.findViewById(R.id.btn_atach_v_card);
+    }
+
+    private void initListener() {
+        btnImgCap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //takePicture.setType("image/*");
+                if (takePicture.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePicture, AppConstant.REQUEST_IMAGE_CAPTURE);
+
+                }
+            }
+        });
+
+        btnIDCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //takePicture.setType("image/*");
+                if (takePicture.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePicture, AppConstant.REQUEST_ID_CARD_CAPTURE);
+
+                }
+            }
+        });
+
+        btnVCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //takePicture.setType("image/*");
+                if (takePicture.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePicture, AppConstant.REQUEST_VCARD_CAPTURE);
+                }
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstant.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap) extras.get("data");
+            imgAtach.setImageBitmap(bitmap);
+        }
+
+        else if (requestCode == AppConstant.REQUEST_ID_CARD_CAPTURE && resultCode == RESULT_OK && data != null) {
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap) extras.get("data");
+            imgIdCard.setImageBitmap(bitmap);
+        }
+        else if (requestCode == AppConstant.REQUEST_VCARD_CAPTURE && resultCode == RESULT_OK && data != null) {
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap) extras.get("data");
+            imgVisitingCard.setImageBitmap(bitmap);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -26,7 +26,6 @@ import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

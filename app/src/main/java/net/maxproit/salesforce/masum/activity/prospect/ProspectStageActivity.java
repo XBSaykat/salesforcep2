@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialCalculatorFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
@@ -25,6 +27,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,6 +171,7 @@ public class ProspectStageActivity extends AppCompatActivity {
                     int update = myLeadDbController.upDateProspectData(myNewProspect,getDataFromProspect().getId());
                     if (update>0){
                         Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
+                        ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this,DashboardSalesOfficerActivity.class,true);
                     }
                     else {
                         Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
