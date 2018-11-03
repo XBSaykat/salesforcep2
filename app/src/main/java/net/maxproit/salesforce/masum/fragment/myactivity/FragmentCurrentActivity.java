@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.CurrentPLanListAdapter;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
@@ -103,7 +104,12 @@ public class FragmentCurrentActivity extends Fragment {
             visitPlanList.clear();
         }
 
-        visitPlanList.addAll(myDbController.getCurrentData(FragmentUtils.getDateString()));
+        leadList.addAll(myDbController.getCurrentData(FragmentUtils.getDateString()));
+        for (int i=0;i<leadList.size();i++){
+            if (leadList.get(i).getStatus().equals(AppConstant.LEAD_STATUS_New_PLAN)){
+                visitPlanList.add(leadList.get(i));
+            }
+        }
 
 //      searchView = findViewById(R.id.search_view);
         rvMyActivity = rootView.findViewById(R.id.rv_my_activity);

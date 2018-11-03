@@ -51,6 +51,36 @@ public class MyLeadDbController {
                 DbConstants.COLUMN_NAME_NULLABLE,
                 values);
     }
+
+
+    public int updateLeadData(int id,String branchName, String uName, String profession, String organization, String designation,
+                              String phone, String address, String ref, String product, String subCat, String amount, String
+                                      interest, String fee, String disDate, String date, String follow, String remark) {
+
+        ContentValues values = new ContentValues();
+        values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
+        values.put(DbConstants.LEAD_USER_NAME, uName);
+        values.put(DbConstants.LEAD_PROFESSION, profession);
+        values.put(DbConstants.LEAD_ORGANIZATION, organization);
+        values.put(DbConstants.LEAD_DESIGNATION, designation);
+        values.put(DbConstants.LEAD_PHONE, phone);
+        values.put(DbConstants.LEAD_ADDRESS, address);
+        values.put(DbConstants.LEAD_REF, ref);
+        values.put(DbConstants.LEAD_PRODUCT_TYPE, product);
+        values.put(DbConstants.LEAD_PRODUCT_SUBCATEGORY, subCat);
+        values.put(DbConstants.LEAD_AMOUNT, amount);
+        values.put(DbConstants.LEAD_OR_INTEREST, interest);
+        values.put(DbConstants.LEAD_OP_FEE, fee);
+        values.put(DbConstants.LEAD_DISBURSEMENT_DATE, disDate);
+        values.put(DbConstants.LEAD_VISIT_DATE, date);
+        values.put(DbConstants.LEAD_FOLLOW_UP, follow);
+        values.put(DbConstants.LEAD_REMARK, remark);
+        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_PROSPECT);
+
+        // Insert the new row, returning the primary key value of the new row
+        return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
+
+    }
 /*
     PROSPECT_LOAN_TYPE + TEXT_TYPE + COMMA_SEP +
     PROSPECT_PRODUCT_DETAIL + TEXT_TYPE + COMMA_SEP +

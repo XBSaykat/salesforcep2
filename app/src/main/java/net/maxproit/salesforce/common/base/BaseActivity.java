@@ -275,7 +275,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if (date1.compareTo(date2) > 0) {
             isTrue = false;
-        } else if (date1.compareTo(date2) <= 0) {
+        } else if (date1.compareTo(date2) < 0) {
             isTrue = true;
         }
         return isTrue;

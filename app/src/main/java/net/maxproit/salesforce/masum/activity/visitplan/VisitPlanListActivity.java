@@ -180,19 +180,6 @@ public class VisitPlanListActivity extends BaseActivity {
             public void itemClickListener(View view, int position) {
 //                loadFilterData();
                 switch (view.getId()) {
-/*                    case R.id.btnApproved:
-                        Toast.makeText(getActivity(), "Approved", Toast.LENGTH_SHORT).show();
-                        //insert data into prospect
-//                          myDbController.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_PROSPECT);
-//                         removeItemFromList(position,AppConstant.LEAD_STATUS_PROSPECT);
-
-                        break;
-                    case R.id.btnReject:
-                        Toast.makeText(getActivity(), "Rejected", Toast.LENGTH_SHORT).show();
-//                         myLeadAdapter.updateLeadDataStatus(filterList.get(position).getId(),AppConstant.LEAD_STATUS_REJECT);
-//                        removeItemFromList(position,AppConstant.LEAD_STATUS_REJECT);
-                        break;*/
-
                     case R.id.cl_visit_plan_item:
                         sentDataToDetail(position);
                         break;
