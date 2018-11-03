@@ -42,21 +42,21 @@ public class CoApplicantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_co_applicant);
 
-//        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitle("Prospect Stage: Co-Applicant");
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackPressed();
-//            }
-//        });
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Prospect Stage: Co-Applicant");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         viewPager = (ViewPager) findViewById(R.id.vp_co_applicant_viewpager);
         setupViewPager(viewPager);
         viewPager.setOffscreenPageLimit(3);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tl_co_applicant_tabs);
         tabLayout.setupWithViewPager(viewPager);
         btnSave = findViewById(R.id.btn_save);
 

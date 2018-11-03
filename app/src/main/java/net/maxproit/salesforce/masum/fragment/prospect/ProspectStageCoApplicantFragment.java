@@ -89,6 +89,8 @@ public class ProspectStageCoApplicantFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                startActivityForResult(new Intent(getActivity(), CoApplicantActivity.class), CO_APPLICANT_REQUEST_CODE);
+                startActivity(new Intent(getActivity(), CoApplicantActivity.class));
+
             }
         });
     }

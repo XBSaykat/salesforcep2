@@ -90,7 +90,7 @@ public class CoApplicantFinancialFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-              View view =  inflater.inflate(R.layout.fragment_co_applicant_financial, container, false);
+              View view =  inflater.inflate(R.layout.fragment_prospect_stage_financial, container, false);
 
         spinnerDbController = new SpinnerDbController(getActivity());
 
@@ -117,8 +117,8 @@ public class CoApplicantFinancialFragment extends Fragment {
         spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
 
 
-//        initAdapters();
-//        initListener();
+        initAdapters();
+        initListener();
 
         return view;
     }
@@ -173,12 +173,12 @@ public class CoApplicantFinancialFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override

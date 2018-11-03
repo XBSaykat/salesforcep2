@@ -110,24 +110,24 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_co_applicant_product_and_customer_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
 
 
 
-        etName = view.findViewById(R.id.et_co_applicant_name);
-        etAge = view.findViewById(R.id.et_co_applicant_age);
-        etPhotoId = view.findViewById(R.id.et_co_applicant_valid_photo_id_no);
-        etPhotoIdDate = view.findViewById(R.id.et_co_applicant_valid_photo_id_issue_date);
-        etETin = view.findViewById(R.id.et_co_applicant_etin);
-        etFatherName = view.findViewById(R.id.et_co_applicant_father_name);
-        etMotherName = view.findViewById(R.id.et_co_applicant_mother_name);
-        etSpouseName = view.findViewById(R.id.et_co_applicant_spouse_name);
-        etCompanyName = view.findViewById(R.id.et_co_applicant_company_name);
-        etDesignation = view.findViewById(R.id.et_co_applicant_designation);
-        etNoYrsInCurrentJob = view.findViewById(R.id.et_co_applicant_current_job_years);
-        etPresentAddress = view.findViewById(R.id.et_co_applicant_present_address);
-        etPermanentAddress = view.findViewById(R.id.et_co_applicant_permanent_address);
-        etMobileNumber = view.findViewById(R.id.et_co_applicant_mobile_no);
+        etName = view.findViewById(R.id.input_name);
+        etAge = view.findViewById(R.id.input_age);
+        etPhotoId = view.findViewById(R.id.input_valid_photo_id_no);
+        etPhotoIdDate = view.findViewById(R.id.input_valid_photo_id_issue_date);
+        etETin = view.findViewById(R.id.input_etin);
+        etFatherName = view.findViewById(R.id.input_father_name);
+        etMotherName = view.findViewById(R.id.input_mother_name);
+        etSpouseName = view.findViewById(R.id.input_spouse_name);
+        etCompanyName = view.findViewById(R.id.input_company_name);
+        etDesignation = view.findViewById(R.id.input_designation);
+        etNoYrsInCurrentJob = view.findViewById(R.id.input_current_job_years);
+        etPresentAddress = view.findViewById(R.id.input_present_address);
+        etPermanentAddress = view.findViewById(R.id.input_permanent_address);
+        etMobileNumber = view.findViewById(R.id.input_mobile_no);
 
 
         spinnerDbController = new SpinnerDbController(getActivity());
@@ -157,20 +157,21 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
 
 
-        spinnerProductCat = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_co_applicant_product_category);
-        spinnerProductDetail = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_co_applicant_product_detail);
-        spinnerBranchName = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_co_applicant_branch);
-        spinnerSegment = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_co_applicant_segment);
-        spinnerDistOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_co_applicant_district_of_birth);
-        spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_co_applicant_country_of_birth);
-        spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_co_applicant_profession);
-        spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_co_applicant_relation_with_applicant);
+        spinnerProductCat = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_category);
+        spinnerProductDetail = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_detail);
+        spinnerBranchName = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_branch);
+        spinnerSegment = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_segment);
+        spinnerDistOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
+        spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
+        spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
+        spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_relation_with_applicant);
+
 
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
 
-//        initAdapters();
-//        initListener();
+        initAdapters();
+        initListener();
 
 
         return view;
@@ -186,12 +187,12 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override

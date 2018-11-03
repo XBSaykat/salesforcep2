@@ -93,9 +93,9 @@ public class CoApplicantLoanAndSecurityDetailsFragment extends Fragment {
 
 
 
-        View view = inflater.inflate(R.layout.fragment_co_applicant_loan_and_security_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_prospect_stage_loan_and_security_detail, container, false);
 
-
+        spinnerDbController = new SpinnerDbController(getActivity());
         listBrandName = new ArrayList<String>();
         listManufacturingYear = new ArrayList<String>();
         listManufacturingCountry = new ArrayList<String>();
@@ -115,17 +115,17 @@ public class CoApplicantLoanAndSecurityDetailsFragment extends Fragment {
 
 
 
-        etSecurityValue = view.findViewById(R.id.et_co_applicant_security_value);
-        etLoanRequired = view.findViewById(R.id.et_co_applicant_loan_required);
-        etLoanTerm = view.findViewById(R.id.et_co_applicant_loan_term);
-        etProposedInterest = view.findViewById(R.id.et_co_applicant_proposed_interest_rate);
-        etFee = view.findViewById(R.id.et_co_applicant_fee);
+        etSecurityValue = view.findViewById(R.id.input_security_value);
+        etLoanRequired = view.findViewById(R.id.input_loan_required);
+        etLoanTerm = view.findViewById(R.id.input_loan_term);
+        etProposedInterest = view.findViewById(R.id.input_proposed_interest_rate);
+        etFee = view.findViewById(R.id.input_fee);
 
 
-        spinnerBrand = view.findViewById(R.id.awe_spinner_co_applicant_brand_name);
-        spinnerYear = view.findViewById(R.id.awe_spinner_co_applicant_manufacturing_year);
-        spinnerCountry = view.findViewById(R.id.awe_spinner_co_applicant_manufacturing_country);
-        spinnerVehicleType = view.findViewById(R.id.awe_spinner_co_applicant_vehicle_type);
+        spinnerBrand = view.findViewById(R.id.awe_spinner_prospect_stage_brand_name);
+        spinnerYear = view.findViewById(R.id.awe_spinner_prospect_stage_manufacturing_year);
+        spinnerCountry = view.findViewById(R.id.awe_spinner_prospect_stage_manufacturing_country);
+        spinnerVehicleType = view.findViewById(R.id.awe_spinner_prospect_stage_vehicle_type);
 
         initAdapters();
         initListener();
@@ -212,12 +212,12 @@ public class CoApplicantLoanAndSecurityDetailsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
