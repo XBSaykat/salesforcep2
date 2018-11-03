@@ -45,10 +45,10 @@ public class ProspectStageActivity extends AppCompatActivity {
     public static int CO_APPLICANT_REQUEST_CODE = 1;
     MyNewProspect coApplicant;
 
-    TextView buttonSave;
 
-    private MyLeadDbController myLeadDbController;
-    private TextView buttonSave,btnProceed,btnReject;
+
+
+    private TextView buttonSave, btnProceed,btnReject;
     private LinearLayout mLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
