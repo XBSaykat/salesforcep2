@@ -169,6 +169,9 @@ public class CoApplicantActivity extends AppCompatActivity {
                             securityValue, loanRequired, loanTerm, proposedInterest,
                             fee, calculatedGrossIncome);
 
+
+
+
 ////                    int update = myLeadDbController.upDateProspectData(myNewProspect,getDataFromProspect().getId());
 ////                    if (update>0){
 ////                        Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();

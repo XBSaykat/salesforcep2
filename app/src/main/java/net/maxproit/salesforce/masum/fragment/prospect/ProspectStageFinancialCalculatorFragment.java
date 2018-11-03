@@ -75,6 +75,7 @@ public class ProspectStageFinancialCalculatorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_prospect_stage_financial_calculator,
                 container, false);
         etCalculatedGrossIncome = view.findViewById(R.id.et_prospect_stage_calculated_gross_income);
+        etCalculatedGrossIncome.setFocusable(false);
         btnCalculate = view.findViewById(R.id.btn_prospect_stage_financial_calculator);
 
         initListener();
