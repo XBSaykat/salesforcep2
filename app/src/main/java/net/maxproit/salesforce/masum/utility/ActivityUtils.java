@@ -66,6 +66,7 @@ public class ActivityUtils {
         Intent intent = new Intent(activity, tClass);
         intent.putExtras(bundle);
         activity.startActivity(intent);
+        activity.finish();
     }
 
 

@@ -230,7 +230,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
                     etUserOrganization.setText(myNewLead.getOrganization());
                     etDesignattion.setText(myNewLead.getDesignation());
                     if (!myNewLead.getBranchName().equals(null) && !myNewLead.getProfession().equals(null)) {
-                        spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
+                    //    spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
                      //   spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
 
 

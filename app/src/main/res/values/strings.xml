@@ -250,6 +250,7 @@
     <string name="create_plan">Do you want to create a new plan?</string>
     <string name="Reject">REJECT</string>
     <string name="reject_item">Are you sure,want to reject this?</string>
+    <string name="reject_plan">Are you sure,want to reject this visit plan?</string>
 </resources>
 
 
