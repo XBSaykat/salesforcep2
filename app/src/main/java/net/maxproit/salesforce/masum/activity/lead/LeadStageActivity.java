@@ -381,7 +381,7 @@ public class LeadStageActivity extends AppCompatActivity {
         }
         builder.setTitle(getString(R.string.Reject));
         builder.setMessage(getString(R.string.reject_item));
-        builder.setIcon(R.drawable.lead);
+        builder.setIcon(R.drawable.ic_reject);
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
             myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);

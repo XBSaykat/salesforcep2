@@ -1,5 +1,7 @@
 package net.maxproit.salesforce.masum.activity.prospect;
 
+import android.app.AlertDialog;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
+import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialCalculatorFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
@@ -188,10 +191,29 @@ public class ProspectStageActivity extends AppCompatActivity {
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+               alertDialog(getDataFromProspect().getId());
             }
         });
 
+    }
+
+    private void alertDialog(int id) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(ProspectStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(ProspectStageActivity.this);
+        }
+        builder.setTitle(getString(R.string.Reject));
+        builder.setMessage(getString(R.string.reject_item));
+        builder.setIcon(R.drawable.ic_reject);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
+            ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, MyLeadActivity.class, true);
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public MyNewLead getDataFromProspect() {
@@ -204,7 +226,6 @@ public class ProspectStageActivity extends AppCompatActivity {
         }
 
         return myNewLead;
-
     }
 
 
