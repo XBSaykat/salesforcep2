@@ -1,14 +1,21 @@
 package net.maxproit.salesforce.masum.fragment.prospect;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
+import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+
+import static net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity.CO_APPLICANT_REQUEST_CODE;
 
 
 /**
@@ -28,6 +35,9 @@ public class ProspectStageCoApplicantFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Button btnCoApplicant;
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,9 +76,31 @@ public class ProspectStageCoApplicantFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, container, false);
-//        return view;
+        View view = inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, container, false);
+
+        btnCoApplicant = view.findViewById(R.id.btn_prospect_stage_co_applicant);
+
+        initListener();
+
+        return view;
     }
+
+    private void initListener() {
+
+
+        btnCoApplicant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
+                startActivityForResult(intent, 1);
+//                startActivity(new Intent(getActivity(), CoApplicantActivity.class));
+
+            }
+        });
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
