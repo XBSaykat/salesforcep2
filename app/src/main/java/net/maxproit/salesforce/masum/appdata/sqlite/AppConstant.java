@@ -27,6 +27,7 @@ public class AppConstant {
 
     public static final String INTENT_KEY ="key" ;
     public static final String CO_APPLICANT_INTENT_KEY ="co_applicant_intent_key" ;
+    public static final String CO_APPLICANT_BUNDLE_KEY ="co_applicant_bundle_key" ;
     public static final int CO_APPLICANT_REQUEST_CODE = 200 ;
     public static final String LEAD_INTENT_KEY ="lead_key" ;
 
@@ -34,9 +35,11 @@ public class AppConstant {
 
 
     public static final String LEAD_STATUS_REJECT_FROM_PROSPECT = "rejected_prospect";
+    public static final String LEAD_STATUS_PROSPECT_CO_APPLICANT = "co_applicant_prospect";
     public static final String LEAD_STATUS_PROCEED = "process";
     public static final String LEAD_STATUS_New_PLAN = "new_plan";
 
     public static final String STATUS_INTENT_KEY ="status_key" ;
+    public static final String CO_APPLICANT_STATUS_INTENT_KEY ="co_applicant_status_key" ;
     public static final String VISITED = "visited";
 }

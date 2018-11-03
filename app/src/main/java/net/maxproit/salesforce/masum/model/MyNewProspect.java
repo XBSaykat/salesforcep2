@@ -1,6 +1,8 @@
 package net.maxproit.salesforce.masum.model;
 
-public class MyNewProspect extends MyNewLead{
+import java.io.Serializable;
+
+public class MyNewProspect extends MyNewLead implements Serializable {
 
     private String pLoanType,productDetail,segment,age,dob,cob,pIdNumber
             ,pIssueDate,etin,fName,mName,

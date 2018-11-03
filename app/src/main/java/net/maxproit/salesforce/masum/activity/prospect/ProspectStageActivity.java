@@ -37,7 +37,7 @@ public class ProspectStageActivity extends AppCompatActivity {
     private ViewPager viewPager;
     MyLeadDbController myLeadDbController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
-
+    MyNewProspect coApplicant;
 
     TextView buttonSave;
 
@@ -64,6 +64,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         buttonSave = findViewById(R.id.btnSave);
+
         initListener();
     }
 
@@ -196,6 +197,18 @@ public class ProspectStageActivity extends AppCompatActivity {
     }
 
 
+    public MyNewProspect getDataFromCoApplicant() {
+        MyNewProspect myNewProspect = null;
+        Bundle extraDetail = getIntent().getExtras();
+        if (extraDetail != null) {
+            myNewProspect = (MyNewProspect) extraDetail.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
+        }
+
+        return myNewProspect;
+
+    }
+
+
     private void setupViewPager(ViewPager viewPager) {
         ProspectStageActivity.ViewPagerAdapter adapter = new ProspectStageActivity.ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProspectStageProductAndCustomerDetailsFragment(), "Product & Customer Details");
@@ -237,15 +250,19 @@ public class ProspectStageActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 1){
-//            Toast.makeText(getApplicationContext(), "request matched", Toast.LENGTH_LONG).show();
+//
             if (resultCode == RESULT_OK){
-                Toast.makeText(getApplicationContext(), "result ok", Toast.LENGTH_LONG).show();
-                String coApplitantName = data.getStringExtra(AppConstant.CO_APPLICANT_INTENT_KEY);
 
-//                ActivityUtils.toaster(getApplicationContext(), coApplitantName);
-                Toast.makeText(getApplicationContext(), coApplitantName, Toast.LENGTH_LONG).show();
+                coApplicant = null;
+                Bundle bundle = data.getExtras();
+
+               if (bundle != null) {
+                coApplicant = (MyNewProspect) bundle.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
+                   Toast.makeText(getApplicationContext(),"co applicant",Toast.LENGTH_LONG).show();
+
+               }
+//
+
             }else{
                 Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
             }
