@@ -158,16 +158,20 @@ public class LeadStageVisitRecordFragment extends Fragment {
                 MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
 //                    spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
-                    if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")){
-                        if (etVisitDate.getVisibility()!=View.VISIBLE){
-                            etVisitDate.setVisibility(View.VISIBLE);
-                            etVisitDate.setText(myNewLead.getVisitDate());
-                            etRemark.setText(myNewLead.getRemark());
-                        }
+                  try {
+                      if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")) {
+                          if (etVisitDate.getVisibility() != View.VISIBLE) {
+                              etVisitDate.setVisibility(View.VISIBLE);
+                              etVisitDate.setText(myNewLead.getVisitDate());
+                              etRemark.setText(myNewLead.getRemark());
+                          }
 
-                    }
-                    else if (myNewLead.getFollowUp().equalsIgnoreCase("No")){
-                        spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                      } else if (myNewLead.getFollowUp().equalsIgnoreCase("No")) {
+                          spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                      }
+                  }
+                    catch (final IllegalStateException ignored){
+
                     }
 
 

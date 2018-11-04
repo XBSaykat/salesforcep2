@@ -411,8 +411,13 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etDesignation.setText(myNewLead.getDesignation());
             etMobileNumber.setText(myNewLead.getPhone());
             etCompanyName.setText(myNewLead.getOrganization());
-            spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
-            spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
+            try {
+                spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
+                spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
+            }
+            catch (final IllegalStateException ignored){
+
+            }
 
         }
 

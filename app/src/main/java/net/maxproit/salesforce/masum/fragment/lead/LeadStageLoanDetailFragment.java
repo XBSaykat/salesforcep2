@@ -316,6 +316,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
             else {
                 MyNewProspect myNewLead= (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead !=null){
+                 try{
                     spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getLoanReq()));
                     spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
 
@@ -337,6 +338,10 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
                     spinnerSubCategory.setSelection(productSubAdapter.
                             getPosition(myNewLead.getProductSubcategory()));
+                 }
+
+                    catch (final IllegalStateException ignored) {
+                    }
                     etLoadAmount.setText(myNewLead.getLoadAmount());
                     etInterest.setText(myNewLead.getOrInterest());
                     etDisbursementDate.setText(myNewLead.getDisDate());
