@@ -51,7 +51,29 @@
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
+            <LinearLayout
+                android:id="@+id/secClientType"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
+                    android:text="Client Type" />
+
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/awe_spinner_visit_plan_client_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Client" />
+
+
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/activity_details_client_type"
                 style="@style/LayoutQuestion"
@@ -65,18 +87,12 @@
                     android:layout_height="wrap_content"
                     android:text="Client Type" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_client_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
+                    android:focusable="false"
                     android:textSize="@dimen/text_size_16sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
 
             </LinearLayout>
 
@@ -92,18 +108,14 @@
                     android:layout_height="wrap_content"
                     android:text="Purpose of Visit" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_visit_Purpose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
+
 
             </LinearLayout>
 
@@ -120,18 +132,13 @@
                     android:layout_height="wrap_content"
                     android:text="Client Name" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_client_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
             </LinearLayout>
 
 
@@ -148,20 +155,17 @@
                     android:layout_height="wrap_content"
                     android:text="Mobile Number" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_mobile_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:maxLength="11"
                     android:text=""
+                    android:inputType="phone"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
+
 
             </LinearLayout>
 
@@ -178,18 +182,13 @@
                     android:layout_height="wrap_content"
                     android:text="Product Type" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_product_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
 
             </LinearLayout>
 
@@ -205,18 +204,13 @@
                     android:layout_height="wrap_content"
                     android:text="City" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
 
             </LinearLayout>
 
@@ -232,18 +226,13 @@
                     android:layout_height="wrap_content"
                     android:text="Police Station" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_police_station"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
 
             </LinearLayout>
 
@@ -260,18 +249,14 @@
                     android:layout_height="wrap_content"
                     android:text="Date of Visit" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_visit_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
+                    android:drawableRight="@drawable/ic_datepicker_calender"
+                    android:focusable="false"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
 
             </LinearLayout>
 
@@ -287,26 +272,80 @@
                     android:layout_height="wrap_content"
                     android:text="Remarks" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_activity_details_remarks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:textSize="@dimen/text_size_16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_2dp"
-                    android:layout_marginBottom="@dimen/size_20dp"
-                    android:background="#808080" />
             </LinearLayout>
 
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="follow Up date" />
+
+                <EditText
+                    android:id="@+id/et_new_follow_up_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_datepicker_calender"
+                    android:focusable="false"
+                    android:textSize="@dimen/text_size_16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remarks" />
+
+                <EditText
+                    android:id="@+id/et_new_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_16sp" />
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_show_followUp_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="show follow history"
+                android:layout_gravity="center_horizontal"/>
             <LinearLayout
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tv_activity_details_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/size_2dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:gravity="center"
+                    android:text="Save"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_18dp" />
 
                 <TextView
                     android:id="@+id/tv_activity_details_proceed_to_lead"
@@ -321,18 +360,6 @@
                     android:textSize="@dimen/size_18dp" />
 
                 <TextView
-                    android:id="@+id/tv_activity_details_reappointment"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_margin="@dimen/size_2dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:gravity="center"
-                    android:text="Reappointment"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size_18dp" />
-
-                <TextView
                     android:id="@+id/tv_activity_details_rejected"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
@@ -340,7 +367,7 @@
                     android:layout_weight="1"
                     android:background="@color/colorAccent"
                     android:gravity="center"
-                    android:text="Rejected"
+                    android:text="Complete"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size_18dp" />
 

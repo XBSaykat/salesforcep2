@@ -134,7 +134,7 @@ public class FragmentUpComingList extends Fragment {
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 //            @Override
 //            public boolean onQueryTextSubmit(String query) {
-//                filterList = getFilterData(leadList, query);
+//                filterList = getFilterData(followUpList, query);
 //                myLeadAdapter.setFilter(filterList);
 //                return true;
 //            }
@@ -143,7 +143,7 @@ public class FragmentUpComingList extends Fragment {
 //            public boolean onQueryTextChange(String newText) {
 //                // If remove data on test dataBase it Will be ok
 //                // myLeadAdapter.getFilter().filter(newText);
-//                filterList = getFilterData(leadList, newText);
+//                filterList = getFilterData(followUpList, newText);
 //                myLeadAdapter.setFilter(filterList);
 //                return true;
 //            }

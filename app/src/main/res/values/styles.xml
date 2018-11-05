@@ -78,6 +78,9 @@
         <item name="android:padding">@dimen/size_8dp</item>
         <item name="android:elevation">@dimen/size_4dp</item>
     </style>
+    <style name="SearchView" parent="AppTheme.PopupOverlay">
+        <item name="android:colorPrimary">@color/black</item>
+    </style>
 
     <style name="RadioButtonStyle" parent="android:Widget.CompoundButton.RadioButton">
         <item name="fontPath">fonts/Roboto-Regular.ttf</item>

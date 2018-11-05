@@ -24,7 +24,7 @@ public class SupervisorRbmProspect extends AppCompatActivity {
     MyLeadDbController myLeadDbController;
     RecyclerView rvProspect;
 
-//    ArrayList<MyNewLead> leadList, filterList;
+//    ArrayList<MyNewLead> followUpList, filterList;
 //    Button btnAddProspect;
 //
     @Override

@@ -11,7 +11,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDashboardBinding;
 import net.maxproit.salesforce.feature.login.LoginActivity;
-import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivityNew;
+import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivity;
 import net.maxproit.salesforce.masum.activity.prospect.MyProspectActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
@@ -51,7 +51,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
        @Override
        public void onClick(View view) {
            ActivityUtils.getInstance().invokeActivity(DashboardSalesOfficerActivity.this,
-                   MyActivitiesActivityNew.class,false);
+                   MyActivitiesActivity.class,false);
 
        }
    });

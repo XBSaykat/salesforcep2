@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,7 +18,9 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityVisitPlanListBinding;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
@@ -40,6 +43,8 @@ public class VisitPlanListActivity extends BaseActivity {
     private MyVisitPlanListAdapter myLeadAdapter;
     private ArrayList<VisitPlan> leadList,visitPlanList, filterList;
     private VisitPlanDbController myDbController;
+    private FollowUpDbController followUpDbController;
+    SearchView searchView;
     public static int itemPosition=0;
 
     @Override
@@ -51,6 +56,7 @@ public class VisitPlanListActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivityVisitPlanListBinding) getBinding();
         myDbController = new VisitPlanDbController(getContext());
+
         leadList=new ArrayList<>();
         visitPlanList=new ArrayList<>();
         filterList=new ArrayList<>();
@@ -60,21 +66,9 @@ public class VisitPlanListActivity extends BaseActivity {
         if (!visitPlanList.isEmpty()){
             visitPlanList.clear();
         }
-        if (!myDbController.getAllData().equals(null)){
+        if (!myDbController.getPlanData().equals(null)){
 
-            leadList.addAll(myDbController.getAllData());
-
-            for (int i=0;i<leadList.size();i++){
-
-                try {
-                    if (isPending(leadList.get(i).getDateOfVisit()) &&
-                            leadList.get(i).getStatus().equalsIgnoreCase(AppConstant.LEAD_STATUS_New_PLAN)){
-                        visitPlanList.add(leadList.get(i));
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
+            visitPlanList.addAll(myDbController.getPlanData());
         }
 
         else {
@@ -84,6 +78,7 @@ public class VisitPlanListActivity extends BaseActivity {
 
         backButton = findViewById(R.id.btn_back);
         addButton = findViewById(R.id.btn_add);
+        searchView=findViewById(R.id.search_view);
         myLeadAdapter=new MyVisitPlanListAdapter(this,visitPlanList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         binding.rvMyLead.setLayoutManager(mLayoutManager);
@@ -137,7 +132,7 @@ public class VisitPlanListActivity extends BaseActivity {
 //
 //
 //        super.onBackPressed();
-//        startActivity(new Intent(MyActivitiesActivityNew.this, DashboardSalesOfficerActivity.class));
+//        startActivity(new Intent(MyActivitiesActivity.this, DashboardSalesOfficerActivity.class));
 //        finish();
 //    }
 
@@ -178,7 +173,7 @@ public class VisitPlanListActivity extends BaseActivity {
         myLeadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
-//                loadFilterData();
+                loadFilterData();
                 switch (view.getId()) {
                     case R.id.cl_visit_plan_item:
                         sentDataToDetail(position);
@@ -188,23 +183,64 @@ public class VisitPlanListActivity extends BaseActivity {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterList = getFilterData(visitPlanList, query);
+                myLeadAdapter.setFilter(filterList);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                filterList = getFilterData(visitPlanList, query);
+                myLeadAdapter.setFilter(filterList);
+                return true;
+            }
+        });
+
+    }
+
+
+    //filter  data
+    private ArrayList<VisitPlan> getFilterData(ArrayList<VisitPlan> models, CharSequence searchKey) {
+        searchKey = searchKey.toString().toLowerCase();
+
+        final ArrayList<VisitPlan> filteredModelList = new ArrayList<>();
+        for (VisitPlan model : models) {
+            final String uName = model.getClientName().toLowerCase();
+            final String phone = model.getMobileNumber().toLowerCase();
+
+            if (uName.contains(searchKey) || phone.contains(searchKey)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
+    }
+
+    private void loadFilterData() {
+        if (!filterList.isEmpty()) {
+            filterList.clear();
+        }
+        filterList.addAll(myLeadAdapter.getDataList());
     }
 
     private void sentDataToDetail(int position) {
         VisitPlan visitPlan = new VisitPlan(
-                visitPlanList.get(position).getId(),
-                visitPlanList.get(position).getClientName(),
-                visitPlanList.get(position).getClientType(),
-                visitPlanList.get(position).getMobileNumber(),
-                visitPlanList.get(position).getPoliceStation(),
-                visitPlanList.get(position).getProductType(),
-                visitPlanList.get(position).getCity(),
-                visitPlanList.get(position).getPurposeOfVisit(),
-                visitPlanList.get(position).getDateOfVisit(),
-                visitPlanList.get(position).getRemarks(),
-                visitPlanList.get(position).getStatus());
+                filterList.get(position).getId(),
+                filterList.get(position).getClientName(),
+                filterList.get(position).getClientType(),
+                filterList.get(position).getMobileNumber(),
+                filterList.get(position).getPoliceStation(),
+                filterList.get(position).getProductType(),
+                filterList.get(position).getCity(),
+                filterList.get(position).getPurposeOfVisit(),
+                filterList.get(position).getDateOfVisit(),
+                filterList.get(position).getRemarks(),
+                filterList.get(position).getStatus());
         ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
     }
+
 
     private void alertDialog() {
         AlertDialog.Builder builder;

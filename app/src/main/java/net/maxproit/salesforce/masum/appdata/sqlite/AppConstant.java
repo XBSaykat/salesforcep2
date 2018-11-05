@@ -45,4 +45,5 @@ public class AppConstant {
     public static final int REQUEST_IMAGE_CAPTURE =0 ;
     public static final int REQUEST_ID_CARD_CAPTURE =1 ;
     public static final int REQUEST_VCARD_CAPTURE = 2;
+    public static final String STATUS_ACTIVITY ="activity" ;
 }
