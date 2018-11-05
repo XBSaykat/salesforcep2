@@ -170,6 +170,15 @@ public class LeadStageActivity extends AppCompatActivity {
                 String visitDate = LeadStageVisitRecordFragment.visitDate; //
                 String remark = LeadStageVisitRecordFragment.remark;
                 String followUp = LeadStageVisitRecordFragment.followUp;
+                int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
+                        designation, phone, address, ref, productType, subCat,
+                        loanAmount, interest, fee, disDate, visitDate, followUp, remark);
+                if (insert > 0) {
+                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                }
 
                   /*  MyNewLead myNewLead=new MyNewLead(BranchName,name,profession,organization,
                             designation,phone,address,ref,productType,subCat,
@@ -183,15 +192,7 @@ public class LeadStageActivity extends AppCompatActivity {
                         && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
                         && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
 
-                    int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
-                            designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, disDate, visitDate, followUp, remark);
-                    if (insert > 0) {
-                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
 
-                    } else {
-                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-                    }
                     bytesAtachpp = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgAtach);
                     bytesAtachIdCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgIdCard);
                     bytesAtachVCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgVisitingCard);
@@ -206,7 +207,7 @@ public class LeadStageActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    Toast.makeText(LeadStageActivity.this, "Attachment Can not be Empty", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(LeadStageActivity.this, "Attachment Can not be Empty", Toast.LENGTH_SHORT).show();
                 }
 
 

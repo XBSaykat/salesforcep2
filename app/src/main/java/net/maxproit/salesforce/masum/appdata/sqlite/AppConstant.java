@@ -37,7 +37,7 @@ public class AppConstant {
     public static final String LEAD_STATUS_REJECT_FROM_PROSPECT = "rejected_prospect";
     public static final String LEAD_STATUS_PROSPECT_CO_APPLICANT = "co_applicant_prospect";
     public static final String LEAD_STATUS_PROCEED = "process";
-    public static final String LEAD_STATUS_New_PLAN = "new_plan";
+    public static final String LEAD_STATUS_New_PLAN = "new plan";
 
     public static final String STATUS_INTENT_KEY ="status_key" ;
     public static final String CO_APPLICANT_STATUS_INTENT_KEY ="co_applicant_status_key" ;

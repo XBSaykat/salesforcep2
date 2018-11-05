@@ -38,7 +38,7 @@ public class VisitPlanListActivity extends BaseActivity {
     private ImageView backButton, addButton;
     private ActivityVisitPlanListBinding binding;
     private MyVisitPlanListAdapter myLeadAdapter;
-    private ArrayList<VisitPlan> leadList,visitPlanList, filterList;
+    private ArrayList<VisitPlan> visitPlanList, filterList;
     private VisitPlanDbController myDbController;
     public static int itemPosition=0;
 
@@ -51,30 +51,17 @@ public class VisitPlanListActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivityVisitPlanListBinding) getBinding();
         myDbController = new VisitPlanDbController(getContext());
-        leadList=new ArrayList<>();
+
         visitPlanList=new ArrayList<>();
         filterList=new ArrayList<>();
-        if (!leadList.isEmpty()) {
-            leadList.clear();
-        }
+
         if (!visitPlanList.isEmpty()){
             visitPlanList.clear();
         }
         if (!myDbController.getAllData().equals(null)){
 
-            leadList.addAll(myDbController.getAllData());
+            visitPlanList.addAll(myDbController.getAllData());
 
-            for (int i=0;i<leadList.size();i++){
-
-                try {
-                    if (isPending(leadList.get(i).getDateOfVisit()) &&
-                            leadList.get(i).getStatus().equalsIgnoreCase(AppConstant.LEAD_STATUS_New_PLAN)){
-                        visitPlanList.add(leadList.get(i));
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
         }
 
         else {
