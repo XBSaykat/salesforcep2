@@ -1,5 +1,6 @@
 package net.maxproit.salesforce.masum.activity.prospect;
 
+import android.content.Intent;
 import android.app.AlertDialog;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
@@ -40,8 +41,14 @@ public class ProspectStageActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private MyLeadDbController myLeadDbController;
-    private TextView buttonSave,btnProceed,btnReject;
+    MyLeadDbController myLeadDbController;
+    public static int CO_APPLICANT_REQUEST_CODE = 1;
+    MyNewProspect coApplicant;
+
+
+
+
+    private TextView buttonSave, btnProceed,btnReject;
     private LinearLayout mLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         buttonSave = findViewById(R.id.btnSave);
+
         mLayout=findViewById(R.id.btn_layout_lead);
         initListener();
     }
@@ -182,8 +190,6 @@ public class ProspectStageActivity extends AppCompatActivity {
                     }
                 }
 
-
-
             }
         });
 
@@ -229,6 +235,18 @@ public class ProspectStageActivity extends AppCompatActivity {
     }
 
 
+    public MyNewProspect getDataFromCoApplicant() {
+        MyNewProspect myNewProspect = null;
+        Bundle extraDetail = getIntent().getExtras();
+        if (extraDetail != null) {
+            myNewProspect = (MyNewProspect) extraDetail.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
+        }
+
+        return myNewProspect;
+
+    }
+
+
     private void setupViewPager(ViewPager viewPager) {
         ProspectStageActivity.ViewPagerAdapter adapter = new ProspectStageActivity.ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProspectStageProductAndCustomerDetailsFragment(), "Product & Customer Details");
@@ -268,5 +286,30 @@ public class ProspectStageActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+            if (resultCode == RESULT_OK){
 
+                coApplicant = null;
+                Bundle bundle = data.getExtras();
+
+               if (bundle != null) {
+                coApplicant = (MyNewProspect) bundle.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
+                   Toast.makeText(getApplicationContext(),"co-applicant data saved",Toast.LENGTH_LONG).show();
+
+               }
+//
+
+            }else{
+                Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
+            }
+
+
+//        }else{
+//            Toast.makeText(getApplicationContext(), "request failed", Toast.LENGTH_LONG).show();
+//        }
+
+
+    }
 }

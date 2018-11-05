@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment.prospect;
+package net.maxproit.salesforce.masum.fragment.prospect.co_applicant;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -15,24 +15,31 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
-import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
-import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageProductAndCustomerDetailsFragment;
+import net.maxproit.salesforce.masum.model.MyNewLead;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
-
-
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link CoApplicantProductAndCustomerDetailsFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link CoApplicantProductAndCustomerDetailsFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static ProspectStageActivity prospectStageActivity;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     private SpinnerDbController spinnerDbController;
 
@@ -52,12 +59,12 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //    Spinner productDetail;
 
 
-    private  AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
+    private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship;
 
     public static EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
-                etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
-                etPermanentAddress, etMobileNumber;
+            etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
+            etPermanentAddress, etMobileNumber;
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
@@ -68,12 +75,21 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ProspectStageProductAndCustomerDetailsFragment() {
+    public CoApplicantProductAndCustomerDetailsFragment() {
         // Required empty public constructor
     }
 
-    public static ProspectStageProductAndCustomerDetailsFragment newInstance(String param1, String param2) {
-        ProspectStageProductAndCustomerDetailsFragment fragment = new ProspectStageProductAndCustomerDetailsFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ProspectStageCoApplicantProductAndCustomerDetailsFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static CoApplicantProductAndCustomerDetailsFragment newInstance(String param1, String param2) {
+        CoApplicantProductAndCustomerDetailsFragment fragment = new CoApplicantProductAndCustomerDetailsFragment();
         Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -93,15 +109,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
-        prospectStageActivity= (ProspectStageActivity) getActivity();
-//        productCategory = (Spinner) view.findViewById(R.id.spinner_product_category);
-//        productDetail = (Spinner) view.findViewById(R.id.spinner_product_detail);
 
-//        private EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
-//                etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
-//                etPermanentAddress, etMobileNumber;
 
 
         etName = view.findViewById(R.id.input_name);
@@ -157,47 +167,13 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_relation_with_applicant);
 
 
+
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
 
         initAdapters();
         initListener();
 
 
-
-//        productCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//
-//                ArrayAdapter productDetailAdapter;
-//                switch (adapterView.getItemAtPosition(i).toString()){
-//                    case "HL" :
-//                        productDetailAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.hl_array, android.R.layout.simple_spinner_item);
-//                        model.setProductCategory("HL");
-//                        break;
-//                    case "CL":
-//                        productDetailAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.cl_array, android.R.layout.simple_spinner_item);
-//                        model.setProductCategory("CL");
-//                        break;
-//                    case "PL":
-//                        productDetailAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.pl_array, android.R.layout.simple_spinner_item);
-//                        model.setProductCategory("PL");
-//                        break;
-//                        default:
-//                            productDetailAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.hl_array, android.R.layout.simple_spinner_item);
-//                            model.setProductCategory("PL");
-//                            break;
-//                }
-//
-//                productDetail.setAdapter(productDetailAdapter);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -333,6 +309,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
     }
 
+
     public void initAdapters() {
 
 
@@ -402,33 +379,28 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //                android.R.layout.simple_spinner_item);
 //        spinnerRelationship.setAdapter(relationshipAdapter, 0);
 
-        if (prospectStageActivity.getDataFromProspect()!=null){
-
-            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
-
-            etName.setText(myNewLead.getUserName());
-            etPresentAddress.setText(myNewLead.getAddress());
-            etDesignation.setText(myNewLead.getDesignation());
-            etMobileNumber.setText(myNewLead.getPhone());
-            etCompanyName.setText(myNewLead.getOrganization());
-            try {
-                spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
-                spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
-            }
-            catch (final IllegalStateException ignored){
-
-            }
-
-        }
+//        if (prospectStageActivity.getDataFromProspect()!=null){
+//
+//            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+//
+//            etName.setText(myNewLead.getUserName());
+//            etPresentAddress.setText(myNewLead.getAddress());
+//            etDesignation.setText(myNewLead.getDesignation());
+//            etMobileNumber.setText(myNewLead.getPhone());
+//            spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
+//            spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
+//
+//        }
 
 
 
     }
 
-    private void setDataFromProspect(ArrayAdapter<CharSequence> adapter){
+//    private void setDataFromProspect(ArrayAdapter<CharSequence> adapter){
+//
+//
+//    }
 
-
-    }
 
 
 }

@@ -48,7 +48,7 @@
                     android:focusable="false"
                     app:divider="@color/green"
                     app:iconifiedByDefault="false"
-                    app:queryHint="Search Activity"
+                    app:queryHint="Search plan"
                     android:shadowColor="@color/white"
 
                     app:searchIcon="@null" />

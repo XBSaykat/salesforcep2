@@ -14,8 +14,11 @@ public class DbConstants {
     public static final String COLUMN_NAME_NULLABLE = null;
     public static final String TABLE_LEAD = "lead_table";
     public static final String TABLE_VISIT_PLAN = "visit_plan_table";
+    public static final String TABLE_CO_APPLICANT = "co_applicant_table";
     public static final String TABLE_ATACHMENT= "atachment_table";
 
+    public static final String CO_APPLICANT_ID = "_id";
+    public static final String LEAD_ID_FOR_CO = "lead_id";
     public static final String TABLE_CLIENT_TYPE = "client_type_table";
     public static final String TABLE_PURPOSE_OF_VISIT = "purpose_of_visit_table";
     public static final String TABLE_CITY = "city_table";
@@ -266,6 +269,62 @@ public class DbConstants {
                     LEAD_STATUS + TEXT_TYPE + " )";
 
 
+    public static final String SQL_CREATE_CO_APPLICANT_ENTRIES =
+            "CREATE TABLE " + TABLE_CO_APPLICANT + " (" +
+                    CO_APPLICANT_ID + " INTEGER PRIMARY KEY," +
+                    LEAD_ID_FOR_CO + TEXT_TYPE + COMMA_SEP +
+                    LEAD_BRANCH_NAME + TEXT_TYPE + COMMA_SEP +
+                    LEAD_PROFESSION + TEXT_TYPE + COMMA_SEP +
+                    LEAD_USER_NAME + TEXT_TYPE + COMMA_SEP +
+                    LEAD_ORGANIZATION + TEXT_TYPE + COMMA_SEP +
+                    LEAD_DESIGNATION + TEXT_TYPE + COMMA_SEP +
+                    LEAD_PHONE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_ADDRESS + TEXT_TYPE + COMMA_SEP +
+                    LEAD_REF + TEXT_TYPE + COMMA_SEP +
+                    LEAD_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_PRODUCT_SUBCATEGORY + TEXT_TYPE + COMMA_SEP +
+                    LEAD_AMOUNT + TEXT_TYPE + COMMA_SEP +
+                    LEAD_OR_INTEREST + TEXT_TYPE + COMMA_SEP +
+                    LEAD_OP_FEE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_DISBURSEMENT_DATE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_VISIT_DATE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_FOLLOW_UP + TEXT_TYPE + COMMA_SEP +
+                    LEAD_REMARK + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_LOAN_TYPE + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_PRODUCT_DETAIL + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_SEGMENT + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_AGE + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_DOB + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_COB + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_PHOTO_ID_NUMBER + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_PHOTO_ID_ISSUE_DATE + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_ETIN + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_FATHER_NAME + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_MOTHER_NAME + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_SPOUSE_NAME + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_EXCEPTION_LIST + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_NOY_CURRENT_JOB + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_RW_APPLICANT + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_PERMANENT_ADDRESS + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_NET_SALARY + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_SALARY_AMOUNT + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_RENTAL_INCOME + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_RENTAL_INCOME_AMOUNT + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_ACRICULTURAL_INCOME + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_TUTION + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_REMITANCE + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_INTEREST_FDR + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_FAMILY_EXPENSE + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_EMI_OTHER + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_SECURITY_VALUE + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_LOAN_REQUIRED + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_LOAD_TERM + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_PI_RATE + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_FEE + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_MONTHLY_EMI + TEXT_TYPE + COMMA_SEP +
+                    LEAD_STATUS + TEXT_TYPE + " )";
+
+
     //visit table sql
     public static final String SQL_CREATE_VISIT_ENTRIES =
             "CREATE TABLE " + TABLE_VISIT_PLAN + " (" +
@@ -443,6 +502,9 @@ public class DbConstants {
 
     public static final String SQL_DELETE_VISIT_PLAN_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_VISIT_PLAN;
+
+    public static final String SQL_DELETE_CO_APPLICANT_ENTRIES =
+            "DROP TABLE IF EXISTS " + TABLE_CO_APPLICANT;
 
     public static final String SQL_DELETE_CLIENT_TYPE =
             "DROP TABLE IF EXISTS " + TABLE_CLIENT_TYPE;

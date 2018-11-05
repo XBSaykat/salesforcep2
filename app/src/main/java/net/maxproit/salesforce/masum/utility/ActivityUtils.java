@@ -1,8 +1,10 @@
 package net.maxproit.salesforce.masum.utility;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
@@ -69,5 +71,7 @@ public class ActivityUtils {
         activity.finish();
     }
 
-
+    public static void toaster(Context context, String text){
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -141,7 +141,7 @@ public class CoApplicantActivity extends AppCompatActivity {
                 calculatedGrossIncome = "";
                 if (!name.equals("")) {
                     MyNewProspect myNewProspect = new MyNewProspect(
-                            mybranchName,
+                            brandName,
                             name,
                             profession,
                             "",
