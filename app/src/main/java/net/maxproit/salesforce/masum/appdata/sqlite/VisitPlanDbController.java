@@ -174,11 +174,46 @@ public class VisitPlanDbController {
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
         String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "=?";
+
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
                 new String[]{visitDate},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchData(c);
+    }
+
+    public ArrayList<VisitPlan> getDateBetween(String currentData,String anotherDate) {
+
+        String[] projection = {
+                DbConstants._V_ID,
+                DbConstants.VISIT_PLAN_CLIENT_NAME,
+                DbConstants.VISIT_PLAN_CLIENT_TYPE,
+                DbConstants.VISIT_PLAN_MOBILE_NUMBER,
+                DbConstants.VISIT_PLAN_PRODUCT_TYPE,
+                DbConstants.VISIT_PLAN_CITY,
+                DbConstants.VISIT_PLAN_POLICE_STATION,
+                DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,
+                DbConstants.VISIT_PLAN_DATE_OF_VISIT,
+                DbConstants.VISIT_PLAN_REMARKS,
+                DbConstants.LEAD_STATUS,
+
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = DbConstants._V_ID + " DESC";
+        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + " BETWEEN ? AND ?";
+
+        Cursor c = db.query(
+                DbConstants.TABLE_VISIT_PLAN,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{currentData,anotherDate},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -253,6 +288,41 @@ public class VisitPlanDbController {
 
         return fetchData(c);
     }
+
+    public ArrayList<VisitPlan> getPlanDataUsingStatus(String status){
+        String[] projection = {
+                DbConstants._V_ID,
+                DbConstants.VISIT_PLAN_CLIENT_NAME,
+                DbConstants.VISIT_PLAN_CLIENT_TYPE,
+                DbConstants.VISIT_PLAN_MOBILE_NUMBER,
+                DbConstants.VISIT_PLAN_PRODUCT_TYPE,
+                DbConstants.VISIT_PLAN_CITY,
+                DbConstants.VISIT_PLAN_POLICE_STATION,
+                DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,
+                DbConstants.VISIT_PLAN_DATE_OF_VISIT,
+                DbConstants.VISIT_PLAN_REMARKS,
+                DbConstants.LEAD_STATUS,
+
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = DbConstants._V_ID + " DESC";
+        String WHERE = DbConstants.LEAD_STATUS + "=?";
+        Cursor c = db.query(
+                DbConstants.TABLE_VISIT_PLAN,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{status},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchData(c);
+    }
+
+
+
 
 
     private ArrayList<VisitPlan> fetchData(Cursor c) {

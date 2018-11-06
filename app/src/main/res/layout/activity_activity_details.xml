@@ -282,6 +282,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_follow_up"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -304,6 +305,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_new_remark"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

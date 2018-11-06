@@ -2,9 +2,10 @@ package net.maxproit.salesforce.masum.utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-public class FragmentUtils {
+public class DateUtils {
 
 
     public static String getDateString(){
@@ -42,4 +43,23 @@ public class FragmentUtils {
         }
         return status;
     }
+
+    public static String afterAMonth(){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, 1);
+        Date date = cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String strDate=sdf.format(date);
+        return strDate;
+    }
+
+    public static String beforeAMonth(){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        Date date = cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String strDate=sdf.format(date);
+        return strDate;
+    }
+
 }

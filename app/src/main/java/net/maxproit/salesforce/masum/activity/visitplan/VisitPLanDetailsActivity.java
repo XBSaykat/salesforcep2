@@ -39,13 +39,19 @@ import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 
 import org.apache.commons.lang3.ObjectUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static net.maxproit.salesforce.util.MyApplication.getContext;
 
 public class VisitPLanDetailsActivity extends AppCompatActivity {
 
+    Calendar myCalendar = Calendar.getInstance();
+    String dateFormat = "dd.MM.yyyy";
+    DatePickerDialog.OnDateSetListener date;
+    SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
     public EditText tvClientType, tvVisitPurpose, tvClientName, tvMobileNumber, tvProductType, tvCity, tvPoliceStation,
             tvVisitDate, tvRemarks, etNewRemark, etNewFollowUpdate;
     private AwesomeSpinner spinnerClientType;
@@ -64,6 +70,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
     private FollowUpDbController followUpDbController;
     private VisitPlan visitPlanModel = null;
     String clientType = null;
+    private LinearLayout layoutNewRemark,layoutNewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +97,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             followUpList.clear();
         }
         listClientType.addAll(spinnerDbController.getClientTypeData());
-        followUpList.addAll(followUpDbController.getAllData());
+
 
     }
 
@@ -126,6 +133,8 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
     private void initView() {
         setContentView(R.layout.activity_activity_details);
 //        tvClientType = (TextView)findViewById(R.id.tv_activity_details_client_type);
+        layoutNewDate=findViewById(R.id.layout_follow_up);
+        layoutNewRemark=findViewById(R.id.layout_new_remark);
         tvVisitPurpose = findViewById(R.id.tv_activity_details_visit_Purpose);
         tvClientType = findViewById(R.id.tv_activity_details_client_type);
         mLayoutCLientTypeField = findViewById(R.id.activity_details_client_type);
@@ -157,6 +166,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         spinnerClientType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
+                clientType=s;
 
             }
         });
@@ -213,7 +223,12 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         btnFollowUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                followUpAlert();
+                if (!followUpList.isEmpty()){
+                    followUpAlert();
+                }
+                else {
+                    Toast.makeText(VisitPLanDetailsActivity.this, "follow up date history is empty", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -316,9 +331,16 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             mlayout.setVisibility(View.GONE);
             visitPlanModel = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
             setAllData(visitPlanModel);
+            followUpList.addAll(followUpDbController.getAllData(visitPlanModel.getId()));
 
         } else {
+            long currentdate = System.currentTimeMillis();
+            String dateString = sdf.format(currentdate);
+            tvVisitDate.setText(dateString);
             mLayoutCLientTypeField.setVisibility(View.GONE);
+            btnFollowUp.setVisibility(View.GONE);
+            layoutNewRemark.setVisibility(View.GONE);
+
         }
     }
 
