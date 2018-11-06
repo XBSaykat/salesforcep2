@@ -180,14 +180,22 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Product Type" />
 
-                <EditText
-                    android:id="@+id/tv_activity_details_product_type"
+                <!--<Spinner-->
+                <!--android:id="@+id/spinner_product_type"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0"-->
+                <!--android:drawSelectorOnTop="true"-->
+                <!--android:textSize="20sp" />-->
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/awe_spinner_visit_plan_product_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:textSize="@dimen/text_size_16sp" />
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Product Type" />
 
 
             </LinearLayout>

@@ -42,6 +42,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import static net.maxproit.salesforce.util.MyApplication.getContext;
@@ -54,12 +55,13 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
     public EditText tvClientType, tvVisitPurpose, tvClientName, tvMobileNumber, tvProductType, tvCity, tvPoliceStation,
             tvVisitDate, tvRemarks, etNewRemark, etNewFollowUpdate;
-    private AwesomeSpinner spinnerClientType;
+    private AwesomeSpinner spinnerClientType,spinnerProductType;
     private SpinnerDbController spinnerDbController;
     private TextView tvProceedToLead, tvRejected, tvSave;
     Intent myActivityItemIntent;
     int itemPosition;
-    private ArrayList<String> listClientType;
+    List<String> listClientType, listProductType;
+
     private LinearLayout mlayout, mLayoutCLientTypeField;
     private Button btnFollowUp;
     private ImageView backButton;
@@ -88,7 +90,9 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         spinnerDbController = new SpinnerDbController(this);
         followUpDbController = new FollowUpDbController(getContext());
         listClientType = new ArrayList<String>();
+        listProductType = new ArrayList<String>();
         followUpList = new ArrayList<>();
+        listProductType.addAll(spinnerDbController.getProductTypeData());
         if (!listClientType.isEmpty()) {
             listClientType.clear();
         }
@@ -106,7 +110,6 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvClientType.setText(visitPlanModel.getClientType());
         tvVisitPurpose.setText(visitPlanModel.getPurposeOfVisit());
         tvMobileNumber.setText(visitPlanModel.getMobileNumber());
-        tvProductType.setText(visitPlanModel.getProductType());
         tvCity.setText(visitPlanModel.getCity());
         tvPoliceStation.setText(visitPlanModel.getPoliceStation());
         tvVisitDate.setText(visitPlanModel.getDateOfVisit());
@@ -140,7 +143,6 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         mLayoutCLientTypeField = findViewById(R.id.activity_details_client_type);
         tvClientName = findViewById(R.id.tv_activity_details_client_name);
         tvMobileNumber = findViewById(R.id.tv_activity_details_mobile_no);
-        tvProductType = findViewById(R.id.tv_activity_details_product_type);
         tvCity = findViewById(R.id.tv_activity_details_city);
         tvPoliceStation = findViewById(R.id.tv_activity_details_police_station);
         tvVisitDate = findViewById(R.id.tv_activity_details_visit_date);
@@ -156,6 +158,10 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         ArrayAdapter<String> adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
         spinnerClientType.setAdapter(adptrClientType);
 
+        spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
+
+        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
+        spinnerProductType.setAdapter(productTypeAdapter);
         backButton = (ImageView) findViewById(R.id.btn_back);
         getDataFromVisitPlan();
 

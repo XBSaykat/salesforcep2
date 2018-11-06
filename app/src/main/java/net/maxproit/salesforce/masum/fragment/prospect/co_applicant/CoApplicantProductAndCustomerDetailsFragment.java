@@ -122,7 +122,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
         etDateOfBirth = view.findViewById(R.id.input_date_of_birth);
-       // etPhotoId = view.findViewById(R.id.input_valid_photo_id_no);
         etPhotoIdDate = view.findViewById(R.id.input_valid_photo_id_issue_date);
         etETin = view.findViewById(R.id.input_etin);
         etFatherName = view.findViewById(R.id.input_father_name);
@@ -329,44 +328,16 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public void initAdapters() {
 
 
-//        ArrayAdapter<CharSequence> productCatAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.product_categories_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerProductCat.setAdapter(productCatAdapter, 0);
-
         ArrayAdapter<String> productCat=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProductCategory);
         spinnerProductCat.setAdapter(productCat);
 
-
-
-//        ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.branch_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerBranchName.setAdapter(branchNameAdapter, 0);
         ArrayAdapter<String> branchNameAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBranch);
         spinnerBranchName.setAdapter(branchNameAdapter);
 
-      /*  ArrayAdapter<CharSequence> branchNameAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.branch_name_array,
-                android.R.layout.simple_spinner_item);
-        spinnerBranchName.setAdapter(branchNameAdapter, 0);*/
-
-    /*    ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.segment_array,
-                android.R.layout.simple_spinner_item);
-        spinnerSegment.setAdapter(segmentAdapter, 0);*/
-//        ArrayAdapter<CharSequence> segmentAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.segment_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerSegment.setAdapter(segmentAdapter, 0);
 
         ArrayAdapter<String> segmentAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listSegment);
         spinnerSegment.setAdapter(segmentAdapter);
 
-//        ArrayAdapter<CharSequence> distOfBirthAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.district_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerDistOfBirth.setAdapter(distOfBirthAdapter, 0);
 
         ArrayAdapter<String> disBirth=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBirthDistric);
         spinnerDistOfBirth.setAdapter(disBirth);
@@ -374,39 +345,12 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> disCountry=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBirthCountry);
         spinnerCountOfBirth.setAdapter(disCountry);
 
-//        ArrayAdapter<CharSequence> countryOfBirthAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.countries,
-//                android.R.layout.simple_spinner_item);
-//        spinnerCountOfBirth.setAdapter(countryOfBirthAdapter, 0);
-
-//        ArrayAdapter<CharSequence> ProfessionAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.profession_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerProfession.setAdapter(ProfessionAdapter, 0);
 
         ArrayAdapter<String> profession=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProfession);
         spinnerProfession.setAdapter(profession);
 
         ArrayAdapter<String> relation=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listRelationshipWithApplicant);
         spinnerRelationship.setAdapter(relation);
-
-//        ArrayAdapter<CharSequence> relationshipAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.relationship_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerRelationship.setAdapter(relationshipAdapter, 0);
-
-//        if (prospectStageActivity.getDataFromProspect()!=null){
-//
-//            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
-//
-//            etName.setText(myNewLead.getUserName());
-//            etPresentAddress.setText(myNewLead.getAddress());
-//            etDesignation.setText(myNewLead.getDesignation());
-//            etMobileNumber.setText(myNewLead.getPhone());
-//            spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
-//            spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
-//
-//        }
 
 
 
@@ -437,10 +381,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
     }
 
-//    private void setDataFromProspect(ArrayAdapter<CharSequence> adapter){
-//
-//
-//    }
 
 
 
