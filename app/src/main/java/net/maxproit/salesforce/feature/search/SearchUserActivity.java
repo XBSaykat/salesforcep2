@@ -46,40 +46,40 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
         binding.setModel(new Search());
 
 
-        binding.btnSearch.setOnClickListener(v -> {
-            String en = new GsonBuilder().serializeNulls().create().toJson(binding.getModel());
-            if (isValid()) {
-                if (isNetworkAvailable()) {
-                    showProgressDialog();
-                    String source = localCash().getString(SharedPreferencesEnum.Key.SEARCH_TYPE);
-                    Search search = binding.getModel();
-                    search.setSource(source);
-
-                    getApiService().searchUserInfo(search).enqueue(new Callback<SearchList>() {
-                        @Override
-                        public void onResponse(Call<SearchList> call, Response<SearchList> response) {
-                            hideProgressDialog();
-                            if (response.isSuccessful()) {
-                                binding.mainSearchView.setVisibility(View.GONE);
-                                binding.listSearchView.setVisibility(View.VISIBLE);
-
-                                list = response.body().getData();
-                                setAdapter();
-                            } else showAlertDialog("Oops!", "Try Again");
-                        }
-
-                        @Override
-                        public void onFailure(Call<SearchList> call, Throwable t) {
-                            hideProgressDialog();
-                            showAlertDialog("Oops!", "Failed Try Again");
-
-                        }
-                    });
-                } else showToast("Network not available!");
-            } else showToast("Search is Empty !");
-
-
-        });
+//        binding.btnSearch.setOnClickListener(v -> {
+//            String en = new GsonBuilder().serializeNulls().create().toJson(binding.getModel());
+//            if (isValid()) {
+//                if (isNetworkAvailable()) {
+//                    showProgressDialog();
+//                    String source = localCash().getString(SharedPreferencesEnum.Key.SEARCH_TYPE);
+//                    Search search = binding.getModel();
+//                    search.setSource(source);
+//
+//                    getApiService().searchUserInfo(search).enqueue(new Callback<SearchList>() {
+//                        @Override
+//                        public void onResponse(Call<SearchList> call, Response<SearchList> response) {
+//                            hideProgressDialog();
+//                            if (response.isSuccessful()) {
+//                                binding.mainSearchView.setVisibility(View.GONE);
+//                                binding.listSearchView.setVisibility(View.VISIBLE);
+//
+//                                list = response.body().getData();
+//                                setAdapter();
+//                            } else showAlertDialog("Oops!", "Try Again");
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<SearchList> call, Throwable t) {
+//                            hideProgressDialog();
+//                            showAlertDialog("Oops!", "Failed Try Again");
+//
+//                        }
+//                    });
+//                } else showToast("Network not available!");
+//            } else showToast("Search is Empty !");
+//
+//
+//        });
 
     }
 
