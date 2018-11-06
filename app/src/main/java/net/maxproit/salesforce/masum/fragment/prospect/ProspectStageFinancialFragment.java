@@ -106,7 +106,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
 
         spinnerMonthlyNetSalary = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_net_salary);
-        spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
+       // spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         initAdapters();

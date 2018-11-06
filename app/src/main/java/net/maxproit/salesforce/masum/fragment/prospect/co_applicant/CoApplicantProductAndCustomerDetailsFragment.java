@@ -122,7 +122,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
         etDateOfBirth = view.findViewById(R.id.input_date_of_birth);
-        etPhotoId = view.findViewById(R.id.input_valid_photo_id_no);
+       // etPhotoId = view.findViewById(R.id.input_valid_photo_id_no);
         etPhotoIdDate = view.findViewById(R.id.input_valid_photo_id_issue_date);
         etETin = view.findViewById(R.id.input_etin);
         etFatherName = view.findViewById(R.id.input_father_name);
