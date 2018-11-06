@@ -1,7 +1,10 @@
 package net.maxproit.salesforce.masum.fragment.prospect.co_applicant;
 
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
@@ -20,6 +24,7 @@ import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageProductAndCu
 import net.maxproit.salesforce.masum.model.MyNewLead;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -62,12 +67,12 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship;
 
-    public static EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
+    public static EditText etName, etDateOfBirth, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
-            relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
+            relationship, name, dateOfAge, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress,mobileNumber;
 
 
@@ -116,6 +121,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
+        etDateOfBirth = view.findViewById(R.id.input_date_of_birth);
         etPhotoId = view.findViewById(R.id.input_valid_photo_id_no);
         etPhotoIdDate = view.findViewById(R.id.input_valid_photo_id_issue_date);
         etETin = view.findViewById(R.id.input_etin);
@@ -218,6 +224,13 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
     public void initListener() {
 
+        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog(getContext());
+            }
+        });
+
         spinnerProductCat.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
@@ -307,6 +320,9 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         });
 
 
+
+
+
     }
 
 
@@ -393,6 +409,31 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 //        }
 
 
+
+    }
+
+    public void datePickerDialog(Context context){
+
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month += 1;
+                String selectedDate = (dayOfMonth +"."+ month +"."+ year);
+                etDateOfBirth.getText().clear();
+                etDateOfBirth.setText(selectedDate);
+            }
+        };
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(context,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                listener,
+                year, month, day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
 
     }
 
