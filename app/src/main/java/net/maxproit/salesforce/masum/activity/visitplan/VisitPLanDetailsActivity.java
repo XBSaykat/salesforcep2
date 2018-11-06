@@ -396,7 +396,6 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         AlertDialog dialog = builder.create();
-
         dialog.show();
     }
 
