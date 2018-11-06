@@ -79,12 +79,7 @@ public class CoApplicantActivity extends AppCompatActivity {
 
 
 //              <<<<<<< CoApplicantFinancialFragment >>>>>>>>>>
-                monthlyNetSalary = CoApplicantFinancialFragment.monthlyNetSalary;
-                rentalIncome = CoApplicantFinancialFragment.rentalIncome;
 
-                monthlySalaryAmount = CoApplicantFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                monthlyBusinessIncome = CoApplicantFinancialFragment.etMonthlyBusinessIncome.getText().toString();
-                etMonthlyRentalAmount = CoApplicantFinancialFragment.etMonthlyRentalAmount.getText().toString();
                 monthAgricultureIncomeAmount = CoApplicantFinancialFragment.etAgriculturalIncome.getText().toString();
                 monthTuitionIncomeAmount = CoApplicantFinancialFragment.etPracticeConsultancyTuition.getText().toString();
                 remittance = CoApplicantFinancialFragment.etRemittance.getText().toString();
@@ -123,36 +118,13 @@ public class CoApplicantActivity extends AppCompatActivity {
                 mobileNo = CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
 
 //                calculatedGrossIncome = CoApplicantFinancialCalculatorFragment.etCalculatedGrossIncome.getText().toString();
-                calculatedGrossIncome = "";
-                if (!name.equals("")) {
-                    CoApplicant coApplicant = new CoApplicant(
-                            brandName,
-                            name,
-                            profession,
-                            "",
-                            designation,
-                            mobileNumber, presentAddress,
-                            "",
-                            productCat,
-                            productDetails,
-                            loanRequired,
-                            "",
-                            fee,
-                            "",
-                            "",
-                            "",
-                            "",
-                            AppConstant.LEAD_STATUS_PROSPECT_CO_APPLICANT,
-                            productCat, productDetails,
-                            segment, age, districtOfBirth,
-                            countOfBirth, photoId, photoIdDate, eTin, fatherName,
-                            motherName, spouseName, "", noYrsInCureentJob,
-                            relationship, permanentAddress, monthlyNetSalary,
-                            monthlySalaryAmount, rentalIncome, etMonthlyRentalAmount,
-                            agriculturalIncome, practiceConsultancyTution, remittance,
-                            interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
-                            securityValue, loanRequired, loanTerm, proposedInterest,
-                            fee, calculatedGrossIncome);
+//                calculatedGrossIncome = "";
+//                if (!name.equals("")) {
+//                    CoApplicant coApplicant = new CoApplicant(
+//
+////                        pass Parameters here
+//
+//                            );
 
 
 
@@ -165,20 +137,20 @@ public class CoApplicantActivity extends AppCompatActivity {
 ////                        Toast.makeText(CoApplicantActivity.this, "failed", Toast.LENGTH_SHORT).show();
 ////
 ////                    }
-////                }
-                    Bundle bundle = new Bundle();
-                    Intent intent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
-//                    bundle.putSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY, );
-//                    bundle.putInt(AppConstant.CO_APPLICANT_STATUS_INTENT_KEY, 100);
-                    intent.putExtra(AppConstant.CO_APPLICANT_INTENT_KEY, bundle);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-                }else{
-                    Toast.makeText(CoApplicantActivity.this, "Name Field empty", Toast.LENGTH_SHORT).show();
-                }
-
-
-
+//////                }
+//                    Bundle bundle = new Bundle();
+//                    Intent intent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
+////                    bundle.putSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY, );
+////                    bundle.putInt(AppConstant.CO_APPLICANT_STATUS_INTENT_KEY, 100);
+//                    intent.putExtra(AppConstant.CO_APPLICANT_INTENT_KEY, bundle);
+//                    setResult(Activity.RESULT_OK, intent);
+//                    finish();
+//                }else{
+//                    Toast.makeText(CoApplicantActivity.this, "Name Field empty", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//
             }
         });
 
