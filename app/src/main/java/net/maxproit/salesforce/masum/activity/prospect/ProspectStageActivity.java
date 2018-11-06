@@ -44,16 +44,15 @@ public class ProspectStageActivity extends AppCompatActivity {
     MyNewProspect coApplicant;
 
 
-
-
-    private TextView buttonSave, btnProceed,btnReject;
+    private TextView buttonSave, btnProceed, btnReject;
     private LinearLayout mLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead_stage);
-        btnProceed=findViewById(R.id.tv_activity_details_proceed_to_prospect);
-        btnReject=findViewById(R.id.tv_activity_details_rejected);
+        btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
+        btnReject = findViewById(R.id.tv_activity_details_rejected);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage");
         setSupportActionBar(toolbar);
@@ -73,7 +72,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         buttonSave = findViewById(R.id.btnSave);
 
-        mLayout=findViewById(R.id.btn_layout_lead);
+        mLayout = findViewById(R.id.btn_layout_lead);
         initListener();
     }
 
@@ -83,7 +82,7 @@ public class ProspectStageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 String productCat, productDetails, mybranchName, segment, countOfBirth, districtOfBirth, profession,
+                String productCat, productDetails, mybranchName, segment, countOfBirth, districtOfBirth, profession,
                         relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
                         companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber;
                 String brandName, year, country, vehicleType, securityValue, loanRequired, loanTerm, proposedInterest,
@@ -177,12 +176,11 @@ public class ProspectStageActivity extends AppCompatActivity {
                             securityValue, loanRequired, loanTerm, proposedInterest,
                             fee, calculatedGrossIncome);
 
-                    int update = myLeadDbController.upDateProspectData(myNewProspect,getDataFromProspect().getId());
-                    if (update>0){
+                    int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+                    if (update > 0) {
                         Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this,DashboardSalesOfficerActivity.class,true);
-                    }
-                    else {
+                        ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, DashboardSalesOfficerActivity.class, true);
+                    } else {
                         Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
 
                     }
@@ -195,7 +193,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               alertDialog(getDataFromProspect().getId());
+                alertDialog(getDataFromProspect().getId());
             }
         });
 
@@ -286,19 +284,18 @@ public class ProspectStageActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //
-            if (resultCode == RESULT_OK){
-                coApplicant = null;
-                Bundle bundle = data.getExtras();
-               if (bundle != null) {
+        if (resultCode == RESULT_OK) {
+            coApplicant = null;
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
                 coApplicant = (MyNewProspect) bundle.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
-                   Toast.makeText(getApplicationContext(),"co-applicant data saved",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "co-applicant data saved", Toast.LENGTH_LONG).show();
 
-               }
-
-            }else{
-                Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
             }
 
+        } else {
+            Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
+        }
 
 
     }
