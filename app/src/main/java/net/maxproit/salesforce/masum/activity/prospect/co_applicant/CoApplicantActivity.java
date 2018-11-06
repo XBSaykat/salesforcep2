@@ -18,8 +18,8 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantFinancialFragment;
-import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantLoanAndSecurityDetailsFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantProductAndCustomerDetailsFragment;
+import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class CoApplicantActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.vp_co_applicant_viewpager);
         setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(2);
         tabLayout = (TabLayout) findViewById(R.id.tl_co_applicant_tabs);
         tabLayout.setupWithViewPager(viewPager);
         btnSave = findViewById(R.id.btn_save);
@@ -68,99 +68,63 @@ public class CoApplicantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //
-                String productCat, productDetails, mybranchName, segment, countOfBirth, districtOfBirth, profession,
-                        relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
-                        companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber;
-                String brandName, year, country, vehicleType, securityValue, loanRequired, loanTerm, proposedInterest,
-                        fee, calculatedGrossIncome;
-                String monthlyNetSalary, rentalIncome, monthlySalaryAmount, monthlyBusinessIncome, etMonthlyRentalAmount,
-                        agriculturalIncome, practiceConsultancyTution, remittance, interestIncome,
-                        monthlyFamilyExpenditure, emiOfOtherLoans;
+                String name, segment,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
+                        photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
+                        designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
+                        presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,
+                        monthBusinessIncomeAmount, monthWareHouseAmount,monthOfficeSpaceIncomeAmount,
+                        monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
+                        monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
+                        emiOfOtherLoans;
 
 
 //              <<<<<<< CoApplicantFinancialFragment >>>>>>>>>>
-                monthlyNetSalary = CoApplicantFinancialFragment.monthlyNetSalary;
-                rentalIncome = CoApplicantFinancialFragment.rentalIncome;
 
-                monthlySalaryAmount = CoApplicantFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                monthlyBusinessIncome = CoApplicantFinancialFragment.etMonthlyBusinessIncome.getText().toString();
-                etMonthlyRentalAmount = CoApplicantFinancialFragment.etMonthlyRentalAmount.getText().toString();
-                agriculturalIncome = CoApplicantFinancialFragment.etAgriculturalIncome.getText().toString();
-                practiceConsultancyTution = CoApplicantFinancialFragment.etPracticeConsultancyTuition.getText().toString();
+                monthAgricultureIncomeAmount = CoApplicantFinancialFragment.etAgriculturalIncome.getText().toString();
+                monthTuitionIncomeAmount = CoApplicantFinancialFragment.etPracticeConsultancyTuition.getText().toString();
                 remittance = CoApplicantFinancialFragment.etRemittance.getText().toString();
-                interestIncome = CoApplicantFinancialFragment.etInterestIncome.getText().toString();
-                monthlyFamilyExpenditure = CoApplicantFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
+                interestFDRIncomeAmount = CoApplicantFinancialFragment.etInterestIncome.getText().toString();
+                monthFamilyExpenditure = CoApplicantFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
                 emiOfOtherLoans = CoApplicantFinancialFragment.etEMIOfOtherLoans.getText().toString();
 
 
-                productCat = CoApplicantProductAndCustomerDetailsFragment.productCat;
+//                productCat = CoApplicantProductAndCustomerDetailsFragment.productCat;
 //
 
 
 //                <<<<<< CoApplicantProductAndCustomerDetailsFragment >>>>>>>
-                productCat = CoApplicantProductAndCustomerDetailsFragment.productCat;
-                productDetails = CoApplicantProductAndCustomerDetailsFragment.productDetails;
-                mybranchName = CoApplicantProductAndCustomerDetailsFragment.branchName;
+//                productCat = CoApplicantProductAndCustomerDetailsFragment.productCat;
+//                productDetails = CoApplicantProductAndCustomerDetailsFragment.productDetails;
+//                mybranchName = CoApplicantProductAndCustomerDetailsFragment.branchName;
                 segment = CoApplicantProductAndCustomerDetailsFragment.segment;
-                countOfBirth = CoApplicantProductAndCustomerDetailsFragment.countOfBirth;
+                countryOfBirth = CoApplicantProductAndCustomerDetailsFragment.countOfBirth;
                 districtOfBirth = CoApplicantProductAndCustomerDetailsFragment.districtOfBirth;
                 profession = CoApplicantProductAndCustomerDetailsFragment.profession;
-                relationship = CoApplicantProductAndCustomerDetailsFragment.relationship;
+                relationWithApplicant = CoApplicantProductAndCustomerDetailsFragment.relationship;
 //
                 name = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
                 age = CoApplicantProductAndCustomerDetailsFragment.etAge.getText().toString();
-                photoId = CoApplicantProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
-                photoIdDate = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
+                photoIdNo = CoApplicantProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
+                photoIdIssueDate = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
                 eTin = CoApplicantProductAndCustomerDetailsFragment.etETin.getText().toString();
-                fatherName = CoApplicantProductAndCustomerDetailsFragment.etFatherName.getText().toString();
-                motherName = CoApplicantProductAndCustomerDetailsFragment.etMotherName.getText().toString();
-                spouseName = CoApplicantProductAndCustomerDetailsFragment.etSpouseName.getText().toString();
+                fName = CoApplicantProductAndCustomerDetailsFragment.etFatherName.getText().toString();
+                mName = CoApplicantProductAndCustomerDetailsFragment.etMotherName.getText().toString();
+                sName = CoApplicantProductAndCustomerDetailsFragment.etSpouseName.getText().toString();
                 companyName = CoApplicantProductAndCustomerDetailsFragment.etCompanyName.getText().toString();
                 designation = CoApplicantProductAndCustomerDetailsFragment.etDesignation.getText().toString();
-                noYrsInCureentJob = CoApplicantProductAndCustomerDetailsFragment.etNoYrsInCurrentJob.getText().toString();
+                noOfYrsInCurrentJob = CoApplicantProductAndCustomerDetailsFragment.etNoYrsInCurrentJob.getText().toString();
                 presentAddress = CoApplicantProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
                 permanentAddress = CoApplicantProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
-                mobileNumber = CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
-                brandName = CoApplicantLoanAndSecurityDetailsFragment.brandName;
-                year = CoApplicantLoanAndSecurityDetailsFragment.year;
-                country = CoApplicantLoanAndSecurityDetailsFragment.country;
-                vehicleType = CoApplicantLoanAndSecurityDetailsFragment.vehicleType;
-                securityValue = CoApplicantLoanAndSecurityDetailsFragment.etSecurityValue.getText().toString();
-                loanRequired = CoApplicantLoanAndSecurityDetailsFragment.etLoanRequired.getText().toString();
-                loanTerm = CoApplicantLoanAndSecurityDetailsFragment.etLoanRequired.getText().toString();
-                proposedInterest = CoApplicantLoanAndSecurityDetailsFragment.etProposedInterest.getText().toString();
-                fee = CoApplicantLoanAndSecurityDetailsFragment.etFee.getText().toString();
+                mobileNo = CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
+
 //                calculatedGrossIncome = CoApplicantFinancialCalculatorFragment.etCalculatedGrossIncome.getText().toString();
-                calculatedGrossIncome = "";
-                if (!name.equals("")) {
-                    MyNewProspect myNewProspect = new MyNewProspect(
-                            brandName,
-                            name,
-                            profession,
-                            "",
-                            designation,
-                            mobileNumber, presentAddress,
-                            "",
-                            productCat,
-                            productDetails,
-                            loanRequired,
-                            "",
-                            fee,
-                            "",
-                            "",
-                            "",
-                            "",
-                            AppConstant.LEAD_STATUS_PROSPECT_CO_APPLICANT,
-                            productCat, productDetails,
-                            segment, age, districtOfBirth,
-                            countOfBirth, photoId, photoIdDate, eTin, fatherName,
-                            motherName, spouseName, "", noYrsInCureentJob,
-                            relationship, permanentAddress, monthlyNetSalary,
-                            monthlySalaryAmount, rentalIncome, etMonthlyRentalAmount,
-                            agriculturalIncome, practiceConsultancyTution, remittance,
-                            interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
-                            securityValue, loanRequired, loanTerm, proposedInterest,
-                            fee, calculatedGrossIncome);
+//                calculatedGrossIncome = "";
+//                if (!name.equals("")) {
+//                    CoApplicant coApplicant = new CoApplicant(
+//
+////                        pass Parameters here
+//
+//                            );
 
 
 
@@ -173,20 +137,20 @@ public class CoApplicantActivity extends AppCompatActivity {
 ////                        Toast.makeText(CoApplicantActivity.this, "failed", Toast.LENGTH_SHORT).show();
 ////
 ////                    }
-////                }
-                    Bundle bundle = new Bundle();
-                    Intent intent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
-                    bundle.putSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY, myNewProspect);
-//                    bundle.putInt(AppConstant.CO_APPLICANT_STATUS_INTENT_KEY, 100);
-                    intent.putExtra(AppConstant.CO_APPLICANT_INTENT_KEY, bundle);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-                }else{
-                    Toast.makeText(CoApplicantActivity.this, "Name Field empty", Toast.LENGTH_SHORT).show();
-                }
-
-
-
+//////                }
+//                    Bundle bundle = new Bundle();
+//                    Intent intent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
+////                    bundle.putSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY, );
+////                    bundle.putInt(AppConstant.CO_APPLICANT_STATUS_INTENT_KEY, 100);
+//                    intent.putExtra(AppConstant.CO_APPLICANT_INTENT_KEY, bundle);
+//                    setResult(Activity.RESULT_OK, intent);
+//                    finish();
+//                }else{
+//                    Toast.makeText(CoApplicantActivity.this, "Name Field empty", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//
             }
         });
 
@@ -199,7 +163,6 @@ public class CoApplicantActivity extends AppCompatActivity {
         CoApplicantActivity.ViewPagerAdapter adapter = new CoApplicantActivity.ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new CoApplicantProductAndCustomerDetailsFragment(), "Product & Customer Details");
         adapter.addFragment(new CoApplicantFinancialFragment(), "Financials");
-        adapter.addFragment(new CoApplicantLoanAndSecurityDetailsFragment(), "Loan & Security Detail");
         viewPager.setAdapter(adapter);
     }
 

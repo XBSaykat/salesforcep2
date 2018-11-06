@@ -44,9 +44,12 @@ public class DbConstants {
     public static final String PROSPECT_LOAN_TYPE = "loan_type";
     public static final String PROSPECT_PRODUCT_DETAIL = "p_product_detail";
     public static final String PROSPECT_SEGMENT = "segment";
+    public static final String PROSPECT_DATE_OF_BIRTH = "date_of_birth";
+
     public static final String PROSPECT_AGE = "age";
     public static final String PROSPECT_DOB = "dob";
     public static final String PROSPECT_COB = "cob";
+    public static final String PROSPECT_PHOTO_ID_TYPE = "p_id_type";
     public static final String PROSPECT_PHOTO_ID_NUMBER = "p_id_number";
     public static final String PROSPECT_PHOTO_ID_ISSUE_DATE = "issue_date";
     public static final String PROSPECT_ETIN = "etin";
@@ -61,6 +64,13 @@ public class DbConstants {
     public static final String PROSPECT_SALARY_AMOUNT = "salary_amount";
     public static final String PROSPECT_RENTAL_INCOME = "rent_income";
     public static final String PROSPECT_RENTAL_INCOME_AMOUNT = "income_amount";
+
+    public static final String PROSPECT_BUSINESS_INCOME_AMOUNT = "b_income_amount";
+    public static final String PROSPECT_WAREHOUSE_INCOME = "warehouse_income";
+    public static final String PROSPECT_OFFICE_SPACE_INCOME = "office_space_income";
+    public static final String PROSPECT_SEMIPAKA_INCOME = "semipaka_income";
+    public static final String PROSPECT_APARTMENT_INCOME = "apartment_income";
+
     public static final String PROSPECT_ACRICULTURAL_INCOME = "ag_income";
     public static final String PROSPECT_TUTION = "tution";
     public static final String PROSPECT_REMITANCE = "remitance";
@@ -167,59 +177,47 @@ public class DbConstants {
 
 
     public static final String SQL_CREATE_CO_APPLICANT_ENTRIES =
-            "CREATE TABLE " + TABLE_CO_APPLICANT + " (" +
-                    CO_APPLICANT_ID + " INTEGER PRIMARY KEY," +
-                    LEAD_ID_FOR_CO + TEXT_TYPE + COMMA_SEP +
-                    LEAD_BRANCH_NAME + TEXT_TYPE + COMMA_SEP +
-                    LEAD_PROFESSION + TEXT_TYPE + COMMA_SEP +
-                    LEAD_USER_NAME + TEXT_TYPE + COMMA_SEP +
-                    LEAD_ORGANIZATION + TEXT_TYPE + COMMA_SEP +
-                    LEAD_DESIGNATION + TEXT_TYPE + COMMA_SEP +
-                    LEAD_PHONE + TEXT_TYPE + COMMA_SEP +
-                    LEAD_ADDRESS + TEXT_TYPE + COMMA_SEP +
-                    LEAD_REF + TEXT_TYPE + COMMA_SEP +
-                    LEAD_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
-                    LEAD_PRODUCT_SUBCATEGORY + TEXT_TYPE + COMMA_SEP +
-                    LEAD_AMOUNT + TEXT_TYPE + COMMA_SEP +
-                    LEAD_OR_INTEREST + TEXT_TYPE + COMMA_SEP +
-                    LEAD_OP_FEE + TEXT_TYPE + COMMA_SEP +
-                    LEAD_DISBURSEMENT_DATE + TEXT_TYPE + COMMA_SEP +
-                    LEAD_VISIT_DATE + TEXT_TYPE + COMMA_SEP +
-                    LEAD_FOLLOW_UP + TEXT_TYPE + COMMA_SEP +
-                    LEAD_REMARK + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_LOAN_TYPE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_PRODUCT_DETAIL + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_SEGMENT + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_AGE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_DOB + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_COB + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_PHOTO_ID_NUMBER + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_PHOTO_ID_ISSUE_DATE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_ETIN + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_FATHER_NAME + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_MOTHER_NAME + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_SPOUSE_NAME + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_EXCEPTION_LIST + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_NOY_CURRENT_JOB + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_RW_APPLICANT + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_PERMANENT_ADDRESS + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_NET_SALARY + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_SALARY_AMOUNT + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_RENTAL_INCOME + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_RENTAL_INCOME_AMOUNT + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_ACRICULTURAL_INCOME + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_TUTION + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_REMITANCE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_INTEREST_FDR + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_FAMILY_EXPENSE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_EMI_OTHER + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_SECURITY_VALUE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_LOAN_REQUIRED + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_LOAD_TERM + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_PI_RATE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_FEE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_MONTHLY_EMI + TEXT_TYPE + COMMA_SEP +
-                    LEAD_STATUS + TEXT_TYPE + " )";
+                    "CREATE TABLE " + TABLE_CO_APPLICANT + " (" +
+                            CO_APPLICANT_ID + " INTEGER PRIMARY KEY," +
+                            LEAD_ID_FOR_CO + TEXT_TYPE + COMMA_SEP +
+                            LEAD_USER_NAME + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_SEGMENT + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_DATE_OF_BIRTH + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_AGE + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_DOB + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_COB + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_PHOTO_ID_TYPE + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_PHOTO_ID_NUMBER + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_PHOTO_ID_ISSUE_DATE + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_ETIN + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_FATHER_NAME + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_MOTHER_NAME + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_SPOUSE_NAME + TEXT_TYPE + COMMA_SEP +
+                            LEAD_PROFESSION + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_EXCEPTION_LIST + TEXT_TYPE + COMMA_SEP +
+                            LEAD_ORGANIZATION + TEXT_TYPE + COMMA_SEP +
+                            LEAD_DESIGNATION + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_NOY_CURRENT_JOB + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_RW_APPLICANT + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_PERMANENT_ADDRESS + TEXT_TYPE + COMMA_SEP +
+                            LEAD_ADDRESS + TEXT_TYPE + COMMA_SEP +
+                            LEAD_PHONE + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_NET_SALARY + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_SALARY_AMOUNT + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_BUSINESS_INCOME_AMOUNT + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_WAREHOUSE_INCOME + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_OFFICE_SPACE_INCOME + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_SEMIPAKA_INCOME + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_APARTMENT_INCOME + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_ACRICULTURAL_INCOME + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_TUTION + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_REMITANCE + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_INTEREST_FDR + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_FAMILY_EXPENSE + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_EMI_OTHER + TEXT_TYPE + COMMA_SEP +
+
+
+                            " )";
 
 
     //visit table sql
