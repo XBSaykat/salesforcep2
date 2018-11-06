@@ -19,10 +19,8 @@ import android.widget.Toast;
 
 
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
-import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
-import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialCalculatorFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageLoanAndSecurityDetailFragment;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
@@ -167,7 +165,7 @@ public class ProspectStageActivity extends AppCompatActivity {
                             getDataFromProspect().getDisDate(),
                             getDataFromProspect().getFollowUp(),
                             getDataFromProspect().getRemark(),
-                            AppConstant.LEAD_STATUS_PROCEED,
+                            AppConstant.STATUS_RBM,
                             productCat, productDetails,
                             segment, age, districtOfBirth,
                             countOfBirth, photoId, photoIdDate, eTin, fatherName,
@@ -253,7 +251,6 @@ public class ProspectStageActivity extends AppCompatActivity {
         adapter.addFragment(new ProspectStageFinancialFragment(), "Financials");
         adapter.addFragment(new ProspectStageLoanAndSecurityDetailFragment(), "Loan & Security Detail");
         adapter.addFragment(new ProspectStageCoApplicantFragment(), "Co-Applicant");
-        adapter.addFragment(new ProspectStageFinancialCalculatorFragment(), "Financial Calculator");
         viewPager.setAdapter(adapter);
     }
 
@@ -290,25 +287,18 @@ public class ProspectStageActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //
             if (resultCode == RESULT_OK){
-
                 coApplicant = null;
                 Bundle bundle = data.getExtras();
-
                if (bundle != null) {
                 coApplicant = (MyNewProspect) bundle.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
                    Toast.makeText(getApplicationContext(),"co-applicant data saved",Toast.LENGTH_LONG).show();
 
                }
-//
 
             }else{
                 Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
             }
 
-
-//        }else{
-//            Toast.makeText(getApplicationContext(), "request failed", Toast.LENGTH_LONG).show();
-//        }
 
 
     }

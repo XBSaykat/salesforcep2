@@ -30,7 +30,7 @@ public class VisitPlanDbController {
     }
     //                           clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit,remarks
     public int insertData(String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
-                          String dateOfVisit, String remarks) {
+                          String dateOfVisit, String remarks,String status) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.VISIT_PLAN_CLIENT_NAME, clientName);
@@ -42,7 +42,7 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,purposeOfVisit);
         values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, dateOfVisit);
         values.put(DbConstants.VISIT_PLAN_REMARKS,remarks);
-        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_New_PLAN);
+        values.put(DbConstants.LEAD_STATUS, status);
         // Insert the new row, returning the primary key value of the new row
         open();
         int insert= (int) db.insert(DbConstants.TABLE_VISIT_PLAN, DbConstants.COLUMN_NAME_NULLABLE, values);
@@ -174,11 +174,46 @@ public class VisitPlanDbController {
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
         String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "=?";
+
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
                 new String[]{visitDate},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchData(c);
+    }
+
+    public ArrayList<VisitPlan> getDateBetween(String currentData,String anotherDate) {
+
+        String[] projection = {
+                DbConstants._V_ID,
+                DbConstants.VISIT_PLAN_CLIENT_NAME,
+                DbConstants.VISIT_PLAN_CLIENT_TYPE,
+                DbConstants.VISIT_PLAN_MOBILE_NUMBER,
+                DbConstants.VISIT_PLAN_PRODUCT_TYPE,
+                DbConstants.VISIT_PLAN_CITY,
+                DbConstants.VISIT_PLAN_POLICE_STATION,
+                DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,
+                DbConstants.VISIT_PLAN_DATE_OF_VISIT,
+                DbConstants.VISIT_PLAN_REMARKS,
+                DbConstants.LEAD_STATUS,
+
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = DbConstants._V_ID + " DESC";
+        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + " BETWEEN ? AND ?";
+
+        Cursor c = db.query(
+                DbConstants.TABLE_VISIT_PLAN,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{currentData,anotherDate},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -253,6 +288,41 @@ public class VisitPlanDbController {
 
         return fetchData(c);
     }
+
+    public ArrayList<VisitPlan> getPlanDataUsingStatus(String status){
+        String[] projection = {
+                DbConstants._V_ID,
+                DbConstants.VISIT_PLAN_CLIENT_NAME,
+                DbConstants.VISIT_PLAN_CLIENT_TYPE,
+                DbConstants.VISIT_PLAN_MOBILE_NUMBER,
+                DbConstants.VISIT_PLAN_PRODUCT_TYPE,
+                DbConstants.VISIT_PLAN_CITY,
+                DbConstants.VISIT_PLAN_POLICE_STATION,
+                DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,
+                DbConstants.VISIT_PLAN_DATE_OF_VISIT,
+                DbConstants.VISIT_PLAN_REMARKS,
+                DbConstants.LEAD_STATUS,
+
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = DbConstants._V_ID + " DESC";
+        String WHERE = DbConstants.LEAD_STATUS + "=?";
+        Cursor c = db.query(
+                DbConstants.TABLE_VISIT_PLAN,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{status},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchData(c);
+    }
+
+
+
 
 
     private ArrayList<VisitPlan> fetchData(Cursor c) {

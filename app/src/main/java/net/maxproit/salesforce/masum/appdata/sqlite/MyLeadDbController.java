@@ -224,6 +224,47 @@ public class MyLeadDbController {
     }
 
 
+    public ArrayList<MyNewLead> getAllData(String status) {
+
+        String[] projection = {
+                DbConstants._L_ID,
+                DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_USER_NAME,
+                DbConstants.LEAD_PROFESSION,
+                DbConstants.LEAD_ORGANIZATION,
+                DbConstants.LEAD_DESIGNATION,
+                DbConstants.LEAD_PHONE,
+                DbConstants.LEAD_ADDRESS,
+                DbConstants.LEAD_REF,
+                DbConstants.LEAD_PRODUCT_TYPE,
+                DbConstants.LEAD_PRODUCT_SUBCATEGORY,
+                DbConstants.LEAD_AMOUNT,
+                DbConstants.LEAD_OR_INTEREST,
+                DbConstants.LEAD_OP_FEE,
+                DbConstants.LEAD_DISBURSEMENT_DATE,
+                DbConstants.LEAD_VISIT_DATE,
+                DbConstants.LEAD_FOLLOW_UP,
+                DbConstants.LEAD_REMARK,
+                DbConstants.LEAD_STATUS,
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = DbConstants._L_ID + " DESC";
+        String WHERE = DbConstants.LEAD_STATUS + "=?";
+        Cursor c = db.query(
+                DbConstants.TABLE_LEAD,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{status},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchData(c);
+    }
+
+
     public ArrayList<MyNewLead> getAllData() {
 
         String[] projection = {

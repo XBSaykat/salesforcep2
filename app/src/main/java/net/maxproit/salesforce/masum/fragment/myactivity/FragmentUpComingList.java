@@ -16,11 +16,12 @@ import android.widget.Toast;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.masum.utility.FragmentUtils;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
@@ -111,7 +112,8 @@ public class FragmentUpComingList extends Fragment {
             for (int i = 0; i < leadList.size(); i++) {
 
                 try {
-                    if (FragmentUtils.isPending(leadList.get(i).getDateOfVisit()) == 2) {
+                    if (DateUtils.isPending(leadList.get(i).getDateOfVisit()) == 2 &&
+                            !leadList.get(i).getStatus().equals(AppConstant.VISITED)) {
                         visitPlanList.add(leadList.get(i));
                     }
                 } catch (ParseException e) {
