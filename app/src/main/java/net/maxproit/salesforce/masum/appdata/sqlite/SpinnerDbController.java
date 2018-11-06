@@ -320,6 +320,17 @@ public class SpinnerDbController {
     }
 
 
+    public int insertValidPhotoData(String personalloan) {
+
+        ContentValues values = new ContentValues();
+        values.put(SpinnerDbConstant.VALID_PHOTO, personalloan);
+        open();
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_VALID_PHOTO, DbConstants.COLUMN_NAME_NULLABLE, values);
+        close();
+        return insert;
+    }
+
+
     public ArrayList<String> getClientTypeData() {
 
         String[] projection = {
@@ -1441,6 +1452,51 @@ public class SpinnerDbController {
                     String personalLoan= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.PERSONAL_LOAN));
                     // wrap up data list and return
                     favDataArray.add(personalLoan);
+                } while (c.moveToNext());
+            }
+            c.close();
+        }
+        return favDataArray;
+    }
+
+
+
+
+
+
+
+    public ArrayList<String> getValidPhotoData() {
+
+        String[] projection = {
+                SpinnerDbConstant.VALID_PHOTO,
+        };
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = SpinnerDbConstant.VALID_PHOTO_ID + " DESC";
+
+        Cursor c = db.query(
+                SpinnerDbConstant.TABLE_VALID_PHOTO,  // The table name to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchValidPhotoData(c);
+    }
+
+
+    private ArrayList<String> fetchValidPhotoData(Cursor c) {
+        ArrayList<String> favDataArray = new ArrayList<>();
+
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    // get  the  data into array,or class variable
+                    String validPhoto= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.VALID_PHOTO));
+                    // wrap up data list and return
+                    favDataArray.add(validPhoto);
                 } while (c.moveToNext());
             }
             c.close();

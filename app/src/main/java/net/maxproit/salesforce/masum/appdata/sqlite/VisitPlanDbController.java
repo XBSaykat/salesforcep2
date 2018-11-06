@@ -30,7 +30,7 @@ public class VisitPlanDbController {
     }
     //                           clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit,remarks
     public int insertData(String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
-                          String dateOfVisit, String remarks) {
+                          String dateOfVisit, String remarks,String status) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.VISIT_PLAN_CLIENT_NAME, clientName);
@@ -42,7 +42,7 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,purposeOfVisit);
         values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, dateOfVisit);
         values.put(DbConstants.VISIT_PLAN_REMARKS,remarks);
-        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_New_PLAN);
+        values.put(DbConstants.LEAD_STATUS, status);
         // Insert the new row, returning the primary key value of the new row
         open();
         int insert= (int) db.insert(DbConstants.TABLE_VISIT_PLAN, DbConstants.COLUMN_NAME_NULLABLE, values);

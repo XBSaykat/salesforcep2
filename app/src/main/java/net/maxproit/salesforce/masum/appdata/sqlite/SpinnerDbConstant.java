@@ -38,6 +38,7 @@ public class SpinnerDbConstant {
     public static final String TABLE_MANUFACTURING_YEAR = "manufacturing_year_table";
     public static final String TABLE_MANUFACTURING_COUNTRY = "manufacturing_country_table";
     public static final String TABLE_VEHICLE_TYPE = "vehicle_type_table";
+    public static final String TABLE_VALID_PHOTO = "valid_photo_table";
 
     //all Spinner
     public static final String CLIENT_TYPE_ID = "_id";
@@ -128,6 +129,9 @@ public class SpinnerDbConstant {
 
     public static final String VEHICLE_TYPE_ID = "_id";
     public static final String VEHICLE_TYPE = "vehicle_type";
+
+    public static final String VALID_PHOTO_ID = "_id";
+    public static final String VALID_PHOTO = "vehicle_type";
 
 
 
@@ -279,6 +283,11 @@ public class SpinnerDbConstant {
                     PERSONAL_LOAN_ID + " INTEGER PRIMARY KEY,"+
                     PERSONAL_LOAN + TEXT_TYPE+ ")";
 
+    public static final String SQL_SPINNER_VALID_PHOTO =
+            "CREATE TABLE " + TABLE_VALID_PHOTO +" ("+
+                    VALID_PHOTO_ID + " INTEGER PRIMARY KEY,"+
+                    VALID_PHOTO + TEXT_TYPE+ ")";
+
 
 
     public static final String SQL_DELETE_CLIENT_TYPE =
@@ -367,4 +376,7 @@ public class SpinnerDbConstant {
 
     public static final String SQL_DELETE_PERSONAL_LAON =
             "DROP TABLE IF EXISTS " + TABLE_PERSONAL_LAON;
+
+    public static final String SQL_DELETE_VALID_PHOTO =
+            "DROP TABLE IF EXISTS " + TABLE_VALID_PHOTO;
 }
