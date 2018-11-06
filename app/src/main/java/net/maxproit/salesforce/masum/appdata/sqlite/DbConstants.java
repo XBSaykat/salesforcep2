@@ -214,10 +214,7 @@ public class DbConstants {
                             PROSPECT_REMITANCE + TEXT_TYPE + COMMA_SEP +
                             PROSPECT_INTEREST_FDR + TEXT_TYPE + COMMA_SEP +
                             PROSPECT_FAMILY_EXPENSE + TEXT_TYPE + COMMA_SEP +
-                            PROSPECT_EMI_OTHER + TEXT_TYPE + COMMA_SEP +
-
-
-                            " )";
+                            PROSPECT_EMI_OTHER + TEXT_TYPE +" )";
 
 
     //visit table sql
