@@ -98,7 +98,8 @@ public class ProspectStageActivity extends AppCompatActivity {
 
                 monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
                 monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
-                etMonthlyRentalAmount = ProspectStageFinancialFragment.etMonthlyRentalAmount.getText().toString();
+//                etMonthlyRentalAmount = ProspectStageFinancialFragment.etMonthlyRentalAmount.getText().toString();
+                etMonthlyRentalAmount = "";
                 agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
                 practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
                 remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();

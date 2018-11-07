@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
@@ -51,7 +52,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
     private LinearLayout liPhotoIdNo, liPassport, liDrivingLicense, liBirthCertificate;
     private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
-
+    private RadioGroup rgExList;
 
     private SpinnerDbController spinnerDbController;
 
@@ -81,7 +82,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
-            relationship, name, dateOfAge, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
+            relationship, name, dateOfAge, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto;
 
 
@@ -130,7 +131,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
         etDateOfBirth = view.findViewById(R.id.input_date_of_birth);
-        // etPhotoIdType = view.findViewById(R.id.input_valid_photo_id_no);
+
+        etPhotoId = view.findViewById(R.id.et_photo_id_no);
         etPhotoIdDate = view.findViewById(R.id.input_valid_photo_id_issue_date);
         etETin = view.findViewById(R.id.input_etin);
         etFatherName = view.findViewById(R.id.input_father_name);
@@ -147,7 +149,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
         liPhotoIdNo.setVisibility(View.GONE);
 
-
+        rgExList = view.findViewById(R.id.rg_exlist);
         spinnerDbController = new SpinnerDbController(getActivity());
         listProductCategory = new ArrayList<String>();
         listPoroductDetail = new ArrayList<String>();
@@ -191,9 +193,25 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
         initAdapters();
         initListener();
+        getExceptionlist();
 
 
         return view;
+    }
+
+    private void getExceptionlist() {
+        switch (rgExList.getCheckedRadioButtonId()){
+
+            case R.id.rb_yes:
+                exList = "yes";
+                break;
+            case R.id.rb_no:
+                 exList = "no";
+                 break;
+                 default:
+                     exList = "no";
+                     break;
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -250,6 +268,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 datePickerDialog(getContext(), etPhotoIdDate);
             }
         });
+
+
 
         spinnerProductCat.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -391,6 +411,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
         tvPhotoIdNo.setText("" + type + " No.");
         liPhotoIdNo.setVisibility(View.VISIBLE);
+        photoIdType = type;
 
 
     }

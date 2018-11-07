@@ -34,7 +34,6 @@ public class CoApplicantDBController {
 
     public int insertData(CoApplicant coApplicant) {
         ContentValues values = new ContentValues();
-
         values.put(DbConstants.LEAD_ID_FOR_CO, coApplicant.getLeadId());
         values.put(DbConstants.LEAD_USER_NAME, coApplicant.getName());
         values.put(DbConstants.PROSPECT_SEGMENT, coApplicant.getSegment());

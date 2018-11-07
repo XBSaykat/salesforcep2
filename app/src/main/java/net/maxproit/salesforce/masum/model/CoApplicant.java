@@ -1,7 +1,9 @@
 package net.maxproit.salesforce.masum.model;
 
 
-public class CoApplicant {
+import java.io.Serializable;
+
+public class CoApplicant implements Serializable{
 
     int id, leadId;
     String  name, segment,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
@@ -65,7 +67,7 @@ public class CoApplicant {
         this.emiOfOtherLoans = emiOfOtherLoans;
     }
 //                for inserting in DB
-    public CoApplicant(String name, String segment, String dateOfBirth, String age,
+    public CoApplicant(int leadId, String name, String segment, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
                        String mName, String sName, String profession, String exList,
@@ -78,6 +80,7 @@ public class CoApplicant {
                        String monthTuitionIncomeAmount, String remittance,
                        String interestFDRIncomeAmount, String monthFamilyExpenditure,
                        String emiOfOtherLoans) {
+        this.leadId = leadId;
         this.name = name;
         this.segment = segment;
         this.dateOfBirth = dateOfBirth;

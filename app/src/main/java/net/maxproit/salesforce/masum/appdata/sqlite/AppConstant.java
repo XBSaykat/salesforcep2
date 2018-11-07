@@ -41,6 +41,7 @@ public class AppConstant {
     public static final String STATUS_RBM = "proceed to rbm";
 
     public static final String STATUS_INTENT_KEY ="status_key" ;
+    public static final String LEAD_ID_FOR_CO_INTENT_KEY ="lead_id_for_co_applicant" ;
     public static final String CO_APPLICANT_STATUS_INTENT_KEY ="co_applicant_status_key" ;
     public static final String VISITED = "visited";
     public static final int REQUEST_IMAGE_CAPTURE =0 ;

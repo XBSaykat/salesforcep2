@@ -493,18 +493,18 @@
                 android:text="Exception List" />
 
             <RadioGroup
-                android:id="@+id/radioSex"
+                android:id="@+id/rg_exlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioMale"
+                    android:id="@+id/rb_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="YES"/>
 
                 <RadioButton
-                    android:id="@+id/radioFemale"
+                    android:id="@+id/rb_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NO" />
