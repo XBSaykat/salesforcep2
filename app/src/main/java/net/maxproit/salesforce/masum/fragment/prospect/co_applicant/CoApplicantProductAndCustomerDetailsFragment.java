@@ -8,12 +8,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -26,6 +29,8 @@ import net.maxproit.salesforce.masum.model.MyNewLead;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +50,9 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private LinearLayout liNid, liPassport, liDrivingLicense, liBirthCertificate;
+    private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
+
 
     private SpinnerDbController spinnerDbController;
 
@@ -59,13 +67,14 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private List<String> listBirthCountry=null;
     private List<String> listProfession=null;
     private List<String> listRelationshipWithApplicant=null;
+    private List<String> listValidphoto=null;
 
 //    Spinner productCategory;
 //    Spinner productDetail;
 
 
     private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
-            spinnerCountOfBirth, spinnerProfession, spinnerRelationship;
+            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto;
 
     public static EditText etName, etDateOfBirth, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
@@ -73,7 +82,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, dateOfAge, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
-            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress,mobileNumber;
+            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress,mobileNumber,validPhoto;
 
 
     private SharedViewModel model;
@@ -134,6 +143,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etPresentAddress = view.findViewById(R.id.input_present_address);
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
+        liNid = view.findViewById(R.id.li_nid_no);
+        liPassport = view.findViewById(R.id.li_passport_no);
+        liBirthCertificate = view.findViewById(R.id.li_birth_certificate_no);
+        liDrivingLicense = view.findViewById(R.id.li_driving_license_no);
 
 
         spinnerDbController = new SpinnerDbController(getActivity());
@@ -148,6 +161,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         listCarloan = new ArrayList<String>();
         listHomeloan = new ArrayList<String>();
         listPersonalloan = new ArrayList<String>();
+        listValidphoto = new ArrayList<String>();
 
         listProductCategory.addAll(spinnerDbController.getProductCategoryData());
         listPoroductDetail.addAll(spinnerDbController.getProductDetailData());
@@ -160,6 +174,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         listBirthDistric.addAll(spinnerDbController.getBirthDistrictData());
         listBirthCountry.addAll(spinnerDbController.getBirthCountryData());
         listRelationshipWithApplicant.addAll(spinnerDbController.getRelationshipWithApplicantData());
+        listValidphoto.addAll(spinnerDbController.getValidPhotoData());
 
 
 
@@ -171,7 +186,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
         spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
         spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_relation_with_applicant);
-
+        spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id);
 
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
@@ -227,7 +242,14 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePickerDialog(getContext());
+                datePickerDialog(getContext(),etDateOfBirth);
+            }
+        });
+
+        etPhotoIdDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog(getContext(),etPhotoIdDate);
             }
         });
 
@@ -266,7 +288,30 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
+        etMobileNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(mobileNo);
+                if(!mobileNo.isEmpty() && matcher.matches()){
+
+                }else{
+                    etMobileNumber.setError("You entered invalid mobile no.");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         spinnerProductDetail.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -316,6 +361,35 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 relationship = s;
+            }
+        });
+
+
+        spinnerValidPhoto.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                validPhoto = s;
+                if(s.equals("NID")){
+                    liNid.setVisibility(View.VISIBLE);
+                    liPassport.setVisibility(View.GONE);
+                    liDrivingLicense.setVisibility(View.GONE);
+                    liBirthCertificate.setVisibility(View.GONE);
+                }else if(s.equals("Passport")) {
+                    liPassport.setVisibility(View.VISIBLE);
+                    liNid.setVisibility(View.GONE);
+                    liDrivingLicense.setVisibility(View.GONE);
+                    liBirthCertificate.setVisibility(View.GONE);
+                }else if(s.equals("Driving License")) {
+                    liDrivingLicense.setVisibility(View.VISIBLE);
+                    liNid.setVisibility(View.GONE);
+                    liBirthCertificate.setVisibility(View.GONE);
+                    liPassport.setVisibility(View.GONE);
+                }else if(s.equals("Birth Certificate with attested picture")) {
+                    liBirthCertificate.setVisibility(View.VISIBLE);
+                    liNid.setVisibility(View.GONE);
+                    liPassport.setVisibility(View.GONE);
+                    liDrivingLicense.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -408,19 +482,23 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 //
 //        }
 
+        ArrayAdapter<String> validPhotoId=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listValidphoto);
+        spinnerValidPhoto.setAdapter(validPhotoId);
 
 
     }
 
-    public void datePickerDialog(Context context){
+    public void datePickerDialog(Context context, EditText et){
 
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
                 String selectedDate = (dayOfMonth +"."+ month +"."+ year);
-                etDateOfBirth.getText().clear();
-                etDateOfBirth.setText(selectedDate);
+                et.getText().clear();
+                et.setText(selectedDate);
+                et.getText().clear();
+                et.setText(selectedDate);
             }
         };
 

@@ -1,14 +1,20 @@
 package net.maxproit.salesforce.masum.fragment.prospect;
 
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -20,8 +26,13 @@ import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
@@ -34,6 +45,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Calendar myCalendar = Calendar.getInstance();
 
     private LinearLayout liNid, liPassport, liDrivingLicense, liBirthCertificate;
     private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
@@ -60,7 +73,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     private  AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto;
 
-    public static EditText etName, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
+    public static EditText etName,etDob, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
                 etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
                 etPermanentAddress, etMobileNumber;
 
@@ -123,6 +136,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etPresentAddress = view.findViewById(R.id.input_present_address);
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
+        etDob = view.findViewById(R.id.input_date_of_birth);
         liNid = view.findViewById(R.id.li_nid_no);
         liPassport = view.findViewById(R.id.li_passport_no);
         liBirthCertificate = view.findViewById(R.id.li_birth_certificate_no);
@@ -175,6 +189,34 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         initListener();
 
 
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        etDob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog(getContext(),etDob);
+            }
+        });
+
+        etPhotoIdDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog(getContext(),etPhotoIdDate);
+            }
+        });
+
 
 //        productCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -211,6 +253,43 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //        });
         // Inflate the layout for this fragment
         return view;
+    }
+
+
+    public void datePickerDialog(Context context,EditText et){
+
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month += 1;
+                String selectedDate = (dayOfMonth +"."+ month +"."+ year);
+                et.getText().clear();
+                et.setText(selectedDate);
+                et.getText().clear();
+                et.setText(selectedDate);
+            }
+        };
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(context,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                listener,
+                year, month, day);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+    }
+
+
+    private void updateLabel() {
+        String myFormat = "dd-mm-yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        etDob.setText(sdf.format(myCalendar.getTime()));
+        etPhotoIdDate.setText(sdf.format(myCalendar.getTime()));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -370,7 +449,30 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
+        etMobileNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(mobileNo);
+                if(!mobileNo.isEmpty() && matcher.matches()){
+
+                }else{
+                    etMobileNumber.setError("You entered invalid mobile no.");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
 
     }
