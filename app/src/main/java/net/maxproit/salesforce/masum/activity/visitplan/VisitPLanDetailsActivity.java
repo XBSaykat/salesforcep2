@@ -1,7 +1,6 @@
 package net.maxproit.salesforce.masum.activity.visitplan;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -37,8 +36,6 @@ import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,24 +52,30 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
     public EditText tvClientType, tvVisitPurpose, tvClientName, tvMobileNumber, tvProductType, tvCity, tvPoliceStation,
             tvVisitDate, tvRemarks, etNewRemark, etNewFollowUpdate;
-    private AwesomeSpinner spinnerClientType,spinnerProductType;
+    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerPurposeOfVisit;
     private SpinnerDbController spinnerDbController;
     private TextView tvProceedToLead, tvRejected, tvSave;
     Intent myActivityItemIntent;
     int itemPosition;
-    List<String> listClientType, listProductType;
-
+    List<String> listClientType, listProductType, listPurpose;
+    private ArrayAdapter<String> productTypeAdapter;
     private LinearLayout mlayout, mLayoutCLientTypeField;
     private Button btnFollowUp;
     private ImageView backButton;
     private ArrayList<FollowUpActivity> followUpList;
-
+    private ArrayAdapter<String> adptrClientType = null;
+    ArrayAdapter<String> adptrPurpose = null;
     private ArrayList<VisitPlan> visitPlanArrayList, visitPlanFilterList;
     private VisitPlanDbController visitPlanDbController;
     private FollowUpDbController followUpDbController;
     private VisitPlan visitPlanModel = null;
-    String clientType = null;
-    private LinearLayout layoutNewRemark,layoutNewDate;
+    String spinerClientTypeStr = null;
+    String sProductTypeString = null;
+    String sPurposeOfVisitStr = null;
+    private LinearLayout layoutNewRemark, layoutNewDate, lPTypeSpinner, lPrtype, layoutPurOfvisit, lspiner_pov;
+    static final String PRE_DISBURSEMENT = "Pre- Disbursement";
+    static final String POST_DISBURSEMENT = "Post- Disbursement";
+    static final String INDIVIDUAL = "Individual";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         followUpDbController = new FollowUpDbController(getContext());
         listClientType = new ArrayList<String>();
         listProductType = new ArrayList<String>();
+        listPurpose = new ArrayList<String>();
         followUpList = new ArrayList<>();
         listProductType.addAll(spinnerDbController.getProductTypeData());
         if (!listClientType.isEmpty()) {
@@ -101,7 +105,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             followUpList.clear();
         }
         listClientType.addAll(spinnerDbController.getClientTypeData());
-
+        listPurpose.addAll(spinnerDbController.getPurposeOfVisitData());
 
     }
 
@@ -114,33 +118,67 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvPoliceStation.setText(visitPlanModel.getPoliceStation());
         tvVisitDate.setText(visitPlanModel.getDateOfVisit());
         tvRemarks.setText(visitPlanModel.getRemarks());
-        if (!visitPlanModel.getMobileNumber().equals("")) {
+
+
+        if (visitPlanModel.getProductType() != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
+            spinnerProductType.setVisibility(View.VISIBLE);
+
+            sProductTypeString = visitPlanModel.getProductType();
+            spinnerProductType.setSelection(productTypeAdapter.getPosition(visitPlanModel.getProductType()));
+        }
+        if (visitPlanModel.getClientType() != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
+
+            spinerClientTypeStr = visitPlanModel.getClientType();
+            spinnerClientType.setSelection(adptrClientType.getPosition(visitPlanModel.getClientType()));
+        }
+
+        if (visitPlanModel.getClientType() != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
+
+            sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
+            spinnerPurposeOfVisit.setSelection(adptrPurpose.getPosition(visitPlanModel.getPurposeOfVisit()));
+        }
+
+
+        if (visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
+            lPTypeSpinner.setVisibility(View.GONE);
+            mlayout.setVisibility(View.GONE);
+            lspiner_pov.setVisibility(View.GONE);
+            tvProductType.setText(visitPlanModel.getProductType());
+            lPrtype.setVisibility(View.VISIBLE);
+            tvProductType.setEnabled(false);
+            tvClientType.setEnabled(false);
+            tvClientName.setEnabled(false);
+            tvVisitPurpose.setEnabled(false);
+            tvCity.setEnabled(false);
+            tvRemarks.setEnabled(false);
+            tvVisitDate.setEnabled(false);
+            tvPoliceStation.setEnabled(false);
             tvMobileNumber.setEnabled(false);
+
+        } else {
+            layoutPurOfvisit.setVisibility(View.GONE);
+            mLayoutCLientTypeField.setVisibility(View.GONE);
+            lPrtype.setVisibility(View.GONE);
+            sPurposeOfVisitStr=visitPlanModel.getPurposeOfVisit();
         }
 
       /*  if (!visitPlanModel.getProductType().equals("")){
             tvProductType.setEnabled(false);
         }*/
 
-        tvClientType.setEnabled(false);
-        tvClientName.setEnabled(false);
-        tvVisitPurpose.setEnabled(false);
-        tvCity.setEnabled(false);
-        tvRemarks.setEnabled(false);
-        tvVisitDate.setEnabled(false);
-        tvPoliceStation.setEnabled(false);
-
 
     }
 
     private void initView() {
         setContentView(R.layout.activity_activity_details);
-//        tvClientType = (TextView)findViewById(R.id.tv_activity_details_client_type);
-        layoutNewDate=findViewById(R.id.layout_follow_up);
-        layoutNewRemark=findViewById(R.id.layout_new_remark);
+        layoutNewDate = findViewById(R.id.layout_follow_up);
+        layoutNewRemark = findViewById(R.id.layout_new_remark);
+        lspiner_pov = findViewById(R.id.lspiner_pov);
+        spinnerPurposeOfVisit = findViewById(R.id.awe_spinner_visit_plan_Purpose);
         tvVisitPurpose = findViewById(R.id.tv_activity_details_visit_Purpose);
         tvClientType = findViewById(R.id.tv_activity_details_client_type);
         mLayoutCLientTypeField = findViewById(R.id.activity_details_client_type);
+        tvProductType = findViewById(R.id.tv_activity_details_product_type);
         tvClientName = findViewById(R.id.tv_activity_details_client_name);
         tvMobileNumber = findViewById(R.id.tv_activity_details_mobile_no);
         tvCity = findViewById(R.id.tv_activity_details_city);
@@ -155,12 +193,15 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         etNewFollowUpdate = findViewById(R.id.et_new_follow_up_date);
         etNewRemark = findViewById(R.id.et_new_remark);
         btnFollowUp = findViewById(R.id.btn_show_followUp_history);
-        ArrayAdapter<String> adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
+        lPrtype = findViewById(R.id.secProductType);
+        layoutPurOfvisit = findViewById(R.id.lyout_purpose_of_visit);
+        lPTypeSpinner = findViewById(R.id.secProductTypeSpinner);
+        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
         spinnerClientType.setAdapter(adptrClientType);
-
+        adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
+        spinnerPurposeOfVisit.setAdapter(adptrPurpose);
         spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
-
-        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
+        productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
         spinnerProductType.setAdapter(productTypeAdapter);
         backButton = (ImageView) findViewById(R.id.btn_back);
         getDataFromVisitPlan();
@@ -172,7 +213,24 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         spinnerClientType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                clientType=s;
+                spinerClientTypeStr = s;
+
+            }
+        });
+
+        spinnerProductType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                sProductTypeString = s;
+            }
+        });
+
+
+        spinnerPurposeOfVisit.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                sPurposeOfVisitStr = s;
+
 
             }
         });
@@ -189,7 +247,6 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvRejected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Rejected", Toast.LENGTH_SHORT).show();
                 alertDialog();
             }
         });
@@ -229,11 +286,8 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         btnFollowUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!followUpList.isEmpty()){
+                if (!followUpList.isEmpty()) {
                     followUpAlert();
-                }
-                else {
-                    Toast.makeText(VisitPLanDetailsActivity.this, "follow up date history is empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -263,59 +317,14 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
     }
 
     private void setUpdatedData() {
-        if (visitPlanModel != null) {
-            if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
-                    !TextUtils.isEmpty(etNewRemark.getText())) {
+        if (visitPlanModel != null && visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
+            upactivityData();
 
-                int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(),
-                        visitPlanModel.getClientName(),
-                        visitPlanModel.getClientType(),
-                        tvMobileNumber.getText().toString(),
-                        visitPlanModel.getPoliceStation(),
-                        visitPlanModel.getProductType(),
-                        visitPlanModel.getCity(),
-                        visitPlanModel.getPurposeOfVisit(),
-                        etNewFollowUpdate.getText().toString(),
-                        etNewRemark.getText().toString(),
-                        visitPlanModel.getStatus()));
-                if (update > 0) {
-                    Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(VisitPLanDetailsActivity.this, "failed update", Toast.LENGTH_SHORT).show();
-
-                }
-                int insert = followUpDbController.insertData(visitPlanModel.getId(),
-                        etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
-                if (insert > 0) {
-                    Toast.makeText(this, "inserted follow", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "failed follow", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-
-                int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(),
-                        visitPlanModel.getClientName(),
-                        visitPlanModel.getClientType(),
-                        tvMobileNumber.getText().toString(),
-                        visitPlanModel.getPoliceStation(),
-                        visitPlanModel.getProductType(),
-                        visitPlanModel.getCity(),
-                        visitPlanModel.getPurposeOfVisit(),
-                        visitPlanModel.getDateOfVisit(),
-                        visitPlanModel.getRemarks(),
-                        visitPlanModel.getStatus()));
-                if (update > 0) {
-
-                    Toast.makeText(VisitPLanDetailsActivity.this, "update without follow", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(VisitPLanDetailsActivity.this, "failed  without follow", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
+        } else if (visitPlanModel != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
+            updatePlanData();
         } else {
 
-            int insert = visitPlanDbController.insertData(tvClientName.getText().toString(), clientType,
+            int insert = visitPlanDbController.insertData(tvClientName.getText().toString(), spinerClientTypeStr,
                     tvMobileNumber.getText().toString(), tvProductType.getText().toString(),
                     tvCity.getText().toString(), tvPoliceStation.getText().toString(), tvVisitPurpose.getText().toString(), tvVisitDate.getText().toString(),
                     tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY);
@@ -334,19 +343,117 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
 
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
-            mlayout.setVisibility(View.GONE);
             visitPlanModel = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
             setAllData(visitPlanModel);
             followUpList.addAll(followUpDbController.getAllData(visitPlanModel.getId()));
+            sPurposeOfVisitStr=visitPlanModel.getPurposeOfVisit();
 
         } else {
             long currentdate = System.currentTimeMillis();
             String dateString = sdf.format(currentdate);
             tvVisitDate.setText(dateString);
+            lPrtype.setVisibility(View.GONE);
             mLayoutCLientTypeField.setVisibility(View.GONE);
             btnFollowUp.setVisibility(View.GONE);
             layoutNewRemark.setVisibility(View.GONE);
+            layoutPurOfvisit.setVisibility(View.GONE);
+            layoutNewDate.setVisibility(View.GONE);
+            tvRejected.setEnabled(false);
 
+        }
+    }
+
+
+    private void upactivityData() {
+        if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
+                !TextUtils.isEmpty(etNewRemark.getText())) {
+
+            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(),
+                    visitPlanModel.getClientName(),
+                    visitPlanModel.getClientType(),
+                    tvMobileNumber.getText().toString(),
+                    visitPlanModel.getPoliceStation(),
+                    visitPlanModel.getProductType(),
+                    visitPlanModel.getCity(),
+                    visitPlanModel.getPurposeOfVisit(),
+                    etNewFollowUpdate.getText().toString(),
+                    etNewRemark.getText().toString(),
+                    visitPlanModel.getStatus()));
+            if (update > 0) {
+                Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(VisitPLanDetailsActivity.this, "failed update", Toast.LENGTH_SHORT).show();
+
+            }
+            int insert = followUpDbController.insertData(visitPlanModel.getId(),
+                    etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
+            if (insert > 0) {
+                Toast.makeText(this, "update date", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+
+            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(),
+                    visitPlanModel.getClientName(),
+                    visitPlanModel.getClientType(),
+                    tvMobileNumber.getText().toString(),
+                    visitPlanModel.getPoliceStation(),
+                    visitPlanModel.getProductType(),
+                    visitPlanModel.getCity(),
+                    visitPlanModel.getPurposeOfVisit(),
+                    visitPlanModel.getDateOfVisit(),
+                    visitPlanModel.getRemarks(),
+                    visitPlanModel.getStatus()));
+            if (update > 0) {
+
+                Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private void updatePlanData() {
+        if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
+                !TextUtils.isEmpty(etNewRemark.getText())) {
+
+            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(),
+                    tvClientName.getText().toString(),
+                    spinerClientTypeStr,
+                    tvMobileNumber.getText().toString(),
+                    tvPoliceStation.getText().toString(),
+                    sProductTypeString,
+                    tvCity.getText().toString(),
+                    sPurposeOfVisitStr,
+                    etNewFollowUpdate.getText().toString(),
+                    etNewRemark.getText().toString(),
+                    visitPlanModel.getStatus()));
+            if (update > 0) {
+                Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(VisitPLanDetailsActivity.this, "failed update", Toast.LENGTH_SHORT).show();
+
+            }
+            int insert = followUpDbController.insertData(visitPlanModel.getId(),
+                    etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
+            if (insert > 0) {
+                Toast.makeText(this, "update date", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+
+            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(),
+                    tvClientName.getText().toString(),
+                    spinerClientTypeStr,
+                    tvMobileNumber.getText().toString(),
+                    tvPoliceStation.getText().toString(),
+                    sProductTypeString,
+                    tvCity.getText().toString(),
+                    sPurposeOfVisitStr,
+                    visitPlanModel.getDateOfVisit(),
+                    visitPlanModel.getRemarks(),
+                    visitPlanModel.getStatus()));
+            if (update > 0) {
+
+                Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -407,20 +514,26 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
 
 
     private void processToLeadDetails() {
-        visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(),
-                AppConstant.VISITED);
-        VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(),
-                visitPlanModel.getClientName(),
-                visitPlanModel.getClientType(),
-                tvMobileNumber.getText().toString(),
-                visitPlanModel.getPoliceStation(),
-                visitPlanModel.getProductType(),
-                visitPlanModel.getCity(),
-                visitPlanModel.getPurposeOfVisit(),
-                visitPlanModel.getDateOfVisit(),
-                visitPlanModel.getRemarks(),
-                visitPlanModel.getStatus());
-        ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, visitPlan);
+        if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)){
+            visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(),
+                    AppConstant.VISITED);
+            VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(),
+                    visitPlanModel.getClientName(),
+                    visitPlanModel.getClientType(),
+                    tvMobileNumber.getText().toString(),
+                    visitPlanModel.getPoliceStation(),
+                    visitPlanModel.getProductType(),
+                    visitPlanModel.getCity(),
+                    visitPlanModel.getPurposeOfVisit(),
+                    visitPlanModel.getDateOfVisit(),
+                    visitPlanModel.getRemarks(),
+                    visitPlanModel.getStatus());
+            ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, visitPlan);
+        }
+        else {
+            Toast.makeText(this, "Procedd is enable for "+sPurposeOfVisitStr, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

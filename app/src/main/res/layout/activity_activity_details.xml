@@ -95,8 +95,38 @@
                     android:textSize="@dimen/text_size_16sp" />
 
             </LinearLayout>
-
             <LinearLayout
+                android:id="@+id/lspiner_pov"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
+                    android:text="Purpose of Visit" />
+
+                <!--<Spinner-->
+                <!--android:id="@+id/spinner_purpose_of_visit"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0"-->
+                <!--android:drawSelectorOnTop="true"-->
+                <!--android:textSize="20sp" />-->
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/awe_spinner_visit_plan_Purpose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Purpose" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lyout_purpose_of_visit"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -180,6 +210,28 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Product Type" />
+
+                <EditText
+                    android:id="@+id/tv_activity_details_product_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/secProductTypeSpinner"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_required"
                     android:text="Product Type" />
 
@@ -199,7 +251,6 @@
 
 
             </LinearLayout>
-
             <LinearLayout
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"

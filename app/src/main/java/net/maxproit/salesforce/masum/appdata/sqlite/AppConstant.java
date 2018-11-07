@@ -47,4 +47,17 @@ public class AppConstant {
     public static final int REQUEST_ID_CARD_CAPTURE =1 ;
     public static final int REQUEST_VCARD_CAPTURE = 2;
     public static final String STATUS_ACTIVITY ="activity" ;
+
+
+
+
+    public static final String PRE_DISBURSEMENT = "Pre- Disbursement";
+    public static final String POST_DISBURSEMENT = "Post- Disbursement";
+    public static final String INDIVIDUAL = "Individual";
+    public static final String LEAD_GENERATION = "Lead Generation";
+    public static final String FRESH = "Fresh";
+
+    public static final String DHAKA_NORTH = "Dhaka North";
+    public static final String DHAKA_SOUTH = "Dhaka South";
+    public static final String NARAYANGONJ = "Narayanganj";
 }
