@@ -106,7 +106,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
 
         spinnerMonthlyNetSalary = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_net_salary);
-        spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
+       // spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         initAdapters();
@@ -136,12 +136,12 @@ public class ProspectStageFinancialFragment extends Fragment {
             }
         });
 
-        spinnerRentalIncome.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
-                rentalIncome = s;
-            }
-        });
+//        spinnerRentalIncome.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+//            @Override
+//            public void onItemSelected(int i, String s) {
+//                rentalIncome = s;
+//            }
+//        });
     }
 
     private void initAdapters() {
@@ -154,8 +154,8 @@ public class ProspectStageFinancialFragment extends Fragment {
 //        spinnerMonthlyNetSalary.setAdapter(monthlyNetSalaryAdapter, 0);
 
 
-        ArrayAdapter<String> rentalIncome=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlyRentalSalary);
-        spinnerRentalIncome.setAdapter(rentalIncome);
+//        ArrayAdapter<String> rentalIncome=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlyRentalSalary);
+//        spinnerRentalIncome.setAdapter(rentalIncome);
 
 //        ArrayAdapter<CharSequence> monthlyRentalIncomeAdapter = ArrayAdapter.createFromResource(getContext(),
 //                R.array.monthly_rental_income,

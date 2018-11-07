@@ -241,6 +241,13 @@
         <item>Remarks 3</item>
     </string-array>
 
+    <string-array name="valid_photo_id_list">
+        <item>NID</item>
+        <item>Passport</item>
+        <item>Driving License</item>
+        <item>Birth Certificate with attested picture</item>
+    </string-array>
+
     <string name="title_activity_my_activity">MyActivityActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
@@ -248,9 +255,12 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="visit_plan">visit plan</string>
     <string name="create_plan">Do you want to create a new plan?</string>
+    <string name="create_activity">Do you want to create a new plan?</string>
+    <string name="remove">REMOVE</string>
     <string name="Reject">REJECT</string>
-    <string name="reject_item">Are you sure,want to reject this?</string>
+    <string name="reject_item">Are you sure,want to remove this?</string>
     <string name="reject_plan">Are you sure,want to reject this visit plan?</string>
+    <string name="my_activity">My Activity</string>
 </resources>
 
 

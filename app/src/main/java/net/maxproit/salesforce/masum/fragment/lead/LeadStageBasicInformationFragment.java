@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.masum.fragment.lead;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.feature.search.SearchUserActivity;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
@@ -47,6 +52,12 @@ public class LeadStageBasicInformationFragment extends Fragment {
     private List<String> listBranchArray = null;
     private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
+    public CheckBox cbExist;
+    public TextView etChif;
+    public LinearLayout liChif;
+
+    public static final int SERCH_CODE = 500;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -99,6 +110,10 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
         initView(rootView);
         initListener();
+
+
+
+
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -166,6 +181,31 @@ public class LeadStageBasicInformationFragment extends Fragment {
         etDesignattion = rootView.findViewById(R.id.et_lead_designation);
         etPhone = rootView.findViewById(R.id.et_lead_phone);
         etAddress = rootView.findViewById(R.id.et_lead_address);
+
+        cbExist = rootView.findViewById(R.id.cb_exist);
+        etChif = rootView.findViewById(R.id.etChif);
+        liChif = rootView.findViewById(R.id.liChif);
+
+        cbExist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked()) {
+                    liChif.setVisibility(View.VISIBLE);
+                } else {
+                    liChif.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        etChif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getContext(), SearchUserActivity.class), SERCH_CODE);
+            }
+        });
+
+
+
 
 //        if (!LeadStageActivity.visitPlan.getClientName().equals(null)) {
 //            etUserName.setText(LeadStageActivity.visitPlan.getMobileNumber());

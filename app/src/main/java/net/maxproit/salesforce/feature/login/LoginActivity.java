@@ -61,6 +61,7 @@ public class LoginActivity extends BaseActivity {
     String manufacturingYear[]=null;
     String manufacturingCountry[]=null;
     String vehicleType[]=null;
+    String validPhoto[]=null;
 
     @Override
     protected int getLayoutResourceId() {
@@ -354,8 +355,8 @@ public class LoginActivity extends BaseActivity {
 
         brandName = getResources().getStringArray(R.array.car_brands);
 
-        for (int i = 0; i<monthlyRentalIncome.length;i++){
-            int insert = spinnerDbController.insertBrandNameData(monthlyRentalIncome[i]);
+        for (int i = 0; i<brandName.length;i++){
+            int insert = spinnerDbController.insertBrandNameData(brandName[i]);
 
 
         }
@@ -380,6 +381,14 @@ public class LoginActivity extends BaseActivity {
 
         for (int i = 0; i<vehicleType.length;i++){
             int insert = spinnerDbController.insertVehicleTypeData(vehicleType[i]);
+
+
+        }
+
+        validPhoto = getResources().getStringArray(R.array.valid_photo_id_list);
+
+        for (int i = 0; i<validPhoto.length;i++){
+            int insert = spinnerDbController.insertValidPhotoData(validPhoto[i]);
 
 
         }

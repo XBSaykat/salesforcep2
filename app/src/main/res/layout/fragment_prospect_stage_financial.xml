@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Salary" />
+                    app:spinnerHint="Type of Salary" />
 
             </LinearLayout>
 
@@ -274,8 +274,7 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
-                    android:text="Agricultural-Income(Only for Govt. Service holders others than teachers)" />
+                    android:text="Agricultural-Income" />
 
                 <EditText
                     android:id="@+id/input_agricultural_income"
@@ -325,8 +324,7 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
-                    android:text="Remittance(Only for NRB Clients)" />
+                    android:text="Remittance" />
 
                 <EditText
                     android:id="@+id/input_remittance"

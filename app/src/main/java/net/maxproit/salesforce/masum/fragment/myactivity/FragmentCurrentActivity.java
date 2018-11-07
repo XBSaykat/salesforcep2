@@ -20,7 +20,7 @@ import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.masum.utility.FragmentUtils;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
@@ -104,9 +104,9 @@ public class FragmentCurrentActivity extends Fragment {
             visitPlanList.clear();
         }
 
-        leadList.addAll(myDbController.getCurrentData(FragmentUtils.getDateString()));
+        leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
         for (int i=0;i<leadList.size();i++){
-            if (leadList.get(i).getStatus().equals(AppConstant.LEAD_STATUS_New_PLAN)){
+            if (!leadList.get(i).getStatus().equals(AppConstant.VISITED)){
                 visitPlanList.add(leadList.get(i));
             }
         }
@@ -122,7 +122,7 @@ public class FragmentCurrentActivity extends Fragment {
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 //            @Override
 //            public boolean onQueryTextSubmit(String query) {
-//                filterList = getFilterData(leadList, query);
+//                filterList = getFilterData(followUpList, query);
 //                myLeadAdapter.setFilter(filterList);
 //                return true;
 //            }
@@ -131,7 +131,7 @@ public class FragmentCurrentActivity extends Fragment {
 //            public boolean onQueryTextChange(String newText) {
 //                // If remove data on test dataBase it Will be ok
 //                // myLeadAdapter.getFilter().filter(newText);
-//                filterList = getFilterData(leadList, newText);
+//                filterList = getFilterData(followUpList, newText);
 //                myLeadAdapter.setFilter(filterList);
 //                return true;
 //            }

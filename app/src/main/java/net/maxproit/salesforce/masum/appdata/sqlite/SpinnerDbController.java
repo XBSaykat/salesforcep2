@@ -32,9 +32,9 @@ public class SpinnerDbController {
     public int insertClientTypeData(String clientTye) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.CLIENT_TYPE, clientTye);
+        values.put(SpinnerDbConstant.CLIENT_TYPE, clientTye);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_CLIENT_TYPE, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_CLIENT_TYPE, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -42,9 +42,9 @@ public class SpinnerDbController {
     public int insertPurposeOfVisitData(String purposeOfVisit) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.PURPOSE_OF_VISIT, purposeOfVisit);
+        values.put(SpinnerDbConstant.PURPOSE_OF_VISIT, purposeOfVisit);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_PURPOSE_OF_VISIT, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_PURPOSE_OF_VISIT, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -52,9 +52,9 @@ public class SpinnerDbController {
     public int insertCityData(String city) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.CITY, city);
+        values.put(SpinnerDbConstant.CITY, city);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_CITY, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_CITY, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -62,9 +62,9 @@ public class SpinnerDbController {
     public int insertPoliceStationData(String policeStation) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.POLICE_STATION, policeStation);
+        values.put(SpinnerDbConstant.POLICE_STATION, policeStation);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_POLICE_STATION, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_POLICE_STATION, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -72,9 +72,9 @@ public class SpinnerDbController {
     public int insertBranchData(String branch) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.BRANCH, branch);
+        values.put(SpinnerDbConstant.BRANCH, branch);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_BRANCH, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_BRANCH, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -82,9 +82,9 @@ public class SpinnerDbController {
     public int insertProfessionData(String profession) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.PROFESSION, profession);
+        values.put(SpinnerDbConstant.PROFESSION, profession);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_PROFESSION, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_PROFESSION, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -92,9 +92,9 @@ public class SpinnerDbController {
     public int insertSourceOfReferenceData(String sourceOfReference) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.SOURCE_OF_REFERENCE, sourceOfReference);
+        values.put(SpinnerDbConstant.SOURCE_OF_REFERENCE, sourceOfReference);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_SOURCE_OF_REFERENCE, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_SOURCE_OF_REFERENCE, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -102,9 +102,9 @@ public class SpinnerDbController {
     public int insertProductTypeData(String productType) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.PRODUCT_TYPE, productType);
+        values.put(SpinnerDbConstant.PRODUCT_TYPE, productType);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_PRODUCT_TYPE, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_PRODUCT_TYPE, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -112,9 +112,9 @@ public class SpinnerDbController {
     public int insertProductSubcategoryData(String productSubcategory) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.PRODUCT_SUBCATEGORY, productSubcategory);
+        values.put(SpinnerDbConstant.PRODUCT_SUBCATEGORY, productSubcategory);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_PRODUCT_SUBCATEGORY, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_PRODUCT_SUBCATEGORY, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -122,9 +122,9 @@ public class SpinnerDbController {
     public int insertFollowUpData(String followUp) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.FOLLOW_UP, followUp);
+        values.put(SpinnerDbConstant.FOLLOW_UP, followUp);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_FOLLOW_UP, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_FOLLOW_UP, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -132,9 +132,9 @@ public class SpinnerDbController {
     public int insertRemarksData(String remarks) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.REMARKS, remarks);
+        values.put(SpinnerDbConstant.REMARKS, remarks);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_REMARKS, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_REMARKS, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -142,9 +142,9 @@ public class SpinnerDbController {
     public int insertProductCategoryData(String productCategory) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.PRODUCT_CATEGORY, productCategory);
+        values.put(SpinnerDbConstant.PRODUCT_CATEGORY, productCategory);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_PRODUCT_CATEGORY, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_PRODUCT_CATEGORY, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -152,9 +152,9 @@ public class SpinnerDbController {
     public int insertProductDetailData(String productDetail) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.PRODUCT_DETAIL, productDetail);
+        values.put(SpinnerDbConstant.PRODUCT_DETAIL, productDetail);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_PRODUCT_DETAIL, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_PRODUCT_DETAIL, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -162,9 +162,9 @@ public class SpinnerDbController {
     public int insertSegmentData(String segment) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.SEGMENT, segment);
+        values.put(SpinnerDbConstant.SEGMENT, segment);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_SEGMENT, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_SEGMENT, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -172,9 +172,9 @@ public class SpinnerDbController {
     public int insertBirthDistrictData(String birthDistrict) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.BIRTH_DISTRICT, birthDistrict);
+        values.put(SpinnerDbConstant.BIRTH_DISTRICT, birthDistrict);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_BIRTH_DISTRICT, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_BIRTH_DISTRICT, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -182,9 +182,9 @@ public class SpinnerDbController {
     public int insertBirthCountryData(String birthCounty) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.BIRTH_COUNTRY, birthCounty);
+        values.put(SpinnerDbConstant.BIRTH_COUNTRY, birthCounty);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_BIRTH_COUNTRY, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_BIRTH_COUNTRY, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -192,9 +192,9 @@ public class SpinnerDbController {
     public int insertRelationshipWithApplicantData(String relation) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.RELATIONSHIP_WITH_APPLICANT, relation);
+        values.put(SpinnerDbConstant.RELATIONSHIP_WITH_APPLICANT, relation);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_RELATIONSHIP_WITH_APPLICANT, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_RELATIONSHIP_WITH_APPLICANT, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -202,9 +202,9 @@ public class SpinnerDbController {
     public int insertMonthlySalarytData(String monthlySalary) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.MONTHLY_SALARY, monthlySalary);
+        values.put(SpinnerDbConstant.MONTHLY_SALARY, monthlySalary);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_MONTHLY_SALARY, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_MONTHLY_SALARY, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -212,9 +212,9 @@ public class SpinnerDbController {
     public int insertMonthlyRentalIncometData(String monthlyRental) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.MONTHLY_RENTAL_INCOME, monthlyRental);
+        values.put(SpinnerDbConstant.MONTHLY_RENTAL_INCOME, monthlyRental);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_MONTHLY_RENTAL_INCOME, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_MONTHLY_RENTAL_INCOME, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -222,9 +222,9 @@ public class SpinnerDbController {
     public int insertBrandNameData(String branch) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.BRAND_NAME, branch);
+        values.put(SpinnerDbConstant.BRAND_NAME, branch);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_BRAND_NAME, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_BRAND_NAME, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -232,9 +232,9 @@ public class SpinnerDbController {
     public int insertManufacturingYearData(String manufacturingYear) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.MANUFACTURING_YEAR, manufacturingYear);
+        values.put(SpinnerDbConstant.MANUFACTURING_YEAR, manufacturingYear);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_MANUFACTURING_YEAR, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_MANUFACTURING_YEAR, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -242,9 +242,9 @@ public class SpinnerDbController {
     public int insertManufacturingCountryData(String manufacturingCountry) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.MANUFACTURING_COUNTRY, manufacturingCountry);
+        values.put(SpinnerDbConstant.MANUFACTURING_COUNTRY, manufacturingCountry);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_MANUFACTURING_COUNTRY, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_MANUFACTURING_COUNTRY, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -252,9 +252,9 @@ public class SpinnerDbController {
     public int insertVehicleTypeData(String vehicleType) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.VEHICLE_TYPE, vehicleType);
+        values.put(SpinnerDbConstant.VEHICLE_TYPE, vehicleType);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_VEHICLE_TYPE, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_VEHICLE_TYPE, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -262,9 +262,9 @@ public class SpinnerDbController {
     public int insertDhakaNorthData(String northDhaka) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.DHAKA_NORHT_POLICE_STATION, northDhaka);
+        values.put(SpinnerDbConstant.DHAKA_NORHT_POLICE_STATION, northDhaka);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_DHAKA_NORTH_POLICE_STATION, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_DHAKA_NORTH_POLICE_STATION, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -272,9 +272,9 @@ public class SpinnerDbController {
     public int insertDhakaSouthData(String southDhaka) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.DHAKA_SOUTH_POLICE_STATION, southDhaka);
+        values.put(SpinnerDbConstant.DHAKA_SOUTH_POLICE_STATION, southDhaka);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_DHAKA_SOUTH_POLICE_STATION, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_DHAKA_SOUTH_POLICE_STATION, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -282,9 +282,9 @@ public class SpinnerDbController {
     public int insertNarayanganjData(String narayanganj) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.NARAYANGANJ_POLICE_STATION, narayanganj);
+        values.put(SpinnerDbConstant.NARAYANGANJ_POLICE_STATION, narayanganj);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_NARAYANGANJ_POLICE_STATION, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_NARAYANGANJ_POLICE_STATION, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -292,9 +292,9 @@ public class SpinnerDbController {
     public int insertHomeLoanData(String homeloan) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.HOME_LOAN, homeloan);
+        values.put(SpinnerDbConstant.HOME_LOAN, homeloan);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_HOME_LOAN, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_HOME_LOAN, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -302,9 +302,9 @@ public class SpinnerDbController {
     public int insertCarLoanData(String carloan) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.CAR_LOAN, carloan);
+        values.put(SpinnerDbConstant.CAR_LOAN, carloan);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_CAR_LOAN, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_CAR_LOAN, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -312,9 +312,20 @@ public class SpinnerDbController {
     public int insertPersonalLoanData(String personalloan) {
 
         ContentValues values = new ContentValues();
-        values.put(DbConstants.PERSONAL_LOAN, personalloan);
+        values.put(SpinnerDbConstant.PERSONAL_LOAN, personalloan);
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_PERSONAL_LAON, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_PERSONAL_LAON, DbConstants.COLUMN_NAME_NULLABLE, values);
+        close();
+        return insert;
+    }
+
+
+    public int insertValidPhotoData(String personalloan) {
+
+        ContentValues values = new ContentValues();
+        values.put(SpinnerDbConstant.VALID_PHOTO, personalloan);
+        open();
+        int insert= (int) db.insert(SpinnerDbConstant.TABLE_VALID_PHOTO, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
     }
@@ -323,13 +334,13 @@ public class SpinnerDbController {
     public ArrayList<String> getClientTypeData() {
 
         String[] projection = {
-                DbConstants.CLIENT_TYPE,
+                SpinnerDbConstant.CLIENT_TYPE,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.CLIENT_TYPE_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.CLIENT_TYPE_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_CLIENT_TYPE,  // The table name to query
+                SpinnerDbConstant.TABLE_CLIENT_TYPE,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -349,7 +360,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String clientType = c.getString(c.getColumnIndexOrThrow(DbConstants.CLIENT_TYPE));
+                    String clientType = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.CLIENT_TYPE));
                     // wrap up data list and return
                     favDataArray.add(clientType);
                 } while (c.moveToNext());
@@ -362,13 +373,13 @@ public class SpinnerDbController {
     public ArrayList<String> getPurposeOfVisitData() {
 
         String[] projection = {
-                DbConstants.PURPOSE_OF_VISIT,
+                SpinnerDbConstant.PURPOSE_OF_VISIT,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.PURPOSE_OF_VISIT_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.PURPOSE_OF_VISIT_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_PURPOSE_OF_VISIT,  // The table name to query
+                SpinnerDbConstant.TABLE_PURPOSE_OF_VISIT,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -388,7 +399,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String purposeOfVisit = c.getString(c.getColumnIndexOrThrow(DbConstants.PURPOSE_OF_VISIT));
+                    String purposeOfVisit = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.PURPOSE_OF_VISIT));
                     // wrap up data list and return
                     favDataArray.add(purposeOfVisit);
                 } while (c.moveToNext());
@@ -401,13 +412,13 @@ public class SpinnerDbController {
     public ArrayList<String> getCityData() {
 
         String[] projection = {
-                DbConstants.CITY,
+                SpinnerDbConstant.CITY,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.CITY_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.CITY_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_CITY,  // The table name to query
+                SpinnerDbConstant.TABLE_CITY,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -425,7 +436,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String city = c.getString(c.getColumnIndexOrThrow(DbConstants.CITY));
+                    String city = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.CITY));
                     // wrap up data list and return
                     favDataArray.add(city);
                 } while (c.moveToNext());
@@ -438,13 +449,13 @@ public class SpinnerDbController {
     public ArrayList<String> getPoliceSationData() {
 
         String[] projection = {
-                DbConstants.POLICE_STATION,
+                SpinnerDbConstant.POLICE_STATION,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.POLICE_STATION_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.POLICE_STATION_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_POLICE_STATION,  // The table name to query
+                SpinnerDbConstant.TABLE_POLICE_STATION,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -463,7 +474,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String policeStation = c.getString(c.getColumnIndexOrThrow(DbConstants.POLICE_STATION));
+                    String policeStation = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.POLICE_STATION));
                     // wrap up data list and return
                     favDataArray.add(policeStation);
                 } while (c.moveToNext());
@@ -476,13 +487,13 @@ public class SpinnerDbController {
     public ArrayList<String> getBranchData() {
 
         String[] projection = {
-                DbConstants.BRANCH,
+                SpinnerDbConstant.BRANCH,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.BRANCH_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.BRANCH_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_BRANCH,  // The table name to query
+                SpinnerDbConstant.TABLE_BRANCH,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -502,7 +513,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String branch = c.getString(c.getColumnIndexOrThrow(DbConstants.BRANCH));
+                    String branch = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.BRANCH));
                     // wrap up data list and return
                     favDataArray.add(branch);
                 } while (c.moveToNext());
@@ -515,13 +526,13 @@ public class SpinnerDbController {
     public ArrayList<String> getProfessionData() {
 
         String[] projection = {
-                DbConstants.PROFESSION,
+                SpinnerDbConstant.PROFESSION,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.PROFESSION_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.PROFESSION_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_PROFESSION,  // The table name to query
+                SpinnerDbConstant.TABLE_PROFESSION,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -541,7 +552,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String profession = c.getString(c.getColumnIndexOrThrow(DbConstants.PROFESSION));
+                    String profession = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.PROFESSION));
                     // wrap up data list and return
                     favDataArray.add(profession);
                 } while (c.moveToNext());
@@ -554,13 +565,13 @@ public class SpinnerDbController {
     public ArrayList<String> getSourceOfReferenceData() {
 
         String[] projection = {
-                DbConstants.SOURCE_OF_REFERENCE,
+                SpinnerDbConstant.SOURCE_OF_REFERENCE,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.SOURCE_OF_REFERENCE_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.SOURCE_OF_REFERENCE_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_SOURCE_OF_REFERENCE,  // The table name to query
+                SpinnerDbConstant.TABLE_SOURCE_OF_REFERENCE,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -580,7 +591,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String sourceOfReference = c.getString(c.getColumnIndexOrThrow(DbConstants.SOURCE_OF_REFERENCE));
+                    String sourceOfReference = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.SOURCE_OF_REFERENCE));
                     // wrap up data list and return
                     favDataArray.add(sourceOfReference);
                 } while (c.moveToNext());
@@ -593,13 +604,13 @@ public class SpinnerDbController {
     public ArrayList<String> getProductTypeData() {
 
         String[] projection = {
-                DbConstants.PRODUCT_TYPE,
+                SpinnerDbConstant.PRODUCT_TYPE,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.PRODUCT_TYPE_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.PRODUCT_TYPE_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_PRODUCT_TYPE,  // The table name to query
+                SpinnerDbConstant.TABLE_PRODUCT_TYPE,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -619,7 +630,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String productType = c.getString(c.getColumnIndexOrThrow(DbConstants.PRODUCT_TYPE));
+                    String productType = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.PRODUCT_TYPE));
                     // wrap up data list and return
                     favDataArray.add(productType);
                 } while (c.moveToNext());
@@ -632,13 +643,13 @@ public class SpinnerDbController {
     public ArrayList<String> getProductSubcategoryData() {
 
         String[] projection = {
-                DbConstants.PRODUCT_SUBCATEGORY,
+                SpinnerDbConstant.PRODUCT_SUBCATEGORY,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.PRODUCT_SUBCATEGORY_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.PRODUCT_SUBCATEGORY_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_PRODUCT_SUBCATEGORY,  // The table name to query
+                SpinnerDbConstant.TABLE_PRODUCT_SUBCATEGORY,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -658,7 +669,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String productSubcategory = c.getString(c.getColumnIndexOrThrow(DbConstants.PRODUCT_SUBCATEGORY));
+                    String productSubcategory = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.PRODUCT_SUBCATEGORY));
                     // wrap up data list and return
                     favDataArray.add(productSubcategory);
                 } while (c.moveToNext());
@@ -671,13 +682,13 @@ public class SpinnerDbController {
     public ArrayList<String> getFollowUpData() {
 
         String[] projection = {
-                DbConstants.FOLLOW_UP,
+                SpinnerDbConstant.FOLLOW_UP,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.FOLLOW_UP_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.FOLLOW_UP_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_FOLLOW_UP,  // The table name to query
+                SpinnerDbConstant.TABLE_FOLLOW_UP,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -697,7 +708,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String followUp = c.getString(c.getColumnIndexOrThrow(DbConstants.FOLLOW_UP));
+                    String followUp = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.FOLLOW_UP));
                     // wrap up data list and return
                     favDataArray.add(followUp);
                 } while (c.moveToNext());
@@ -710,13 +721,13 @@ public class SpinnerDbController {
     public ArrayList<String> getRemarkData() {
 
         String[] projection = {
-                DbConstants.REMARKS,
+                SpinnerDbConstant.REMARKS,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.REMARKS_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.REMARKS_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_REMARKS,  // The table name to query
+                SpinnerDbConstant.TABLE_REMARKS,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -736,7 +747,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String remarks = c.getString(c.getColumnIndexOrThrow(DbConstants.REMARKS));
+                    String remarks = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.REMARKS));
                     // wrap up data list and return
                     favDataArray.add(remarks);
                 } while (c.moveToNext());
@@ -749,13 +760,13 @@ public class SpinnerDbController {
     public ArrayList<String> getProductCategoryData() {
 
         String[] projection = {
-                DbConstants.PRODUCT_CATEGORY,
+                SpinnerDbConstant.PRODUCT_CATEGORY,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.PRODUCT_CATEGORY_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.PRODUCT_CATEGORY_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_PRODUCT_CATEGORY,  // The table name to query
+                SpinnerDbConstant.TABLE_PRODUCT_CATEGORY,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -775,7 +786,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String productCategory = c.getString(c.getColumnIndexOrThrow(DbConstants.PRODUCT_CATEGORY));
+                    String productCategory = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.PRODUCT_CATEGORY));
                     // wrap up data list and return
                     favDataArray.add(productCategory);
                 } while (c.moveToNext());
@@ -788,13 +799,13 @@ public class SpinnerDbController {
     public ArrayList<String> getProductDetailData() {
 
         String[] projection = {
-                DbConstants.PRODUCT_DETAIL,
+                SpinnerDbConstant.PRODUCT_DETAIL,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.PRODUCT_DETAIL_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.PRODUCT_DETAIL_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_PRODUCT_DETAIL,  // The table name to query
+                SpinnerDbConstant.TABLE_PRODUCT_DETAIL,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -814,7 +825,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String productDetail = c.getString(c.getColumnIndexOrThrow(DbConstants.PRODUCT_DETAIL));
+                    String productDetail = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.PRODUCT_DETAIL));
                     // wrap up data list and return
                     favDataArray.add(productDetail);
                 } while (c.moveToNext());
@@ -827,13 +838,13 @@ public class SpinnerDbController {
     public ArrayList<String> getSegmentData() {
 
         String[] projection = {
-                DbConstants.SEGMENT,
+                SpinnerDbConstant.SEGMENT,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.SEGMENT_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.SEGMENT_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_SEGMENT,  // The table name to query
+                SpinnerDbConstant.TABLE_SEGMENT,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -853,7 +864,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String segment = c.getString(c.getColumnIndexOrThrow(DbConstants.SEGMENT));
+                    String segment = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.SEGMENT));
                     // wrap up data list and return
                     favDataArray.add(segment);
                 } while (c.moveToNext());
@@ -866,13 +877,13 @@ public class SpinnerDbController {
     public ArrayList<String> getBirthDistrictData() {
 
         String[] projection = {
-                DbConstants.BIRTH_DISTRICT,
+                SpinnerDbConstant.BIRTH_DISTRICT,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.BIRTH_DISTRICT_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.BIRTH_DISTRICT_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_BIRTH_DISTRICT,  // The table name to query
+                SpinnerDbConstant.TABLE_BIRTH_DISTRICT,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -892,7 +903,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String birthDistrict = c.getString(c.getColumnIndexOrThrow(DbConstants.BIRTH_DISTRICT));
+                    String birthDistrict = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.BIRTH_DISTRICT));
                     // wrap up data list and return
                     favDataArray.add(birthDistrict);
                 } while (c.moveToNext());
@@ -905,13 +916,13 @@ public class SpinnerDbController {
     public ArrayList<String> getBirthCountryData() {
 
         String[] projection = {
-                DbConstants.BIRTH_COUNTRY,
+                SpinnerDbConstant.BIRTH_COUNTRY,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.BIRTH_COUNTRY_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.BIRTH_COUNTRY_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_BIRTH_COUNTRY,  // The table name to query
+                SpinnerDbConstant.TABLE_BIRTH_COUNTRY,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -931,7 +942,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String birthCountry = c.getString(c.getColumnIndexOrThrow(DbConstants.BIRTH_COUNTRY));
+                    String birthCountry = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.BIRTH_COUNTRY));
                     // wrap up data list and return
                     favDataArray.add(birthCountry);
                 } while (c.moveToNext());
@@ -944,13 +955,13 @@ public class SpinnerDbController {
     public ArrayList<String> getRelationshipWithApplicantData() {
 
         String[] projection = {
-                DbConstants.RELATIONSHIP_WITH_APPLICANT,
+                SpinnerDbConstant.RELATIONSHIP_WITH_APPLICANT,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.RELATIONSHIP_WITH_APPLICANT_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.RELATIONSHIP_WITH_APPLICANT_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_RELATIONSHIP_WITH_APPLICANT,  // The table name to query
+                SpinnerDbConstant.TABLE_RELATIONSHIP_WITH_APPLICANT,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -970,7 +981,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String relationshipWithApplicant = c.getString(c.getColumnIndexOrThrow(DbConstants.RELATIONSHIP_WITH_APPLICANT));
+                    String relationshipWithApplicant = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.RELATIONSHIP_WITH_APPLICANT));
                     // wrap up data list and return
                     favDataArray.add(relationshipWithApplicant);
                 } while (c.moveToNext());
@@ -983,13 +994,13 @@ public class SpinnerDbController {
     public ArrayList<String> getMonthlySalaryData() {
 
         String[] projection = {
-                DbConstants.MONTHLY_SALARY,
+                SpinnerDbConstant.MONTHLY_SALARY,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.MONTHLY_SALARY_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.MONTHLY_SALARY_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_MONTHLY_SALARY,  // The table name to query
+                SpinnerDbConstant.TABLE_MONTHLY_SALARY,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1009,7 +1020,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String monthlySalary = c.getString(c.getColumnIndexOrThrow(DbConstants.MONTHLY_SALARY));
+                    String monthlySalary = c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.MONTHLY_SALARY));
                     // wrap up data list and return
                     favDataArray.add(monthlySalary);
                 } while (c.moveToNext());
@@ -1022,13 +1033,13 @@ public class SpinnerDbController {
     public ArrayList<String> getMonthlyRentalIncomeData() {
 
         String[] projection = {
-                DbConstants.MONTHLY_RENTAL_INCOME,
+                SpinnerDbConstant.MONTHLY_RENTAL_INCOME,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.MONTHLY_RENTAL_INCOME_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.MONTHLY_RENTAL_INCOME_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_MONTHLY_RENTAL_INCOME,  // The table name to query
+                SpinnerDbConstant.TABLE_MONTHLY_RENTAL_INCOME,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1048,7 +1059,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String monthlyRentalIncome= c.getString(c.getColumnIndexOrThrow(DbConstants.MONTHLY_RENTAL_INCOME));
+                    String monthlyRentalIncome= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.MONTHLY_RENTAL_INCOME));
                     // wrap up data list and return
                     favDataArray.add(monthlyRentalIncome);
                 } while (c.moveToNext());
@@ -1061,13 +1072,13 @@ public class SpinnerDbController {
     public ArrayList<String> getBrandNameData() {
 
         String[] projection = {
-                DbConstants.BRAND_NAME,
+                SpinnerDbConstant.BRAND_NAME,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.BRAND_NAME_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.BRAND_NAME_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_BRAND_NAME,  // The table name to query
+                SpinnerDbConstant.TABLE_BRAND_NAME,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1087,7 +1098,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String brandName= c.getString(c.getColumnIndexOrThrow(DbConstants.BRAND_NAME));
+                    String brandName= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.BRAND_NAME));
                     // wrap up data list and return
                     favDataArray.add(brandName);
                 } while (c.moveToNext());
@@ -1100,13 +1111,13 @@ public class SpinnerDbController {
     public ArrayList<String> getManufacturingYearData() {
 
         String[] projection = {
-                DbConstants.MANUFACTURING_YEAR,
+                SpinnerDbConstant.MANUFACTURING_YEAR,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.MANUFACTURING_YEAR_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.MANUFACTURING_YEAR_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_MANUFACTURING_YEAR,  // The table name to query
+                SpinnerDbConstant.TABLE_MANUFACTURING_YEAR,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1126,7 +1137,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String manufacturingYear= c.getString(c.getColumnIndexOrThrow(DbConstants.MANUFACTURING_YEAR));
+                    String manufacturingYear= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.MANUFACTURING_YEAR));
                     // wrap up data list and return
                     favDataArray.add(manufacturingYear);
                 } while (c.moveToNext());
@@ -1139,13 +1150,13 @@ public class SpinnerDbController {
     public ArrayList<String> getManufacturingCountryData() {
 
         String[] projection = {
-                DbConstants.MANUFACTURING_COUNTRY,
+                SpinnerDbConstant.MANUFACTURING_COUNTRY,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.MANUFACTURING_COUNTRY_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.MANUFACTURING_COUNTRY_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_MANUFACTURING_COUNTRY,  // The table name to query
+                SpinnerDbConstant.TABLE_MANUFACTURING_COUNTRY,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1165,7 +1176,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String manufacturingCountry= c.getString(c.getColumnIndexOrThrow(DbConstants.MANUFACTURING_COUNTRY));
+                    String manufacturingCountry= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.MANUFACTURING_COUNTRY));
                     // wrap up data list and return
                     favDataArray.add(manufacturingCountry);
                 } while (c.moveToNext());
@@ -1178,13 +1189,13 @@ public class SpinnerDbController {
     public ArrayList<String> getVehicleTypeData() {
 
         String[] projection = {
-                DbConstants.VEHICLE_TYPE,
+                SpinnerDbConstant.VEHICLE_TYPE,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.VEHICLE_TYPE_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.VEHICLE_TYPE_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_VEHICLE_TYPE,  // The table name to query
+                SpinnerDbConstant.TABLE_VEHICLE_TYPE,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1204,7 +1215,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String vehicleType= c.getString(c.getColumnIndexOrThrow(DbConstants.VEHICLE_TYPE));
+                    String vehicleType= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.VEHICLE_TYPE));
                     // wrap up data list and return
                     favDataArray.add(vehicleType);
                 } while (c.moveToNext());
@@ -1217,13 +1228,13 @@ public class SpinnerDbController {
     public ArrayList<String> getDhakaNorthData() {
 
         String[] projection = {
-                DbConstants.DHAKA_NORHT_POLICE_STATION,
+                SpinnerDbConstant.DHAKA_NORHT_POLICE_STATION,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.DHAKA_NORHT_POLICE_STATION_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.DHAKA_NORHT_POLICE_STATION_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_DHAKA_NORTH_POLICE_STATION,  // The table name to query
+                SpinnerDbConstant.TABLE_DHAKA_NORTH_POLICE_STATION,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1243,7 +1254,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String dhakaNorth= c.getString(c.getColumnIndexOrThrow(DbConstants.DHAKA_NORHT_POLICE_STATION));
+                    String dhakaNorth= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.DHAKA_NORHT_POLICE_STATION));
                     // wrap up data list and return
                     favDataArray.add(dhakaNorth);
                 } while (c.moveToNext());
@@ -1256,13 +1267,13 @@ public class SpinnerDbController {
     public ArrayList<String> getDhakaSouthData() {
 
         String[] projection = {
-                DbConstants.DHAKA_SOUTH_POLICE_STATION,
+                SpinnerDbConstant.DHAKA_SOUTH_POLICE_STATION,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.DHAKA_SOUTH_POLICE_STATION_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.DHAKA_SOUTH_POLICE_STATION_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_DHAKA_SOUTH_POLICE_STATION,  // The table name to query
+                SpinnerDbConstant.TABLE_DHAKA_SOUTH_POLICE_STATION,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1282,7 +1293,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String dhakaSouth= c.getString(c.getColumnIndexOrThrow(DbConstants.DHAKA_SOUTH_POLICE_STATION));
+                    String dhakaSouth= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.DHAKA_SOUTH_POLICE_STATION));
                     // wrap up data list and return
                     favDataArray.add(dhakaSouth);
                 } while (c.moveToNext());
@@ -1295,13 +1306,13 @@ public class SpinnerDbController {
     public ArrayList<String> getNarayanganjData() {
 
         String[] projection = {
-                DbConstants.NARAYANGANJ_POLICE_STATION,
+                SpinnerDbConstant.NARAYANGANJ_POLICE_STATION,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.NARAYANGANJ_POLICE_STATION_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.NARAYANGANJ_POLICE_STATION_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_NARAYANGANJ_POLICE_STATION,  // The table name to query
+                SpinnerDbConstant.TABLE_NARAYANGANJ_POLICE_STATION,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1321,7 +1332,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String naranyanganj= c.getString(c.getColumnIndexOrThrow(DbConstants.NARAYANGANJ_POLICE_STATION));
+                    String naranyanganj= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.NARAYANGANJ_POLICE_STATION));
                     // wrap up data list and return
                     favDataArray.add(naranyanganj);
                 } while (c.moveToNext());
@@ -1334,13 +1345,13 @@ public class SpinnerDbController {
     public ArrayList<String> getHomeLoanData() {
 
         String[] projection = {
-                DbConstants.HOME_LOAN,
+                SpinnerDbConstant.HOME_LOAN,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.HOME_LOAN_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.HOME_LOAN_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_HOME_LOAN,  // The table name to query
+                SpinnerDbConstant.TABLE_HOME_LOAN,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1360,7 +1371,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String homeLoan= c.getString(c.getColumnIndexOrThrow(DbConstants.HOME_LOAN));
+                    String homeLoan= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.HOME_LOAN));
                     // wrap up data list and return
                     favDataArray.add(homeLoan);
                 } while (c.moveToNext());
@@ -1373,13 +1384,13 @@ public class SpinnerDbController {
     public ArrayList<String> getCarLoanData() {
 
         String[] projection = {
-                DbConstants.CAR_LOAN,
+                SpinnerDbConstant.CAR_LOAN,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.CAR_LOAN_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.CAR_LOAN_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_CAR_LOAN,  // The table name to query
+                SpinnerDbConstant.TABLE_CAR_LOAN,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1399,7 +1410,7 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String carLoan= c.getString(c.getColumnIndexOrThrow(DbConstants.CAR_LOAN));
+                    String carLoan= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.CAR_LOAN));
                     // wrap up data list and return
                     favDataArray.add(carLoan);
                 } while (c.moveToNext());
@@ -1412,13 +1423,13 @@ public class SpinnerDbController {
     public ArrayList<String> getPersonalLoanData() {
 
         String[] projection = {
-                DbConstants.PERSONAL_LOAN,
+                SpinnerDbConstant.PERSONAL_LOAN,
         };
         // How you want the results sorted in the resulting Cursor
-        String sortOrder = DbConstants.PERSONAL_LOAN_ID + " DESC";
+        String sortOrder = SpinnerDbConstant.PERSONAL_LOAN_ID + " DESC";
 
         Cursor c = db.query(
-                DbConstants.TABLE_PERSONAL_LAON,  // The table name to query
+                SpinnerDbConstant.TABLE_PERSONAL_LAON,  // The table name to query
                 projection,                               // The columns to return
                 null,                                // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
@@ -1438,9 +1449,54 @@ public class SpinnerDbController {
             if (c.moveToFirst()) {
                 do {
                     // get  the  data into array,or class variable
-                    String personalLoan= c.getString(c.getColumnIndexOrThrow(DbConstants.PERSONAL_LOAN));
+                    String personalLoan= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.PERSONAL_LOAN));
                     // wrap up data list and return
                     favDataArray.add(personalLoan);
+                } while (c.moveToNext());
+            }
+            c.close();
+        }
+        return favDataArray;
+    }
+
+
+
+
+
+
+
+    public ArrayList<String> getValidPhotoData() {
+
+        String[] projection = {
+                SpinnerDbConstant.VALID_PHOTO,
+        };
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = SpinnerDbConstant.VALID_PHOTO_ID + " DESC";
+
+        Cursor c = db.query(
+                SpinnerDbConstant.TABLE_VALID_PHOTO,  // The table name to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchValidPhotoData(c);
+    }
+
+
+    private ArrayList<String> fetchValidPhotoData(Cursor c) {
+        ArrayList<String> favDataArray = new ArrayList<>();
+
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    // get  the  data into array,or class variable
+                    String validPhoto= c.getString(c.getColumnIndexOrThrow(SpinnerDbConstant.VALID_PHOTO));
+                    // wrap up data list and return
+                    favDataArray.add(validPhoto);
                 } while (c.moveToNext());
             }
             c.close();

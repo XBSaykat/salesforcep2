@@ -130,7 +130,6 @@
 
         </activity>
         <activity android:name=".masum.activity.visitplan.MyActivitiesActivity" />
-        <activity android:name=".masum.activity.visitplan.MyActivitiesActivityNew" />
         <activity android:name=".masum.activity.visitplan.VisitPLanDetailsActivity" />
         <activity android:name=".ProspectViewRbm" />
         <activity android:name=".MyPerformancePhaseTwo" />

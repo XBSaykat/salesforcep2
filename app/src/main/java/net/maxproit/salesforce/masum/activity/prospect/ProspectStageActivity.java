@@ -19,10 +19,8 @@ import android.widget.Toast;
 
 
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
-import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
-import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialCalculatorFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageLoanAndSecurityDetailFragment;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
@@ -46,16 +44,15 @@ public class ProspectStageActivity extends AppCompatActivity {
     MyNewProspect coApplicant;
 
 
-
-
-    private TextView buttonSave, btnProceed,btnReject;
+    private TextView buttonSave, btnProceed, btnReject;
     private LinearLayout mLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead_stage);
-        btnProceed=findViewById(R.id.tv_activity_details_proceed_to_prospect);
-        btnReject=findViewById(R.id.tv_activity_details_rejected);
+        btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
+        btnReject = findViewById(R.id.tv_activity_details_rejected);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage");
         setSupportActionBar(toolbar);
@@ -75,7 +72,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         buttonSave = findViewById(R.id.btnSave);
 
-        mLayout=findViewById(R.id.btn_layout_lead);
+        mLayout = findViewById(R.id.btn_layout_lead);
         initListener();
     }
 
@@ -85,7 +82,7 @@ public class ProspectStageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 String productCat, productDetails, mybranchName, segment, countOfBirth, districtOfBirth, profession,
+                String productCat, productDetails, mybranchName, segment, countOfBirth, districtOfBirth, profession,
                         relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
                         companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber;
                 String brandName, year, country, vehicleType, securityValue, loanRequired, loanTerm, proposedInterest,
@@ -167,7 +164,7 @@ public class ProspectStageActivity extends AppCompatActivity {
                             getDataFromProspect().getDisDate(),
                             getDataFromProspect().getFollowUp(),
                             getDataFromProspect().getRemark(),
-                            AppConstant.LEAD_STATUS_PROCEED,
+                            AppConstant.STATUS_RBM,
                             productCat, productDetails,
                             segment, age, districtOfBirth,
                             countOfBirth, photoId, photoIdDate, eTin, fatherName,
@@ -179,12 +176,11 @@ public class ProspectStageActivity extends AppCompatActivity {
                             securityValue, loanRequired, loanTerm, proposedInterest,
                             fee, calculatedGrossIncome);
 
-                    int update = myLeadDbController.upDateProspectData(myNewProspect,getDataFromProspect().getId());
-                    if (update>0){
+                    int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+                    if (update > 0) {
                         Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this,DashboardSalesOfficerActivity.class,true);
-                    }
-                    else {
+                        ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, DashboardSalesOfficerActivity.class, true);
+                    } else {
                         Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
 
                     }
@@ -197,7 +193,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               alertDialog(getDataFromProspect().getId());
+                alertDialog(getDataFromProspect().getId());
             }
         });
 
@@ -253,7 +249,6 @@ public class ProspectStageActivity extends AppCompatActivity {
         adapter.addFragment(new ProspectStageFinancialFragment(), "Financials");
         adapter.addFragment(new ProspectStageLoanAndSecurityDetailFragment(), "Loan & Security Detail");
         adapter.addFragment(new ProspectStageCoApplicantFragment(), "Co-Applicant");
-        adapter.addFragment(new ProspectStageFinancialCalculatorFragment(), "Financial Calculator");
         viewPager.setAdapter(adapter);
     }
 
@@ -289,26 +284,18 @@ public class ProspectStageActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //
-            if (resultCode == RESULT_OK){
-
-                coApplicant = null;
-                Bundle bundle = data.getExtras();
-
-               if (bundle != null) {
+        if (resultCode == RESULT_OK) {
+            coApplicant = null;
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
                 coApplicant = (MyNewProspect) bundle.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
-                   Toast.makeText(getApplicationContext(),"co-applicant data saved",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "co-applicant data saved", Toast.LENGTH_LONG).show();
 
-               }
-//
-
-            }else{
-                Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
             }
 
-
-//        }else{
-//            Toast.makeText(getApplicationContext(), "request failed", Toast.LENGTH_LONG).show();
-//        }
+        } else {
+            Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
+        }
 
 
     }
