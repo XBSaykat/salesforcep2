@@ -96,7 +96,6 @@ public class ProspectStageFinancialFragment extends Fragment {
 
         etMonthlySalaryAmount = view.findViewById(R.id.input_monthly_net_salary_amount);
         etMonthlyBusinessIncome = view.findViewById(R.id.input_monthly_business_income);
-        etMonthlyRentalAmount = view.findViewById(R.id.input_monthly_rental_income_amount);
         etAgriculturalIncome = view.findViewById(R.id.input_agricultural_income);
         etPracticeConsultancyTuition = view.findViewById(R.id.input_practice_consultancy_tution);
         etRemittance = view.findViewById(R.id.input_remittance);

@@ -1,74 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".masum.fragment.lead.LeadStageAttachmentFragment">
-<LinearLayout
-    android:layout_marginTop="@dimen/size_100dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
->
+    tools:context=".masum.fragment.lead.LeadStageBasicInformationFragment">
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
-          <ImageView
-              android:id="@+id/img_atach_pp"
-              android:layout_width="@dimen/size_100dp"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              />
-          <Button
-              android:id="@+id/btn_capture_pp"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:layout_margin="@dimen/size_40dp"
-              android:text="Add Photo"
-              />
-      </LinearLayout>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/img_atach_id_card"
-            android:layout_width="@dimen/size_100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-           />
-        <Button
-            android:id="@+id/btn_atach_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/size_40dp"
-            android:text="Add  ID Card"
-            />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="@dimen/size_50dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/img_atach_v_card"
-            android:layout_width="@dimen/size_100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            />
-        <Button
-            android:id="@+id/btn_atach_v_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/size_40dp"
-            android:text="Add  Visiting Card"
-            />
-    </LinearLayout>
-</LinearLayout>
-</ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical">
+
+            <include layout="@layout/photo_atach_layout" />
+
+            <include layout="@layout/atach_id_card_layout" />
+
+            <include layout="@layout/visiting_card_atach_layout" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

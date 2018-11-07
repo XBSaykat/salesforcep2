@@ -35,6 +35,7 @@ public class MyNewProspect extends MyNewLead implements Serializable {
         this.age = age;
         this.dob = dob;
         this.cob = cob;
+        this.disDate=disDate;
         this.pIdNumber = pIdNumber;
         this.pIssueDate = pIssueDate;
         this.etin = etin;
@@ -86,6 +87,7 @@ public class MyNewProspect extends MyNewLead implements Serializable {
         this.cob = cob;
         this.pIdNumber = pIdNumber;
         this.pIssueDate = pIssueDate;
+        this.disDate=disDate;
         this.etin = etin;
         this.fName = fName;
         this.mName = mName;

@@ -42,6 +42,13 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.DHAKA_NORTH;
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.DHAKA_SOUTH;
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.INDIVIDUAL;
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.NARAYANGONJ;
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.POST_DISBURSEMENT;
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.PRE_DISBURSEMENT;
+
 
 public class VisitPlanActivity extends AppCompatActivity {
 
@@ -58,13 +65,6 @@ public class VisitPlanActivity extends AppCompatActivity {
     private VisitPlanDbController dbController;
     private SpinnerDbController spinnerDbController;
 
-
-    static final String PRE_DISBURSEMENT = "Pre- Disbursement";
-    static final String POST_DISBURSEMENT = "Post- Disbursement";
-    static final String INDIVIDUAL = "Individual";
-    static final String DHAKA_NORTH = "Dhaka North";
-    static final String DHAKA_SOUTH = "Dhaka South";
-    static final String NARAYANGONJ = "Narayanganj";
 
     private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerCity,  spinnerPoliceStation, spinnerPurposeOfVisit;
     TextView VlblClientType, lblHeading, VlblMobileNo, VlblProductType, VlblArea, VlblPurpose, VlblVisitDT, VlblRemarks, buttonSave;
@@ -418,17 +418,22 @@ public class VisitPlanActivity extends AppCompatActivity {
                 dateOfvisit= dtpVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString();
 
-                int insert=dbController.insertData(clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit,remarks,AppConstant.LEAD_STATUS_New_PLAN);
-                if (insert>0){
-                    Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
-                    Intent dashboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
-                    startActivity(dashboardIntent);
-                    finish();
-                }
-                else {
-                    Toast.makeText(VisitPlanActivity.this, "Save failed", Toast.LENGTH_SHORT).show();
+                if (isValid()){
+                    int insert=dbController.insertData(clientName, clientType, mobileNo, productType, city, policeStation,
+                            purposeOfVisit, dateOfvisit,remarks,AppConstant.LEAD_STATUS_New_PLAN);
+                    if (insert>0){
+                        Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
+                        Intent dashboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
+                        startActivity(dashboardIntent);
+                        finish();
+                    }
+                    else {
+                        Toast.makeText(VisitPlanActivity.this, "Save failed", Toast.LENGTH_SHORT).show();
 
+                    }
                 }
+
+
             }
         });
 
@@ -549,6 +554,32 @@ public class VisitPlanActivity extends AppCompatActivity {
 //        });
 
 
+    }
+
+    private boolean isValid(){
+        boolean valid=true;
+        if (clientType ==null){
+            Toast.makeText(context, "client type can't be empty", Toast.LENGTH_SHORT).show();
+            valid=false;
+        }
+
+        if (purposeOfVisit ==null){
+            Toast.makeText(context, "purposeOfVisit can't be empty", Toast.LENGTH_SHORT).show();
+            valid=false;
+        }
+
+        if (city ==null){
+            Toast.makeText(context, "City can't be empty", Toast.LENGTH_SHORT).show();
+            valid=false;
+        }
+
+        if (policeStation ==null){
+            Toast.makeText(context, "polic station can't be empty", Toast.LENGTH_SHORT).show();
+            valid=false;
+        }
+
+
+        return valid;
     }
 
 
