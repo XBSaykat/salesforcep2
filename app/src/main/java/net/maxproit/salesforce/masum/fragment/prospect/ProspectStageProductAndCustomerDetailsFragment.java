@@ -137,10 +137,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
         etDob = view.findViewById(R.id.input_date_of_birth);
-        liNid = view.findViewById(R.id.li_nid_no);
-        liPassport = view.findViewById(R.id.li_passport_no);
-        liBirthCertificate = view.findViewById(R.id.li_birth_certificate_no);
-        liDrivingLicense = view.findViewById(R.id.li_driving_license_no);
 
 
         spinnerDbController = new SpinnerDbController(getActivity());
@@ -180,7 +176,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
         spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
         spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_relation_with_applicant);
-        spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id);
+        spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id_type);
 
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);

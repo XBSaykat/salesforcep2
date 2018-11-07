@@ -67,7 +67,7 @@ public class CoApplicantActivity extends AppCompatActivity {
             public void onClick(View v) {
 //
                 int idFromLead;
-                String name, segment,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
+                String name, segment, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
                         presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,
