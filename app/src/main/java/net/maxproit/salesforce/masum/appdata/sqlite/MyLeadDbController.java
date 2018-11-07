@@ -55,7 +55,7 @@ public class MyLeadDbController {
 
     public int updateLeadData(int id,String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
-                                      interest, String fee, String disDate, String date, String follow, String remark) {
+                                      interest, String fee, String disDate, String date, String follow, String remark,String status) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
@@ -75,7 +75,7 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_VISIT_DATE, date);
         values.put(DbConstants.LEAD_FOLLOW_UP, follow);
         values.put(DbConstants.LEAD_REMARK, remark);
-        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_PROSPECT);
+        values.put(DbConstants.LEAD_STATUS, status);
 
         // Insert the new row, returning the primary key value of the new row
         return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);

@@ -28,6 +28,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -71,8 +72,6 @@ public class LeadStageLoanDetailFragment extends Fragment {
     public static final String HOME_LOAN = "Home Loan";
     public static final String CAR_LOAN = "Car Loan";
     public static final String PERSONAL_LOAN = "Personal Loan";
-
-
 //    <item>Home Loan</item>
 //    <item>Car Loan</item>
 //    <item>Personal Loan</item>
@@ -108,9 +107,26 @@ public class LeadStageLoanDetailFragment extends Fragment {
         //Inflate the layout for this fragment
         View rootView=null;
         rootView=inflater.inflate(R.layout.fragment_lead_stage_loan_detail, container, false);
+        initVariable();
         initView(rootView);
         initListener();
         return rootView;
+    }
+
+    private void initVariable() {
+        spinnerDbController =new SpinnerDbController(getActivity());
+        listSourceReference = new ArrayList<String>();
+        listProductType = new ArrayList<String>();
+        listProductSubCategory = new ArrayList<String>();
+        listCarloan = new ArrayList<String>();
+        listHomeloan = new ArrayList<String>();
+        listPersonalloan = new ArrayList<String>();
+        listSourceReference.addAll(spinnerDbController.getSourceOfReferenceData());
+        listProductType.addAll(spinnerDbController.getProductTypeData());
+        listProductSubCategory.addAll(spinnerDbController.getProductSubcategoryData());
+        listHomeloan.addAll(spinnerDbController.getHomeLoanData());
+        listCarloan.addAll(spinnerDbController.getCarLoanData());
+        listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
     }
 
     private void initListener() {
@@ -167,28 +183,16 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
     private void initView(View rootView) {
 
-        spinnerDbController =new SpinnerDbController(getActivity());
 
-        listSourceReference = new ArrayList<String>();
-        listProductType = new ArrayList<String>();
-        listProductSubCategory = new ArrayList<String>();
-        listCarloan = new ArrayList<String>();
-        listHomeloan = new ArrayList<String>();
-        listPersonalloan = new ArrayList<String>();
-        listSourceReference.addAll(spinnerDbController.getSourceOfReferenceData());
-        listProductType.addAll(spinnerDbController.getProductTypeData());
-        listProductSubCategory.addAll(spinnerDbController.getProductSubcategoryData());
-        listHomeloan.addAll(spinnerDbController.getHomeLoanData());
-        listCarloan.addAll(spinnerDbController.getCarLoanData());
-        listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
 
+        etDisbursementDate= rootView.findViewById(R.id.et_disbursement_date);
         spinnerRef=rootView.findViewById(R.id.awe_spinner_lead_reference);
         spinnerProductType=rootView.findViewById(R.id.awe_spinner_lead_product_type);
         spinnerSubCategory=rootView.findViewById(R.id.awe_spinner_lead_product_sub_type);
         etLoadAmount=rootView.findViewById(R.id.et_load_amount);
         etInterest=rootView.findViewById(R.id.et_interest);
         etFee=rootView.findViewById(R.id.et_fee);
-
+        etDisbursementDate.setText(DateUtils.getDateString());
 
         tvTentativeNumberToWord = (TextView) rootView.findViewById(R.id.tv_tentative_number_to_word);
         if(tvTentativeNumberToWord != null){
@@ -196,7 +200,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
         }
 
 
-        etDisbursementDate= (EditText) rootView.findViewById(R.id.et_disbursement_date);
+
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -342,6 +346,9 @@ public class LeadStageLoanDetailFragment extends Fragment {
                  }
 
                     catch (final IllegalStateException ignored) {
+                    }
+                    catch (NullPointerException e){
+
                     }
                     etLoadAmount.setText(myNewLead.getLoadAmount());
                     etInterest.setText(myNewLead.getOrInterest());

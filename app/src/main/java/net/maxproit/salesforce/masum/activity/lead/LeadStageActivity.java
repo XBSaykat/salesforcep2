@@ -94,132 +94,6 @@ public class LeadStageActivity extends AppCompatActivity {
         btnReject = findViewById(R.id.tv_activity_details_rejected);
         getDataFromIntent();
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-
-            /*    this.branchName = branchName;
-                this.userName = userName;
-                this.profession = profession;
-                this.organization = organization;
-                this.designation = designation;
-                this.phone = phone;
-                this.address = address;
-                this.sourceRef = sourceRef;
-                this.productType = productType;
-                this.productSubcategory = productSubcategory;
-                this.loadAmount = loadAmount;
-                this.orInterest = orInterest;
-                this.opFee = opFee;
-                this.visitDate = visitDate;
-                this.followUp = followUp;
-                this.remark = remark;
-                */
-
-
-//                if(LeadStageBasicInformationFragment.etUserName.getText()!=null ||
-//
-//
-//
-//                        LeadStageBasicInformationFragment.etUserOrganization.getText()!= null||
-//                        LeadStageBasicInformationFragment.profession != null||
-//                        LeadStageBasicInformationFragment.etDesignattion != null||
-//                        LeadStageBasicInformationFragment.etPhone != null||
-//                        LeadStageBasicInformationFragment.etAddress != null||
-//                        LeadStageLoanDetailFragment.etLoadAmount != null||
-//                        LeadStageLoanDetailFragment.etInterest != null||
-//                        LeadStageLoanDetailFragment.etFee != null||
-//                        LeadStageVisitRecordFragment.etRemark != null ||
-//                        LeadStageLoanDetailFragment.productType <= 0 ||
-//                        LeadStageLoanDetailFragment.subCategory <= 0
-//
-//
-//                        )
-
-
-//                if (LeadStageLoanDetailFragment.ref > 0 &&
-//                        LeadStageBasicInformationFragment.branchName != null &
-//                                LeadStageVisitRecordFragment.followUp != null &&
-//                        LeadStageVisitRecordFragment.visitDate != null) {
-
-                String BranchName = LeadStageBasicInformationFragment.branchName; //
-                String profession = LeadStageBasicInformationFragment.profession; //
-                String name = LeadStageBasicInformationFragment.etUserName.getText().toString(); //
-                String organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString(); //
-                String designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
-                String phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
-                String address = LeadStageBasicInformationFragment.etAddress.getText().toString();
-                String loanAmount = LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
-                String interest = LeadStageLoanDetailFragment.etInterest.getText().toString();
-                String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
-                String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
-                String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
-//                  String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
-
-                String ref = refArray[LeadStageLoanDetailFragment.ref];
-
-//                    String productType = productTypeArray[LeadStageLoanDetailFragment.productType];
-                String productType = LeadStageLoanDetailFragment.productType;
-
-//                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
-                String subCat = LeadStageLoanDetailFragment.subCategory;
-                String disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
-                String visitDate = LeadStageVisitRecordFragment.visitDate; //
-                String remark = LeadStageVisitRecordFragment.remark;
-                String followUp = LeadStageVisitRecordFragment.followUp;
-                int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
-                        designation, phone, address, ref, productType, subCat,
-                        loanAmount, interest, fee, disDate, visitDate, followUp, remark);
-                if (insert > 0) {
-                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-                }
-
-                  /*  MyNewLead myNewLead=new MyNewLead(BranchName,name,profession,organization,
-                            designation,phone,address,ref,productType,subCat,
-                            loanAmount,interest,fee,visitDate,followUp,remark);*/
-
-
-                byte[] bytesAtachpp = null;
-                byte[] bytesAtachIdCard = null;
-                byte[] bytesAtachVCard = null;
-                if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
-                        && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
-                        && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
-
-
-                    bytesAtachpp = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgAtach);
-                    bytesAtachIdCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgIdCard);
-                    bytesAtachVCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgVisitingCard);
-
-                    int insertAttach=attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
-                    if (insertAttach > 0) {
-                        Toast.makeText(LeadStageActivity.this, "Attach data save successfully", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,DashboardSalesOfficerActivity.class,true);
-
-                    } else {
-                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
-                   // Toast.makeText(LeadStageActivity.this, "Attachment Can not be Empty", Toast.LENGTH_SHORT).show();
-                }
-
-
-
-//                } else {
-//                    Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
-//                }
-
-//                Toast.makeText(LeadStageActivity.this, "save data", Toast.LENGTH_SHORT).show();
-
-            }
-        });
 
 
     }
@@ -288,7 +162,7 @@ public class LeadStageActivity extends AppCompatActivity {
         VisitPlan visitPlan = null;
         MyNewProspect myNewLead = null;
         Bundle extraDetail = getIntent().getExtras();
-        if (getIntent() != null) {
+        if (extraDetail != null) {
             int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
             Bundle bundle = new Bundle();
             if (status == 0) {
@@ -299,7 +173,6 @@ public class LeadStageActivity extends AppCompatActivity {
                 myNewLead = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
-                btnSave.setVisibility(View.GONE);
                 mLayout.setVisibility(View.VISIBLE);
 
             }
@@ -345,7 +218,7 @@ public class LeadStageActivity extends AppCompatActivity {
                 String followUp = LeadStageVisitRecordFragment.followUp;
                 int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
                         designation, phone, address, ref, productType, subCat,
-                        loanAmount, interest, fee, disDate, visitDate, followUp, remark);
+                        loanAmount, interest, fee, disDate, visitDate, followUp, remark,AppConstant.LEAD_STATUS_PROSPECT);
                 if (insert > 0) {
                     Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                     ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,DashboardSalesOfficerActivity.class,true);
@@ -361,6 +234,98 @@ public class LeadStageActivity extends AppCompatActivity {
 //                Toast.makeText(LeadStageActivity.this, "save data", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String BranchName = LeadStageBasicInformationFragment.branchName; //
+                String profession = LeadStageBasicInformationFragment.profession; //
+                String name = LeadStageBasicInformationFragment.etUserName.getText().toString(); //
+                String organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString(); //
+                String designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
+                String phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
+                String address = LeadStageBasicInformationFragment.etAddress.getText().toString();
+                String loanAmount = LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
+                String interest = LeadStageLoanDetailFragment.etInterest.getText().toString();
+                String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
+                String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
+                String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
+//                  String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
+                String ref = refArray[LeadStageLoanDetailFragment.ref];
+
+//                    String productType = productTypeArray[LeadStageLoanDetailFragment.productType];
+                String productType = LeadStageLoanDetailFragment.productType;
+
+//                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
+                String subCat = LeadStageLoanDetailFragment.subCategory;
+                String disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
+                String visitDate = LeadStageVisitRecordFragment.visitDate; //
+                String remark = LeadStageVisitRecordFragment.remark;
+                String followUp = LeadStageVisitRecordFragment.followUp;
+
+                if (finalMyNewLead !=null){
+                    int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark,AppConstant.LEAD_STATUS_NEW);
+                    if (insert > 0) {
+                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,DashboardSalesOfficerActivity.class,true);
+
+                    } else {
+                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    int  insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark);
+                    if (insert > 0) {
+                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                        byte[] bytesAtachpp = null;
+                        byte[] bytesAtachIdCard = null;
+                        byte[] bytesAtachVCard = null;
+                        if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
+                                && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
+                                && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
+
+
+                            bytesAtachpp = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgAtach);
+                            bytesAtachIdCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgIdCard);
+                            bytesAtachVCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgVisitingCard);
+
+                            int insertAttach=attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
+                            if (insertAttach > 0) {
+                                Toast.makeText(LeadStageActivity.this, "Attach data save successfully", Toast.LENGTH_SHORT).show();
+                                ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,DashboardSalesOfficerActivity.class,true);
+
+                            } else {
+                                Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            // Toast.makeText(LeadStageActivity.this, "Attachment Can not be Empty", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
+
+
+
+
+//                } else {
+//                    Toast.makeText(LeadStageActivity.this, "required filed can not be empty", Toast.LENGTH_SHORT).show();
+//                }
+
+//                Toast.makeText(LeadStageActivity.this, "save data", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
 
         btnReject.setOnClickListener(new View.OnClickListener() {
