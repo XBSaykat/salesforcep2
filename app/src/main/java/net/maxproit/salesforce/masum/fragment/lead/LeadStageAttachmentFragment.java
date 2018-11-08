@@ -16,8 +16,13 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
+import net.maxproit.salesforce.masum.model.Attachment;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.ImageUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,6 +49,8 @@ public class LeadStageAttachmentFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private TextView tvID, tvPhoto, tvVCard;
     private Uri filePathUri = null;
+    AttachmentDbController attachmentDbController;
+    ArrayList<Attachment> attachmentArrayList;
 
     public LeadStageAttachmentFragment() {
         // Required empty public constructor
@@ -81,8 +88,10 @@ public class LeadStageAttachmentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
+
         initView(rootView);
         initListener();
+        initIntentData();
         return rootView;
     }
 
@@ -174,6 +183,41 @@ public class LeadStageAttachmentFragment extends Fragment {
 
     }
 
+    private void initIntentData() {
+        if (getArguments() != null) {
+            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
+            if (status == 1) {
+                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead != null) {
+
+                    initAttachMentData(myNewLead);
+
+                }
+            }
+
+        }
+    }
+
+    private void initAttachMentData(MyNewProspect myNewLead) {
+        attachmentDbController = new AttachmentDbController(getActivity());
+        if (attachmentDbController.getAllData
+                (String.valueOf(myNewLead.getId())).size() > 0) {
+            attachmentArrayList = new ArrayList<>();
+            attachmentArrayList.addAll(attachmentDbController.getAllData(String.valueOf(myNewLead.getId())));
+            tvPhoto.setVisibility(View.GONE);
+            tvID.setVisibility(View.GONE);
+            tvVCard.setVisibility(View.GONE);
+            imgAtach.setVisibility(View.VISIBLE);
+            imgIdCard.setVisibility(View.VISIBLE);
+            imgVisitingCard.setVisibility(View.VISIBLE);
+
+            imgAtach.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getProfilePic()));
+            imgIdCard.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getIdCard()));
+            imgVisitingCard.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getVisitingCard()));
+        }
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -182,27 +226,27 @@ public class LeadStageAttachmentFragment extends Fragment {
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             imgAtach.setImageBitmap(bitmap);
-            if (data.getData()!=null){
-                imgAtach.setVisibility(View.VISIBLE);
-                tvPhoto.setVisibility(View.GONE);
-            }
+
+            imgAtach.setVisibility(View.VISIBLE);
+            tvPhoto.setVisibility(View.GONE);
+
         } else if (requestCode == AppConstant.REQUEST_ID_CARD_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             imgIdCard.setImageBitmap(bitmap);
-            if (data.getData()!=null){
-                imgIdCard.setVisibility(View.VISIBLE);
-                tvID.setVisibility(View.GONE);
-            }
+
+            imgIdCard.setVisibility(View.VISIBLE);
+            tvID.setVisibility(View.GONE);
+
 
         } else if (requestCode == AppConstant.REQUEST_VCARD_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             imgVisitingCard.setImageBitmap(bitmap);
-            if (data.getData()!=null){
-                imgVisitingCard.setVisibility(View.VISIBLE);
-                tvVCard.setVisibility(View.GONE);
-            }
+
+            imgVisitingCard.setVisibility(View.VISIBLE);
+            tvVCard.setVisibility(View.GONE);
+
         } else if (requestCode == AppConstant.REQUEST_IMAGE_CHOOSE && resultCode ==
                 RESULT_OK && data != null && data.getData() != null) {
             filePathUri = data.getData();
@@ -213,7 +257,7 @@ public class LeadStageAttachmentFragment extends Fragment {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
                 // Setting up bitmap selected image into ImageView.
                 imgAtach.setImageBitmap(bitmap);
-                if (data.getData()!=null){
+                if (data.getData() != null) {
                     imgAtach.setVisibility(View.VISIBLE);
                     tvPhoto.setVisibility(View.GONE);
                 }
@@ -232,7 +276,7 @@ public class LeadStageAttachmentFragment extends Fragment {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
                 // Setting up bitmap selected image into ImageView.
                 imgIdCard.setImageBitmap(bitmap);
-                if (data.getData()!=null){
+                if (data.getData() != null) {
                     imgIdCard.setVisibility(View.VISIBLE);
                     tvID.setVisibility(View.GONE);
                 }
@@ -252,7 +296,7 @@ public class LeadStageAttachmentFragment extends Fragment {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
                 // Setting up bitmap selected image into ImageView.
                 imgVisitingCard.setImageBitmap(bitmap);
-                if (data.getData()!=null){
+                if (data.getData() != null) {
                     imgVisitingCard.setVisibility(View.VISIBLE);
                     tvVCard.setVisibility(View.GONE);
                 }

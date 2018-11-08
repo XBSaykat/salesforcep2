@@ -23,7 +23,7 @@ public class MyLeadDbController {
 
     public int insertLeadData(String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
-                                      interest, String fee, String disDate, String date, String follow, String remark) {
+                                      interest, String fee, String disDate, String date, String follow, String remark,String status) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
@@ -43,7 +43,7 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_VISIT_DATE, date);
         values.put(DbConstants.LEAD_FOLLOW_UP, follow);
         values.put(DbConstants.LEAD_REMARK, remark);
-        values.put(DbConstants.LEAD_STATUS, AppConstant.LEAD_STATUS_NEW);
+        values.put(DbConstants.LEAD_STATUS, status);
 
         // Insert the new row, returning the primary key value of the new row
         return (int) db.insert(
@@ -368,7 +368,7 @@ public class MyLeadDbController {
                 DbConstants.TABLE_LEAD,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{AppConstant.LEAD_STATUS_PROCEED},                            // The values for the WHERE clause
+                new String[]{AppConstant.STATUS_RBM},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
