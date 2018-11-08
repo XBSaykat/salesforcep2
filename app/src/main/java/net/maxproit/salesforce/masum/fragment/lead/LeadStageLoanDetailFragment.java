@@ -57,16 +57,16 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private MyLeadDbController myLeadDbController;
     private SpinnerDbController spinnerDbController;
     private ArrayAdapter<String> productSubAdapter;
-    private List<String> listSourceReference=null;
-    private List<String> listProductType=null;
-    private List<String> listProductSubCategory=null;
-    private List<String> listCarloan=null;
-    private List<String> listHomeloan=null;
-    private List<String> listPersonalloan=null;
+    private List<String> listSourceReference = null;
+    private List<String> listProductType = null;
+    private List<String> listProductSubCategory = null;
+    private List<String> listCarloan = null;
+    private List<String> listHomeloan = null;
+    private List<String> listPersonalloan = null;
 
-    private AwesomeSpinner spinnerRef,spinnerProductType,spinnerSubCategory;
-    public static EditText etLoadAmount,etFee,etInterest,etDisbursementDate;
-    public static int ref=0;
+    private AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
+    public static EditText etLoadAmount, etFee, etInterest, etDisbursementDate;
+    public static int ref = 0;
     public static String productType = null;
     public static String subCategory = null;
 
@@ -103,8 +103,8 @@ public class LeadStageLoanDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //Inflate the layout for this fragment
-        View rootView=null;
-        rootView=inflater.inflate(R.layout.fragment_lead_stage_loan_detail, container, false);
+        View rootView = null;
+        rootView = inflater.inflate(R.layout.fragment_lead_stage_loan_detail, container, false);
         initVariable();
         initView(rootView);
         initListener();
@@ -112,7 +112,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     }
 
     private void initVariable() {
-        spinnerDbController =new SpinnerDbController(getActivity());
+        spinnerDbController = new SpinnerDbController(getActivity());
         listSourceReference = new ArrayList<String>();
         listProductType = new ArrayList<String>();
         listProductSubCategory = new ArrayList<String>();
@@ -182,21 +182,19 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private void initView(View rootView) {
 
 
-
-        etDisbursementDate= rootView.findViewById(R.id.et_disbursement_date);
-        spinnerRef=rootView.findViewById(R.id.awe_spinner_lead_reference);
-        spinnerProductType=rootView.findViewById(R.id.awe_spinner_lead_product_type);
-        spinnerSubCategory=rootView.findViewById(R.id.awe_spinner_lead_product_sub_type);
-        etLoadAmount=rootView.findViewById(R.id.et_load_amount);
-        etInterest=rootView.findViewById(R.id.et_interest);
-        etFee=rootView.findViewById(R.id.et_fee);
+        etDisbursementDate = rootView.findViewById(R.id.et_disbursement_date);
+        spinnerRef = rootView.findViewById(R.id.awe_spinner_lead_reference);
+        spinnerProductType = rootView.findViewById(R.id.awe_spinner_lead_product_type);
+        spinnerSubCategory = rootView.findViewById(R.id.awe_spinner_lead_product_sub_type);
+        etLoadAmount = rootView.findViewById(R.id.et_load_amount);
+        etInterest = rootView.findViewById(R.id.et_interest);
+        etFee = rootView.findViewById(R.id.et_fee);
         etDisbursementDate.setText(DateUtils.getDateString());
 
         tvTentativeNumberToWord = (TextView) rootView.findViewById(R.id.tv_tentative_number_to_word);
-        if(tvTentativeNumberToWord != null){
+        if (tvTentativeNumberToWord != null) {
             tvTentativeNumberToWord.setText("");
         }
-
 
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -237,7 +235,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
 
                 etLoadAmount.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -249,8 +247,8 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
                     etLoadAmount.setText(formattedString);
                     etLoadAmount.setSelection(etLoadAmount.getText().length());
-                    tvTentativeNumberToWord.setText(formattedString.isEmpty()? "" : NumberToWords.convert(longVal));
-                }catch (NumberFormatException nfe){
+                    tvTentativeNumberToWord.setText(formattedString.isEmpty() ? "" : NumberToWords.convert(longVal));
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etLoadAmount.addTextChangedListener(this);
@@ -262,13 +260,13 @@ public class LeadStageLoanDetailFragment extends Fragment {
         initSpinnerAdapter();
     }
 
-    public void datePickerDialog(Context context){
+    public void datePickerDialog(Context context) {
 
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
-                String selectedDate = (dayOfMonth +"."+ month +"."+ year);
+                String selectedDate = (dayOfMonth + "." + month + "." + year);
                 etDisbursementDate.getText().clear();
                 etDisbursementDate.setText(selectedDate);
             }
@@ -298,69 +296,56 @@ public class LeadStageLoanDetailFragment extends Fragment {
 //        ArrayAdapter<CharSequence> refAdapter = ArrayAdapter.createFromResource(getContext(), R.array.source_of_reference_array, android.R.layout.simple_spinner_item);
 //        spinnerRef.setAdapter(refAdapter, 0);
 
-        ArrayAdapter<String> sourceReferenceAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listSourceReference);
+        ArrayAdapter<String> sourceReferenceAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSourceReference);
         spinnerRef.setAdapter(sourceReferenceAdapter);
 
-        ArrayAdapter<String> productTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listProductType);
+        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProductType);
         spinnerProductType.setAdapter(productTypeAdapter);
 
 //        ArrayAdapter<CharSequence> productTypeAdapter = ArrayAdapter.createFromResource(getContext(),
 //                R.array.product_categories_array, android.R.layout.simple_spinner_item);
 //        spinnerProductType.setAdapter(productTypeAdapter, 0);
-        if (getArguments()!=null ){
+        if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
-            if (status==0){
-                VisitPlan visitPlan= (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                if (visitPlan !=null){
+            if (status == 0) {
+                VisitPlan visitPlan = (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (visitPlan != null) {
 
                 }
-            }
-            else {
-                MyNewProspect myNewLead= (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                if (myNewLead !=null){
-                 try{
-                    spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getLoanReq()));
-                    spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
+            } else {
+                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead != null) {
+                    try {
+                        spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getLoanReq()));
+                        spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
 
-                    if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)){
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
-                    }
-                    else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)){
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
+                        if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+                        } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
 
-                    }
+                        } else if (myNewLead.getProductType().equals(AppConstant.PERSONAL_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
 
-                    else if (myNewLead.getProductType().equals(AppConstant.PERSONAL_LOAN)){
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
+                        }
 
-                    }
-
-                    spinnerSubCategory.setSelection(productSubAdapter.
-                            getPosition(myNewLead.getProductSubcategory()));
-                 }
-
-                    catch (final IllegalStateException ignored) {
-                    }
-                    catch (NullPointerException e){
+                        spinnerSubCategory.setSelection(productSubAdapter.
+                                getPosition(myNewLead.getProductSubcategory()));
+                    } catch (final IllegalStateException ignored) {
+                    } catch (NullPointerException e) {
 
                     }
                     etLoadAmount.setText(myNewLead.getLoadAmount());
                     etInterest.setText(myNewLead.getOrInterest());
                     etDisbursementDate.setText(myNewLead.getDisDate());
                     etFee.setText(myNewLead.getOpFee());
-
-
                 }
-
-
             }
-
         }
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
