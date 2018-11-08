@@ -121,4 +121,9 @@
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
     </style>
+    <style name="WallSearchView" parent="Widget.AppCompat.SearchView">
+        ...
+        <item name="iconifiedByDefault">false</item>
+        <item name="colorControlActivated">#FFffffff</item>
+    </style>
 </resources>

@@ -42,14 +42,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_weight="3"
-                    android:background="@color/colorPrimary"
                     android:focusable="false"
                     app:divider="@color/green"
                     app:iconifiedByDefault="false"
                     app:queryHint="Search Activity"
                     android:shadowColor="@color/white"
-
-                    app:searchIcon="@null" />
+                    app:searchIcon="@null"
+                    android:theme="@style/WallSearchView"/>
 
                 <ImageView
                     android:id="@+id/btn_add"

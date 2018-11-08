@@ -27,14 +27,14 @@
 
             <android.support.v7.widget.SearchView
                 android:id="@+id/search_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:focusable="false"
-                app:divider="@color/green"
+                android:layout_weight="3"
+                android:shadowColor="@color/white"
                 app:iconifiedByDefault="false"
-                app:queryHint="Search Lead"
-                app:searchIcon="@null" />
+                app:queryHint="Search lead"
+                app:searchIcon="@null"
+                android:theme="@style/WallSearchView" />
 
 
         </LinearLayout>
