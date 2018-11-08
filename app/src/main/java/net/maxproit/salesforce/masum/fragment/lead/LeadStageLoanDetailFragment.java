@@ -69,9 +69,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     public static int ref=0;
     public static String productType = null;
     public static String subCategory = null;
-    public static final String HOME_LOAN = "Home Loan";
-    public static final String CAR_LOAN = "Car Loan";
-    public static final String PERSONAL_LOAN = "Personal Loan";
+
 //    <item>Home Loan</item>
 //    <item>Car Loan</item>
 //    <item>Personal Loan</item>
@@ -144,7 +142,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
 //                productType = i;
                 productType = s;
 
-                if (s.equals(HOME_LOAN)) {
+                if (s.equals(AppConstant.HOME_LOAN)) {
 //                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
 //                            R.array.hl_array, android.R.layout.simple_spinner_item);
 //                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
@@ -152,7 +150,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
                     spinnerSubCategory.setAdapter(productSubAdapter);
 
                 }
-                if (s.equals(CAR_LOAN)) {
+                if (s.equals(AppConstant.CAR_LOAN)) {
 //                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
 //                            R.array.cl_array, android.R.layout.simple_spinner_item);
 //                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
@@ -160,7 +158,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
                     spinnerSubCategory.setAdapter(productSubAdapter);
 
                 }
-                if (s.equals(PERSONAL_LOAN)) {
+                if (s.equals(AppConstant.PERSONAL_LOAN)) {
 //                    ArrayAdapter<CharSequence> productSubAdapter = ArrayAdapter.createFromResource(getContext(),
 //                            R.array.pl_array, android.R.layout.simple_spinner_item);
 //                    spinnerSubCategory.setAdapter(productSubAdapter, 0);
@@ -325,17 +323,17 @@ public class LeadStageLoanDetailFragment extends Fragment {
                     spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getLoanReq()));
                     spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
 
-                    if (myNewLead.getProductType().equals(HOME_LOAN)){
+                    if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)){
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
                     }
-                    else if (myNewLead.getProductType().equals(CAR_LOAN)){
+                    else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)){
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
 
                     }
 
-                    else if (myNewLead.getProductType().equals(PERSONAL_LOAN)){
+                    else if (myNewLead.getProductType().equals(AppConstant.PERSONAL_LOAN)){
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
 

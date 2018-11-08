@@ -33,7 +33,7 @@ public class ActivityUtils {
         }
     }
 
-    public static void invokLeadDetailForProspectStage(Activity activity, MyNewLead myNewLead){
+    public static void invokLeadDetailForProspectStage(Activity activity, MyNewProspect myNewLead){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);

@@ -118,6 +118,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvPoliceStation.setText(visitPlanModel.getPoliceStation());
         tvVisitDate.setText(visitPlanModel.getDateOfVisit());
         tvRemarks.setText(visitPlanModel.getRemarks());
+    try {
 
 
         if (visitPlanModel.getProductType() != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
@@ -137,7 +138,10 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
             spinnerPurposeOfVisit.setSelection(adptrPurpose.getPosition(visitPlanModel.getPurposeOfVisit()));
         }
+    }
+    catch (final IllegalStateException e){
 
+    }
 
         if (visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
             lPTypeSpinner.setVisibility(View.GONE);

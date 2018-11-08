@@ -218,7 +218,7 @@ public class LeadStageActivity extends AppCompatActivity {
                 String followUp = LeadStageVisitRecordFragment.followUp;
                 int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
                         designation, phone, address, ref, productType, subCat,
-                        loanAmount, interest, fee, disDate, visitDate, followUp, remark,AppConstant.LEAD_STATUS_PROSPECT);
+                        loanAmount, interest, fee, disDate, visitDate, followUp, remark,AppConstant.STATUS_NEW_PROSPECT);
                 if (insert > 0) {
                     Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                     ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,DashboardSalesOfficerActivity.class,true);

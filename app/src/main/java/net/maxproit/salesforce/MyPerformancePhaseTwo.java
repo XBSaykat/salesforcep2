@@ -119,7 +119,7 @@ public class MyPerformancePhaseTwo extends AppCompatActivity {
         tvPandingLead.setText("" + leadDbController.getAllData().size());
         tvPropectLead.setText("" + leadDbController.getProspectData().size());
         tvClosed.setText("" + leadDbController.getAllData(AppConstant.LEAD_STATUS_REJECT).size());
-        tvPendingPros.setText("" + leadDbController.getAllData(AppConstant.LEAD_STATUS_PROSPECT).size());
+        tvPendingPros.setText("" + leadDbController.getAllData(AppConstant.STATUS_NEW_PROSPECT).size());
         tvProcedPros.setText("" + leadDbController.getAllData(AppConstant.STATUS_RBM).size());
 
     }

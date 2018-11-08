@@ -21,6 +21,7 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -46,7 +47,7 @@ public class ProspectStageFinancialFragment extends Fragment {
     private List<String> listMonthlySalary=null;
     private List<String> listMonthlyRentalSalary=null;
 
-    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,etMonthlyRentalAmount,
+    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,
                     etAgriculturalIncome, etPracticeConsultancyTuition, etRemittance, etInterestIncome,
                     etMonthlyFamilyExpenditure, etEMIOfOtherLoans, etApartmentIncomeAmount, etSemipakaIncome,
                     etOfficeSpaceIncome, etWarehouseIncome;
@@ -125,7 +126,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
         if (prospectStageActivity.getDataFromProspect()!=null){
 
-            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+            MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
 
 //            etMonthlySalaryAmount.setText(myNewLead.get);
 //            etPresentAddress.setText(myNewLead.getAddress());
