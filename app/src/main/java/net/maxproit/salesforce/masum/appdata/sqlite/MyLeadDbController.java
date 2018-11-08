@@ -214,7 +214,7 @@ public class MyLeadDbController {
                 DbConstants.TABLE_LEAD,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{AppConstant.LEAD_STATUS_PROSPECT},                            // The values for the WHERE clause
+                new String[]{AppConstant.STATUS_NEW_PROSPECT},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -513,7 +513,7 @@ public class MyLeadDbController {
                 DbConstants.TABLE_LEAD,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{AppConstant.LEAD_STATUS_PROSPECT},                            // The values for the WHERE clause
+                new String[]{AppConstant.STATUS_NEW_PROSPECT},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order

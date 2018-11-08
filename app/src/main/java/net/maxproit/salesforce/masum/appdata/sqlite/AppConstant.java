@@ -22,7 +22,7 @@ public class AppConstant {
 //    public static  String LEAD_REMARK ;
 
     public static final String  LEAD_STATUS_NEW="new lead";
-    public static final String LEAD_STATUS_PROSPECT="new prospect";
+    public static final String STATUS_NEW_PROSPECT ="new prospect";
     public static final String LEAD_STATUS_REJECT ="rejected" ;
 
     public static final String INTENT_KEY ="key" ;
@@ -64,4 +64,10 @@ public class AppConstant {
     public static final String DHAKA_SOUTH = "Dhaka South";
     public static final String NARAYANGONJ = "Narayanganj";
     public static final String SELECT_IMAGE_TITLE ="title" ;
+
+
+    //product type
+    public static final String HOME_LOAN = "Home Loan";
+    public static final String CAR_LOAN = "Car Loan";
+    public static final String PERSONAL_LOAN = "Personal Loan";
 }
