@@ -135,6 +135,10 @@ public class CoApplicantActivity extends AppCompatActivity {
                     if (update > 0){
                         Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
 
+                        Intent coApplicantIntent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
+
+                        setResult(Activity.RESULT_OK, coApplicantIntent);
+
                     }
                     else {
                         Toast.makeText(CoApplicantActivity.this, "failed", Toast.LENGTH_SHORT).show();

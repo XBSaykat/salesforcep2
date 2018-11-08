@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/size_10dp"
+    android:layout_margin="@dimen/size_8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/greyWhite"
+    >
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tv_co_applicant_listview_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+
+        />
+
+</LinearLayout>
