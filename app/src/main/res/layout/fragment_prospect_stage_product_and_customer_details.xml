@@ -286,7 +286,7 @@
                 style="@style/TextViewQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Valid Photo ID No." />
+                android:text="Valid Photo ID Type" />
 
             <!--<Spinner android:id="@+id/spinner_country_of_birth"-->
             <!--android:drawSelectorOnTop="true"-->
@@ -297,7 +297,7 @@
 
 
             <com.isapanah.awesomespinner.AwesomeSpinner
-                android:id="@+id/awe_spinner_prospect_stage_valid_photo_id"
+                android:id="@+id/awe_spinner_prospect_stage_valid_photo_id_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:spinnerDirection="ltr"
@@ -306,7 +306,7 @@
 
 
         <LinearLayout
-            android:id="@+id/li_nid_no"
+            android:id="@+id/li_photo_id_no"
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -314,14 +314,15 @@
             android:visibility="gone">
 
             <TextView
+                android:id="@+id/tv_photo_id_no"
             style="@style/TextViewQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_required"
-            android:text="NID no." />
+            android:text="" />
 
             <EditText
-            android:id="@+id/et_nid_no"
+            android:id="@+id/et_photo_id_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
@@ -331,88 +332,6 @@
             android:textSize="@dimen/text_size_16sp" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/li_passport_no"
-            style="@style/LayoutQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/TextViewQuestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_required"
-                android:text="Passport no." />
-
-            <EditText
-                android:id="@+id/et_passport_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:text=""
-                android:textSize="@dimen/text_size_16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/li_driving_license_no"
-            style="@style/LayoutQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/TextViewQuestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_required"
-                android:text="Driving License no." />
-
-            <EditText
-                android:id="@+id/et_driving_license_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:text=""
-                android:textSize="@dimen/text_size_16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/li_birth_certificate_no"
-            style="@style/LayoutQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/TextViewQuestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_required"
-                android:text="Birth Certificate no." />
-
-            <EditText
-                android:id="@+id/et_birth_certificate_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:text=""
-                android:textSize="@dimen/text_size_16sp" />
-
-        </LinearLayout>
-
 
         <LinearLayout
             style="@style/LayoutQuestion"
@@ -574,18 +493,18 @@
                 android:text="Exception List" />
 
             <RadioGroup
-                android:id="@+id/radioSex"
+                android:id="@+id/rg_exlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioMale"
+                    android:id="@+id/rb_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="YES"/>
 
                 <RadioButton
-                    android:id="@+id/radioFemale"
+                    android:id="@+id/rb_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NO" />

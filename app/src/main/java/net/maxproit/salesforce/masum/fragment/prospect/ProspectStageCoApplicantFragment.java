@@ -14,6 +14,8 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.model.mylead.Mylead;
 
 import static net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity.CO_APPLICANT_REQUEST_CODE;
 
@@ -37,7 +39,8 @@ public class ProspectStageCoApplicantFragment extends Fragment {
     private String mParam2;
     private Button btnCoApplicant;
 
-
+    private static ProspectStageActivity prospectStageActivity;
+    int leadIdForCoApplicant;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,7 +80,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, container, false);
-
+        prospectStageActivity= (ProspectStageActivity) getActivity();
         btnCoApplicant = view.findViewById(R.id.btn_prospect_stage_co_applicant);
 
         initListener();
@@ -91,8 +94,10 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         btnCoApplicant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MyNewLead mylead = prospectStageActivity.getDataFromProspect();
+                leadIdForCoApplicant = mylead.getId();
                 Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
+                intent.putExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, leadIdForCoApplicant);
                 startActivityForResult(intent, 1);
 //                startActivity(new Intent(getActivity(), CoApplicantActivity.class));
 

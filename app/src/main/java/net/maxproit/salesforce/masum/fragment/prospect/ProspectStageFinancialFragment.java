@@ -47,7 +47,8 @@ public class ProspectStageFinancialFragment extends Fragment {
     private List<String> listMonthlySalary=null;
     private List<String> listMonthlyRentalSalary=null;
 
-    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,
+    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,etMonthlyWarehouseAmount,
+            etMonthlyOfficeSpaceAmount, etMonthlySemipakaAmount,etMonthlyApartmentAmount,
                     etAgriculturalIncome, etPracticeConsultancyTuition, etRemittance, etInterestIncome,
                     etMonthlyFamilyExpenditure, etEMIOfOtherLoans, etApartmentIncomeAmount, etSemipakaIncome,
                     etOfficeSpaceIncome, etWarehouseIncome;
@@ -104,6 +105,11 @@ public class ProspectStageFinancialFragment extends Fragment {
 
         etMonthlySalaryAmount = view.findViewById(R.id.input_monthly_net_salary_amount);
         etMonthlyBusinessIncome = view.findViewById(R.id.input_monthly_business_income);
+        etMonthlyWarehouseAmount = view.findViewById(R.id.input_warehouse_income_amount);
+        etMonthlyOfficeSpaceAmount = view.findViewById(R.id.input_office_space_income_amount);
+        etMonthlySemipakaAmount = view.findViewById(R.id.input_semipaka_income_amount);
+        etMonthlyApartmentAmount = view.findViewById(R.id.input_apartment_income_amount);
+//
         etAgriculturalIncome = view.findViewById(R.id.input_agricultural_income);
         etPracticeConsultancyTuition = view.findViewById(R.id.input_practice_consultancy_tution);
         etRemittance = view.findViewById(R.id.input_remittance);

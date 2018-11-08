@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -75,16 +77,18 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
     private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto;
+    private LinearLayout liPhotoIdNo;
+    private TextView tvPhotoIdNo;
 
     public static EditText etName, etDob, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
-            relationship, name, age, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
-            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
+            relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
+            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress,mobileNumber, validPhoto, photoType;
 
-
+    private RadioGroup rgExList;
     private SharedViewModel model;
 
     private OnFragmentInteractionListener mListener;
@@ -140,10 +144,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
         etDob = view.findViewById(R.id.input_date_of_birth);
-        liNid = view.findViewById(R.id.li_nid_no);
-        liPassport = view.findViewById(R.id.li_passport_no);
-        liBirthCertificate = view.findViewById(R.id.li_birth_certificate_no);
-        liDrivingLicense = view.findViewById(R.id.li_driving_license_no);
+
+        tvPhotoIdNo = view.findViewById(R.id.tv_photo_id_no);
 
 
         spinnerDbController = new SpinnerDbController(getActivity());
@@ -182,8 +184,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
         spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
         spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_relation_with_applicant);
-        spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id);
+        spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id_type);
 
+        liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
 
@@ -422,26 +425,21 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 validPhoto = s;
-                if (s.equals("NID")) {
-                    liNid.setVisibility(View.VISIBLE);
-                    liPassport.setVisibility(View.GONE);
-                    liDrivingLicense.setVisibility(View.GONE);
-                    liBirthCertificate.setVisibility(View.GONE);
-                } else if (s.equals("Passport")) {
-                    liPassport.setVisibility(View.VISIBLE);
-                    liNid.setVisibility(View.GONE);
-                    liDrivingLicense.setVisibility(View.GONE);
-                    liBirthCertificate.setVisibility(View.GONE);
-                } else if (s.equals("Driving License")) {
-                    liDrivingLicense.setVisibility(View.VISIBLE);
-                    liNid.setVisibility(View.GONE);
-                    liBirthCertificate.setVisibility(View.GONE);
-                    liPassport.setVisibility(View.GONE);
-                } else if (s.equals("Birth Certificate with attested picture")) {
-                    liBirthCertificate.setVisibility(View.VISIBLE);
-                    liNid.setVisibility(View.GONE);
-                    liPassport.setVisibility(View.GONE);
-                    liDrivingLicense.setVisibility(View.GONE);
+
+                if (i == 0) {
+                    getphotoIdNumber(s);
+
+                } else if (i == 1) {
+                    getphotoIdNumber(s);
+
+                } else if (i == 2) {
+                    getphotoIdNumber(s);
+
+                } else if (i == 3) {
+                    getphotoIdNumber(s);
+
+                } else {
+                    liPhotoIdNo.setVisibility(View.GONE);
                 }
             }
         });
@@ -470,6 +468,15 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             }
         });
+
+
+    }
+
+    private void getphotoIdNumber(String type) {
+
+        tvPhotoIdNo.setText("" + type + " No.");
+        liPhotoIdNo.setVisibility(View.VISIBLE);
+        photoIdType = type;
 
 
     }

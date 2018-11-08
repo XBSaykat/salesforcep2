@@ -5,13 +5,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -21,11 +20,8 @@ import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,12 +46,15 @@ public class CoApplicantFinancialFragment extends Fragment {
     private List<String> listMonthlySalary=null;
     private List<String> listMonthlyRentalSalary=null;
 
-    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,etMonthlyRentalAmount,
+
+
+    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,etMonthlyWarehouseAmount,
+            etMonthlyOfficeSpaceAmount,etMonthlySemipakaAmount,etMonthlyApartmentAmount,
             etAgriculturalIncome, etPracticeConsultancyTuition, etRemittance, etInterestIncome,
-            etMonthlyFamilyExpenditure, etEMIOfOtherLoans, etApartmentIncomeAmount, etSemipakaIncome,
-            etOfficeSpaceIncome, etWarehouseIncome;
+            etMonthlyFamilyExpenditure, etEMIOfOtherLoans;
+
     AwesomeSpinner spinnerMonthlyNetSalary, spinnerRentalIncome;
-    public static String monthlyNetSalary, rentalIncome;
+    public static String monthlyNetSalary, exlist, rentalIncome;
     private SharedViewModel model;
     private CoApplicantActivity coApplicantActivity;
     private OnFragmentInteractionListener mListener;
@@ -108,24 +107,28 @@ public class CoApplicantFinancialFragment extends Fragment {
 
         // Inflate the layout for this fragment
 
+
         etMonthlySalaryAmount = view.findViewById(R.id.input_monthly_net_salary_amount);
         etMonthlyBusinessIncome = view.findViewById(R.id.input_monthly_business_income);
+        etMonthlyWarehouseAmount = view.findViewById(R.id.input_warehouse_income_amount);
+        etMonthlyOfficeSpaceAmount = view.findViewById(R.id.input_office_space_income_amount);
+        etMonthlySemipakaAmount = view.findViewById(R.id.input_semipaka_income_amount);
+        etMonthlyApartmentAmount = view.findViewById(R.id.input_apartment_income_amount);
+//        etMonthlyRentalAmount = view.findViewById(R.id.input_monthly_rental_income_amount);
         etAgriculturalIncome = view.findViewById(R.id.input_agricultural_income);
         etPracticeConsultancyTuition = view.findViewById(R.id.input_practice_consultancy_tution);
         etRemittance = view.findViewById(R.id.input_remittance);
         etInterestIncome = view.findViewById(R.id.input_interest_income);
         etMonthlyFamilyExpenditure = view.findViewById(R.id.input_total_monthly_family_expenditure);
         etEMIOfOtherLoans = view.findViewById(R.id.input_emi_of_other_loans);
-        etApartmentIncomeAmount = view.findViewById(R.id.input_apartment_income_amount);
-        etSemipakaIncome = view.findViewById(R.id.input_semipaka_income_amount);
-        etOfficeSpaceIncome = view.findViewById(R.id.input_office_space_income_amount);
-        etWarehouseIncome = view.findViewById(R.id.input_warehouse_income_amount);
+
+
         spinnerMonthlyNetSalary = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_net_salary);
+      //  spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
 
 
         initAdapters();
         initListener();
-        commaSeparator();
 
         return view;
     }
@@ -140,14 +143,32 @@ public class CoApplicantFinancialFragment extends Fragment {
                 monthlyNetSalary = s;
             }
         });
-
+//
+//        spinnerRentalIncome.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+//            @Override
+//            public void onItemSelected(int i, String s) {
+//                rentalIncome = s;
+//            }
+//        });
     }
 
     private void initAdapters() {
 
         ArrayAdapter<String> monthlySalary=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlySalary);
         spinnerMonthlyNetSalary.setAdapter(monthlySalary);
+//        ArrayAdapter<CharSequence> monthlyNetSalaryAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.monthly_net_salary_array,
+//                android.R.layout.simple_spinner_item);
+//        spinnerMonthlyNetSalary.setAdapter(monthlyNetSalaryAdapter, 0);
 
+
+      /*  ArrayAdapter<String> rentalIncome=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlyRentalSalary);
+        spinnerRentalIncome.setAdapter(rentalIncome);*/
+
+//        ArrayAdapter<CharSequence> monthlyRentalIncomeAdapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.monthly_rental_income,
+//                android.R.layout.simple_spinner_item);
+//        spinnerRentalIncome.setAdapter(monthlyRentalIncomeAdapter, 0);
 
 
     }
@@ -162,7 +183,12 @@ public class CoApplicantFinancialFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -171,407 +197,18 @@ public class CoApplicantFinancialFragment extends Fragment {
         mListener = null;
     }
 
-
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void commaSeparator(){
-        etMonthlySalaryAmount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etMonthlySalaryAmount.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etMonthlySalaryAmount.setText(formattedString);
-                    etMonthlySalaryAmount.setSelection(etMonthlySalaryAmount.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etMonthlySalaryAmount.addTextChangedListener(this);
-            }
-        });
-
-        etMonthlyBusinessIncome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etMonthlyBusinessIncome.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etMonthlyBusinessIncome.setText(formattedString);
-                    etMonthlyBusinessIncome.setSelection(etMonthlyBusinessIncome.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etMonthlyBusinessIncome.addTextChangedListener(this);
-            }
-        });
-
-        etApartmentIncomeAmount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etApartmentIncomeAmount.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etApartmentIncomeAmount.setText(formattedString);
-                    etApartmentIncomeAmount.setSelection(etApartmentIncomeAmount.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etApartmentIncomeAmount.addTextChangedListener(this);
-            }
-        });
-
-        etSemipakaIncome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etSemipakaIncome.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etSemipakaIncome.setText(formattedString);
-                    etSemipakaIncome.setSelection(etSemipakaIncome.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etSemipakaIncome.addTextChangedListener(this);
-            }
-        });
-
-        etOfficeSpaceIncome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etOfficeSpaceIncome.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etOfficeSpaceIncome.setText(formattedString);
-                    etOfficeSpaceIncome.setSelection(etOfficeSpaceIncome.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etOfficeSpaceIncome.addTextChangedListener(this);
-            }
-        });
-
-        etWarehouseIncome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etWarehouseIncome.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etWarehouseIncome.setText(formattedString);
-                    etWarehouseIncome.setSelection(etWarehouseIncome.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etWarehouseIncome.addTextChangedListener(this);
-            }
-        });
-
-        etAgriculturalIncome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etAgriculturalIncome.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etAgriculturalIncome.setText(formattedString);
-                    etAgriculturalIncome.setSelection(etAgriculturalIncome.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etAgriculturalIncome.addTextChangedListener(this);
-            }
-        });
-
-        etPracticeConsultancyTuition.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etPracticeConsultancyTuition.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etPracticeConsultancyTuition.setText(formattedString);
-                    etPracticeConsultancyTuition.setSelection(etPracticeConsultancyTuition.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etPracticeConsultancyTuition.addTextChangedListener(this);
-            }
-        });
-
-        etRemittance.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etRemittance.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etRemittance.setText(formattedString);
-                    etRemittance.setSelection(etRemittance.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etRemittance.addTextChangedListener(this);
-            }
-        });
-
-        etInterestIncome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etInterestIncome.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etInterestIncome.setText(formattedString);
-                    etInterestIncome.setSelection(etInterestIncome.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etInterestIncome.addTextChangedListener(this);
-            }
-        });
-
-        etMonthlyFamilyExpenditure.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etMonthlyFamilyExpenditure.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etMonthlyFamilyExpenditure.setText(formattedString);
-                    etMonthlyFamilyExpenditure.setSelection(etMonthlyFamilyExpenditure.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etMonthlyFamilyExpenditure.addTextChangedListener(this);
-            }
-        });
-
-        etEMIOfOtherLoans.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etEMIOfOtherLoans.removeTextChangedListener(this);
-                try{
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etEMIOfOtherLoans.setText(formattedString);
-                    etEMIOfOtherLoans.setSelection(etEMIOfOtherLoans.getText().length());
-                }catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                etEMIOfOtherLoans.addTextChangedListener(this);
-            }
-        });
     }
 }

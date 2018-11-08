@@ -20,12 +20,15 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
+import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
+import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageLoanAndSecurityDetailFragment;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
@@ -40,6 +43,7 @@ public class ProspectStageActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     MyLeadDbController myLeadDbController;
+    CoApplicantDBController coApplicantDBController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
     MyNewProspect coApplicant;
     String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
@@ -50,6 +54,10 @@ public class ProspectStageActivity extends AppCompatActivity {
     String monthlyNetSalary = null, rentalIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, etMonthlyRentalAmount = null,
             agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
             monthlyFamilyExpenditure = null, emiOfOtherLoans = null;
+    ArrayList<CoApplicant> coApplicantArrayList;
+    CoApplicantListAdapter coApplicantAdapter;
+
+
 
     private TextView buttonSave, btnProceed, btnReject;
     private LinearLayout mLayout;
@@ -101,6 +109,16 @@ public class ProspectStageActivity extends AppCompatActivity {
                     interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
                     monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
                     emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
+                monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
+                monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
+//                etMonthlyRentalAmount = ProspectStageFinancialFragment.etMonthlyRentalAmount.getText().toString();
+                etMonthlyRentalAmount = "";
+                agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
+                practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
+                remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
+                interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
+                monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
+                emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
 
 
                     productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
@@ -339,16 +357,16 @@ public class ProspectStageActivity extends AppCompatActivity {
     }
 
 
-    public MyNewProspect getDataFromCoApplicant() {
-        MyNewProspect myNewProspect = null;
-        Bundle extraDetail = getIntent().getExtras();
-        if (extraDetail != null) {
-            myNewProspect = (MyNewProspect) extraDetail.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
-        }
-
-        return myNewProspect;
-
-    }
+//    public MyNewProspect getDataFromCoApplicant() {
+//        MyNewProspect myNewProspect = null;
+//        Bundle extraDetail = getIntent().getExtras();
+//        if (extraDetail != null) {
+//            myNewProspect = (MyNewProspect) extraDetail.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
+//        }
+//
+//        return myNewProspect;
+//
+//    }
 
     private boolean isValid(){
         boolean validation=true;
@@ -409,6 +427,14 @@ public class ProspectStageActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
         }
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
 
     }
