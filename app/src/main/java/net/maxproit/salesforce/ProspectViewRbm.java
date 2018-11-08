@@ -18,7 +18,7 @@ public class ProspectViewRbm extends AppCompatActivity {
             tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvMonthlyRentalIncome,
             tvRentalIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
-            tvFee;
+            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace,tvWarehouseFactoryIncome;
     ImageView backButton;
 
     @Override
@@ -68,6 +68,11 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvLoanTerm = (TextView)findViewById(R.id.tv_loan_term);
         tvInteresterRate = (TextView)findViewById(R.id.tv_proposed_interest_rate);
         tvFee = (TextView)findViewById(R.id.tv_fee);
+        tvDateOfBorth = (TextView) findViewById(R.id.tv_date_of_birth);
+        tvMultiApartmentIncome = (TextView) findViewById(R.id.tv_multi_apartment_income);
+        tvSemipakaIncome = (TextView) findViewById(R.id.tv_semipaka_income);
+        tvOfficeCommercialSpace = (TextView) findViewById(R.id.tv_office_commercial_space_income);
+        tvWarehouseFactoryIncome = (TextView) findViewById(R.id.tv_warehouse_factory_income);
 
         tvApproval = (TextView)findViewById(R.id.tv_approval);
         tvReject = (TextView)findViewById(R.id.tv_reject);
