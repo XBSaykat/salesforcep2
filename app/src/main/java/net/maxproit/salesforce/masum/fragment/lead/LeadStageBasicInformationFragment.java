@@ -112,8 +112,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
         initListener();
 
 
-
-
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -205,8 +203,6 @@ public class LeadStageBasicInformationFragment extends Fragment {
         });
 
 
-
-
 //        if (!LeadStageActivity.visitPlan.getClientName().equals(null)) {
 //            etUserName.setText(LeadStageActivity.visitPlan.getMobileNumber());
 //            etPhone.setText(LeadStageActivity.visitPlan.getPoliceStation());
@@ -269,14 +265,18 @@ public class LeadStageBasicInformationFragment extends Fragment {
                     etAddress.setText(myNewLead.getAddress());
                     etUserOrganization.setText(myNewLead.getOrganization());
                     etDesignattion.setText(myNewLead.getDesignation());
-                    if (myNewLead.getBranchName() !=null && myNewLead.getProfession() !=null) {
+                    if (myNewLead.getBranchName() != null && myNewLead.getProfession() != null) {
                         try {
                             spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
-                            spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
                         } catch (final IllegalStateException ignored) {
 
+                        } catch (NullPointerException e) {
+
                         }
-                        catch (NullPointerException e){
+                        try {
+
+                            spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
+                        } catch (final IllegalStateException ignored) {
 
                         }
                     }

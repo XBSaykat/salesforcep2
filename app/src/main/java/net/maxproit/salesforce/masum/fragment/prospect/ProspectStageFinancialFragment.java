@@ -162,7 +162,11 @@ public class ProspectStageFinancialFragment extends Fragment {
         if (prospectStageActivity.getDataFromProspect()!=null){
 
             MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
-            spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getNetSalary()));
+            try {
+                spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getNetSalary()));
+            }
+            catch (final IllegalStateException ignored) {
+            }
             etMonthlySalaryAmount.setText(myNewLead.getSalaryAmount());
             etMonthlyBusinessIncome.setText(myNewLead.getBusinessIncomeAmount());
             etApartmentIncomeAmount.setText(myNewLead.getApartmentAmount());

@@ -158,20 +158,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 //        });
         initAdapters();
         initListener();
-        if (prospectStageActivity.getDataFromProspect()!=null){
 
-            MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
-            etLoanRequired.setText(myNewLead.getLoanAmount());
-            etProposedInterest.setText(myNewLead.getOrInterest());
-            etFee.setText(myNewLead.getOpFee());
-
-
-            etSecurityValue.setText(myNewLead.getsValue());
-            etLoanRequired.setText(myNewLead.getLoanReq());
-            etLoanTerm.setText(myNewLead.getLoanTerm());
-            etProposedInterest.setText(myNewLead.getPiRate());
-            etFee.setText(myNewLead.getProspectFee());
-        }
 
         commaSeparator();
 
@@ -218,8 +205,8 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
     private void initAdapters() {
 
-        ArrayAdapter<String> brand=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBrandName);
-        spinnerBrand.setAdapter(brand);
+        ArrayAdapter<String> brandAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBrandName);
+        spinnerBrand.setAdapter(brandAdapter);
 
 //        ArrayAdapter<CharSequence> BrandAdapter = ArrayAdapter.createFromResource(getContext(),
 //                R.array.car_brands,
@@ -228,27 +215,41 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
         ArrayAdapter<String> manufacturingYear=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingYear);
         spinnerYear.setAdapter(manufacturingYear);
-//        ArrayAdapter<CharSequence> yearAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.years,
-//                android.R.layout.simple_spinner_item);
-//        spinnerYear.setAdapter(yearAdapter, 0);
-
-//        ArrayAdapter<CharSequence> countryAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.countries,
-//                android.R.layout.simple_spinner_item);
-//        spinnerCountry.setAdapter(countryAdapter, 0);
 
         ArrayAdapter<String> manufacturingCountry=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingCountry);
         spinnerCountry.setAdapter(manufacturingCountry);
 
-//        ArrayAdapter<CharSequence> vehicleAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.vehicle_types,
-//                android.R.layout.simple_spinner_item);
-//        spinnerVehicleType.setAdapter(vehicleAdapter, 0);
-
-
         ArrayAdapter<String> vehicleType=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listvehicleType);
         spinnerVehicleType.setAdapter(vehicleType);
+
+        if (prospectStageActivity.getDataFromProspect()!=null){
+
+            MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
+            etLoanRequired.setText(myNewLead.getLoanAmount());
+            etProposedInterest.setText(myNewLead.getOrInterest());
+            etFee.setText(myNewLead.getOpFee());
+
+
+            etSecurityValue.setText(myNewLead.getsValue());
+            etLoanRequired.setText(myNewLead.getLoanReq());
+            etLoanTerm.setText(myNewLead.getLoanTerm());
+            etProposedInterest.setText(myNewLead.getPiRate());
+            etFee.setText(myNewLead.getProspectFee());
+    /*        try {
+                spinnerBrand.setSelection(brandAdapter.getPosition(myNewLead.getBranchName()));
+
+            }
+            catch (final IllegalStateException ignored) {
+            }
+
+
+            try {
+                spinnerBrand.setSelection(brandAdapter.getPosition(myNewLead.getBranchName()));
+
+            }
+            catch (final IllegalStateException ignored) {
+            }*/
+        }
 
 
     }

@@ -284,7 +284,6 @@ public class LeadStageActivity extends AppCompatActivity {
                         ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                         insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
 
-
                     } else {
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                     }

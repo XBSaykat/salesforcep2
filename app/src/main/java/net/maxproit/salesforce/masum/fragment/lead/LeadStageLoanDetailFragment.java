@@ -318,6 +318,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
                 if (myNewLead != null) {
                     try {
                         spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getLoanReq()));
+
                         spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
 
                         if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
@@ -332,9 +333,12 @@ public class LeadStageLoanDetailFragment extends Fragment {
                             spinnerSubCategory.setAdapter(productSubAdapter);
 
                         }
+                        try {
 
-                        spinnerSubCategory.setSelection(productSubAdapter.
-                                getPosition(myNewLead.getProductSubcategory()));
+                            spinnerSubCategory.setSelection(productSubAdapter.
+                                    getPosition(myNewLead.getProductSubcategory()));
+                        } catch (final IllegalStateException ignored) {
+                        }
                     } catch (final IllegalStateException ignored) {
                     } catch (NullPointerException e) {
 

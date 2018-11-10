@@ -123,30 +123,43 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvPoliceStation.setText(visitPlanModel.getPoliceStation());
         tvVisitDate.setText(visitPlanModel.getDateOfVisit());
         tvRemarks.setText(visitPlanModel.getRemarks());
-    try {
+
 
 
         if (visitPlanModel.getProductType() != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
             spinnerProductType.setVisibility(View.VISIBLE);
 
             sProductTypeString = visitPlanModel.getProductType();
-            spinnerProductType.setSelection(productTypeAdapter.getPosition(visitPlanModel.getProductType()));
+            try {
+                spinnerProductType.setSelection(productTypeAdapter.getPosition(visitPlanModel.getProductType()));
+            }
+              catch (final IllegalStateException e){
+
+            }
         }
         if (visitPlanModel.getClientType() != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
 
             spinerClientTypeStr = visitPlanModel.getClientType();
-            spinnerClientType.setSelection(adptrClientType.getPosition(visitPlanModel.getClientType()));
+            try {
+                spinnerClientType.setSelection(adptrClientType.getPosition(visitPlanModel.getClientType()));
+            }
+            catch (final IllegalStateException e){
+
+            }
         }
 
         if (visitPlanModel.getClientType() != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
 
             sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
-            spinnerPurposeOfVisit.setSelection(adptrPurpose.getPosition(visitPlanModel.getPurposeOfVisit()));
-        }
-    }
-    catch (final IllegalStateException e){
+            try {
+                spinnerPurposeOfVisit.setSelection(adptrPurpose.getPosition(visitPlanModel.getPurposeOfVisit()));
+            }
+            catch (final IllegalStateException e){
 
-    }
+            }
+        }
+
+
 
         if (visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
             lPTypeSpinner.setVisibility(View.GONE);
