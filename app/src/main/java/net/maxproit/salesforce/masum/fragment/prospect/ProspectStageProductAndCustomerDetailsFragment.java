@@ -529,46 +529,81 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
             try{
                 spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
-                getphotoIdNumber(myNewLead.getpIDType());
-                etPhotoId.setText(myNewLead.getpIdNumber());
 
             }
             catch (IllegalStateException er){
 
             }
+            getphotoIdNumber(myNewLead.getpIDType());
+            etPhotoId.setText(myNewLead.getpIdNumber());
             try {
                 spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
                 spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
-                spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
-                spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
-                spinnerSegment.setSelection(segmentAdapter.getPosition(myNewLead.getSegment()));
 
                 if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);
+                    try{
                     spinnerProductDetail.setSelection(homeLoan.getPosition(myNewLead.getProductSubcategory()));
+                    }
+                    catch (final IllegalStateException ignored) {
+
+                    }
                 } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
                     ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                     spinnerProductDetail.setAdapter(carLoan);
+                    try{
                     spinnerProductDetail.setSelection(carLoan.getPosition(myNewLead.getProductSubcategory()));
 
+                    }
+                    catch (final IllegalStateException ignored) {
 
+                    }
                 } else {
                     ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                     spinnerProductDetail.setAdapter(personalLoan);
-                    spinnerProductDetail.setSelection(personalLoan.getPosition(myNewLead.getProductSubcategory()));
+                    try {
+                        spinnerProductDetail.setSelection(personalLoan.getPosition(myNewLead.getProductSubcategory()));
+                    }
+                    catch (final IllegalStateException ignored) {
+
+                    }
 
                 }
+
+
 
 
             } catch (final IllegalStateException ignored) {
 
             }
+            try{
+                spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
+
+            }
+            catch (final IllegalStateException ignored) {
+
+            }
+
+            try{
+                spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
+            }
+            catch (final IllegalStateException ignored) {
+
+            }
+            try{
+                spinnerSegment.setSelection(segmentAdapter.getPosition(myNewLead.getSegment()));
+
+            }
+            catch (final IllegalStateException ignored) {
+
+            }
+            }
 
         }
 
 
-    }
+
 
     private void setDataFromProspect(ArrayAdapter<CharSequence> adapter) {
 
