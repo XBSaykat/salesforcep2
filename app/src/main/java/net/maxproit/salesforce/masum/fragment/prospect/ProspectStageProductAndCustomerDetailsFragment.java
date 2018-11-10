@@ -516,29 +516,29 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etMotherName.setText(myNewLead.getmName());
             etSpouseName.setText(myNewLead.getsName());
             etPhotoIdDate.setText(myNewLead.getpIssueDate());
+            try{
+                spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(myNewLead.getCob()));
+                spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getDob()));
+
+            }
+            catch (final IllegalStateException e){
+
+            }
+            try{
+                spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
+                getphotoIdNumber(myNewLead.getpIDType());
+                etPhotoId.setText(myNewLead.getpIdNumber());
+
+            }
+            catch (IllegalStateException er){
+
+            }
             try {
                 spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
                 spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
                 spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
                 spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
                 spinnerSegment.setSelection(segmentAdapter.getPosition(myNewLead.getSegment()));
-                spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
-                spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getpIDType()));
-                spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(myNewLead.getpIDType()));
-                if (myNewLead.getpIDType().equals(AppConstant.BIRTH_CERTIFICATE)){
-                    etBirthCertificate.setText(View.VISIBLE);
-                    etBirthCertificate.setText(myNewLead.getpIdNumber());
-                }
-                else if (myNewLead.getpIDType().equals(AppConstant.PASSPOSRT)){
-                    etPassport.setVisibility(View.VISIBLE);
-                    etPassport.setText(myNewLead.getpIdNumber());
-                }   else if (myNewLead.getpIDType().equals(AppConstant.DRIVING_LICENSE)){
-                    etDrivingLicense.setVisibility(View.VISIBLE);
-                    etDrivingLicense.setText(myNewLead.getpIdNumber());
-                } else if (myNewLead.getpIDType().equals(AppConstant.BIRTH_CERTIFICATE)){
-                    etBirthCertificate.setVisibility(View.VISIBLE);
-                    etBirthCertificate.setText(myNewLead.getpIdNumber());
-                }
 
                 if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);

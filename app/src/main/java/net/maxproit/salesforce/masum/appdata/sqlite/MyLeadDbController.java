@@ -121,8 +121,8 @@ public class MyLeadDbController {
         values.put(DbConstants.PROSPECT_PERMANENT_ADDRESS, myProspect.getpAddress());
         values.put(DbConstants.PROSPECT_NET_SALARY_TYPE, myProspect.getNetSalary());
         values.put(DbConstants.PROSPECT_SALARY_AMOUNT, myProspect.getSalaryAmount());
-        values.put(DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT, myProspect.getApartmentAmount());
-        values.put(DbConstants.PROSPECT_APARTMENT_INCOME, myProspect.getBusinessIncomeAmount());
+        values.put(DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT, myProspect.getBusinessIncomeAmount());
+        values.put(DbConstants.PROSPECT_APARTMENT_INCOME, myProspect.getApartmentAmount());
         values.put(DbConstants.PROSPECT_SEMIPAKA_INCOME, myProspect.getSemipakaIncome());
         values.put(DbConstants.PROSPECT_OFFICE_SPACE_INCOME, myProspect.getOfficeSpaceINcome());
         values.put(DbConstants.PROSPECT_WAREHOUSE_INCOME, myProspect.getWireHouseINcome());
