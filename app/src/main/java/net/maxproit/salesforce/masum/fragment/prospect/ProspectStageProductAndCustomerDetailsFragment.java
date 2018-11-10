@@ -25,17 +25,14 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
-import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -486,20 +483,20 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> segmentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSegment);
         spinnerSegment.setAdapter(segmentAdapter);
 
-        ArrayAdapter<String> disBirth = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthDistric);
-        spinnerDistOfBirth.setAdapter(disBirth);
+        ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthDistric);
+        spinnerDistOfBirth.setAdapter(disBirthAdapter);
 
-        ArrayAdapter<String> disCountry = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthCountry);
-        spinnerCountOfBirth.setAdapter(disCountry);
+        ArrayAdapter<String> disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthCountry);
+        spinnerCountOfBirth.setAdapter(disCountryAdater);
 
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProfession);
         spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> relation = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRelationshipWithApplicant);
-        spinnerRelationship.setAdapter(relation);
+        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRelationshipWithApplicant);
+        spinnerRelationship.setAdapter(realationAdapter);
 
-        ArrayAdapter<String> validPhotoId = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);
-        spinnerValidPhoto.setAdapter(validPhotoId);
+        ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);
+        spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
 
         if (prospectStageActivity.getDataFromProspect() != null) {
 
@@ -510,11 +507,39 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etDesignation.setText(myNewLead.getDesignation());
             etMobileNumber.setText(myNewLead.getPhone());
             etCompanyName.setText(myNewLead.getOrganization());
+            etPermanentAddress.setText(myNewLead.getpAddress());
+            etNoYrsInCurrentJob.setText(myNewLead.getCurrentJob());
+            etDob.setText(myNewLead.getDateOfBirth());
+            etAge.setText(myNewLead.getAge());
+            etETin.setText(myNewLead.getEtin());
+            etFatherName.setText(myNewLead.getfName());
+            etMotherName.setText(myNewLead.getmName());
+            etSpouseName.setText(myNewLead.getsName());
+            etPhotoIdDate.setText(myNewLead.getpIssueDate());
             try {
                 spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
                 spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
                 spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
+                spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
                 spinnerSegment.setSelection(segmentAdapter.getPosition(myNewLead.getSegment()));
+                spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
+                spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getpIDType()));
+                spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(myNewLead.getpIDType()));
+                if (myNewLead.getpIDType().equals(AppConstant.BIRTH_CERTIFICATE)){
+                    etBirthCertificate.setText(View.VISIBLE);
+                    etBirthCertificate.setText(myNewLead.getpIdNumber());
+                }
+                else if (myNewLead.getpIDType().equals(AppConstant.PASSPOSRT)){
+                    etPassport.setVisibility(View.VISIBLE);
+                    etPassport.setText(myNewLead.getpIdNumber());
+                }   else if (myNewLead.getpIDType().equals(AppConstant.DRIVING_LICENSE)){
+                    etDrivingLicense.setVisibility(View.VISIBLE);
+                    etDrivingLicense.setText(myNewLead.getpIdNumber());
+                } else if (myNewLead.getpIDType().equals(AppConstant.BIRTH_CERTIFICATE)){
+                    etBirthCertificate.setVisibility(View.VISIBLE);
+                    etBirthCertificate.setText(myNewLead.getpIdNumber());
+                }
+
                 if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);

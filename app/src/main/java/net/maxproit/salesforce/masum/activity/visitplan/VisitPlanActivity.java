@@ -30,7 +30,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.Global;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 
@@ -42,12 +42,12 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.DHAKA_NORTH;
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.DHAKA_SOUTH;
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.INDIVIDUAL;
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.NARAYANGONJ;
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.POST_DISBURSEMENT;
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.PRE_DISBURSEMENT;
+import static net.maxproit.salesforce.masum.appdata.AppConstant.DHAKA_NORTH;
+import static net.maxproit.salesforce.masum.appdata.AppConstant.DHAKA_SOUTH;
+import static net.maxproit.salesforce.masum.appdata.AppConstant.INDIVIDUAL;
+import static net.maxproit.salesforce.masum.appdata.AppConstant.NARAYANGONJ;
+import static net.maxproit.salesforce.masum.appdata.AppConstant.POST_DISBURSEMENT;
+import static net.maxproit.salesforce.masum.appdata.AppConstant.PRE_DISBURSEMENT;
 
 
 public class VisitPlanActivity extends AppCompatActivity {

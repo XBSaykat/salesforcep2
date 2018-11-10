@@ -130,16 +130,6 @@ public class ProspectStageFinancialFragment extends Fragment {
         initListener();
 
 
-        if (prospectStageActivity.getDataFromProspect()!=null){
-
-            MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
-
-//            etMonthlySalaryAmount.setText(myNewLead.get);
-//            etPresentAddress.setText(myNewLead.getAddress());
-//            etDesignation.setText(myNewLead.getDesignation());
-//            etMobileNumber.setText(myNewLead.getPhone());
-//            etPresentAddress.setText(myNewLead.getAddress());
-        }
 
         commaSeparator();
 
@@ -165,22 +155,27 @@ public class ProspectStageFinancialFragment extends Fragment {
 
     private void initAdapters() {
 
-        ArrayAdapter<String> monthlySalary=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlySalary);
-        spinnerMonthlyNetSalary.setAdapter(monthlySalary);
-//        ArrayAdapter<CharSequence> monthlyNetSalaryAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.monthly_net_salary_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerMonthlyNetSalary.setAdapter(monthlyNetSalaryAdapter, 0);
+        ArrayAdapter<String> monthlySalaryAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlySalary);
+        spinnerMonthlyNetSalary.setAdapter(monthlySalaryAdapter);
 
 
-//        ArrayAdapter<String> rentalIncome=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlyRentalSalary);
-//        spinnerRentalIncome.setAdapter(rentalIncome);
+        if (prospectStageActivity.getDataFromProspect()!=null){
 
-//        ArrayAdapter<CharSequence> monthlyRentalIncomeAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.monthly_rental_income,
-//                android.R.layout.simple_spinner_item);
-//        spinnerRentalIncome.setAdapter(monthlyRentalIncomeAdapter, 0);
-
+            MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
+            spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getNetSalary()));
+            etMonthlySalaryAmount.setText(myNewLead.getSalaryAmount());
+            etMonthlyBusinessIncome.setText(myNewLead.getBusinessIncomeAmount());
+            etApartmentIncomeAmount.setText(myNewLead.getApartmentAmount());
+            etSemipakaIncome.setText(myNewLead.getSemipakaIncome());
+            etOfficeSpaceIncome.setText(myNewLead.getOfficeSpaceINcome());
+            etWarehouseIncome.setText(myNewLead.getWireHouseINcome());
+            etAgriculturalIncome.setText(myNewLead.getAg_Income());
+            etPracticeConsultancyTuition.setText(myNewLead.getTution());
+            etRemittance.setText(myNewLead.getRemitance());
+            etInterestIncome.setText(myNewLead.getInFdr());
+            etMonthlyFamilyExpenditure.setText(myNewLead.getfExpense());
+            etEMIOfOtherLoans.setText(myNewLead.getEmiOther());
+        }
 
     }
 

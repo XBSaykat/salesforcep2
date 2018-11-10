@@ -27,7 +27,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.masum.adapter.FollowUpActivityAdapter;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
@@ -333,6 +333,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     tvCity.getText().toString(), tvPoliceStation.getText().toString(), tvVisitPurpose.getText().toString(), tvVisitDate.getText().toString(),
                     tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY);
             if (insert > 0) {
+                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this,MyActivitiesActivity.class,true);
                 Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();

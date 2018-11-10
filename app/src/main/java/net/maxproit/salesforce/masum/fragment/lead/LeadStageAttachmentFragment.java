@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.model.Attachment;
 import net.maxproit.salesforce.masum.model.MyNewProspect;

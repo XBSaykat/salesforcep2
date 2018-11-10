@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 
 public class ProspectViewRbm extends AppCompatActivity {
 
