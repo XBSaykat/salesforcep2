@@ -36,7 +36,7 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_REF, ref);
         values.put(DbConstants.LEAD_PRODUCT_TYPE, product);
         values.put(DbConstants.LEAD_PRODUCT_SUBCATEGORY, subCat);
-        values.put(DbConstants.LEAD_AMOUNT, amount);
+        values.put(DbConstants.TENTETIVE_LEAD_AMOUNT, amount);
         values.put(DbConstants.LEAD_OR_INTEREST, interest);
         values.put(DbConstants.LEAD_OP_FEE, fee);
         values.put(DbConstants.LEAD_DISBURSEMENT_DATE, disDate);
@@ -68,7 +68,7 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_REF, ref);
         values.put(DbConstants.LEAD_PRODUCT_TYPE, product);
         values.put(DbConstants.LEAD_PRODUCT_SUBCATEGORY, subCat);
-        values.put(DbConstants.LEAD_AMOUNT, amount);
+        values.put(DbConstants.TENTETIVE_LEAD_AMOUNT, amount);
         values.put(DbConstants.LEAD_OR_INTEREST, interest);
         values.put(DbConstants.LEAD_OP_FEE, fee);
         values.put(DbConstants.LEAD_DISBURSEMENT_DATE, disDate);
@@ -81,39 +81,7 @@ public class MyLeadDbController {
         return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
 
     }
-/*
-    PROSPECT_LOAN_TYPE + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_PRODUCT_DETAIL + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_SEGMENT + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_AGE + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_DOB + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_COB + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_PHOTO_ID_NUMBER + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_PHOTO_ID_ISSUE_DATE + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_ETIN + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_FATHER_NAME + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_MOTHER_NAME + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_SPOUSE_NAME + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_EXCEPTION_LIST + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_NOY_CURRENT_JOB + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_RW_APPLICANT + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_PERMANENT_ADDRESS + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_NET_SALARY + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_SALARY_AMOUNT + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_RENTAL_INCOME + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_RENTAL_INCOME_AMOUNT + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_ACRICULTURAL_INCOME + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_TUTION + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_REMITANCE + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_INTEREST_FDR + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_FAMILY_EXPENSE + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_EMI_OTHER + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_SECURITY_VALUE + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_LOAN_REQUIRED + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_LOAD_TERM + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_PI_RATE + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_FEE + TEXT_TYPE + COMMA_SEP +
-    PROSPECT_MONTHLY_EMI + TEXT_TYPE + COMMA_SEP +*/
+
 
     public int upDateProspectData(MyNewProspect myProspect, int id) {
         ContentValues values = new ContentValues();
@@ -127,19 +95,19 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_REF, myProspect.getSourceRef());
         values.put(DbConstants.LEAD_PRODUCT_TYPE, myProspect.getProductType());
         values.put(DbConstants.LEAD_PRODUCT_SUBCATEGORY, myProspect.getProductSubcategory());
-        values.put(DbConstants.LEAD_AMOUNT, myProspect.getLoanAmount());
+        values.put(DbConstants.TENTETIVE_LEAD_AMOUNT, myProspect.getLoanAmount());
         values.put(DbConstants.LEAD_OR_INTEREST, myProspect.getOrInterest());
         values.put(DbConstants.LEAD_OP_FEE, myProspect.getOpFee());
         values.put(DbConstants.LEAD_DISBURSEMENT_DATE, myProspect.getDisDate());
         values.put(DbConstants.LEAD_VISIT_DATE, myProspect.getVisitDate());
         values.put(DbConstants.LEAD_FOLLOW_UP, myProspect.getFollowUp());
         values.put(DbConstants.LEAD_REMARK, myProspect.getRemark());
-        values.put(DbConstants.PROSPECT_LOAN_TYPE, myProspect.getpLoanType());
-        values.put(DbConstants.PROSPECT_PRODUCT_DETAIL, myProspect.getProductDetail());
         values.put(DbConstants.PROSPECT_SEGMENT, myProspect.getSegment());
+        values.put(DbConstants.PROSPECT_DATE_OF_BIRTH, myProspect.getDateOfBirth());
         values.put(DbConstants.PROSPECT_AGE, myProspect.getAge());
         values.put(DbConstants.PROSPECT_DOB, myProspect.getDob());
         values.put(DbConstants.PROSPECT_COB, myProspect.getCob());
+        values.put(DbConstants.PROSPECT_PHOTO_ID_TYPE, myProspect.getpIDType());
         values.put(DbConstants.PROSPECT_PHOTO_ID_NUMBER, myProspect.getpIdNumber());
         values.put(DbConstants.PROSPECT_PHOTO_ID_ISSUE_DATE, myProspect.getpIssueDate());
         values.put(DbConstants.PROSPECT_ETIN, myProspect.getEtin());
@@ -150,10 +118,13 @@ public class MyLeadDbController {
         values.put(DbConstants.PROSPECT_NOY_CURRENT_JOB, myProspect.getCurrentJob());
         values.put(DbConstants.PROSPECT_RW_APPLICANT, myProspect.getApplicant());
         values.put(DbConstants.PROSPECT_PERMANENT_ADDRESS, myProspect.getpAddress());
-        values.put(DbConstants.PROSPECT_NET_SALARY, myProspect.getNetSalary());
+        values.put(DbConstants.PROSPECT_NET_SALARY_TYPE, myProspect.getNetSalary());
         values.put(DbConstants.PROSPECT_SALARY_AMOUNT, myProspect.getSalaryAmount());
-        values.put(DbConstants.PROSPECT_RENTAL_INCOME, myProspect.getRentIncome());
-        values.put(DbConstants.PROSPECT_RENTAL_INCOME_AMOUNT, myProspect.getRentIncomeAmount());
+        values.put(DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT, myProspect.getApartmentAmount());
+        values.put(DbConstants.PROSPECT_APARTMENT_INCOME, myProspect.getBusinessIncomeAmount());
+        values.put(DbConstants.PROSPECT_SEMIPAKA_INCOME, myProspect.getSemipakaIncome());
+        values.put(DbConstants.PROSPECT_OFFICE_SPACE_INCOME, myProspect.getOfficeSpaceINcome());
+        values.put(DbConstants.PROSPECT_WAREHOUSE_INCOME, myProspect.getWireHouseINcome());
         values.put(DbConstants.PROSPECT_ACRICULTURAL_INCOME, myProspect.getAg_Income());
         values.put(DbConstants.PROSPECT_TUTION, myProspect.getTution());
         values.put(DbConstants.PROSPECT_REMITANCE, myProspect.getRemitance());
@@ -164,8 +135,7 @@ public class MyLeadDbController {
         values.put(DbConstants.PROSPECT_LOAN_REQUIRED, myProspect.getLoanReq());
         values.put(DbConstants.PROSPECT_LOAD_TERM, myProspect.getLoanTerm());
         values.put(DbConstants.PROSPECT_PI_RATE, myProspect.getPiRate());
-        values.put(DbConstants.PROSPECT_FEE, myProspect.getFee());
-        values.put(DbConstants.PROSPECT_MONTHLY_EMI, myProspect.getMonthlyEmi());
+        values.put(DbConstants.PROSPECT_FEE, myProspect.getProspectFee());
         values.put(DbConstants.LEAD_STATUS, myProspect.getStatus());
 
         return db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
@@ -197,7 +167,7 @@ public class MyLeadDbController {
                 DbConstants.LEAD_REF,
                 DbConstants.LEAD_PRODUCT_TYPE,
                 DbConstants.LEAD_PRODUCT_SUBCATEGORY,
-                DbConstants.LEAD_AMOUNT,
+                DbConstants.TENTETIVE_LEAD_AMOUNT,
                 DbConstants.LEAD_OR_INTEREST,
                 DbConstants.LEAD_OP_FEE,
                 DbConstants.LEAD_VISIT_DATE,
@@ -238,7 +208,7 @@ public class MyLeadDbController {
                 DbConstants.LEAD_REF,
                 DbConstants.LEAD_PRODUCT_TYPE,
                 DbConstants.LEAD_PRODUCT_SUBCATEGORY,
-                DbConstants.LEAD_AMOUNT,
+                DbConstants.TENTETIVE_LEAD_AMOUNT,
                 DbConstants.LEAD_OR_INTEREST,
                 DbConstants.LEAD_OP_FEE,
                 DbConstants.LEAD_DISBURSEMENT_DATE,
@@ -279,7 +249,7 @@ public class MyLeadDbController {
                 DbConstants.LEAD_REF,
                 DbConstants.LEAD_PRODUCT_TYPE,
                 DbConstants.LEAD_PRODUCT_SUBCATEGORY,
-                DbConstants.LEAD_AMOUNT,
+                DbConstants.TENTETIVE_LEAD_AMOUNT,
                 DbConstants.LEAD_OR_INTEREST,
                 DbConstants.LEAD_OP_FEE,
                 DbConstants.LEAD_DISBURSEMENT_DATE,
@@ -319,19 +289,19 @@ public class MyLeadDbController {
                 DbConstants.LEAD_REF,
                 DbConstants.LEAD_PRODUCT_TYPE,
                 DbConstants.LEAD_PRODUCT_SUBCATEGORY,
-                DbConstants.LEAD_AMOUNT,
+                DbConstants.TENTETIVE_LEAD_AMOUNT,
                 DbConstants.LEAD_OR_INTEREST,
                 DbConstants.LEAD_OP_FEE,
                 DbConstants.LEAD_DISBURSEMENT_DATE,
                 DbConstants.LEAD_VISIT_DATE,
                 DbConstants.LEAD_FOLLOW_UP,
                 DbConstants.LEAD_REMARK,
-                DbConstants.PROSPECT_LOAN_TYPE,
-                DbConstants.PROSPECT_PRODUCT_DETAIL,
                 DbConstants.PROSPECT_SEGMENT,
+                DbConstants.PROSPECT_DATE_OF_BIRTH,
                 DbConstants.PROSPECT_AGE,
                 DbConstants.PROSPECT_DOB,
                 DbConstants.PROSPECT_COB,
+                DbConstants.PROSPECT_PHOTO_ID_TYPE,
                 DbConstants.PROSPECT_PHOTO_ID_NUMBER,
                 DbConstants.PROSPECT_PHOTO_ID_ISSUE_DATE,
                 DbConstants.PROSPECT_ETIN,
@@ -342,10 +312,13 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_NOY_CURRENT_JOB,
                 DbConstants.PROSPECT_RW_APPLICANT,
                 DbConstants.PROSPECT_PERMANENT_ADDRESS,
-                DbConstants.PROSPECT_NET_SALARY,
+                DbConstants.PROSPECT_NET_SALARY_TYPE,
                 DbConstants.PROSPECT_SALARY_AMOUNT,
-                DbConstants.PROSPECT_RENTAL_INCOME,
-                DbConstants.PROSPECT_RENTAL_INCOME_AMOUNT,
+                DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT,
+                DbConstants.PROSPECT_APARTMENT_INCOME,
+                DbConstants.PROSPECT_SEMIPAKA_INCOME,
+                DbConstants.PROSPECT_OFFICE_SPACE_INCOME,
+                DbConstants.PROSPECT_WAREHOUSE_INCOME,
                 DbConstants.PROSPECT_ACRICULTURAL_INCOME,
                 DbConstants.PROSPECT_TUTION,
                 DbConstants.PROSPECT_REMITANCE,
@@ -357,7 +330,6 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_LOAD_TERM,
                 DbConstants.PROSPECT_PI_RATE,
                 DbConstants.PROSPECT_FEE,
-                DbConstants.PROSPECT_MONTHLY_EMI,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -391,19 +363,19 @@ public class MyLeadDbController {
                 DbConstants.LEAD_REF,
                 DbConstants.LEAD_PRODUCT_TYPE,
                 DbConstants.LEAD_PRODUCT_SUBCATEGORY,
-                DbConstants.LEAD_AMOUNT,
+                DbConstants.TENTETIVE_LEAD_AMOUNT,
                 DbConstants.LEAD_OR_INTEREST,
                 DbConstants.LEAD_OP_FEE,
                 DbConstants.LEAD_DISBURSEMENT_DATE,
                 DbConstants.LEAD_VISIT_DATE,
                 DbConstants.LEAD_FOLLOW_UP,
                 DbConstants.LEAD_REMARK,
-                DbConstants.PROSPECT_LOAN_TYPE,
-                DbConstants.PROSPECT_PRODUCT_DETAIL,
                 DbConstants.PROSPECT_SEGMENT,
+                DbConstants.PROSPECT_DATE_OF_BIRTH,
                 DbConstants.PROSPECT_AGE,
                 DbConstants.PROSPECT_DOB,
                 DbConstants.PROSPECT_COB,
+                DbConstants.PROSPECT_PHOTO_ID_TYPE,
                 DbConstants.PROSPECT_PHOTO_ID_NUMBER,
                 DbConstants.PROSPECT_PHOTO_ID_ISSUE_DATE,
                 DbConstants.PROSPECT_ETIN,
@@ -414,10 +386,13 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_NOY_CURRENT_JOB,
                 DbConstants.PROSPECT_RW_APPLICANT,
                 DbConstants.PROSPECT_PERMANENT_ADDRESS,
-                DbConstants.PROSPECT_NET_SALARY,
+                DbConstants.PROSPECT_NET_SALARY_TYPE,
                 DbConstants.PROSPECT_SALARY_AMOUNT,
-                DbConstants.PROSPECT_RENTAL_INCOME,
-                DbConstants.PROSPECT_RENTAL_INCOME_AMOUNT,
+                DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT,
+                DbConstants.PROSPECT_APARTMENT_INCOME,
+                DbConstants.PROSPECT_SEMIPAKA_INCOME,
+                DbConstants.PROSPECT_OFFICE_SPACE_INCOME,
+                DbConstants.PROSPECT_WAREHOUSE_INCOME,
                 DbConstants.PROSPECT_ACRICULTURAL_INCOME,
                 DbConstants.PROSPECT_TUTION,
                 DbConstants.PROSPECT_REMITANCE,
@@ -429,7 +404,6 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_LOAD_TERM,
                 DbConstants.PROSPECT_PI_RATE,
                 DbConstants.PROSPECT_FEE,
-                DbConstants.PROSPECT_MONTHLY_EMI,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -464,19 +438,19 @@ public class MyLeadDbController {
                 DbConstants.LEAD_REF,
                 DbConstants.LEAD_PRODUCT_TYPE,
                 DbConstants.LEAD_PRODUCT_SUBCATEGORY,
-                DbConstants.LEAD_AMOUNT,
+                DbConstants.TENTETIVE_LEAD_AMOUNT,
                 DbConstants.LEAD_OR_INTEREST,
                 DbConstants.LEAD_OP_FEE,
                 DbConstants.LEAD_DISBURSEMENT_DATE,
                 DbConstants.LEAD_VISIT_DATE,
                 DbConstants.LEAD_FOLLOW_UP,
                 DbConstants.LEAD_REMARK,
-                DbConstants.PROSPECT_LOAN_TYPE,
-                DbConstants.PROSPECT_PRODUCT_DETAIL,
                 DbConstants.PROSPECT_SEGMENT,
+                DbConstants.PROSPECT_DATE_OF_BIRTH,
                 DbConstants.PROSPECT_AGE,
                 DbConstants.PROSPECT_DOB,
                 DbConstants.PROSPECT_COB,
+                DbConstants.PROSPECT_PHOTO_ID_TYPE,
                 DbConstants.PROSPECT_PHOTO_ID_NUMBER,
                 DbConstants.PROSPECT_PHOTO_ID_ISSUE_DATE,
                 DbConstants.PROSPECT_ETIN,
@@ -487,10 +461,13 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_NOY_CURRENT_JOB,
                 DbConstants.PROSPECT_RW_APPLICANT,
                 DbConstants.PROSPECT_PERMANENT_ADDRESS,
-                DbConstants.PROSPECT_NET_SALARY,
+                DbConstants.PROSPECT_NET_SALARY_TYPE,
                 DbConstants.PROSPECT_SALARY_AMOUNT,
-                DbConstants.PROSPECT_RENTAL_INCOME,
-                DbConstants.PROSPECT_RENTAL_INCOME_AMOUNT,
+                DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT,
+                DbConstants.PROSPECT_APARTMENT_INCOME,
+                DbConstants.PROSPECT_SEMIPAKA_INCOME,
+                DbConstants.PROSPECT_OFFICE_SPACE_INCOME,
+                DbConstants.PROSPECT_WAREHOUSE_INCOME,
                 DbConstants.PROSPECT_ACRICULTURAL_INCOME,
                 DbConstants.PROSPECT_TUTION,
                 DbConstants.PROSPECT_REMITANCE,
@@ -502,7 +479,6 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_LOAD_TERM,
                 DbConstants.PROSPECT_PI_RATE,
                 DbConstants.PROSPECT_FEE,
-                DbConstants.PROSPECT_MONTHLY_EMI,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -541,7 +517,7 @@ public class MyLeadDbController {
                     String ref = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_REF));
                     String productType = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PRODUCT_TYPE));
                     String subCategory = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PRODUCT_SUBCATEGORY));
-                    String amount = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_AMOUNT));
+                    String amount = c.getString(c.getColumnIndexOrThrow(DbConstants.TENTETIVE_LEAD_AMOUNT));
                     String interest = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_OR_INTEREST));
                     String fee = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_OP_FEE));
                     String disDate = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_DISBURSEMENT_DATE));
@@ -579,7 +555,7 @@ public class MyLeadDbController {
                     String ref = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_REF));
                     String productType = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PRODUCT_TYPE));
                     String subCategory = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PRODUCT_SUBCATEGORY));
-                    String amount = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_AMOUNT));
+                    String amount = c.getString(c.getColumnIndexOrThrow(DbConstants.TENTETIVE_LEAD_AMOUNT));
                     String interest = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_OR_INTEREST));
                     String fee = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_OP_FEE));
                     String disDate = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_DISBURSEMENT_DATE));
@@ -588,12 +564,12 @@ public class MyLeadDbController {
                     String remark = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_REMARK));
                     String status = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_STATUS));
 
-                    String pLoanType = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_LOAN_TYPE));
-                    String productDetail = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_PRODUCT_DETAIL));
                     String segment = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_SEGMENT));
+                    String dateOfBirth = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_DATE_OF_BIRTH));
                     String age = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_AGE));
                     String dob = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_DOB));
                     String cob = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_COB));
+                    String photoIdType = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_PHOTO_ID_TYPE));
                     String pIdNumber = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_PHOTO_ID_NUMBER));
                     String pIssueDate = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_PHOTO_ID_ISSUE_DATE));
                     String etin = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_ETIN));
@@ -604,10 +580,13 @@ public class MyLeadDbController {
                     String currentJob = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_NOY_CURRENT_JOB));
                     String applicant = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_RW_APPLICANT));
                     String pAddress = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_PERMANENT_ADDRESS));
-                    String netSalary = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_NET_SALARY));
+                    String netSalary = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_NET_SALARY_TYPE));
                     String salaryAmount = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_SALARY_AMOUNT));
-                    String rentIncome = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_RENTAL_INCOME));
-                    String rentIncomeAmount = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_RENTAL_INCOME));
+                    String businessIncomeAmount = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT));
+                    String apartmentAmount = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_APARTMENT_INCOME));
+                    String semipakaIncome = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_SEMIPAKA_INCOME));
+                    String officeSpaceINcome = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_OFFICE_SPACE_INCOME));
+                    String wireHouseINcome = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_WAREHOUSE_INCOME));
                     String ag_Income = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_ACRICULTURAL_INCOME));
                     String tution = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_TUTION));
                     String remitance = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_REMITANCE));
@@ -618,27 +597,27 @@ public class MyLeadDbController {
                     String loanReq = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_LOAN_REQUIRED));
                     String loanTerm = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_LOAD_TERM));
                     String piRate = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_PI_RATE));
-                    String monthlyEmi = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_MONTHLY_EMI));
+                    String propectFee = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_FEE));
 
 
 
 
 
                     // wrap up data list and return
-                    favDataArray.add(new MyNewProspect(id, branchName, userName, profession,
+                    favDataArray.add(new MyNewProspect(id,branchName, userName, profession,
                             organization, designation, phone,
                             address, ref, productType,
                             subCategory, amount,
                             interest, fee, disDate, visitDate,
-                            followUp, remark, status, pLoanType,
-                            productDetail, segment, age, dob,
-                            cob, pIdNumber, pIssueDate, etin,
+                            followUp, remark, status, segment,dateOfBirth, age, dob,
+                            cob,photoIdType, pIdNumber, pIssueDate, etin,
                             fName, mName, sName, exList,
                             currentJob, applicant, pAddress, netSalary,
-                            salaryAmount, rentIncome, rentIncomeAmount,
+                            salaryAmount, businessIncomeAmount, apartmentAmount,
+                            semipakaIncome,officeSpaceINcome,wireHouseINcome,
                             ag_Income, tution, remitance, inFdr,
                             fExpense, emiOther, sValue, loanReq,
-                            loanTerm, piRate, fee, monthlyEmi));
+                            loanTerm, piRate,propectFee));
                 } while (c.moveToNext());
             }
             c.close();

@@ -51,6 +51,7 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
+
     public static void invokProspectRbmViewStage(Activity activity, MyNewProspect myNewLead){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);

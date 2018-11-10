@@ -34,7 +34,7 @@ public class DbConstants {
     public static final String LEAD_REF = "ref";
     public static final String LEAD_PRODUCT_TYPE = "product";
     public static final String LEAD_PRODUCT_SUBCATEGORY = "subcat";
-    public static final String LEAD_AMOUNT = "amount";
+    public static final String TENTETIVE_LEAD_AMOUNT = "amount";
     public static final String LEAD_OR_INTEREST = "interest";
     public static final String LEAD_OP_FEE = "op_fee";
     public static final String LEAD_DISBURSEMENT_DATE = "disbursement_date";
@@ -60,7 +60,7 @@ public class DbConstants {
     public static final String PROSPECT_NOY_CURRENT_JOB = "current_job";
     public static final String PROSPECT_RW_APPLICANT = "applicant";
     public static final String PROSPECT_PERMANENT_ADDRESS= "p_address";
-    public static final String PROSPECT_NET_SALARY = "net_salary";
+    public static final String PROSPECT_NET_SALARY_TYPE = "net_salary";
     public static final String PROSPECT_SALARY_AMOUNT = "salary_amount";
     public static final String PROSPECT_RENTAL_INCOME = "rent_income";
     public static final String PROSPECT_RENTAL_INCOME_AMOUNT = "income_amount";
@@ -82,7 +82,7 @@ public class DbConstants {
     public static final String PROSPECT_LOAD_TERM = "loan_term";
     public static final String PROSPECT_PI_RATE = "pi_rate";
     public static final String PROSPECT_FEE = "fee";
-    public static final String PROSPECT_MONTHLY_EMI = "monthly_emi";
+
     public static final String LEAD_STATUS = "status";
 
     //visit plan
@@ -134,19 +134,19 @@ public class DbConstants {
                     LEAD_REF + TEXT_TYPE + COMMA_SEP +
                     LEAD_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
                     LEAD_PRODUCT_SUBCATEGORY + TEXT_TYPE + COMMA_SEP +
-                    LEAD_AMOUNT + TEXT_TYPE + COMMA_SEP +
+                    TENTETIVE_LEAD_AMOUNT + TEXT_TYPE + COMMA_SEP +
                     LEAD_OR_INTEREST + TEXT_TYPE + COMMA_SEP +
                     LEAD_OP_FEE + TEXT_TYPE + COMMA_SEP +
                     LEAD_DISBURSEMENT_DATE + TEXT_TYPE + COMMA_SEP +
                     LEAD_VISIT_DATE + TEXT_TYPE + COMMA_SEP +
                     LEAD_FOLLOW_UP + TEXT_TYPE + COMMA_SEP +
                     LEAD_REMARK + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_LOAN_TYPE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_PRODUCT_DETAIL + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_SEGMENT + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_DATE_OF_BIRTH + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_AGE + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_DOB + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_COB + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_PHOTO_ID_TYPE + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_PHOTO_ID_NUMBER + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_PHOTO_ID_ISSUE_DATE + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_ETIN + TEXT_TYPE + COMMA_SEP +
@@ -157,10 +157,13 @@ public class DbConstants {
                     PROSPECT_NOY_CURRENT_JOB + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_RW_APPLICANT + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_PERMANENT_ADDRESS + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_NET_SALARY + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_NET_SALARY_TYPE + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_SALARY_AMOUNT + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_RENTAL_INCOME + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_RENTAL_INCOME_AMOUNT + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_BUSINESS_INCOME_AMOUNT + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_APARTMENT_INCOME + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_SEMIPAKA_INCOME + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_OFFICE_SPACE_INCOME + TEXT_TYPE + COMMA_SEP +
+                    PROSPECT_WAREHOUSE_INCOME + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_ACRICULTURAL_INCOME + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_TUTION + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_REMITANCE + TEXT_TYPE + COMMA_SEP +
@@ -172,7 +175,6 @@ public class DbConstants {
                     PROSPECT_LOAD_TERM + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_PI_RATE + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_FEE + TEXT_TYPE + COMMA_SEP +
-                    PROSPECT_MONTHLY_EMI + TEXT_TYPE + COMMA_SEP +
                     LEAD_STATUS + TEXT_TYPE + " )";
 
 
@@ -202,7 +204,7 @@ public class DbConstants {
                             PROSPECT_PERMANENT_ADDRESS + TEXT_TYPE + COMMA_SEP +
                             LEAD_ADDRESS + TEXT_TYPE + COMMA_SEP +
                             LEAD_PHONE + TEXT_TYPE + COMMA_SEP +
-                            PROSPECT_NET_SALARY + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_NET_SALARY_TYPE + TEXT_TYPE + COMMA_SEP +
                             PROSPECT_SALARY_AMOUNT + TEXT_TYPE + COMMA_SEP +
                             PROSPECT_BUSINESS_INCOME_AMOUNT + TEXT_TYPE + COMMA_SEP +
                             PROSPECT_WAREHOUSE_INCOME + TEXT_TYPE + COMMA_SEP +

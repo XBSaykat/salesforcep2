@@ -15,8 +15,7 @@ public class ProspectViewRbm extends AppCompatActivity {
     TextView tvApproval, tvReject, tvReturn, tvProdecutCategory, tvProductDetail, tvBranchName, tvUserName,tvSegment, tvAge,
             tvBirthDistrict, tvBirthCountry, tvValidPhotoId, tvPhotoIssudate, tvEtin, tvFatherName, tvMotherName, tvSpouseName,
             tvProfession, tvCompanyName,tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
-            tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvMonthlyRentalIncome,
-            tvRentalIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
+            tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
             tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace,tvWarehouseFactoryIncome;
     ImageView backButton;
@@ -51,8 +50,6 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvMonthlySalary = (TextView) findViewById(R.id.tv_net_salary);
         tvSalaryAmount = (TextView) findViewById(R.id.tv_salar_amount);
         tvMonthlyBusinessIncome = (TextView) findViewById(R.id.tv_business_income);
-        tvMonthlyRentalIncome = (TextView) findViewById(R.id.tv_rental_income);
-        tvRentalIncome = (TextView) findViewById(R.id.tv_rental_income_amount);
         tvAgricultureIncome = (TextView)findViewById(R.id.tv_agriculture_income);
         tvOtherIncome = (TextView)findViewById(R.id.tv_other_income);
         tvRemittance = (TextView)findViewById(R.id.tv_remittance);
@@ -125,7 +122,7 @@ public class ProspectViewRbm extends AppCompatActivity {
     private void setAllData() {
         tvBranchName.setText(getDataFromProspect().getBranchName());
         tvProdecutCategory.setText(getDataFromProspect().getProductType());
-        tvProductDetail.setText(getDataFromProspect().getProductDetail());
+        tvProductDetail.setText(getDataFromProspect().getProductSubcategory());
         tvUserName.setText(getDataFromProspect().getUserName());
         tvSegment.setText(getDataFromProspect().getSegment());
         tvAge.setText(getDataFromProspect().getAge());
@@ -145,22 +142,26 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvPermanentAddress.setText(getDataFromProspect().getpAddress());
         tvPresentAddress.setText(getDataFromProspect().getAddress());
         tvMobileNumber.setText(getDataFromProspect().getPhone());
+        tvDateOfBorth.setText(getDataFromProspect().getDateOfBirth());
+
         tvMonthlySalary.setText(getDataFromProspect().getNetSalary());
         tvSalaryAmount.setText(getDataFromProspect().getSalaryAmount());
-//        tvMonthlyBusinessIncome.setText(getDataFromProspect().);
-        tvMonthlyRentalIncome.setText(getDataFromProspect().getRentIncome());
-        tvRentalIncome.setText(getDataFromProspect().getRentIncomeAmount());
+        tvMonthlyBusinessIncome.setText(getDataFromProspect().getBusinessIncomeAmount());
+        tvSemipakaIncome.setText(getDataFromProspect().getSemipakaIncome());
+        tvMultiApartmentIncome.setText(getDataFromProspect().getApartmentAmount());
+        tvOfficeCommercialSpace.setText(getDataFromProspect().getOfficeSpaceINcome());
+        tvWarehouseFactoryIncome.setText(getDataFromProspect().getWireHouseINcome());
         tvAgricultureIncome.setText(getDataFromProspect().getAg_Income());
         tvOtherIncome.setText(getDataFromProspect().getEmiOther());
         tvRemittance.setText(getDataFromProspect().getRemitance());
         tvFdr.setText(getDataFromProspect().getInFdr());
         tvFamilyExpenditure.setText(getDataFromProspect().getfExpense());
-        tvEmi.setText(getDataFromProspect().getMonthlyEmi());
+        //tvEmi.setText(getDataFromProspect().getMonthlyEmi());
         tvSecurityValue.setText(getDataFromProspect().getsValue());
         tvLoanRequired.setText(getDataFromProspect().getLoanReq());
         tvLoanTerm.setText(getDataFromProspect().getLoanTerm());
         tvInteresterRate.setText(getDataFromProspect().getOrInterest());
-        tvFee.setText(getDataFromProspect().getFee());
+        tvFee.setText(getDataFromProspect().getProspectFee());
 //        tvVehicleType.setText(getDataFromProspect());
 //        tvManufacturingCountry.setText(getDataFromProspect());
 //        tvManufacturingYear.setText(getDataFromProspect());

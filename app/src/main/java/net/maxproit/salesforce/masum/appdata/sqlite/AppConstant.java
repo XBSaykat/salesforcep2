@@ -14,7 +14,7 @@ public class AppConstant {
 //    public static  String LEAD_REF ;
 //    public static  String LEAD_PRODUCT_TYPE ;
 //    public static  String LEAD_PRODUCT_SUBCATEGORY;
-//    public static  String LEAD_AMOUNT ;
+//    public static  String TENTETIVE_LEAD_AMOUNT ;
 //    public static  String LEAD_OR_INTEREST ;
 //    public static  String LEAD_OP_FEE ;
 //    public static  String LEAD_VISIT_DATE;

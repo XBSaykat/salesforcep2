@@ -19,7 +19,6 @@ import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.model.myprospect.MyProspect;
-import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -164,12 +163,12 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getFollowUp(),
                 filterList.get(position).getRemark(),
                 filterList.get(position).getStatus(),
-                filterList.get(position).getpLoanType(),
-                filterList.get(position).getProductDetail(),
                 filterList.get(position).getSegment(),
+                filterList.get(position).getDateOfBirth(),
                 filterList.get(position).getAge(),
                 filterList.get(position).getDisDate(),
                 filterList.get(position).getCob(),
+                filterList.get(position).getpIDType(),
                 filterList.get(position).getpIdNumber(),
                 filterList.get(position).getpIssueDate(),
                 filterList.get(position).getEtin(),
@@ -182,8 +181,11 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getpAddress(),
                 filterList.get(position).getNetSalary(),
                 filterList.get(position).getSalaryAmount(),
-                filterList.get(position).getRentIncome(),
-                filterList.get(position).getRentIncomeAmount(),
+                filterList.get(position).getBusinessIncomeAmount(),
+                filterList.get(position).getApartmentAmount(),
+                filterList.get(position).getSemipakaIncome(),
+                filterList.get(position).getOfficeSpaceINcome(),
+                filterList.get(position).getWireHouseINcome(),
                 filterList.get(position).getAg_Income(),
                 filterList.get(position).getTution(),
                 filterList.get(position).getRemitance(),
@@ -194,8 +196,8 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getLoanReq(),
                 filterList.get(position).getLoanTerm(),
                 filterList.get(position).getPiRate(),
-                filterList.get(position).getFee(),
-                filterList.get(position).getMonthlyEmi());
+                filterList.get(position).getProspectFee()
+                );
         ActivityUtils.invokLeadDetailForProspectStage(this,myNewLead);
     }
 
