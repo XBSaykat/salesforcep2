@@ -19,9 +19,9 @@
     <ImageView
         android:id="@+id/img_atach_v_card"
         android:layout_width="@dimen/size_160dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/size_75dp"
         android:layout_weight=".9"
+        android:scaleType="fitCenter"
         android:visibility="gone"
         />
 

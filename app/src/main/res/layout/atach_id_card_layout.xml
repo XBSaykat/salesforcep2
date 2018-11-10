@@ -22,7 +22,7 @@
         android:layout_width="@dimen/size_160dp"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
         android:layout_weight=".9" />
 
     <LinearLayout
