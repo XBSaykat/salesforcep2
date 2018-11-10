@@ -46,9 +46,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.INDIVIDUAL;
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.POST_DISBURSEMENT;
-import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.PRE_DISBURSEMENT;
 import static net.maxproit.salesforce.util.MyApplication.getContext;
 
 public class VisitPLanDetailsActivity extends AppCompatActivity {
