@@ -1,24 +1,40 @@
 package net.maxproit.salesforce;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
+import net.maxproit.salesforce.masum.model.CoApplicant;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
+
+import java.util.ArrayList;
 
 public class ProspectViewRbm extends AppCompatActivity {
 
-    TextView tvApproval, tvReject, tvReturn, tvProdecutCategory, tvProductDetail, tvBranchName, tvUserName,tvSegment, tvAge,
+    TextView tvApproval, tvReject, tvReturn, tvProdecutCategory, tvProductDetail, tvBranchName, tvUserName, tvSegment, tvAge,
             tvBirthDistrict, tvBirthCountry, tvValidPhotoId, tvPhotoIssudate, tvEtin, tvFatherName, tvMotherName, tvSpouseName,
-            tvProfession, tvCompanyName,tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
+            tvProfession, tvCompanyName, tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
             tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
-            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace,tvWarehouseFactoryIncome;
+            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome;
     ImageView backButton;
+    Button btnCoapplicantsView;
+    ArrayList<CoApplicant> coApplicants = new ArrayList<>();
+    ArrayList<CoApplicant> filteredList = new ArrayList<>();
+    CoApplicantDBController coApplicantDBController;
+    CoApplicantListAdapter coApplicantListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,42 +55,52 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvFatherName = (TextView) findViewById(R.id.tv_fathers_name);
         tvMotherName = (TextView) findViewById(R.id.tv_mother_name);
         tvSpouseName = (TextView) findViewById(R.id.tv_spouse_name);
-        tvProfession = (TextView)findViewById(R.id.tv_profession);
-        tvCompanyName = (TextView)findViewById(R.id.tv_company_name);
-        tvDesignation = (TextView)findViewById(R.id.tv_designation);
-        tvCurrentJobYear = (TextView)findViewById(R.id.tv_years_job);
-        tvRelationshipWithApplicant = (TextView)findViewById(R.id.tv_relationship_applicant);
+        tvProfession = (TextView) findViewById(R.id.tv_profession);
+        tvCompanyName = (TextView) findViewById(R.id.tv_company_name);
+        tvDesignation = (TextView) findViewById(R.id.tv_designation);
+        tvCurrentJobYear = (TextView) findViewById(R.id.tv_years_job);
+        tvRelationshipWithApplicant = (TextView) findViewById(R.id.tv_relationship_applicant);
         tvPermanentAddress = (TextView) findViewById(R.id.tv_permanent_address);
         tvPresentAddress = (TextView) findViewById(R.id.tv_present_address);
         tvMobileNumber = (TextView) findViewById(R.id.tv_mobile_number);
         tvMonthlySalary = (TextView) findViewById(R.id.tv_net_salary);
         tvSalaryAmount = (TextView) findViewById(R.id.tv_salar_amount);
         tvMonthlyBusinessIncome = (TextView) findViewById(R.id.tv_business_income);
-        tvAgricultureIncome = (TextView)findViewById(R.id.tv_agriculture_income);
-        tvOtherIncome = (TextView)findViewById(R.id.tv_other_income);
-        tvRemittance = (TextView)findViewById(R.id.tv_remittance);
-        tvFdr = (TextView)findViewById(R.id.tv_fdr);
-        tvFamilyExpenditure = (TextView)findViewById(R.id.tv_family_expenditure);
-        tvEmi = (TextView)findViewById(R.id.tv_other_emi);
-        tvSecurityValue = (TextView)findViewById(R.id.tv_security_value);
-        tvBrandName = (TextView)findViewById(R.id.tv_brand_name);
-        tvManufacturingYear = (TextView)findViewById(R.id.tv_manufacturing_year);
-        tvManufacturingCountry = (TextView)findViewById(R.id.tv_manufacturing_country);
-        tvVehicleType = (TextView)findViewById(R.id.tv_vehicle_type);
-        tvLoanRequired = (TextView)findViewById(R.id.tv_loan_required);
-        tvLoanTerm = (TextView)findViewById(R.id.tv_loan_term);
-        tvInteresterRate = (TextView)findViewById(R.id.tv_proposed_interest_rate);
-        tvFee = (TextView)findViewById(R.id.tv_fee);
+        tvAgricultureIncome = (TextView) findViewById(R.id.tv_agriculture_income);
+        tvOtherIncome = (TextView) findViewById(R.id.tv_other_income);
+        tvRemittance = (TextView) findViewById(R.id.tv_remittance);
+        tvFdr = (TextView) findViewById(R.id.tv_fdr);
+        tvFamilyExpenditure = (TextView) findViewById(R.id.tv_family_expenditure);
+        tvEmi = (TextView) findViewById(R.id.tv_other_emi);
+        tvSecurityValue = (TextView) findViewById(R.id.tv_security_value);
+        tvBrandName = (TextView) findViewById(R.id.tv_brand_name);
+        tvManufacturingYear = (TextView) findViewById(R.id.tv_manufacturing_year);
+        tvManufacturingCountry = (TextView) findViewById(R.id.tv_manufacturing_country);
+        tvVehicleType = (TextView) findViewById(R.id.tv_vehicle_type);
+        tvLoanRequired = (TextView) findViewById(R.id.tv_loan_required);
+        tvLoanTerm = (TextView) findViewById(R.id.tv_loan_term);
+        tvInteresterRate = (TextView) findViewById(R.id.tv_proposed_interest_rate);
+        tvFee = (TextView) findViewById(R.id.tv_fee);
         tvDateOfBorth = (TextView) findViewById(R.id.tv_date_of_birth);
         tvMultiApartmentIncome = (TextView) findViewById(R.id.tv_multi_apartment_income);
         tvSemipakaIncome = (TextView) findViewById(R.id.tv_semipaka_income);
         tvOfficeCommercialSpace = (TextView) findViewById(R.id.tv_office_commercial_space_income);
         tvWarehouseFactoryIncome = (TextView) findViewById(R.id.tv_warehouse_factory_income);
+        btnCoapplicantsView = findViewById(R.id.btn_rbm_prospect_view_coaplicant);
 
-        tvApproval = (TextView)findViewById(R.id.tv_approval);
-        tvReject = (TextView)findViewById(R.id.tv_reject);
-        tvReturn = (TextView)findViewById(R.id.tv_return);
+        tvApproval = (TextView) findViewById(R.id.tv_approval);
+        tvReject = (TextView) findViewById(R.id.tv_reject);
+        tvReturn = (TextView) findViewById(R.id.tv_return);
         backButton = (ImageView) findViewById(R.id.btnBack);
+
+        btnCoapplicantsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                followUpAlert();
+            }
+        });
+
 
         tvApproval.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +138,40 @@ public class ProspectViewRbm extends AppCompatActivity {
 
     }
 
+    private ArrayList<CoApplicant> filteredList() {
 
+        coApplicantDBController = new CoApplicantDBController(getApplicationContext());
+        if (!coApplicants.isEmpty()) {
+            coApplicants.clear();
+        }
+
+
+        coApplicants.addAll(coApplicantDBController.getAllData(getDataFromProspect().getId()));
+
+        return filteredList;
+    }
+
+
+    private void followUpAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = (View) inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, null);
+        Button btnAdd=dialogView.findViewById(R.id.btn_prospect_stage_co_applicant);
+        btnAdd.setVisibility(View.GONE);
+
+
+        builder.setView(dialogView);
+
+        RecyclerView rv = (RecyclerView) dialogView.findViewById(R.id.rv_prospect_stage_co_applicant);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        rv.setLayoutManager(mLayoutManager);
+        rv.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+        CoApplicantListAdapter adapter = new CoApplicantListAdapter(this, filteredList());
+        rv.setAdapter(adapter);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     /*
             ,
             tvRentalIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,

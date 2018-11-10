@@ -1092,7 +1092,41 @@
                         android:text=""
                         android:id="@+id/tv_fee"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
 
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Co Applicants"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
+
+                   <Button
+                       android:id="@+id/btn_rbm_prospect_view_coaplicant"
+                       android:layout_margin="@dimen/size_20dp"
+                       style="@style/ButtonStyle"
+                       android:layout_weight="1"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:text="View Co Applicants"
+
+                       />
+
+                </LinearLayout>
 
 
 

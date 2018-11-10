@@ -53,6 +53,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
     int leadIdForCoApplicant;
 
     private OnFragmentInteractionListener mListener;
+
     public ProspectStageCoApplicantFragment() {
         // Required empty public constructor
     }
@@ -89,18 +90,17 @@ public class ProspectStageCoApplicantFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, container, false);
-        prospectStageActivity= (ProspectStageActivity) getActivity();
+        prospectStageActivity = (ProspectStageActivity) getActivity();
         btnCoApplicant = view.findViewById(R.id.btn_prospect_stage_co_applicant);
         rvCoapplicantList = view.findViewById(R.id.rv_prospect_stage_co_applicant);
         coApplicantDBController = new CoApplicantDBController(getActivity());
 
-     MyNewLead mylead = prospectStageActivity.getDataFromProspect();
+        MyNewLead mylead = prospectStageActivity.getDataFromProspect();
         leadIdForCoApplicant = mylead.getId();
 
 
         coApplicantList = new ArrayList<>();
         filteredList = new ArrayList<>();
-
 
 
         initListener();
@@ -110,28 +110,13 @@ public class ProspectStageCoApplicantFragment extends Fragment {
     }
 
     private void loadCoapplicants() {
-        if (!coApplicantList.isEmpty()){
+        if (!coApplicantList.isEmpty()) {
             coApplicantList.clear();
         }
-        if (!filteredList.isEmpty()){
-            filteredList.clear();
-        }
 
+        coApplicantList.addAll(coApplicantDBController.getAllData(leadIdForCoApplicant));
+        viewListItems(coApplicantList);
 
-        if(leadIdForCoApplicant > -1 ){
-
-            coApplicantList.addAll(coApplicantDBController.getAllData());
-
-            for (int i = 0; i < coApplicantList.size(); i++ ){
-                if (coApplicantList.get(i).getLeadId() == leadIdForCoApplicant){
-
-                    filteredList.add(coApplicantList.get(i));
-
-                }
-
-            }
-            viewListItems(filteredList);
-        }
     }
 
     private void viewListItems(ArrayList<CoApplicant> filteredList) {
@@ -141,7 +126,6 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         rvCoapplicantList.setLayoutManager(mLayoutManager);
         rvCoapplicantList.setAdapter(coApplicantAdapter);
         coApplicantAdapter.notifyDataSetChanged();
-
 
 
     }
@@ -170,7 +154,6 @@ public class ProspectStageCoApplicantFragment extends Fragment {
             }
         });
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -91,7 +91,7 @@ public class CoApplicantDBController {
     }*/
 
 
-    public ArrayList<CoApplicant> getAllData() {
+    public ArrayList<CoApplicant> getAllData(int id) {
 
         String[] projection = {
                 DbConstants.CO_APPLICANT_ID,
@@ -137,12 +137,12 @@ public class CoApplicantDBController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants.CO_APPLICANT_ID + " DESC";
-        String WHERE = DbConstants.LEAD_STATUS + "=?";
+        String WHERE = DbConstants.LEAD_ID_FOR_CO + "=?";
         Cursor c = db.query(
                 DbConstants.TABLE_CO_APPLICANT,  // The table name to query
                 projection,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
+                WHERE,                                // The columns for the WHERE clause
+               new String[]{String.valueOf(id)},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
