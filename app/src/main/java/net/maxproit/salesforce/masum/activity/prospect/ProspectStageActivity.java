@@ -44,6 +44,7 @@ public class ProspectStageActivity extends AppCompatActivity {
     MyLeadDbController myLeadDbController;
     CoApplicantDBController coApplicantDBController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
+
     MyNewProspect coApplicant;
     String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
             relationship = null, name = null, age = null, photoId = null, photoIdDate = null, eTin = null, fatherName = null, motherName = null, spouseName = null,

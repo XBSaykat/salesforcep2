@@ -49,6 +49,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     private List<String> listvehicleType=null;
 
     public static EditText etSecurityValue, etLoanRequired, etLoanTerm, etProposedInterest, etFee, etCalculatedEMI;
+    public static LinearLayout liSecCarLoan;
 
     AwesomeSpinner spinnerBrand, spinnerYear, spinnerCountry, spinnerVehicleType;
     public static String brandName, year, country, vehicleType;
@@ -112,6 +113,10 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         LinearLayout secManYearLabel = (LinearLayout) view.findViewById(R.id.manufacturing_year_label);
         LinearLayout secManCountryLabel = (LinearLayout) view.findViewById(R.id.manufacturing_country_label);
         LinearLayout secVehicleTypeLabel = (LinearLayout) view.findViewById(R.id.vehicle_type_label);
+        liSecCarLoan = view.findViewById(R.id.li_car_loan_section);
+
+
+
 
 
 
@@ -171,6 +176,13 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         commaSeparator();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
     }
 
     private void initListener() {

@@ -349,14 +349,17 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 if (s.equals("Home Loan")) {
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);
+                    ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
 
                 } else if (s.equals("Car Loan")) {
                     ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                     spinnerProductDetail.setAdapter(carLoan);
+                    ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.VISIBLE);
 
                 } else if (s.equals("Personal Loan")) {
                     ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                     spinnerProductDetail.setAdapter(personalLoan);
+                    ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
                 }
             }
         });

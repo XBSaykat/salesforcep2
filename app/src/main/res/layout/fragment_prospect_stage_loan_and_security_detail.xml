@@ -48,6 +48,15 @@
                     android:textSize="@dimen/text_size_16sp" />
 
             </LinearLayout>
+<LinearLayout
+    android:id="@+id/li_car_loan_section"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    >
+
+
 
             <LinearLayout
                 android:id="@+id/brand_name_label"
@@ -173,6 +182,7 @@
                     android:layout_height="wrap_content"
                     app:spinnerDirection="ltr"
                     app:spinnerHint="Select Vehicle" />
+            </LinearLayout>
 
             </LinearLayout>
 
