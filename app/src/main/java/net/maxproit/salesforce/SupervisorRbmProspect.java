@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
@@ -15,6 +16,8 @@ import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import java.util.ArrayList;
 
 public class SupervisorRbmProspect extends AppCompatActivity {
+
+    private Toolbar toolbar;
 
     ArrayList<MyNewProspect> prospectArrayList, filterList;
 
@@ -46,6 +49,17 @@ public class SupervisorRbmProspect extends AppCompatActivity {
         rvProspect.setLayoutManager(mLayoutManager);
         rvProspect.setAdapter(myAdapter);
         initListener();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 

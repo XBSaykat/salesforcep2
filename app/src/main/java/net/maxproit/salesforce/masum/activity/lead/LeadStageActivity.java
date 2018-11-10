@@ -216,40 +216,31 @@ public class LeadStageActivity extends AppCompatActivity {
                 String visitDate = LeadStageVisitRecordFragment.visitDate; //
                 String remark = LeadStageVisitRecordFragment.remark;
                 String followUp = LeadStageVisitRecordFragment.followUp;
-                int insert=0;
-                if (finalMyNewLead !=null){
-                     insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
-                            designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
-                }
-                else {
-                    insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
-                            designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, disDate, visitDate, followUp, remark,AppConstant.LEAD_STATUS_PROCEED);
+                int insert = 0;
+                if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
+                        && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
+                        && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
+                    if (finalMyNewLead != null) {
+                        insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
+                                designation, phone, address, ref, productType, subCat,
+                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
+                    } else {
+                        insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
+                                designation, phone, address, ref, productType, subCat,
+                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_PROCEED);
+                    }
+
                     if (insert > 0) {
+                        insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                        insertAttachmentData(insert,null);
+                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, DashboardSalesOfficerActivity.class, true);
 
                     } else {
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                     }
-                }
-
-                if (insert > 0) {
-                    if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
-                            && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
-                            && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
-
-                        insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
-                    }
-                    else {
-                        Toast.makeText(LeadStageActivity.this, "Attachment can't be empty while proceed", Toast.LENGTH_SHORT).show();
-                    }
-                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, DashboardSalesOfficerActivity.class, true);
-
                 } else {
-                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LeadStageActivity.this, "Attachment can't be empty while proceed", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -288,7 +279,7 @@ public class LeadStageActivity extends AppCompatActivity {
                     if (insert > 0) {
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                         ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, DashboardSalesOfficerActivity.class, true);
-                        insertAttachmentData(finalMyNewLead.getId(),finalMyNewLead);
+                        insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
 
 
                     } else {
@@ -297,10 +288,10 @@ public class LeadStageActivity extends AppCompatActivity {
                 } else {
                     int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, disDate, visitDate, followUp, remark,AppConstant.LEAD_STATUS_NEW);
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
                     if (insert > 0) {
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                        insertAttachmentData(insert,null);
+                        insertAttachmentData(insert, null);
 
                     } else {
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
@@ -319,7 +310,7 @@ public class LeadStageActivity extends AppCompatActivity {
 
     }
 
-    private void insertAttachmentData(int insert,final  MyNewProspect myNewProspect) {
+    private void insertAttachmentData(int insert, final MyNewProspect myNewProspect) {
         byte[] bytesAtachpp = null;
         byte[] bytesAtachIdCard = null;
         byte[] bytesAtachVCard = null;
@@ -331,15 +322,14 @@ public class LeadStageActivity extends AppCompatActivity {
             bytesAtachpp = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgAtach);
             bytesAtachIdCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgIdCard);
             bytesAtachVCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgVisitingCard);
-            int insertAttach=0;
-            if (myNewProspect !=null){
-                 if(attachmentDbController.getAllData(String.valueOf(myNewProspect.getId())).size()>0){
-                     Attachment attachment=new Attachment(myNewProspect.getId(),bytesAtachpp,bytesAtachIdCard,bytesAtachVCard);
-                     insertAttach=attachmentDbController.updateData(attachment);
-                 }
-            }
-            else {
-                 insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
+            int insertAttach = 0;
+            if (myNewProspect != null) {
+                if (attachmentDbController.getAllData(String.valueOf(myNewProspect.getId())).size() > 0) {
+                    Attachment attachment = new Attachment(myNewProspect.getId(), bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
+                    insertAttach = attachmentDbController.updateData(attachment);
+                }
+            } else {
+                insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
 
             }
             if (insertAttach > 0) {
