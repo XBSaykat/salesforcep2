@@ -228,7 +228,7 @@ public class LeadStageActivity extends AppCompatActivity {
                     } else {
                         insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
-                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_PROCEED);
+                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
                         insertAttachmentData(insert, finalMyNewLead);
                     }
 

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:text="Follow Up :"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_25dp"
+            android:textSize="@dimen/size_15dp"
             android:textStyle="bold" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="date"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_25dp"
+            android:textSize="@dimen/size_15dp"
             android:textStyle="bold" />
     </LinearLayout>
     <LinearLayout
@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:text="Date      :"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_25dp"
             android:textStyle="bold" />
 
         <TextView
@@ -48,7 +47,6 @@
             android:layout_height="wrap_content"
             android:text="date"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_25dp"
             android:textStyle="bold" />
     </LinearLayout>
 
