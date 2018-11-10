@@ -17,12 +17,11 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.masum.model.CoApplicant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.util.ArrayList;
 import java.util.List;

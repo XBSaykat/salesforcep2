@@ -21,6 +21,7 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -154,17 +155,17 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         initListener();
         if (prospectStageActivity.getDataFromProspect()!=null){
 
-            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+            MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
             etLoanRequired.setText(myNewLead.getLoanAmount());
             etProposedInterest.setText(myNewLead.getOrInterest());
             etFee.setText(myNewLead.getOpFee());
 
 
-//            etMonthlySalaryAmount.setText(myNewLead.get);
-//            etPresentAddress.setText(myNewLead.getAddress());
-//            etDesignation.setText(myNewLead.getDesignation());
-//            etMobileNumber.setText(myNewLead.getPhone());
-//            etPresentAddress.setText(myNewLead.getAddress());
+            etSecurityValue.setText(myNewLead.getsValue());
+            etLoanRequired.setText(myNewLead.getLoanReq());
+            etLoanTerm.setText(myNewLead.getLoanTerm());
+            etProposedInterest.setText(myNewLead.getPiRate());
+            etFee.setText(myNewLead.getProspectFee());
         }
 
         commaSeparator();

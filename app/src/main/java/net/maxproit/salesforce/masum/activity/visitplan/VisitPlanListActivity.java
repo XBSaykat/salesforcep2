@@ -20,13 +20,10 @@ import net.maxproit.salesforce.databinding.ActivityVisitPlanListBinding;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class VisitPlanListActivity extends BaseActivity {

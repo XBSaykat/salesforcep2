@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;

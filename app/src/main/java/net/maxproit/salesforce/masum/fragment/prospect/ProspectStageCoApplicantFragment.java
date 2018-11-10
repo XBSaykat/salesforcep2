@@ -16,15 +16,12 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewLead;
-import net.maxproit.salesforce.model.mylead.Mylead;
 
 import java.util.ArrayList;
-
-import static net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity.CO_APPLICANT_REQUEST_CODE;
 
 
 /**

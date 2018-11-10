@@ -27,7 +27,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.masum.adapter.FollowUpActivityAdapter;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;

@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.MyNewProspect;

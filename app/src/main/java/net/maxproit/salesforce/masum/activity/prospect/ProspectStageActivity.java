@@ -25,7 +25,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageLoanAndSecurityDetailFragment;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.model.CoApplicant;
@@ -51,7 +51,7 @@ public class ProspectStageActivity extends AppCompatActivity {
     String brandName = null, year = null, country = null, vehicleType = null, securityValue = null, loanRequired = null, loanTerm = null, proposedInterest = null,
             fee = null, dateOfBirth = null, photoIdType = null;
     String monthlyNetSalary = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
-            officeIncome = null,wireHouseIncome = null,apartmentIncome = null, agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
+            officeIncome = null, wireHouseIncome = null, apartmentIncome = null, agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
             monthlyFamilyExpenditure = null, emiOfOtherLoans = null;
     ArrayList<CoApplicant> coApplicantArrayList;
     CoApplicantListAdapter coApplicantAdapter;
@@ -143,7 +143,7 @@ public class ProspectStageActivity extends AppCompatActivity {
 
                     name = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
                     age = ProspectStageProductAndCustomerDetailsFragment.etAge.getText().toString();
-                    photoIdType=ProspectStageProductAndCustomerDetailsFragment.photoIdType;
+                    photoIdType = ProspectStageProductAndCustomerDetailsFragment.photoIdType;
                     photoId = ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
                     photoIdDate = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
                     eTin = ProspectStageProductAndCustomerDetailsFragment.etETin.getText().toString();
@@ -187,12 +187,12 @@ public class ProspectStageActivity extends AppCompatActivity {
                             getDataFromProspect().getFollowUp(),
                             getDataFromProspect().getRemark(),
                             AppConstant.STATUS_RBM,
-                            segment, dateOfBirth,age, districtOfBirth,
-                            countOfBirth,photoIdType, photoId, photoIdDate, eTin, fatherName,
+                            segment, dateOfBirth, age, districtOfBirth,
+                            countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
                             motherName, spouseName, "", noYrsInCureentJob,
                             relationship, permanentAddress, monthlyNetSalary,
-                            monthlySalaryAmount, businessIncome,apartmentIncome,
-                            semiPakaIncome,officeIncome,wireHouseIncome,
+                            monthlySalaryAmount, businessIncome, apartmentIncome,
+                            semiPakaIncome, officeIncome, wireHouseIncome,
                             agriculturalIncome, practiceConsultancyTution, remittance,
                             interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
                             securityValue, loanRequired, loanTerm, proposedInterest,
@@ -260,13 +260,11 @@ public class ProspectStageActivity extends AppCompatActivity {
                 districtOfBirth = ProspectStageProductAndCustomerDetailsFragment.districtOfBirth;
                 profession = ProspectStageProductAndCustomerDetailsFragment.profession;
                 relationship = ProspectStageProductAndCustomerDetailsFragment.relationship;
-
                 name = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
-                dateOfBirth =
-                        age = ProspectStageProductAndCustomerDetailsFragment.etAge.getText().toString();
-                photoIdType=ProspectStageProductAndCustomerDetailsFragment.photoIdType;
+                age = ProspectStageProductAndCustomerDetailsFragment.etAge.getText().toString();
+                photoIdType = ProspectStageProductAndCustomerDetailsFragment.photoIdType;
                 photoId = ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
-                photoIdDate = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
+                photoIdDate = ProspectStageProductAndCustomerDetailsFragment.etPhotoIdDate.getText().toString();
                 eTin = ProspectStageProductAndCustomerDetailsFragment.etETin.getText().toString();
                 fatherName = ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString();
                 motherName = ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString();
@@ -307,12 +305,12 @@ public class ProspectStageActivity extends AppCompatActivity {
                             getDataFromProspect().getFollowUp(),
                             getDataFromProspect().getRemark(),
                             AppConstant.STATUS_NEW_PROSPECT,
-                            segment, dateOfBirth,age, districtOfBirth,
-                            countOfBirth,photoIdType, photoId, photoIdDate, eTin, fatherName,
+                            segment, dateOfBirth, age, districtOfBirth,
+                            countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
                             motherName, spouseName, "", noYrsInCureentJob,
                             relationship, permanentAddress, monthlyNetSalary,
-                            monthlySalaryAmount, businessIncome,apartmentIncome,
-                            semiPakaIncome,officeIncome,wireHouseIncome,
+                            monthlySalaryAmount, businessIncome, apartmentIncome,
+                            semiPakaIncome, officeIncome, wireHouseIncome,
                             agriculturalIncome, practiceConsultancyTution, remittance,
                             interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
                             securityValue, loanRequired, loanTerm, proposedInterest,

@@ -1,25 +1,12 @@
-package net.maxproit.salesforce.masum.appdata.sqlite;
+package net.maxproit.salesforce.masum.appdata;
 
 public class AppConstant {
 
+    public static final String  NID="NID";
+    public static final String  BIRTH_CERTIFICATE="Birth Certificate";
+    public static final String  PASSPOSRT="Passport";
+    public static final String DRIVING_LICENSE ="Driving License";
 
-//    public static  String _L_ID ;
-//    public static  String LEAD_BRANCH_NAME;
-//    public static  String LEAD_USER_NAME;
-//    public static  String LEAD_PROFESSION ;
-//    public static  String LEAD_ORGANIZATION ;
-//    public static  String LEAD_DESIGNATION ;
-//    public static  String LEAD_PHONE;
-//    public static  String LEAD_ADDRESS;
-//    public static  String LEAD_REF ;
-//    public static  String LEAD_PRODUCT_TYPE ;
-//    public static  String LEAD_PRODUCT_SUBCATEGORY;
-//    public static  String TENTETIVE_LEAD_AMOUNT ;
-//    public static  String LEAD_OR_INTEREST ;
-//    public static  String LEAD_OP_FEE ;
-//    public static  String LEAD_VISIT_DATE;
-//    public static  String LEAD_FOLLOW_UP ;
-//    public static  String LEAD_REMARK ;
 
     public static final String  LEAD_STATUS_NEW="new lead";
     public static final String STATUS_NEW_PROSPECT ="new prospect";

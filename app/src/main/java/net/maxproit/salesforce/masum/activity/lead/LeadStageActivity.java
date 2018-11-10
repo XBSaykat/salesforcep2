@@ -27,7 +27,7 @@ import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageVisitRecordFragment;
 import net.maxproit.salesforce.masum.model.Attachment;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
