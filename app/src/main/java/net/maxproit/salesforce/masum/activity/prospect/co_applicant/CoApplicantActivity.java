@@ -128,16 +128,16 @@ public class CoApplicantActivity extends AppCompatActivity {
                         emiOfOtherLoans);
 
                 Log.d("tag", ""+coApplicant.getLeadId());
-
-
+                Log.d("tag", ""+coApplicant.getName());
 
                     int update = coApplicantDBController.insertData(coApplicant);
+
                     if (update > 0){
                         Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
 
                         Intent coApplicantIntent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
-
                         setResult(Activity.RESULT_OK, coApplicantIntent);
+                        finish();
 
                     }
                     else {

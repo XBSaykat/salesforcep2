@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,14 @@ import android.widget.Button;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
+import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
+import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.model.mylead.Mylead;
+
+import java.util.ArrayList;
 
 import static net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity.CO_APPLICANT_REQUEST_CODE;
 
@@ -38,6 +45,12 @@ public class ProspectStageCoApplicantFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Button btnCoApplicant;
+    private RecyclerView rvCoapplicantList;
+    CoApplicantListAdapter coApplicantAdapter;
+    private ArrayList<CoApplicant> coApplicantList, filteredList;
+    private CoApplicantDBController coApplicantDBController;
+//    private MyNewLead mylead;
+
 
     private static ProspectStageActivity prospectStageActivity;
     int leadIdForCoApplicant;
@@ -82,10 +95,67 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, container, false);
         prospectStageActivity= (ProspectStageActivity) getActivity();
         btnCoApplicant = view.findViewById(R.id.btn_prospect_stage_co_applicant);
+        rvCoapplicantList = view.findViewById(R.id.rv_prospect_stage_co_applicant);
+        coApplicantDBController = new CoApplicantDBController(getActivity());
+
+     MyNewLead mylead = prospectStageActivity.getDataFromProspect();
+        leadIdForCoApplicant = mylead.getId();
+
+
+        coApplicantList = new ArrayList<>();
+        filteredList = new ArrayList<>();
+
+
 
         initListener();
 
+
         return view;
+    }
+
+    private void loadCoapplicants() {
+        if (!coApplicantList.isEmpty()){
+            coApplicantList.clear();
+        }
+        if (!filteredList.isEmpty()){
+            filteredList.clear();
+        }
+
+
+        if(leadIdForCoApplicant > -1 ){
+
+            coApplicantList.addAll(coApplicantDBController.getAllData());
+
+            for (int i = 0; i < coApplicantList.size(); i++ ){
+                if (coApplicantList.get(i).getLeadId() == leadIdForCoApplicant){
+
+                    filteredList.add(coApplicantList.get(i));
+
+                }
+
+            }
+            viewListItems(filteredList);
+        }
+    }
+
+    private void viewListItems(ArrayList<CoApplicant> filteredList) {
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        coApplicantAdapter = new CoApplicantListAdapter(getContext(), filteredList);
+        rvCoapplicantList.setLayoutManager(mLayoutManager);
+        rvCoapplicantList.setAdapter(coApplicantAdapter);
+        coApplicantAdapter.notifyDataSetChanged();
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadCoapplicants();
+
+
     }
 
     private void initListener() {
@@ -94,8 +164,8 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         btnCoApplicant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyNewLead mylead = prospectStageActivity.getDataFromProspect();
-                leadIdForCoApplicant = mylead.getId();
+
+
                 Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
                 intent.putExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, leadIdForCoApplicant);
                 startActivityForResult(intent, 1);

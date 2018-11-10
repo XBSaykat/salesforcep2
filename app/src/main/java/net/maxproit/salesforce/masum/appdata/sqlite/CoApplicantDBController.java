@@ -164,8 +164,8 @@ public class CoApplicantDBController {
                     // get  the  data into array,or class variable
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants.CO_APPLICANT_ID));
                     int lead_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_ID_FOR_CO));
-                    String segment = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_SEGMENT));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
+                    String segment = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_SEGMENT));
                     String dateOfBirth = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_DATE_OF_BIRTH));
                     String age = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_AGE));
                     String dob = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_DOB));
@@ -202,7 +202,7 @@ public class CoApplicantDBController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new CoApplicant(id, lead_id, segment, userName, dateOfBirth,
+                    favDataArray.add(new CoApplicant(id, lead_id, userName, segment, dateOfBirth,
                             age, dob, cob, pIdType, pIdNumber, pIssueDate, etin, fName,
                             mName, sName, profession, exList, organization, designation,
                             noYrsInCurJob, relationWithApplicant, permanentAddress, address,

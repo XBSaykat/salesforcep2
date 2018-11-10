@@ -82,7 +82,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
-            relationship, name, dateOfAge, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
+            relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto;
 
 
@@ -130,6 +130,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
+
         etDateOfBirth = view.findViewById(R.id.input_date_of_birth);
 
         etPhotoId = view.findViewById(R.id.et_photo_id_no);
@@ -254,6 +255,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     }
 
     public void initListener() {
+        name = etName.getText().toString();
 
         etDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override

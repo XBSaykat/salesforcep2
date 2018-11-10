@@ -68,7 +68,7 @@ public class CoApplicantListAdapter extends RecyclerView.Adapter<CoApplicantList
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mListener.itemClickListener(view, getLayoutPosition());
+//                    mListener.itemClickListener(view, getLayoutPosition());
                 }
             });
 
