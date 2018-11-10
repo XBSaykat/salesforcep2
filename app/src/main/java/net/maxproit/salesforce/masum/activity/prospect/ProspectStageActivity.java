@@ -112,7 +112,6 @@ public class ProspectStageActivity extends AppCompatActivity {
                     monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
 
                     monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                    monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
                     agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
                     practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
                     remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
@@ -191,7 +190,7 @@ public class ProspectStageActivity extends AppCompatActivity {
                             countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
                             motherName, spouseName, "", noYrsInCureentJob,
                             relationship, permanentAddress, monthlyNetSalary,
-                            monthlySalaryAmount, businessIncome, apartmentIncome,
+                            monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
                             semiPakaIncome, officeIncome, wireHouseIncome,
                             agriculturalIncome, practiceConsultancyTution, remittance,
                             interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
@@ -232,7 +231,6 @@ public class ProspectStageActivity extends AppCompatActivity {
                 monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
 
                 monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
                 agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
                 practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
                 remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
@@ -309,7 +307,7 @@ public class ProspectStageActivity extends AppCompatActivity {
                             countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
                             motherName, spouseName, "", noYrsInCureentJob,
                             relationship, permanentAddress, monthlyNetSalary,
-                            monthlySalaryAmount, businessIncome, apartmentIncome,
+                            monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
                             semiPakaIncome, officeIncome, wireHouseIncome,
                             agriculturalIncome, practiceConsultancyTution, remittance,
                             interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
