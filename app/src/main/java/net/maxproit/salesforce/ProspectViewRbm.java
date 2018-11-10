@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -148,7 +149,7 @@ public class ProspectViewRbm extends AppCompatActivity {
 
         coApplicants.addAll(coApplicantDBController.getAllData(getDataFromProspect().getId()));
 
-        return filteredList;
+        return coApplicants;
     }
 
 
@@ -156,8 +157,10 @@ public class ProspectViewRbm extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = (View) inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, null);
-        Button btnAdd=dialogView.findViewById(R.id.btn_prospect_stage_co_applicant);
-        btnAdd.setVisibility(View.GONE);
+       LinearLayout liAddSection=dialogView.findViewById(R.id.li_add_co_applicant);
+       LinearLayout liAddSectionTopSpace=dialogView.findViewById(R.id.li_add_co_applicant_top_space);
+        liAddSection.setVisibility(View.GONE);
+        liAddSectionTopSpace.setVisibility(View.GONE);
 
 
         builder.setView(dialogView);
@@ -170,6 +173,7 @@ public class ProspectViewRbm extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         AlertDialog dialog = builder.create();
+        dialog.setTitle("Co applicant List");
         dialog.show();
     }
     /*
