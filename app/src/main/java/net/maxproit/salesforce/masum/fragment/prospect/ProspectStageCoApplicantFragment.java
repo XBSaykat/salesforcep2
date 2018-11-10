@@ -56,7 +56,6 @@ public class ProspectStageCoApplicantFragment extends Fragment {
     int leadIdForCoApplicant;
 
     private OnFragmentInteractionListener mListener;
-
     public ProspectStageCoApplicantFragment() {
         // Required empty public constructor
     }

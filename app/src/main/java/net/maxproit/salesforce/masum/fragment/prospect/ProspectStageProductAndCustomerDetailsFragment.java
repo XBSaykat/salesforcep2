@@ -243,7 +243,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.DAY_OF_MONTH, day);
-            String myFormat = new SimpleDateFormat("dd.MM.YYYY").format(calendar.getTime());
+            String myFormat = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
             etDob.setText(myFormat);
             etAge.setText(calcutateAge(calendar.getTimeInMillis()));
 
