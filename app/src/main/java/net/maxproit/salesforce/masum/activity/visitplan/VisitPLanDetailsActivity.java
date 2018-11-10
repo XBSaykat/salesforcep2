@@ -333,6 +333,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     tvCity.getText().toString(), tvPoliceStation.getText().toString(), tvVisitPurpose.getText().toString(), tvVisitDate.getText().toString(),
                     tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY);
             if (insert > 0) {
+                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this,MyActivitiesActivity.class,true);
                 Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();

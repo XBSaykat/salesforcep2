@@ -224,16 +224,17 @@ public class LeadStageActivity extends AppCompatActivity {
                         insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
+                        insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
                     } else {
                         insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_PROCEED);
+                        insertAttachmentData(insert, finalMyNewLead);
                     }
 
                     if (insert > 0) {
-                        insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
+
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, DashboardSalesOfficerActivity.class, true);
 
                     } else {
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
@@ -277,8 +278,10 @@ public class LeadStageActivity extends AppCompatActivity {
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
                     if (insert > 0) {
+                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, DashboardSalesOfficerActivity.class, true);
+                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                         insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
 
 
@@ -290,6 +293,7 @@ public class LeadStageActivity extends AppCompatActivity {
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
                     if (insert > 0) {
+                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                         insertAttachmentData(insert, null);
 
