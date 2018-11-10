@@ -10,7 +10,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -41,7 +43,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.INDIVIDUAL;
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.POST_DISBURSEMENT;
+import static net.maxproit.salesforce.masum.appdata.sqlite.AppConstant.PRE_DISBURSEMENT;
 import static net.maxproit.salesforce.util.MyApplication.getContext;
 
 public class VisitPLanDetailsActivity extends AppCompatActivity {
@@ -56,6 +63,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
     private SpinnerDbController spinnerDbController;
     private TextView tvProceedToLead, tvRejected, tvSave;
     Intent myActivityItemIntent;
+    LinearLayout secMobiile;
     int itemPosition;
     List<String> listClientType, listProductType, listPurpose;
     private ArrayAdapter<String> productTypeAdapter;
@@ -209,6 +217,32 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         spinnerProductType.setAdapter(productTypeAdapter);
         backButton = (ImageView) findViewById(R.id.btn_back);
         getDataFromVisitPlan();
+        secMobiile = (LinearLayout) findViewById(R.id.secinput_mobile_no);
+//        secMobiile.setVisibility(View.GONE);
+
+        tvMobileNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(mobileNo);
+                if(!mobileNo.isEmpty() && matcher.matches()){
+
+                }else{
+                    tvMobileNumber.setError("You entered invalid mobile no.");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
     }
@@ -218,6 +252,12 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(int i, String s) {
                 spinerClientTypeStr = s;
+//                if (s.equals(INDIVIDUAL)) {
+//                    secMobiile.setVisibility(View.VISIBLE);
+//
+//                } else {
+//                    secMobiile.setVisibility(View.GONE);
+//                }
 
             }
         });
@@ -234,6 +274,13 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(int i, String s) {
                 sPurposeOfVisitStr = s;
+
+                if (s.equals(PRE_DISBURSEMENT)){
+                    throwAlertDialogForCIF();
+
+                }if(s.equals(POST_DISBURSEMENT)){
+                    throwAlertDialogForCIF();
+                }
 
 
             }
@@ -539,6 +586,37 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "Procedd is enable for "+sPurposeOfVisitStr, Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void throwAlertDialogForCIF(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_visit_plan_cif_dialog, null);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(), R.style.Theme_AppCompat);
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        View cifDialog = inflater.inflate(R.layout., null);
+//        builder.setView(cifDialog);
+//        final AlertDialog dialog = builder.create();
+
+        EditText editText = (EditText) dialogView.findViewById(R.id.et_dialog_cif_number);
+        Button cifSubmit = (Button) dialogView.findViewById(R.id.btn_dialog_cif_submit);
+        Button cifCancel = (Button) dialogView.findViewById(R.id.btn_dialog_cif_cancel);
+
+        cifSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogBuilder.dismiss();
+            }
+        });
+
+        cifCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
 

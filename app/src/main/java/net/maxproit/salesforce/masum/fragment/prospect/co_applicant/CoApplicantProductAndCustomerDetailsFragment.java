@@ -26,6 +26,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -260,9 +261,27 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePickerDialog(getContext(), etDateOfBirth);
+                final Calendar calendar = Calendar.getInstance();
+                int mYear = calendar.get(Calendar.YEAR);
+                int mMonth = calendar.get(Calendar.MONTH);
+                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialogCalculate = new DatePickerDialog(getView().getContext(),
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        datepickerListner, mYear, mMonth, mDay);
+//                datePickerDialogCalculate.getDatePicker().setMaxDate(new Date().getTime());
+                datePickerDialogCalculate.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialogCalculate.show();
             }
         });
+
+
+
+//        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                datePickerDialog(getContext(), etDateOfBirth);
+//            }
+//        });
 
         etPhotoIdDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -416,6 +435,38 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         photoIdType = type;
 
 
+    }
+
+    private DatePickerDialog.OnDateSetListener datepickerListner = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, day);
+            String myFormat = new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
+            etDateOfBirth.setText(myFormat);
+            etAge.setText(calcutateAge(calendar.getTimeInMillis()));
+
+        }
+    };
+
+    private String calcutateAge(long date) {
+        Calendar dob = Calendar.getInstance();
+        dob.setTimeInMillis(date);
+
+        Calendar today = Calendar.getInstance();
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH) ||
+                today.get(Calendar.MONTH) < dob.get(Calendar.MONTH) &&
+                        today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
+            age--;
+        }
+
+        Integer ageInt = new Integer(age);
+        String ages = ageInt.toString();
+
+        return ages;
     }
 
 
