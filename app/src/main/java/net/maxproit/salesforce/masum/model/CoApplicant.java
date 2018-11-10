@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 public class CoApplicant implements Serializable{
 
+
     int id, leadId;
     String  name, segment,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
             photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,

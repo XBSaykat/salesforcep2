@@ -32,19 +32,26 @@
             />
 
     </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+
 
         <ScrollView
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/greyWhite"
+            android:padding="@dimen/size_8dp"
             >
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_prospect_stage_co_applicant"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_8dp" />
 
 
         </ScrollView>
