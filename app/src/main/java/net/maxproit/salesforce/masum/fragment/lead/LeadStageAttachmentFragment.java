@@ -12,9 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.appdata.sqlite.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
+import net.maxproit.salesforce.masum.model.Attachment;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.ImageUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -36,9 +44,13 @@ public class LeadStageAttachmentFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    public static ImageView imgAtach,imgIdCard,imgVisitingCard;
-    private Button btnImgCap,btnIDCard,btnVCard;
+    public static ImageView imgAtach, imgIdCard, imgVisitingCard;
+    private Button btnImgCap, btnIDCardCap, btnVCardCap, btnChoosePP, btnChooseId, btnChooseVCard;
     private OnFragmentInteractionListener mListener;
+    private TextView tvID, tvPhoto, tvVCard;
+    private Uri filePathUri = null;
+    AttachmentDbController attachmentDbController;
+    ArrayList<Attachment> attachmentArrayList;
 
     public LeadStageAttachmentFragment() {
         // Required empty public constructor
@@ -76,18 +88,26 @@ public class LeadStageAttachmentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
+
         initView(rootView);
         initListener();
+        initIntentData();
         return rootView;
     }
 
     private void initView(View rootView) {
         imgAtach = rootView.findViewById(R.id.img_atach_pp);
-        imgIdCard=rootView.findViewById(R.id.img_atach_id_card);
-        imgVisitingCard=rootView.findViewById(R.id.img_atach_v_card);
-        btnImgCap=rootView.findViewById(R.id.btn_capture_pp);
-        btnIDCard=rootView.findViewById(R.id.btn_atach_id);
-        btnVCard=rootView.findViewById(R.id.btn_atach_v_card);
+        imgIdCard = rootView.findViewById(R.id.img_atach_id_card);
+        imgVisitingCard = rootView.findViewById(R.id.img_atach_v_card);
+        btnImgCap = rootView.findViewById(R.id.btn_capture_pp);
+        btnIDCardCap = rootView.findViewById(R.id.btn_atach_id);
+        btnVCardCap = rootView.findViewById(R.id.btn_atach_v_card);
+        btnChoosePP = rootView.findViewById(R.id.btn_choose_pp);
+        btnChooseId = rootView.findViewById(R.id.btn_choose_id);
+        btnChooseVCard = rootView.findViewById(R.id.btn_choose_v_card);
+        tvID = rootView.findViewById(R.id.tv_id_text);
+        tvPhoto = rootView.findViewById(R.id.tv_photo_text);
+        tvVCard = rootView.findViewById(R.id.tv_v_text);
     }
 
     private void initListener() {
@@ -104,7 +124,7 @@ public class LeadStageAttachmentFragment extends Fragment {
             }
         });
 
-        btnIDCard.setOnClickListener(new View.OnClickListener() {
+        btnIDCardCap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -116,7 +136,7 @@ public class LeadStageAttachmentFragment extends Fragment {
             }
         });
 
-        btnVCard.setOnClickListener(new View.OnClickListener() {
+        btnVCardCap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -126,6 +146,75 @@ public class LeadStageAttachmentFragment extends Fragment {
                 }
             }
         });
+
+        btnChoosePP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creating intent.
+                Intent intent = new Intent();
+                // Setting intent type as image to select image from phone storage.
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, AppConstant.SELECT_IMAGE_TITLE), AppConstant.REQUEST_IMAGE_CHOOSE);
+            }
+        });
+
+        btnChooseId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                // Setting intent type as image to select image from phone storage.
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, AppConstant.SELECT_IMAGE_TITLE), AppConstant.REQUEST_ID_CARD_CHOOSE);
+            }
+        });
+
+        btnChooseVCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                // Setting intent type as image to select image from phone storage.
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, AppConstant.SELECT_IMAGE_TITLE), AppConstant.REQUEST_VCARD_CHOOSE);
+            }
+        });
+
+    }
+
+    private void initIntentData() {
+        if (getArguments() != null) {
+            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
+            if (status == 1) {
+                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead != null) {
+
+                    initAttachMentData(myNewLead);
+
+                }
+            }
+
+        }
+    }
+
+    private void initAttachMentData(MyNewProspect myNewLead) {
+        attachmentDbController = new AttachmentDbController(getActivity());
+        if (attachmentDbController.getAllData
+                (String.valueOf(myNewLead.getId())).size() > 0) {
+            attachmentArrayList = new ArrayList<>();
+            attachmentArrayList.addAll(attachmentDbController.getAllData(String.valueOf(myNewLead.getId())));
+            tvPhoto.setVisibility(View.GONE);
+            tvID.setVisibility(View.GONE);
+            tvVCard.setVisibility(View.GONE);
+            imgAtach.setVisibility(View.VISIBLE);
+            imgIdCard.setVisibility(View.VISIBLE);
+            imgVisitingCard.setVisibility(View.VISIBLE);
+
+            imgAtach.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getProfilePic()));
+            imgIdCard.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getIdCard()));
+            imgVisitingCard.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getVisitingCard()));
+        }
 
     }
 
@@ -137,17 +226,85 @@ public class LeadStageAttachmentFragment extends Fragment {
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             imgAtach.setImageBitmap(bitmap);
-        }
 
-        else if (requestCode == AppConstant.REQUEST_ID_CARD_CAPTURE && resultCode == RESULT_OK && data != null) {
+            imgAtach.setVisibility(View.VISIBLE);
+            tvPhoto.setVisibility(View.GONE);
+
+        } else if (requestCode == AppConstant.REQUEST_ID_CARD_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             imgIdCard.setImageBitmap(bitmap);
-        }
-        else if (requestCode == AppConstant.REQUEST_VCARD_CAPTURE && resultCode == RESULT_OK && data != null) {
+
+            imgIdCard.setVisibility(View.VISIBLE);
+            tvID.setVisibility(View.GONE);
+
+
+        } else if (requestCode == AppConstant.REQUEST_VCARD_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             imgVisitingCard.setImageBitmap(bitmap);
+
+            imgVisitingCard.setVisibility(View.VISIBLE);
+            tvVCard.setVisibility(View.GONE);
+
+        } else if (requestCode == AppConstant.REQUEST_IMAGE_CHOOSE && resultCode ==
+                RESULT_OK && data != null && data.getData() != null) {
+            filePathUri = data.getData();
+
+            try {
+
+                // Getting selected image into Bitmap.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+                // Setting up bitmap selected image into ImageView.
+                imgAtach.setImageBitmap(bitmap);
+                if (data.getData() != null) {
+                    imgAtach.setVisibility(View.VISIBLE);
+                    tvPhoto.setVisibility(View.GONE);
+                }
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        } else if (requestCode == AppConstant.REQUEST_ID_CARD_CHOOSE && resultCode ==
+                RESULT_OK && data != null && data.getData() != null) {
+            filePathUri = data.getData();
+
+            try {
+
+                // Getting selected image into Bitmap.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+                // Setting up bitmap selected image into ImageView.
+                imgIdCard.setImageBitmap(bitmap);
+                if (data.getData() != null) {
+                    imgIdCard.setVisibility(View.VISIBLE);
+                    tvID.setVisibility(View.GONE);
+                }
+
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        } else if (requestCode == AppConstant.REQUEST_VCARD_CHOOSE && resultCode ==
+                RESULT_OK && data != null && data.getData() != null) {
+            filePathUri = data.getData();
+
+            try {
+
+                // Getting selected image into Bitmap.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+                // Setting up bitmap selected image into ImageView.
+                imgVisitingCard.setImageBitmap(bitmap);
+                if (data.getData() != null) {
+                    imgVisitingCard.setVisibility(View.VISIBLE);
+                    tvVCard.setVisibility(View.GONE);
+                }
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
         }
     }
 

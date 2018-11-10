@@ -180,6 +180,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/greyWhite"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Date of birth :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_date_of_birth"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/size_4dp">
 
@@ -637,6 +659,7 @@
                         android:text=""
                         android:id="@+id/tv_business_income"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -647,7 +670,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Montly rental income :"
+                        android:text="Semipaka income :"
                         android:textStyle="bold" />
 
                     <TextView
@@ -655,7 +678,51 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:id="@+id/tv_rental_income"/>
+                        android:id="@+id/tv_semipaka_income"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/greyWhite"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Multi-storied building/Apartment income :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:id="@+id/tv_multi_apartment_income"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Office/Shop/Commercial space income :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:id="@+id/tv_office_commercial_space_income"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -669,7 +736,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rental Income :"
+                        android:text="Warehouse/Go Down/Factory income :"
                         android:textStyle="bold" />
 
                     <TextView
@@ -677,8 +744,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:id="@+id/tv_rental_income_amount"/>
+                        android:id="@+id/tv_warehouse_factory_income"/>
                 </LinearLayout>
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

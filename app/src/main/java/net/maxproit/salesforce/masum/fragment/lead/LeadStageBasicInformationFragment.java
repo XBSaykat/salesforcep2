@@ -269,11 +269,14 @@ public class LeadStageBasicInformationFragment extends Fragment {
                     etAddress.setText(myNewLead.getAddress());
                     etUserOrganization.setText(myNewLead.getOrganization());
                     etDesignattion.setText(myNewLead.getDesignation());
-                    if (!myNewLead.getBranchName().equals(null) && !myNewLead.getProfession().equals(null)) {
+                    if (myNewLead.getBranchName() !=null && myNewLead.getProfession() !=null) {
                         try {
                             spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
                             spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
                         } catch (final IllegalStateException ignored) {
+
+                        }
+                        catch (NullPointerException e){
 
                         }
                     }

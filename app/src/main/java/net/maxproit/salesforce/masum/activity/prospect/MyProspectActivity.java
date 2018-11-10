@@ -19,7 +19,6 @@ import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.model.myprospect.MyProspect;
-import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -145,7 +144,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 
 
     private void sentDataToDetail(int position) {
-        MyNewLead myNewLead=new MyNewLead(filterList.get(position).getId(),
+        MyNewProspect myNewLead=new MyNewProspect(filterList.get(position).getId(),
                 filterList.get(position).getBranchName(),
                 filterList.get(position).getUserName(),
                 filterList.get(position).getProfession(),
@@ -163,7 +162,42 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getDisDate(),
                 filterList.get(position).getFollowUp(),
                 filterList.get(position).getRemark(),
-                filterList.get(position).getStatus());
+                filterList.get(position).getStatus(),
+                filterList.get(position).getSegment(),
+                filterList.get(position).getDateOfBirth(),
+                filterList.get(position).getAge(),
+                filterList.get(position).getDisDate(),
+                filterList.get(position).getCob(),
+                filterList.get(position).getpIDType(),
+                filterList.get(position).getpIdNumber(),
+                filterList.get(position).getpIssueDate(),
+                filterList.get(position).getEtin(),
+                filterList.get(position).getfName(),
+                filterList.get(position).getmName(),
+                filterList.get(position).getsName(),
+                filterList.get(position).getExList(),
+                filterList.get(position).getCurrentJob(),
+                filterList.get(position).getApplicant(),
+                filterList.get(position).getpAddress(),
+                filterList.get(position).getNetSalary(),
+                filterList.get(position).getSalaryAmount(),
+                filterList.get(position).getBusinessIncomeAmount(),
+                filterList.get(position).getApartmentAmount(),
+                filterList.get(position).getSemipakaIncome(),
+                filterList.get(position).getOfficeSpaceINcome(),
+                filterList.get(position).getWireHouseINcome(),
+                filterList.get(position).getAg_Income(),
+                filterList.get(position).getTution(),
+                filterList.get(position).getRemitance(),
+                filterList.get(position).getInFdr(),
+                filterList.get(position).getfExpense(),
+                filterList.get(position).getEmiOther(),
+                filterList.get(position).getsValue(),
+                filterList.get(position).getLoanReq(),
+                filterList.get(position).getLoanTerm(),
+                filterList.get(position).getPiRate(),
+                filterList.get(position).getProspectFee()
+                );
         ActivityUtils.invokLeadDetailForProspectStage(this,myNewLead);
     }
 

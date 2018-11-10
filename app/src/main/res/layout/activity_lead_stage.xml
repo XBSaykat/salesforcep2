@@ -30,19 +30,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 
-
-    <TextView
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/size_8dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:background="@color/colorPrimary"
-        android:text="Save"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_24sp" />
     <LinearLayout
         android:id="@+id/btn_layout_lead"
         style="@style/LayoutQuestion"
@@ -51,16 +38,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
         android:background="@color/red"
-        android:weightSum="1">
-
+        android:weightSum="3">
+        <TextView
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="@dimen/size_2dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_18dp" />
         <TextView
             android:id="@+id/tv_activity_details_proceed_to_prospect"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_margin="@dimen/size_2dp"
-            android:layout_weight=".5"
+            android:layout_weight="1"
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="Proceed"
@@ -72,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_40dp"
             android:layout_margin="@dimen/size_2dp"
-            android:layout_weight=".5"
+            android:layout_weight="1"
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="Rejected"

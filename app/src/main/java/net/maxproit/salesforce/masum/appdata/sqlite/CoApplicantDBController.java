@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import net.maxproit.salesforce.masum.model.CoApplicant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.util.ArrayList;
 
@@ -57,7 +56,7 @@ public class CoApplicantDBController {
         values.put(DbConstants.PROSPECT_PERMANENT_ADDRESS, coApplicant.getPermanentAddress());
         values.put(DbConstants.LEAD_ADDRESS, coApplicant.getPresentAddress());
         values.put(DbConstants.LEAD_PHONE, coApplicant.getMobileNo());
-        values.put(DbConstants.PROSPECT_NET_SALARY, coApplicant.getMonthSalaryType());
+        values.put(DbConstants.PROSPECT_NET_SALARY_TYPE, coApplicant.getMonthSalaryType());
         values.put(DbConstants.PROSPECT_SALARY_AMOUNT, coApplicant.getMonthSalaryAmount());
         values.put(DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT, coApplicant.getMonthBusinessIncomeAmount());
         values.put(DbConstants.PROSPECT_WAREHOUSE_INCOME, coApplicant.getMonthWareHouseAmount());
@@ -119,7 +118,7 @@ public class CoApplicantDBController {
                 DbConstants.PROSPECT_PERMANENT_ADDRESS,
                 DbConstants.LEAD_ADDRESS,
                 DbConstants.LEAD_PHONE,
-                DbConstants.PROSPECT_NET_SALARY,
+                DbConstants.PROSPECT_NET_SALARY_TYPE,
                 DbConstants.PROSPECT_SALARY_AMOUNT,
                 DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT,
                 DbConstants.PROSPECT_WAREHOUSE_INCOME,
@@ -186,7 +185,7 @@ public class CoApplicantDBController {
                     String permanentAddress = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_PERMANENT_ADDRESS));
                     String address = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_ADDRESS));
                     String phone = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PHONE));
-                    String netSalary = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_NET_SALARY));
+                    String netSalary = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_NET_SALARY_TYPE));
                     String salaryAmount = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_SALARY_AMOUNT));
                     String businessIncome = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT));
                     String wareHouseIncome = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_WAREHOUSE_INCOME));

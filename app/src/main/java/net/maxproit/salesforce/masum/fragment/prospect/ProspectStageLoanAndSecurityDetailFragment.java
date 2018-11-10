@@ -5,6 +5,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +22,11 @@ import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -162,6 +167,8 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 //            etPresentAddress.setText(myNewLead.getAddress());
         }
 
+        commaSeparator();
+
         return view;
     }
 
@@ -271,5 +278,73 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void commaSeparator(){
+        etSecurityValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etSecurityValue.removeTextChangedListener(this);
+                try{
+
+                    String originalTentativeLoanAmount = editable.toString();
+                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
+                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
+
+                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
+                    formatter.applyPattern("#,###,###,###");
+                    String formattedString = formatter.format(longVal);
+
+                    etSecurityValue.setText(formattedString);
+                    etSecurityValue.setSelection(etSecurityValue.getText().length());
+                }catch (NumberFormatException nfe){
+                    nfe.printStackTrace();
+                }
+                etSecurityValue.addTextChangedListener(this);
+            }
+        });
+
+        etLoanRequired.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                etLoanRequired.removeTextChangedListener(this);
+                try{
+
+                    String originalTentativeLoanAmount = editable.toString();
+                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
+                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
+
+                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
+                    formatter.applyPattern("#,###,###,###");
+                    String formattedString = formatter.format(longVal);
+
+                    etLoanRequired.setText(formattedString);
+                    etLoanRequired.setSelection(etLoanRequired.getText().length());
+                }catch (NumberFormatException nfe){
+                    nfe.printStackTrace();
+                }
+                etLoanRequired.addTextChangedListener(this);
+            }
+        });
     }
 }

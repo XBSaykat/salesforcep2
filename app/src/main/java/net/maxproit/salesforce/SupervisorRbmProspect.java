@@ -80,12 +80,12 @@ public class SupervisorRbmProspect extends AppCompatActivity {
                 filterList.get(position).getFollowUp(),
                 filterList.get(position).getRemark(),
                 filterList.get(position).getStatus(),
-                filterList.get(position).getpLoanType(),
-                filterList.get(position).getProductDetail(),
                 filterList.get(position).getSegment(),
+                filterList.get(position).getDateOfBirth(),
                 filterList.get(position).getAge(),
-                filterList.get(position).getDob(),
+                filterList.get(position).getDisDate(),
                 filterList.get(position).getCob(),
+                filterList.get(position).getpIDType(),
                 filterList.get(position).getpIdNumber(),
                 filterList.get(position).getpIssueDate(),
                 filterList.get(position).getEtin(),
@@ -98,8 +98,11 @@ public class SupervisorRbmProspect extends AppCompatActivity {
                 filterList.get(position).getpAddress(),
                 filterList.get(position).getNetSalary(),
                 filterList.get(position).getSalaryAmount(),
-                filterList.get(position).getRentIncome(),
-                filterList.get(position).getRentIncomeAmount(),
+                filterList.get(position).getBusinessIncomeAmount(),
+                filterList.get(position).getApartmentAmount(),
+                filterList.get(position).getSemipakaIncome(),
+                filterList.get(position).getOfficeSpaceINcome(),
+                filterList.get(position).getWireHouseINcome(),
                 filterList.get(position).getAg_Income(),
                 filterList.get(position).getTution(),
                 filterList.get(position).getRemitance(),
@@ -110,8 +113,7 @@ public class SupervisorRbmProspect extends AppCompatActivity {
                 filterList.get(position).getLoanReq(),
                 filterList.get(position).getLoanTerm(),
                 filterList.get(position).getPiRate(),
-                filterList.get(position).getFee(),
-                filterList.get(position).getMonthlyEmi());
+                filterList.get(position).getProspectFee());
         ActivityUtils.invokProspectRbmViewStage(this,myNewLead);
     }
 
