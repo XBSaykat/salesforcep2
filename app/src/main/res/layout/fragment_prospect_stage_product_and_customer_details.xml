@@ -150,14 +150,6 @@
                 android:drawableRight="@drawable/ic_required"
                 android:text="Segment" />
 
-            <!--<Spinner android:id="@+id/spinner_segment"-->
-                <!--android:drawSelectorOnTop="true"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0"-->
-                <!--android:textSize="20sp"-->
-                <!--android:entries="@array/segment_array"/>-->
-
             <com.isapanah.awesomespinner.AwesomeSpinner
                 android:id="@+id/awe_spinner_prospect_stage_segment"
                 android:layout_width="match_parent"

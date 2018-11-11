@@ -52,7 +52,7 @@ public class ProspectStageFinancialFragment extends Fragment {
                     etAgriculturalIncome, etPracticeConsultancyTuition, etRemittance, etInterestIncome,
                     etMonthlyFamilyExpenditure, etEMIOfOtherLoans, etApartmentIncomeAmount, etSemipakaIncome,
                     etOfficeSpaceIncome, etWarehouseIncome;
-    AwesomeSpinner spinnerMonthlyNetSalary, spinnerRentalIncome;
+    AwesomeSpinner spinnerMonthlyNetSalary;
     public static String monthlyNetSalary, rentalIncome;
     private SharedViewModel model;
 
@@ -162,11 +162,14 @@ public class ProspectStageFinancialFragment extends Fragment {
         if (prospectStageActivity.getDataFromProspect()!=null){
 
             MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
-            try {
-                spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getNetSalary()));
+            if (myNewLead.getNetSalary() !=null){
+                try {
+                    spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getNetSalary()));
+                }
+                catch (final IllegalStateException ignored) {
+                }
             }
-            catch (final IllegalStateException ignored) {
-            }
+
             etMonthlySalaryAmount.setText(myNewLead.getSalaryAmount());
             etMonthlyBusinessIncome.setText(myNewLead.getBusinessIncomeAmount());
             etApartmentIncomeAmount.setText(myNewLead.getApartmentAmount());
