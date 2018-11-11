@@ -64,6 +64,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SpinnerDbConstant.SQL_SPINNER_PERSONAL_LOAN);
         db.execSQL(SpinnerDbConstant.SQL_SPINNER_VALID_PHOTO);
         db.execSQL(DbConstants.SQL_CREATE_FOLLOWUP_HIS_ENTRIES);
+        db.execSQL(DbConstants.SQL_CREATE_CAR_LOAN_ENTRIES);
 
     }
 
@@ -103,6 +104,7 @@ public class DbHelper extends SQLiteOpenHelper {
        db.execSQL(SpinnerDbConstant.SQL_DELETE_VALID_PHOTO);
        db.execSQL(DbConstants.SQL_DELETE_ATTACHMENT_LAON);
        db.execSQL(DbConstants.SQL_DELETE_FOLLOWUP_HIS);
+       db.execSQL(DbConstants.SQL_DELETE_CAR_LOAN);
 
         onCreate(db);
     }

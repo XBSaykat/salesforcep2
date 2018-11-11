@@ -188,7 +188,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Date of birth :"
+                        android:text="@string/date_of_birth"
                         android:textStyle="bold" />
 
                     <TextView
@@ -1123,7 +1123,7 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:text="View Co Applicants"
-
+                       android:background="@drawable/fab_label_background"
                        />
 
                 </LinearLayout>

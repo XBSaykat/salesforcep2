@@ -62,8 +62,7 @@ public class DbConstants {
     public static final String PROSPECT_PERMANENT_ADDRESS= "p_address";
     public static final String PROSPECT_NET_SALARY_TYPE = "net_salary";
     public static final String PROSPECT_SALARY_AMOUNT = "salary_amount";
-    public static final String PROSPECT_RENTAL_INCOME = "rent_income";
-    public static final String PROSPECT_RENTAL_INCOME_AMOUNT = "income_amount";
+
 
     public static final String PROSPECT_BUSINESS_INCOME_AMOUNT = "b_income_amount";
     public static final String PROSPECT_WAREHOUSE_INCOME = "warehouse_income";
@@ -84,6 +83,16 @@ public class DbConstants {
     public static final String PROSPECT_FEE = "fee";
 
     public static final String LEAD_STATUS = "status";
+
+    //car loan
+
+    public static final String TABLE_CAR_LOAN="car_loan";
+    public static final String CAR_LOAN_ID="_id";
+    public static final String LEAD_ID_FOR_CAR_LOAN="lead_id";
+    public static final String BRAND_NAME="brand";
+    public static final String MANUFACTURE_YEAR="manu_year";
+    public static final String MANUFACTURE_COUNTRY="manu_country";
+    public static final String VEHICLE_TYPE="vehicle_type";
 
     //visit plan
     public static final String _V_ID = "_id";
@@ -244,9 +253,22 @@ public class DbConstants {
                     ATACH_V_CARD + BLOB_TYPE +" )";
 
 
+    //car loan table sql
+    public static final String SQL_CREATE_CAR_LOAN_ENTRIES =
+            "CREATE TABLE " + TABLE_CAR_LOAN + " (" +
+                    CAR_LOAN_ID + " INTEGER PRIMARY KEY," +
+                    LEAD_ID_FOR_CAR_LOAN + INTEGER_TYPE + COMMA_SEP +
+                    BRAND_NAME + TEXT_TYPE + COMMA_SEP +
+                    MANUFACTURE_YEAR + TEXT_TYPE + COMMA_SEP +
+                    MANUFACTURE_COUNTRY + TEXT_TYPE + COMMA_SEP +
+                    VEHICLE_TYPE + TEXT_TYPE +"  )";
+
+
     //create followup table history
 
-    //attachment table sql
+
+
+    //follow up table sql
     public static final String SQL_CREATE_FOLLOWUP_HIS_ENTRIES =
             "CREATE TABLE " + TABLE_FOLLOWUP_HIS + " (" +
                     FOLLOW_UP_HIS_ID + " INTEGER PRIMARY KEY," +
@@ -276,6 +298,9 @@ public class DbConstants {
 
     public static final String SQL_DELETE_FOLLOWUP_HIS =
             "DROP TABLE IF EXISTS " + TABLE_FOLLOWUP_HIS;
+
+    public static final String SQL_DELETE_CAR_LOAN =
+            "DROP TABLE IF EXISTS " + TABLE_CAR_LOAN;
 
 
 
