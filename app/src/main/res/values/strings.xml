@@ -261,6 +261,7 @@
     <string name="reject_item">Are you sure,want to remove this?</string>
     <string name="reject_plan">Are you sure,want to reject this visit plan?</string>
     <string name="my_activity">My Activity</string>
+    <string name="date_of_birth">Date of birth :</string>
 </resources>
 
 

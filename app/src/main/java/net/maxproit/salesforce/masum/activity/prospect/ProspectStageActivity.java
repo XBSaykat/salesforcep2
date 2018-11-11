@@ -21,6 +21,7 @@ import android.widget.Toast;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
+import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
@@ -28,6 +29,7 @@ import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageLoanAndSecur
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.model.CarLoan;
 import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
@@ -41,8 +43,9 @@ public class ProspectStageActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    MyLeadDbController myLeadDbController;
-    CoApplicantDBController coApplicantDBController;
+    private MyLeadDbController myLeadDbController;
+    private CarLoanDbController carLoanDbController;
+    private CoApplicantDBController coApplicantDBController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
 
     MyNewProspect coApplicant;
@@ -71,6 +74,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         toolbar.setTitle("Prospect Stage");
         setSupportActionBar(toolbar);
         myLeadDbController = new MyLeadDbController(ProspectStageActivity.this);
+        carLoanDbController = new CarLoanDbController(ProspectStageActivity.this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,79 +99,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ProspectStageFinancialFragment.monthlyNetSalary != null) {
-                    monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
-                }
-                if (ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString() != null) {
-                    monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                }
-                if (ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString() != null) {
-                    monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
-                }
-                if (ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString() != null) {
-                    agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
-
-                }
-
-                try {
-                    monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
-
-                    monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                    agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
-                    practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
-                    remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
-                    interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
-                    monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
-                    emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
-                    monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                    monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
-                    semiPakaIncome = ProspectStageFinancialFragment.etSemipakaIncome.getText().toString();
-                    apartmentIncome = ProspectStageFinancialFragment.etApartmentIncomeAmount.getText().toString();
-                    officeIncome = ProspectStageFinancialFragment.etOfficeSpaceIncome.getText().toString();
-                    wireHouseIncome = ProspectStageFinancialFragment.etWarehouseIncome.getText().toString();
-                    agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
-                    practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
-                    remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
-                    interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
-                    monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
-                    emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
-                    productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
-                    productDetails = ProspectStageProductAndCustomerDetailsFragment.productDetails;
-                    mybranchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
-                    segment = ProspectStageProductAndCustomerDetailsFragment.segment;
-                    countOfBirth = ProspectStageProductAndCustomerDetailsFragment.countOfBirth;
-                    dateOfBirth = ProspectStageProductAndCustomerDetailsFragment.etDob.getText().toString();
-                    districtOfBirth = ProspectStageProductAndCustomerDetailsFragment.districtOfBirth;
-                    profession = ProspectStageProductAndCustomerDetailsFragment.profession;
-                    relationship = ProspectStageProductAndCustomerDetailsFragment.relationship;
-
-                    name = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
-                    age = ProspectStageProductAndCustomerDetailsFragment.etAge.getText().toString();
-                    photoIdType = ProspectStageProductAndCustomerDetailsFragment.photoIdType;
-                    photoId = ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
-                    photoIdDate = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
-                    eTin = ProspectStageProductAndCustomerDetailsFragment.etETin.getText().toString();
-                    fatherName = ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString();
-                    motherName = ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString();
-                    spouseName = ProspectStageProductAndCustomerDetailsFragment.etSpouseName.getText().toString();
-                    companyName = ProspectStageProductAndCustomerDetailsFragment.etCompanyName.getText().toString();
-                    designation = ProspectStageProductAndCustomerDetailsFragment.etDesignation.getText().toString();
-                    noYrsInCureentJob = ProspectStageProductAndCustomerDetailsFragment.etNoYrsInCurrentJob.getText().toString();
-                    presentAddress = ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
-                    permanentAddress = ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
-                    mobileNumber = ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
-                    brandName = ProspectStageLoanAndSecurityDetailFragment.brandName;
-                    year = ProspectStageLoanAndSecurityDetailFragment.year;
-                    country = ProspectStageLoanAndSecurityDetailFragment.country;
-                    vehicleType = ProspectStageLoanAndSecurityDetailFragment.vehicleType;
-                    securityValue = ProspectStageLoanAndSecurityDetailFragment.etSecurityValue.getText().toString();
-                    loanRequired = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
-                    loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
-                    proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
-                    fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
-                } catch (NullPointerException e) {
-
-                }
+                getDataFromFragment();
                 if (getDataFromProspect() != null) {
                     MyNewProspect myNewProspect = new MyNewProspect(
                             mybranchName,
@@ -200,6 +132,10 @@ public class ProspectStageActivity extends AppCompatActivity {
 
                     int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
                     if (update > 0) {
+                        if (brandName !=null && year !=null && country !=null && vehicleType !=null){
+                            insertBrandData();
+                        }
+
                         Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
                         ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, DashboardSalesOfficerActivity.class, true);
                     } else {
@@ -214,76 +150,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ProspectStageFinancialFragment.monthlyNetSalary != null) {
-                    monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
-                }
-                if (ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString() != null) {
-                    monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                }
-                if (ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString() != null) {
-                    monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
-                }
-                if (ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString() != null) {
-                    agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
-
-                }
-
-
-                monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
-
-                monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
-                practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
-                remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
-                interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
-                monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
-                emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
-                monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
-                monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
-                semiPakaIncome = ProspectStageFinancialFragment.etSemipakaIncome.getText().toString();
-                apartmentIncome = ProspectStageFinancialFragment.etApartmentIncomeAmount.getText().toString();
-                officeIncome = ProspectStageFinancialFragment.etOfficeSpaceIncome.getText().toString();
-                wireHouseIncome = ProspectStageFinancialFragment.etWarehouseIncome.getText().toString();
-                agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
-                practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
-                remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
-                interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
-                monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
-                emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
-                productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
-                productDetails = ProspectStageProductAndCustomerDetailsFragment.productDetails;
-                mybranchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
-                segment = ProspectStageProductAndCustomerDetailsFragment.segment;
-                countOfBirth = ProspectStageProductAndCustomerDetailsFragment.countOfBirth;
-                dateOfBirth = ProspectStageProductAndCustomerDetailsFragment.etDob.getText().toString();
-                districtOfBirth = ProspectStageProductAndCustomerDetailsFragment.districtOfBirth;
-                profession = ProspectStageProductAndCustomerDetailsFragment.profession;
-                relationship = ProspectStageProductAndCustomerDetailsFragment.relationship;
-                name = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
-                age = ProspectStageProductAndCustomerDetailsFragment.etAge.getText().toString();
-                photoIdType = ProspectStageProductAndCustomerDetailsFragment.photoIdType;
-                photoId = ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
-                photoIdDate = ProspectStageProductAndCustomerDetailsFragment.etPhotoIdDate.getText().toString();
-                eTin = ProspectStageProductAndCustomerDetailsFragment.etETin.getText().toString();
-                fatherName = ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString();
-                motherName = ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString();
-                spouseName = ProspectStageProductAndCustomerDetailsFragment.etSpouseName.getText().toString();
-                companyName = ProspectStageProductAndCustomerDetailsFragment.etCompanyName.getText().toString();
-                designation = ProspectStageProductAndCustomerDetailsFragment.etDesignation.getText().toString();
-                noYrsInCureentJob = ProspectStageProductAndCustomerDetailsFragment.etNoYrsInCurrentJob.getText().toString();
-                presentAddress = ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
-                permanentAddress = ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
-                mobileNumber = ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
-                brandName = ProspectStageLoanAndSecurityDetailFragment.brandName;
-                year = ProspectStageLoanAndSecurityDetailFragment.year;
-                country = ProspectStageLoanAndSecurityDetailFragment.country;
-                vehicleType = ProspectStageLoanAndSecurityDetailFragment.vehicleType;
-                securityValue = ProspectStageLoanAndSecurityDetailFragment.etSecurityValue.getText().toString();
-                loanRequired = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
-                loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
-                proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
-                fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
-
+                getDataFromFragment();
 
                 if (getDataFromProspect() != null) {
                     MyNewProspect myNewProspect = new MyNewProspect(
@@ -317,6 +184,9 @@ public class ProspectStageActivity extends AppCompatActivity {
 
                     int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
                     if (update > 0) {
+                        if (brandName !=null && year !=null && country !=null && vehicleType !=null){
+                            insertBrandData();
+                        }
                         Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
                         ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, DashboardSalesOfficerActivity.class, true);
                     } else {
@@ -336,6 +206,102 @@ public class ProspectStageActivity extends AppCompatActivity {
                 alertDialog(getDataFromProspect().getId());
             }
         });
+
+    }
+
+    private void insertBrandData() {
+        CarLoan carLoan = new CarLoan(getDataFromProspect().getId(), brandName, year, country, vehicleType);
+        int insert = 0;
+        if (ProspectStageLoanAndSecurityDetailFragment.cardData > 0) {
+            insert = carLoanDbController.updateData(carLoan);
+
+        } else {
+            insert = carLoanDbController.insertData(carLoan);
+        }
+
+        if (insert>0){
+            Toast.makeText(this, "save "+insert, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "failed "+insert, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+
+    private void getDataFromFragment() {
+        if (ProspectStageFinancialFragment.monthlyNetSalary != null) {
+            monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
+        }
+        if (ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString() != null) {
+            monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
+        }
+        if (ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString() != null) {
+            monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
+        }
+        if (ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString() != null) {
+            agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
+
+        }
+
+
+        monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
+
+        monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
+        agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
+        practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
+        remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
+        interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
+        monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
+        emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
+        monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
+        monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
+        semiPakaIncome = ProspectStageFinancialFragment.etSemipakaIncome.getText().toString();
+        apartmentIncome = ProspectStageFinancialFragment.etApartmentIncomeAmount.getText().toString();
+        officeIncome = ProspectStageFinancialFragment.etOfficeSpaceIncome.getText().toString();
+        wireHouseIncome = ProspectStageFinancialFragment.etWarehouseIncome.getText().toString();
+        agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
+        practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
+        remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
+        interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
+        monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
+        emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
+        productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
+        productDetails = ProspectStageProductAndCustomerDetailsFragment.productDetails;
+        mybranchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
+        segment = ProspectStageProductAndCustomerDetailsFragment.segment;
+        countOfBirth = ProspectStageProductAndCustomerDetailsFragment.countOfBirth;
+        dateOfBirth = ProspectStageProductAndCustomerDetailsFragment.etDob.getText().toString();
+        districtOfBirth = ProspectStageProductAndCustomerDetailsFragment.districtOfBirth;
+        profession = ProspectStageProductAndCustomerDetailsFragment.profession;
+        relationship = ProspectStageProductAndCustomerDetailsFragment.relationship;
+        name = ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString();
+        age = ProspectStageProductAndCustomerDetailsFragment.etAge.getText().toString();
+        photoIdType = ProspectStageProductAndCustomerDetailsFragment.photoIdType;
+        photoId = ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
+        photoIdDate = ProspectStageProductAndCustomerDetailsFragment.etPhotoIdDate.getText().toString();
+        eTin = ProspectStageProductAndCustomerDetailsFragment.etETin.getText().toString();
+        fatherName = ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString();
+        motherName = ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString();
+        spouseName = ProspectStageProductAndCustomerDetailsFragment.etSpouseName.getText().toString();
+        companyName = ProspectStageProductAndCustomerDetailsFragment.etCompanyName.getText().toString();
+        designation = ProspectStageProductAndCustomerDetailsFragment.etDesignation.getText().toString();
+        noYrsInCureentJob = ProspectStageProductAndCustomerDetailsFragment.etNoYrsInCurrentJob.getText().toString();
+        presentAddress = ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
+        permanentAddress = ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
+        mobileNumber = ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
+
+        brandName = ProspectStageLoanAndSecurityDetailFragment.brandName;
+        year = ProspectStageLoanAndSecurityDetailFragment.year;
+        country = ProspectStageLoanAndSecurityDetailFragment.country;
+        vehicleType = ProspectStageLoanAndSecurityDetailFragment.vehicleType;
+
+        securityValue = ProspectStageLoanAndSecurityDetailFragment.etSecurityValue.getText().toString();
+        loanRequired = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
+        loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
+        proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
+        fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
+
 
     }
 
@@ -360,10 +326,12 @@ public class ProspectStageActivity extends AppCompatActivity {
 
     public MyNewProspect getDataFromProspect() {
         MyNewProspect myNewLead = null;
+        CarLoan carLoan = null;
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
             myNewLead = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
             mLayout.setVisibility(View.VISIBLE);
+
         }
 
         return myNewLead;

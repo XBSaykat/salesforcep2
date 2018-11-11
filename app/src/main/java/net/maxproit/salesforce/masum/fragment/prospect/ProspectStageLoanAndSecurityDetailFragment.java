@@ -19,8 +19,9 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
-import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.CarLoan;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.text.DecimalFormat;
@@ -42,12 +43,14 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private SpinnerDbController spinnerDbController;
+    private CarLoanDbController carLoanDbController;
 
     private List<String> listBrandName=null;
     private List<String> listManufacturingYear=null;
     private List<String> listManufacturingCountry=null;
     private List<String> listvehicleType=null;
-
+    private List<CarLoan> carLoanTypelist =null;
+    public static int cardData =0;
     public static EditText etSecurityValue, etLoanRequired, etLoanTerm, etProposedInterest, etFee, etCalculatedEMI;
     public static LinearLayout liSecCarLoan;
 
@@ -93,11 +96,13 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
 
         spinnerDbController = new SpinnerDbController(getActivity());
+        carLoanDbController = new CarLoanDbController(getActivity());
 
         listBrandName = new ArrayList<String>();
         listManufacturingYear = new ArrayList<String>();
         listManufacturingCountry = new ArrayList<String>();
         listvehicleType = new ArrayList<String>();
+        carLoanTypelist = new ArrayList<>();
 
         listBrandName.addAll(spinnerDbController.getBrandNameData());
         listManufacturingYear.addAll(spinnerDbController.getManufacturingYearData());
@@ -213,14 +218,14 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 //                android.R.layout.simple_spinner_item);
 //        spinnerBrand.setAdapter(BrandAdapter, 0);
 
-        ArrayAdapter<String> manufacturingYear=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingYear);
-        spinnerYear.setAdapter(manufacturingYear);
+        ArrayAdapter<String> manufacturingYearAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingYear);
+        spinnerYear.setAdapter(manufacturingYearAdapter);
 
-        ArrayAdapter<String> manufacturingCountry=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingCountry);
-        spinnerCountry.setAdapter(manufacturingCountry);
+        ArrayAdapter<String> manufacturingCountryAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingCountry);
+        spinnerCountry.setAdapter(manufacturingCountryAdapter);
 
-        ArrayAdapter<String> vehicleType=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listvehicleType);
-        spinnerVehicleType.setAdapter(vehicleType);
+        ArrayAdapter<String> vehicleTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listvehicleType);
+        spinnerVehicleType.setAdapter(vehicleTypeAdapter);
 
         if (prospectStageActivity.getDataFromProspect()!=null){
 
@@ -235,20 +240,39 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
             etLoanTerm.setText(myNewLead.getLoanTerm());
             etProposedInterest.setText(myNewLead.getPiRate());
             etFee.setText(myNewLead.getProspectFee());
-    /*        try {
-                spinnerBrand.setSelection(brandAdapter.getPosition(myNewLead.getBranchName()));
+            cardData = carLoanDbController.getData(String.valueOf(myNewLead.getId())).size();
+            if (cardData >0){
+                carLoanTypelist.addAll(carLoanDbController.getData(String.valueOf(myNewLead.getId())));
+                try {
+                    spinnerBrand.setSelection(brandAdapter.getPosition(carLoanTypelist.get(0).getBrandName()));
 
+                }
+                catch (final IllegalStateException ignored) {
+                }
+
+
+                try {
+                    spinnerCountry.setSelection(manufacturingCountryAdapter.getPosition(carLoanTypelist.get(0).getMenuCountry()));
+
+                }
+                catch (final IllegalStateException ignored) {
+                }
+
+                try {
+                    spinnerYear.setSelection(manufacturingYearAdapter.getPosition(carLoanTypelist.get(0).getMenuYear()));
+
+                }
+                catch (final IllegalStateException ignored) {
+                }
+
+                try {
+                    spinnerVehicleType.setSelection(vehicleTypeAdapter.getPosition(carLoanTypelist.get(0).getVehicleType()));
+
+                }
+                catch (final IllegalStateException ignored) {
+                }
             }
-            catch (final IllegalStateException ignored) {
-            }
 
-
-            try {
-                spinnerBrand.setSelection(brandAdapter.getPosition(myNewLead.getBranchName()));
-
-            }
-            catch (final IllegalStateException ignored) {
-            }*/
         }
 
 
