@@ -281,7 +281,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
                 listener,
                 year, month, day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
         dialog.show();
 
     }
