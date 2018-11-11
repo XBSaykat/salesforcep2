@@ -34,6 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -125,16 +126,15 @@
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
         <activity android:name=".masum.activity.visitplan.VisitPlanActivity" />
         <activity android:name=".masum.activity.lead.LeadStageActivity" />
-        <activity android:name=".masum.activity.prospect.ProspectStageActivity" >
-
-        </activity>
+        <activity android:name=".masum.activity.prospect.ProspectStageActivity"></activity>
         <activity android:name=".masum.activity.visitplan.MyActivitiesActivity" />
         <activity android:name=".masum.activity.visitplan.VisitPLanDetailsActivity" />
         <activity android:name=".ProspectViewRbm" />
         <activity android:name=".MyPerformancePhaseTwo" />
         <activity android:name=".SupervisorRbmProspect" />
         <activity android:name=".masum.activity.visitplan.VisitPlanListActivity" />
-        <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity"></activity>
+        <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity" />
+        <activity android:name=".CoApplicantRbmView"></activity>
     </application>
 
 </manifest>
