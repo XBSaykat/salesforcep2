@@ -10,11 +10,18 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_marginTop="?android:actionBarSize"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/li_add_co_applicant_top_space"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize">
+
+        </LinearLayout>
     <LinearLayout
+        android:id="@+id/li_add_co_applicant"
         android:orientation="vertical"
         android:layout_marginTop="?android:actionBarSize"
         android:layout_width="match_parent"
@@ -31,11 +38,21 @@
             />
 
     </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<TextView-->
+                <!--style="@style/TextViewQuestion"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Co Applicant List:"-->
+
+                <!--/>-->
+
+
+
+        <!--</LinearLayout>-->
 
 
         <ScrollView
