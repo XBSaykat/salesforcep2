@@ -27,6 +27,7 @@
 
 
             <LinearLayout
+                android:id="@+id/li_product_cat_sec"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,6 +58,7 @@
             </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/li_product_detail_sec"
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,6 +86,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/li_branch_sec"
+
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -138,6 +142,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/li_segment_sec"
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

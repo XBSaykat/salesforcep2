@@ -7,7 +7,7 @@ public class CoApplicant implements Serializable{
 
 
     int id, leadId;
-    String  name, segment,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
+    String  name,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
             photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
             designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
             presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,
@@ -16,7 +16,7 @@ public class CoApplicant implements Serializable{
             monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
             emiOfOtherLoans;
 //            for retrieving from DB
-    public CoApplicant(int id, int leadId, String name, String segment, String dateOfBirth, String age,
+    public CoApplicant(int id, int leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
                        String mName, String sName, String profession, String exList,
@@ -32,7 +32,6 @@ public class CoApplicant implements Serializable{
         this.id = id;
         this.leadId = leadId;
         this.name = name;
-        this.segment = segment;
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.districtOfBirth = districtOfBirth;
@@ -68,7 +67,7 @@ public class CoApplicant implements Serializable{
         this.emiOfOtherLoans = emiOfOtherLoans;
     }
 //                for inserting in DB
-    public CoApplicant(int leadId, String name, String segment, String dateOfBirth, String age,
+    public CoApplicant(int leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
                        String mName, String sName, String profession, String exList,
@@ -83,7 +82,6 @@ public class CoApplicant implements Serializable{
                        String emiOfOtherLoans) {
         this.leadId = leadId;
         this.name = name;
-        this.segment = segment;
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.districtOfBirth = districtOfBirth;
@@ -130,10 +128,6 @@ public class CoApplicant implements Serializable{
 
     public String getName() {
         return name;
-    }
-
-    public String getSegment() {
-        return segment;
     }
 
     public String getDateOfBirth() {

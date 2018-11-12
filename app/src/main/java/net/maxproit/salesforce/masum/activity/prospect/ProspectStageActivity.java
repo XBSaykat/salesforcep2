@@ -48,7 +48,7 @@ public class ProspectStageActivity extends AppCompatActivity {
     private CoApplicantDBController coApplicantDBController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
 
-    MyNewProspect coApplicant;
+    MyNewProspect prospect;
     String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
             relationship = null, name = null, age = null, photoId = null, photoIdDate = null, eTin = null, fatherName = null, motherName = null, spouseName = null,
             companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null;
@@ -397,10 +397,10 @@ public class ProspectStageActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //
         if (resultCode == RESULT_OK) {
-            coApplicant = null;
+            prospect = null;
             Bundle bundle = data.getExtras();
             if (bundle != null) {
-                coApplicant = (MyNewProspect) bundle.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
+                prospect = (MyNewProspect) bundle.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
                 Toast.makeText(getApplicationContext(), "co-applicant data saved", Toast.LENGTH_LONG).show();
 
             }

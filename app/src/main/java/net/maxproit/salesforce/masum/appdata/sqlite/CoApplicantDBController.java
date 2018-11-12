@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import net.maxproit.salesforce.masum.model.CoApplicant;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,6 @@ public class CoApplicantDBController {
         ContentValues values = new ContentValues();
         values.put(DbConstants.LEAD_ID_FOR_CO, coApplicant.getLeadId());
         values.put(DbConstants.LEAD_USER_NAME, coApplicant.getName());
-        values.put(DbConstants.PROSPECT_SEGMENT, coApplicant.getSegment());
         values.put(DbConstants.PROSPECT_DATE_OF_BIRTH, coApplicant.getDateOfBirth());
         values.put(DbConstants.PROSPECT_AGE, coApplicant.getAge());
         values.put(DbConstants.PROSPECT_DOB, coApplicant.getDistrictOfBirth());
@@ -80,6 +80,50 @@ public class CoApplicantDBController {
 
     }
 
+
+    public int updateCoApplicantData(CoApplicant coApplicant, int coApplicantId) {
+        ContentValues values = new ContentValues();
+        values.put(DbConstants.LEAD_ID_FOR_CO, coApplicant.getLeadId());
+        values.put(DbConstants.LEAD_USER_NAME, coApplicant.getName());
+        values.put(DbConstants.PROSPECT_DATE_OF_BIRTH, coApplicant.getDateOfBirth());
+        values.put(DbConstants.PROSPECT_AGE, coApplicant.getAge());
+        values.put(DbConstants.PROSPECT_DOB, coApplicant.getDistrictOfBirth());
+        values.put(DbConstants.PROSPECT_COB, coApplicant.getCountryOfBirth());
+        values.put(DbConstants.PROSPECT_PHOTO_ID_TYPE, coApplicant.getPhotoIdType());
+        values.put(DbConstants.PROSPECT_PHOTO_ID_NUMBER, coApplicant.getPhotoIdNo());
+        values.put(DbConstants.PROSPECT_PHOTO_ID_ISSUE_DATE, coApplicant.getPhotoIdIssueDate());
+        values.put(DbConstants.PROSPECT_ETIN, coApplicant.geteTin());
+        values.put(DbConstants.PROSPECT_FATHER_NAME,coApplicant.getfName());
+        values.put(DbConstants.PROSPECT_MOTHER_NAME, coApplicant.getmName());
+        values.put(DbConstants.PROSPECT_SPOUSE_NAME, coApplicant.getsName());
+        values.put(DbConstants.LEAD_PROFESSION, coApplicant.getProfession());
+        values.put(DbConstants.PROSPECT_EXCEPTION_LIST, coApplicant.getExList());
+        values.put(DbConstants.LEAD_ORGANIZATION, coApplicant.getCompanyName());
+        values.put(DbConstants.LEAD_DESIGNATION, coApplicant.getDesignation());
+        values.put(DbConstants.PROSPECT_NOY_CURRENT_JOB, coApplicant.getNoOfYrsInCurrentJob());
+        values.put(DbConstants.PROSPECT_RW_APPLICANT, coApplicant.getRelationWithApplicant());
+        values.put(DbConstants.PROSPECT_PERMANENT_ADDRESS, coApplicant.getPermanentAddress());
+        values.put(DbConstants.LEAD_ADDRESS, coApplicant.getPresentAddress());
+        values.put(DbConstants.LEAD_PHONE, coApplicant.getMobileNo());
+        values.put(DbConstants.PROSPECT_NET_SALARY_TYPE, coApplicant.getMonthSalaryType());
+        values.put(DbConstants.PROSPECT_SALARY_AMOUNT, coApplicant.getMonthSalaryAmount());
+        values.put(DbConstants.PROSPECT_BUSINESS_INCOME_AMOUNT, coApplicant.getMonthBusinessIncomeAmount());
+        values.put(DbConstants.PROSPECT_WAREHOUSE_INCOME, coApplicant.getMonthWareHouseAmount());
+        values.put(DbConstants.PROSPECT_OFFICE_SPACE_INCOME, coApplicant.getMonthOfficeSpaceIncomeAmount());
+        values.put(DbConstants.PROSPECT_SEMIPAKA_INCOME, coApplicant.getMonthSemipakaIncomeAmount());
+        values.put(DbConstants.PROSPECT_APARTMENT_INCOME, coApplicant.getMonthApartmentIncomeAmount());
+        values.put(DbConstants.PROSPECT_ACRICULTURAL_INCOME, coApplicant.getMonthAgricultureIncomeAmount());
+        values.put(DbConstants.PROSPECT_TUTION, coApplicant.getMonthTuitionIncomeAmount());
+        values.put(DbConstants.PROSPECT_REMITANCE, coApplicant.getRemittance());
+        values.put(DbConstants.PROSPECT_INTEREST_FDR, coApplicant.getInterestFDRIncomeAmount());
+        values.put(DbConstants.PROSPECT_FAMILY_EXPENSE, coApplicant.getMonthFamilyExpenditure());
+        values.put(DbConstants.PROSPECT_EMI_OTHER, coApplicant.getEmiOfOtherLoans());
+
+
+        return db.update(DbConstants.TABLE_CO_APPLICANT, values, DbConstants.CO_APPLICANT_ID + "=" + coApplicantId, null);
+
+    }
+
 /*
     public int updateLeadDataStatus(int id, String status) {
 
@@ -96,7 +140,6 @@ public class CoApplicantDBController {
         String[] projection = {
                 DbConstants.CO_APPLICANT_ID,
                 DbConstants.LEAD_ID_FOR_CO,
-                DbConstants.PROSPECT_SEGMENT,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.PROSPECT_DATE_OF_BIRTH,
                 DbConstants.PROSPECT_AGE,
@@ -164,7 +207,6 @@ public class CoApplicantDBController {
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants.CO_APPLICANT_ID));
                     int lead_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_ID_FOR_CO));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
-                    String segment = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_SEGMENT));
                     String dateOfBirth = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_DATE_OF_BIRTH));
                     String age = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_AGE));
                     String dob = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_DOB));
@@ -201,7 +243,7 @@ public class CoApplicantDBController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new CoApplicant(id, lead_id, userName, segment, dateOfBirth,
+                    favDataArray.add(new CoApplicant(id, lead_id, userName, dateOfBirth,
                             age, dob, cob, pIdType, pIdNumber, pIssueDate, etin, fName,
                             mName, sName, profession, exList, organization, designation,
                             noYrsInCurJob, relationWithApplicant, permanentAddress, address,
