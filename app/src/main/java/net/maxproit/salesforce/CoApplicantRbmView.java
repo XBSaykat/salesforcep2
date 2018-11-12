@@ -10,7 +10,7 @@ public class CoApplicantRbmView extends AppCompatActivity {
             tvCoapplicantEtin, tvCoapplicantFatherName, tvCoapplicantMotherName, tvCoapplicantSpouseName, tvCoapplicantProfession, tvCoapplicantCompanyName,
             tvCoapplicantDesignation, tvCoapplicantCurrentJobYear, tvCoapplicantRelationshipWithApplicant, tvCoapplicantPermanentAddress, tvCoapplicantPresentAddress,
             tvCoapplicantMobileNumber, tvCoapplicantMonthlySalary, tvCoapplicantSalaryAmount, tvCoapplicantMonthlyBusinessIncome, tvCoapplicantAgricultureIncome,
-            tvCoapplicantOtherIncome, tvCoapplicantRemittance, tvCoapplicantFdr, tvCoapplicantOtherEmi, tvCoapplicantSave, tvCoapplicantUpdate;
+            tvCoapplicantOtherIncome, tvCoapplicantRemittance, tvCoapplicantFdr, tvCoapplicantOtherEmi, tvCoapplicantOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,6 @@ public class CoApplicantRbmView extends AppCompatActivity {
         tvCoapplicantFdr = (TextView) findViewById(R.id.tv_coapplicant_fdr);
         tvCoapplicantOtherEmi = (TextView) findViewById(R.id.tv_coapplicant_other_emi);
         tvCoapplicantOtherEmi = (TextView) findViewById(R.id.tv_coapplicant_other_emi);
-        tvCoapplicantSave = (TextView) findViewById(R.id.tv_coapplicant_save);
-        tvCoapplicantUpdate = (TextView) findViewById(R.id.tv_coapplicant_update);
+        tvCoapplicantOk = (TextView) findViewById(R.id.tv_coapplicant_ok);
     }
 }
