@@ -310,36 +310,53 @@ public class LeadStageLoanDetailFragment extends Fragment {
             } else {
                 MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
+                    if (myNewLead.getSourceRef() !=null)
                     try {
-                        spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getLoanReq()));
+                        spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getSourceRef()));
 
-                        spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
-
-
-
-                    } catch (final IllegalStateException ignored) {
+                    } catch ( IllegalStateException ignored) {
                     } catch (NullPointerException e) {
 
                     }
+                    if(myNewLead.getProductType() !=null){
+                        try {
+                            spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
+                        } catch ( IllegalStateException ignored) {
+                        } catch (NullPointerException e) {
 
+                        }
                     if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                        ArrayAdapter   productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
+                        try {
+
+                            spinnerSubCategory.setSelection(productSubAdapter.
+                                    getPosition(myNewLead.getProductSubcategory()));
+                        } catch ( IllegalStateException ignored) {
+                        }
                     } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
+                        try {
+
+                            spinnerSubCategory.setSelection(productSubAdapter.
+                                    getPosition(myNewLead.getProductSubcategory()));
+                        } catch ( IllegalStateException ignored) {
+                        }
 
                     } else if (myNewLead.getProductType().equals(AppConstant.PERSONAL_LOAN)) {
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
+                        try {
+
+                            spinnerSubCategory.setSelection(productSubAdapter.
+                                    getPosition(myNewLead.getProductSubcategory()));
+                        } catch ( IllegalStateException ignored) {
+                        }
 
                     }
-                    try {
-
-                        spinnerSubCategory.setSelection(productSubAdapter.
-                                getPosition(myNewLead.getProductSubcategory()));
-                    } catch (final IllegalStateException ignored) {
                     }
+
                     etLoadAmount.setText(myNewLead.getLoadAmount());
                     etInterest.setText(myNewLead.getOrInterest());
                     etDisbursementDate.setText(myNewLead.getDisDate());

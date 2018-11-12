@@ -235,7 +235,7 @@ public class VisitPlanListActivity extends BaseActivity {
                 filterList.get(position).getDateOfVisit(),
                 filterList.get(position).getRemarks(),
                 filterList.get(position).getStatus());
-        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPlanActivity.class, visitPlan);
     }
 
 

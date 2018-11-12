@@ -65,7 +65,7 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,visitPlan.getPurposeOfVisit());
         values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, visitPlan.getDateOfVisit());
         values.put(DbConstants.VISIT_PLAN_REMARKS,visitPlan.getRemarks());
-        values.put(DbConstants.LEAD_STATUS,AppConstant.STATUS_ACTIVITY);
+        values.put(DbConstants.LEAD_STATUS,visitPlan.getStatus());
         // Insert the new row, returning the primary key value of the new row
         open();
         int update= db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + visitPlan.getId(), null);

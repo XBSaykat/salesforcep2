@@ -440,7 +440,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     visitPlanModel.getPurposeOfVisit(),
                     etNewFollowUpdate.getText().toString(),
                     etNewRemark.getText().toString(),
-                    visitPlanModel.getStatus()));
+                    AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
                 Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
             } else {
@@ -464,7 +464,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     visitPlanModel.getPurposeOfVisit(),
                     visitPlanModel.getDateOfVisit(),
                     visitPlanModel.getRemarks(),
-                    visitPlanModel.getStatus()));
+                    AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
 
                 Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
@@ -487,7 +487,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     sPurposeOfVisitStr,
                     etNewFollowUpdate.getText().toString(),
                     etNewRemark.getText().toString(),
-                    visitPlanModel.getStatus()));
+                    AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
                 Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
             } else {
@@ -511,7 +511,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     sPurposeOfVisitStr,
                     visitPlanModel.getDateOfVisit(),
                     visitPlanModel.getRemarks(),
-                    visitPlanModel.getStatus()));
+                    AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
 
                 Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();

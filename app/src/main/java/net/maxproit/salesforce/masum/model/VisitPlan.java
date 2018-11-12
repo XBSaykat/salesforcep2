@@ -32,6 +32,21 @@ public class VisitPlan implements Serializable {
         this.status = status;
     }
 
+    public VisitPlan( String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status ) {
+
+        this.clientName = clientName;
+        this.policeStation = policeStation;
+
+        this.clientType = clientType;
+        this.mobileNumber = mobileNumber;
+        this.productType = productType;
+        this.city = city;
+        this.purposeOfVisit = purposeOfVisit;
+        this.dateOfVisit = dateOfVisit;
+        this.remarks = remarks;
+        this.status = status;
+    }
+
     public String getClientName() {
         return clientName; }
 
