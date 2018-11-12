@@ -117,7 +117,7 @@ public class CoApplicantActivity extends AppCompatActivity {
 
 
 
-                CoApplicant coApplicant = new CoApplicant(leadId, name, segment, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
+                CoApplicant coApplicant = new CoApplicant(leadId, name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
                         presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,
