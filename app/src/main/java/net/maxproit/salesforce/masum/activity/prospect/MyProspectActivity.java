@@ -166,7 +166,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getSegment(),
                 filterList.get(position).getDateOfBirth(),
                 filterList.get(position).getAge(),
-                filterList.get(position).getDisDate(),
+                filterList.get(position).getDob(),
                 filterList.get(position).getCob(),
                 filterList.get(position).getpIDType(),
                 filterList.get(position).getpIdNumber(),

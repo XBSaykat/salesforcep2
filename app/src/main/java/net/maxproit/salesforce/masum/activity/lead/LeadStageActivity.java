@@ -53,7 +53,7 @@ public class LeadStageActivity extends AppCompatActivity {
     private LeadStageVisitRecordFragment leadStageVisitRecordFragment;
     private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
     private LinearLayout mLayout;
-
+private  String BranchName=null, profession=null, name =null, organization = null, designation = null, phone =null, address =null, loanAmount =null, interest =null, fee = null, ref =null, productType =null, subCat =null, disDate = null, visitDate =null, remark =null, followUp =null;
 
     private int activityPosition;
     public static int myLeadPosition = -1;
@@ -191,31 +191,7 @@ public class LeadStageActivity extends AppCompatActivity {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String BranchName = LeadStageBasicInformationFragment.branchName; //
-                String profession = LeadStageBasicInformationFragment.profession; //
-                String name = LeadStageBasicInformationFragment.etUserName.getText().toString(); //
-                String organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString(); //
-                String designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
-                String phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
-                String address = LeadStageBasicInformationFragment.etAddress.getText().toString();
-                String loanAmount = LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
-                String interest = LeadStageLoanDetailFragment.etInterest.getText().toString();
-                String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
-                String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
-                String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
-//                  String productTypeArray[] = getResources().getStringArray(R.array.product_type_array);
-
-                String ref = refArray[LeadStageLoanDetailFragment.ref];
-
-//                    String productType = productTypeArray[LeadStageLoanDetailFragment.productType];
-                String productType = LeadStageLoanDetailFragment.productType;
-
-//                    String subCat = subCatArray[LeadStageLoanDetailFragment.subCategory];
-                String subCat = LeadStageLoanDetailFragment.subCategory;
-                String disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
-                String visitDate = LeadStageVisitRecordFragment.visitDate; //
-                String remark = LeadStageVisitRecordFragment.remark;
-                String followUp = LeadStageVisitRecordFragment.followUp;
+                getDataFromFragment();
                 int insert = 0;
                 if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
                         && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
@@ -250,28 +226,7 @@ public class LeadStageActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String BranchName = LeadStageBasicInformationFragment.branchName; //
-                String profession = LeadStageBasicInformationFragment.profession; //
-                String name = LeadStageBasicInformationFragment.etUserName.getText().toString(); //
-                String organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString(); //
-                String designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
-                String phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
-                String address = LeadStageBasicInformationFragment.etAddress.getText().toString();
-                String loanAmount = LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
-                String interest = LeadStageLoanDetailFragment.etInterest.getText().toString();
-                String fee = LeadStageLoanDetailFragment.etFee.getText().toString();
-                String refArray[] = getResources().getStringArray(R.array.source_of_reference_array);
-                String subCatArray[] = getResources().getStringArray(R.array.product_type_array);
-
-                String ref = refArray[LeadStageLoanDetailFragment.ref];
-
-                String productType = LeadStageLoanDetailFragment.productType;
-
-                String subCat = LeadStageLoanDetailFragment.subCategory;
-                String disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
-                String visitDate = LeadStageVisitRecordFragment.visitDate; //
-                String remark = LeadStageVisitRecordFragment.remark;
-                String followUp = LeadStageVisitRecordFragment.followUp;
+                getDataFromFragment();
 
                 if (finalMyNewLead != null) {
                     int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
@@ -311,6 +266,32 @@ public class LeadStageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getDataFromFragment() {
+        BranchName = LeadStageBasicInformationFragment.branchName; //
+        profession = LeadStageBasicInformationFragment.profession; //
+        name = LeadStageBasicInformationFragment.etUserName.getText().toString(); //
+        organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString(); //
+        designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
+        phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
+        address = LeadStageBasicInformationFragment.etAddress.getText().toString();
+        loanAmount = LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
+        interest = LeadStageLoanDetailFragment.etInterest.getText().toString();
+        fee = LeadStageLoanDetailFragment.etFee.getText().toString();
+        ref = LeadStageLoanDetailFragment.spinnerRef.getSelectedItem();
+        productType = LeadStageLoanDetailFragment.spinnerProductType.getSelectedItem();
+        subCat = LeadStageLoanDetailFragment.spinnerSubCategory.getSelectedItem();
+        disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
+        visitDate = LeadStageVisitRecordFragment.etVisitDate.getText().toString(); //
+        if (LeadStageVisitRecordFragment.etRemark.getText().toString() !=null){
+            remark = LeadStageVisitRecordFragment.etRemark.getText().toString();
+        }
+        else {
+            LeadStageVisitRecordFragment.spinnerRemarks.getSelectedItem();
+        }
+
+        followUp = LeadStageVisitRecordFragment.spinnerFollowUp.getSelectedItem();
     }
 
     private void insertAttachmentData(int insert, final MyNewProspect myNewProspect) {

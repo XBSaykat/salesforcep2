@@ -83,7 +83,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
-            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress,mobileNumber, validPhoto, photoType;
+            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
 
     private RadioGroup rgExList;
     private SharedViewModel model;
@@ -519,20 +519,39 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etMotherName.setText(myNewLead.getmName());
             etSpouseName.setText(myNewLead.getsName());
             etPhotoIdDate.setText(myNewLead.getpIssueDate());
-            try{
-                spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(myNewLead.getCob()));
-                spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getDob()));
+            if (myNewLead.getDob() != null) {
 
+                try {
+                    spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getDob()));
+
+                } catch (final IllegalStateException e) {
+
+                }
             }
-            catch (final IllegalStateException e){
+            if (myNewLead.getCob() != null)
+                try {
+                    spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(myNewLead.getCob()));
 
+                } catch (final IllegalStateException e) {
+
+                }
+            if (myNewLead.getpIDType() != null) {
+
+                try {
+                    spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
+
+                } catch (IllegalStateException er) {
+
+                }
             }
-            try{
-                spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
 
-            }
-            catch (IllegalStateException er){
+            if (myNewLead.getSegment() != null) {
+                try {
+                    spinnerSegment.setSelection(segmentAdapter.getPosition(myNewLead.getSegment()));
 
+                } catch (IllegalStateException er) {
+
+                }
             }
             getphotoIdNumber(myNewLead.getpIDType());
             etPhotoId.setText(myNewLead.getpIdNumber());
@@ -540,69 +559,56 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
                 spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
 
-                if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
-                    ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                    spinnerProductDetail.setAdapter(homeLoan);
-                    try{
-                    spinnerProductDetail.setSelection(homeLoan.getPosition(myNewLead.getProductSubcategory()));
-                    }
-                    catch (final IllegalStateException ignored) {
+            } catch (final IllegalStateException ignored) {
 
-                    }
-                } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
-                    ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                    spinnerProductDetail.setAdapter(carLoan);
-                    try{
+            }
+            if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
+                ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                spinnerProductDetail.setAdapter(homeLoan);
+                try {
+                    spinnerProductDetail.setSelection(homeLoan.getPosition(myNewLead.getProductSubcategory()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
+                ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                spinnerProductDetail.setAdapter(carLoan);
+                try {
                     spinnerProductDetail.setSelection(carLoan.getPosition(myNewLead.getProductSubcategory()));
 
-                    }
-                    catch (final IllegalStateException ignored) {
+                } catch (final IllegalStateException ignored) {
 
-                    }
-                } else {
-                    ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                    spinnerProductDetail.setAdapter(personalLoan);
-                    try {
-                        spinnerProductDetail.setSelection(personalLoan.getPosition(myNewLead.getProductSubcategory()));
-                    }
-                    catch (final IllegalStateException ignored) {
-
-                    }
+                }
+            } else {
+                ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                spinnerProductDetail.setAdapter(personalLoan);
+                try {
+                    spinnerProductDetail.setSelection(personalLoan.getPosition(myNewLead.getProductSubcategory()));
+                } catch (final IllegalStateException ignored) {
 
                 }
 
+            }
 
 
+            try {
+                spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
 
             } catch (final IllegalStateException ignored) {
 
             }
-            try{
-                spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
 
-            }
-            catch (final IllegalStateException ignored) {
+            if (myNewLead.getApplicant() != null) {
+                try {
+                    spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
+                } catch (final IllegalStateException ignored) {
 
-            }
-
-            try{
-                spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
-            }
-            catch (final IllegalStateException ignored) {
-
-            }
-            try{
-                spinnerSegment.setSelection(segmentAdapter.getPosition(myNewLead.getSegment()));
-
-            }
-            catch (final IllegalStateException ignored) {
-
-            }
+                }
             }
 
         }
 
-
+    }
 
 
     private void setDataFromProspect(ArrayAdapter<CharSequence> adapter) {
