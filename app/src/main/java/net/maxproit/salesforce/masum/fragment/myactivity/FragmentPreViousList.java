@@ -114,7 +114,7 @@ public class FragmentPreViousList extends Fragment {
 
                 try {
                     if (DateUtils.isPending(leadList.get(i).getDateOfVisit())==1
-                            && !leadList.get(i).getStatus().equals(AppConstant.VISITED)){
+                            || leadList.get(i).getStatus().equals(AppConstant.VISITED) || leadList.get(i).getStatus().equals(AppConstant.REJECTED) ){
                         visitPlanList.add(leadList.get(i));
                     }
                 } catch (ParseException e) {

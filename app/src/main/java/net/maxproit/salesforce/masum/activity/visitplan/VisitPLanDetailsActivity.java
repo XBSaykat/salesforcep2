@@ -367,10 +367,9 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         }
         builder.setTitle(getString(R.string.remove));
         builder.setMessage(getString(R.string.reject_item));
-        builder.setIcon(R.drawable.ic_reject);
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-            visitPlanDbController.deleteItem(visitPlanModel.getId());
+            visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(),AppConstant.REJECTED);
             startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivity.class));
             finish();
         });
