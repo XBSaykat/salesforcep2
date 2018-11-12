@@ -119,20 +119,10 @@ public class CoApplicantDBController {
         values.put(DbConstants.PROSPECT_FAMILY_EXPENSE, coApplicant.getMonthFamilyExpenditure());
         values.put(DbConstants.PROSPECT_EMI_OTHER, coApplicant.getEmiOfOtherLoans());
 
-
         return db.update(DbConstants.TABLE_CO_APPLICANT, values, DbConstants.CO_APPLICANT_ID + "=" + coApplicantId, null);
 
     }
 
-/*
-    public int updateLeadDataStatus(int id, String status) {
-
-        ContentValues values = new ContentValues();
-        values.put(DbConstants.LEAD_STATUS, status);
-        return db.update(DbConstants.TABLE_CO_APPLICANT, values, DbConstants.CO_APPLICANT_ID + "=" + id, null);
-
-
-    }*/
 
 
     public ArrayList<CoApplicant> getAllData(int id) {

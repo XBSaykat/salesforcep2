@@ -35,7 +35,7 @@ public class CoApplicantListAdapter extends RecyclerView.Adapter<CoApplicantList
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.coapplicant_list_view_row, null);
-       CoApplicantListAdapter.MyViewHolder viewHolder = new CoApplicantListAdapter.MyViewHolder(view, context, coApplicantsList);
+        CoApplicantListAdapter.MyViewHolder viewHolder = new CoApplicantListAdapter.MyViewHolder(view, context, coApplicantsList);
         return viewHolder;
 
 
@@ -43,8 +43,9 @@ public class CoApplicantListAdapter extends RecyclerView.Adapter<CoApplicantList
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        int i=position+1;
         holder.tvName.setText(coApplicantsList.get(position).getName());
+        holder.tvNumber.setText("Co-Applicant "+i+"");
 
     }
 
@@ -54,9 +55,9 @@ public class CoApplicantListAdapter extends RecyclerView.Adapter<CoApplicantList
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         ArrayList<CoApplicant> coApplicantsList;
-        TextView tvName;
+        TextView tvName, tvNumber;
         Context context;
 
 
@@ -65,13 +66,18 @@ public class CoApplicantListAdapter extends RecyclerView.Adapter<CoApplicantList
             this.context = context;
             this.coApplicantsList = coApplicantsList;
             tvName = itemView.findViewById(R.id.tv_co_applicant_listview_name);
+            tvNumber = itemView.findViewById(R.id.tv_co_number);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    mListener.itemClickListener(view, getLayoutPosition());
+                    mListener.itemClickListener(view, getLayoutPosition());
                 }
             });
 
         }
     }
+    public void setItemClickListener(OnItemClickListener mListener) {
+        this.mListener = mListener;
+    }
+
 }

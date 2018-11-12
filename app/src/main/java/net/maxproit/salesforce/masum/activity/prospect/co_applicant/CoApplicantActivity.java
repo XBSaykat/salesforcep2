@@ -21,7 +21,9 @@ import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantProductAndCustomerDetailsFragment;
+import net.maxproit.salesforce.masum.model.CarLoan;
 import net.maxproit.salesforce.masum.model.CoApplicant;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +60,6 @@ public class CoApplicantActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btn_save);
         coApplicantDBController = new CoApplicantDBController(getApplicationContext());
 
-
-
         initListener();
 
     }
@@ -80,14 +80,13 @@ public class CoApplicantActivity extends AppCompatActivity {
                         emiOfOtherLoans;
 
                 name = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
-                segment = CoApplicantProductAndCustomerDetailsFragment.segment;
                 dateOfBirth = CoApplicantProductAndCustomerDetailsFragment.etDateOfBirth.getText().toString();
                 age = CoApplicantProductAndCustomerDetailsFragment.etAge.getText().toString();
                 districtOfBirth = CoApplicantProductAndCustomerDetailsFragment.districtOfBirth;
                 countryOfBirth = CoApplicantProductAndCustomerDetailsFragment.countOfBirth;
                 photoIdType = CoApplicantProductAndCustomerDetailsFragment.photoIdType;
                 photoIdNo = CoApplicantProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
-                photoIdIssueDate = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
+                photoIdIssueDate = CoApplicantProductAndCustomerDetailsFragment.etPhotoIdDate.getText().toString();
                 eTin = CoApplicantProductAndCustomerDetailsFragment.etETin.getText().toString();
                 fName = CoApplicantProductAndCustomerDetailsFragment.etFatherName.getText().toString();
                 mName = CoApplicantProductAndCustomerDetailsFragment.etMotherName.getText().toString();
@@ -128,42 +127,45 @@ public class CoApplicantActivity extends AppCompatActivity {
 
                 Log.d("tag", ""+coApplicant.getLeadId());
                 Log.d("tag", ""+coApplicant.getName());
+                int update=0;
+                if (getDataFromApplicant() !=null){
+                    update = coApplicantDBController.updateCoApplicantData(coApplicant,getDataFromApplicant().getId());
+                }
+                else {
+                     update = coApplicantDBController.insertData(coApplicant);
 
-                    int update = coApplicantDBController.insertData(coApplicant);
 
-                    if (update > 0){
-                        Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
+                }
 
-                        Intent coApplicantIntent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
-                        setResult(Activity.RESULT_OK, coApplicantIntent);
-                        finish();
+                if (update > 0){
+                    Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
 
-                    }
-                    else {
-                        Toast.makeText(CoApplicantActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                    Intent coApplicantIntent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
+                    setResult(Activity.RESULT_OK, coApplicantIntent);
+                    finish();
 
-                    }
-//////                }
-//                    Bundle bundle = new Bundle();
-//                    Intent intent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
-////                    bundle.putSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY, );
-////                    bundle.putInt(AppConstant.CO_APPLICANT_STATUS_INTENT_KEY, 100);
-//                    intent.putExtra(AppConstant.CO_APPLICANT_INTENT_KEY, bundle);
-//                    setResult(Activity.RESULT_OK, intent);
-//                    finish();
-//                }else{
-//                    Toast.makeText(CoApplicantActivity.this, "Name Field empty", Toast.LENGTH_SHORT).show();
-//                }
-//
-//
-//
+                }
+                else {
+                    Toast.makeText(CoApplicantActivity.this, "failed", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
 
 
     }
+    public CoApplicant getDataFromApplicant() {
+        CoApplicant myNewLead = null;
 
+        Bundle extraDetail = getIntent().getExtras();
+        if (extraDetail != null) {
+            myNewLead = (CoApplicant) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+
+        }
+
+        return myNewLead;
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         CoApplicantActivity.ViewPagerAdapter adapter = new CoApplicantActivity.ViewPagerAdapter(getSupportFragmentManager());

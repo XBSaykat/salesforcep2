@@ -21,6 +21,8 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.CoApplicant;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -104,7 +106,7 @@ public class CoApplicantFinancialFragment extends Fragment {
               View view =  inflater.inflate(R.layout.fragment_prospect_stage_financial, container, false);
 
         spinnerDbController = new SpinnerDbController(getActivity());
-
+        coApplicantActivity= (CoApplicantActivity) getActivity();
         listMonthlySalary = new ArrayList<String>();
         listMonthlyRentalSalary = new ArrayList<String>();
 
@@ -165,21 +167,33 @@ public class CoApplicantFinancialFragment extends Fragment {
 
     private void initAdapters() {
 
-        ArrayAdapter<String> monthlySalary=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlySalary);
-        spinnerMonthlyNetSalary.setAdapter(monthlySalary);
-//        ArrayAdapter<CharSequence> monthlyNetSalaryAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.monthly_net_salary_array,
-//                android.R.layout.simple_spinner_item);
-//        spinnerMonthlyNetSalary.setAdapter(monthlyNetSalaryAdapter, 0);
+        ArrayAdapter<String> monthlySalaryAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlySalary);
+        spinnerMonthlyNetSalary.setAdapter(monthlySalaryAdapter);
 
+        if (coApplicantActivity.getDataFromApplicant()!=null){
 
-      /*  ArrayAdapter<String> rentalIncome=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlyRentalSalary);
-        spinnerRentalIncome.setAdapter(rentalIncome);*/
+            CoApplicant myNewLead=coApplicantActivity.getDataFromApplicant();
+            if (myNewLead.getMonthSalaryType() !=null){
+                try {
+                    spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getMonthSalaryType()));
+                }
+                catch (final IllegalStateException ignored) {
+                }
+            }
 
-//        ArrayAdapter<CharSequence> monthlyRentalIncomeAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.monthly_rental_income,
-//                android.R.layout.simple_spinner_item);
-//        spinnerRentalIncome.setAdapter(monthlyRentalIncomeAdapter, 0);
+            etMonthlySalaryAmount.setText(myNewLead.getMonthSalaryAmount());
+            etMonthlyBusinessIncome.setText(myNewLead.getMonthBusinessIncomeAmount());
+            etApartmentIncomeAmount.setText(myNewLead.getMonthApartmentIncomeAmount());
+            etSemipakaIncome.setText(myNewLead.getMonthSemipakaIncomeAmount());
+            etOfficeSpaceIncome.setText(myNewLead.getMonthOfficeSpaceIncomeAmount());
+            etWarehouseIncome.setText(myNewLead.getMonthWareHouseAmount());
+            etAgriculturalIncome.setText(myNewLead.getMonthAgricultureIncomeAmount());
+            etPracticeConsultancyTuition.setText(myNewLead.getMonthTuitionIncomeAmount());
+            etRemittance.setText(myNewLead.getRemittance());
+            etInterestIncome.setText(myNewLead.getInterestFDRIncomeAmount());
+            etMonthlyFamilyExpenditure.setText(myNewLead.getMonthFamilyExpenditure());
+            etEMIOfOtherLoans.setText(myNewLead.getEmiOfOtherLoans());
+        }
 
 
     }

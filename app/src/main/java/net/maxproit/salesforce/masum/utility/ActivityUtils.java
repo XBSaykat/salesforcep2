@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
+import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
+import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -56,6 +58,15 @@ public class ActivityUtils {
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
 
         Intent intent = new Intent(activity,ProspectViewRbm.class);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+    public static void invokCoApplicantViewStage(Activity activity, CoApplicant coApplicant){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, coApplicant);
+
+        Intent intent = new Intent(activity,CoApplicantActivity.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }

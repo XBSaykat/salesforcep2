@@ -52,7 +52,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     private List<String> listvehicleType=null;
     private List<CarLoan> carLoanTypelist =null;
     public static int cardData =0;
-    public static EditText etSecurityValue, etLoanRequired, etLoanTerm, etProposedInterest, etFee, etCalculatedEMI;
+    public static EditText etSecurityValue, etLoanRequired, etLoanTerm, etProposedInterest, etFee;
     public static LinearLayout liSecCarLoan;
 
     AwesomeSpinner spinnerBrand, spinnerYear, spinnerCountry, spinnerVehicleType;
@@ -135,10 +135,6 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
         etProposedInterest.addTextChangedListener(new NumberTextWatcher(etProposedInterest));
         etFee.addTextChangedListener(new NumberTextWatcher(etFee));
-
-//        etCalculatedEMI = view.findViewById(R.id.input_calculated_emi);
-//        etCalculatedEMI.setEnabled(false);
-
 
         spinnerBrand = view.findViewById(R.id.awe_spinner_prospect_stage_brand_name);
         spinnerYear = view.findViewById(R.id.awe_spinner_prospect_stage_manufacturing_year);
@@ -259,7 +255,6 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
         }
 
-
     }
 
 
@@ -273,12 +268,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+
     }
 
     @Override
@@ -287,16 +277,6 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

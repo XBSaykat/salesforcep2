@@ -24,7 +24,10 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
+import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
+import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.CoApplicant;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,7 +89,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto;
     private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec;
-
+    private CoApplicantActivity coApplicantActivity;
 
     private SharedViewModel model;
 
@@ -128,7 +131,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
-
+        coApplicantActivity= (CoApplicantActivity) getActivity();
 
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
@@ -197,13 +200,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         proDetailSec.setVisibility(View.GONE);
         branchSec.setVisibility(View.GONE);
         segmentSec.setVisibility(View.GONE);
-
-
-
-
-
-
-
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
 
         initAdapters();
@@ -211,8 +207,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         getExceptionlist();
 
 
+
         return view;
     }
+
 
     private void getExceptionlist() {
         switch (rgExList.getCheckedRadioButtonId()){
@@ -388,6 +386,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         });
 
 
+
     }
 
     private void getphotoIdNumber(String type) {
@@ -435,35 +434,82 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
     public void initAdapters() {
 
-        ArrayAdapter<String> disBirth = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthDistric);
-        spinnerDistOfBirth.setAdapter(disBirth);
+        ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthDistric);
+        spinnerDistOfBirth.setAdapter(disBirthAdapter);
 
-        ArrayAdapter<String> disCountry = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthCountry);
-        spinnerCountOfBirth.setAdapter(disCountry);
+        ArrayAdapter<String> disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthCountry);
+        spinnerCountOfBirth.setAdapter(disCountryAdater);
 
-        ArrayAdapter<String> profession = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProfession);
-        spinnerProfession.setAdapter(profession);
+        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProfession);
+        spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> relation = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRelationshipWithApplicant);
-        spinnerRelationship.setAdapter(relation);
-
-//        if (prospectStageActivity.getDataFromProspect()!=null){
-//
-//            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
-//
-//            etName.setText(myNewLead.getUserName());
-//            etPresentAddress.setText(myNewLead.getAddress());
-//            etDesignation.setText(myNewLead.getDesignation());
-//            etMobileNumber.setText(myNewLead.getPhone());
-//            spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
-//            spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
-//
-//        }
-
-        ArrayAdapter<String> validPhotoId = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);
-        spinnerValidPhotoType.setAdapter(validPhotoId);
+        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRelationshipWithApplicant);
+        spinnerRelationship.setAdapter(realationAdapter);
 
 
+        ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);
+        spinnerValidPhotoType.setAdapter(validPhotoIdAdapter);
+
+        if (coApplicantActivity.getDataFromApplicant() !=null){
+            CoApplicant coApplicant=coApplicantActivity.getDataFromApplicant();
+            etName.setText(coApplicant.getName());
+            etDateOfBirth.setText(coApplicant.getDateOfBirth());
+            etAge.setText(coApplicant.getAge());
+            etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
+            etETin.setText(coApplicant.geteTin());
+            etFatherName.setText(coApplicant.getfName());
+            etMotherName.setText(coApplicant.getmName());
+            etSpouseName.setText(coApplicant.getsName());
+            etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
+            etCompanyName.setText(coApplicant.getCompanyName());
+            etPermanentAddress.setText(coApplicant.getPermanentAddress());
+            etNoYrsInCurrentJob.setText(coApplicant.getNoOfYrsInCurrentJob());
+            etMobileNumber.setText(coApplicant.getMobileNo());
+            if (coApplicant.getDistrictOfBirth() != null) {
+
+                try {
+                    spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(coApplicant.getDistrictOfBirth()));
+
+                } catch (final IllegalStateException e) {
+
+                }
+            }
+            if (coApplicant.getCountryOfBirth() != null)
+                try {
+                    spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(coApplicant.getCountryOfBirth()));
+
+                } catch (final IllegalStateException e) {
+
+                }
+            if (coApplicant.getPhotoIdType() != null) {
+
+                try {
+                    spinnerValidPhotoType.setSelection(validPhotoIdAdapter.getPosition(coApplicant.getPhotoIdType()));
+
+                } catch (IllegalStateException er) {
+
+                }
+            }
+
+            if (coApplicant.getProfession() != null) {
+                try {
+                    spinnerProfession.setSelection(professionAdapter.getPosition(coApplicant.getProfession()));
+
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+
+            if (coApplicant.getRelationWithApplicant() != null) {
+                try {
+                    spinnerRelationship.setSelection(realationAdapter.getPosition(coApplicant.getRelationWithApplicant()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+
+
+        }
     }
 
     public void datePickerDialog(Context context, EditText et) {
