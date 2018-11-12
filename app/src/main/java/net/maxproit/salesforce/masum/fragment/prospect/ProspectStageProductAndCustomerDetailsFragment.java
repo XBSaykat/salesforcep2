@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -211,6 +213,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                         datepickerListner, mYear, mMonth, mDay);
 //                datePickerDialogCalculate.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialogCalculate.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialogCalculate.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialogCalculate.show();
             }
         });
@@ -255,8 +258,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
         if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH) ||
                 today.get(Calendar.MONTH) < dob.get(Calendar.MONTH) &&
-                        today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
-            age--;
+                        today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)
+                || today.get(Calendar.DAY_OF_MONTH) == dob.get(Calendar.DAY_OF_MONTH)) {
+            age = age;
         }
 
         Integer ageInt = new Integer(age);
@@ -286,6 +290,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 listener,
                 year, month, day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         dialog.show();
 
     }
@@ -427,6 +432,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                     getphotoIdNumber(s);
 
                 } else if (i == 2) {
+                    etPhotoId.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
                     getphotoIdNumber(s);
 
                 } else if (i == 3) {

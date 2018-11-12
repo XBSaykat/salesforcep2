@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.salesforce.NumberTextWatcher;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
@@ -131,6 +132,9 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         etLoanTerm = view.findViewById(R.id.input_loan_term);
         etProposedInterest = view.findViewById(R.id.input_proposed_interest_rate);
         etFee = view.findViewById(R.id.input_fee);
+
+        etProposedInterest.addTextChangedListener(new NumberTextWatcher(etProposedInterest));
+        etFee.addTextChangedListener(new NumberTextWatcher(etFee));
 
 //        etCalculatedEMI = view.findViewById(R.id.input_calculated_emi);
 //        etCalculatedEMI.setEnabled(false);

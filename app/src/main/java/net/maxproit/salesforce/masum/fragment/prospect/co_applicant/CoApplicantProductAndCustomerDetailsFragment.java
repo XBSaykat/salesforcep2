@@ -270,6 +270,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                         datepickerListner, mYear, mMonth, mDay);
 //                datePickerDialogCalculate.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialogCalculate.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialogCalculate.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialogCalculate.show();
             }
         });
@@ -459,8 +460,9 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
         if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH) ||
                 today.get(Calendar.MONTH) < dob.get(Calendar.MONTH) &&
-                        today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
-            age--;
+                        today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)
+                || today.get(Calendar.DAY_OF_MONTH) == dob.get(Calendar.DAY_OF_MONTH)) {
+            age = age;
         }
 
         Integer ageInt = new Integer(age);
@@ -580,6 +582,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 listener,
                 year, month, day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         dialog.show();
 
     }
