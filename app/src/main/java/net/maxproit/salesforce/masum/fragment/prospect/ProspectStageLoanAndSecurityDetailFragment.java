@@ -145,26 +145,6 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         spinnerCountry = view.findViewById(R.id.awe_spinner_prospect_stage_manufacturing_country);
         spinnerVehicleType = view.findViewById(R.id.awe_spinner_prospect_stage_vehicle_type);
 
-
-//        model.getProductCategory().observe(this, new Observer() {
-//            @Override
-//            public void onChanged(@Nullable Object o) {
-//                //tv_msg.setText(o.toString());
-//                if(o.toString().equals("CL")){
-//
-//                    secBrandNameLabel.setVisibility(View.VISIBLE);
-//                    secManYearLabel.setVisibility(View.VISIBLE);
-//                    secManCountryLabel.setVisibility(View.VISIBLE);
-//                    secVehicleTypeLabel.setVisibility(View.VISIBLE);
-//                }else{
-//
-//                    secBrandNameLabel.setVisibility(View.GONE);
-//                    secManYearLabel.setVisibility(View.GONE);
-//                    secManCountryLabel.setVisibility(View.GONE);
-//                    secVehicleTypeLabel.setVisibility(View.GONE);
-//                }
-//            }
-//        });
         initAdapters();
         initListener();
 
@@ -216,11 +196,6 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
         ArrayAdapter<String> brandAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listBrandName);
         spinnerBrand.setAdapter(brandAdapter);
-
-//        ArrayAdapter<CharSequence> BrandAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.car_brands,
-//                android.R.layout.simple_spinner_item);
-//        spinnerBrand.setAdapter(BrandAdapter, 0);
 
         ArrayAdapter<String> manufacturingYearAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listManufacturingYear);
         spinnerYear.setAdapter(manufacturingYearAdapter);
@@ -276,6 +251,11 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
                 catch (final IllegalStateException ignored) {
                 }
             }
+
+
+            etLoanRequired.setText(myNewLead.getLoanReq());
+            etProposedInterest.setText(myNewLead.getPiRate());
+            etFee.setText(myNewLead.getProspectFee());
 
         }
 

@@ -233,8 +233,6 @@ private  String BranchName=null, profession=null, name =null, organization = nul
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
                     if (insert > 0) {
-                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-
                         Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                         ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                         insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
@@ -309,8 +307,11 @@ private  String BranchName=null, profession=null, name =null, organization = nul
             int insertAttach = 0;
             if (myNewProspect != null) {
                 if (attachmentDbController.getAllData(String.valueOf(myNewProspect.getId())).size() > 0) {
-                    Attachment attachment = new Attachment(myNewProspect.getId(), bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
+                    Attachment attachment = new Attachment(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
                     insertAttach = attachmentDbController.updateData(attachment);
+                }
+                else {
+                    insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
                 }
             } else {
                 insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
@@ -338,7 +339,6 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         }
         builder.setTitle(getString(R.string.Reject));
         builder.setMessage(getString(R.string.reject_item));
-        builder.setIcon(R.drawable.ic_reject);
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
             myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);

@@ -12,7 +12,7 @@ public class ImageUtils {
     public static byte[] imagetoByte(ImageView image){
         Bitmap bitmap=((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG,50,stream);
         byte[] byteArray=stream.toByteArray();
         return byteArray;
     }

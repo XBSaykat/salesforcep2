@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
+import net.maxproit.salesforce.App;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
@@ -351,17 +352,17 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 productCat = s;
 
-                if (s.equals("Home Loan")) {
+                if (s.equals(AppConstant.HOME_LOAN)) {
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
 
-                } else if (s.equals("Car Loan")) {
+                } else if (s.equals(AppConstant.CAR_LOAN)) {
                     ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                     spinnerProductDetail.setAdapter(carLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.VISIBLE);
 
-                } else if (s.equals("Personal Loan")) {
+                } else if (s.equals(AppConstant.PERSONAL_LOAN)) {
                     ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                     spinnerProductDetail.setAdapter(personalLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
