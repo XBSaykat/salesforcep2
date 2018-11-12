@@ -301,7 +301,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvProceedToLead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                processToLeadDetails();
+                alertDialogProceed();
             }
         });
 
@@ -316,7 +316,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setUpdatedData();
+                alertDialogSave();
 
             }
         });
@@ -651,6 +651,42 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         });
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
+    }
+
+    private void alertDialogSave() {
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+        }
+        builder.setTitle("Save");
+        builder.setMessage("Do you want to save details?");
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            setUpdatedData();
+
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void alertDialogProceed() {
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+        }
+        builder.setTitle("Proceed");
+        builder.setMessage("Do you want to proceed?");
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            processToLeadDetails();
+
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 

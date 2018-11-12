@@ -191,34 +191,7 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDataFromFragment();
-                int insert = 0;
-                if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
-                        && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
-                        && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
-                    if (finalMyNewLead != null) {
-                        insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
-                                designation, phone, address, ref, productType, subCat,
-                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
-                        insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
-                    } else {
-                        insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
-                                designation, phone, address, ref, productType, subCat,
-                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
-                        insertAttachmentData(insert, finalMyNewLead);
-                    }
-
-                    if (insert > 0) {
-
-                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(LeadStageActivity.this, "Attachment can't be empty while proceed", Toast.LENGTH_SHORT).show();
-
-                }
+                alertDialogProceed();
             }
         });
 
@@ -253,6 +226,7 @@ private  String BranchName=null, profession=null, name =null, organization = nul
                         Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                     }
                 }
+                alertDialogSave();
             }
         });
 
@@ -260,7 +234,9 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialog(finalMyNewLead.getId());
+                if(finalMyNewLead!=null){
+                    alertDialog(finalMyNewLead.getId());
+                }
             }
         });
 
@@ -345,6 +321,101 @@ private  String BranchName=null, profession=null, name =null, organization = nul
             ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
         });
         AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void alertDialogSave() {
+        MyNewProspect myNewLead = null;
+        MyNewProspect finalMyNewLead = myNewLead;
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(LeadStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(LeadStageActivity.this);
+        }
+        builder.setTitle("Save");
+        builder.setMessage("Do you want to save details?");
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            getDataFromFragment();
+
+            if (finalMyNewLead != null) {
+                int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
+                        designation, phone, address, ref, productType, subCat,
+                        loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
+                if (insert > 0) {
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+
+                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                    insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
+
+                } else {
+                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
+                        designation, phone, address, ref, productType, subCat,
+                        loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
+                if (insert > 0) {
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                    insertAttachmentData(insert, null);
+
+                } else {
+                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void alertDialogProceed() {
+        MyNewProspect myNewLead = null;
+        MyNewProspect finalMyNewLead = myNewLead;
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(LeadStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(LeadStageActivity.this);
+        }
+        builder.setTitle("Proceed");
+        builder.setMessage("Do you want to proceed?");
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            getDataFromFragment();
+            int insert = 0;
+            if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
+                    && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
+                    && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
+                if (finalMyNewLead != null) {
+                    insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
+                    insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
+                } else {
+                    insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
+                    insertAttachmentData(insert, finalMyNewLead);
+                }
+
+                if (insert > 0) {
+
+                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(LeadStageActivity.this, "Attachment can't be empty while proceed", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+        android.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
 

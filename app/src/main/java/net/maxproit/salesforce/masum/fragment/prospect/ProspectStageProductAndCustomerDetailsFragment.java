@@ -88,6 +88,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
 
+    private LinearLayout llAddress;
+
     private RadioGroup rgExList;
     private SharedViewModel model;
 
@@ -140,6 +142,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etDob = view.findViewById(R.id.input_date_of_birth);
 
         tvPhotoIdNo = view.findViewById(R.id.tv_photo_id_no);
+        llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
 
 
         spinnerDbController = new SpinnerDbController(getActivity());
@@ -201,6 +204,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //            }
 //
 //        };
+
+        llAddress.setVisibility(View.GONE);
 
         etDob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -470,6 +475,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
+        etAge.setEnabled(false);
 
     }
 

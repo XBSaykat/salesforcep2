@@ -99,102 +99,14 @@ public class ProspectStageActivity extends AppCompatActivity {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDataFromFragment();
-                if (getDataFromProspect() != null) {
-                    MyNewProspect myNewProspect = new MyNewProspect(
-                            mybranchName,
-                            name,
-                            profession,
-                            companyName,
-                            designation,
-                            mobileNumber, presentAddress,
-                            getDataFromProspect().getSourceRef(),
-                            productCat,
-                            productDetails,
-                            getDataFromProspect().getLoanAmount(),
-                            getDataFromProspect().getOrInterest(),
-                            getDataFromProspect().getOpFee(),
-                            getDataFromProspect().getVisitDate(),
-                            getDataFromProspect().getDisDate(),
-                            getDataFromProspect().getFollowUp(),
-                            getDataFromProspect().getRemark(),
-                            AppConstant.STATUS_RBM,
-                            segment, dateOfBirth, age, districtOfBirth,
-                            countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
-                            motherName, spouseName, "", noYrsInCureentJob,
-                            relationship, permanentAddress, monthlyNetSalary,
-                            monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
-                            semiPakaIncome, officeIncome, wireHouseIncome,
-                            agriculturalIncome, practiceConsultancyTution, remittance,
-                            interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
-                            securityValue, loanRequired, loanTerm, proposedInterest,
-                            fee);
-
-                    int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
-                    if (update > 0) {
-                        if (brandName !=null && year !=null && country !=null && vehicleType !=null){
-                            insertBrandData();
-                        }
-
-                        Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, DashboardSalesOfficerActivity.class, true);
-                    } else {
-                        Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-
+                alertDialogProceed();
             }
         });
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDataFromFragment();
-
-                if (getDataFromProspect() != null) {
-                    MyNewProspect myNewProspect = new MyNewProspect(
-                            mybranchName,
-                            name,
-                            profession,
-                            companyName,
-                            designation,
-                            mobileNumber, presentAddress,
-                            getDataFromProspect().getSourceRef(),
-                            productCat,
-                            productDetails,
-                            getDataFromProspect().getLoanAmount(),
-                            getDataFromProspect().getOrInterest(),
-                            getDataFromProspect().getOpFee(),
-                            getDataFromProspect().getVisitDate(),
-                            getDataFromProspect().getDisDate(),
-                            getDataFromProspect().getFollowUp(),
-                            getDataFromProspect().getRemark(),
-                            AppConstant.STATUS_NEW_PROSPECT,
-                            segment, dateOfBirth, age, districtOfBirth,
-                            countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
-                            motherName, spouseName, "", noYrsInCureentJob,
-                            relationship, permanentAddress, monthlyNetSalary,
-                            monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
-                            semiPakaIncome, officeIncome, wireHouseIncome,
-                            agriculturalIncome, practiceConsultancyTution, remittance,
-                            interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
-                            securityValue, loanRequired, loanTerm, proposedInterest,
-                            fee);
-
-                    int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
-                    if (update > 0) {
-                        if (brandName !=null && year !=null && country !=null && vehicleType !=null){
-                            insertBrandData();
-                        }
-                        Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, DashboardSalesOfficerActivity.class, true);
-                    } else {
-                        Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-
+                alertDialogSave();
             }
 
         });
@@ -416,5 +328,128 @@ public class ProspectStageActivity extends AppCompatActivity {
         super.onResume();
 
 
+    }
+
+    private void alertDialogSave() {
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(ProspectStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(ProspectStageActivity.this);
+        }
+        builder.setTitle("Save");
+        builder.setMessage("Do you want to save details?");
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            getDataFromFragment();
+
+            if (getDataFromProspect() != null) {
+                MyNewProspect myNewProspect = new MyNewProspect(
+                        mybranchName,
+                        name,
+                        profession,
+                        companyName,
+                        designation,
+                        mobileNumber, presentAddress,
+                        getDataFromProspect().getSourceRef(),
+                        productCat,
+                        productDetails,
+                        getDataFromProspect().getLoanAmount(),
+                        getDataFromProspect().getOrInterest(),
+                        getDataFromProspect().getOpFee(),
+                        getDataFromProspect().getVisitDate(),
+                        getDataFromProspect().getDisDate(),
+                        getDataFromProspect().getFollowUp(),
+                        getDataFromProspect().getRemark(),
+                        AppConstant.STATUS_NEW_PROSPECT,
+                        segment, dateOfBirth, age, districtOfBirth,
+                        countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
+                        motherName, spouseName, "", noYrsInCureentJob,
+                        relationship, permanentAddress, monthlyNetSalary,
+                        monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
+                        semiPakaIncome, officeIncome, wireHouseIncome,
+                        agriculturalIncome, practiceConsultancyTution, remittance,
+                        interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
+                        securityValue, loanRequired, loanTerm, proposedInterest,
+                        fee);
+
+                int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+                if (update > 0) {
+                    if (brandName !=null && year !=null && country !=null && vehicleType !=null){
+                        insertBrandData();
+                    }
+                    Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, MyProspectActivity.class, true);
+                } else {
+                    Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void alertDialogProceed() {
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(ProspectStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(ProspectStageActivity.this);
+        }
+        builder.setTitle("Proceed");
+        builder.setMessage("Do you want to proceed?");
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            getDataFromFragment();
+            if (getDataFromProspect() != null) {
+                MyNewProspect myNewProspect = new MyNewProspect(
+                        mybranchName,
+                        name,
+                        profession,
+                        companyName,
+                        designation,
+                        mobileNumber, presentAddress,
+                        getDataFromProspect().getSourceRef(),
+                        productCat,
+                        productDetails,
+                        getDataFromProspect().getLoanAmount(),
+                        getDataFromProspect().getOrInterest(),
+                        getDataFromProspect().getOpFee(),
+                        getDataFromProspect().getVisitDate(),
+                        getDataFromProspect().getDisDate(),
+                        getDataFromProspect().getFollowUp(),
+                        getDataFromProspect().getRemark(),
+                        AppConstant.STATUS_RBM,
+                        segment, dateOfBirth, age, districtOfBirth,
+                        countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
+                        motherName, spouseName, "", noYrsInCureentJob,
+                        relationship, permanentAddress, monthlyNetSalary,
+                        monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
+                        semiPakaIncome, officeIncome, wireHouseIncome,
+                        agriculturalIncome, practiceConsultancyTution, remittance,
+                        interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
+                        securityValue, loanRequired, loanTerm, proposedInterest,
+                        fee);
+
+                int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+                if (update > 0) {
+                    if (brandName !=null && year !=null && country !=null && vehicleType !=null){
+                        insertBrandData();
+                    }
+
+                    Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, DashboardSalesOfficerActivity.class, true);
+                } else {
+                    Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

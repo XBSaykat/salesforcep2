@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -26,8 +27,10 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
+import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.CoApplicant;
+import net.maxproit.salesforce.masum.model.MyNewProspect;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,6 +52,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static ProspectStageActivity prospectStageActivity;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,6 +87,9 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public static EditText etName, etDateOfBirth, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
+
+    private LinearLayout llAddress;
+    private CheckBox cbAddress;
 
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
@@ -150,10 +157,13 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etPresentAddress = view.findViewById(R.id.input_present_address);
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
+        llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
+        cbAddress = (CheckBox) view.findViewById(R.id.cb_address);
 
         tvPhotoIdNo = view.findViewById(R.id.tv_photo_id_no);
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
         liPhotoIdNo.setVisibility(View.GONE);
+        llAddress.setVisibility(View.VISIBLE);
 
         rgExList = view.findViewById(R.id.rg_exlist);
         spinnerDbController = new SpinnerDbController(getActivity());
@@ -295,6 +305,18 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 //            }
 //        });
 
+        cbAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
+//                if (((CheckBox) v).isChecked() && etPresentAddress==null){
+//                    etPresentAddress.setText(myNewLead.getAddress());
+//                    etPermanentAddress.setText(myNewLead.getpAddress());
+//                }
+            }
+        });
+
+
         etPhotoIdDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -302,6 +324,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
+        etAge.setEnabled(false);
 
 
 
