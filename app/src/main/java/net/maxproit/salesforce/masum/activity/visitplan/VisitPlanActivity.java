@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -322,31 +323,7 @@ public class VisitPlanActivity extends AppCompatActivity {
                 remarks = txtRemarks.getText().toString();
 
                 if (isValid()) {
-                    int insert = 0;
-                    if (visitPlanModel != null) {
-                        VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), clientName, spinnerClientType.getSelectedItem(),
-                                mobileNo,spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
-                                purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN);
-                        insert = dbController.updateData(visitPlan);
-                    } else {
-                        insert = dbController.insertData(clientName, spinnerClientType.getSelectedItem(),
-                                mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
-                                spinnerPoliceStation.getSelectedItem(),
-                                purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN);
-
-                    }
-
-                    if (insert > 0) {
-                        Toast.makeText(VisitPlanActivity.this, "Save", Toast.LENGTH_SHORT).show();
-                        Intent dashboardIntent = new Intent(VisitPlanActivity.this, DashboardSalesOfficerActivity.class);
-                        startActivity(dashboardIntent);
-                        finish();
-                    } else {
-                        Toast.makeText(VisitPlanActivity.this, "Save failed", Toast.LENGTH_SHORT).show();
-
-                    }
-
-
+                    alertDialog();
                 }
 
 
@@ -451,7 +428,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         }
 
         if (policeStation == null) {
-            Toast.makeText(context, "polic station can't be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Police station can't be empty", Toast.LENGTH_SHORT).show();
             valid = false;
         }
 
@@ -587,6 +564,47 @@ public class VisitPlanActivity extends AppCompatActivity {
         });
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
+    }
+
+    private void alertDialog() {
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(VisitPlanActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(VisitPlanActivity.this);
+        }
+        builder.setTitle("Save");
+        builder.setMessage("Do you want to save data?");
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            int insert = 0;
+            if (visitPlanModel != null) {
+                VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), clientName, spinnerClientType.getSelectedItem(),
+                        mobileNo,spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                        purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN);
+                insert = dbController.updateData(visitPlan);
+            } else {
+                insert = dbController.insertData(clientName, spinnerClientType.getSelectedItem(),
+                        mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                        spinnerPoliceStation.getSelectedItem(),
+                        purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN);
+
+            }
+
+            if (insert > 0) {
+                        Toast.makeText(VisitPlanActivity.this, "Successfully save", Toast.LENGTH_SHORT).show();
+                        Intent dashboardIntent = new Intent(VisitPlanActivity.this, VisitPlanListActivity.class);
+                        startActivity(dashboardIntent);
+                        finish();
+
+            } else {
+                Toast.makeText(VisitPlanActivity.this, "Save failed", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }
