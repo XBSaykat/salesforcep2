@@ -396,81 +396,72 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
 
-                <TextView
+                <android.support.v7.widget.CardView
                     android:id="@+id/tv_activity_details_save"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
                     android:layout_margin="@dimen/size_2dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:gravity="center"
-                    android:text="Save"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size_18dp" />
+                    app:cardBackgroundColor="@color/colorAccent"
+                     >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SAVE"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size_18dp"
+                        android:layout_gravity="center"
+                        />
+                </android.support.v7.widget.CardView>
 
-                <TextView
+                <android.support.v7.widget.CardView
                     android:id="@+id/tv_activity_details_proceed_to_lead"
                     android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="@dimen/size_40dp"
                     android:layout_margin="@dimen/size_2dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:gravity="center"
-                    android:text="Proceed to Lead"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size_18dp" />
+                    app:cardBackgroundColor="@color/colorAccent"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PROCEED"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size_18dp"
+                        android:layout_gravity="center"
+                        />
+                </android.support.v7.widget.CardView>
 
-                <TextView
+                <android.support.v7.widget.CardView
                     android:id="@+id/tv_activity_details_rejected"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
                     android:layout_margin="@dimen/size_2dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:gravity="center"
-                    android:text="Complete"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size_18dp" />
+                    app:cardBackgroundColor="@color/colorAccent"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="COMPLETE"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size_18dp"
+                        android:layout_gravity="center"
+                        />
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
 
-            <LinearLayout
-                style="@style/LayoutQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?actionBarSize"
-                android:orientation="vertical"></LinearLayout>
+
 
         </LinearLayout>
 
 
     </ScrollView>
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-
-
-    <!--</RelativeLayout>-->
-    <!--<Button android:id="@+id/btnGetMoreResults"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:text="Get more"-->
-    <!--android:layout_alignParentBottom="true" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/btn_save"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-
-        <!--android:layout_margin="0dp"-->
-        <!--android:padding="@dimen/size_4dp"-->
-        <!--android:background="@color/colorPrimary"-->
-        <!--android:gravity="center"-->
-        <!--android:text="Save"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="@dimen/text_size_24sp" />-->
 
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -58,7 +59,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             tvVisitDate, tvRemarks, etNewRemark, etNewFollowUpdate;
     private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerPurposeOfVisit;
     private SpinnerDbController spinnerDbController;
-    private TextView tvProceedToLead, tvRejected, tvSave;
+    private CardView tvProceedToLead, tvRejected, tvSave;
     Intent myActivityItemIntent;
     LinearLayout secMobiile;
     int itemPosition;
