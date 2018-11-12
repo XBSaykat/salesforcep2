@@ -428,6 +428,9 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
 
 
     private void upactivityData() {
+        if (!isValidFollowUp()){
+            return;
+        }
         if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                 !TextUtils.isEmpty(etNewRemark.getText())) {
 
@@ -451,6 +454,8 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             int insert = followUpDbController.insertData(visitPlanModel.getId(),
                     etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
             if (insert > 0) {
+                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this,MyActivitiesActivity.class,true);
+
                 Toast.makeText(this, "update date", Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -467,7 +472,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     visitPlanModel.getRemarks(),
                     AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
-
+                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this,MyActivitiesActivity.class,true);
                 Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
             }
         }
@@ -475,6 +480,10 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
 
 
     private void updatePlanData() {
+        if(!isValidFollowUp()){
+            return;
+
+        }
         if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                 !TextUtils.isEmpty(etNewRemark.getText())) {
 
@@ -490,6 +499,8 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     etNewRemark.getText().toString(),
                     AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
+                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this,MyActivitiesActivity.class,true);
+
                 Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(VisitPLanDetailsActivity.this, "failed update", Toast.LENGTH_SHORT).show();
@@ -498,6 +509,8 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             int insert = followUpDbController.insertData(visitPlanModel.getId(),
                     etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
             if (insert > 0) {
+                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this,MyActivitiesActivity.class,true);
+
                 Toast.makeText(this, "update date", Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -514,10 +527,21 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     visitPlanModel.getRemarks(),
                     AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
+                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this,MyActivitiesActivity.class,true);
 
                 Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private boolean isValidFollowUp() {
+        boolean valid=true;
+        if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
+                TextUtils.isEmpty(etNewRemark.getText())){
+            etNewRemark.setError("please fill up new follow up remarks");
+            valid=false;
+        }
+        return valid;
     }
 
 
