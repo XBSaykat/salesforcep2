@@ -45,9 +45,9 @@ public class LeadStageVisitRecordFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static AwesomeSpinner spinnerFollowUp, spinnerRemarks;
+    public static AwesomeSpinner spinnerFollowUp, spinnerRemarks;
     public static String followUp = null, visitDate = null, remark = null;
-    public EditText etVisitDate, etRemark;
+    public static EditText etVisitDate, etRemark;
     private LinearLayout followDateLayout, etRemarksLayout, spRemarksLayout;
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private MyLeadDbController myLeadDbController;
@@ -157,27 +157,26 @@ public class LeadStageVisitRecordFragment extends Fragment {
             } else if (status == 1) {
                 MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-//                    spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
-                    try {
+                    try{
+                    spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
+                    } catch (final IllegalStateException ignored) {
+
+                    }
                         if (myNewLead.getFollowUp() != null) {
                             if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")) {
                                 if (etVisitDate.getVisibility() != View.VISIBLE) {
                                     etVisitDate.setVisibility(View.VISIBLE);
-                                    etVisitDate.setText(myNewLead.getVisitDate());
-                                    etRemark.setText(myNewLead.getRemark());
                                 }
+                                etVisitDate.setText(myNewLead.getVisitDate());
+                                etRemark.setText(myNewLead.getRemark());
 
                             } else if (myNewLead.getFollowUp().equalsIgnoreCase("No")) {
-                                try {
                                     spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
-                                } catch (final IllegalStateException ignored) {
-                                }
+
                             }
                         }
 
-                    } catch (final IllegalStateException ignored) {
 
-                    }
 
 
                 }
@@ -215,6 +214,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
         spinnerRemarks.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
+                remark=s;
             }
 
         });
