@@ -570,6 +570,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etPhotoId.setText(myNewLead.getpIdNumber());
             try {
                 spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
+
+            } catch (final IllegalStateException ignored) {
+
+            } try {
                 spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
 
             } catch (final IllegalStateException ignored) {
