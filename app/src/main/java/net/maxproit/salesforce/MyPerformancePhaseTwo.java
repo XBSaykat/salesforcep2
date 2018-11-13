@@ -88,7 +88,7 @@ public class MyPerformancePhaseTwo extends AppCompatActivity {
         if (!upComingPLanList.isEmpty()) {
             allVisitPlanList.clear();
         }
-        int unexPLan = visitPlanDbController.getPlanDataUsingStatus(AppConstant.LEAD_STATUS_New_PLAN).size();
+        int unexPLan = visitPlanDbController.getDateBetween(DateUtils.getDateStringSqLite(),"2018-11-22").size();
 
 
         if (!visitPlanDbController.getPlanDataUsingStatus(AppConstant.LEAD_STATUS_New_PLAN).equals(null)) {

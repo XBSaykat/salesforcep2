@@ -13,11 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
+import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class ProspectViewRbm extends AppCompatActivity {
             tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome;
     ImageView backButton;
     Button btnCoapplicantsView;
-    ArrayList<CoApplicant> coApplicants = new ArrayList<>();
+    ArrayList<CoApplicant> coApplicantList = new ArrayList<>();
     ArrayList<CoApplicant> filteredList = new ArrayList<>();
     CoApplicantDBController coApplicantDBController;
     CoApplicantListAdapter coApplicantListAdapter;
@@ -142,14 +145,14 @@ public class ProspectViewRbm extends AppCompatActivity {
     private ArrayList<CoApplicant> filteredList() {
 
         coApplicantDBController = new CoApplicantDBController(getApplicationContext());
-        if (!coApplicants.isEmpty()) {
-            coApplicants.clear();
+        if (!coApplicantList.isEmpty()) {
+            coApplicantList.clear();
         }
 
 
-        coApplicants.addAll(coApplicantDBController.getAllData(getDataFromProspect().getId()));
+        coApplicantList.addAll(coApplicantDBController.getAllData(getDataFromProspect().getId()));
 
-        return coApplicants;
+        return coApplicantList;
     }
 
 
@@ -172,6 +175,13 @@ public class ProspectViewRbm extends AppCompatActivity {
         CoApplicantListAdapter adapter = new CoApplicantListAdapter(this, filteredList());
         rv.setAdapter(adapter);
 
+        adapter.setItemClickListener(new OnItemClickListener() {
+            @Override
+            public void itemClickListener(View view, int position) {
+                sentDataToCoApplicant(position);
+            }
+        });
+
         AlertDialog dialog = builder.create();
         dialog.setTitle("Co applicant List");
         dialog.show();
@@ -181,6 +191,49 @@ public class ProspectViewRbm extends AppCompatActivity {
             tvRentalIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
             tvFee;*/
+    private void sentDataToCoApplicant(int position) {
+
+        CoApplicant coApplicant=new CoApplicant(coApplicantList.get(position).getId(),
+                coApplicantList.get(position).getLeadId(),
+                coApplicantList.get(position).getName(),
+                coApplicantList.get(position).getDateOfBirth(),
+                coApplicantList.get(position).getAge(),
+                coApplicantList.get(position).getDistrictOfBirth(),
+                coApplicantList.get(position).getCountryOfBirth(),
+                coApplicantList.get(position).getPhotoIdType(),
+                coApplicantList.get(position).getPhotoIdNo(),
+                coApplicantList.get(position).getPhotoIdIssueDate(),
+                coApplicantList.get(position).geteTin(),
+                coApplicantList.get(position).getfName(),
+                coApplicantList.get(position).getmName(),
+                coApplicantList.get(position).getsName(),
+                coApplicantList.get(position).getProfession(),
+                coApplicantList.get(position).getExList(),
+                coApplicantList.get(position).getCompanyName(),
+                coApplicantList.get(position).getDesignation(),
+                coApplicantList.get(position).getNoOfYrsInCurrentJob(),
+                coApplicantList.get(position).getRelationWithApplicant(),
+                coApplicantList.get(position).getPermanentAddress(),
+                coApplicantList.get(position).getPresentAddress(),
+                coApplicantList.get(position).getMobileNo(),
+                coApplicantList.get(position).getMonthSalaryType(),
+                coApplicantList.get(position).getMonthSalaryAmount(),
+                coApplicantList.get(position).getMonthBusinessIncomeAmount(),
+                coApplicantList.get(position).getMonthWareHouseAmount(),
+                coApplicantList.get(position).getMonthOfficeSpaceIncomeAmount(),
+                coApplicantList.get(position).getMonthSemipakaIncomeAmount(),
+                coApplicantList.get(position).getMonthApartmentIncomeAmount(),
+                coApplicantList.get(position).getMonthAgricultureIncomeAmount(),
+                coApplicantList.get(position).getMonthTuitionIncomeAmount(),
+                coApplicantList.get(position).getRemittance(),
+                coApplicantList.get(position).getInterestFDRIncomeAmount(),
+                coApplicantList.get(position).getMonthFamilyExpenditure(),
+                coApplicantList.get(position).getEmiOfOtherLoans()
+        );
+
+        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this,CoApplicantActivity.class,coApplicant);
+
+    }
 
     private void setAllData() {
         tvBranchName.setText(getDataFromProspect().getBranchName());

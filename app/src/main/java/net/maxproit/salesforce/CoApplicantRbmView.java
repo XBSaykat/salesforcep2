@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.model.CoApplicant;
+
 public class CoApplicantRbmView extends AppCompatActivity {
 
     TextView tvCoapplicantUserName,  tvCoapplicantAge,tvCoapplicantDob, tvCoapplicantBirthDistrict, tvCoapplicantBirthCountry, tvCoapplicantValidPhotoId, tvCoapplicantPhotoIssudate,
@@ -46,5 +49,24 @@ public class CoApplicantRbmView extends AppCompatActivity {
         tvCoapplicantOtherEmi = (TextView) findViewById(R.id.tv_coapplicant_other_emi);
         tvCoapplicantOtherEmi = (TextView) findViewById(R.id.tv_coapplicant_other_emi);
         tvCoapplicantOk = (TextView) findViewById(R.id.tv_coapplicant_ok);
+
+        setAllData();
+    }
+
+    private void setAllData() {
+        tvCoapplicantUserName.setText(getDataFromApplicant().getName());
+    }
+
+
+    public CoApplicant getDataFromApplicant() {
+        CoApplicant coApplicant = null;
+
+        Bundle extraDetail = getIntent().getExtras();
+        if (extraDetail != null) {
+            coApplicant = (CoApplicant) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+
+        }
+
+        return coApplicant;
     }
 }

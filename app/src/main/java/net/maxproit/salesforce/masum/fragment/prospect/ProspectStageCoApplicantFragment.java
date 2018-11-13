@@ -207,7 +207,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         coApplicantList.get(position).getEmiOfOtherLoans()
                 );
 
-        ActivityUtils.invokCoApplicantViewStage(getActivity(),coApplicant);
+        ActivityUtils.invokCoApplicantViewStage(getActivity(),CoApplicantActivity.class,coApplicant);
 
     }
 

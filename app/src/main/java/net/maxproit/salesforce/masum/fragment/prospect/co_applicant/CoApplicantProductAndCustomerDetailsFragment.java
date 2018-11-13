@@ -478,6 +478,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             etName.setText(coApplicant.getName());
             etDateOfBirth.setText(coApplicant.getDateOfBirth());
             etAge.setText(coApplicant.getAge());
+            etDesignation.setText(coApplicant.getDesignation());
             etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
             etETin.setText(coApplicant.geteTin());
             etFatherName.setText(coApplicant.getfName());
@@ -486,8 +487,11 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
             etCompanyName.setText(coApplicant.getCompanyName());
             etPermanentAddress.setText(coApplicant.getPermanentAddress());
+            etPresentAddress.setText(coApplicant.getPresentAddress());
             etNoYrsInCurrentJob.setText(coApplicant.getNoOfYrsInCurrentJob());
             etMobileNumber.setText(coApplicant.getMobileNo());
+            getphotoIdNumber(coApplicant.getPhotoIdType());
+            etPhotoId.setText(coApplicant.getPhotoIdNo());
             if (coApplicant.getDistrictOfBirth() != null) {
 
                 try {

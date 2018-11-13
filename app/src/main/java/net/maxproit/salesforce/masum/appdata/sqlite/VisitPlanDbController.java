@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_CITY, city);
         values.put(DbConstants.VISIT_PLAN_POLICE_STATION, policeStation);
         values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,purposeOfVisit);
-        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, dateOfVisit);
+        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, DateUtils.getDateFormateForSqlite(dateOfVisit));
         values.put(DbConstants.VISIT_PLAN_REMARKS,remarks);
         values.put(DbConstants.LEAD_STATUS, status);
         // Insert the new row, returning the primary key value of the new row
@@ -63,7 +64,7 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_CITY, visitPlan.getCity());
         values.put(DbConstants.VISIT_PLAN_POLICE_STATION, visitPlan.getPoliceStation());
         values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,visitPlan.getPurposeOfVisit());
-        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, visitPlan.getDateOfVisit());
+        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT,DateUtils.getDateFormateForSqlite(visitPlan.getDateOfVisit()) );
         values.put(DbConstants.VISIT_PLAN_REMARKS,visitPlan.getRemarks());
         values.put(DbConstants.LEAD_STATUS,visitPlan.getStatus());
         // Insert the new row, returning the primary key value of the new row
@@ -180,7 +181,7 @@ public class VisitPlanDbController {
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{visitDate},                            // The values for the WHERE clause
+                new String[]{DateUtils.getDateFormateForSqlite(visitDate)},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order

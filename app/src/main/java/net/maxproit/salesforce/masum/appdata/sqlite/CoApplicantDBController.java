@@ -83,7 +83,6 @@ public class CoApplicantDBController {
 
     public int updateCoApplicantData(CoApplicant coApplicant, int coApplicantId) {
         ContentValues values = new ContentValues();
-        values.put(DbConstants.LEAD_ID_FOR_CO, coApplicant.getLeadId());
         values.put(DbConstants.LEAD_USER_NAME, coApplicant.getName());
         values.put(DbConstants.PROSPECT_DATE_OF_BIRTH, coApplicant.getDateOfBirth());
         values.put(DbConstants.PROSPECT_AGE, coApplicant.getAge());

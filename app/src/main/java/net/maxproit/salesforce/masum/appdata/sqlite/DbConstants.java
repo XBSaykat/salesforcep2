@@ -10,6 +10,7 @@ public class DbConstants {
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
     private static final String BLOB_TYPE = " blob";
+
     private static final String COMMA_SEP = ",";
     public static final String COLUMN_NAME_NULLABLE = null;
     public static final String TABLE_LEAD = "lead_table";

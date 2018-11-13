@@ -101,7 +101,7 @@ public class CoApplicantActivity extends AppCompatActivity {
                 presentAddress = CoApplicantProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
                 mobileNo = CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
                 monthSalaryType = CoApplicantFinancialFragment.monthlyNetSalary;
-                monthSalaryAmount = CoApplicantFinancialFragment.etMonthlySalaryAmount.toString();
+                monthSalaryAmount = CoApplicantFinancialFragment.etMonthlySalaryAmount.getText().toString();
                 monthBusinessIncomeAmount = CoApplicantFinancialFragment.etMonthlyBusinessIncome.getText().toString();
                 monthWareHouseAmount = CoApplicantFinancialFragment.etMonthlyWarehouseAmount.getText().toString();
                 monthOfficeSpaceIncomeAmount = CoApplicantFinancialFragment.etMonthlyOfficeSpaceAmount.getText().toString();
@@ -133,8 +133,6 @@ public class CoApplicantActivity extends AppCompatActivity {
                 }
                 else {
                      update = coApplicantDBController.insertData(coApplicant);
-
-
                 }
 
                 if (update > 0){
@@ -156,15 +154,15 @@ public class CoApplicantActivity extends AppCompatActivity {
 
     }
     public CoApplicant getDataFromApplicant() {
-        CoApplicant myNewLead = null;
+        CoApplicant coApplicant = null;
 
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
-            myNewLead = (CoApplicant) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+            coApplicant = (CoApplicant) extraDetail.getSerializable(AppConstant.INTENT_KEY);
 
         }
 
-        return myNewLead;
+        return coApplicant;
     }
 
     private void setupViewPager(ViewPager viewPager) {

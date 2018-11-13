@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import net.maxproit.salesforce.masum.model.FollowUpActivity;
 import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class FollowUpDbController {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.FOLLOW_UP_V_ID, vID);
-        values.put(DbConstants.FOLLOW_UP_HIS_DATE, date);
+        values.put(DbConstants.FOLLOW_UP_HIS_DATE, DateUtils.getDateFormateForSqlite(date));
         values.put(DbConstants.FOLLOW_UP_HIS_REMARK, remark);
         // Insert the new row, returning the primary key value of the new row
         //open();
