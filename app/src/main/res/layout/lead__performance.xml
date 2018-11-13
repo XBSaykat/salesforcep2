@@ -8,6 +8,7 @@
 
     <!--(1)No of Leads-->
     <LinearLayout
+        android:id="@+id/btnPendLead"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/size_8dp"
@@ -58,7 +59,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_my_activities_performance"
+        android:id="@+id/btnProspectLead"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/size_8dp"
@@ -109,7 +110,7 @@
     </LinearLayout>
     <!--(2)No of Prospects-->
     <LinearLayout
-        android:id="@+id/ll_my_leads_performance"
+        android:id="@+id/btnCloesdLead"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/size_8dp"

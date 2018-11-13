@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
+import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.model.CoApplicant;
@@ -32,6 +33,14 @@ public class ActivityUtils {
         if (shouldFinish) {
             activity.finish();
         }
+    }
+
+    public void invokFromPerformance(Activity activity, Class<?> tClass,int status){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(activity, tClass);
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY, status);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
     }
 
     public static void invokLeadDetailForProspectStage(Activity activity, MyNewProspect myNewLead){

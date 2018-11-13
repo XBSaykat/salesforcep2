@@ -7,7 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -22,6 +25,8 @@ import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
+
+import static net.maxproit.salesforce.masum.appdata.AppConstant.STATUS_INTENT_KEY;
 
 public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     private static final String TAG = "MyLeadActivity";
@@ -55,8 +60,26 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
+        Bundle extraDetail = getIntent().getExtras();
+        if (extraDetail !=null){
+            int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
+            if (status==1){
+                leadList.addAll(myLeadDbController.myNewLeadGetAllData());
+            }
 
-        leadList.addAll(myLeadDbController.myNewLeadGetAllData());
+            else if (status==2){
+                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
+            }
+
+            else if (status==3){
+                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_REJECT));
+            }
+        }
+        else {
+            leadList.addAll(myLeadDbController.myNewLeadGetAllData());
+        }
+
+
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

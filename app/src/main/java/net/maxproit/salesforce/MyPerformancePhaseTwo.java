@@ -10,20 +10,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
+import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.fragment.myactivity.FragmentPreViousList;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class MyPerformancePhaseTwo extends AppCompatActivity {
+public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnClickListener {
 
-    LinearLayout myActivitiesPerformance, myLeadsPerformance, myProspectsPerformance;
+    LinearLayout btnUnexPlan, btnUpComingPlan, btnFreshCall,btnDevVisit,btnPendLead,btnProspectLead,btnCloesdLead,btnPendingPros,btnProcedPros,btnCrm;
     ImageView backBtn;
     TextView tvPendingPLan, tvUpcomingPLan, tvFreshActivity, tvVisitActivity, tvPandingLead, tvPropectLead, tvClosed, tvPendingPros, tvProcedPros, tvProsCRM;
     VisitPlanDbController planDbController;
@@ -59,6 +62,30 @@ public class MyPerformancePhaseTwo extends AppCompatActivity {
         tvProsCRM = findViewById(R.id.tv_propect_crm);
         backBtn = findViewById(R.id.btnBack);
 
+        btnUnexPlan=findViewById(R.id.btn_unx_plan);
+        btnUpComingPlan=findViewById(R.id.btnUpComingPlan);
+        btnFreshCall=findViewById(R.id.btnFreshCall);
+        btnDevVisit=findViewById(R.id.btnDevVisit);
+        btnPendLead=findViewById(R.id.btnPendLead);
+        btnProspectLead=findViewById(R.id.btnProspectLead);
+        btnCloesdLead=findViewById(R.id.btnCloesdLead);
+        btnPendingPros=findViewById(R.id.btnPendingPros);
+        btnProcedPros=findViewById(R.id.btnProcedPros);
+        btnCrm=findViewById(R.id.btnCrm);
+
+
+        btnUnexPlan.setOnClickListener(this);
+        btnUpComingPlan.setOnClickListener(this);
+        btnFreshCall.setOnClickListener(this);
+        btnDevVisit.setOnClickListener(this);
+        btnPendLead.setOnClickListener(this);
+        btnProspectLead.setOnClickListener(this);
+        btnCloesdLead.setOnClickListener(this);
+        btnPendingPros.setOnClickListener(this);
+        btnProcedPros.setOnClickListener(this);
+        btnCrm.setOnClickListener(this);
+
+
     }
 
     private void initVariable() {
@@ -80,6 +107,8 @@ public class MyPerformancePhaseTwo extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 
     private void setAllData() {
@@ -91,7 +120,6 @@ public class MyPerformancePhaseTwo extends AppCompatActivity {
             allVisitPlanList.clear();
         }
         int unexPLan = visitPlanDbController.getDateBetween(DateUtils.getDateStringSqLite(),"2018-11-22").size();
-
 
         if (!visitPlanDbController.getPlanDataUsingStatus(AppConstant.LEAD_STATUS_New_PLAN).equals(null)) {
 
@@ -131,6 +159,45 @@ public class MyPerformancePhaseTwo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent=null;
+        switch (view.getId()){
+
+            case R.id.btn_unx_plan:
+                //intent=new Intent(this,"");
+                break;
+                case R.id.btnUpComingPlan:
+                //intent=new Intent(this,"");
+                break;
+                case R.id.btnFreshCall:
+                //intent=new Intent(this,"");
+                break;
+                case R.id.btnDevVisit:
+                //intent=new Intent(this,"");
+                break;
+                case R.id.btnPendLead:
+                    ActivityUtils.getInstance().invokFromPerformance(this,MyLeadActivity.class,1);
+                break;
+                case R.id.btnProspectLead:
+                    ActivityUtils.getInstance().invokFromPerformance(this,MyLeadActivity.class,2);
+                break;
+                case R.id.btnCloesdLead:
+                    ActivityUtils.getInstance().invokFromPerformance(this,MyLeadActivity.class,3);
+                break;
+                case R.id.btnPendingPros:
+                //intent=new Intent(this,"");
+                break;
+                case R.id.btnProcedPros:
+                //intent=new Intent(this,"");
+                break;
+                case R.id.btnCrm:
+                //intent=new Intent(this,"");
+                break;
+        }
 
     }
 }
