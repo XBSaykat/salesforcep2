@@ -16,8 +16,10 @@ import android.widget.Toast;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.CarLoan;
 import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
@@ -27,18 +29,20 @@ import java.util.ArrayList;
 
 public class ProspectViewRbm extends AppCompatActivity {
 
-    TextView tvApproval, tvReject, tvReturn, tvProdecutCategory, tvProductDetail, tvBranchName, tvUserName, tvSegment, tvAge,
+    private TextView tvApproval, tvReject, tvReturn, tvProdecutCategory, tvProductDetail, tvBranchName, tvUserName, tvSegment, tvAge,
             tvBirthDistrict, tvBirthCountry, tvValidPhotoId, tvPhotoIssudate, tvEtin, tvFatherName, tvMotherName, tvSpouseName,
             tvProfession, tvCompanyName, tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
             tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
             tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome;
-    ImageView backButton;
-    Button btnCoapplicantsView;
-    ArrayList<CoApplicant> coApplicantList = new ArrayList<>();
-    ArrayList<CoApplicant> filteredList = new ArrayList<>();
-    CoApplicantDBController coApplicantDBController;
-    CoApplicantListAdapter coApplicantListAdapter;
+    private ImageView backButton;
+    private Button btnCoapplicantsView;
+    private ArrayList<CoApplicant> coApplicantList = new ArrayList<>();
+    private ArrayList<CarLoan> carLoanList = new ArrayList<>();
+    private ArrayList<CoApplicant> filteredList = new ArrayList<>();
+    private CoApplicantDBController coApplicantDBController;
+    private CarLoanDbController carLoanDbController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +100,7 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvReject = (TextView) findViewById(R.id.tv_reject);
         tvReturn = (TextView) findViewById(R.id.tv_return);
         backButton = (ImageView) findViewById(R.id.btnBack);
-
+        carLoanDbController=new CarLoanDbController(this);
         btnCoapplicantsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,7 +235,7 @@ public class ProspectViewRbm extends AppCompatActivity {
                 coApplicantList.get(position).getEmiOfOtherLoans()
         );
 
-        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this,CoApplicantActivity.class,coApplicant);
+        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this,CoApplicantRbmView.class,coApplicant);
 
     }
 
@@ -272,16 +276,16 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvRemittance.setText(getDataFromProspect().getRemitance());
         tvFdr.setText(getDataFromProspect().getInFdr());
         tvFamilyExpenditure.setText(getDataFromProspect().getfExpense());
-        //tvEmi.setText(getDataFromProspect().getMonthlyEmi());
+        tvEmi.setText(getDataFromProspect().getEmiOther());
         tvSecurityValue.setText(getDataFromProspect().getsValue());
         tvLoanRequired.setText(getDataFromProspect().getLoanReq());
         tvLoanTerm.setText(getDataFromProspect().getLoanTerm());
         tvInteresterRate.setText(getDataFromProspect().getOrInterest());
         tvFee.setText(getDataFromProspect().getProspectFee());
-//        tvVehicleType.setText(getDataFromProspect());
-//        tvManufacturingCountry.setText(getDataFromProspect());
-//        tvManufacturingYear.setText(getDataFromProspect());
-//        tvBrandName.setText(getDataFromProspect());
+        tvVehicleType.setText(carLoanList.get(0).getVehicleType());
+        tvManufacturingCountry.setText(carLoanList.get(0).getMenuCountry());
+        tvManufacturingYear.setText(carLoanList.get(0).getMenuYear());
+        tvBrandName.setText(carLoanList.get(0).getBrandName());
     }
 
 
@@ -290,6 +294,11 @@ public class ProspectViewRbm extends AppCompatActivity {
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
             propect = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+            if (!carLoanList.isEmpty()){
+                carLoanList.clear();
+            }
+
+            carLoanList.addAll(carLoanDbController.getData(String.valueOf(propect.getId())));
         }
 
         return propect;
