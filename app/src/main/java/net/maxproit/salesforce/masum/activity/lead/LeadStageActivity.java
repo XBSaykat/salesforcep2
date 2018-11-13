@@ -191,7 +191,7 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialogProceed();
+                alertDialogProceed(finalMyNewLead);
             }
         });
 
@@ -199,34 +199,7 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDataFromFragment();
-
-                if (finalMyNewLead != null) {
-                    int insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
-                            designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
-                    if (insert > 0) {
-                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-                        insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
-
-                    } else {
-                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    int insert = myLeadDbController.insertLeadData(BranchName, name, profession, organization,
-                            designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
-                    if (insert > 0) {
-                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-                        insertAttachmentData(insert, null);
-
-                    } else {
-                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                alertDialogSave();
+                alertDialogSave(finalMyNewLead);
             }
         });
 
@@ -324,8 +297,8 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         dialog.show();
     }
 
-    private void alertDialogSave() {
-        MyNewProspect myNewLead = null;
+    private void alertDialogSave(MyNewProspect myNewLead) {
+
         MyNewProspect finalMyNewLead = myNewLead;
         android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -344,8 +317,6 @@ private  String BranchName=null, profession=null, name =null, organization = nul
                         designation, phone, address, ref, productType, subCat,
                         loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
                 if (insert > 0) {
-                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-
                     Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                     ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                     insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
@@ -372,8 +343,8 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         dialog.show();
     }
 
-    private void alertDialogProceed() {
-        MyNewProspect myNewLead = null;
+    private void alertDialogProceed(MyNewProspect myNewLead) {
+
         MyNewProspect finalMyNewLead = myNewLead;
         android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

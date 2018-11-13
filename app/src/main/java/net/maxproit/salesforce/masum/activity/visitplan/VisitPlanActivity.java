@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +32,13 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.Global;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
+import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -412,26 +416,45 @@ public class VisitPlanActivity extends AppCompatActivity {
 
     private boolean isValid() {
         boolean valid = true;
-        if (clientType == null) {
-            Toast.makeText(context, "client type can't be empty", Toast.LENGTH_SHORT).show();
+//        if (clientType == null ) {
+//            Toast.makeText(context, "client type can't be empty", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        }
+//
+//        if (purposeOfVisit == null) {
+//            Toast.makeText(context, "purposeOfVisit can't be empty", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        }
+//
+//        if (city == null) {
+//            Toast.makeText(context, "City can't be empty", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        }
+//
+//        if (policeStation == null) {
+//            Toast.makeText(context, "Police station can't be empty", Toast.LENGTH_SHORT).show();
+//            valid = false;
+//        }
+
+        if(clientType == null || purposeOfVisit == null || city == null || policeStation == null){
+//            Toast.makeText(context, "Enter required values", Toast.LENGTH_SHORT).show();
+//            valid = false;
+
+            android.app.AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new android.app.AlertDialog.Builder(VisitPlanActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+            } else {
+                builder = new android.app.AlertDialog.Builder(VisitPlanActivity.this);
+            }
+            builder.setIcon(R.drawable.ic_required);
+            builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
+
+//            builder.setMessage(getString(R.string.reject_item));
+            builder.setNegativeButton("OK", null);
+            android.app.AlertDialog dialog = builder.create();
+            dialog.show();
             valid = false;
         }
-
-        if (purposeOfVisit == null) {
-            Toast.makeText(context, "purposeOfVisit can't be empty", Toast.LENGTH_SHORT).show();
-            valid = false;
-        }
-
-        if (city == null) {
-            Toast.makeText(context, "City can't be empty", Toast.LENGTH_SHORT).show();
-            valid = false;
-        }
-
-        if (policeStation == null) {
-            Toast.makeText(context, "Police station can't be empty", Toast.LENGTH_SHORT).show();
-            valid = false;
-        }
-
 
         return valid;
     }

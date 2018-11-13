@@ -12,6 +12,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -82,6 +83,8 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
     static final String PRE_DISBURSEMENT = "Pre- Disbursement";
     static final String POST_DISBURSEMENT = "Post- Disbursement";
     static final String INDIVIDUAL = "Individual";
+
+    String clientType, productType, purposeOfVisit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,7 +304,23 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvProceedToLead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialogProceed();
+                if(spinnerClientType.getSelectedItem() == null || spinnerPurposeOfVisit.getSelectedItem() == null
+                        || spinnerProductType.getSelectedItem() == null ){
+
+                    android.app.AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+                    } else {
+                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+                    }
+                    builder.setIcon(R.drawable.ic_required);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
+                    builder.setNegativeButton("OK", null);
+                    android.app.AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    alertDialogProceed();
+                }
             }
         });
 
@@ -316,7 +335,24 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialogSave();
+
+                if(spinnerClientType.getSelectedItem() == null || spinnerPurposeOfVisit.getSelectedItem() == null
+                        || spinnerProductType.getSelectedItem() == null ){
+
+                    android.app.AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+                    } else {
+                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+                    }
+                    builder.setIcon(R.drawable.ic_required);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
+                    builder.setNegativeButton("OK", null);
+                    android.app.AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    alertDialogSave();
+                }
 
             }
         });
@@ -337,11 +373,18 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             }
         });
 
+        layoutNewRemark.setVisibility(View.GONE);
+
 
         etNewFollowUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 datePickerDialog(etNewFollowUpdate);
+                if(etNewFollowUpdate!=null){
+                    layoutNewRemark.setVisibility(View.VISIBLE);
+                } else {
+                    layoutNewRemark.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -417,7 +460,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             lPrtype.setVisibility(View.GONE);
             mLayoutCLientTypeField.setVisibility(View.GONE);
             btnFollowUp.setVisibility(View.GONE);
-            layoutNewRemark.setVisibility(View.GONE);
+            layoutNewRemark.setVisibility(View.VISIBLE);
             layoutPurOfvisit.setVisibility(View.GONE);
             layoutNewDate.setVisibility(View.GONE);
             tvRejected.setEnabled(false);
@@ -688,6 +731,28 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+//    private boolean isValid() {
+//        boolean valid = true;
+//
+//        if(clientType == null || purposeOfVisit == null || productType == null ){
+//
+//            android.app.AlertDialog.Builder builder;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+//            } else {
+//                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+//            }
+//            builder.setIcon(R.drawable.ic_required);
+//            builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
+//            builder.setNegativeButton("OK", null);
+//            android.app.AlertDialog dialog = builder.create();
+//            dialog.show();
+//            valid = false;
+//        }
+//
+//        return valid;
+//    }
 
 
 }
