@@ -15,10 +15,46 @@ public class DateUtils {
         return strDate;
     }
 
+    public static String getDateStringSqLite(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=new Date();
+        String strDate=sdf.format(date);
+        return strDate;
+    }
+
+
+
+    public static String getDateFormateForSqlite(String date){
+        SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate=null;
+        try {
+            Date newDate = sdfStr.parse(date);
+             strDate=sdf.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return strDate;
+    }
+   public static String getDateFormateEt(String date){
+        SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate=null;
+        try {
+            Date newDate = sdf.parse(date);
+             strDate=sdfStr.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return strDate;
+    }
+
 
     public static int isPending(String dateString) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = null;
         Date date2 = null;
 
@@ -48,7 +84,7 @@ public class DateUtils {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, 1);
         Date date = cal.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String strDate=sdf.format(date);
         return strDate;
     }
@@ -57,7 +93,7 @@ public class DateUtils {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -1);
         Date date = cal.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String strDate=sdf.format(date);
         return strDate;
     }

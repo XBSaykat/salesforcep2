@@ -30,11 +30,11 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.Global;
-import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class VisitPlanActivity extends AppCompatActivity {
     TextView buttonSave;
     LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
     View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
-    EditText txtClientName, txtMobileNo, dtpVisitDT, txtRemarks;
+    EditText txtClientName, txtMobileNo, tvVisitDT, txtRemarks;
     String clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit, remarks;
 
     List<String> listClientType, listProductType, listArea, listPurpose, listCity, listDhakaSouth, listDhakaNorth, listNarayanganj;
@@ -109,7 +109,7 @@ public class VisitPlanActivity extends AppCompatActivity {
 
         txtClientName = (EditText) findViewById(R.id.input_client_name);
         txtMobileNo = (EditText) findViewById(R.id.input_mobile_no);
-        dtpVisitDT = (EditText) findViewById(R.id.dtpVisitDT);
+        tvVisitDT = (EditText) findViewById(R.id.dtpVisitDT);
         txtRemarks = (EditText) findViewById(R.id.input_remarks);
 
         txtMobileNo.addTextChangedListener(new TextWatcher() {
@@ -146,7 +146,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         // init - set date to current date
         long currentdate = System.currentTimeMillis();
         String dateString = sdf.format(currentdate);
-        dtpVisitDT.setText(dateString);
+        tvVisitDT.setText(dateString);
 
         // set calendar date and update editDate
         date = new DatePickerDialog.OnDateSetListener() {
@@ -164,7 +164,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         };
 
 
-        dtpVisitDT.setOnClickListener(new View.OnClickListener() {
+        tvVisitDT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -186,9 +186,9 @@ public class VisitPlanActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
                 String selectedDate = (dayOfMonth + "." + month + "." + year);
-                dtpVisitDT.getText().clear();
-                dtpVisitDT.setText(selectedDate);
-                dateOfvisit = dtpVisitDT.getText().toString();
+                tvVisitDT.getText().clear();
+                tvVisitDT.setText(selectedDate);
+                dateOfvisit = tvVisitDT.getText().toString();
             }
         };
 
@@ -256,7 +256,7 @@ public class VisitPlanActivity extends AppCompatActivity {
     }
 
     private void updateDate() {
-        dtpVisitDT.setText(sdf.format(myCalendar.getTime()));
+        tvVisitDT.setText(sdf.format(myCalendar.getTime()));
     }
 
     protected Dialog onCreateDialog(int id) {
@@ -319,7 +319,7 @@ public class VisitPlanActivity extends AppCompatActivity {
             public void onClick(View v) {
                 clientName = txtClientName.getText().toString().trim();
                 mobileNo = txtMobileNo.getText().toString().trim();
-                dateOfvisit = dtpVisitDT.getText().toString().trim();
+                dateOfvisit = tvVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString();
 
                 if (isValid()) {
@@ -529,7 +529,7 @@ public class VisitPlanActivity extends AppCompatActivity {
         txtClientName.setText(clientName);
         txtMobileNo.setText(mobileNo);
         txtRemarks.setText(remarks);
-        dtpVisitDT.setText(dateOfvisit);
+        tvVisitDT.setText(DateUtils.getDateFormateEt(dateOfvisit));
 
 
     }

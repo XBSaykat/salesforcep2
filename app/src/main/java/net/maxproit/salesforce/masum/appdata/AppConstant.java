@@ -55,4 +55,5 @@ public class AppConstant {
     public static final String CAR_LOAN = "Car Loan";
     public static final String PERSONAL_LOAN = "Personal Loan";
     public static final String REJECTED ="complete" ;
+    public static final String FOLLOW = "follow";
 }

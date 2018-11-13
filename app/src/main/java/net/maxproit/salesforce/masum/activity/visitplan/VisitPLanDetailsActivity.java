@@ -37,6 +37,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.FollowUpActivity;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 
 import java.text.SimpleDateFormat;
@@ -122,7 +123,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvMobileNumber.setText(visitPlanModel.getMobileNumber());
         tvCity.setText(visitPlanModel.getCity());
         tvPoliceStation.setText(visitPlanModel.getPoliceStation());
-        tvVisitDate.setText(visitPlanModel.getDateOfVisit());
+        tvVisitDate.setText(DateUtils.getDateFormateEt(visitPlanModel.getDateOfVisit()));
         tvRemarks.setText(visitPlanModel.getRemarks());
 
 
@@ -403,8 +404,15 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         if (extraDetail != null) {
             visitPlanModel = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
             setAllData(visitPlanModel);
+
             followUpList.addAll(followUpDbController.getAllData(visitPlanModel.getId()));
+
+
+            if (followUpList.size()==0){
+                btnFollowUp.setVisibility(View.GONE);
+            }
             sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
+
 
         } else {
             long currentdate = System.currentTimeMillis();
@@ -417,7 +425,6 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
             layoutPurOfvisit.setVisibility(View.GONE);
             layoutNewDate.setVisibility(View.GONE);
             tvRejected.setEnabled(false);
-
         }
     }
 
@@ -446,6 +453,15 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                 Toast.makeText(VisitPLanDetailsActivity.this, "failed update", Toast.LENGTH_SHORT).show();
 
             }
+            int dataAvailable=followUpDbController.getAllData(visitPlanModel.getId()).size();
+            if (dataAvailable == 0){
+                int insert = followUpDbController.insertData(visitPlanModel.getId(),
+                        tvVisitDate.getText().toString(), tvRemarks.getText().toString());
+                if (insert > 0) {
+                    Toast.makeText(this, "save date", Toast.LENGTH_SHORT).show();
+                }
+
+            }
             int insert = followUpDbController.insertData(visitPlanModel.getId(),
                     etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
             if (insert > 0) {
@@ -463,7 +479,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     visitPlanModel.getProductType(),
                     visitPlanModel.getCity(),
                     visitPlanModel.getPurposeOfVisit(),
-                    visitPlanModel.getDateOfVisit(),
+                    tvVisitDate.getText().toString(),
                     visitPlanModel.getRemarks(),
                     AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
@@ -494,15 +510,25 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     etNewRemark.getText().toString(),
                     AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
-                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
-
                 Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(VisitPLanDetailsActivity.this, "failed update", Toast.LENGTH_SHORT).show();
 
             }
+
+            int dataAvailable=followUpDbController.getAllData(visitPlanModel.getId()).size();
+            if (dataAvailable == 0){
+                int insert = followUpDbController.insertData(visitPlanModel.getId(),
+                        tvVisitDate.getText().toString(), tvRemarks.getText().toString());
+                if (insert > 0) {
+                    Toast.makeText(this, "save date", Toast.LENGTH_SHORT).show();
+                }
+
+            }
             int insert = followUpDbController.insertData(visitPlanModel.getId(),
                     etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
+
+
             if (insert > 0) {
                 ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
 
@@ -518,8 +544,8 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                     sProductTypeString,
                     tvCity.getText().toString(),
                     sPurposeOfVisitStr,
-                    visitPlanModel.getDateOfVisit(),
-                    visitPlanModel.getRemarks(),
+                    tvVisitDate.getText().toString(),
+                    tvRemarks.getText().toString(),
                     AppConstant.STATUS_ACTIVITY));
             if (update > 0) {
                 ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
@@ -599,8 +625,17 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
 
             if (visitPlanModel != null) {
-                visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(),
-                        AppConstant.VISITED);
+                int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(),
+                        tvClientName.getText().toString(),
+                        spinerClientTypeStr,
+                        tvMobileNumber.getText().toString(),
+                        tvPoliceStation.getText().toString(),
+                        sProductTypeString,
+                        tvCity.getText().toString(),
+                        sPurposeOfVisitStr,
+                        tvVisitDate.getText().toString(),
+                        tvRemarks.getText().toString(),
+                        AppConstant.VISITED));
                 VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(),
                         tvClientName.getText().toString(),
                         spinerClientTypeStr,
@@ -609,30 +644,10 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
                         sProductTypeString,
                         tvCity.getText().toString(),
                         sPurposeOfVisitStr,
-                        etNewFollowUpdate.getText().toString(),
-                        etNewRemark.getText().toString(),
-                        AppConstant.LEAD_STATUS_NEW);
-                ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, visitPlan);
-            } else {
-                visitPlanDbController.insertData(tvClientName.getText().toString(), spinerClientTypeStr,
-                        tvMobileNumber.getText().toString(), tvProductType.getText().toString(),
-                        tvCity.getText().toString(), tvPoliceStation.getText().toString(),
-                        tvVisitPurpose.getText().toString(),
                         tvVisitDate.getText().toString(),
-                        tvRemarks.getText().toString(), AppConstant.LEAD_STATUS_NEW);
-                VisitPlan visitPlan = new VisitPlan(
-                        tvClientName.getText().toString(),
-                        spinerClientTypeStr,
-                        tvMobileNumber.getText().toString(),
-                        tvPoliceStation.getText().toString(),
-                        sProductTypeString,
-                        tvCity.getText().toString(),
-                        sPurposeOfVisitStr,
-                        etNewFollowUpdate.getText().toString(),
-                        etNewRemark.getText().toString(),
+                        tvRemarks.getText().toString(),
                         AppConstant.LEAD_STATUS_NEW);
                 ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, visitPlan);
-
             }
 
         } else {

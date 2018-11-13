@@ -154,15 +154,15 @@ public class CoApplicantActivity extends AppCompatActivity {
 
     }
     public CoApplicant getDataFromApplicant() {
-        CoApplicant myNewLead = null;
+        CoApplicant coApplicant = null;
 
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
-            myNewLead = (CoApplicant) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+            coApplicant = (CoApplicant) extraDetail.getSerializable(AppConstant.INTENT_KEY);
 
         }
 
-        return myNewLead;
+        return coApplicant;
     }
 
     private void setupViewPager(ViewPager viewPager) {
