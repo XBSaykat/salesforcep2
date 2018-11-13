@@ -1,5 +1,6 @@
 package net.maxproit.salesforce;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.fragment.myactivity.FragmentPreViousList;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
@@ -121,6 +123,14 @@ public class MyPerformancePhaseTwo extends AppCompatActivity {
         tvClosed.setText("" + leadDbController.getAllData(AppConstant.LEAD_STATUS_REJECT).size());
         tvPendingPros.setText("" + leadDbController.getAllData(AppConstant.STATUS_NEW_PROSPECT).size());
         tvProcedPros.setText("" + leadDbController.getAllData(AppConstant.STATUS_RBM).size());
+
+        tvUpcomingPLan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(MyPerformancePhaseTwo.this,FragmentPreViousList.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

@@ -17,6 +17,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.PreviousPlanListAdapter;
+import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -34,6 +35,7 @@ public class FragmentPreViousList extends Fragment {
 
     private PreviousPlanListAdapter myLeadAdapter;
     private VisitPlanDbController myDbController;
+    private FollowUpDbController followUpDbController;
     //    MyLeadDbController myDbController;
     private ImageView backButton, addButton;
     private SearchView searchView;
@@ -98,6 +100,7 @@ public class FragmentPreViousList extends Fragment {
         filterList = new ArrayList<>();
         visitPlanList = new ArrayList<>();
         myDbController = new VisitPlanDbController(getContext());
+        followUpDbController = new FollowUpDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
 
         if (!leadList.isEmpty()) {
@@ -116,6 +119,9 @@ public class FragmentPreViousList extends Fragment {
                     if (DateUtils.isPending(leadList.get(i).getDateOfVisit())==1
                             || leadList.get(i).getStatus().equals(AppConstant.VISITED) ||
                             leadList.get(i).getStatus().equals(AppConstant.REJECTED)){
+                        visitPlanList.add(leadList.get(i));
+                    }
+                    else if(followUpDbController.getAllData(leadList.get(i).getId()).size()>0){
                         visitPlanList.add(leadList.get(i));
                     }
                 } catch (ParseException e) {

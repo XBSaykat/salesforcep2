@@ -417,29 +417,9 @@ public class VisitPlanActivity extends AppCompatActivity {
 
     private boolean isValid() {
         boolean valid = true;
-//        if (clientType == null ) {
-//            Toast.makeText(context, "client type can't be empty", Toast.LENGTH_SHORT).show();
-//            valid = false;
-//        }
-//
-//        if (purposeOfVisit == null) {
-//            Toast.makeText(context, "purposeOfVisit can't be empty", Toast.LENGTH_SHORT).show();
-//            valid = false;
-//        }
-//
-//        if (city == null) {
-//            Toast.makeText(context, "City can't be empty", Toast.LENGTH_SHORT).show();
-//            valid = false;
-//        }
-//
-//        if (policeStation == null) {
-//            Toast.makeText(context, "Police station can't be empty", Toast.LENGTH_SHORT).show();
-//            valid = false;
-//        }
+
 
         if(clientType == null || purposeOfVisit == null || city == null || policeStation == null){
-//            Toast.makeText(context, "Enter required values", Toast.LENGTH_SHORT).show();
-//            valid = false;
 
             android.app.AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -449,8 +429,6 @@ public class VisitPlanActivity extends AppCompatActivity {
             }
             builder.setIcon(R.drawable.ic_required);
             builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
-
-//            builder.setMessage(getString(R.string.reject_item));
             builder.setNegativeButton("OK", null);
             android.app.AlertDialog dialog = builder.create();
             dialog.show();
@@ -617,8 +595,6 @@ public class VisitPlanActivity extends AppCompatActivity {
 
             if (insert > 0) {
                         Toast.makeText(VisitPlanActivity.this, "Successfully save", Toast.LENGTH_SHORT).show();
-                        Intent dashboardIntent = new Intent(VisitPlanActivity.this, VisitPlanListActivity.class);
-                        startActivity(dashboardIntent);
                         finish();
 
             } else {

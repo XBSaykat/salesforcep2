@@ -57,20 +57,6 @@ public class VisitPlanListActivity extends BaseActivity {
         leadList=new ArrayList<>();
         visitPlanList=new ArrayList<>();
         filterList=new ArrayList<>();
-        if (!leadList.isEmpty()) {
-            leadList.clear();
-        }
-        if (!visitPlanList.isEmpty()){
-            visitPlanList.clear();
-        }
-        if (!myDbController.getPlanData().equals(null)){
-
-            visitPlanList.addAll(myDbController.getPlanData());
-        }
-
-        else {
-            Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
-        }
 
 
         backButton = findViewById(R.id.btn_back);
@@ -86,7 +72,26 @@ public class VisitPlanListActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!leadList.isEmpty()) {
+            leadList.clear();
+        }
+        if (!visitPlanList.isEmpty()){
+            visitPlanList.clear();
+        }
+        if (!myDbController.getPlanData().equals(null)){
 
+            visitPlanList.addAll(myDbController.getPlanData());
+            myLeadAdapter.notifyDataSetChanged();
+        }
+
+        else {
+            Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     @Override
     protected void getIntentData() {
@@ -138,7 +143,7 @@ public class VisitPlanListActivity extends BaseActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VisitPlanListActivity.super.onBackPressed();
+            onBackPressed();
             }
         });
 
@@ -147,23 +152,6 @@ public class VisitPlanListActivity extends BaseActivity {
             public void onClick(View v) {
 
                 alertDialog();
-           /*     AlertDialog dialog = new AlertDialog.Builder(VisitPlanListActivity.this).create();
-                dialog.setTitle("Create new Plan?");
-                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(VisitPlanListActivity.this, VisitPlanActivity.class));
-                        dialog.dismiss();
-                    }
-                });
-                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();*/
-
             }
         });
 
@@ -251,7 +239,7 @@ public class VisitPlanListActivity extends BaseActivity {
         builder.setIcon(R.drawable.lead);
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-            startActivity(new Intent(VisitPlanListActivity.this, VisitPlanActivity.class));
+            ActivityUtils.getInstance().invokeActivity(VisitPlanListActivity.this, VisitPlanActivity.class,false);
         });
         AlertDialog dialog = builder.create();
         dialog.show();
