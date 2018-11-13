@@ -197,6 +197,8 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
                 case R.id.btnCrm:
                 //intent=new Intent(this,"");
                 break;
+                default:
+                    break;
         }
 
     }
