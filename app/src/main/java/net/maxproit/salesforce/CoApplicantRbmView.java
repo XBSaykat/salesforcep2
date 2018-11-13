@@ -2,6 +2,7 @@ package net.maxproit.salesforce;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -13,7 +14,8 @@ public class CoApplicantRbmView extends AppCompatActivity {
             tvCoapplicantEtin, tvCoapplicantFatherName, tvCoapplicantMotherName, tvCoapplicantSpouseName, tvCoapplicantProfession, tvCoapplicantCompanyName,
             tvCoapplicantDesignation, tvCoapplicantCurrentJobYear, tvCoapplicantRelationshipWithApplicant, tvCoapplicantPermanentAddress, tvCoapplicantPresentAddress,
             tvCoapplicantMobileNumber, tvCoapplicantMonthlySalary, tvCoapplicantSalaryAmount, tvCoapplicantMonthlyBusinessIncome, tvCoapplicantAgricultureIncome,
-            tvCoapplicantOtherIncome, tvCoapplicantRemittance, tvCoapplicantFdr, tvCoapplicantOtherEmi, tvCoapplicantOk;
+            tvCoapplicantOtherIncome, tvCoapplicantRemittance, tvCoapplicantFdr, tvCoapplicantOtherEmi,tvCoaaplicantSempaka, tvCoapplicantOfficeIncome,
+            tvCoapplicantBuildingIncome,tvCoapplicantWarehouseIncome, tvCoapplicantOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +49,56 @@ public class CoApplicantRbmView extends AppCompatActivity {
         tvCoapplicantRemittance = (TextView) findViewById(R.id.tv_coapplicant_remittance);
         tvCoapplicantFdr = (TextView) findViewById(R.id.tv_coapplicant_fdr);
         tvCoapplicantOtherEmi = (TextView) findViewById(R.id.tv_coapplicant_other_emi);
-        tvCoapplicantOtherEmi = (TextView) findViewById(R.id.tv_coapplicant_other_emi);
+        tvCoaaplicantSempaka = (TextView) findViewById(R.id.tv_coapplicant_semipaka_income);
+        tvCoapplicantBuildingIncome = (TextView) findViewById(R.id.tv_coapplicant_multi_apartment_income);
+        tvCoapplicantOfficeIncome = (TextView) findViewById(R.id.tv_coapplicant_office_commercial_space_income);
+        tvCoapplicantWarehouseIncome = (TextView) findViewById(R.id.tv_coapplicant_warehouse_factory_income);
+
         tvCoapplicantOk = (TextView) findViewById(R.id.tv_coapplicant_ok);
 
         setAllData();
     }
 
     private void setAllData() {
+
+        tvCoapplicantOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         tvCoapplicantUserName.setText(getDataFromApplicant().getName());
+        tvCoapplicantDob.setText(getDataFromApplicant().getDateOfBirth());
+        tvCoapplicantAge.setText(getDataFromApplicant().getAge());
+        tvCoapplicantBirthDistrict.setText(getDataFromApplicant().getDistrictOfBirth());
+        tvCoapplicantBirthCountry.setText(getDataFromApplicant().getCountryOfBirth());
+        tvCoapplicantValidPhotoId.setText(getDataFromApplicant().getPhotoIdNo());
+        tvCoapplicantPhotoIssudate.setText(getDataFromApplicant().getPhotoIdIssueDate());
+        tvCoapplicantEtin.setText(getDataFromApplicant().geteTin());
+        tvCoapplicantFatherName.setText(getDataFromApplicant().getfName());
+        tvCoapplicantMotherName.setText(getDataFromApplicant().getmName());
+        tvCoapplicantSpouseName.setText(getDataFromApplicant().getsName());
+        tvCoapplicantProfession.setText(getDataFromApplicant().getProfession());
+        tvCoapplicantCompanyName.setText(getDataFromApplicant().getCompanyName());
+        tvCoapplicantDesignation.setText(getDataFromApplicant().getDesignation());
+        tvCoapplicantCurrentJobYear.setText(getDataFromApplicant().getNoOfYrsInCurrentJob());
+        tvCoapplicantRelationshipWithApplicant.setText(getDataFromApplicant().getPermanentAddress());
+        tvCoapplicantPermanentAddress.setText(getDataFromApplicant().getRelationWithApplicant());
+        tvCoapplicantPresentAddress.setText(getDataFromApplicant().getPresentAddress());
+        tvCoapplicantMobileNumber.setText(getDataFromApplicant().getMobileNo());
+        tvCoapplicantMonthlySalary.setText(getDataFromApplicant().getMonthSalaryType());
+        tvCoapplicantSalaryAmount.setText(getDataFromApplicant().getMonthSalaryAmount());
+        tvCoapplicantMonthlyBusinessIncome.setText(getDataFromApplicant().getMonthBusinessIncomeAmount());
+        tvCoapplicantAgricultureIncome.setText(getDataFromApplicant().getMonthAgricultureIncomeAmount());
+        tvCoapplicantOtherIncome.setText(getDataFromApplicant().getMonthTuitionIncomeAmount());
+        tvCoapplicantRemittance.setText(getDataFromApplicant().getRemittance());
+        tvCoapplicantFdr.setText(getDataFromApplicant().getInterestFDRIncomeAmount());
+        tvCoapplicantOtherEmi.setText(getDataFromApplicant().getEmiOfOtherLoans());
+        tvCoaaplicantSempaka.setText(getDataFromApplicant().getMonthSemipakaIncomeAmount());
+        tvCoapplicantOfficeIncome.setText(getDataFromApplicant().getMonthOfficeSpaceIncomeAmount());
+        tvCoapplicantBuildingIncome.setText(getDataFromApplicant().getMonthApartmentIncomeAmount());
+        tvCoapplicantWarehouseIncome.setText(getDataFromApplicant().getMonthWareHouseAmount());
     }
 
 

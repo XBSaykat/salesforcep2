@@ -231,7 +231,7 @@ public class ProspectViewRbm extends AppCompatActivity {
                 coApplicantList.get(position).getEmiOfOtherLoans()
         );
 
-        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this,CoApplicantActivity.class,coApplicant);
+        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this,CoApplicantRbmView.class,coApplicant);
 
     }
 
