@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageAttachmentFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
@@ -381,8 +383,17 @@ private  String BranchName=null, profession=null, name =null, organization = nul
                     Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(LeadStageActivity.this, "Attachment can't be empty while proceed", Toast.LENGTH_SHORT).show();
-
+                android.app.AlertDialog.Builder builderAttach;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builderAttach = new android.app.AlertDialog.Builder(LeadStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+                } else {
+                    builderAttach = new android.app.AlertDialog.Builder(LeadStageActivity.this);
+                }
+                builderAttach.setIcon(R.drawable.ic_required);
+                builderAttach.setTitle(Html.fromHtml("<font color='#FF0000'>Attachment can't be empty while proceed</font>"));
+                builderAttach.setNegativeButton("OK", null);
+                android.app.AlertDialog dialogAttach = builderAttach.create();
+                dialogAttach.show();
             }
 
         });
