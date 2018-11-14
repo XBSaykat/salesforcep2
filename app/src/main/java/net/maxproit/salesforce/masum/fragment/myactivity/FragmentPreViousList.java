@@ -186,15 +186,16 @@ public class FragmentPreViousList extends Fragment {
         final ArrayList<VisitPlan> filteredModelList = new ArrayList<>();
         for (VisitPlan model : models) {
             final String uName = model.getCity().toLowerCase();
-            final String phone = model.getClientType().toLowerCase();
+            final String type = model.getClientType().toLowerCase();
+            final String name = model.getClientName().toLowerCase();
+            final String mobile = model.getMobileNumber().toLowerCase();
 
-            if (uName.contains(searchKey) || phone.contains(searchKey)) {
+            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey) || mobile.contains(searchKey) ) {
                 filteredModelList.add(model);
             }
         }
         return filteredModelList;
     }
-
     private void loadFilterData() {
         if (!filterList.isEmpty()) {
             filterList.clear();
