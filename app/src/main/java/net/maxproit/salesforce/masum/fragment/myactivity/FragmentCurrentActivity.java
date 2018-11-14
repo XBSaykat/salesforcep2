@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.CurrentPLanListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -40,7 +41,7 @@ public class FragmentCurrentActivity extends Fragment {
     String username;
     private ArrayList<VisitPlan> leadList, filterList, visitPlanList;
 
-
+    private static MyActivitiesActivity myActivitiesActivity;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -94,6 +95,7 @@ public class FragmentCurrentActivity extends Fragment {
         leadList = new ArrayList<>();
         filterList = new ArrayList<>();
         visitPlanList = new ArrayList<>();
+        myActivitiesActivity= (MyActivitiesActivity) getActivity();
         myDbController = new VisitPlanDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
 
@@ -113,29 +115,6 @@ public class FragmentCurrentActivity extends Fragment {
 
 //      searchView = findViewById(R.id.search_view);
         rvMyActivity = rootView.findViewById(R.id.rv_my_activity);
-
-//        backButton = findViewById(R.id.btn_back);
-//        addButton = findViewById(R.id.btn_add);
-//        rvMyLead = findViewById(R.id.rvMyLead);
-
-
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                filterList = getFilterData(followUpList, query);
-//                myLeadAdapter.setFilter(filterList);
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                // If remove data on test dataBase it Will be ok
-//                // myLeadAdapter.getFilter().filter(newText);
-//                filterList = getFilterData(followUpList, newText);
-//                myLeadAdapter.setFilter(filterList);
-//                return true;
-//            }
-//        });
 
 
         myLeadAdapter = new CurrentPLanListAdapter(getContext(), visitPlanList);
@@ -168,12 +147,12 @@ public class FragmentCurrentActivity extends Fragment {
         return filteredModelList;
     }
 
-//    private void loadFilterData() {
-//        if (!filterList.isEmpty()) {
-//            filterList.clear();
-//        }
-//        filterList.addAll(myLeadAdapter.getDataList());
-//    }
+    private void loadFilterData() {
+        if (!filterList.isEmpty()) {
+            filterList.clear();
+        }
+        filterList.addAll(myLeadAdapter.getDataList());
+    }
 
 
     private void initListener() {
@@ -182,7 +161,7 @@ public class FragmentCurrentActivity extends Fragment {
         myLeadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
-                //loadFilterData();
+                loadFilterData();
                 switch (view.getId()) {
                     case R.id.cl_visit_plan_item:
                         sentDataToDetail(position);
@@ -192,6 +171,14 @@ public class FragmentCurrentActivity extends Fragment {
             }
         });
 
+
+
+
+    }
+
+    public void beginSearching(String s){
+        filterList= getFilterData(visitPlanList,s);
+        myLeadAdapter.setFilter(filterList);
     }
 
     private void removeItemFromList(int position, String status) {
@@ -219,17 +206,17 @@ public class FragmentCurrentActivity extends Fragment {
 
     private void sentDataToDetail(int position) {
         VisitPlan visitPlan = new VisitPlan(
-                visitPlanList.get(position).getId(),
-                visitPlanList.get(position).getClientName(),
-                visitPlanList.get(position).getClientType(),
-                visitPlanList.get(position).getMobileNumber(),
-                visitPlanList.get(position).getPoliceStation(),
-                visitPlanList.get(position).getProductType(),
-                visitPlanList.get(position).getCity(),
-                visitPlanList.get(position).getPurposeOfVisit(),
-                visitPlanList.get(position).getDateOfVisit(),
-                visitPlanList.get(position).getRemarks(),
-                visitPlanList.get(position).getStatus());
+                filterList.get(position).getId(),
+                filterList.get(position).getClientName(),
+                filterList.get(position).getClientType(),
+                filterList.get(position).getMobileNumber(),
+                filterList.get(position).getPoliceStation(),
+                filterList.get(position).getProductType(),
+                filterList.get(position).getCity(),
+                filterList.get(position).getPurposeOfVisit(),
+                filterList.get(position).getDateOfVisit(),
+                filterList.get(position).getRemarks(),
+                filterList.get(position).getStatus());
         ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
     }
 
@@ -277,5 +264,9 @@ public class FragmentCurrentActivity extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public interface OnQueryChangeListener {
+        void onQueryChange(String s);
     }
 }
