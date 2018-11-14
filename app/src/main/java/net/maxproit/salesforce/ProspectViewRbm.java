@@ -22,6 +22,7 @@ import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.CarLoan;
 import net.maxproit.salesforce.masum.model.CoApplicant;
@@ -50,13 +51,14 @@ public class ProspectViewRbm extends AppCompatActivity {
     private ArrayList<CoApplicant> filteredList = new ArrayList<>();
     private CoApplicantDBController coApplicantDBController;
     private CarLoanDbController carLoanDbController;
+    MyLeadDbController myLeadDbController;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prospect_view_rbm);
-
+        myLeadDbController=new MyLeadDbController(this);
         tvProdecutCategory = (TextView) findViewById(R.id.tv_product_category);
         tvProductDetail = (TextView) findViewById(R.id.tv_product_detail);
         tvBranchName = (TextView) findViewById(R.id.tv_branch);
@@ -144,7 +146,7 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProspectViewRbm.this, "Return prospect", Toast.LENGTH_SHORT).show();
+                myLeadDbController.updateLeadDataStatus(getDataFromProspect().getId(),AppConstant.STATUS_RETURN_RBM);
                 finish();
             }
         });

@@ -126,7 +126,7 @@
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
         <activity android:name=".masum.activity.visitplan.VisitPlanActivity" />
         <activity android:name=".masum.activity.lead.LeadStageActivity" />
-        <activity android:name=".masum.activity.prospect.ProspectStageActivity"></activity>
+        <activity android:name=".masum.activity.prospect.ProspectStageActivity" />
         <activity android:name=".masum.activity.visitplan.MyActivitiesActivity" />
         <activity android:name=".masum.activity.visitplan.VisitPLanDetailsActivity" />
         <activity android:name=".ProspectViewRbm" />
@@ -134,7 +134,8 @@
         <activity android:name=".SupervisorRbmProspect" />
         <activity android:name=".masum.activity.visitplan.VisitPlanListActivity" />
         <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity" />
-        <activity android:name=".CoApplicantRbmView"></activity>
+        <activity android:name=".CoApplicantRbmView" />
+        <activity android:name=".masum.activity.prospect.MyProspectFragmentActivity"></activity>
     </application>
 
 </manifest>

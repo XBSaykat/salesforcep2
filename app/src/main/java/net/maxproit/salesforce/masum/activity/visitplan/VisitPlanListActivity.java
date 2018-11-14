@@ -3,6 +3,7 @@ package net.maxproit.salesforce.masum.activity.visitplan;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,11 +19,13 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityVisitPlanListBinding;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.util.ArrayList;
 
@@ -81,15 +84,47 @@ public class VisitPlanListActivity extends BaseActivity {
         if (!visitPlanList.isEmpty()){
             visitPlanList.clear();
         }
-        if (!myDbController.getPlanData().equals(null)){
+        Bundle extraDetail = getIntent().getExtras();
 
-            visitPlanList.addAll(myDbController.getPlanData());
-            myLeadAdapter.notifyDataSetChanged();
+        if (extraDetail !=null){
+            int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
+            if (status==1){
+                visitPlanList.addAll(myDbController.getPreviousData(DateUtils.getDateString()));
+                myLeadAdapter.notifyDataSetChanged();
+                searchView.setQueryHint("search unexecuted plan");
+
+            }
+
+            else if (status==2){
+                visitPlanList.addAll(myDbController.getUpComingData(DateUtils.getDateString()));
+                myLeadAdapter.notifyDataSetChanged();
+                searchView.setQueryHint("search upcoming plan");
+            }
+            else if (status==3){
+                visitPlanList.addAll(myDbController.getPlanDataUsingStatus(AppConstant.STATUS_ACTIVITY));
+                myLeadAdapter.notifyDataSetChanged();
+                searchView.setQueryHint("search Fresh Activity");
+            }
+            else if (status==4){
+                visitPlanList.addAll(myDbController.getPlanDataUsingStatus(AppConstant.VISITED));
+                myLeadAdapter.notifyDataSetChanged();
+                searchView.setQueryHint("search visited Activity");
+
+
+            }
+
+        }
+        else{
+            if (!myDbController.getPlanData().equals(null)){
+                visitPlanList.addAll(myDbController.getPlanData());
+                myLeadAdapter.notifyDataSetChanged();
+            }
+
+            else {
+                Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+            }
         }
 
-        else {
-            Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
-        }
 
     }
 

@@ -56,4 +56,5 @@ public class AppConstant {
     public static final String PERSONAL_LOAN = "Personal Loan";
     public static final String REJECTED ="complete" ;
     public static final String FOLLOW = "follow";
+    public static final String STATUS_RETURN_RBM ="return" ;
 }

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -63,7 +64,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
             leadList.clear();
         }
 
-        leadList.addAll(myLeadDbController.myNewProspectGetAllData());
+        leadList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_NEW_PROSPECT));
 
         localLogin = new LocalLogin(getApplicationContext());
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);

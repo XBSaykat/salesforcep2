@@ -107,12 +107,12 @@ public class VisitPlanDbController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
-        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + ">?";
+        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + ">? AND "+DbConstants.LEAD_STATUS+"=?";
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{visitDate},                            // The values for the WHERE clause
+                new String[]{DateUtils.getDateFormateForSqlite(visitDate),AppConstant.LEAD_STATUS_New_PLAN},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -140,12 +140,12 @@ public class VisitPlanDbController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
-        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "<?";
+        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "<? AND "+DbConstants.LEAD_STATUS+"=?" ;
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{visitDate},                            // The values for the WHERE clause
+                new String[]{DateUtils.getDateFormateForSqlite(visitDate),AppConstant.LEAD_STATUS_New_PLAN},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order

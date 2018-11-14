@@ -11,6 +11,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDashboardBinding;
 import net.maxproit.salesforce.feature.login.LoginActivity;
+import net.maxproit.salesforce.masum.activity.prospect.MyProspectFragmentActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivity;
 import net.maxproit.salesforce.masum.activity.prospect.MyProspectActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
@@ -29,13 +30,8 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
     @Override
     protected void initComponents() {
         binding = (ActivityDashboardBinding) getBinding();
-//        binding.btnBack.setOnClickListener(v -> finish());
         binding.logout.setOnClickListener(v -> logout());
 
-
-        // binding.btnNewSurvey.setOnClickListener(view -> startActivity(InitialSurveyActivity.class, false));
-        // binding.btnDraft.setOnClickListener(view -> startActivity(DraftActivity.class, false));
-        //  binding.btnSurveyStatus.setOnClickListener(view -> startActivity(StatusActivity.class, false));
         Bundle mBundle = new Bundle();
         mBundle.putString("ROOT", "new");
 
@@ -43,8 +39,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         //binding.newLead.setOnClickListener(v -> startActivity(NewLeadActivity.class, false, mBundle));
         binding.newLead.setOnClickListener(v -> startActivity(LeadStageActivity.class, false, mBundle));
         binding.myLeads.setOnClickListener(v -> startActivity(MyLeadActivity.class, false));
-        binding.prospect.setOnClickListener(v -> startActivity(MyProspectActivity.class, false, mBundle));
-//        binding.upload.setOnClickListener(v -> startActivity(MyPerfomanceDisbursementsActivity.class, false));
+        binding.prospect.setOnClickListener(v -> startActivity(MyProspectFragmentActivity.class, false, mBundle));
         binding.verification.setOnClickListener(v -> startActivity(MyPerformancePhaseTwo.class, false));
 
         binding.myVisit.setOnClickListener(new View.OnClickListener() {

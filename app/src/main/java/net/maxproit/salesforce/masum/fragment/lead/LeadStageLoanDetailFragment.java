@@ -274,7 +274,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
                 listener,
                 year, month, day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         dialog.show();
 
     }
@@ -287,74 +287,75 @@ public class LeadStageLoanDetailFragment extends Fragment {
     }
 
     private void initSpinnerAdapter() {
-//        ArrayAdapter<CharSequence> refAdapter = ArrayAdapter.createFromResource(getContext(), R.array.source_of_reference_array, android.R.layout.simple_spinner_item);
-//        spinnerRef.setAdapter(refAdapter, 0);
-
         ArrayAdapter<String> sourceReferenceAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSourceReference);
         spinnerRef.setAdapter(sourceReferenceAdapter);
 
         ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProductType);
         spinnerProductType.setAdapter(productTypeAdapter);
 
-//        ArrayAdapter<CharSequence> productTypeAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.product_categories_array, android.R.layout.simple_spinner_item);
-//        spinnerProductType.setAdapter(productTypeAdapter, 0);
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
             if (status == 0) {
                 VisitPlan visitPlan = (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (visitPlan != null) {
+                    if (visitPlan.getProductType() != null) {
+                        try {
+                            spinnerProductType.setSelection(productTypeAdapter.getPosition(visitPlan.getProductType()));
+                        } catch (final IllegalStateException e) {
+
+                        }
+                    }
 
                 }
             } else {
                 MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-                    if (myNewLead.getSourceRef() !=null)
-                    try {
-                        spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getSourceRef()));
-
-                    } catch ( IllegalStateException ignored) {
-                    } catch (NullPointerException e) {
-
-                    }
-                    if(myNewLead.getProductType() !=null){
+                    if (myNewLead.getSourceRef() != null)
                         try {
-                            spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
-                        } catch ( IllegalStateException ignored) {
+                            spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getSourceRef()));
+
+                        } catch (IllegalStateException ignored) {
                         } catch (NullPointerException e) {
 
                         }
-                    if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
-                        ArrayAdapter   productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
+                    if (myNewLead.getProductType() != null) {
                         try {
+                            spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
+                        } catch (IllegalStateException ignored) {
+                        } catch (NullPointerException e) {
 
-                            spinnerSubCategory.setSelection(productSubAdapter.
-                                    getPosition(myNewLead.getProductSubcategory()));
-                        } catch ( IllegalStateException ignored) {
                         }
-                    } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
-                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
-                        try {
+                        if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
+                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+                            try {
 
-                            spinnerSubCategory.setSelection(productSubAdapter.
-                                    getPosition(myNewLead.getProductSubcategory()));
-                        } catch ( IllegalStateException ignored) {
+                                spinnerSubCategory.setSelection(productSubAdapter.
+                                        getPosition(myNewLead.getProductSubcategory()));
+                            } catch (IllegalStateException ignored) {
+                            }
+                        } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
+                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+                            try {
+
+                                spinnerSubCategory.setSelection(productSubAdapter.
+                                        getPosition(myNewLead.getProductSubcategory()));
+                            } catch (IllegalStateException ignored) {
+                            }
+
+                        } else if (myNewLead.getProductType().equals(AppConstant.PERSONAL_LOAN)) {
+                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+                            try {
+
+                                spinnerSubCategory.setSelection(productSubAdapter.
+                                        getPosition(myNewLead.getProductSubcategory()));
+                            } catch (IllegalStateException ignored) {
+                            }
+
                         }
-
-                    } else if (myNewLead.getProductType().equals(AppConstant.PERSONAL_LOAN)) {
-                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
-                        try {
-
-                            spinnerSubCategory.setSelection(productSubAdapter.
-                                    getPosition(myNewLead.getProductSubcategory()));
-                        } catch ( IllegalStateException ignored) {
-                        }
-
-                    }
                     }
 
                     etLoadAmount.setText(myNewLead.getLoadAmount());

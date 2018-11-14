@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnClickListener {
 
-    LinearLayout btnUnexPlan, btnUpComingPlan, btnFreshCall,btnDevVisit,btnPendLead,btnProspectLead,btnCloesdLead,btnPendingPros,btnProcedPros,btnCrm;
+    LinearLayout btnUnexPlan, btnUpComingPlan, btnFreshCall, btnDevVisit, btnPendLead, btnProspectLead, btnCloesdLead, btnPendingPros, btnProcedPros, btnCrm;
     ImageView backBtn;
     TextView tvPendingPLan, tvUpcomingPLan, tvFreshActivity, tvVisitActivity, tvPandingLead, tvPropectLead, tvClosed, tvPendingPros, tvProcedPros, tvProsCRM;
     VisitPlanDbController planDbController;
@@ -62,16 +63,16 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
         tvProsCRM = findViewById(R.id.tv_propect_crm);
         backBtn = findViewById(R.id.btnBack);
 
-        btnUnexPlan=findViewById(R.id.btn_unx_plan);
-        btnUpComingPlan=findViewById(R.id.btnUpComingPlan);
-        btnFreshCall=findViewById(R.id.btnFreshCall);
-        btnDevVisit=findViewById(R.id.btnDevVisit);
-        btnPendLead=findViewById(R.id.btnPendLead);
-        btnProspectLead=findViewById(R.id.btnProspectLead);
-        btnCloesdLead=findViewById(R.id.btnCloesdLead);
-        btnPendingPros=findViewById(R.id.btnPendingPros);
-        btnProcedPros=findViewById(R.id.btnProcedPros);
-        btnCrm=findViewById(R.id.btnCrm);
+        btnUnexPlan = findViewById(R.id.btn_unx_plan);
+        btnUpComingPlan = findViewById(R.id.btnUpComingPlan);
+        btnFreshCall = findViewById(R.id.btnFreshCall);
+        btnDevVisit = findViewById(R.id.btnDevVisit);
+        btnPendLead = findViewById(R.id.btnPendLead);
+        btnProspectLead = findViewById(R.id.btnProspectLead);
+        btnCloesdLead = findViewById(R.id.btnCloesdLead);
+        btnPendingPros = findViewById(R.id.btnPendingPros);
+        btnProcedPros = findViewById(R.id.btnProcedPros);
+        btnCrm = findViewById(R.id.btnCrm);
 
 
         btnUnexPlan.setOnClickListener(this);
@@ -119,7 +120,7 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
         if (!upComingPLanList.isEmpty()) {
             allVisitPlanList.clear();
         }
-        int unexPLan = visitPlanDbController.getDateBetween(DateUtils.getDateStringSqLite(),"2018-11-22").size();
+        int unexPLan = visitPlanDbController.getDateBetween(DateUtils.getDateStringSqLite(), "2018-11-22").size();
 
         if (!visitPlanDbController.getPlanDataUsingStatus(AppConstant.LEAD_STATUS_New_PLAN).equals(null)) {
 
@@ -155,7 +156,7 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
         tvUpcomingPLan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(MyPerformancePhaseTwo.this,FragmentPreViousList.class);
+                Intent intent = new Intent(MyPerformancePhaseTwo.this, FragmentPreViousList.class);
                 startActivity(intent);
             }
         });
@@ -164,41 +165,42 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        Intent intent=null;
-        switch (view.getId()){
+        Intent intent = null;
+        switch (view.getId()) {
 
             case R.id.btn_unx_plan:
+                ActivityUtils.getInstance().invokFromPerformance(this, VisitPlanListActivity.class, 1);
+
+                break;
+            case R.id.btnUpComingPlan:
+                ActivityUtils.getInstance().invokFromPerformance(this, VisitPlanListActivity.class, 2);
+                break;
+            case R.id.btnFreshCall:
+                ActivityUtils.getInstance().invokFromPerformance(this, VisitPlanListActivity.class, 3);
+                break;
+            case R.id.btnDevVisit:
+                ActivityUtils.getInstance().invokFromPerformance(this, VisitPlanListActivity.class, 4);
+                break;
+            case R.id.btnPendLead:
+                ActivityUtils.getInstance().invokFromPerformance(this, MyLeadActivity.class, 1);
+                break;
+            case R.id.btnProspectLead:
+                ActivityUtils.getInstance().invokFromPerformance(this, MyLeadActivity.class, 2);
+                break;
+            case R.id.btnCloesdLead:
+                ActivityUtils.getInstance().invokFromPerformance(this, MyLeadActivity.class, 3);
+                break;
+            case R.id.btnPendingPros:
                 //intent=new Intent(this,"");
                 break;
-                case R.id.btnUpComingPlan:
+            case R.id.btnProcedPros:
                 //intent=new Intent(this,"");
                 break;
-                case R.id.btnFreshCall:
+            case R.id.btnCrm:
                 //intent=new Intent(this,"");
                 break;
-                case R.id.btnDevVisit:
-                //intent=new Intent(this,"");
+            default:
                 break;
-                case R.id.btnPendLead:
-                    ActivityUtils.getInstance().invokFromPerformance(this,MyLeadActivity.class,1);
-                break;
-                case R.id.btnProspectLead:
-                    ActivityUtils.getInstance().invokFromPerformance(this,MyLeadActivity.class,2);
-                break;
-                case R.id.btnCloesdLead:
-                    ActivityUtils.getInstance().invokFromPerformance(this,MyLeadActivity.class,3);
-                break;
-                case R.id.btnPendingPros:
-                //intent=new Intent(this,"");
-                break;
-                case R.id.btnProcedPros:
-                //intent=new Intent(this,"");
-                break;
-                case R.id.btnCrm:
-                //intent=new Intent(this,"");
-                break;
-                default:
-                    break;
         }
 
     }

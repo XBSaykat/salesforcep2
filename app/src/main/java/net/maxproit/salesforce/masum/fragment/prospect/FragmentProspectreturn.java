@@ -1,92 +1,74 @@
-package net.maxproit.salesforce;
+package net.maxproit.salesforce.masum.fragment.prospect;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 
-import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervisorActivity;
-import net.maxproit.salesforce.feature.login.LoginActivity;
-import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
+import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.adapter.MyReturnProspectAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.util.SharedPreferencesEnum;
+import net.maxproit.salesforce.model.login.LocalLogin;
 
 import java.util.ArrayList;
 
-public class SupervisorRbmProspect extends AppCompatActivity {
+public class FragmentProspectreturn extends Fragment {
 
-    private Button btnLogout;
-    private ImageView btnBack;
-
-    ArrayList<MyNewProspect> prospectArrayList, filterList;
-
-    MyNewProspectAdapter myAdapter;
-//    String userName;
-//    Bundle extras;
+    LocalLogin localLogin;
+    MyReturnProspectAdapter myProspectAdapter;
+    String userName;
+    Bundle extras;
     MyLeadDbController myLeadDbController;
-    RecyclerView rvProspect;
-
-//    ArrayList<MyNewLead> followUpList, filterList;
-//    Button btnAddProspect;
-//
+    RecyclerView recyclerView;
+    ArrayList<MyNewProspect> leadList, filterList;
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_supervisor_rbm_prospect);
-        rvProspect = findViewById(R.id.rv_supervisor_rbm);
-
-        btnLogout = (Button) findViewById(R.id.btn_logout);
-        btnBack = (ImageView) findViewById(R.id.btn_back);
-
-        prospectArrayList = new ArrayList<>();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_my_activity_list, container, false);
+        leadList = new ArrayList<>();
         filterList = new ArrayList<>();
+        myLeadDbController = new MyLeadDbController(getActivity());
 
-        myLeadDbController = new MyLeadDbController(this);
-        if (!filterList.isEmpty()){
-            filterList.clear();
+        if (!leadList.isEmpty()) {
+            leadList.clear();
         }
 
-        filterList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_RBM));
-        myAdapter = new MyNewProspectAdapter(this, filterList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        rvProspect.setLayoutManager(mLayoutManager);
-        rvProspect.setAdapter(myAdapter);
+        leadList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_RETURN_RBM));
+        recyclerView=view.findViewById(R.id.rv_my_activity);
+        myProspectAdapter = new MyReturnProspectAdapter(getActivity(), leadList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(myProspectAdapter);
         initListener();
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        return view;
 
     }
 
+    public void beginSearching(String s) {
+        filterList= getFilterData(leadList,s);
+        myProspectAdapter.setFilter(filterList);
+    }
     private void initListener() {
 
-        myAdapter.setItemClickListener(new OnItemClickListener() {
+        myProspectAdapter.setItemClickListener(new OnItemClickListener() {
+
             @Override
             public void itemClickListener(View view, int position) {
-                sentDataToDetail(position);
+                loadFilterData();
+                switch (view.getId()){
+                    default:
+                        sentDataToDetail(position);
+                        break;
+                }
             }
         });
 
@@ -115,7 +97,7 @@ public class SupervisorRbmProspect extends AppCompatActivity {
                 filterList.get(position).getSegment(),
                 filterList.get(position).getDateOfBirth(),
                 filterList.get(position).getAge(),
-                filterList.get(position).getDisDate(),
+                filterList.get(position).getDob(),
                 filterList.get(position).getCob(),
                 filterList.get(position).getpIDType(),
                 filterList.get(position).getpIdNumber(),
@@ -145,37 +127,36 @@ public class SupervisorRbmProspect extends AppCompatActivity {
                 filterList.get(position).getLoanReq(),
                 filterList.get(position).getLoanTerm(),
                 filterList.get(position).getPiRate(),
-                filterList.get(position).getProspectFee());
-        ActivityUtils.invokProspectRbmViewStage(this,myNewLead);
+                filterList.get(position).getProspectFee()
+        );
+        ActivityUtils.invokLeadDetailForProspectStage(getActivity(),myNewLead);
     }
 
-    private void logout() {
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(SupervisorRbmProspect.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(SupervisorRbmProspect.this);
+    //filter  data
+    private ArrayList<MyNewProspect> getFilterData(ArrayList<MyNewProspect> models, CharSequence searchKey) {
+        searchKey = searchKey.toString().toLowerCase();
+
+        final ArrayList<MyNewProspect> filteredModelList = new ArrayList<>();
+        for (MyNewProspect model : models) {
+            final String uName = model.getUserName().toLowerCase();
+            final String phone = model.getPhone().toLowerCase();
+
+            if (uName.contains(searchKey) || phone.contains(searchKey)) {
+                filteredModelList.add(model);
+            }
         }
-        builder.setTitle(getString(R.string.logout_title));
-        builder.setMessage(getString(R.string.logout_message));
-        builder.setIcon(R.drawable.logout_icon);
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
-            startActivity(new Intent(SupervisorRbmProspect.this, LoginActivity.class));
-            localCash().put(SharedPreferencesEnum.Key.ROLLUSER, "");
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        return filteredModelList;
     }
 
-    public SharedPreferencesEnum localCash() {
-        return SharedPreferencesEnum.getInstance(getActivity());
-    }
-
-    public Activity getActivity() {
-        return this;
+    private void loadFilterData() {
+        if (!filterList.isEmpty()) {
+            filterList.clear();
+        }
+        filterList.addAll(myProspectAdapter.getDataList());
     }
 
 
 
 }
+
+
