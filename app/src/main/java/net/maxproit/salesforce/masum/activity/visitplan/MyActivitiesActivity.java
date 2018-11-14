@@ -3,15 +3,20 @@ package net.maxproit.salesforce.masum.activity.visitplan;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.fragment.myactivity.FragmentCurrentActivity;
@@ -32,7 +37,10 @@ public class MyActivitiesActivity extends BaseActivity {
     private TextView btnSave;
     private MyLeadDbController myLeadDbController;
     private ImageView backButton, addButton;
-
+    private SearchView searchView;
+    private static FragmentCurrentActivity currentActivity;
+    private static FragmentPreViousList fragmentPreViousList;
+    private static FragmentUpComingList fragmentUpComingList;
 
 
     @Override
@@ -46,12 +54,12 @@ public class MyActivitiesActivity extends BaseActivity {
         linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
         viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(3);
+       // viewPager.setOffscreenPageLimit(3);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_my_activity);
         tabLayout.setupWithViewPager(viewPager);
         backButton = findViewById(R.id.btn_back);
         addButton = findViewById(R.id.btn_add);
-
+        searchView = findViewById(R.id.search_view);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,15 +75,75 @@ public class MyActivitiesActivity extends BaseActivity {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // this is your adapter that will be filtered
+                PagerAdapter pagerAdapter = (PagerAdapter) viewPager
+                        .getAdapter();
+                for (int i = 0; i < pagerAdapter.getCount(); i++) {
 
+                    Fragment viewPagerFragment = (Fragment) viewPager
+                            .getAdapter().instantiateItem(viewPager, i);
+                    if (viewPagerFragment != null
+                            && viewPagerFragment.isAdded()) {
 
-//        tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        setupViewPager(viewPager);
-//        viewPager = (ViewPager) findViewById(R.id.my_activities_viewpager);
-//        tabLayout.setupWithViewPager(viewPager);
+                        if (viewPagerFragment instanceof FragmentCurrentActivity) {
+                            currentActivity = (FragmentCurrentActivity) viewPagerFragment;
+                            if (currentActivity != null) {
+                                currentActivity.beginSearching(query);
+                            }
+                        } else if (viewPagerFragment instanceof FragmentPreViousList) {
+                            fragmentPreViousList = (FragmentPreViousList) viewPagerFragment;
+                            if (fragmentPreViousList != null) {
+                                fragmentPreViousList.beginSearching(query);
+                            }
+                        }
+                        else if (viewPagerFragment instanceof FragmentUpComingList) {
+                            fragmentUpComingList = (FragmentUpComingList) viewPagerFragment;
+                            if (fragmentUpComingList != null) {
+                                fragmentUpComingList.beginSearching(query);
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // this is your adapter that will be filtered
+                PagerAdapter pagerAdapter = (PagerAdapter) viewPager
+                        .getAdapter();
+                for (int i = 0; i < pagerAdapter.getCount(); i++) {
 
+                    Fragment viewPagerFragment = (Fragment) viewPager
+                            .getAdapter().instantiateItem(viewPager, i);
+                    if (viewPagerFragment != null
+                            && viewPagerFragment.isAdded()) {
+
+                        if (viewPagerFragment instanceof FragmentCurrentActivity) {
+                            currentActivity = (FragmentCurrentActivity) viewPagerFragment;
+                            if (currentActivity != null) {
+                                currentActivity.beginSearching(query);
+                            }
+                        } else if (viewPagerFragment instanceof FragmentPreViousList) {
+                            fragmentPreViousList = (FragmentPreViousList) viewPagerFragment;
+                            if (fragmentPreViousList != null) {
+                                fragmentPreViousList.beginSearching(query);
+                            }
+                        }
+                        else if (viewPagerFragment instanceof FragmentUpComingList) {
+                            fragmentUpComingList = (FragmentUpComingList) viewPagerFragment;
+                            if (fragmentUpComingList != null) {
+                                fragmentUpComingList.beginSearching(query);
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+        });
 
 
     }
@@ -86,35 +154,6 @@ public class MyActivitiesActivity extends BaseActivity {
 
     }
 
-//    private Toolbar toolbar;
-//    private TabLayout tabLayout;
-//    private ViewPager viewPager;
-//    private TextView btnSave;
-//
-//
-//    private Spinner spnClientType;
-//
-//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_my_activites_new);
-//
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        viewPager = (ViewPager) findViewById(R.id.my_activities_viewpager);
-//        setupViewPager(viewPager);
-//
-//        tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
-//
-//
-//
-//    }
-//
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FragmentCurrentActivity(), "Current Activity");
@@ -122,6 +161,7 @@ public class MyActivitiesActivity extends BaseActivity {
         adapter.addFragment(new FragmentUpComingList(), "Upcoming Activity");
         viewPager.setAdapter(adapter);
     }
+
     private void alertDialog() {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -140,13 +180,20 @@ public class MyActivitiesActivity extends BaseActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-//
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+
+    //
+    class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            notifyDataSetChanged();
+            return POSITION_NONE;
         }
 
         @Override
@@ -170,13 +217,7 @@ public class MyActivitiesActivity extends BaseActivity {
             return mFragmentTitleList.get(position);
         }
     }
-//
-//    @Override
-//    public void onBackPressed() {
-//
-//
-//        super.onBackPressed();
-//        startActivity(new Intent(MyActivitiesActivity.this, DashboardSalesOfficerActivity.class));
-//        finish();
-//    }
+
+
 }
+

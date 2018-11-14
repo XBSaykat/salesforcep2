@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -38,6 +39,7 @@ public class FragmentUpComingList extends Fragment {
     private SearchView searchView;
     private RecyclerView rvMyActivity;
     public static int itemPosition = 0;
+    private static MyActivitiesActivity myActivitiesActivity;
     LocalLogin localLogin;
     String username;
     private ArrayList<VisitPlan> leadList, filterList, visitPlanList;
@@ -98,7 +100,7 @@ public class FragmentUpComingList extends Fragment {
         visitPlanList = new ArrayList<>();
         myDbController = new VisitPlanDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
-
+        myActivitiesActivity= (MyActivitiesActivity) getActivity();
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
@@ -182,12 +184,12 @@ public class FragmentUpComingList extends Fragment {
         return filteredModelList;
     }
 
-//    private void loadFilterData() {
-//        if (!filterList.isEmpty()) {
-//            filterList.clear();
-//        }
-//        filterList.addAll(myLeadAdapter.getDataList());
-//    }
+    private void loadFilterData() {
+        if (!filterList.isEmpty()) {
+            filterList.clear();
+        }
+        filterList.addAll(myLeadAdapter.getDataList());
+    }
 
 
     private void initListener() {
@@ -195,7 +197,7 @@ public class FragmentUpComingList extends Fragment {
         myLeadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
-                //loadFilterData();
+                loadFilterData();
                 switch (view.getId()) {
                     case R.id.cl_visit_plan_item:
                         sentDataToDetail(position);
@@ -205,6 +207,12 @@ public class FragmentUpComingList extends Fragment {
             }
         });
 
+
+    }
+
+    public void beginSearching(String s){
+        filterList= getFilterData(visitPlanList,s);
+        myLeadAdapter.setFilter(filterList);
     }
 
     private void removeItemFromList(int position, String status) {
@@ -232,17 +240,17 @@ public class FragmentUpComingList extends Fragment {
 
     private void sentDataToDetail(int position) {
         VisitPlan visitPlan = new VisitPlan(
-                visitPlanList.get(position).getId(),
-                visitPlanList.get(position).getClientName(),
-                visitPlanList.get(position).getClientType(),
-                visitPlanList.get(position).getMobileNumber(),
-                visitPlanList.get(position).getPoliceStation(),
-                visitPlanList.get(position).getProductType(),
-                visitPlanList.get(position).getCity(),
-                visitPlanList.get(position).getPurposeOfVisit(),
-                visitPlanList.get(position).getDateOfVisit(),
-                visitPlanList.get(position).getRemarks(),
-                visitPlanList.get(position).getStatus());
+                filterList.get(position).getId(),
+                filterList.get(position).getClientName(),
+                filterList.get(position).getClientType(),
+                filterList.get(position).getMobileNumber(),
+                filterList.get(position).getPoliceStation(),
+                filterList.get(position).getProductType(),
+                filterList.get(position).getCity(),
+                filterList.get(position).getPurposeOfVisit(),
+                filterList.get(position).getDateOfVisit(),
+                filterList.get(position).getRemarks(),
+                filterList.get(position).getStatus());
         ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
     }
 
@@ -290,5 +298,9 @@ public class FragmentUpComingList extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public interface OnQueryChangeListener {
+        void onQueryChange(String s);
     }
 }
