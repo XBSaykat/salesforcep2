@@ -1,23 +1,33 @@
 package net.maxproit.salesforce;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
+import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervisorActivity;
+import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 
 public class SupervisorRbmProspect extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    private Button btnLogout;
+    private ImageView btnBack;
 
     ArrayList<MyNewProspect> prospectArrayList, filterList;
 
@@ -35,6 +45,10 @@ public class SupervisorRbmProspect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supervisor_rbm_prospect);
         rvProspect = findViewById(R.id.rv_supervisor_rbm);
+
+        btnLogout = (Button) findViewById(R.id.btn_logout);
+        btnBack = (ImageView) findViewById(R.id.btn_back);
+
         prospectArrayList = new ArrayList<>();
         filterList = new ArrayList<>();
 
@@ -50,11 +64,14 @@ public class SupervisorRbmProspect extends AppCompatActivity {
         rvProspect.setAdapter(myAdapter);
         initListener();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -129,6 +146,33 @@ public class SupervisorRbmProspect extends AppCompatActivity {
                 filterList.get(position).getPiRate(),
                 filterList.get(position).getProspectFee());
         ActivityUtils.invokProspectRbmViewStage(this,myNewLead);
+    }
+
+    private void logout() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(SupervisorRbmProspect.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(SupervisorRbmProspect.this);
+        }
+        builder.setTitle(getString(R.string.logout_title));
+        builder.setMessage(getString(R.string.logout_message));
+        builder.setIcon(R.drawable.logout_icon);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            startActivity(new Intent(SupervisorRbmProspect.this, LoginActivity.class));
+            localCash().put(SharedPreferencesEnum.Key.ROLLUSER, "");
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public SharedPreferencesEnum localCash() {
+        return SharedPreferencesEnum.getInstance(getActivity());
+    }
+
+    public Activity getActivity() {
+        return this;
     }
 
 

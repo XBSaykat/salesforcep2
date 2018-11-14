@@ -1,5 +1,8 @@
 package net.maxproit.salesforce;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -24,6 +28,7 @@ import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 
@@ -36,7 +41,7 @@ public class ProspectViewRbm extends AppCompatActivity {
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
             tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome;
     private ImageView backButton;
-    private Button btnCoapplicantsView;
+    private Button btnCoapplicantsView, btnLogout;
     private ArrayList<CoApplicant> coApplicantList = new ArrayList<>();
     private ArrayList<CarLoan> carLoanList = new ArrayList<>();
     private ArrayList<CoApplicant> filteredList = new ArrayList<>();
@@ -100,6 +105,8 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvReject = (TextView) findViewById(R.id.tv_reject);
         tvReturn = (TextView) findViewById(R.id.tv_return);
         backButton = (ImageView) findViewById(R.id.btnBack);
+        btnLogout = (Button) findViewById(R.id.btn_logout);
+
         carLoanDbController=new CarLoanDbController(this);
         btnCoapplicantsView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +145,13 @@ public class ProspectViewRbm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
             }
         });
 
@@ -302,7 +316,32 @@ public class ProspectViewRbm extends AppCompatActivity {
         }
 
         return propect;
+    }
 
+    private void logout() {
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this);
+        }
+        builder.setTitle(getString(R.string.logout_title));
+        builder.setMessage(getString(R.string.logout_message));
+        builder.setIcon(R.drawable.logout_icon);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            startActivity(new Intent(ProspectViewRbm.this, LoginActivity.class));
+            localCash().put(SharedPreferencesEnum.Key.ROLLUSER, "");
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
+    public SharedPreferencesEnum localCash() {
+        return SharedPreferencesEnum.getInstance(getActivity());
+    }
+
+    public Activity getActivity() {
+        return this;
     }
 }
