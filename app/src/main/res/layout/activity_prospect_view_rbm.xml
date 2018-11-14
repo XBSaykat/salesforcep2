@@ -38,6 +38,22 @@
                 android:textSize="@dimen/text_size_20sp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/size_10dp"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:background="@color/transparent"
+                android:text="Log out"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
 
         </RelativeLayout>
 
@@ -919,6 +935,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/li_brand_name"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/greyWhite"
@@ -942,6 +960,8 @@
 
 
                 <LinearLayout
+                    android:id="@+id/li_maufacturing_year"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -963,6 +983,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/li_maufacturing_country"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/greyWhite"
@@ -986,6 +1008,8 @@
 
 
                 <LinearLayout
+                    android:id="@+id/li_vehicle_type"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -1158,8 +1182,26 @@
                         android:layout_weight="1"
                         android:background="@drawable/fab_label_background"
                         android:gravity="center"
-                        android:text="Approval"
+                        android:text="Accept &amp; Proceed"
                         android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_take_approval"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/fab_label_background"
+                        android:gravity="center"
+                        android:text="Take approval"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutButtonSegTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_reject"
@@ -1180,7 +1222,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/fab_label_background"
                         android:gravity="center"
-                        android:text="Return"
+                        android:text="Return to RM"
                         android:textColor="@color/white" />
 
 

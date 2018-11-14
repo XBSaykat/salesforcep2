@@ -301,23 +301,24 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
         tvProceedToLead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(spinnerClientType.getSelectedItem() == null || spinnerPurposeOfVisit.getSelectedItem() == null
-                        || spinnerProductType.getSelectedItem() == null ){
-
-                    android.app.AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-                    } else {
-                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
-                    }
-                    builder.setIcon(R.drawable.ic_required);
-                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
-                    builder.setNegativeButton("OK", null);
-                    android.app.AlertDialog dialog = builder.create();
-                    dialog.show();
-                } else {
-                    alertDialogProceed();
-                }
+//                if(spinnerClientType.getSelectedItem() == null || spinnerPurposeOfVisit.getSelectedItem() == null
+//                        || spinnerProductType.getSelectedItem() == null ){
+//
+//                    android.app.AlertDialog.Builder builder;
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+//                    } else {
+//                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+//                    }
+//                    builder.setIcon(R.drawable.ic_required);
+//                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
+//                    builder.setNegativeButton("OK", null);
+//                    android.app.AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                } else {
+//                    alertDialogProceed();
+//                }
+                alertDialogProceed();
             }
         });
 

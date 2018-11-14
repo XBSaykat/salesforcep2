@@ -1,21 +1,31 @@
 package net.maxproit.salesforce;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.CoApplicant;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 public class CoApplicantRbmView extends AppCompatActivity {
 
-    TextView tvCoapplicantUserName,  tvCoapplicantAge,tvCoapplicantDob, tvCoapplicantBirthDistrict, tvCoapplicantBirthCountry, tvCoapplicantValidPhotoId, tvCoapplicantPhotoIssudate,
+    private TextView tvCoapplicantUserName,  tvCoapplicantAge,tvCoapplicantDob, tvCoapplicantBirthDistrict, tvCoapplicantBirthCountry, tvCoapplicantValidPhotoId, tvCoapplicantPhotoIssudate,
             tvCoapplicantEtin, tvCoapplicantFatherName, tvCoapplicantMotherName, tvCoapplicantSpouseName, tvCoapplicantProfession, tvCoapplicantCompanyName,
             tvCoapplicantDesignation, tvCoapplicantCurrentJobYear, tvCoapplicantRelationshipWithApplicant, tvCoapplicantPermanentAddress, tvCoapplicantPresentAddress,
             tvCoapplicantMobileNumber, tvCoapplicantMonthlySalary, tvCoapplicantSalaryAmount, tvCoapplicantMonthlyBusinessIncome, tvCoapplicantAgricultureIncome,
             tvCoapplicantOtherIncome, tvCoapplicantRemittance, tvCoapplicantFdr, tvCoapplicantOtherEmi,tvCoaaplicantSempaka, tvCoapplicantOfficeIncome,
             tvCoapplicantBuildingIncome,tvCoapplicantWarehouseIncome, tvCoapplicantOk;
+
+    private ImageView btnBack;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,20 +64,16 @@ public class CoApplicantRbmView extends AppCompatActivity {
         tvCoapplicantOfficeIncome = (TextView) findViewById(R.id.tv_coapplicant_office_commercial_space_income);
         tvCoapplicantWarehouseIncome = (TextView) findViewById(R.id.tv_coapplicant_warehouse_factory_income);
 
+        btnBack = (ImageView) findViewById(R.id.btn_back);
+        btnLogout = (Button) findViewById(R.id.btn_logout);
+
         tvCoapplicantOk = (TextView) findViewById(R.id.tv_coapplicant_ok);
 
+        initListner();
         setAllData();
     }
 
     private void setAllData() {
-
-        tvCoapplicantOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
         tvCoapplicantUserName.setText(getDataFromApplicant().getName());
         tvCoapplicantDob.setText(getDataFromApplicant().getDateOfBirth());
         tvCoapplicantAge.setText(getDataFromApplicant().getAge());
@@ -113,4 +119,55 @@ public class CoApplicantRbmView extends AppCompatActivity {
 
         return coApplicant;
     }
+
+    public void initListner(){
+        tvCoapplicantOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+    }
+
+    private void logout() {
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(CoApplicantRbmView.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(CoApplicantRbmView.this);
+        }
+        builder.setTitle(getString(R.string.logout_title));
+        builder.setMessage(getString(R.string.logout_message));
+        builder.setIcon(R.drawable.logout_icon);
+        builder.setNegativeButton("No", null);
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            startActivity(new Intent(CoApplicantRbmView.this, LoginActivity.class));
+            localCash().put(SharedPreferencesEnum.Key.ROLLUSER, "");
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public SharedPreferencesEnum localCash() {
+        return SharedPreferencesEnum.getInstance(getActivity());
+    }
+
+    public Activity getActivity() {
+        return this;
+    }
+
 }
