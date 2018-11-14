@@ -40,6 +40,9 @@ public class ProspectViewRbm extends AppCompatActivity {
             tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
             tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome;
+
+    private LinearLayout liBrandName, liManufacturingYear, liManufacturingCountry, liVehicleType;
+
     private ImageView backButton;
     private Button btnCoapplicantsView, btnLogout;
     private ArrayList<CoApplicant> coApplicantList = new ArrayList<>();
@@ -100,6 +103,11 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvOfficeCommercialSpace = (TextView) findViewById(R.id.tv_office_commercial_space_income);
         tvWarehouseFactoryIncome = (TextView) findViewById(R.id.tv_warehouse_factory_income);
         btnCoapplicantsView = findViewById(R.id.btn_rbm_prospect_view_coaplicant);
+
+        liBrandName = (LinearLayout) findViewById(R.id.li_brand_name);
+        liManufacturingYear = (LinearLayout) findViewById(R.id.li_maufacturing_year);
+        liManufacturingCountry = (LinearLayout) findViewById(R.id.li_maufacturing_country);
+        liVehicleType = (LinearLayout) findViewById(R.id.li_vehicle_type);
 
         tvApproval = (TextView) findViewById(R.id.tv_approval);
         tvReject = (TextView) findViewById(R.id.tv_reject);
@@ -256,6 +264,16 @@ public class ProspectViewRbm extends AppCompatActivity {
     private void setAllData() {
         tvBranchName.setText(getDataFromProspect().getBranchName());
         tvProdecutCategory.setText(getDataFromProspect().getProductType());
+        if(getDataFromProspect().getProductType().equals(AppConstant.CAR_LOAN)){
+            tvVehicleType.setText(carLoanList.get(0).getVehicleType());
+            tvManufacturingCountry.setText(carLoanList.get(0).getMenuCountry());
+            tvManufacturingYear.setText(carLoanList.get(0).getMenuYear());
+            tvBrandName.setText(carLoanList.get(0).getBrandName());
+            liVehicleType.setVisibility(View.VISIBLE);
+            liBrandName.setVisibility(View.VISIBLE);
+            liManufacturingCountry.setVisibility(View.VISIBLE);
+            liManufacturingYear.setVisibility(View.VISIBLE);
+        }
         tvProductDetail.setText(getDataFromProspect().getProductSubcategory());
         tvUserName.setText(getDataFromProspect().getUserName());
         tvSegment.setText(getDataFromProspect().getSegment());
@@ -296,10 +314,6 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvLoanTerm.setText(getDataFromProspect().getLoanTerm());
         tvInteresterRate.setText(getDataFromProspect().getOrInterest());
         tvFee.setText(getDataFromProspect().getProspectFee());
-        tvVehicleType.setText(carLoanList.get(0).getVehicleType());
-        tvManufacturingCountry.setText(carLoanList.get(0).getMenuCountry());
-        tvManufacturingYear.setText(carLoanList.get(0).getMenuYear());
-        tvBrandName.setText(carLoanList.get(0).getBrandName());
     }
 
 

@@ -935,6 +935,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/li_brand_name"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/greyWhite"
@@ -958,6 +960,8 @@
 
 
                 <LinearLayout
+                    android:id="@+id/li_maufacturing_year"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -979,6 +983,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/li_maufacturing_country"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/greyWhite"
@@ -1002,6 +1008,8 @@
 
 
                 <LinearLayout
+                    android:id="@+id/li_vehicle_type"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
