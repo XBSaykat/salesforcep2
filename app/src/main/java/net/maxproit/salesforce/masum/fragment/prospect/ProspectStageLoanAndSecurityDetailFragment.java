@@ -205,16 +205,12 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         if (prospectStageActivity.getDataFromProspect()!=null){
 
             MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
-            etLoanRequired.setText(myNewLead.getLoanAmount());
-            etProposedInterest.setText(myNewLead.getOrInterest());
-            etFee.setText(myNewLead.getOpFee());
-
 
             etSecurityValue.setText(myNewLead.getsValue());
-            etLoanRequired.setText(myNewLead.getLoanReq());
+            etLoanRequired.setText(myNewLead.getLoanAmount());
+            etProposedInterest.setText(myNewLead.getOrInterest());
             etLoanTerm.setText(myNewLead.getLoanTerm());
-            etProposedInterest.setText(myNewLead.getPiRate());
-            etFee.setText(myNewLead.getProspectFee());
+            etFee.setText(myNewLead.getOpFee());
             cardData = carLoanDbController.getData(String.valueOf(myNewLead.getId())).size();
             if (cardData >0){
                 carLoanTypelist.addAll(carLoanDbController.getData(String.valueOf(myNewLead.getId())));

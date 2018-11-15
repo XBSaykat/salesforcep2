@@ -210,7 +210,7 @@ public class ProspectStageActivity extends AppCompatActivity {
 
         securityValue = ProspectStageLoanAndSecurityDetailFragment.etSecurityValue.getText().toString();
         loanRequired = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
-        loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanRequired.getText().toString();
+        loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanTerm.getText().toString();
         proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
         fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
 
@@ -354,9 +354,9 @@ public class ProspectStageActivity extends AppCompatActivity {
                         getDataFromProspect().getSourceRef(),
                         productCat,
                         productDetails,
-                        getDataFromProspect().getLoanAmount(),
-                        getDataFromProspect().getOrInterest(),
-                        getDataFromProspect().getOpFee(),
+                        loanRequired,
+                        proposedInterest,
+                        fee,
                         getDataFromProspect().getVisitDate(),
                         getDataFromProspect().getDisDate(),
                         getDataFromProspect().getFollowUp(),
@@ -415,9 +415,9 @@ public class ProspectStageActivity extends AppCompatActivity {
                         getDataFromProspect().getSourceRef(),
                         productCat,
                         productDetails,
-                        getDataFromProspect().getLoanAmount(),
-                        getDataFromProspect().getOrInterest(),
-                        getDataFromProspect().getOpFee(),
+                        loanRequired,
+                        proposedInterest,
+                        fee,
                         getDataFromProspect().getVisitDate(),
                         getDataFromProspect().getDisDate(),
                         getDataFromProspect().getFollowUp(),

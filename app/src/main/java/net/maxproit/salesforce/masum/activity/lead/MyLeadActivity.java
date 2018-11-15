@@ -64,26 +64,31 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         if (extraDetail !=null){
             int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
             if (status==1){
+                binding.searchView.setQueryHint("search pending lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_NEW));
-                binding.rvMyLead.setEnabled(false);
+                binding.rvMyLead.setClickable(false);
             }
 
             else if (status==2){
+                binding.searchView.setQueryHint("search proceed lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
-                binding.rvMyLead.setEnabled(false);
+                binding.rvMyLead.setClickable(false);
             }
 
             else if (status==3){
+                binding.searchView.setQueryHint("search closed lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_REJECT));
-                binding.rvMyLead.setEnabled(false);
+                binding.rvMyLead.setClickable(false);
             }
             else if (status==4){
+                binding.searchView.setQueryHint("search Propect ");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
-                binding.rvMyLead.setEnabled(false);
+                binding.rvMyLead.setClickable(false);
             }
             else if (status==5){
+                binding.searchView.setQueryHint("search Proceeded Prospect");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_RBM));
-                binding.rvMyLead.setEnabled(false);
+                binding.rvMyLead.setClickable(false);
             }
         }
         else {
