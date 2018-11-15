@@ -28,6 +28,8 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.CoApplicant;
 import net.maxproit.salesforce.masum.model.MyNewProspect;
@@ -63,7 +65,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private RadioGroup rgExList;
 
     private SpinnerDbController spinnerDbController;
-
+    private MyLeadDbController myLeadDbController;
     private List<String> listProductCategory = null;
     private List<String> listPoroductDetail = null;
     private List<String> listCarloan = null;
@@ -76,6 +78,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private List<String> listProfession = null;
     private List<String> listRelationshipWithApplicant = null;
     private List<String> listValidphoto = null;
+    ArrayList<MyNewProspect> prosList;
 
 //    Spinner productCategory;
 //    Spinner productDetail;
@@ -138,11 +141,11 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
-        coApplicantActivity= (CoApplicantActivity) getActivity();
-
+        coApplicantActivity = (CoApplicantActivity) getActivity();
+        myLeadDbController = new MyLeadDbController(getActivity());
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
-
+        prosList = new ArrayList<>();
         etDateOfBirth = view.findViewById(R.id.input_date_of_birth);
 
         etPhotoId = view.findViewById(R.id.et_photo_id_no);
@@ -194,7 +197,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         listValidphoto.addAll(spinnerDbController.getValidPhotoData());
 
 
-
         spinnerDistOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
         spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
         spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
@@ -215,25 +217,30 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         initAdapters();
         initListener();
         getExceptionlist();
+     /*   if (getArguments() !=null){
+            if (!prosList.isEmpty()){}
+            int leadId=getArguments().getInt(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY);
+            prosList.addAll(myLeadDbController.myNewLeadGetAllData(leadId));
+        }
 
-
-
+*/
+        prosList.addAll(myLeadDbController.myNewLeadGetAllData(coApplicantActivity.getLeadId()));
         return view;
     }
 
 
     private void getExceptionlist() {
-        switch (rgExList.getCheckedRadioButtonId()){
+        switch (rgExList.getCheckedRadioButtonId()) {
 
             case R.id.rb_yes:
                 exList = "yes";
                 break;
             case R.id.rb_no:
-                 exList = "no";
-                 break;
-                 default:
-                     exList = "no";
-                     break;
+                exList = "no";
+                break;
+            default:
+                exList = "no";
+                break;
         }
     }
 
@@ -297,7 +304,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         });
 
 
-
 //        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -308,11 +314,18 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         cbAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
-//                if (((CheckBox) v).isChecked() && etPresentAddress==null){
-//                    etPresentAddress.setText(myNewLead.getAddress());
-//                    etPermanentAddress.setText(myNewLead.getpAddress());
-//                }
+
+                if (cbAddress.isChecked()) {
+                    if (prosList.get(0).getAddress() !=null)
+                    etPresentAddress.setText(prosList.get(0).getAddress());
+                    if (prosList.get(0).getpAddress() !=null)
+                    etPermanentAddress.setText(prosList.get(0).getpAddress());
+                }
+                else {
+                    etPresentAddress.setText("");
+                    etPermanentAddress.setText("");
+                }
+
             }
         });
 
@@ -325,8 +338,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         });
 
         etAge.setEnabled(false);
-
-
 
 
         etMobileNumber.addTextChangedListener(new TextWatcher() {
@@ -353,7 +364,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
             }
         });
-
 
 
         spinnerDistOfBirth.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
@@ -407,7 +417,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
         });
-
 
 
     }
@@ -473,8 +482,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);
         spinnerValidPhotoType.setAdapter(validPhotoIdAdapter);
 
-        if (coApplicantActivity.getDataFromApplicant() !=null){
-            CoApplicant coApplicant=coApplicantActivity.getDataFromApplicant();
+        if (coApplicantActivity.getDataFromApplicant() != null) {
+            CoApplicant coApplicant = coApplicantActivity.getDataFromApplicant();
             etName.setText(coApplicant.getName());
             etDateOfBirth.setText(coApplicant.getDateOfBirth());
             etAge.setText(coApplicant.getAge());

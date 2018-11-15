@@ -35,7 +35,8 @@ public class CoApplicantActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TextView btnSave;
     private CoApplicantDBController coApplicantDBController;
-
+    private CoApplicantProductAndCustomerDetailsFragment coApplicantProductAndCustomerDetailsFragment;
+    int leadId=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class CoApplicantActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         btnSave = findViewById(R.id.btn_save);
         coApplicantDBController = new CoApplicantDBController(getApplicationContext());
+        leadId = getIntent().getIntExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, -1);
 
         initListener();
 
@@ -69,7 +71,6 @@ public class CoApplicantActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //
-                int leadId = getIntent().getIntExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, -1);
                 String name, segment, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
@@ -163,6 +164,10 @@ public class CoApplicantActivity extends AppCompatActivity {
         }
 
         return coApplicant;
+    }
+
+    public int getLeadId() {
+        return leadId;
     }
 
     private void setupViewPager(ViewPager viewPager) {

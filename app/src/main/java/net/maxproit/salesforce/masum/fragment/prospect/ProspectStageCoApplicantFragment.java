@@ -104,7 +104,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         coApplicantList = new ArrayList<>();
         filteredList = new ArrayList<>();
         coApplicantAdapter = new CoApplicantListAdapter(getContext(), coApplicantList);
-        initListener();
+        initListener(mylead);
         return view;
     }
 
@@ -143,13 +143,12 @@ public class ProspectStageCoApplicantFragment extends Fragment {
 
     }
 
-    private void initListener() {
+    private void initListener(MyNewLead myNewLead) {
 
 
         btnCoApplicant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
                 intent.putExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, leadIdForCoApplicant);
