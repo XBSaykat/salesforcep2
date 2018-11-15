@@ -53,12 +53,6 @@ public class SupervisorRbmProspect extends AppCompatActivity {
         prospectArrayList = new ArrayList<>();
         filterList = new ArrayList<>();
 
-        myLeadDbController = new MyLeadDbController(this);
-        if (!filterList.isEmpty()){
-            filterList.clear();
-        }
-
-        filterList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_RBM));
         myAdapter = new MyNewProspectAdapter(this, filterList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rvProspect.setLayoutManager(mLayoutManager);
@@ -78,7 +72,6 @@ public class SupervisorRbmProspect extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
     }
 
     private void initListener() {
@@ -90,6 +83,19 @@ public class SupervisorRbmProspect extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        myLeadDbController = new MyLeadDbController(this);
+        if (!filterList.isEmpty()){
+            filterList.clear();
+        }
+
+        filterList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_RBM));
+        myAdapter.notifyDataSetChanged();
     }
 
     private void sentDataToDetail(int position) {

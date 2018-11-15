@@ -64,15 +64,26 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         if (extraDetail !=null){
             int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
             if (status==1){
-                leadList.addAll(myLeadDbController.myNewLeadGetAllData());
+                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_NEW));
+                binding.rvMyLead.setEnabled(false);
             }
 
             else if (status==2){
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
+                binding.rvMyLead.setEnabled(false);
             }
 
             else if (status==3){
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_REJECT));
+                binding.rvMyLead.setEnabled(false);
+            }
+            else if (status==4){
+                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
+                binding.rvMyLead.setEnabled(false);
+            }
+            else if (status==5){
+                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_RBM));
+                binding.rvMyLead.setEnabled(false);
             }
         }
         else {

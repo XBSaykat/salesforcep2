@@ -191,10 +191,10 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
                 ActivityUtils.getInstance().invokFromPerformance(this, MyLeadActivity.class, 3);
                 break;
             case R.id.btnPendingPros:
-                //intent=new Intent(this,"");
+                ActivityUtils.getInstance().invokFromPerformance(this, MyLeadActivity.class, 4);
                 break;
             case R.id.btnProcedPros:
-                //intent=new Intent(this,"");
+                ActivityUtils.getInstance().invokFromPerformance(this, MyLeadActivity.class, 5);
                 break;
             case R.id.btnCrm:
                 //intent=new Intent(this,"");
