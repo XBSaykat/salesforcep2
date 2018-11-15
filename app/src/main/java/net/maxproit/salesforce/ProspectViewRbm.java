@@ -265,15 +265,30 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvBranchName.setText(getDataFromProspect().getBranchName());
         tvProdecutCategory.setText(getDataFromProspect().getProductType());
         if(getDataFromProspect().getProductType().equals(AppConstant.CAR_LOAN)){
-            tvVehicleType.setText(carLoanList.get(0).getVehicleType());
-            tvManufacturingCountry.setText(carLoanList.get(0).getMenuCountry());
-            tvManufacturingYear.setText(carLoanList.get(0).getMenuYear());
-            tvBrandName.setText(carLoanList.get(0).getBrandName());
-            liVehicleType.setVisibility(View.VISIBLE);
-            liBrandName.setVisibility(View.VISIBLE);
-            liManufacturingCountry.setVisibility(View.VISIBLE);
-            liManufacturingYear.setVisibility(View.VISIBLE);
+            if (carLoanList.size()>0){
+                if (carLoanList.get(0).getVehicleType() !=null){
+                    liVehicleType.setVisibility(View.VISIBLE);
+                    tvVehicleType.setText(carLoanList.get(0).getVehicleType());
+
+                }
+                if (carLoanList.get(0).getMenuCountry() !=null) {
+                    liManufacturingYear.setVisibility(View.VISIBLE);
+                    tvManufacturingCountry.setText(carLoanList.get(0).getMenuCountry());
+                }
+                if (carLoanList.get(0).getMenuYear() != null){
+                    liManufacturingCountry.setVisibility(View.VISIBLE);
+                    tvManufacturingYear.setText(carLoanList.get(0).getMenuYear());
+                }
+                if (carLoanList.get(0).getBrandName() != null){
+                    liBrandName.setVisibility(View.VISIBLE);
+                    tvBrandName.setText(carLoanList.get(0).getBrandName());
+                }
+            }
+
         }
+
+
+
         tvProductDetail.setText(getDataFromProspect().getProductSubcategory());
         tvUserName.setText(getDataFromProspect().getUserName());
         tvSegment.setText(getDataFromProspect().getSegment());
