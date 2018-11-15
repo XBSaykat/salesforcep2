@@ -21,7 +21,6 @@ import android.widget.Toast;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 
-import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageAttachmentFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
@@ -225,7 +224,7 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
         phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
         address = LeadStageBasicInformationFragment.etAddress.getText().toString();
-        loanAmount = LeadStageLoanDetailFragment.etLoadAmount.getText().toString();
+        loanAmount = LeadStageLoanDetailFragment.etLoanAmount.getText().toString();
         interest = LeadStageLoanDetailFragment.etInterest.getText().toString();
         fee = LeadStageLoanDetailFragment.etFee.getText().toString();
         ref = LeadStageLoanDetailFragment.spinnerRef.getSelectedItem();

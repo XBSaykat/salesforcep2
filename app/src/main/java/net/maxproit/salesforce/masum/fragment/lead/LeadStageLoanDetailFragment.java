@@ -65,7 +65,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private List<String> listPersonalloan = null;
 
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
-    public static EditText etLoadAmount, etFee, etInterest, etDisbursementDate;
+    public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate;
     public static int ref = 0;
     public static String productType = null;
     public static String subCategory = null;
@@ -179,7 +179,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
         spinnerRef = rootView.findViewById(R.id.awe_spinner_lead_reference);
         spinnerProductType = rootView.findViewById(R.id.awe_spinner_lead_product_type);
         spinnerSubCategory = rootView.findViewById(R.id.awe_spinner_lead_product_sub_type);
-        etLoadAmount = rootView.findViewById(R.id.et_load_amount);
+        etLoanAmount = rootView.findViewById(R.id.et_load_amount);
         etInterest = rootView.findViewById(R.id.et_interest);
         etFee = rootView.findViewById(R.id.et_fee);
         etDisbursementDate.setText(DateUtils.getDateString());
@@ -213,7 +213,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
         });
 
 
-        etLoadAmount.addTextChangedListener(new TextWatcher() {
+        etLoanAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -227,7 +227,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
 
-                etLoadAmount.removeTextChangedListener(this);
+                etLoanAmount.removeTextChangedListener(this);
                 try {
 
                     String originalTentativeLoanAmount = editable.toString();
@@ -238,13 +238,13 @@ public class LeadStageLoanDetailFragment extends Fragment {
                     formatter.applyPattern("#,###,###,###");
                     String formattedString = formatter.format(longVal);
 
-                    etLoadAmount.setText(formattedString);
-                    etLoadAmount.setSelection(etLoadAmount.getText().length());
+                    etLoanAmount.setText(formattedString);
+                    etLoanAmount.setSelection(etLoanAmount.getText().length());
                     tvTentativeNumberToWord.setText(formattedString.isEmpty() ? "" : NumberToWords.convert(longVal));
                 } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
-                etLoadAmount.addTextChangedListener(this);
+                etLoanAmount.addTextChangedListener(this);
             }
         });
 
@@ -358,7 +358,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
                         }
                     }
 
-                    etLoadAmount.setText(myNewLead.getLoadAmount());
+                    etLoanAmount.setText(myNewLead.getLoadAmount());
                     etInterest.setText(myNewLead.getOrInterest());
                     etDisbursementDate.setText(myNewLead.getDisDate());
                     etFee.setText(myNewLead.getOpFee());
