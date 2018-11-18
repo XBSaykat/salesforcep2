@@ -133,8 +133,8 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         etProposedInterest = view.findViewById(R.id.input_proposed_interest_rate);
         etFee = view.findViewById(R.id.input_fee);
 
-        etProposedInterest.addTextChangedListener(new NumberTextWatcher(etProposedInterest));
-        etFee.addTextChangedListener(new NumberTextWatcher(etFee));
+       // etProposedInterest.addTextChangedListener(new NumberTextWatcher(etProposedInterest));
+        //etFee.addTextChangedListener(new NumberTextWatcher(etFee));
 
         spinnerBrand = view.findViewById(R.id.awe_spinner_prospect_stage_brand_name);
         spinnerYear = view.findViewById(R.id.awe_spinner_prospect_stage_manufacturing_year);
@@ -245,9 +245,9 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
             }
 
 
-            etLoanRequired.setText(myNewLead.getLoanReq());
+          /*  etLoanRequired.setText(myNewLead.getLoanReq());
             etProposedInterest.setText(myNewLead.getPiRate());
-            etFee.setText(myNewLead.getProspectFee());
+            etFee.setText(myNewLead.getProspectFee());*/
 
         }
 
