@@ -595,6 +595,7 @@ public class VisitPlanActivity extends AppCompatActivity {
 
             if (insert > 0) {
                         Toast.makeText(VisitPlanActivity.this, "Successfully save", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(VisitPlanActivity.this, VisitPlanListActivity.class));
                         finish();
 
             } else {

@@ -3,7 +3,6 @@ package net.maxproit.salesforce.masum.activity.visitplan;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,13 +18,11 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityVisitPlanListBinding;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
-import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.util.ArrayList;
 
@@ -60,6 +57,20 @@ public class VisitPlanListActivity extends BaseActivity {
         leadList=new ArrayList<>();
         visitPlanList=new ArrayList<>();
         filterList=new ArrayList<>();
+        if (!leadList.isEmpty()) {
+            leadList.clear();
+        }
+        if (!visitPlanList.isEmpty()){
+            visitPlanList.clear();
+        }
+        if (!myDbController.getPlanData().equals(null)){
+
+            visitPlanList.addAll(myDbController.getPlanData());
+        }
+
+        else {
+            Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+        }
 
 
         backButton = findViewById(R.id.btn_back);
@@ -75,58 +86,7 @@ public class VisitPlanListActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (!leadList.isEmpty()) {
-            leadList.clear();
-        }
-        if (!visitPlanList.isEmpty()){
-            visitPlanList.clear();
-        }
-        Bundle extraDetail = getIntent().getExtras();
 
-        if (extraDetail !=null){
-            int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
-            if (status==1){
-                visitPlanList.addAll(myDbController.getPreviousData(DateUtils.getDateString()));
-                myLeadAdapter.notifyDataSetChanged();
-                searchView.setQueryHint("search unexecuted plan");
-
-            }
-
-            else if (status==2){
-                visitPlanList.addAll(myDbController.getUpComingData(DateUtils.getDateString()));
-                myLeadAdapter.notifyDataSetChanged();
-                searchView.setQueryHint("search upcoming plan");
-            }
-            else if (status==3){
-                visitPlanList.addAll(myDbController.getPlanDataUsingStatus(AppConstant.STATUS_ACTIVITY));
-                myLeadAdapter.notifyDataSetChanged();
-                searchView.setQueryHint("search Fresh Activity");
-            }
-            else if (status==4){
-                visitPlanList.addAll(myDbController.getPlanDataUsingStatus(AppConstant.VISITED));
-                myLeadAdapter.notifyDataSetChanged();
-                searchView.setQueryHint("search visited Activity");
-
-
-            }
-
-        }
-        else{
-            if (!myDbController.getPlanData().equals(null)){
-                visitPlanList.addAll(myDbController.getPlanData());
-                myLeadAdapter.notifyDataSetChanged();
-            }
-
-            else {
-                Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-
-    }
 
     @Override
     protected void getIntentData() {
@@ -178,7 +138,7 @@ public class VisitPlanListActivity extends BaseActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            onBackPressed();
+                VisitPlanListActivity.super.onBackPressed();
             }
         });
 
@@ -187,6 +147,23 @@ public class VisitPlanListActivity extends BaseActivity {
             public void onClick(View v) {
 
                 alertDialog();
+           /*     AlertDialog dialog = new AlertDialog.Builder(VisitPlanListActivity.this).create();
+                dialog.setTitle("Create new Plan?");
+                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(VisitPlanListActivity.this, VisitPlanActivity.class));
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();*/
+
             }
         });
 
@@ -258,7 +235,7 @@ public class VisitPlanListActivity extends BaseActivity {
                 filterList.get(position).getDateOfVisit(),
                 filterList.get(position).getRemarks(),
                 filterList.get(position).getStatus());
-        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPlanActivity.class, visitPlan);
+        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
     }
 
 
@@ -274,7 +251,7 @@ public class VisitPlanListActivity extends BaseActivity {
         builder.setIcon(R.drawable.lead);
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-            ActivityUtils.getInstance().invokeActivity(VisitPlanListActivity.this, VisitPlanActivity.class,false);
+            startActivity(new Intent(VisitPlanListActivity.this, VisitPlanActivity.class));
         });
         AlertDialog dialog = builder.create();
         dialog.show();
