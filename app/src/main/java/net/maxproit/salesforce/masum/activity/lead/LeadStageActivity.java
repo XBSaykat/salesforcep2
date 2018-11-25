@@ -4,13 +4,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
@@ -19,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
@@ -26,20 +25,20 @@ import net.maxproit.salesforce.masum.fragment.lead.LeadStageAttachmentFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageVisitRecordFragment;
-import net.maxproit.salesforce.masum.model.Attachment;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.Attachment;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeadStageActivity extends AppCompatActivity {
+public class LeadStageActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -54,23 +53,22 @@ public class LeadStageActivity extends AppCompatActivity {
     private LeadStageVisitRecordFragment leadStageVisitRecordFragment;
     private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
     private LinearLayout mLayout;
-private  String BranchName=null, profession=null, name =null, organization = null, designation = null, phone =null, address =null, loanAmount =null, interest =null, fee = null, ref =null, productType =null, subCat =null, disDate = null, visitDate =null, remark =null, followUp =null;
+    private String BranchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null;
 
     private int activityPosition;
     public static int myLeadPosition = -1;
     public static VisitPlan visitPlan = null;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lead_stage);
+    protected int getLayoutResourceId() {
+        return R.layout.activity_lead_stage;
+
+    }
+
+    @Override
+    protected void initComponents() {
         initFragments();
-
-
-        //getDataFromLead();
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Create Lead");
@@ -95,7 +93,10 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
         btnReject = findViewById(R.id.tv_activity_details_rejected);
         getDataFromIntent();
+    }
 
+    @Override
+    protected void getIntentData() {
 
     }
 
@@ -182,9 +183,6 @@ private  String BranchName=null, profession=null, name =null, organization = nul
             leadStageVisitRecordFragment.setArguments(bundle);
             leadStageAttachmentFragment.setArguments(bundle);
 
-        } else {
-            //dda
-            Toast.makeText(this, "check", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -208,7 +206,7 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(finalMyNewLead!=null){
+                if (finalMyNewLead != null) {
                     alertDialog(finalMyNewLead.getId());
                 }
             }
@@ -232,10 +230,9 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         subCat = LeadStageLoanDetailFragment.spinnerSubCategory.getSelectedItem();
         disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
         visitDate = LeadStageVisitRecordFragment.etVisitDate.getText().toString(); //
-        if (LeadStageVisitRecordFragment.etRemark.getText().toString() !=null){
+        if (LeadStageVisitRecordFragment.etRemark.getText().toString() != null) {
             remark = LeadStageVisitRecordFragment.etRemark.getText().toString();
-        }
-        else {
+        } else {
             LeadStageVisitRecordFragment.spinnerRemarks.getSelectedItem();
         }
 
@@ -246,21 +243,20 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         byte[] bytesAtachpp = null;
         byte[] bytesAtachIdCard = null;
         byte[] bytesAtachVCard = null;
-        if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
-                && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
-                && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
+        if (leadStageAttachmentFragment.attachPp != null
+                && leadStageAttachmentFragment.attachIdcard != null
+                && leadStageAttachmentFragment.attachvCard != null) {
 
 
-            bytesAtachpp = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgAtach);
-            bytesAtachIdCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgIdCard);
-            bytesAtachVCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.imgVisitingCard);
+            bytesAtachpp = ImageUtils.imagetoByte(LeadStageAttachmentFragment.attachPp);
+            bytesAtachIdCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.attachIdcard);
+            bytesAtachVCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.attachvCard);
             int insertAttach = 0;
             if (myNewProspect != null) {
                 if (attachmentDbController.getAllData(String.valueOf(myNewProspect.getId())).size() > 0) {
                     Attachment attachment = new Attachment(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
                     insertAttach = attachmentDbController.updateData(attachment);
-                }
-                else {
+                } else {
                     insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
                 }
             } else {
@@ -274,8 +270,6 @@ private  String BranchName=null, profession=null, name =null, organization = nul
             } else {
                 Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            // Toast.makeText(LeadStageActivity.this, "Attachment Can not be Empty", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -359,9 +353,9 @@ private  String BranchName=null, profession=null, name =null, organization = nul
         builder.setPositiveButton("Yes", (dialog, which) -> {
             getDataFromFragment();
             int insert = 0;
-            if (leadStageAttachmentFragment.imgAtach.getDrawable() != null
-                    && leadStageAttachmentFragment.imgIdCard.getDrawable() != null
-                    && leadStageAttachmentFragment.imgVisitingCard.getDrawable() != null) {
+            if (leadStageAttachmentFragment.attachPp != null
+                    && leadStageAttachmentFragment.attachIdcard != null
+                    && leadStageAttachmentFragment.attachvCard != null)  {
                 if (finalMyNewLead != null) {
                     insert = myLeadDbController.updateLeadData(finalMyNewLead.getId(), BranchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,

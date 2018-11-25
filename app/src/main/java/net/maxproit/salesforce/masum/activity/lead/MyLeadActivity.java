@@ -7,11 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.adapter.MyLeadAdapter;
@@ -20,19 +19,15 @@ import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
-import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 
-import static net.maxproit.salesforce.masum.appdata.AppConstant.STATUS_INTENT_KEY;
-
 public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     private static final String TAG = "MyLeadActivity";
     public static final int APPROVED = 101;
 
-//    ActivityMyLeadBinding binding;
     ActivityMyLeadBinding binding;
     MyLeadAdapter myLeadAdapter;
     MyLeadDbController myLeadDbController;
@@ -70,7 +65,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             }
 
             else if (status==2){
-                binding.searchView.setQueryHint("search proceed lead");
+                binding.searchView.setQueryHint("search proceeded lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
                 binding.rvMyLead.setClickable(false);
             }
@@ -81,7 +76,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 binding.rvMyLead.setClickable(false);
             }
             else if (status==4){
-                binding.searchView.setQueryHint("search Propect ");
+                binding.searchView.setQueryHint("search Prospect ");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
                 binding.rvMyLead.setClickable(false);
             }
@@ -89,6 +84,9 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 binding.searchView.setQueryHint("search Proceeded Prospect");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_RBM));
                 binding.rvMyLead.setClickable(false);
+            }
+            else {
+                leadList.addAll(myLeadDbController.myNewLeadGetAllData());
             }
         }
         else {

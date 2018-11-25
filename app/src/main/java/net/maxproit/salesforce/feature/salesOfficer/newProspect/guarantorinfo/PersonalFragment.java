@@ -100,9 +100,9 @@ public class PersonalFragment extends BaseFragment {
         binding.spRelationShipApp.setOnSpinnerItemClickListener((i, s) ->binding.getModel().setRelationShip(s));
         CommonUtil.bindSpinner(binding.spRelationShipApp, localSetting.getRealStateTypeString(), binding.getModel().getRelationShip());
 
-        CommonUtil.setSpinner(context, binding.spProfession, localSetting.Profession());
+        CommonUtil.setSpinner(context, binding.spProfession, localSetting.getProfessionString());
         binding.spProfession.setOnSpinnerItemClickListener((i, s) ->binding.getModel().setProfession(s));
-        CommonUtil.bindSpinner(binding.spProfession, localSetting.Profession(), binding.getModel().getProfession());
+        CommonUtil.bindSpinner(binding.spProfession, localSetting.getProfessionString(), binding.getModel().getProfession());
 
         CommonUtil.setSpinner(context, binding.spMaritalStatus, maritalList);
         binding.spMaritalStatus.setOnSpinnerItemClickListener((i, s) ->binding.getModel().setMaritalStatus(s));

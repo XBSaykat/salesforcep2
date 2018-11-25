@@ -128,7 +128,7 @@ public class GuarantorInfoActivity extends BaseActivity {
 //            showToast("Please Enter Relationship with Applicant");
 //            return false;
         } else if (gnf.getProfession().isEmpty()) {
-            showToast("Please Enter Profession");
+            showToast("Please Enter getProfessionString");
             return false;
         } else if (gnf.getDob().isEmpty()) {
             showToast("Please Enter Date of Birth");

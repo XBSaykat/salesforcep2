@@ -70,7 +70,7 @@ public class ProprietorsInfo {
     @SerializedName("personalnetWorth")
     @Expose
     private Object personalnetWorth;
-    @SerializedName("profession")
+    @SerializedName("getProfessionString")
     @Expose
     private String profession;
     @SerializedName("proprietorName")

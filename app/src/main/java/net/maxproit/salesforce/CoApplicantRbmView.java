@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
-import net.maxproit.salesforce.masum.model.CoApplicant;
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 public class CoApplicantRbmView extends AppCompatActivity {

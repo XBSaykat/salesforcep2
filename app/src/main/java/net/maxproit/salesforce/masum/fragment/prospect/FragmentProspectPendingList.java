@@ -11,23 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.activity.prospect.MyProspectActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
-import net.maxproit.salesforce.model.myprospect.MyProspect;
-import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
-import java.util.UUID;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FragmentProspectPendingList extends Fragment {
     LocalLogin localLogin;

@@ -5,13 +5,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -30,16 +28,14 @@ import android.widget.Toast;
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.common.base.Global;
-import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
-import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
-import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
-import net.maxproit.salesforce.masum.model.VisitPlan;
-import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,7 +53,7 @@ import static net.maxproit.salesforce.masum.appdata.AppConstant.POST_DISBURSEMEN
 import static net.maxproit.salesforce.masum.appdata.AppConstant.PRE_DISBURSEMENT;
 
 
-public class VisitPlanActivity extends AppCompatActivity {
+public class VisitPlanActivity extends BaseActivity {
 
 //    Toolbar toolbarVisitPlan;
 
@@ -69,6 +65,7 @@ public class VisitPlanActivity extends AppCompatActivity {
     private int mYear;
     static final int DATE_DIALOG = 1;
     static final int TIME_DIALOG = 2;
+    private LocalSetting mLocalSetting;
     private VisitPlanDbController dbController;
     private SpinnerDbController spinnerDbController;
     private VisitPlan visitPlanModel;
@@ -91,31 +88,20 @@ public class VisitPlanActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visit_plan);
+    protected int getLayoutResourceId() {
+        return R.layout.activity_visit_plan;
+    }
+
+    @Override
+    protected void initComponents() {
 
         backButton = findViewById(R.id.btn_back);
 
         g = Global.getInstance();
         dbController = new VisitPlanDbController(VisitPlanActivity.this);
         spinnerDbController = new SpinnerDbController(VisitPlanActivity.this);
-
-        secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
-        secProductType = (LinearLayout) findViewById(R.id.secProductType);
-        secMobileNo.setVisibility(View.GONE);
-        secProductType.setVisibility(View.GONE);
-
-        spinnerClientType = findViewById(R.id.awe_spinner_visit_plan_client_type);
-        spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
-        spinnerCity = findViewById(R.id.awe_spinner_visit_plan_city);
-        spinnerPoliceStation = findViewById(R.id.awe_spinner_visit_plan_police_station);
-        spinnerPurposeOfVisit = findViewById(R.id.awe_spinner_visit_plan_Purpose);
-
-        txtClientName = (EditText) findViewById(R.id.input_client_name);
-        txtMobileNo = (EditText) findViewById(R.id.input_mobile_no);
-        tvVisitDT = (EditText) findViewById(R.id.dtpVisitDT);
-        txtRemarks = (EditText) findViewById(R.id.input_remarks);
+        mLocalSetting=new LocalSetting(this);
+        initView();
 
         txtMobileNo.addTextChangedListener(new TextWatcher() {
             @Override
@@ -184,6 +170,29 @@ public class VisitPlanActivity extends AppCompatActivity {
 
     }
 
+    private void initView() {
+        secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
+        secProductType = (LinearLayout) findViewById(R.id.secProductType);
+        secMobileNo.setVisibility(View.GONE);
+        secProductType.setVisibility(View.GONE);
+
+        spinnerClientType = findViewById(R.id.awe_spinner_visit_plan_client_type);
+        spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
+        spinnerCity = findViewById(R.id.awe_spinner_visit_plan_city);
+        spinnerPoliceStation = findViewById(R.id.awe_spinner_visit_plan_police_station);
+        spinnerPurposeOfVisit = findViewById(R.id.awe_spinner_visit_plan_Purpose);
+
+        txtClientName = (EditText) findViewById(R.id.input_client_name);
+        txtMobileNo = (EditText) findViewById(R.id.input_mobile_no);
+        tvVisitDT = (EditText) findViewById(R.id.dtpVisitDT);
+        txtRemarks = (EditText) findViewById(R.id.input_remarks);
+    }
+
+    @Override
+    protected void getIntentData() {
+
+    }
+
     public void datePickerDialog(Context context) {
 
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
@@ -216,14 +225,14 @@ public class VisitPlanActivity extends AppCompatActivity {
         adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
         spinnerClientType.setAdapter(adptrClientType);
 
-        productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
+        productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
 
 
-        cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listCity);
+        cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getCityStringList());
         spinnerCity.setAdapter(cityAdapter);
 
-        adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
+        adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getVisitPurposeTypeStringList());
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
     }
 

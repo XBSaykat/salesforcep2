@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.model;
+package net.maxproit.salesforce.masum.model.local;
 
 import java.io.Serializable;
 

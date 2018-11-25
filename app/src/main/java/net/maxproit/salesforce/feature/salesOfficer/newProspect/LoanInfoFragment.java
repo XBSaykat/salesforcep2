@@ -225,14 +225,14 @@ public class LoanInfoFragment extends BaseFragment {
         binding.spPurFin.setAdapter(purFinAdapter);
         binding.spPurFin.setOnSpinnerItemClickListener((i, s) -> loanInfo.setPurposeOfFinancing(s));
 
-        productCategoryAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, localSetting.getPropertyCategoryString());
+        productCategoryAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         binding.spProductCategory.setAdapter(productCategoryAdapter);
         binding.spProductCategory.setOnSpinnerItemClickListener((i, s) ->loanInfo.setProductCategory(s));
 
 
         if (!StringUtils.isEmpty(loanInfo.getProductCategory())) {
-            if (CommonUtil.isListItemAvailable(CommonUtil.getListPosition(localSetting.getPropertyCategoryString(),loanInfo.getProductCategory()))) {
-                binding.spProductCategory.setSelection(CommonUtil.getListPosition(localSetting.getPropertyCategoryString(),loanInfo.getProductCategory()));
+            if (CommonUtil.isListItemAvailable(CommonUtil.getListPosition(localSetting.getProductCategorystring(),loanInfo.getProductCategory()))) {
+                binding.spProductCategory.setSelection(CommonUtil.getListPosition(localSetting.getProductCategorystring(),loanInfo.getProductCategory()));
             }
         }
 

@@ -7,12 +7,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -23,20 +21,20 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.masum.adapter.FollowUpActivityAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
-import net.maxproit.salesforce.masum.model.FollowUpActivity;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.FollowUpActivity;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
@@ -49,9 +47,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static net.maxproit.salesforce.util.MyApplication.getContext;
-
-public class VisitPLanDetailsActivity extends AppCompatActivity {
+public class VisitPLanDetailsActivity extends BaseActivity {
 
     Calendar myCalendar = Calendar.getInstance();
     String dateFormat = "dd.MM.yyyy";
@@ -87,14 +83,22 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
 
     String clientType, productType, purposeOfVisit;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getLayoutResourceId() {
+        return R.layout.activity_activity_details;
+    }
+
+    @Override
+    protected void initComponents() {
         initVariable();
         initView();
 
         initListener();
+    }
 
+    @Override
+    protected void getIntentData() {
 
     }
 
@@ -192,7 +196,7 @@ public class VisitPLanDetailsActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        setContentView(R.layout.activity_activity_details);
+
         layoutNewDate = findViewById(R.id.layout_follow_up);
         layoutNewRemark = findViewById(R.id.layout_new_remark);
         lspiner_pov = findViewById(R.id.lspiner_pov);

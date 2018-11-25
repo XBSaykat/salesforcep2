@@ -5,6 +5,7 @@ package net.maxproit.salesforce.network;
  */
 
 
+import net.maxproit.salesforce.masum.model.api.MyLeadApi;
 import net.maxproit.salesforce.model.cib.notRequestedCIB.NotRequestedCIBData;
 import net.maxproit.salesforce.model.cib.post.CibPost;
 import net.maxproit.salesforce.model.cib.postResponce.CibPostResponce;
@@ -70,10 +71,11 @@ public interface ApiService {
     Call<LoginResponse> login(@Body Login login);
 
 
-    @GET("GlobalSettings/1")
+    @GET("GlobalSettings/AppData/1")
     Call<GlobalSettings> getSetting();
 
-
+    @POST("lead")
+    Call<MyLeadApi> createMyLead(@Body MyLeadApi newLead);
 
     /*
      Lead Api

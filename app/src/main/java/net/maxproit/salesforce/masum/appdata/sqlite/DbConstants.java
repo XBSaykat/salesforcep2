@@ -27,7 +27,7 @@ public class DbConstants {
     public static final String _L_ID = "_id";
     public static final String LEAD_BRANCH_NAME = "branch";
     public static final String LEAD_USER_NAME = "user_name";
-    public static final String LEAD_PROFESSION = "profession";
+    public static final String LEAD_PROFESSION = "getProfessionString";
     public static final String LEAD_ORGANIZATION = "organzation";
     public static final String LEAD_DESIGNATION = "designation";
     public static final String LEAD_PHONE = "phone";

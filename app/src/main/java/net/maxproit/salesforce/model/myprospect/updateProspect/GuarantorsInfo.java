@@ -62,7 +62,7 @@ public class GuarantorsInfo {
     @SerializedName("personalnetWorth")
     @Expose
     private String personalnetWorth;
-    @SerializedName("profession")
+    @SerializedName("getProfessionString")
     @Expose
     private String profession;
     @SerializedName("relationShip")

@@ -112,7 +112,7 @@ public class LocalSetting {
 
 
 
-    public List<Product> getPropertyCategory() {
+    public List<Product> getProductCategory() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getProducts();
         }
@@ -121,10 +121,28 @@ public class LocalSetting {
     }
 
 
-    public List<String> getPropertyCategoryString() {
+    public List<String> getProductCategorystring() {
         List<String> list = new ArrayList<>();
-        for (Product in : getPropertyCategory()) {
+        for (Product in : getProductCategory()) {
             list.add(in.getProductName());
+        }
+        return list;
+
+    }
+
+    public List<Branch> getBranch() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getBranches();
+        }
+        return new ArrayList<>();
+
+    }
+
+
+    public List<String> getBranchString() {
+        List<String> list = new ArrayList<>();
+        for (Branch in : getBranch()) {
+            list.add(in.getBranch());
         }
         return list;
 
@@ -132,7 +150,7 @@ public class LocalSetting {
 
 //    Title list
 
-    public List<Profession> ProfessionObj() {
+    public List<Profession> professionObj() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getProfession();
         }
@@ -141,9 +159,9 @@ public class LocalSetting {
     }
 
 
-    public List<String> Profession() {
+    public List<String> getProfessionString() {
         List<String> list = new ArrayList<>();
-        for (Profession in : ProfessionObj()) {
+        for (Profession in : professionObj()) {
             list.add(in.getOccupationTypeName());
         }
         return list;

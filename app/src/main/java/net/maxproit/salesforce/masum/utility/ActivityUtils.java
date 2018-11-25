@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
-import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
-import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
-import net.maxproit.salesforce.masum.model.CoApplicant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 

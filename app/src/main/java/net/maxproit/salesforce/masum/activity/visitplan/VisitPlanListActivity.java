@@ -1,7 +1,6 @@
 package net.maxproit.salesforce.masum.activity.visitplan;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -22,7 +21,7 @@ import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdap
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
@@ -112,18 +111,19 @@ public class VisitPlanListActivity extends BaseActivity {
 
 
             }
+            else{
+                if (!myDbController.getPlanData().equals(null)){
+                    visitPlanList.addAll(myDbController.getPlanData());
+                    myLeadAdapter.notifyDataSetChanged();
+                }
 
-        }
-        else{
-            if (!myDbController.getPlanData().equals(null)){
-                visitPlanList.addAll(myDbController.getPlanData());
-                myLeadAdapter.notifyDataSetChanged();
+                else {
+                    Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+                }
             }
 
-            else {
-                Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
-            }
         }
+
 
 
     }

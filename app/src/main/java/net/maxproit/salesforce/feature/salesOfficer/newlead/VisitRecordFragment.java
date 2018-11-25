@@ -58,10 +58,7 @@ public class VisitRecordFragment extends BaseFragment {
         calendar = Calendar.getInstance();
         this.context = context;
         localSetting = new LocalSetting(context);
-
         viPurposeAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, localSetting.getVisitPurposeTypeStringList());
-
-
 
     }
 
@@ -102,15 +99,7 @@ public class VisitRecordFragment extends BaseFragment {
                         childBinding.spVisitPurpose.setSelection(CommonUtil.getListPosition(localSetting.getVisitPurposeTypeStringList(),visitRecord.getVisitPurpose()));
                     }
                 }
-
-
                 childBinding.btnCLose.setVisibility(View.GONE);
-
-
-//                if (!visitRecord.getVisitPurpose().isEmpty()) {
-//                    childBinding.spVisitPurpose.setSelection(localSetting.getVisitPurposeTypeStringList().lastIndexOf(visitRecord.getVisitPurpose().isEmpty()));
-//                }
-
 
             }
         }
@@ -136,14 +125,9 @@ public class VisitRecordFragment extends BaseFragment {
             childBinding.spVisitPurpose.setAdapter(viPurposeAdapter);
             childBinding.spVisitPurpose.setOnSpinnerItemClickListener((position, s) -> vr.setVisitPurpose(s));
 
-
             // Remove Layout
             childBinding.btnCLose
                     .setOnClickListener((View view) -> parentLinearLayout.removeView((View) view.getParent()));
-
-
-
-
             vr.setMeetingDate(vr.getMeetingDate().isEmpty() ? "" : vr.getMeetingDate() + "T10:50:17.023Z");
             vr.setFollowupDate(vr.getFollowupDate().isEmpty() ? "" : vr.getFollowupDate() + "T10:50:17.023Z");
             vrList.add(vr);
@@ -152,8 +136,6 @@ public class VisitRecordFragment extends BaseFragment {
         });
 
         activity.getNewLead().setVisitRecords(vrList);
-
-
     }
 
 

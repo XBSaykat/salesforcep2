@@ -233,13 +233,6 @@ public class AddressInfoFragment extends BaseFragment {
                 addressBinding.spOwnership.setSelection(CommonUtil.getListPosition(localSetting.getPurposeOfFinanceStringList(),address.getPremiseOwnershipStatus()));
             }
         }
-
-
-
-
-
-
-
         return address;
 
 

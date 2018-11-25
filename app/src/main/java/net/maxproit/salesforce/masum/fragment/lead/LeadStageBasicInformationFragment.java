@@ -20,12 +20,13 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.feature.search.SearchUserActivity;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
     public CheckBox cbExist;
     public TextView etChif;
     public LinearLayout liChif;
+    private LocalSetting mLocalSettting;
 
     public static final int SERCH_CODE = 500;
 
@@ -138,7 +140,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
     private void initView(View rootView) {
 
         spinnerDbController = new SpinnerDbController(getActivity());
-
+        mLocalSettting=new LocalSetting(getActivity());
 
         listBranchArray = new ArrayList<String>();
         listProfessionArray = new ArrayList<String>();
@@ -216,10 +218,10 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
     private void initSpinnerAdapter() {
 
-        ArrayAdapter<String> branchAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBranchArray);
+        ArrayAdapter<String> branchAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getBranchString());
         spinnerBranchName.setAdapter(branchAdapter);
 
-        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProfessionArray);
+        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);

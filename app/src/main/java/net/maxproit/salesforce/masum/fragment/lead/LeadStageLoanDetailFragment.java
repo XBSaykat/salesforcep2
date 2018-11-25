@@ -22,13 +22,14 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.NumberTextWatcher;
 import net.maxproit.salesforce.NumberToWords;
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -46,9 +47,9 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
-    Calendar myCalendar = Calendar.getInstance();
+    private Calendar myCalendar = Calendar.getInstance();
 
-    TextView tvTentativeNumberToWord;
+    private TextView tvTentativeNumberToWord;
 
     //TODO: Rename and change types of parameters
     private String mParam1;
@@ -63,6 +64,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private List<String> listCarloan = null;
     private List<String> listHomeloan = null;
     private List<String> listPersonalloan = null;
+    private LocalSetting mLocalSetting;
 
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
     public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate;
@@ -125,6 +127,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
         listHomeloan.addAll(spinnerDbController.getHomeLoanData());
         listCarloan.addAll(spinnerDbController.getCarLoanData());
         listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
+        mLocalSetting = new LocalSetting(getActivity());
     }
 
     private void initListener() {
@@ -290,7 +293,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
         ArrayAdapter<String> sourceReferenceAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSourceReference);
         spinnerRef.setAdapter(sourceReferenceAdapter);
 
-        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProductType);
+        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
 
         if (getArguments() != null) {
