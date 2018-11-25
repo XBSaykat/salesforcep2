@@ -7,9 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.model.api.LeadDataFromApi;
+import net.maxproit.salesforce.masum.model.api.MyGetLeadApi;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -24,6 +27,10 @@ import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     private static final String TAG = "MyLeadActivity";
     public static final int APPROVED = 101;
@@ -33,8 +40,9 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     MyLeadDbController myLeadDbController;
     LocalLogin localLogin;
     MyNewProspect myNewLead;
+    ArrayList<LeadDataFromApi> leadDataFromApiList,filterList;
     String username;
-    ArrayList<MyNewProspect> leadList, filterList;
+    ArrayList<MyNewProspect> leadList;
 
 
     @Override
@@ -48,12 +56,15 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         binding.btnBack.setOnClickListener(v -> finish());
         localLogin = new LocalLogin(getApplicationContext());
         leadList = new ArrayList<>();
+        leadDataFromApiList = new ArrayList<>();
         filterList = new ArrayList<>();
         myLeadDbController = new MyLeadDbController(MyLeadActivity.this);
         username = SharedPreferencesEnum.getInstance(getApplicationContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
 
         if (!leadList.isEmpty()) {
             leadList.clear();
+        } if (!leadDataFromApiList.isEmpty()) {
+            leadDataFromApiList.clear();
         }
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail !=null){
@@ -86,10 +97,12 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 binding.rvMyLead.setClickable(false);
             }
             else {
+                getDataFromServer();
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData());
             }
         }
         else {
+            getDataFromServer();
             leadList.addAll(myLeadDbController.myNewLeadGetAllData());
         }
 
@@ -98,7 +111,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                filterList = getFilterData(leadList, query);
+                filterList = getFilterData(leadDataFromApiList, query);
                 myLeadAdapter.setFilter(filterList);
                 return true;
             }
@@ -107,14 +120,14 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             public boolean onQueryTextChange(String newText) {
                 // If remove data on test dataBase it Will be ok
                 // myLeadAdapter.getFilter().filter(newText);
-                filterList = getFilterData(leadList, newText);
+                filterList = getFilterData(leadDataFromApiList, newText);
                 myLeadAdapter.setFilter(filterList);
                 return true;
             }
         });
 
 
-        myLeadAdapter = new MyLeadAdapter(MyLeadActivity.this, leadList);
+        myLeadAdapter = new MyLeadAdapter(MyLeadActivity.this, leadDataFromApiList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.rvMyLead.setLayoutManager(mLayoutManager);
         binding.rvMyLead.setAdapter(myLeadAdapter);
@@ -134,28 +147,30 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         });
     }
 
+    private void getDataFromServer(){
+        getApiService().getLeadData(username,"1").enqueue(new Callback<MyGetLeadApi>() {
+            @Override
+            public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
+                if (response.isSuccessful()){
+                    leadDataFromApiList.addAll(response.body().getData());
+                     myLeadAdapter.notifyDataSetChanged();
+                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void sentDataToDetail(int position) {
-        myNewLead=new MyNewProspect(filterList.get(position).getId(),
-                filterList.get(position).getBranchName(),
-                filterList.get(position).getUserName(),
-                filterList.get(position).getProfession(),
-                filterList.get(position).getOrganization(),
-                filterList.get(position).getDesignation(),
-                filterList.get(position).getPhone(),
-                filterList.get(position).getAddress(),
-                filterList.get(position).getSourceRef(),
-                filterList.get(position).getProductType(),
-                filterList.get(position).getProductSubcategory(),
-                filterList.get(position).getLoanAmount(),
-                filterList.get(position).getOrInterest(),
-                filterList.get(position).getOpFee(),
-                filterList.get(position).getDisDate(),
-                filterList.get(position).getVisitDate(),
-                filterList.get(position).getFollowUp(),
-                filterList.get(position).getRemark(),
-                filterList.get(position).getStatus()
-                );
-        ActivityUtils.invokLeadDetailForLeadStage(this,myNewLead);
+        ActivityUtils.invokRefNumber(this,LeadStageActivity.class,filterList.get(position).getReference());
     }
 
 
@@ -164,38 +179,16 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
     }
 
-    private void removeItemFromList(int position,String status) {
-        for (int i = 0; i < leadList.size(); i++) {
-            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.get(i).setStatus(status);
-                leadList.remove(i);
-                myLeadAdapter.notifyItemRemoved(position);
-                break;
-
-            }
-        }
-    }
-
-    private void changeItemStatus(int position,String status) {
-        for (int i = 0; i < leadList.size(); i++) {
-            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.get(i).setStatus(status);
-                myLeadAdapter.notifyDataSetChanged();
-                break;
-
-            }
-        }
-    }
 
 
     //filter  data
-    private ArrayList<MyNewProspect> getFilterData(ArrayList<MyNewProspect> models, CharSequence searchKey) {
+    private ArrayList<LeadDataFromApi> getFilterData(ArrayList<LeadDataFromApi> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<MyNewProspect> filteredModelList = new ArrayList<>();
-        for (MyNewProspect model : models) {
-            final String uName = model.getUserName().toLowerCase();
-            final String phone = model.getPhone().toLowerCase();
+        final ArrayList<LeadDataFromApi> filteredModelList = new ArrayList<>();
+        for (LeadDataFromApi model : models) {
+            final String uName = model.getName().toLowerCase();
+            final String phone = model.getReference().toLowerCase();
 
             if (uName.contains(searchKey) || phone.contains(searchKey)) {
                 filteredModelList.add(model);

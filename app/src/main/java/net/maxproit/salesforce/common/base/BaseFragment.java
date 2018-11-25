@@ -1,7 +1,10 @@
 package net.maxproit.salesforce.common.base;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.network.ApiService;
+import net.maxproit.salesforce.network.RestClient;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 /**
@@ -56,5 +61,16 @@ public abstract class BaseFragment extends Fragment {
     public SharedPreferencesEnum localCash() {
         return SharedPreferencesEnum.getInstance(getContext());
     }
-
+    public ApiService getApiService() {
+        return RestClient.getInstance().callRetrofit();
+    }
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = null;
+        if (connectivityManager != null) {
+            activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        }
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

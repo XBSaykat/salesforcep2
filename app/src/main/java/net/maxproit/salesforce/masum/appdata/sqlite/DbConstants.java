@@ -26,6 +26,8 @@ public class DbConstants {
     //lead table
     public static final String _L_ID = "_id";
     public static final String LEAD_BRANCH_NAME = "branch";
+    public static final String USER_ID = "user_id";
+    public static final String REF_NUMBER = "ref_number";
     public static final String LEAD_USER_NAME = "user_name";
     public static final String LEAD_PROFESSION = "getProfessionString";
     public static final String LEAD_ORGANIZATION = "organzation";
@@ -134,6 +136,8 @@ public class DbConstants {
     public static final String SQL_CREATE_LEAD_ENTRIES =
             "CREATE TABLE " + TABLE_LEAD + " (" +
                     _L_ID + " INTEGER PRIMARY KEY," +
+                    USER_ID + TEXT_TYPE + COMMA_SEP +
+                    REF_NUMBER + TEXT_TYPE + COMMA_SEP +
                     LEAD_BRANCH_NAME + TEXT_TYPE + COMMA_SEP +
                     LEAD_PROFESSION + TEXT_TYPE + COMMA_SEP +
                     LEAD_USER_NAME + TEXT_TYPE + COMMA_SEP +

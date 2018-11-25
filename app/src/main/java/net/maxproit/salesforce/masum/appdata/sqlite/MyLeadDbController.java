@@ -22,11 +22,13 @@ public class MyLeadDbController {
         mContext = context;
     }
 
-    public int insertLeadData(String branchName, String uName, String profession, String organization, String designation,
+    public int insertLeadData(String userId,String referenceNumber,String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
                                       interest, String fee, String disDate, String date, String follow, String remark,String status) {
 
         ContentValues values = new ContentValues();
+        values.put(DbConstants.USER_ID, userId);
+        values.put(DbConstants.REF_NUMBER, referenceNumber);
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
         values.put(DbConstants.LEAD_USER_NAME, uName);
         values.put(DbConstants.LEAD_PROFESSION, profession);
@@ -54,11 +56,13 @@ public class MyLeadDbController {
     }
 
 
-    public int updateLeadData(int id,String branchName, String uName, String profession, String organization, String designation,
+    public int updateLeadData(String userName,String referenceNumber,String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
                                       interest, String fee, String disDate, String date, String follow, String remark,String status) {
 
         ContentValues values = new ContentValues();
+        values.put(DbConstants.REF_NUMBER, referenceNumber);
+        values.put(DbConstants.USER_ID, userName);
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
         values.put(DbConstants.LEAD_USER_NAME, uName);
         values.put(DbConstants.LEAD_PROFESSION, profession);
@@ -79,7 +83,7 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_STATUS, status);
 
         // Insert the new row, returning the primary key value of the new row
-        return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
+        return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants.REF_NUMBER + "=" + referenceNumber, null);
 
     }
 
@@ -158,6 +162,8 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
@@ -199,6 +205,8 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
@@ -240,6 +248,8 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
@@ -280,6 +290,8 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
@@ -356,6 +368,8 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
@@ -430,6 +444,8 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
@@ -505,6 +521,8 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
@@ -584,6 +602,8 @@ public class MyLeadDbController {
                 do {
                     // get  the  data into array,or class variable
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants._L_ID));
+                    String userId = c.getString(c.getColumnIndexOrThrow(DbConstants.USER_ID));
+                    String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
                     String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
                     String profession = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PROFESSION));
@@ -605,7 +625,7 @@ public class MyLeadDbController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new MyNewLead(id, branchName, userName, profession, organization, designation, phone, address, ref
+                    favDataArray.add(new MyNewLead(userId,refnumber,id, branchName, userName, profession, organization, designation, phone, address, ref
                             , productType, subCategory, amount, interest, fee, disDate, visitDate, followUp, remark, status));
                 } while (c.moveToNext());
             }
@@ -622,6 +642,8 @@ public class MyLeadDbController {
                 do {
                     // get  the  data into array,or class variable
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants._L_ID));
+                    String userId = c.getString(c.getColumnIndexOrThrow(DbConstants.USER_ID));
+                    String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
                     String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
                     String profession = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PROFESSION));
@@ -681,7 +703,7 @@ public class MyLeadDbController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new MyNewProspect(id,branchName, userName, profession,
+                    favDataArray.add(new MyNewProspect(userId,refnumber,id,branchName, userName, profession,
                             organization, designation, phone,
                             address, ref, productType,
                             subCategory, amount,

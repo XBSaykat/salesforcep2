@@ -16,18 +16,23 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.NumberTextWatcher;
 import net.maxproit.salesforce.NumberToWords;
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.model.local.MyNewProspect;
-import net.maxproit.salesforce.masum.model.local.VisitPlan;
+
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.model.local.MyNewLead;
+
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.api.Data;
+import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 
@@ -39,23 +44,26 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class LeadStageLoanDetailFragment extends Fragment {
+
+public class LeadStageLoanDetailFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
 
-    private Calendar myCalendar = Calendar.getInstance();
-    private boolean isFirst=false;
+    Calendar myCalendar = Calendar.getInstance();
 
-    private TextView tvTentativeNumberToWord;
+    TextView tvTentativeNumberToWord;
 
     //TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<MyNewLead> myNewLeadArrayList;
+    private ArrayList<MyNewProspect> myNewLeadArrayList;
     private MyLeadDbController myLeadDbController;
     private SpinnerDbController spinnerDbController;
     private ArrayAdapter<String> productSubAdapter;
@@ -65,7 +73,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private List<String> listCarloan = null;
     private List<String> listHomeloan = null;
     private List<String> listPersonalloan = null;
-    private LocalSetting mLocalSetting;
+    LocalSetting localSetting;
 
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
     public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate;
@@ -114,6 +122,16 @@ public class LeadStageLoanDetailFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
+
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+
     private void initVariable() {
         spinnerDbController = new SpinnerDbController(getActivity());
         listSourceReference = new ArrayList<String>();
@@ -128,55 +146,52 @@ public class LeadStageLoanDetailFragment extends Fragment {
         listHomeloan.addAll(spinnerDbController.getHomeLoanData());
         listCarloan.addAll(spinnerDbController.getCarLoanData());
         listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
-        mLocalSetting = new LocalSetting(getActivity());
+        localSetting=new LocalSetting(getActivity());
     }
 
     private void initListener() {
-        if (isFirst) {
 
-            spinnerRef.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-                @Override
-                public void onItemSelected(int i, String s) {
-                    ref = i;
-                }
-            });
-            spinnerProductType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-                @Override
-                public void onItemSelected(int i, String s) {
+
+        spinnerRef.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                ref = i;
+            }
+        });
+        spinnerProductType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
 //                productType = i;
-                    productType = s;
+                productType = s;
 
-                    if (s.equals(AppConstant.HOME_LOAN)) {
+                if (s.equals(AppConstant.HOME_LOAN)) {
 
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
-
-                    }
-                    if (s.equals(AppConstant.CAR_LOAN)) {
-
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
-
-                    }
-                    if (s.equals(AppConstant.PERSONAL_LOAN)) {
-                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                        spinnerSubCategory.setAdapter(productSubAdapter);
-
-                    }
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                    spinnerSubCategory.setAdapter(productSubAdapter);
 
                 }
-            });
-            spinnerSubCategory.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-                @Override
-                public void onItemSelected(int i, String s) {
-                    subCategory = s;
-                }
-            });
+                if (s.equals(AppConstant.CAR_LOAN)) {
 
-        }
-        else {
-            isFirst=true;
-        }
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                    spinnerSubCategory.setAdapter(productSubAdapter);
+
+                }
+                if (s.equals(AppConstant.PERSONAL_LOAN)) {
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                    spinnerSubCategory.setAdapter(productSubAdapter);
+
+                }
+
+            }
+        });
+        spinnerSubCategory.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                subCategory = s;
+            }
+        });
+
+
     }
 
     private void initView(View rootView) {
@@ -297,7 +312,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
         ArrayAdapter<String> sourceReferenceAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSourceReference);
         spinnerRef.setAdapter(sourceReferenceAdapter);
 
-        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSetting.getProductCategorystring());
+        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
 
         if (getArguments() != null) {
@@ -316,7 +331,82 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
                 }
             } else {
-                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+
+                String refId = getArguments().getString(AppConstant.INTENT_KEY);
+                if (refId != null) {
+                    getApiService().getLeadDataByRef("10515000212", "1").enqueue(new Callback<MyLeadByRefApi>() {
+                        @Override
+                        public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+                                Data data = response.body().getData();
+                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+
+                                etLoanAmount.setText("" + data.getLoanAmount());
+                                etInterest.setText("" + data.getOfferedInterestRate());
+                                //   etDisbursementDate.setText(data.getDisbursementDate());
+                                etFee.setText("" + data.getOfferedProcessFee());
+
+                                if (data.getSourceOfReference() != null)
+                                    try {
+                                        spinnerRef.setSelection(sourceReferenceAdapter.getPosition(data.getSourceOfReference()));
+
+                                    } catch (IllegalStateException ignored) {
+                                    } catch (NullPointerException e) {
+
+                                    }
+                                if (data.getProduct() != null) {
+                                    try {
+                                        spinnerProductType.setSelection(productTypeAdapter.getPosition(data.getProduct()));
+                                    } catch (IllegalStateException ignored) {
+                                    } catch (NullPointerException e) {
+
+                                    }
+                                    if (data.getProduct().equals(AppConstant.HOME_LOAN)) {
+                                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                                        spinnerSubCategory.setAdapter(productSubAdapter);
+                                        try {
+
+                                            spinnerSubCategory.setSelection(productSubAdapter.
+                                                    getPosition(data.getProductSubCategory()));
+                                        } catch (IllegalStateException ignored) {
+                                        }
+                                    } else if (data.getProduct().equals(AppConstant.CAR_LOAN)) {
+                                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                                        spinnerSubCategory.setAdapter(productSubAdapter);
+                                        try {
+
+                                            spinnerSubCategory.setSelection(productSubAdapter.
+                                                    getPosition(data.getProductSubCategory()));
+                                        } catch (IllegalStateException ignored) {
+                                        }
+
+                                    } else if (data.getProduct().equals(AppConstant.PERSONAL_LOAN)) {
+                                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                                        spinnerSubCategory.setAdapter(productSubAdapter);
+                                        try {
+
+                                            spinnerSubCategory.setSelection(productSubAdapter.
+                                                    getPosition(data.getProductSubCategory()));
+                                        } catch (IllegalStateException ignored) {
+                                        }
+
+                                    }
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
+                            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                }
+
+          /*      MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
                     if (myNewLead.getSourceRef() != null)
                         try {
@@ -369,7 +459,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
                     etInterest.setText(myNewLead.getOrInterest());
                     etDisbursementDate.setText(myNewLead.getDisDate());
                     etFee.setText(myNewLead.getOpFee());
-                }
+                }*/
             }
         }
     }

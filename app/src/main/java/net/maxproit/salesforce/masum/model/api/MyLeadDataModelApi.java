@@ -3,7 +3,7 @@ package net.maxproit.salesforce.masum.model.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MyLeadApi {
+public class MyLeadDataModelApi {
 
 @SerializedName("leadReferenceNo")
 @Expose

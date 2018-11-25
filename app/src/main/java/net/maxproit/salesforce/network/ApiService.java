@@ -5,7 +5,10 @@ package net.maxproit.salesforce.network;
  */
 
 
-import net.maxproit.salesforce.masum.model.api.MyLeadApi;
+import net.maxproit.salesforce.masum.model.api.MyGetLeadApi;
+import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
+import net.maxproit.salesforce.masum.model.api.MyLeadDataModelApi;
+import net.maxproit.salesforce.masum.model.api.MyOldLeadApi;
 import net.maxproit.salesforce.model.cib.notRequestedCIB.NotRequestedCIBData;
 import net.maxproit.salesforce.model.cib.post.CibPost;
 import net.maxproit.salesforce.model.cib.postResponce.CibPostResponce;
@@ -74,8 +77,15 @@ public interface ApiService {
     @GET("GlobalSettings/AppData/1")
     Call<GlobalSettings> getSetting();
 
-    @POST("lead")
-    Call<MyLeadApi> createMyLead(@Body MyLeadApi newLead);
+
+    @POST("CdLead/Lead")
+    Call<MyOldLeadApi> createMyLead(@Body MyLeadDataModelApi newLead);
+
+    @GET("CdLead/MyLead/{userName}/{timestamp}")
+    Call<MyGetLeadApi> getLeadData(@Path("userName") String user, @Path("timestamp") String random);
+
+    @GET("CdLead/Lead/{LeadReferenceNo}/{timestamp}")
+    Call<MyLeadByRefApi> getLeadDataByRef(@Path("LeadReferenceNo") String ref, @Path("timestamp") String random);
 
     /*
      Lead Api

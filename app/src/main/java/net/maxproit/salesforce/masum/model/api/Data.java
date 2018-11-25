@@ -3,304 +3,317 @@ package net.maxproit.salesforce.masum.model.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+import java.io.Serializable;
 
-@SerializedName("address")
-@Expose
-private String address;
-@SerializedName("addressId")
-@Expose
-private Integer addressId;
-@SerializedName("branchCode")
-@Expose
-private Integer branchCode;
-@SerializedName("branchName")
-@Expose
-private String branchName;
-@SerializedName("customerId")
-@Expose
-private Integer customerId;
-@SerializedName("customerName")
-@Expose
-private String customerName;
-@SerializedName("designation")
-@Expose
-private String designation;
-@SerializedName("disbursementDate")
-@Expose
-private String disbursementDate;
-@SerializedName("followUp")
-@Expose
-private String followUp;
-@SerializedName("followUpDate")
-@Expose
-private String followUpDate;
-@SerializedName("leadReferenceNo")
-@Expose
-private String leadReferenceNo;
-@SerializedName("loanAmount")
-@Expose
-private Integer loanAmount;
-@SerializedName("mobileNumber")
-@Expose
-private String mobileNumber;
-@SerializedName("mobileNumberId")
-@Expose
-private Integer mobileNumberId;
-@SerializedName("offeredInterestRate")
-@Expose
-private Integer offeredInterestRate;
-@SerializedName("offeredProcessFee")
-@Expose
-private Integer offeredProcessFee;
-@SerializedName("organization")
-@Expose
-private String organization;
-@SerializedName("product")
-@Expose
-private String product;
-@SerializedName("productId")
-@Expose
-private Integer productId;
-@SerializedName("productSubCategory")
-@Expose
-private String productSubCategory;
-@SerializedName("productSubCategoryId")
-@Expose
-private Integer productSubCategoryId;
-@SerializedName("profession")
-@Expose
-private String profession;
-@SerializedName("remark")
-@Expose
-private String remark;
-@SerializedName("rmCode")
-@Expose
-private String rmCode;
-@SerializedName("sourceOfReference")
-@Expose
-private String sourceOfReference;
-@SerializedName("userName")
-@Expose
-private String userName;
-@SerializedName("visitId")
-@Expose
-private Integer visitId;
+public class Data implements Serializable {
 
-public String getAddress() {
-return address;
-}
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("addressId")
+    @Expose
+    private Integer addressId;
+    @SerializedName("branchCode")
+    @Expose
+    private Integer branchCode;
+    @SerializedName("branchName")
+    @Expose
+    private String branchName;
+    @SerializedName("customerId")
+    @Expose
+    private Integer customerId;
+    @SerializedName("customerName")
+    @Expose
+    private String customerName;
+    @SerializedName("designation")
+    @Expose
+    private String designation;
+    @SerializedName("disbursementDate")
+    @Expose
+    private String disbursementDate;
+    @SerializedName("followUp")
+    @Expose
+    private String followUp;
+    @SerializedName("followUpDate")
+    @Expose
+    private String followUpDate;
+    @SerializedName("leadReferenceNo")
+    @Expose
+    private String leadReferenceNo;
+    @SerializedName("loanAmount")
+    @Expose
+    private Integer loanAmount;
+    @SerializedName("mobileNumber")
+    @Expose
+    private String mobileNumber;
+    @SerializedName("mobileNumberId")
+    @Expose
+    private Integer mobileNumberId;
+    @SerializedName("offeredInterestRate")
+    @Expose
+    private Integer offeredInterestRate;
+    @SerializedName("offeredProcessFee")
+    @Expose
+    private Integer offeredProcessFee;
+    @SerializedName("organization")
+    @Expose
+    private String organization;
+    @SerializedName("product")
+    @Expose
+    private String product;
+    @SerializedName("productId")
+    @Expose
+    private Integer productId;
+    @SerializedName("productSubCategory")
+    @Expose
+    private String productSubCategory;
+    @SerializedName("productSubCategoryId")
+    @Expose
+    private Integer productSubCategoryId;
+    @SerializedName("profession")
+    @Expose
+    private String profession;
+    @SerializedName("remark")
+    @Expose
+    private String remark;
+    @SerializedName("rmCode")
+    @Expose
+    private String rmCode;
+    @SerializedName("sourceOfReference")
+    @Expose
+    private String sourceOfReference;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("userName")
+    @Expose
+    private String userName;
+    @SerializedName("visitId")
+    @Expose
+    private Integer visitId;
 
-public void setAddress(String address) {
-this.address = address;
-}
+    public String getAddress() {
+        return address;
+    }
 
-public Integer getAddressId() {
-return addressId;
-}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-public void setAddressId(Integer addressId) {
-this.addressId = addressId;
-}
+    public Integer getAddressId() {
+        return addressId;
+    }
 
-public Integer getBranchCode() {
-return branchCode;
-}
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
 
-public void setBranchCode(Integer branchCode) {
-this.branchCode = branchCode;
-}
+    public Integer getBranchCode() {
+        return branchCode;
+    }
 
-public String getBranchName() {
-return branchName;
-}
+    public void setBranchCode(Integer branchCode) {
+        this.branchCode = branchCode;
+    }
 
-public void setBranchName(String branchName) {
-this.branchName = branchName;
-}
+    public String getBranchName() {
+        return branchName;
+    }
 
-public Integer getCustomerId() {
-return customerId;
-}
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
 
-public void setCustomerId(Integer customerId) {
-this.customerId = customerId;
-}
+    public Integer getCustomerId() {
+        return customerId;
+    }
 
-public String getCustomerName() {
-return customerName;
-}
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
 
-public void setCustomerName(String customerName) {
-this.customerName = customerName;
-}
+    public String getCustomerName() {
+        return customerName;
+    }
 
-public String getDesignation() {
-return designation;
-}
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
-public void setDesignation(String designation) {
-this.designation = designation;
-}
+    public String getDesignation() {
+        return designation;
+    }
 
-public String getDisbursementDate() {
-return disbursementDate;
-}
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
 
-public void setDisbursementDate(String disbursementDate) {
-this.disbursementDate = disbursementDate;
-}
+    public String getDisbursementDate() {
+        return disbursementDate;
+    }
 
-public String getFollowUp() {
-return followUp;
-}
+    public void setDisbursementDate(String disbursementDate) {
+        this.disbursementDate = disbursementDate;
+    }
 
-public void setFollowUp(String followUp) {
-this.followUp = followUp;
-}
+    public String getFollowUp() {
+        return followUp;
+    }
 
-public String getFollowUpDate() {
-return followUpDate;
-}
+    public void setFollowUp(String followUp) {
+        this.followUp = followUp;
+    }
 
-public void setFollowUpDate(String followUpDate) {
-this.followUpDate = followUpDate;
-}
+    public String getFollowUpDate() {
+        return followUpDate;
+    }
 
-public String getLeadReferenceNo() {
-return leadReferenceNo;
-}
+    public void setFollowUpDate(String followUpDate) {
+        this.followUpDate = followUpDate;
+    }
 
-public void setLeadReferenceNo(String leadReferenceNo) {
-this.leadReferenceNo = leadReferenceNo;
-}
+    public String getLeadReferenceNo() {
+        return leadReferenceNo;
+    }
 
-public Integer getLoanAmount() {
-return loanAmount;
-}
+    public void setLeadReferenceNo(String leadReferenceNo) {
+        this.leadReferenceNo = leadReferenceNo;
+    }
 
-public void setLoanAmount(Integer loanAmount) {
-this.loanAmount = loanAmount;
-}
+    public Integer getLoanAmount() {
+        return loanAmount;
+    }
 
-public String getMobileNumber() {
-return mobileNumber;
-}
+    public void setLoanAmount(Integer loanAmount) {
+        this.loanAmount = loanAmount;
+    }
 
-public void setMobileNumber(String mobileNumber) {
-this.mobileNumber = mobileNumber;
-}
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
 
-public Integer getMobileNumberId() {
-return mobileNumberId;
-}
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
-public void setMobileNumberId(Integer mobileNumberId) {
-this.mobileNumberId = mobileNumberId;
-}
+    public Integer getMobileNumberId() {
+        return mobileNumberId;
+    }
 
-public Integer getOfferedInterestRate() {
-return offeredInterestRate;
-}
+    public void setMobileNumberId(Integer mobileNumberId) {
+        this.mobileNumberId = mobileNumberId;
+    }
 
-public void setOfferedInterestRate(Integer offeredInterestRate) {
-this.offeredInterestRate = offeredInterestRate;
-}
+    public Integer getOfferedInterestRate() {
+        return offeredInterestRate;
+    }
 
-public Integer getOfferedProcessFee() {
-return offeredProcessFee;
-}
+    public void setOfferedInterestRate(Integer offeredInterestRate) {
+        this.offeredInterestRate = offeredInterestRate;
+    }
 
-public void setOfferedProcessFee(Integer offeredProcessFee) {
-this.offeredProcessFee = offeredProcessFee;
-}
+    public Integer getOfferedProcessFee() {
+        return offeredProcessFee;
+    }
 
-public String getOrganization() {
-return organization;
-}
+    public void setOfferedProcessFee(Integer offeredProcessFee) {
+        this.offeredProcessFee = offeredProcessFee;
+    }
 
-public void setOrganization(String organization) {
-this.organization = organization;
-}
+    public String getOrganization() {
+        return organization;
+    }
 
-public String getProduct() {
-return product;
-}
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
 
-public void setProduct(String product) {
-this.product = product;
-}
+    public String getProduct() {
+        return product;
+    }
 
-public Integer getProductId() {
-return productId;
-}
+    public void setProduct(String product) {
+        this.product = product;
+    }
 
-public void setProductId(Integer productId) {
-this.productId = productId;
-}
+    public Integer getProductId() {
+        return productId;
+    }
 
-public String getProductSubCategory() {
-return productSubCategory;
-}
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
-public void setProductSubCategory(String productSubCategory) {
-this.productSubCategory = productSubCategory;
-}
+    public String getProductSubCategory() {
+        return productSubCategory;
+    }
 
-public Integer getProductSubCategoryId() {
-return productSubCategoryId;
-}
+    public void setProductSubCategory(String productSubCategory) {
+        this.productSubCategory = productSubCategory;
+    }
 
-public void setProductSubCategoryId(Integer productSubCategoryId) {
-this.productSubCategoryId = productSubCategoryId;
-}
+    public String getStatus() {
+        return status;
+    }
 
-public String getProfession() {
-return profession;
-}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-public void setProfession(String profession) {
-this.profession = profession;
-}
+    public Integer getProductSubCategoryId() {
+        return productSubCategoryId;
+    }
 
-public String getRemark() {
-return remark;
-}
+    public void setProductSubCategoryId(Integer productSubCategoryId) {
+        this.productSubCategoryId = productSubCategoryId;
+    }
 
-public void setRemark(String remark) {
-this.remark = remark;
-}
+    public String getProfession() {
+        return profession;
+    }
 
-public String getRmCode() {
-return rmCode;
-}
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
-public void setRmCode(String rmCode) {
-this.rmCode = rmCode;
-}
+    public String getRemark() {
+        return remark;
+    }
 
-public String getSourceOfReference() {
-return sourceOfReference;
-}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-public void setSourceOfReference(String sourceOfReference) {
-this.sourceOfReference = sourceOfReference;
-}
+    public String getRmCode() {
+        return rmCode;
+    }
 
-public String getUserName() {
-return userName;
-}
+    public void setRmCode(String rmCode) {
+        this.rmCode = rmCode;
+    }
 
-public void setUserName(String userName) {
-this.userName = userName;
-}
+    public String getSourceOfReference() {
+        return sourceOfReference;
+    }
 
-public Integer getVisitId() {
-return visitId;
-}
+    public void setSourceOfReference(String sourceOfReference) {
+        this.sourceOfReference = sourceOfReference;
+    }
 
-public void setVisitId(Integer visitId) {
-this.visitId = visitId;
-}
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
+    }
 
 }

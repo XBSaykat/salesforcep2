@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class MyNewLead implements Serializable {
 
+    private String userID;
+    private String refNumber;
     private String branchName;
     private String userName;
     private String profession;
@@ -18,6 +20,13 @@ public class MyNewLead implements Serializable {
     private String orInterest;
     private String opFee;
 
+    private String disDate;
+    private String visitDate;
+    private String followUp;
+    private String remark;
+    private String status;
+    private int id;
+
     public String getLoadAmount() {
         return loadAmount;
     }
@@ -25,13 +34,6 @@ public class MyNewLead implements Serializable {
     public String getDisDate() {
         return disDate;
     }
-
-    private String disDate;
-    private String visitDate;
-    private String followUp;
-    private String remark;
-    private String status;
-    private int id;
 
 
     public MyNewLead(String branchName, String userName, String profession,
@@ -66,6 +68,34 @@ public class MyNewLead implements Serializable {
                      String productSubcategory, String loadAmount, String orInterest,
                      String opFee, String disDate, String visitDate, String followUp, String remark, String status) {
         this.id = id;
+        this.branchName = branchName;
+        this.userName = userName;
+        this.profession = profession;
+        this.organization = organization;
+        this.designation = designation;
+        this.phone = phone;
+        this.address = address;
+        this.sourceRef = sourceRef;
+        this.productType = productType;
+        this.productSubcategory = productSubcategory;
+        this.loadAmount = loadAmount;
+        this.orInterest = orInterest;
+        this.opFee = opFee;
+        this.disDate = disDate;
+        this.visitDate = visitDate;
+        this.followUp = followUp;
+        this.remark = remark;
+        this.status = status;
+    }
+
+    public MyNewLead(String userID,String refNumber,int id, String branchName, String userName, String profession,
+                     String organization, String designation, String phone,
+                     String address, String sourceRef, String productType,
+                     String productSubcategory, String loadAmount, String orInterest,
+                     String opFee, String disDate, String visitDate, String followUp, String remark, String status) {
+        this.id = id;
+        this.userID = userID;
+        this.refNumber = refNumber;
         this.branchName = branchName;
         this.userName = userName;
         this.profession = profession;

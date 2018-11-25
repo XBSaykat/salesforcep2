@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.model.api.Data;
+import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
@@ -29,6 +32,10 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -39,7 +46,7 @@ import java.util.List;
  * Use the {@link LeadStageVisitRecordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LeadStageVisitRecordFragment extends Fragment {
+public class LeadStageVisitRecordFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -104,6 +111,16 @@ public class LeadStageVisitRecordFragment extends Fragment {
         // Inflate the layout for this fragment
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
+
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+
     private void initView(View rootView) {
 
         spinnerDbController = new SpinnerDbController(getActivity());
@@ -155,26 +172,42 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
                 }
             } else if (status == 1) {
-                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                if (myNewLead != null) {
-                    try {
-                        spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
-                    } catch (final IllegalStateException ignored) {
+                String refId = getArguments().getString(AppConstant.INTENT_KEY);
+                if (refId != null) {
+                    getApiService().getLeadDataByRef("10515000212", "1").enqueue(new Callback<MyLeadByRefApi>() {
+                        @Override
+                        public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+                                Data myNewLead = response.body().getData();
+                                try {
+                                    spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
+                                } catch (final IllegalStateException ignored) {
 
-                    }
-                    if (myNewLead.getFollowUp() != null) {
-                        if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")) {
-                            if (etVisitDate.getVisibility() != View.VISIBLE) {
-                                etVisitDate.setVisibility(View.VISIBLE);
+                                }
+                                if (myNewLead.getFollowUp() != null) {
+                                    if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")) {
+                                        if (etVisitDate.getVisibility() != View.VISIBLE) {
+                                            etVisitDate.setVisibility(View.VISIBLE);
+                                        }
+                                        etVisitDate.setText(myNewLead.getFollowUpDate());
+                                        etRemark.setText(myNewLead.getRemark());
+
+                                    } else if (myNewLead.getFollowUp().equalsIgnoreCase("No")) {
+                                        spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+
+                                    }
+                                }
                             }
-                            etVisitDate.setText(myNewLead.getVisitDate());
-                            etRemark.setText(myNewLead.getRemark());
+                        }
 
-                        } else if (myNewLead.getFollowUp().equalsIgnoreCase("No")) {
-                            spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                        @Override
+                        public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
+                            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
 
                         }
-                    }
+                    });
+
                 }
             }
         } else {
@@ -185,12 +218,12 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
     private void initListener() {
 
-        if (isFirst) {
             spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
                 @Override
                 public void onItemSelected(int i, String s) {
-                    followUp = s;
 
+                    if (isFirst) {
+                        followUp = s;
                     if (s.equals("Yes")) {
                         followDateLayout.setVisibility(View.VISIBLE);
                         etRemarksLayout.setVisibility(View.VISIBLE);
@@ -200,7 +233,10 @@ public class LeadStageVisitRecordFragment extends Fragment {
                         etRemarksLayout.setVisibility(View.GONE);
                         spRemarksLayout.setVisibility(View.VISIBLE);
                     }
-
+                    }
+                    else {
+                        isFirst=true;
+                    }
                 }
 
             });
@@ -220,10 +256,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
                     datePickerDialog();
                 }
             });
-        }
-        else {
-            isFirst=true;
-        }
+
     }
 
 

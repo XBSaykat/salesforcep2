@@ -10,19 +10,20 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.api.LeadDataFromApi;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 
 import java.util.ArrayList;
 
 public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomViewHolder>  {
     private Context context;
-    public ArrayList<MyNewProspect> leadList;
+    public ArrayList<LeadDataFromApi> leadList;
     public static OnItemClickListener mListener;
     private boolean isChange=false;
 
 
 
-    public MyLeadAdapter(Context context, ArrayList<MyNewProspect> leadList) {
+    public MyLeadAdapter(Context context, ArrayList<LeadDataFromApi> leadList) {
         this.context = context;
         this.leadList = leadList;
     }
@@ -31,12 +32,12 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         Context context;
-        ArrayList<MyNewProspect> leadList;
+        ArrayList<LeadDataFromApi> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
         private ConstraintLayout constraintLayoutLeadItem;
 
 
-        public CustomViewHolder(View itemView, Context context, ArrayList<MyNewProspect> leadList) {
+        public CustomViewHolder(View itemView, Context context, ArrayList<LeadDataFromApi> leadList) {
             super(itemView);
             this.context = context;
             this.leadList = leadList;
@@ -72,21 +73,21 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, final int position) {
-        holder.tvId.setText(""+leadList.get(position).getId());
-        holder.tvName.setText(leadList.get(position).getUserName());
-        holder.tvBranch.setText(leadList.get(position).getBranchName());
+        holder.tvId.setText(""+leadList.get(position).getReference());
+        holder.tvName.setText(leadList.get(position).getName());
+        holder.tvBranch.setText(leadList.get(position).getBranch());
         holder.tvStatus.setText(leadList.get(position).getStatus());
 
 
     }
 
-    public void setFilter(ArrayList<MyNewProspect> newDataList) {
+    public void setFilter(ArrayList<LeadDataFromApi> newDataList) {
         leadList =new ArrayList<>();
         leadList.addAll(newDataList);
         notifyDataSetChanged();
     }
 
-    public ArrayList<MyNewProspect> getDataList() {
+    public ArrayList<LeadDataFromApi> getDataList() {
         return leadList;
     }
 

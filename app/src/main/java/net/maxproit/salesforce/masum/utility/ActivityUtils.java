@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
+import net.maxproit.salesforce.masum.model.api.LeadDataFromApi;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
@@ -41,6 +42,15 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
+    public static void invokRefNumber(Activity activity, Class<?> tClass,String ref){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(activity, tClass);
+        bundle.putString(AppConstant.INTENT_KEY, ref);
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
     public static void invokLeadDetailForProspectStage(Activity activity, MyNewProspect myNewLead){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
@@ -50,7 +60,7 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void invokLeadDetailForLeadStage(Activity activity, MyNewProspect myNewLead){
+    public static void invokLeadDetailForLeadStage(Activity activity, LeadDataFromApi myNewLead){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);

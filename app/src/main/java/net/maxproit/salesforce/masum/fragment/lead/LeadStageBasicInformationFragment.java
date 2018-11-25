@@ -15,11 +15,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.feature.search.SearchUserActivity;
+import net.maxproit.salesforce.masum.model.api.Data;
+import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -33,6 +37,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +50,7 @@ import java.util.regex.Pattern;
  * Use the {@link LeadStageBasicInformationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LeadStageBasicInformationFragment extends Fragment {
+public class LeadStageBasicInformationFragment extends BaseFragment {
 
 
     private MyLeadDbController myLeadDbController;
@@ -118,6 +126,16 @@ public class LeadStageBasicInformationFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
+
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+
 
     private void initListener() {
 
@@ -140,7 +158,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
     private void initView(View rootView) {
 
         spinnerDbController = new SpinnerDbController(getActivity());
-        mLocalSettting=new LocalSetting(getActivity());
+        mLocalSettting = new LocalSetting(getActivity());
 
         listBranchArray = new ArrayList<String>();
         listProfessionArray = new ArrayList<String>();
@@ -234,29 +252,46 @@ public class LeadStageBasicInformationFragment extends Fragment {
                     etAddress.setText(visitPlan.getPoliceStation() + "," + visitPlan.getCity());
                 }
             } else {
-                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                if (myNewLead != null) {
-                    etUserName.setText(myNewLead.getUserName());
-                    etPhone.setText(myNewLead.getPhone());
-                    etAddress.setText(myNewLead.getAddress());
-                    etUserOrganization.setText(myNewLead.getOrganization());
-                    etDesignattion.setText(myNewLead.getDesignation());
-                    if (myNewLead.getBranchName() != null && myNewLead.getProfession() != null) {
-                        try {
-                            spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
-                        } catch (final IllegalStateException ignored) {
+                String refId = getArguments().getString(AppConstant.INTENT_KEY);
+                if (refId != null) {
+                    getApiService().getLeadDataByRef("10515000212", "1").enqueue(new Callback<MyLeadByRefApi>() {
+                        @Override
+                        public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+                                Data data=response.body().getData();
+                                etUserName.setText(data.getCustomerName());
+                                etPhone.setText(data.getMobileNumber());
+                                etAddress.setText(data.getAddress());
+                                etUserOrganization.setText(data.getOrganization());
+                                etDesignattion.setText(data.getDesignation());
+                                if (data.getBranchName() != null && data.getProfession() != null) {
+                                    try {
+                                        spinnerBranchName.setSelection(branchAdapter.getPosition(data.getBranchName()));
+                                    } catch (final IllegalStateException ignored) {
 
-                        } catch (NullPointerException e) {
+                                    } catch (NullPointerException e) {
+
+                                    }
+                                    try {
+
+                                        spinnerProfession.setSelection(professionAdapter.getPosition(data.getProfession()));
+                                    } catch (final IllegalStateException ignored) {
+
+                                    }
+                                }
+
+                            } else {
+                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
+                            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
 
                         }
-                        try {
-
-                            spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
-                        } catch (final IllegalStateException ignored) {
-
-                        }
-                    }
-
+                    });
 
                 }
 
@@ -277,6 +312,9 @@ public class LeadStageBasicInformationFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    private void getDataFromServer(String ref) {
     }
 
     @Override
