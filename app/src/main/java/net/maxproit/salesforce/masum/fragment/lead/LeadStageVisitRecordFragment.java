@@ -55,7 +55,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
     private List<String> listfollowUp = null;
     private List<String> listRemark = null;
-
+    private boolean isFirst = false;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -157,31 +157,25 @@ public class LeadStageVisitRecordFragment extends Fragment {
             } else if (status == 1) {
                 MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-                    try{
-                    spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
+                    try {
+                        spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
                     } catch (final IllegalStateException ignored) {
 
                     }
-                        if (myNewLead.getFollowUp() != null) {
-                            if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")) {
-                                if (etVisitDate.getVisibility() != View.VISIBLE) {
-                                    etVisitDate.setVisibility(View.VISIBLE);
-                                }
-                                etVisitDate.setText(myNewLead.getVisitDate());
-                                etRemark.setText(myNewLead.getRemark());
-
-                            } else if (myNewLead.getFollowUp().equalsIgnoreCase("No")) {
-                                    spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
-
+                    if (myNewLead.getFollowUp() != null) {
+                        if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")) {
+                            if (etVisitDate.getVisibility() != View.VISIBLE) {
+                                etVisitDate.setVisibility(View.VISIBLE);
                             }
+                            etVisitDate.setText(myNewLead.getVisitDate());
+                            etRemark.setText(myNewLead.getRemark());
+
+                        } else if (myNewLead.getFollowUp().equalsIgnoreCase("No")) {
+                            spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+
                         }
-
-
-
-
+                    }
                 }
-
-
             }
         } else {
             Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
@@ -191,53 +185,45 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
     private void initListener() {
 
+        if (isFirst) {
+            spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+                @Override
+                public void onItemSelected(int i, String s) {
+                    followUp = s;
 
-        spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
-                followUp = s;
+                    if (s.equals("Yes")) {
+                        followDateLayout.setVisibility(View.VISIBLE);
+                        etRemarksLayout.setVisibility(View.VISIBLE);
+                        spRemarksLayout.setVisibility(View.GONE);
+                    } else {
+                        followDateLayout.setVisibility(View.GONE);
+                        etRemarksLayout.setVisibility(View.GONE);
+                        spRemarksLayout.setVisibility(View.VISIBLE);
+                    }
 
-                if (s.equals("Yes")) {
-                    followDateLayout.setVisibility(View.VISIBLE);
-                    etRemarksLayout.setVisibility(View.VISIBLE);
-                    spRemarksLayout.setVisibility(View.GONE);
-                } else {
-                    followDateLayout.setVisibility(View.GONE);
-                    etRemarksLayout.setVisibility(View.GONE);
-                    spRemarksLayout.setVisibility(View.VISIBLE);
                 }
 
-            }
+            });
 
-        });
+            spinnerRemarks.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+                @Override
+                public void onItemSelected(int i, String s) {
+                    remark = s;
+                }
 
-        spinnerRemarks.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
-                remark=s;
-            }
+            });
 
-        });
 
-//        spinnerFollowUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                followUp= String.valueOf(position);
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
-        etVisitDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialog();
-            }
-        });
+            etVisitDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    datePickerDialog();
+                }
+            });
+        }
+        else {
+            isFirst=true;
+        }
     }
 
 
@@ -263,7 +249,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
                 listener,
                 year, month, day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         dialog.show();
 
     }

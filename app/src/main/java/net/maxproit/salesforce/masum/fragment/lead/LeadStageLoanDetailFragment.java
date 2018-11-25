@@ -48,6 +48,7 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
 
     private Calendar myCalendar = Calendar.getInstance();
+    private boolean isFirst=false;
 
     private TextView tvTentativeNumberToWord;
 
@@ -131,48 +132,51 @@ public class LeadStageLoanDetailFragment extends Fragment {
     }
 
     private void initListener() {
+        if (isFirst) {
 
-
-        spinnerRef.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
-                ref = i;
-            }
-        });
-        spinnerProductType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
+            spinnerRef.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+                @Override
+                public void onItemSelected(int i, String s) {
+                    ref = i;
+                }
+            });
+            spinnerProductType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+                @Override
+                public void onItemSelected(int i, String s) {
 //                productType = i;
-                productType = s;
+                    productType = s;
 
-                if (s.equals(AppConstant.HOME_LOAN)) {
+                    if (s.equals(AppConstant.HOME_LOAN)) {
 
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
+                    if (s.equals(AppConstant.CAR_LOAN)) {
+
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
+                    if (s.equals(AppConstant.PERSONAL_LOAN)) {
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
 
                 }
-                if (s.equals(AppConstant.CAR_LOAN)) {
-
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
-
+            });
+            spinnerSubCategory.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+                @Override
+                public void onItemSelected(int i, String s) {
+                    subCategory = s;
                 }
-                if (s.equals(AppConstant.PERSONAL_LOAN)) {
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
+            });
 
-                }
-
-            }
-        });
-        spinnerSubCategory.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-            @Override
-            public void onItemSelected(int i, String s) {
-                subCategory = s;
-            }
-        });
-
-
+        }
+        else {
+            isFirst=true;
+        }
     }
 
     private void initView(View rootView) {
