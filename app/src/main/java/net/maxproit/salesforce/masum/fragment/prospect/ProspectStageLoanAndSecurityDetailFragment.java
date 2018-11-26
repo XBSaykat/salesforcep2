@@ -142,7 +142,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         spinnerVehicleType = view.findViewById(R.id.awe_spinner_prospect_stage_vehicle_type);
 
         initAdapters();
-        initListener();
+
 
 
         commaSeparator();
@@ -201,7 +201,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
         ArrayAdapter<String> vehicleTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listvehicleType);
         spinnerVehicleType.setAdapter(vehicleTypeAdapter);
-
+        initListener();
         if (prospectStageActivity.getDataFromProspect()!=null){
 
             MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();

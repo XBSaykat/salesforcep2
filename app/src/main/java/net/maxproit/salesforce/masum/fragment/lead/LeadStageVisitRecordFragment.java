@@ -107,7 +107,7 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_visit_record, container, false);
         initView(rootView);
-        initListener();
+
         return rootView;
         // Inflate the layout for this fragment
     }
@@ -163,7 +163,7 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
 //                R.array.remarks_arr,
 //                android.R.layout.simple_spinner_dropdown_item);
 //        spinnerRemarks.setAdapter(remarksAdapter, 0);
-
+        initListener();
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
@@ -223,8 +223,6 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
             spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
                 @Override
                 public void onItemSelected(int i, String s) {
-
-                    if (isFirst) {
                         followUp = s;
                     if (s.equals("Yes")) {
                         followDateLayout.setVisibility(View.VISIBLE);
@@ -236,10 +234,8 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
                         spRemarksLayout.setVisibility(View.VISIBLE);
                     }
                     }
-                    else {
-                        isFirst=true;
-                    }
-                }
+
+
 
             });
 

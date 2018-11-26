@@ -81,6 +81,17 @@ public class Data {
         this.profession = profession;
     }
 
+    @SerializedName("productSubCategory")
+    @Expose
+    private List<ProductSubCategory> productSubCategory = null;
+
+    public List<ProductSubCategory> getProductSubCategory() {
+        return productSubCategory;
+    }
+
+    public void setProductSubCategory(List<ProductSubCategory> productSubCategory) {
+        this.productSubCategory = productSubCategory;
+    }
     public List<PSe> getPSes() {
         return pSes;
     }

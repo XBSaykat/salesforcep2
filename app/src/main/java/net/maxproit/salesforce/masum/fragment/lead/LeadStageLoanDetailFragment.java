@@ -120,7 +120,6 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.fragment_lead_stage_loan_detail, container, false);
         initVariable();
         initView(rootView);
-        initListener();
         return rootView;
     }
 
@@ -318,7 +317,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
         ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
-
+        initListener();
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
@@ -366,7 +365,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                                     } catch (NullPointerException e) {
 
                                     }
-                                    if (data.getProduct().equals(AppConstant.HOME_LOAN)) {
+                                    if (data.getProduct().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
                                         ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                                         spinnerSubCategory.setAdapter(productSubAdapter);
                                         try {
@@ -375,7 +374,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                                                     getPosition(data.getProductSubCategory()));
                                         } catch (IllegalStateException ignored) {
                                         }
-                                    } else if (data.getProduct().equals(AppConstant.CAR_LOAN)) {
+                                    } else if (data.getProduct().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
                                         ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                                         spinnerSubCategory.setAdapter(productSubAdapter);
                                         try {
@@ -385,7 +384,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                                         } catch (IllegalStateException ignored) {
                                         }
 
-                                    } else if (data.getProduct().equals(AppConstant.PERSONAL_LOAN)) {
+                                    } else if (data.getProduct().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
                                         ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                                         spinnerSubCategory.setAdapter(productSubAdapter);
                                         try {
