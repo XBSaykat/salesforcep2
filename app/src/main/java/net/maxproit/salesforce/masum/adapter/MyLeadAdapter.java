@@ -10,20 +10,19 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.api.LeadDataFromApi;
-import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.api.LeadLeastDataFromApi;
 
 import java.util.ArrayList;
 
 public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomViewHolder>  {
     private Context context;
-    public ArrayList<LeadDataFromApi> leadList;
+    public ArrayList<LeadLeastDataFromApi> leadList;
     public static OnItemClickListener mListener;
     private boolean isChange=false;
 
 
 
-    public MyLeadAdapter(Context context, ArrayList<LeadDataFromApi> leadList) {
+    public MyLeadAdapter(Context context, ArrayList<LeadLeastDataFromApi> leadList) {
         this.context = context;
         this.leadList = leadList;
     }
@@ -32,12 +31,12 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         Context context;
-        ArrayList<LeadDataFromApi> leadList;
+        ArrayList<LeadLeastDataFromApi> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
         private ConstraintLayout constraintLayoutLeadItem;
 
 
-        public CustomViewHolder(View itemView, Context context, ArrayList<LeadDataFromApi> leadList) {
+        public CustomViewHolder(View itemView, Context context, ArrayList<LeadLeastDataFromApi> leadList) {
             super(itemView);
             this.context = context;
             this.leadList = leadList;
@@ -81,13 +80,13 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
 
     }
 
-    public void setFilter(ArrayList<LeadDataFromApi> newDataList) {
+    public void setFilter(ArrayList<LeadLeastDataFromApi> newDataList) {
         leadList =new ArrayList<>();
         leadList.addAll(newDataList);
         notifyDataSetChanged();
     }
 
-    public ArrayList<LeadDataFromApi> getDataList() {
+    public ArrayList<LeadLeastDataFromApi> getDataList() {
         return leadList;
     }
 

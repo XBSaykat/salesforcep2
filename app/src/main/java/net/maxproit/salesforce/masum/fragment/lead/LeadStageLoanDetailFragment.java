@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,7 +76,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     private List<String> listHomeloan = null;
     private List<String> listPersonalloan = null;
     LocalSetting localSetting;
-
+    public static int productTypeCode=0;
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
     public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate;
     public static int ref = 0;
@@ -163,6 +165,8 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             public void onItemSelected(int i, String s) {
 //                productType = i;
                 productType = s;
+                LongOperation longOperation=new LongOperation();
+                longOperation.execute(i);
 
                 if (s.equals(AppConstant.HOME_LOAN)) {
 
@@ -331,10 +335,10 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
                 }
             } else {
-
+                String random = UUID.randomUUID().toString();
                 String refId = getArguments().getString(AppConstant.INTENT_KEY);
                 if (refId != null) {
-                    getApiService().getLeadDataByRef("10515000212", "1").enqueue(new Callback<MyLeadByRefApi>() {
+                    getApiService().getLeadDataByRef(refId, random).enqueue(new Callback<MyLeadByRefApi>() {
                         @Override
                         public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
                             if (response.isSuccessful()) {
@@ -486,6 +490,28 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private class LongOperation extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            productTypeCode=localSetting.getProductCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 
     /**

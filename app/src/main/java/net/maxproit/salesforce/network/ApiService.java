@@ -74,7 +74,7 @@ public interface ApiService {
     Call<LoginResponse> login(@Body Login login);
 
 
-    @GET("GlobalSettings/AppData/1")
+    @GET("GlobalSettings/AppData/0")
     Call<GlobalSettings> getSetting();
 
 

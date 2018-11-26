@@ -127,7 +127,17 @@ public class LocalSetting {
             list.add(in.getProductName());
         }
         return list;
+    }
 
+
+    public int getProductCode(int position){
+        int code=0;
+        for (int i=0;i<getProductCategory().size();i++){
+            if (i==position){
+                code=getProductCategory().get(i).getProductCode();
+            }
+        }
+        return code;
     }
 
     public List<Branch> getBranch() {
@@ -146,6 +156,16 @@ public class LocalSetting {
         }
         return list;
 
+    }
+
+    public String getBranchCode(int position){
+        String code=null;
+        for (int i=0;i<getBranch().size();i++){
+            if (i==position){
+                code=getBranch().get(i).getBranchCode();
+            }
+        }
+        return code;
     }
 
 //    Title list

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
-import net.maxproit.salesforce.masum.model.api.LeadDataFromApi;
+import net.maxproit.salesforce.masum.model.api.LeadLeastDataFromApi;
 import net.maxproit.salesforce.masum.model.api.MyGetLeadApi;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.R;
@@ -26,6 +26,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +41,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     MyLeadDbController myLeadDbController;
     LocalLogin localLogin;
     MyNewProspect myNewLead;
-    ArrayList<LeadDataFromApi> leadDataFromApiList,filterList;
+    ArrayList<LeadLeastDataFromApi> leadLeastDataFromApiList,filterList;
     String username;
     ArrayList<MyNewProspect> leadList;
 
@@ -56,15 +57,15 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         binding.btnBack.setOnClickListener(v -> finish());
         localLogin = new LocalLogin(getApplicationContext());
         leadList = new ArrayList<>();
-        leadDataFromApiList = new ArrayList<>();
+        leadLeastDataFromApiList = new ArrayList<>();
         filterList = new ArrayList<>();
         myLeadDbController = new MyLeadDbController(MyLeadActivity.this);
         username = SharedPreferencesEnum.getInstance(getApplicationContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
 
         if (!leadList.isEmpty()) {
             leadList.clear();
-        } if (!leadDataFromApiList.isEmpty()) {
-            leadDataFromApiList.clear();
+        } if (!leadLeastDataFromApiList.isEmpty()) {
+            leadLeastDataFromApiList.clear();
         }
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail !=null){
@@ -111,7 +112,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                filterList = getFilterData(leadDataFromApiList, query);
+                filterList = getFilterData(leadLeastDataFromApiList, query);
                 myLeadAdapter.setFilter(filterList);
                 return true;
             }
@@ -120,14 +121,14 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             public boolean onQueryTextChange(String newText) {
                 // If remove data on test dataBase it Will be ok
                 // myLeadAdapter.getFilter().filter(newText);
-                filterList = getFilterData(leadDataFromApiList, newText);
+                filterList = getFilterData(leadLeastDataFromApiList, newText);
                 myLeadAdapter.setFilter(filterList);
                 return true;
             }
         });
 
 
-        myLeadAdapter = new MyLeadAdapter(MyLeadActivity.this, leadDataFromApiList);
+        myLeadAdapter = new MyLeadAdapter(MyLeadActivity.this, leadLeastDataFromApiList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.rvMyLead.setLayoutManager(mLayoutManager);
         binding.rvMyLead.setAdapter(myLeadAdapter);
@@ -148,25 +149,40 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     }
 
     private void getDataFromServer(){
-        getApiService().getLeadData(username,"1").enqueue(new Callback<MyGetLeadApi>() {
-            @Override
-            public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
-                if (response.isSuccessful()){
-                    leadDataFromApiList.addAll(response.body().getData());
-                     myLeadAdapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+        String random = UUID.randomUUID().toString();
+        if (isNetworkAvailable()) {
+            showProgressDialog();
+            getApiService().getLeadData(username, random).enqueue(new Callback<MyGetLeadApi>() {
+                @Override
+                public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
+                    hideProgressDialog();
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("200")){
+                            leadLeastDataFromApiList.addAll(response.body().getData());
+                            myLeadAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            showAlertDialog("Error",response.body().getMessage());
+                        }
+
+
+                    } else {
+                        showAlertDialog("Error",response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
+                    hideProgressDialog();
+                    showAlertDialog("Error",t.getMessage());
 
                 }
-                else {
-                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-                }
-            }
+            });
+        }
+        else {
+            showEmptyView();
 
-            @Override
-            public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
-
-            }
-        });
+        }
     }
 
     private void sentDataToDetail(int position) {
@@ -182,11 +198,11 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
 
     //filter  data
-    private ArrayList<LeadDataFromApi> getFilterData(ArrayList<LeadDataFromApi> models, CharSequence searchKey) {
+    private ArrayList<LeadLeastDataFromApi> getFilterData(ArrayList<LeadLeastDataFromApi> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<LeadDataFromApi> filteredModelList = new ArrayList<>();
-        for (LeadDataFromApi model : models) {
+        final ArrayList<LeadLeastDataFromApi> filteredModelList = new ArrayList<>();
+        for (LeadLeastDataFromApi model : models) {
             final String uName = model.getName().toLowerCase();
             final String phone = model.getReference().toLowerCase();
 

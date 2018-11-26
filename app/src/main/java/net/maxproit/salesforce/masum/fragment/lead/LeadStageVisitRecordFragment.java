@@ -32,6 +32,7 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -173,12 +174,13 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
                 }
             } else if (status == 1) {
                 String refId = getArguments().getString(AppConstant.INTENT_KEY);
+                String random = UUID.randomUUID().toString();
+
                 if (refId != null) {
-                    getApiService().getLeadDataByRef("10515000212", "1").enqueue(new Callback<MyLeadByRefApi>() {
+                    getApiService().getLeadDataByRef(refId, random).enqueue(new Callback<MyLeadByRefApi>() {
                         @Override
                         public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
                             if (response.isSuccessful()) {
-                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
                                 Data myNewLead = response.body().getData();
                                 try {
                                     spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
@@ -266,7 +268,7 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
-                String selectedDate = (dayOfMonth + "/" + month + "/" + year);
+                String selectedDate = (dayOfMonth + "." + month + "." + year);
                 etVisitDate.getText().clear();
                 etVisitDate.setText(selectedDate);
                 visitDate = etVisitDate.getText().toString();

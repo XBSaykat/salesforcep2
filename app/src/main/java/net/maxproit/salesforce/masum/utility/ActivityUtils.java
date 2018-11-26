@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
-import net.maxproit.salesforce.masum.model.api.LeadDataFromApi;
+import net.maxproit.salesforce.masum.model.api.LeadLeastDataFromApi;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
@@ -60,7 +60,7 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void invokLeadDetailForLeadStage(Activity activity, LeadDataFromApi myNewLead){
+    public static void invokLeadDetailForLeadStage(Activity activity, LeadLeastDataFromApi myNewLead){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);

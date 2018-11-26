@@ -3,6 +3,7 @@ package net.maxproit.salesforce.masum.fragment.lead;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -34,6 +35,7 @@ import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,7 +59,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private AwesomeSpinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession = null, branchName = null;
+    public static String profession = null, branchName = null,branchCode=null;
     private List<String> listBranchArray = null;
     private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
@@ -143,6 +145,8 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
                 branchName = s;
+                LongOperation longOperation=new LongOperation();
+                longOperation.execute(i);
             }
         });
 
@@ -252,37 +256,33 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                     etAddress.setText(visitPlan.getPoliceStation() + "," + visitPlan.getCity());
                 }
             } else {
+                String random = UUID.randomUUID().toString();
+
                 String refId = getArguments().getString(AppConstant.INTENT_KEY);
                 if (refId != null) {
-                    getApiService().getLeadDataByRef("10515000212", "1").enqueue(new Callback<MyLeadByRefApi>() {
+                    getApiService().getLeadDataByRef(refId, random).enqueue(new Callback<MyLeadByRefApi>() {
                         @Override
                         public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
                             if (response.isSuccessful()) {
-                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
                                 Data data=response.body().getData();
                                 etUserName.setText(data.getCustomerName());
                                 etPhone.setText(data.getMobileNumber());
                                 etAddress.setText(data.getAddress());
                                 etUserOrganization.setText(data.getOrganization());
                                 etDesignattion.setText(data.getDesignation());
-                                if (data.getBranchName() != null && data.getProfession() != null) {
+                                if (data.getBranchName() != null ) {
                                     try {
                                         spinnerBranchName.setSelection(branchAdapter.getPosition(data.getBranchName()));
                                     } catch (final IllegalStateException ignored) {
-
                                     } catch (NullPointerException e) {
-
-                                    }
-                                    try {
-
-                                        spinnerProfession.setSelection(professionAdapter.getPosition(data.getProfession()));
-                                    } catch (final IllegalStateException ignored) {
-
                                     }
                                 }
-
-                            } else {
-                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+                                    if (data.getProfession() != null) {
+                                        try {
+                                            spinnerProfession.setSelection(professionAdapter.getPosition(data.getProfession()));
+                                        } catch (final IllegalStateException ignored) {
+                                        }
+                                    }
                             }
                         }
 
@@ -328,11 +328,37 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 //        }
     }
 
+    private class LongOperation extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+          branchCode=mLocalSettting.getBranchCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+          // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this

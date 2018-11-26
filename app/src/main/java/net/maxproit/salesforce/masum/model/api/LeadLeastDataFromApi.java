@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class LeadDataFromApi implements Serializable {
+public class LeadLeastDataFromApi implements Serializable {
 
 @SerializedName("Reference")
 @Expose

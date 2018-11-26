@@ -17,7 +17,7 @@ private String code;
 private String message;
 @SerializedName("data")
 @Expose
-private List<LeadDataFromApi> data = null;
+private List<LeadLeastDataFromApi> data = null;
 
 public String getStatus() {
 return status;
@@ -43,11 +43,11 @@ public void setMessage(String message) {
 this.message = message;
 }
 
-public List<LeadDataFromApi> getData() {
+public List<LeadLeastDataFromApi> getData() {
 return data;
 }
 
-public void setData(List<LeadDataFromApi> data) {
+public void setData(List<LeadLeastDataFromApi> data) {
 this.data = data;
 }
 
