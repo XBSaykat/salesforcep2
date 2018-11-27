@@ -135,10 +135,42 @@ public class LocalSetting {
         for (int i=0;i<getProductCategory().size();i++){
             if (i==position){
                 code=getProductCategory().get(i).getProductCode();
+                break;
             }
         }
         return code;
     }
+
+    public List<ProductSubCategory> getProductSubCategory() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getProductSubCategory();
+        }
+        return new ArrayList<>();
+
+    }
+
+
+    public List<String> getProductSubCategorystring(int code) {
+        List<String> list = new ArrayList<>();
+        for (ProductSubCategory in : getProductSubCategory()) {
+            if (in.getProductID() ==code)
+            list.add(in.getLoanPurposeType());
+        }
+        return list;
+    }
+
+    public int getSubCatCode(int position){
+        int code=0;
+        for (int i=0;i<getProductSubCategory().size();i++){
+            if (i==position){
+                code=getProductSubCategory().get(i).getLoanPurposeTypeCode();
+                break;
+            }
+        }
+        return code;
+    }
+
+
 
     public List<Branch> getBranch() {
         if (getLocalSetting() != null) {

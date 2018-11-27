@@ -70,7 +70,6 @@ public class LoginActivity extends BaseActivity {
     String manufacturingCountry[] = null;
     String vehicleType[] = null;
     String validPhoto[] = null;
-    private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected int getLayoutResourceId() {
@@ -81,13 +80,11 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(broadcastReceiver,new IntentFilter(AppConstant.IS_NETWORK_AVAILABLE));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(broadcastReceiver);
     }
 
     @Override

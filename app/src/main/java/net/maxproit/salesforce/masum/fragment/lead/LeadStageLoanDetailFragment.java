@@ -75,8 +75,8 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     private List<String> listCarloan = null;
     private List<String> listHomeloan = null;
     private List<String> listPersonalloan = null;
-    LocalSetting localSetting;
-    public static int productTypeCode=0;
+    private LocalSetting localSetting;
+    public static int productTypeCode=0,productSubCatCode=0;
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
     public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate;
     public static int ref = 0;
@@ -144,10 +144,11 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
         listSourceReference.addAll(spinnerDbController.getSourceOfReferenceData());
         listProductType.addAll(spinnerDbController.getProductTypeData());
         listProductSubCategory.addAll(spinnerDbController.getProductSubcategoryData());
-        listHomeloan.addAll(spinnerDbController.getHomeLoanData());
-        listCarloan.addAll(spinnerDbController.getCarLoanData());
-        listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
         localSetting=new LocalSetting(getActivity());
+        listHomeloan.addAll(localSetting.getProductSubCategorystring(8));
+        listCarloan.addAll(localSetting.getProductSubCategorystring(9));
+        listPersonalloan.addAll(localSetting.getProductSubCategorystring(10));
+
     }
 
     private void initListener() {
@@ -167,19 +168,19 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                 LongOperation longOperation=new LongOperation();
                 longOperation.execute(i);
 
-                if (s.equals(AppConstant.HOME_LOAN)) {
+                if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
 
                     productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerSubCategory.setAdapter(productSubAdapter);
 
                 }
-                if (s.equals(AppConstant.CAR_LOAN)) {
+                if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
 
                     productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                     spinnerSubCategory.setAdapter(productSubAdapter);
 
                 }
-                if (s.equals(AppConstant.PERSONAL_LOAN)) {
+                if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
                     productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                     spinnerSubCategory.setAdapter(productSubAdapter);
 
@@ -191,6 +192,8 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
                 subCategory = s;
+                LongOperationSubCategory longOperationSubCategory=new LongOperationSubCategory();
+                longOperationSubCategory.execute(i);
             }
         });
 
@@ -496,6 +499,29 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
         @Override
         protected String doInBackground(Integer... params) {
             productTypeCode=localSetting.getProductCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+
+    private class LongOperationSubCategory extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            productSubCatCode=localSetting.getSubCatCode(params[0]);
             return null;
         }
 

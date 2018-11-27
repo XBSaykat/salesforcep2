@@ -63,12 +63,13 @@ public class LeadStageActivity extends BaseActivity {
     private LeadStageVisitRecordFragment leadStageVisitRecordFragment;
     private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
     private LinearLayout mLayout;
-    private MyLeadDataModelApi myLeadDataModelApi=null;
+    private MyLeadDataModelApi myLeadDataModelApi = null;
     private String branchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null;
-    private String userName=null;
+    private String userName = null;
     private int activityPosition;
     public static int myLeadPosition = -1;
     public static VisitPlan visitPlan = null;
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_lead_stage;
@@ -77,13 +78,13 @@ public class LeadStageActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
-        myLeadDataModelApi=new MyLeadDataModelApi();
+        myLeadDataModelApi = new MyLeadDataModelApi();
         initFragments();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Create Lead");
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
-        localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER,userName);
+        localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +174,7 @@ public class LeadStageActivity extends BaseActivity {
 
     private void getDataFromIntent() {
         VisitPlan visitPlan = null;
-        String refId=null;
+        String refId = null;
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
             int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
@@ -184,7 +185,7 @@ public class LeadStageActivity extends BaseActivity {
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 0);
             } else if (status == 1) {
                 refId = extraDetail.getString(AppConstant.INTENT_KEY);
-                bundle.putString(AppConstant.INTENT_KEY,refId);
+                bundle.putString(AppConstant.INTENT_KEY, refId);
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
                 mLayout.setVisibility(View.VISIBLE);
 
@@ -248,39 +249,47 @@ public class LeadStageActivity extends BaseActivity {
 
         followUp = LeadStageVisitRecordFragment.spinnerFollowUp.getSelectedItem();
         //api integate
-                MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
-                //api for proceed lead first time
-                myLeadApi.setLeadReferenceNo("");
-                myLeadApi.setRmCode("336132");
-                myLeadApi.setUserName(userName);
-                myLeadApi.setBranchName(branchName);
-                myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
-                myLeadApi.setCustomerName(name);
-                myLeadApi.setCustomerId(0);
-                myLeadApi.setProfession(profession);
-                myLeadApi.setOrganization(organization);
-                myLeadApi.setDesignation(designation);
-                myLeadApi.setMobileNumberId(0);
-                myLeadApi.setMobileNumber(phone);
-                myLeadApi.setAddressId(0);
-                myLeadApi.setAddress(address);
-                myLeadApi.setSourceOfReference(ref);
-                myLeadApi.setProductId(LeadStageLoanDetailFragment.productTypeCode);
-                myLeadApi.setProduct(productType);
-                myLeadApi.setProductSubCategoryId(0);
-                myLeadApi.setProductSubCategory("Apartment purchase");
-                myLeadApi.setLoanAmount(Integer.valueOf(loanAmount.replace(",","")));
-                myLeadApi.setOfferedInterestRate(Integer.valueOf(interest));
-                myLeadApi.setOfferedProcessFee(Integer.valueOf(fee));
-                myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(disDate));
-                myLeadApi.setVisitId(0);
-                myLeadApi.setFollowUp(followUp);
-                myLeadApi.setFollowUpDate(DateUtils.getDateFormateForSqlite(visitDate));
-                myLeadApi.setRemark(remark);
-        if (refId !=null){
+        MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
+        //api for proceed lead first time
+        myLeadApi.setLeadReferenceNo("");
+        myLeadApi.setRmCode("336132");
+        myLeadApi.setUserName(userName);
+        myLeadApi.setBranchName(branchName);
+        myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+        myLeadApi.setCustomerName(name);
+        myLeadApi.setCustomerId(0);
+        myLeadApi.setProfession(profession);
+        myLeadApi.setOrganization(organization);
+        myLeadApi.setDesignation(designation);
+        myLeadApi.setMobileNumberId(0);
+        myLeadApi.setMobileNumber(phone);
+        myLeadApi.setAddressId(0);
+        myLeadApi.setAddress(address);
+        myLeadApi.setSourceOfReference(ref);
+        myLeadApi.setProductId(LeadStageLoanDetailFragment.productTypeCode);
+        myLeadApi.setProduct(productType);
+        myLeadApi.setProductSubCategoryId(LeadStageLoanDetailFragment.productSubCatCode);
+        myLeadApi.setProductSubCategory(subCat);
+        if (loanAmount != null)
+            myLeadApi.setLoanAmount(Integer.valueOf(loanAmount.replace(",", "")));
+        else
+            myLeadApi.setLoanAmount(0);
+        if (interest != null)
+            myLeadApi.setOfferedInterestRate(Integer.valueOf(interest));
+        else
+            myLeadApi.setOfferedInterestRate(0);
+        if (fee != null)
+            myLeadApi.setOfferedProcessFee(Integer.valueOf(fee));
+        else
+            myLeadApi.setOfferedProcessFee(0);
+        myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(disDate));
+        myLeadApi.setVisitId(0);
+        myLeadApi.setFollowUp(followUp);
+        myLeadApi.setFollowUpDate(DateUtils.getDateFormateForSqlite(visitDate));
+        myLeadApi.setRemark(remark);
+        if (refId != null) {
             myLeadApi.setLeadReferenceNo(refId);
-        }
-        else {
+        } else {
             myLeadApi.setLeadReferenceNo("");
         }
 /*
@@ -380,7 +389,7 @@ public class LeadStageActivity extends BaseActivity {
         builder.setMessage("Do you want to save details?");
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-            MyLeadDataModelApi myLeadDataModelApi=  getDataFromFragment(refId);
+            MyLeadDataModelApi myLeadDataModelApi = getDataFromFragment(refId);
 
             if (refId != null) {
                 if (isNetworkAvailable()) {
@@ -415,8 +424,7 @@ public class LeadStageActivity extends BaseActivity {
                         }
                     });
 
-                }
-                else {
+                } else {
                     int insert = myLeadDbController.updateLeadData(userName, refId, branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
@@ -464,9 +472,8 @@ public class LeadStageActivity extends BaseActivity {
 
                         }
                     });
-                }
-                else {
-                    int insert = myLeadDbController.insertLeadData(userName,"", branchName, name, profession, organization,
+                } else {
+                    int insert = myLeadDbController.insertLeadData(userName, "", branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
                     if (insert > 0) {
@@ -499,11 +506,11 @@ public class LeadStageActivity extends BaseActivity {
         builder.setMessage("Do you want to proceed?");
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-          MyLeadDataModelApi myLeadDataModelApi= getDataFromFragment(refId);
+            MyLeadDataModelApi myLeadDataModelApi = getDataFromFragment(refId);
             int insert = 0;
             if (leadStageAttachmentFragment.attachPp != null
                     && leadStageAttachmentFragment.attachIdcard != null
-                    && leadStageAttachmentFragment.attachvCard != null)  {
+                    && leadStageAttachmentFragment.attachvCard != null) {
                 if (refId != null) {
                     if (isNetworkAvailable()) {
                         getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
@@ -535,8 +542,7 @@ public class LeadStageActivity extends BaseActivity {
 
                             }
                         });
-                    }
-                    else {
+                    } else {
                         insert = myLeadDbController.updateLeadData(userName, refId, branchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
@@ -585,9 +591,8 @@ public class LeadStageActivity extends BaseActivity {
 
                             }
                         });
-                    }
-                    else {
-                         insert = myLeadDbController.insertLeadData(userName,"", branchName, name, profession, organization,
+                    } else {
+                        insert = myLeadDbController.insertLeadData(userName, "", branchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
                         if (insert > 0) {

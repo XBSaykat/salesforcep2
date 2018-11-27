@@ -25,6 +25,7 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,7 @@ public class VisitPlanListActivity extends BaseActivity {
     private VisitPlanDbController myDbController;
     private FollowUpDbController followUpDbController;
     SearchView searchView;
+    LocalSetting localSetting;
     public static int itemPosition=0;
 
     @Override
@@ -55,7 +57,7 @@ public class VisitPlanListActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivityVisitPlanListBinding) getBinding();
         myDbController = new VisitPlanDbController(getContext());
-
+        localSetting=new LocalSetting(this);
         leadList=new ArrayList<>();
         visitPlanList=new ArrayList<>();
         filterList=new ArrayList<>();
@@ -69,7 +71,6 @@ public class VisitPlanListActivity extends BaseActivity {
         binding.rvMyLead.setLayoutManager(mLayoutManager);
         binding.rvMyLead.setAdapter(myLeadAdapter);
         myLeadAdapter.notifyDataSetChanged();
-
         initListener();
 
     }
