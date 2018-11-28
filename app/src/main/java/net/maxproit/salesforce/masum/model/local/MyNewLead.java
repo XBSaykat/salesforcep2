@@ -6,6 +6,7 @@ public class MyNewLead implements Serializable {
 
     private String userID;
     private String refNumber;
+    private String syncStatus;
     private String branchName;
     private String userName;
     private String profession;
@@ -25,15 +26,9 @@ public class MyNewLead implements Serializable {
     private String followUp;
     private String remark;
     private String status;
-    private int id;
 
-    public String getLoadAmount() {
-        return loadAmount;
-    }
 
-    public String getDisDate() {
-        return disDate;
-    }
+    private int id,cusId,mobileId,addressId,visitId;
 
 
     public MyNewLead(String branchName, String userName, String profession,
@@ -88,12 +83,16 @@ public class MyNewLead implements Serializable {
         this.status = status;
     }
 
-    public MyNewLead(String userID,String refNumber,int id, String branchName, String userName, String profession,
+    public MyNewLead(String userID,String refNumber,int cusId,int mobileId,int addressId,int visitId,int id, String branchName, String userName, String profession,
                      String organization, String designation, String phone,
                      String address, String sourceRef, String productType,
                      String productSubcategory, String loadAmount, String orInterest,
-                     String opFee, String disDate, String visitDate, String followUp, String remark, String status) {
+                     String opFee, String disDate, String visitDate, String followUp, String remark, String status,String syncStatus) {
         this.id = id;
+        this.cusId = cusId;
+        this.mobileId = mobileId;
+        this.addressId = addressId;
+        this.visitId = visitId;
         this.userID = userID;
         this.refNumber = refNumber;
         this.branchName = branchName;
@@ -114,6 +113,35 @@ public class MyNewLead implements Serializable {
         this.followUp = followUp;
         this.remark = remark;
         this.status = status;
+        this.syncStatus = syncStatus;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public String getRefNumber() {
+        return refNumber;
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public int getCusId() {
+        return cusId;
+    }
+
+    public int getMobileId() {
+        return mobileId;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public int getVisitId() {
+        return visitId;
     }
 
     public void setStatus(String status) {
@@ -190,5 +218,13 @@ public class MyNewLead implements Serializable {
 
     public String getRemark() {
         return remark;
+    }
+
+    public String getLoadAmount() {
+        return loadAmount;
+    }
+
+    public String getDisDate() {
+        return disDate;
     }
 }

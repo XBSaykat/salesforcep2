@@ -25,6 +25,11 @@ public class DbConstants {
 
     //lead table
     public static final String _L_ID = "_id";
+    public static final String CUSTOMER_ID = "customer_id";
+    public static final String MOBILE_ID = "mobile_id";
+    public static final String ADDRESS_ID = "address_id";
+    public static final String VISIT_ID = "visit_id";
+
     public static final String LEAD_BRANCH_NAME = "branch";
     public static final String USER_ID = "user_id";
     public static final String REF_NUMBER = "ref_number";
@@ -86,6 +91,7 @@ public class DbConstants {
     public static final String PROSPECT_FEE = "fee";
 
     public static final String LEAD_STATUS = "status";
+    public static final String SYNC_STATUS = "sync";
 
     //car loan
 
@@ -137,6 +143,10 @@ public class DbConstants {
             "CREATE TABLE " + TABLE_LEAD + " (" +
                     _L_ID + " INTEGER PRIMARY KEY," +
                     USER_ID + TEXT_TYPE + COMMA_SEP +
+                    CUSTOMER_ID + INTEGER_TYPE + COMMA_SEP +
+                    MOBILE_ID + INTEGER_TYPE + COMMA_SEP +
+                    ADDRESS_ID + INTEGER_TYPE + COMMA_SEP +
+                    VISIT_ID + INTEGER_TYPE + COMMA_SEP +
                     REF_NUMBER + TEXT_TYPE + COMMA_SEP +
                     LEAD_BRANCH_NAME + TEXT_TYPE + COMMA_SEP +
                     LEAD_PROFESSION + TEXT_TYPE + COMMA_SEP +
@@ -189,6 +199,7 @@ public class DbConstants {
                     PROSPECT_LOAD_TERM + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_PI_RATE + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_FEE + TEXT_TYPE + COMMA_SEP +
+                    SYNC_STATUS + TEXT_TYPE + COMMA_SEP +
                     LEAD_STATUS + TEXT_TYPE + " )";
 
 

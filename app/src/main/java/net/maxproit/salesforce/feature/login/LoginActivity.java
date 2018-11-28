@@ -25,12 +25,20 @@ import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervi
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
+import net.maxproit.salesforce.masum.model.api.MyLeadDataModelApi;
+import net.maxproit.salesforce.masum.model.api.MyOldLeadApi;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.model.login.Login;
 import net.maxproit.salesforce.model.login.LoginResponse;
 import net.maxproit.salesforce.model.setting.GlobalSettings;
+import net.maxproit.salesforce.network.ApiService;
+import net.maxproit.salesforce.network.RestClient;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -70,6 +78,7 @@ public class LoginActivity extends BaseActivity {
     String manufacturingCountry[] = null;
     String vehicleType[] = null;
     String validPhoto[] = null;
+    private MyLeadDbController myLeadDbController;
 
     @Override
     protected int getLayoutResourceId() {
@@ -108,6 +117,40 @@ public class LoginActivity extends BaseActivity {
             }
 
         }
+        if (isNetworkAvailable()) {
+            ArrayList<MyNewLead> myLeadList = new ArrayList<>();
+            myLeadDbController = new MyLeadDbController(this);
+            myLeadList.addAll(myLeadDbController.getDataForSync());
+
+            Log.e("status", "connected");
+            myLeadList = new ArrayList<>();
+            myLeadDbController = new MyLeadDbController(this);
+            myLeadList.addAll(myLeadDbController.getDataForSync());
+            if (myLeadList.size()>0) {
+                for (int i = 0; i < myLeadList.size(); i++) {
+                    MyNewLead myNewLead = myLeadList.get(i);
+                    MyLeadDataModelApi myLeadDataModelApi = myLeadDataModelApi(myNewLead);
+                    getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
+                        @Override
+                        public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
+                            Log.e("status", "call to server");
+                            if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                               // myLeadDbController.updateSyncDataStatus(myNewLead.getId(), AppConstant.SYNC_STATUS_OK);
+                                Log.e("status", "save to server");
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+            }
+        }
+
 
         binding.btnLogin.setOnClickListener(v -> {
 
@@ -457,6 +500,46 @@ public class LoginActivity extends BaseActivity {
 
         }
 
+    }
+
+
+
+
+
+
+
+    private MyLeadDataModelApi myLeadDataModelApi(MyNewLead myNewLead) {
+        MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
+        myLeadApi.setRmCode("336132");
+        myLeadApi.setUserName("masif");
+        myLeadApi.setBranchName("Gulshan");
+        myLeadApi.setBranchCode(105);
+        myLeadApi.setCustomerName("ahmed rayhan");
+        myLeadApi.setCustomerId(0);
+        myLeadApi.setProfession("Software Engineer");
+        myLeadApi.setOrganization( "IDLC Finance Limited");
+        myLeadApi.setDesignation( "Senior Software Engineer");
+        myLeadApi.setMobileNumberId(0);
+        myLeadApi.setMobileNumber("01717695590");
+        myLeadApi.setAddressId(0);
+        myLeadApi.setAddress("53, Bay's Galleria, Gulshan-1, Dhaka");
+        myLeadApi.setSourceOfReference("string");
+        myLeadApi.setProductId(8);
+        myLeadApi.setProduct("Home Loan");
+        myLeadApi.setProductSubCategoryId(34);
+        myLeadApi.setProductSubCategory("Apartment purchase");
+        myLeadApi.setLoanAmount(50000);
+        myLeadApi.setOfferedInterestRate(5);
+        myLeadApi.setOfferedProcessFee(5);
+        myLeadApi.setDisbursementDate( "2018-11-20");
+        myLeadApi.setVisitId(0);
+        myLeadApi.setFollowUp("yes");
+        myLeadApi.setFollowUpDate( "2018-11-20");
+        myLeadApi.setRemark("re");
+        myLeadApi.setLeadReferenceNo("");
+
+
+        return myLeadApi;
     }
 
 

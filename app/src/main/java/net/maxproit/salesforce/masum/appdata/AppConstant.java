@@ -60,4 +60,6 @@ public class AppConstant {
     public static final String PERMANENT_ADDRESSS_KEY = "permanent";
     public static final String PRESENT_ADDRESSS_KEY = "present";
     public static final String IS_NETWORK_AVAILABLE = "isNetworkAvailable";
+    public static final String SYNC_STATUS_OK ="ok" ;
+    public static final String SYNC_STATUS_WAIT ="wait" ;
 }

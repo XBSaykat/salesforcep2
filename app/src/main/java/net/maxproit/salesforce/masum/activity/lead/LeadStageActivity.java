@@ -11,11 +11,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.App;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
@@ -25,6 +27,7 @@ import net.maxproit.salesforce.masum.fragment.lead.LeadStageAttachmentFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageVisitRecordFragment;
+import net.maxproit.salesforce.masum.model.api.Data;
 import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.api.MyLeadDataModelApi;
 import net.maxproit.salesforce.masum.model.api.MyOldLeadApi;
@@ -42,6 +45,7 @@ import net.maxproit.salesforce.masum.utility.ImageUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -201,7 +205,7 @@ public class LeadStageActivity extends BaseActivity {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialogProceed(finalRefId);
+              //  alertDialogProceed(finalRefId);
             }
         });
 
@@ -209,7 +213,7 @@ public class LeadStageActivity extends BaseActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialogSave(finalRefId);
+               // alertDialogSave(finalRefId);
             }
         });
 
@@ -292,33 +296,6 @@ public class LeadStageActivity extends BaseActivity {
         } else {
             myLeadApi.setLeadReferenceNo("");
         }
-/*
-        myLeadApi.setRmCode("336132");
-        myLeadApi.setUserName(userName);
-        myLeadApi.setBranchName(branchName);
-        myLeadApi.setBranchCode(105);
-        myLeadApi.setCustomerName(name);
-        myLeadApi.setCustomerId(0);
-        myLeadApi.setProfession(profession);
-        myLeadApi.setOrganization(organization);
-        myLeadApi.setDesignation(designation);
-        myLeadApi.setMobileNumberId(0);
-        myLeadApi.setMobileNumber(phone);
-        myLeadApi.setAddressId(0);
-        myLeadApi.setAddress(address);
-        myLeadApi.setSourceOfReference(ref);
-        myLeadApi.setProductId(0);
-        myLeadApi.setProduct(productType);
-        myLeadApi.setProductSubCategoryId(0);
-        myLeadApi.setProductSubCategory("Apartment purchase");
-        myLeadApi.setLoanAmount(50000);
-        myLeadApi.setOfferedInterestRate(20);
-        myLeadApi.setOfferedProcessFee(10);
-        myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(disDate));
-        myLeadApi.setVisitId(0);
-        myLeadApi.setFollowUp(followUp);
-        myLeadApi.setFollowUpDate(DateUtils.getDateFormateForSqlite(visitDate));
-        myLeadApi.setRemark(remark);*/
 
         return myLeadApi;
     }
@@ -398,21 +375,32 @@ public class LeadStageActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
                             if (response.isSuccessful()) {
-                                if (response.body().getCode() == "200" && response.body().getStatus().equalsIgnoreCase("ok")) {
-                                    int insert = myLeadDbController.updateLeadData(userName, refId, branchName, name, profession, organization,
+                                if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                    int insert = myLeadDbController.updateLeadData(userName, refId,0,0,0,0, branchName, name, profession, organization,
                                             designation, phone, address, ref, productType, subCat,
-                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
+                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
                                     if (insert > 0) {
-                                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                                        Log.e("data","update into local and server");
                                         ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                                         //insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
 
                                     } else {
-                                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                                        Log.e("data","failed into local but update to server");
                                     }
                                 }
                             } else {
-                                Toast.makeText(LeadStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                                int insert = myLeadDbController.updateLeadData(userName, refId,0,0,0,0, branchName, name, profession, organization,
+                                        designation, phone, address, ref, productType, subCat,
+                                        loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
+                                if (insert > 0) {
+                                    Log.e("data","internet not connected update into local");
+                                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                                    //insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
+
+                                } else {
+                                    Log.e("data save","internet not connected also failed into local");
+
+                                }
 
                             }
 
@@ -425,16 +413,16 @@ public class LeadStageActivity extends BaseActivity {
                     });
 
                 } else {
-                    int insert = myLeadDbController.updateLeadData(userName, refId, branchName, name, profession, organization,
+                    int insert = myLeadDbController.updateLeadData(userName, refId,0,0,0,0,branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
                     if (insert > 0) {
-                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                        Log.e("data","internet not connected  update into local");
                         ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                         //insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
 
                     } else {
-                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                        Log.e("data","internet not connected also failed into local");
                     }
                 }
 
@@ -448,20 +436,34 @@ public class LeadStageActivity extends BaseActivity {
                         public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
                             if (response.isSuccessful()) {
                                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                                    int insert = myLeadDbController.insertLeadData(response.body().getData().getUserName(), response.body().getData().getLeadReferenceNo(), branchName, name, profession, organization,
+                                    Data data=response.body().getData();
+                                    int insert = myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(),data.getCustomerId(),data.getMobileNumberId(),data.getVisitId(),data.getAddressId(), branchName, name, profession, organization,
                                             designation, phone, address, ref, productType, subCat,
-                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
+                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
                                     if (insert > 0) {
                                         ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-                                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                                        Log.e("data","internet  connected also save into local and server");
+
                                         insertAttachmentData(insert, null);
 
                                     } else {
-                                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                                        Log.e("data","internet  connected save failed into local but save into server");
+
                                     }
                                 }
                             } else {
-                                Toast.makeText(LeadStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                                int insert = myLeadDbController.insertLeadData(userName, "",0,0,0,0, branchName, name, profession, organization,
+                                        designation, phone, address, ref, productType, subCat,
+                                        loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
+                                if (insert > 0) {
+                                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                                    Log.e("data","internet connected save into local failed into server");
+                                    insertAttachmentData(insert, null);
+
+                                } else {
+                                    Log.e("data","internet  connected also failed into local and server");
+                                }
+
 
                             }
 
@@ -473,16 +475,16 @@ public class LeadStageActivity extends BaseActivity {
                         }
                     });
                 } else {
-                    int insert = myLeadDbController.insertLeadData(userName, "", branchName, name, profession, organization,
+                    int insert = myLeadDbController.insertLeadData(userName, "",0,0,0,0, branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
-                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
                     if (insert > 0) {
                         ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                        Log.e("data","internet not connected  save into local");
                         insertAttachmentData(insert, null);
 
                     } else {
-                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                        Log.e("data","internet not connected  failed into local");
                     }
                 }
 
@@ -517,10 +519,10 @@ public class LeadStageActivity extends BaseActivity {
                             @Override
                             public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
                                 if (response.isSuccessful()) {
-                                    if (response.body().getCode() == "200" && response.body().getStatus().equalsIgnoreCase("ok")) {
-                                        int insert = myLeadDbController.updateLeadData(userName, refId, branchName, name, profession, organization,
+                                    if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                        int insert = myLeadDbController.updateLeadData(userName, refId, 0,0,0,0,branchName, name, profession, organization,
                                                 designation, phone, address, ref, productType, subCat,
-                                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
+                                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
                                         if (insert > 0) {
                                             Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                                             ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
@@ -531,7 +533,17 @@ public class LeadStageActivity extends BaseActivity {
                                         }
                                     }
                                 } else {
-                                    Toast.makeText(LeadStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                                    int insert = myLeadDbController.updateLeadData(userName, refId,0,0, 0,0,branchName, name, profession, organization,
+                                            designation, phone, address, ref, productType, subCat,
+                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
+                                    if (insert > 0) {
+                                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                                        //insertAttachmentData(finalMyNewLead.getId(), finalMyNewLead);
+
+                                    } else {
+                                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 }
 
@@ -543,9 +555,9 @@ public class LeadStageActivity extends BaseActivity {
                             }
                         });
                     } else {
-                        insert = myLeadDbController.updateLeadData(userName, refId, branchName, name, profession, organization,
+                        insert = myLeadDbController.updateLeadData(userName, refId,0,0,0,0, branchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
-                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW);
+                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
                         if (insert > 0) {
                             Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
                             ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
@@ -566,10 +578,11 @@ public class LeadStageActivity extends BaseActivity {
                             @Override
                             public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
                                 if (response.isSuccessful()) {
-                                    if (response.body().getCode() == "200" && response.body().getStatus().equalsIgnoreCase("ok")) {
-                                        int insert = myLeadDbController.insertLeadData(response.body().getData().getUserName(), response.body().getData().getLeadReferenceNo(), branchName, name, profession, organization,
+                                    if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                        Data data=response.body().getData();
+                                        int insert = myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(),data.getCustomerId(),data.getMobileNumberId(),data.getVisitId(),data.getAddressId(), branchName, name, profession, organization,
                                                 designation, phone, address, ref, productType, subCat,
-                                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
+                                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_OK);
                                         if (insert > 0) {
                                             ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                                             Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
@@ -580,7 +593,17 @@ public class LeadStageActivity extends BaseActivity {
                                         }
                                     }
                                 } else {
-                                    Toast.makeText(LeadStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                                    int insert = myLeadDbController.insertLeadData(userName, "",0,0,0,0, branchName, name, profession, organization,
+                                            designation, phone, address, ref, productType, subCat,
+                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
+                                    if (insert > 0) {
+                                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                                        insertAttachmentData(insert, null);
+
+                                    } else {
+                                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 }
 
@@ -592,9 +615,9 @@ public class LeadStageActivity extends BaseActivity {
                             }
                         });
                     } else {
-                        insert = myLeadDbController.insertLeadData(userName, "", branchName, name, profession, organization,
+                        insert = myLeadDbController.insertLeadData(userName, "",0,0,0,0, branchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
-                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT);
+                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
                         if (insert > 0) {
                             ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                             Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();

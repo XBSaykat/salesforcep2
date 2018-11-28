@@ -61,7 +61,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     Calendar myCalendar = Calendar.getInstance();
 
     TextView tvTentativeNumberToWord;
-
+    boolean isFirst=false;
     //TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -164,26 +164,34 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
 //                productType = i;
-                productType = s;
-                LongOperation longOperation=new LongOperation();
-                longOperation.execute(i);
-
-                if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
-
+                String refId = getArguments().getString(AppConstant.INTENT_KEY);
+                if (refId ==null){
+                    isFirst=true;
                 }
-                if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+                if (isFirst) {
+                    productType = s;
+                    LongOperation longOperation = new LongOperation();
+                    longOperation.execute(i);
+                    if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
 
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
 
+                    }
+                    if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
+                    if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
                 }
-                if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
-
+                else {
+                    isFirst=true;
                 }
 
             }
@@ -364,40 +372,35 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                                 if (data.getProduct() != null) {
                                     try {
                                         spinnerProductType.setSelection(productTypeAdapter.getPosition(data.getProduct()));
-                                    } catch (IllegalStateException ignored) {
-                                    } catch (NullPointerException e) {
+                                    }
+                                    catch (IllegalStateException ignored){
 
                                     }
+
                                     if (data.getProduct().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                                        spinnerSubCategory.setAdapter(productSubAdapter);
-                                        try {
+                                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                                         spinnerSubCategory.setAdapter(productSubAdapter);
 
-                                            spinnerSubCategory.setSelection(productSubAdapter.
-                                                    getPosition(data.getProductSubCategory()));
-                                        } catch (IllegalStateException ignored) {
-                                        }
                                     } else if (data.getProduct().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                                         spinnerSubCategory.setAdapter(productSubAdapter);
-                                        try {
 
-                                            spinnerSubCategory.setSelection(productSubAdapter.
-                                                    getPosition(data.getProductSubCategory()));
-                                        } catch (IllegalStateException ignored) {
-                                        }
 
                                     } else if (data.getProduct().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                                        ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                                         spinnerSubCategory.setAdapter(productSubAdapter);
-                                        try {
 
-                                            spinnerSubCategory.setSelection(productSubAdapter.
-                                                    getPosition(data.getProductSubCategory()));
-                                        } catch (IllegalStateException ignored) {
-                                        }
 
                                     }
+
+                                    try {
+
+                                        spinnerSubCategory.setSelection(productSubAdapter.
+                                                getPosition(data.getProductSubCategory()));
+                                    } catch (IllegalStateException ignored) {
+                                    }
+
+
                                 }
 
                             }

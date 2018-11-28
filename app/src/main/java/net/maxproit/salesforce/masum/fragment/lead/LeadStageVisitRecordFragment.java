@@ -165,7 +165,9 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
 //        spinnerRemarks.setAdapter(remarksAdapter, 0);
         initListener();
         if (getArguments() != null) {
-            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
+            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY,-1);
+            if (status<0)
+                return;
 
             if (status == 0) {
                 VisitPlan visitPlan = (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
@@ -182,23 +184,31 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
                         public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
                             if (response.isSuccessful()) {
                                 Data myNewLead = response.body().getData();
-                                try {
-                                    spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
-                                } catch (final IllegalStateException ignored) {
-
-                                }
-                                if (myNewLead.getFollowUp() != null) {
-                                    if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")) {
-                                        if (etVisitDate.getVisibility() != View.VISIBLE) {
-                                            etVisitDate.setVisibility(View.VISIBLE);
-                                        }
-                                        etVisitDate.setText(myNewLead.getFollowUpDate());
-                                        etRemark.setText(myNewLead.getRemark());
-
-                                    } else if (myNewLead.getFollowUp().equalsIgnoreCase("No")) {
-                                        spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                                if (myNewLead.getFollowUpDate() !=null){
+                                    try {
+                                        spinnerFollowUp.setSelection(1);
+                                    } catch (final IllegalStateException ignored) {
 
                                     }
+                                    if (etVisitDate.getVisibility() != View.VISIBLE) {
+                                        etVisitDate.setVisibility(View.VISIBLE);
+                                    }
+                                    etVisitDate.setText(myNewLead.getFollowUpDate());
+                                    etRemark.setText(myNewLead.getRemark());
+                                }
+                              else {
+                                    try {
+                                        spinnerFollowUp.setSelection(0);
+                                    } catch (final IllegalStateException ignored) {
+
+                                    }
+                                    try {
+                                        spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                                    }
+                                    catch (final IllegalStateException ignored) {
+
+                                    }
+
                                 }
                             }
                         }
