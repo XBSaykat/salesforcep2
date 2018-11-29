@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
     public LeadStageBasicInformationFragment() {
         // Required empty public constructor
+        Log.e("crash","basic");
     }
 
     /**
@@ -163,12 +165,6 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
         spinnerDbController = new SpinnerDbController(getActivity());
         mLocalSettting = new LocalSetting(getActivity());
-
-        listBranchArray = new ArrayList<String>();
-        listProfessionArray = new ArrayList<String>();
-        listBranchArray.addAll(spinnerDbController.getBranchData());
-        listProfessionArray.addAll(spinnerDbController.getProfessionData());
-
 
         spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
         spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
@@ -256,42 +252,27 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                     etAddress.setText(visitPlan.getPoliceStation() + "," + visitPlan.getCity());
                 }
             } else {
-                String random = UUID.randomUUID().toString();
 
-                String refId = getArguments().getString(AppConstant.INTENT_KEY);
-                if (refId != null) {
-                    getApiService().getLeadDataByRef(refId, random).enqueue(new Callback<MyLeadByRefApi>() {
-                        @Override
-                        public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
-                            if (response.isSuccessful()) {
-                                Data data=response.body().getData();
-                                etUserName.setText(data.getCustomerName());
-                                etPhone.setText(data.getMobileNumber());
-                                etAddress.setText(data.getAddress());
-                                etUserOrganization.setText(data.getOrganization());
-                                etDesignattion.setText(data.getDesignation());
-                                if (data.getBranchName() != null ) {
-                                    try {
-                                        spinnerBranchName.setSelection(branchAdapter.getPosition(data.getBranchName()));
-                                    } catch (final IllegalStateException ignored) {
-                                    } catch (NullPointerException e) {
-                                    }
-                                }
-                                    if (data.getProfession() != null) {
-                                        try {
-                                            spinnerProfession.setSelection(professionAdapter.getPosition(data.getProfession()));
-                                        } catch (final IllegalStateException ignored) {
-                                        }
-                                    }
-                            }
+                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead != null) {
+                    etUserName.setText(myNewLead.getUserName());
+                    etPhone.setText(myNewLead.getPhone());
+                    etAddress.setText(myNewLead.getAddress());
+                    etUserOrganization.setText(myNewLead.getOrganization());
+                    etDesignattion.setText(myNewLead.getDesignation());
+                    if (myNewLead.getBranchName() != null ) {
+                        try {
+                            spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
+                        } catch (final IllegalStateException ignored) {
+                        } catch (NullPointerException e) {
                         }
-
-                        @Override
-                        public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
-                            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
-
+                    }
+                    if (myNewLead.getProfession() != null) {
+                        try {
+                            spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
+                        } catch (final IllegalStateException ignored) {
                         }
-                    });
+                    }
 
                 }
 

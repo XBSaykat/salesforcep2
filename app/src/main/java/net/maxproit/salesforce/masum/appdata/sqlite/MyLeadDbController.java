@@ -22,7 +22,7 @@ public class MyLeadDbController {
         mContext = context;
     }
 
-    public int insertLeadData(String userId,String referenceNumber,int c_id,int m_id,int v_id,int a_id,String branchName, String uName, String profession, String organization, String designation,
+    public int insertLeadData(String userId,String referenceNumber,int c_id,int m_id,int v_id,int a_id,int b_code,int p_code,int sub_code,String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
                                       interest, String fee, String disDate, String date, String follow, String remark,String status,String syncStatus) {
 
@@ -34,6 +34,7 @@ public class MyLeadDbController {
         values.put(DbConstants.VISIT_ID, v_id);
         values.put(DbConstants.ADDRESS_ID, a_id);
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
+        values.put(DbConstants.LEAD_BRANCH_CODE, b_code);
         values.put(DbConstants.LEAD_USER_NAME, uName);
         values.put(DbConstants.LEAD_PROFESSION, profession);
         values.put(DbConstants.LEAD_ORGANIZATION, organization);
@@ -42,7 +43,9 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_ADDRESS, address);
         values.put(DbConstants.LEAD_REF, ref);
         values.put(DbConstants.LEAD_PRODUCT_TYPE, product);
+        values.put(DbConstants.LEAD_PRODUCT_CODE, p_code);
         values.put(DbConstants.LEAD_PRODUCT_SUBCATEGORY, subCat);
+        values.put(DbConstants.LEAD_SUBCAT_CODE, sub_code);
         values.put(DbConstants.TENTETIVE_LEAD_AMOUNT, amount);
         values.put(DbConstants.LEAD_OR_INTEREST, interest);
         values.put(DbConstants.LEAD_OP_FEE, fee);
@@ -61,7 +64,7 @@ public class MyLeadDbController {
     }
 
 
-    public int updateLeadData(String userName,String referenceNumber,int c_id,int m_id,int v_id,int a_id,String branchName, String uName, String profession, String organization, String designation,
+    public int updateLeadData(String userName,String referenceNumber,int c_id,int m_id,int v_id,int a_id,int b_code,int p_code,int sub_code,String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
                                       interest, String fee, String disDate, String date, String follow, String remark,String status,String synStatus) {
 
@@ -74,6 +77,9 @@ public class MyLeadDbController {
             values.put(DbConstants.MOBILE_ID, m_id);
             values.put(DbConstants.VISIT_ID, v_id);
             values.put(DbConstants.ADDRESS_ID, a_id);
+            values.put(DbConstants.LEAD_BRANCH_CODE, b_code);
+            values.put(DbConstants.LEAD_PRODUCT_CODE, p_code);
+            values.put(DbConstants.LEAD_SUBCAT_CODE, sub_code);
         }
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
         values.put(DbConstants.LEAD_USER_NAME, uName);
@@ -186,8 +192,15 @@ public class MyLeadDbController {
         String[] projection = {
                 DbConstants._L_ID,
                 DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.VISIT_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -230,8 +243,15 @@ public class MyLeadDbController {
         String[] projection = {
                 DbConstants._L_ID,
                 DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.VISIT_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -274,8 +294,15 @@ public class MyLeadDbController {
         String[] projection = {
                 DbConstants._L_ID,
                 DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.VISIT_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -320,11 +347,14 @@ public class MyLeadDbController {
                 DbConstants._L_ID,
                 DbConstants.USER_ID,
                 DbConstants.CUSTOMER_ID,
-                DbConstants.VISIT_ID,
+                DbConstants.ADDRESS_ID,
                 DbConstants.MOBILE_ID,
                 DbConstants.VISIT_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -368,11 +398,14 @@ public class MyLeadDbController {
                 DbConstants._L_ID,
                 DbConstants.USER_ID,
                 DbConstants.CUSTOMER_ID,
-                DbConstants.VISIT_ID,
+                DbConstants.ADDRESS_ID,
                 DbConstants.MOBILE_ID,
                 DbConstants.VISIT_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -451,11 +484,14 @@ public class MyLeadDbController {
                 DbConstants._L_ID,
                 DbConstants.USER_ID,
                 DbConstants.CUSTOMER_ID,
-                DbConstants.VISIT_ID,
+                DbConstants.ADDRESS_ID,
                 DbConstants.MOBILE_ID,
                 DbConstants.VISIT_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -532,11 +568,14 @@ public class MyLeadDbController {
                 DbConstants._L_ID,
                 DbConstants.USER_ID,
                 DbConstants.CUSTOMER_ID,
-                DbConstants.VISIT_ID,
+                DbConstants.ADDRESS_ID,
                 DbConstants.MOBILE_ID,
                 DbConstants.VISIT_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -614,11 +653,14 @@ public class MyLeadDbController {
                 DbConstants._L_ID,
                 DbConstants.USER_ID,
                 DbConstants.CUSTOMER_ID,
-                DbConstants.VISIT_ID,
+                DbConstants.ADDRESS_ID,
                 DbConstants.MOBILE_ID,
                 DbConstants.VISIT_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -703,6 +745,10 @@ public class MyLeadDbController {
                     int m_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.MOBILE_ID));
                     int adress_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.ADDRESS_ID));
                     int visit_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.VISIT_ID));
+                    int branchCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_CODE));
+                    int productCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_PRODUCT_CODE));
+                    int subCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_SUBCAT_CODE));
+
                     String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
                     String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
@@ -726,7 +772,7 @@ public class MyLeadDbController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new MyNewLead(userId,refnumber,cus_id,m_id,adress_id,visit_id,id, branchName, userName, profession, organization, designation, phone, address, ref
+                    favDataArray.add(new MyNewLead(userId,refnumber,cus_id,m_id,adress_id,visit_id,branchCode,productCode,subCode,id, branchName, userName, profession, organization, designation, phone, address, ref
                             , productType, subCategory, amount, interest, fee, disDate, visitDate, followUp, remark, status,synStatus));
                 } while (c.moveToNext());
             }
@@ -748,6 +794,9 @@ public class MyLeadDbController {
                     int m_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.MOBILE_ID));
                     int adress_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.ADDRESS_ID));
                     int visit_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.VISIT_ID));
+                    int branchCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_CODE));
+                    int productCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_PRODUCT_CODE));
+                    int subCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_SUBCAT_CODE));
                     String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
                     String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
@@ -809,7 +858,7 @@ public class MyLeadDbController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new MyNewProspect(userId,refnumber,cus_id,m_id,adress_id,visit_id,id,branchName, userName, profession,
+                    favDataArray.add(new MyNewProspect(userId,refnumber,cus_id,m_id,adress_id,visit_id,branchCode,productCode,subCode,id,branchName, userName, profession,
                             organization, designation, phone,
                             address, ref, productType,
                             subCategory, amount,

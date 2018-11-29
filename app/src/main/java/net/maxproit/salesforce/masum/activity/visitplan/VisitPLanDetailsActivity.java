@@ -38,6 +38,7 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     private CardView tvProceedToLead, tvRejected, tvSave;
     Intent myActivityItemIntent;
     LinearLayout secMobiile;
+    private LocalSetting localSetting;
     int itemPosition;
     List<String> listClientType, listProductType, listPurpose;
     private ArrayAdapter<String> productTypeAdapter;
@@ -103,6 +105,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     }
 
     private void initVariable() {
+        localSetting=new LocalSetting(this);
         visitPlanDbController = new VisitPlanDbController(this);
         spinnerDbController = new SpinnerDbController(this);
         followUpDbController = new FollowUpDbController(getContext());
@@ -222,18 +225,16 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         lPrtype = findViewById(R.id.secProductType);
         layoutPurOfvisit = findViewById(R.id.lyout_purpose_of_visit);
         lPTypeSpinner = findViewById(R.id.secProductTypeSpinner);
-        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
+        secMobiile = (LinearLayout) findViewById(R.id.secinput_mobile_no);
+        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localSetting.getSourceOfRefString());
         spinnerClientType.setAdapter(adptrClientType);
-        adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPurpose);
+        adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localSetting.getVisitPurposeTypeStringList());
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
         spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
-        productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listProductType);
+        productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
         backButton = (ImageView) findViewById(R.id.btn_back);
         getDataFromVisitPlan();
-        secMobiile = (LinearLayout) findViewById(R.id.secinput_mobile_no);
-//        secMobiile.setVisibility(View.GONE);
-
         tvMobileNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -305,23 +306,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         tvProceedToLead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(spinnerClientType.getSelectedItem() == null || spinnerPurposeOfVisit.getSelectedItem() == null
-//                        || spinnerProductType.getSelectedItem() == null ){
-//
-//                    android.app.AlertDialog.Builder builder;
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-//                    } else {
-//                        builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
-//                    }
-//                    builder.setIcon(R.drawable.ic_required);
-//                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
-//                    builder.setNegativeButton("OK", null);
-//                    android.app.AlertDialog dialog = builder.create();
-//                    dialog.show();
-//                } else {
-//                    alertDialogProceed();
-//                }
                 alertDialogProceed();
             }
         });

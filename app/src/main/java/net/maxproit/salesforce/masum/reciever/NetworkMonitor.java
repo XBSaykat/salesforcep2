@@ -29,7 +29,7 @@ public class NetworkMonitor extends BroadcastReceiver {
         boolean status = NetworkUtil.getConnectivityStatusString(context);
 
         if (status) {
-         /*   ArrayList<MyNewLead> myLeadList = new ArrayList<>();
+            ArrayList<MyNewLead> myLeadList = new ArrayList<>();
             myLeadDbController = new MyLeadDbController(context);
             myLeadList.addAll(myLeadDbController.getDataForSync());
 
@@ -57,7 +57,7 @@ public class NetworkMonitor extends BroadcastReceiver {
                         }
                     });
 
-                }*/
+                }
             } else {
                 Log.e("status", "not connected");
             }

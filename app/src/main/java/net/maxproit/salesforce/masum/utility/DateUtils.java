@@ -8,42 +8,42 @@ import java.util.Date;
 public class DateUtils {
 
 
-    public static String getDateString(){
+    public static String getDateString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        Date date=new Date();
-        String strDate=sdf.format(date);
+        Date date = new Date();
+        String strDate = sdf.format(date);
         return strDate;
     }
 
-    public static String getDateStringSqLite(){
+    public static String getDateStringSqLite() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date=new Date();
-        String strDate=sdf.format(date);
+        Date date = new Date();
+        String strDate = sdf.format(date);
         return strDate;
     }
 
 
-
-    public static String getDateFormateForSqlite(String date){
+    public static String getDateFormateForSqlite(String date) {
         SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate=null;
+        String strDate = null;
         try {
             Date newDate = sdfStr.parse(date);
-             strDate=sdf.format(newDate);
+            strDate = sdf.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         return strDate;
     }
-   public static String getDateFormateEt(String date){
+
+    public static String getDateFormateEt(String date) {
         SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate=null;
+        String strDate = null;
         try {
             Date newDate = sdf.parse(date);
-             strDate=sdfStr.format(newDate);
+            strDate = sdfStr.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -73,28 +73,27 @@ public class DateUtils {
             status = 2;
         } else if (date1.compareTo(date2) < 0) {
             status = 1;
-        }
-        else if (date1.compareTo(date2) == 0) {
+        } else if (date1.compareTo(date2) == 0) {
             status = 0;
         }
         return status;
     }
 
-    public static String afterAMonth(){
+    public static String afterAMonth() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, 1);
         Date date = cal.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate=sdf.format(date);
+        String strDate = sdf.format(date);
         return strDate;
     }
 
-    public static String beforeAMonth(){
+    public static String beforeAMonth() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -1);
         Date date = cal.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate=sdf.format(date);
+        String strDate = sdf.format(date);
         return strDate;
     }
 

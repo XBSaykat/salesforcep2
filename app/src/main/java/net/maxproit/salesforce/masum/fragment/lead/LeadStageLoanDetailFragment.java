@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.api.Data;
 import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
@@ -116,6 +118,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //Inflate the layout for this fragment
+        Log.e("crash","loan");
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_loan_detail, container, false);
         initVariable();
@@ -134,6 +137,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     }
 
     private void initVariable() {
+        localSetting=new LocalSetting(getActivity());
         spinnerDbController = new SpinnerDbController(getActivity());
         listSourceReference = new ArrayList<String>();
         listProductType = new ArrayList<String>();
@@ -142,9 +146,6 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
         listHomeloan = new ArrayList<String>();
         listPersonalloan = new ArrayList<String>();
         listSourceReference.addAll(spinnerDbController.getSourceOfReferenceData());
-        listProductType.addAll(spinnerDbController.getProductTypeData());
-        listProductSubCategory.addAll(spinnerDbController.getProductSubcategoryData());
-        localSetting=new LocalSetting(getActivity());
         listHomeloan.addAll(localSetting.getProductSubCategorystring(8));
         listCarloan.addAll(localSetting.getProductSubCategorystring(9));
         listPersonalloan.addAll(localSetting.getProductSubCategorystring(10));
@@ -164,8 +165,8 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
 //                productType = i;
-                String refId = getArguments().getString(AppConstant.INTENT_KEY);
-                if (refId ==null){
+                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead ==null){
                     isFirst=true;
                 }
                 if (isFirst) {
@@ -196,6 +197,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
             }
         });
+
         spinnerSubCategory.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
@@ -345,78 +347,14 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
                 }
             } else {
-                String random = UUID.randomUUID().toString();
-                String refId = getArguments().getString(AppConstant.INTENT_KEY);
-                if (refId != null) {
-                    getApiService().getLeadDataByRef(refId, random).enqueue(new Callback<MyLeadByRefApi>() {
-                        @Override
-                        public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
-                                Data data = response.body().getData();
-                                Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
-
-                                etLoanAmount.setText("" + data.getLoanAmount());
-                                etInterest.setText("" + data.getOfferedInterestRate());
-                                //   etDisbursementDate.setText(data.getDisbursementDate());
-                                etFee.setText("" + data.getOfferedProcessFee());
-
-                                if (data.getSourceOfReference() != null)
-                                    try {
-                                        spinnerRef.setSelection(sourceReferenceAdapter.getPosition(data.getSourceOfReference()));
-
-                                    } catch (IllegalStateException ignored) {
-                                    } catch (NullPointerException e) {
-
-                                    }
-                                if (data.getProduct() != null) {
-                                    try {
-                                        spinnerProductType.setSelection(productTypeAdapter.getPosition(data.getProduct()));
-                                    }
-                                    catch (IllegalStateException ignored){
-
-                                    }
-
-                                    if (data.getProduct().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                                         spinnerSubCategory.setAdapter(productSubAdapter);
-
-                                    } else if (data.getProduct().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                                        spinnerSubCategory.setAdapter(productSubAdapter);
-
-
-                                    } else if (data.getProduct().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                                        spinnerSubCategory.setAdapter(productSubAdapter);
-
-
-                                    }
-
-                                    try {
-
-                                        spinnerSubCategory.setSelection(productSubAdapter.
-                                                getPosition(data.getProductSubCategory()));
-                                    } catch (IllegalStateException ignored) {
-                                    }
-
-
-                                }
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
-                            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-
-                }
-
-          /*      MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
+
+                    etLoanAmount.setText("" + myNewLead.getLoanAmount());
+                    etInterest.setText("" + myNewLead.getOrInterest());
+                    etDisbursementDate.setText(myNewLead.getDisDate());
+                    etFee.setText("" + myNewLead.getOpFee());
+
                     if (myNewLead.getSourceRef() != null)
                         try {
                             spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getSourceRef()));
@@ -428,47 +366,39 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                     if (myNewLead.getProductType() != null) {
                         try {
                             spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
+                        }
+                        catch (IllegalStateException ignored){
+
+                        }
+
+                        if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+
+                        } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+
+
+                        } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+
+
+                        }
+
+                        try {
+
+                            spinnerSubCategory.setSelection(productSubAdapter.
+                                    getPosition(myNewLead.getProductSubcategory()));
                         } catch (IllegalStateException ignored) {
-                        } catch (NullPointerException e) {
-
                         }
-                        if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
-                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                            spinnerSubCategory.setAdapter(productSubAdapter);
-                            try {
 
-                                spinnerSubCategory.setSelection(productSubAdapter.
-                                        getPosition(myNewLead.getProductSubcategory()));
-                            } catch (IllegalStateException ignored) {
-                            }
-                        } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
-                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                            spinnerSubCategory.setAdapter(productSubAdapter);
-                            try {
 
-                                spinnerSubCategory.setSelection(productSubAdapter.
-                                        getPosition(myNewLead.getProductSubcategory()));
-                            } catch (IllegalStateException ignored) {
-                            }
-
-                        } else if (myNewLead.getProductType().equals(AppConstant.PERSONAL_LOAN)) {
-                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                            spinnerSubCategory.setAdapter(productSubAdapter);
-                            try {
-
-                                spinnerSubCategory.setSelection(productSubAdapter.
-                                        getPosition(myNewLead.getProductSubcategory()));
-                            } catch (IllegalStateException ignored) {
-                            }
-
-                        }
                     }
 
-                    etLoanAmount.setText(myNewLead.getLoadAmount());
-                    etInterest.setText(myNewLead.getOrInterest());
-                    etDisbursementDate.setText(myNewLead.getDisDate());
-                    etFee.setText(myNewLead.getOpFee());
-                }*/
+                }
+
             }
         }
     }
@@ -524,7 +454,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
         @Override
         protected String doInBackground(Integer... params) {
-            productSubCatCode=localSetting.getSubCatCode(params[0]);
+          productSubCatCode=localSetting.getSubCatCode(params[0]);
             return null;
         }
 

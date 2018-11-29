@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -63,6 +64,7 @@ public class VisitPlanActivity extends BaseActivity {
     private int mDay;
     private int mMonth;
     private int mYear;
+    private ArrayAdapter<String> polishStationAdapter;
     static final int DATE_DIALOG = 1;
     static final int TIME_DIALOG = 2;
     private LocalSetting mLocalSetting;
@@ -77,7 +79,7 @@ public class VisitPlanActivity extends BaseActivity {
     EditText txtClientName, txtMobileNo, tvVisitDT, txtRemarks;
     String clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit, remarks;
 
-    List<String> listClientType, listProductType, listArea, listPurpose, listCity, listDhakaSouth, listDhakaNorth, listNarayanganj;
+    List<String> listClientType, listProductType, listArea, listPurpose, listCity, listDhakaSouth, listDhakaNorth, polishStationList;
     ImageView backButton;
 
     Context context = this;
@@ -100,7 +102,7 @@ public class VisitPlanActivity extends BaseActivity {
         g = Global.getInstance();
         dbController = new VisitPlanDbController(VisitPlanActivity.this);
         spinnerDbController = new SpinnerDbController(VisitPlanActivity.this);
-        mLocalSetting=new LocalSetting(this);
+        mLocalSetting = new LocalSetting(this);
         initView();
 
         txtMobileNo.addTextChangedListener(new TextWatcher() {
@@ -221,18 +223,21 @@ public class VisitPlanActivity extends BaseActivity {
     }
 
     private void initAdapterForSpinners(Context context) {
-
-        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listClientType);
+        polishStationAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, polishStationList);
+        spinnerPoliceStation.setAdapter(polishStationAdapter);
+        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getSourceOfRefString());
         spinnerClientType.setAdapter(adptrClientType);
 
         productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
-
+        polishStationAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, polishStationList);
+        spinnerPoliceStation.setAdapter(polishStationAdapter);
 
         cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getCityStringList());
         spinnerCity.setAdapter(cityAdapter);
 
-        adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getVisitPurposeTypeStringList());
+        adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getVisitPurposeTypeStringList()
+        );
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
     }
 
@@ -244,7 +249,7 @@ public class VisitPlanActivity extends BaseActivity {
         listCity = new ArrayList<String>();
         listDhakaSouth = new ArrayList<String>();
         listDhakaNorth = new ArrayList<String>();
-        listNarayanganj = new ArrayList<String>();
+        polishStationList = new ArrayList<String>();
 
         if (!listPurpose.isEmpty()) {
             listPurpose.clear();
@@ -255,7 +260,7 @@ public class VisitPlanActivity extends BaseActivity {
         listCity.addAll(spinnerDbController.getCityData());
         listDhakaNorth.addAll(spinnerDbController.getDhakaNorthData());
         listDhakaSouth.addAll(spinnerDbController.getDhakaSouthData());
-        listNarayanganj.addAll(spinnerDbController.getNarayanganjData());
+        polishStationList.addAll(spinnerDbController.getNarayanganjData());
 
 
         listArea.add("1-syd");
@@ -389,29 +394,12 @@ public class VisitPlanActivity extends BaseActivity {
             @Override
             public void onItemSelected(int i, String s) {
                 city = s;
-
-                if (s.equals(DHAKA_NORTH)) {
-
-                    ArrayAdapter<String> dhakaNorth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listDhakaNorth);
-                    spinnerPoliceStation.setAdapter(dhakaNorth);
-
-                }
-                else if (s.equals(DHAKA_SOUTH)) {
-
-                    ArrayAdapter<String> dhakaSouth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listDhakaSouth);
-                    spinnerPoliceStation.setAdapter(dhakaSouth);
+                LongOperation longOperation=new LongOperation();
+                longOperation.execute(i);
 
 
-                }
-               else if (s.equals(NARAYANGONJ)) {
-
-
-                    ArrayAdapter<String> narayanganj = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listNarayanganj);
-                    spinnerPoliceStation.setAdapter(narayanganj);
-
-
-                }
             }
+
         });
 
         spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
@@ -428,7 +416,7 @@ public class VisitPlanActivity extends BaseActivity {
         boolean valid = true;
 
 
-        if(clientType == null || purposeOfVisit == null || city == null || policeStation == null){
+        if (clientType == null || purposeOfVisit == null || city == null || policeStation == null) {
 
             android.app.AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -488,35 +476,30 @@ public class VisitPlanActivity extends BaseActivity {
                 ArrayAdapter<String> dhakaNorth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listDhakaNorth);
                 spinnerPoliceStation.setAdapter(dhakaNorth);
 
-                try{
+                try {
                     spinnerPoliceStation.setSelection(dhakaNorth.getPosition(visitPlanModel.getPoliceStation()));
-                }
-                catch (final  IllegalStateException e){
+                } catch (final IllegalStateException e) {
 
                 }
 
-            }
-            else if (visitPlanModel.getCity().equals(DHAKA_SOUTH)) {
+            } else if (visitPlanModel.getCity().equals(DHAKA_SOUTH)) {
 
                 ArrayAdapter<String> dhakaSouth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listDhakaSouth);
                 spinnerPoliceStation.setAdapter(dhakaSouth);
-                try{
+                try {
                     spinnerPoliceStation.setSelection(dhakaSouth.getPosition(visitPlanModel.getPoliceStation()));
-                }
-                catch (final  IllegalStateException e){
+                } catch (final IllegalStateException e) {
 
                 }
 
-            }
-            else if (visitPlanModel.getCity().equals(NARAYANGONJ)) {
+            } else if (visitPlanModel.getCity().equals(NARAYANGONJ)) {
 
 
-                ArrayAdapter<String> narayanganj = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listNarayanganj);
+                ArrayAdapter<String> narayanganj = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, polishStationList);
                 spinnerPoliceStation.setAdapter(narayanganj);
-                try{
+                try {
                     spinnerPoliceStation.setSelection(narayanganj.getPosition(visitPlanModel.getPoliceStation()));
-                }
-                catch (final  IllegalStateException e){
+                } catch (final IllegalStateException e) {
 
                 }
 
@@ -524,11 +507,10 @@ public class VisitPlanActivity extends BaseActivity {
             }
         }
 
-        if (visitPlanModel.getProductType() !=null){
-            try{
+        if (visitPlanModel.getProductType() != null) {
+            try {
                 spinnerProductType.setSelection(productTypeAdapter.getPosition(visitPlanModel.getProductType()));
-            }
-            catch (final  IllegalStateException e){
+            } catch (final IllegalStateException e) {
 
             }
         }
@@ -591,7 +573,7 @@ public class VisitPlanActivity extends BaseActivity {
             int insert = 0;
             if (visitPlanModel != null) {
                 VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), clientName, spinnerClientType.getSelectedItem(),
-                        mobileNo,spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                        mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
                         purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN);
                 insert = dbController.updateData(visitPlan);
             } else {
@@ -603,8 +585,8 @@ public class VisitPlanActivity extends BaseActivity {
             }
 
             if (insert > 0) {
-                        Toast.makeText(VisitPlanActivity.this, "Successfully save", Toast.LENGTH_SHORT).show();
-                        finish();
+                Toast.makeText(VisitPlanActivity.this, "Successfully save", Toast.LENGTH_SHORT).show();
+                finish();
 
             } else {
                 Toast.makeText(VisitPlanActivity.this, "Save failed", Toast.LENGTH_SHORT).show();
@@ -614,6 +596,30 @@ public class VisitPlanActivity extends BaseActivity {
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private class LongOperation extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            int cityCode = mLocalSetting.getCityCode(params[0]);
+            polishStationList.addAll(mLocalSetting.getPseStringList(cityCode));
+            polishStationAdapter.notifyDataSetChanged();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 
 }

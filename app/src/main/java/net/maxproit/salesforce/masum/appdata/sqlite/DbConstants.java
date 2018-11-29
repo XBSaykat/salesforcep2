@@ -31,6 +31,9 @@ public class DbConstants {
     public static final String VISIT_ID = "visit_id";
 
     public static final String LEAD_BRANCH_NAME = "branch";
+    public static final String LEAD_BRANCH_CODE = "branch_code";
+    public static final String LEAD_PRODUCT_CODE = "product_code";
+    public static final String LEAD_SUBCAT_CODE = "sub_cat_code";
     public static final String USER_ID = "user_id";
     public static final String REF_NUMBER = "ref_number";
     public static final String LEAD_USER_NAME = "user_name";
@@ -149,6 +152,7 @@ public class DbConstants {
                     VISIT_ID + INTEGER_TYPE + COMMA_SEP +
                     REF_NUMBER + TEXT_TYPE + COMMA_SEP +
                     LEAD_BRANCH_NAME + TEXT_TYPE + COMMA_SEP +
+                    LEAD_BRANCH_CODE + INTEGER_TYPE + COMMA_SEP +
                     LEAD_PROFESSION + TEXT_TYPE + COMMA_SEP +
                     LEAD_USER_NAME + TEXT_TYPE + COMMA_SEP +
                     LEAD_ORGANIZATION + TEXT_TYPE + COMMA_SEP +
@@ -157,7 +161,9 @@ public class DbConstants {
                     LEAD_ADDRESS + TEXT_TYPE + COMMA_SEP +
                     LEAD_REF + TEXT_TYPE + COMMA_SEP +
                     LEAD_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_PRODUCT_CODE + INTEGER_TYPE + COMMA_SEP +
                     LEAD_PRODUCT_SUBCATEGORY + TEXT_TYPE + COMMA_SEP +
+                    LEAD_SUBCAT_CODE + INTEGER_TYPE + COMMA_SEP +
                     TENTETIVE_LEAD_AMOUNT + TEXT_TYPE + COMMA_SEP +
                     LEAD_OR_INTEREST + TEXT_TYPE + COMMA_SEP +
                     LEAD_OP_FEE + TEXT_TYPE + COMMA_SEP +

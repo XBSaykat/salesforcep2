@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,6 +105,7 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e("crash","visit");
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_visit_record, container, false);
         initView(rootView);
@@ -148,10 +150,6 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
     }
 
     private void initSpinnerAdapter() {
-//        ArrayAdapter<CharSequence> decisionAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.decision_array,
-//                android.R.layout.simple_spinner_dropdown_item);
-//        spinnerFollowUp.setAdapter(decisionAdapter, 0);
 
         ArrayAdapter<String> followUpAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listfollowUp);
         spinnerFollowUp.setAdapter(followUpAdapter);
@@ -159,14 +157,10 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
         ArrayAdapter<String> remarkAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRemark);
         spinnerRemarks.setAdapter(remarkAdapter);
 
-//        ArrayAdapter<CharSequence> remarksAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.remarks_arr,
-//                android.R.layout.simple_spinner_dropdown_item);
-//        spinnerRemarks.setAdapter(remarksAdapter, 0);
         initListener();
         if (getArguments() != null) {
-            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY,-1);
-            if (status<0)
+            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY, -1);
+            if (status < 0)
                 return;
 
             if (status == 0) {
@@ -175,95 +169,75 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
 
                 }
             } else if (status == 1) {
-                String refId = getArguments().getString(AppConstant.INTENT_KEY);
-                String random = UUID.randomUUID().toString();
+                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
 
-                if (refId != null) {
-                    getApiService().getLeadDataByRef(refId, random).enqueue(new Callback<MyLeadByRefApi>() {
-                        @Override
-                        public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
-                            if (response.isSuccessful()) {
-                                Data myNewLead = response.body().getData();
-                                if (myNewLead.getFollowUpDate() !=null){
-                                    try {
-                                        spinnerFollowUp.setSelection(1);
-                                    } catch (final IllegalStateException ignored) {
-
-                                    }
-                                    if (etVisitDate.getVisibility() != View.VISIBLE) {
-                                        etVisitDate.setVisibility(View.VISIBLE);
-                                    }
-                                    etVisitDate.setText(myNewLead.getFollowUpDate());
-                                    etRemark.setText(myNewLead.getRemark());
-                                }
-                              else {
-                                    try {
-                                        spinnerFollowUp.setSelection(0);
-                                    } catch (final IllegalStateException ignored) {
-
-                                    }
-                                    try {
-                                        spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
-                                    }
-                                    catch (final IllegalStateException ignored) {
-
-                                    }
-
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
-                            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+                if (myNewLead != null) {
+                    if (myNewLead.getVisitDate() != null) {
+                        try {
+                            spinnerFollowUp.setSelection(1);
+                        } catch (final IllegalStateException ignored) {
 
                         }
-                    });
+                        if (etVisitDate.getVisibility() != View.VISIBLE) {
+                            etVisitDate.setVisibility(View.VISIBLE);
+                        }
+                        etVisitDate.setText(myNewLead.getVisitDate());
+                        etRemark.setText(myNewLead.getRemark());
+                    } else {
+                        try {
+                            spinnerFollowUp.setSelection(0);
+                        } catch (final IllegalStateException ignored) {
+
+                        }
+                        try {
+                            spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                        } catch (final IllegalStateException ignored) {
+
+                        }
+
+                    }
 
                 }
             }
-        } else {
-            Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     private void initListener() {
 
-            spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-                @Override
-                public void onItemSelected(int i, String s) {
-                        followUp = s;
-                    if (s.equals("Yes")) {
-                        followDateLayout.setVisibility(View.VISIBLE);
-                        etRemarksLayout.setVisibility(View.VISIBLE);
-                        spRemarksLayout.setVisibility(View.GONE);
-                    } else {
-                        followDateLayout.setVisibility(View.GONE);
-                        etRemarksLayout.setVisibility(View.GONE);
-                        spRemarksLayout.setVisibility(View.VISIBLE);
-                    }
-                    }
-
-
-
-            });
-
-            spinnerRemarks.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
-                @Override
-                public void onItemSelected(int i, String s) {
-                    remark = s;
+        spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                followUp = s;
+                if (s.equals("Yes")) {
+                    followDateLayout.setVisibility(View.VISIBLE);
+                    etRemarksLayout.setVisibility(View.VISIBLE);
+                    spRemarksLayout.setVisibility(View.GONE);
+                } else {
+                    followDateLayout.setVisibility(View.GONE);
+                    etRemarksLayout.setVisibility(View.GONE);
+                    spRemarksLayout.setVisibility(View.VISIBLE);
                 }
+            }
 
-            });
+
+        });
+
+        spinnerRemarks.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                remark = s;
+            }
+
+        });
 
 
-            etVisitDate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    datePickerDialog();
-                }
-            });
+        etVisitDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog();
+            }
+        });
 
     }
 

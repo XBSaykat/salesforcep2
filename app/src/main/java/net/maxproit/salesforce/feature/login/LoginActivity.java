@@ -117,7 +117,7 @@ public class LoginActivity extends BaseActivity {
             }
 
         }
-        if (isNetworkAvailable()) {
+   /*     if (isNetworkAvailable()) {
             ArrayList<MyNewLead> myLeadList = new ArrayList<>();
             myLeadDbController = new MyLeadDbController(this);
             myLeadList.addAll(myLeadDbController.getDataForSync());
@@ -149,7 +149,7 @@ public class LoginActivity extends BaseActivity {
 
                 }
             }
-        }
+        }*/
 
 
         binding.btnLogin.setOnClickListener(v -> {
@@ -508,7 +508,7 @@ public class LoginActivity extends BaseActivity {
 
 
 
-    private MyLeadDataModelApi myLeadDataModelApi(MyNewLead myNewLead) {
+  /*  private MyLeadDataModelApi myLeadDataModelApi(MyNewLead myNewLead) {
         MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
         myLeadApi.setRmCode("336132");
         myLeadApi.setUserName("masif");
@@ -540,7 +540,7 @@ public class LoginActivity extends BaseActivity {
 
 
         return myLeadApi;
-    }
+    }*/
 
 
     @Override

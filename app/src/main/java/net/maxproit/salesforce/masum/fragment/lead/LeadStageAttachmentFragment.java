@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,7 @@ public class LeadStageAttachmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.e("crash","attach");
         View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
 
         initView(rootView);
@@ -315,17 +317,6 @@ public class LeadStageAttachmentFragment extends Fragment {
         }
     }
 
-    private void getMultipleImage() {
-        new ImagePicker.Builder(getActivity())
-                .mode(ImagePicker.Mode.CAMERA_AND_GALLERY)
-                .compressLevel(ImagePicker.ComperesLevel.MEDIUM)
-                .directory(ImagePicker.Directory.DEFAULT)
-                .extension(ImagePicker.Extension.PNG)
-                .scale(600, 600)
-                .allowMultipleImages(false)
-                .enableDebuggingMode(true)
-                .build();
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

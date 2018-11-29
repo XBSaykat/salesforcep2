@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.model.api.Data;
 import net.maxproit.salesforce.masum.model.api.LeadLeastDataFromApi;
 import net.maxproit.salesforce.masum.model.api.MyGetLeadApi;
+import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -41,7 +44,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     MyLeadDbController myLeadDbController;
     LocalLogin localLogin;
     MyNewProspect myNewLead;
-    ArrayList<LeadLeastDataFromApi> leadLeastDataFromApiList,filterList;
+    ArrayList<LeadLeastDataFromApi> leadLeastDataFromApiList, filterList;
     String username;
     ArrayList<MyNewProspect> leadList;
 
@@ -64,49 +67,41 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
         if (!leadList.isEmpty()) {
             leadList.clear();
-        } if (!leadLeastDataFromApiList.isEmpty()) {
+        }
+        if (!leadLeastDataFromApiList.isEmpty()) {
             leadLeastDataFromApiList.clear();
         }
         Bundle extraDetail = getIntent().getExtras();
-        if (extraDetail !=null){
-            int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
-            if (status==1){
+        if (extraDetail != null) {
+            int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
+            if (status == 1) {
                 binding.searchView.setQueryHint("search pending lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_NEW));
                 binding.rvMyLead.setClickable(false);
-            }
-
-            else if (status==2){
+            } else if (status == 2) {
                 binding.searchView.setQueryHint("search proceeded lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
                 binding.rvMyLead.setClickable(false);
-            }
-
-            else if (status==3){
+            } else if (status == 3) {
                 binding.searchView.setQueryHint("search closed lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_REJECT));
                 binding.rvMyLead.setClickable(false);
-            }
-            else if (status==4){
+            } else if (status == 4) {
                 binding.searchView.setQueryHint("search Prospect ");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
                 binding.rvMyLead.setClickable(false);
-            }
-            else if (status==5){
+            } else if (status == 5) {
                 binding.searchView.setQueryHint("search Proceeded Prospect");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_RBM));
                 binding.rvMyLead.setClickable(false);
-            }
-            else {
+            } else {
                 getDataFromServer();
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData());
             }
-        }
-        else {
+        } else {
             getDataFromServer();
             leadList.addAll(myLeadDbController.myNewLeadGetAllData());
         }
-
 
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -148,7 +143,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         });
     }
 
-    private void getDataFromServer(){
+    private void getDataFromServer() {
         String random = UUID.randomUUID().toString();
         if (isNetworkAvailable()) {
             showProgressDialog();
@@ -157,36 +152,59 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
                     hideProgressDialog();
                     if (response.isSuccessful()) {
-                        if (response.body().getCode().equals("200")){
+                        if (response.body().getCode().equals("200")) {
                             leadLeastDataFromApiList.addAll(response.body().getData());
                             myLeadAdapter.notifyDataSetChanged();
-                        }
-                        else {
-                            showAlertDialog("Error",response.body().getMessage());
+                        } else {
+                            showAlertDialog("Error", response.body().getMessage());
                         }
 
 
                     } else {
-                        showAlertDialog("Error",response.message());
+                        showAlertDialog("Error", response.message());
                     }
                 }
 
                 @Override
                 public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
                     hideProgressDialog();
-                    showAlertDialog("Error",t.getMessage());
+                    showAlertDialog("Error", t.getMessage());
 
                 }
             });
-        }
-        else {
+        } else {
             showEmptyView();
 
         }
     }
 
     private void sentDataToDetail(int position) {
-        ActivityUtils.invokRefNumber(this,LeadStageActivity.class,filterList.get(position).getReference());
+        String refID = filterList.get(position).getReference();
+        String random = UUID.randomUUID().toString();
+        showProgressDialog();
+        getApiService().getLeadDataByRef(refID, random).enqueue(new Callback<MyLeadByRefApi>() {
+            @Override
+            public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
+                Data data = response.body().getData();
+                MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
+                        data.getVisitId(), data.getBranchCode(),data.getProductId(),data.getProductSubCategoryId(),0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
+                        data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
+                        data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
+                        String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), data.getDisbursementDate(),
+                        data.getFollowUpDate(), data.getFollowUp(), data.getRemark(), data.getStatus(), "");
+                ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
+                hideProgressDialog();
+
+            }
+
+            @Override
+            public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
+                hideProgressDialog();
+                showAlertDialog("ERROR",t.getMessage());
+
+            }
+        });
+
     }
 
 
@@ -194,7 +212,6 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     protected void getIntentData() {
 
     }
-
 
 
     //filter  data
