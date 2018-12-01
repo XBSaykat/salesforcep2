@@ -547,7 +547,7 @@ public class VisitPlanActivity extends BaseActivity {
             if (visitPlanModel != null) {
                 Data data = new Data();
                 data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
-                data.setActivityJournalID(0);
+                data.setActivityJournalID(visitPlanModel.getJournalId());
                 data.setActivityStatus(AppConstant.LEAD_STATUS_New_PLAN);
                 data.setCity(city);
                 data.setClientType(clientType);
@@ -639,28 +639,5 @@ public class VisitPlanActivity extends BaseActivity {
         dialog.show();
     }
 
-    private class LongOperation extends AsyncTask<Integer, Void, String> {
-
-        @Override
-        protected String doInBackground(Integer... params) {
-            int cityCode = mLocalSetting.getCityCode(params[0]);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // txt.setText(result);
-            // might want to change "executed" for the returned string passed
-            // into onPostExecute() but that is upto you
-        }
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-        }
-    }
 
 }
