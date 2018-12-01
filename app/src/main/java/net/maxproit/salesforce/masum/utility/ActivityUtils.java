@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
-import net.maxproit.salesforce.masum.model.api.LeadLeastDataFromApi;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;

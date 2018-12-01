@@ -7,12 +7,15 @@ import android.util.Log;
 
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.model.api.MyLeadDataModelApi;
-import net.maxproit.salesforce.masum.model.api.MyOldLeadApi;
+import net.maxproit.salesforce.masum.model.api.lead.Data;
+import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
+import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.NetworkUtil;
 import net.maxproit.salesforce.network.ApiService;
 import net.maxproit.salesforce.network.RestClient;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 
@@ -23,18 +26,17 @@ import retrofit2.Response;
 
 public class NetworkMonitor extends BroadcastReceiver {
     MyLeadDbController myLeadDbController;
+    String userName=null;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean status = NetworkUtil.getConnectivityStatusString(context);
-
         if (status) {
+            userName = localCash(context).getString(SharedPreferencesEnum.Key.USER_NAME);
+            localCash(context).put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
             ArrayList<MyNewLead> myLeadList = new ArrayList<>();
-            myLeadDbController = new MyLeadDbController(context);
-            myLeadList.addAll(myLeadDbController.getDataForSync());
 
                 Log.e("status", "connected");
-                myLeadList = new ArrayList<>();
                 myLeadDbController = new MyLeadDbController(context);
                 myLeadList.addAll(myLeadDbController.getDataForSync());
                 for (int i = 0; i < myLeadList.size(); i++) {
@@ -46,6 +48,12 @@ public class NetworkMonitor extends BroadcastReceiver {
                             Log.e("status","call to server");
                             if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                 myLeadDbController.updateSyncDataStatus(myNewLead.getId(),AppConstant.SYNC_STATUS_OK);
+                                Data data=response.body().getData();
+                                int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), data.getBranchName(), data.getCustomerName()
+                                        , data.getProfession(), data.getOrganization(),
+                                        data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(),
+                                        data.getProduct(), data.getProductSubCategory(),
+                                        String.valueOf(data.getLoanAmount()),String.valueOf(data.getOfferedInterestRate()) ,String.valueOf(data.getOfferedProcessFee()) , myNewLead.getDisDate(), myNewLead.getVisitDate(), myLeadDataModelApi.getFollowUp(), data.getRemark(), AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
                                 Log.e("status","save to server");
                             }
 
@@ -73,35 +81,41 @@ public class NetworkMonitor extends BroadcastReceiver {
     private MyLeadDataModelApi myLeadDataModelApi(MyNewLead myNewLead) {
         MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
         myLeadApi.setRmCode("336132");
-        myLeadApi.setUserName("masif");
-        myLeadApi.setBranchName("Gulshan");
-        myLeadApi.setBranchCode(105);
+        myLeadApi.setUserName(myNewLead.getUserID());
+        myLeadApi.setBranchName(myNewLead.getBranchName());
+        myLeadApi.setBranchCode(myNewLead.getBranchCode());
         myLeadApi.setCustomerName(myNewLead.getUserName());
-        myLeadApi.setCustomerId(0);
+        myLeadApi.setCustomerId(myNewLead.getCusId());
         myLeadApi.setProfession(myNewLead.getProfession());
         myLeadApi.setOrganization(myNewLead.getOrganization());
         myLeadApi.setDesignation(myNewLead.getDesignation());
-        myLeadApi.setMobileNumberId(0);
+        myLeadApi.setMobileNumberId(myNewLead.getMobileId());
         myLeadApi.setMobileNumber(myNewLead.getPhone());
-        myLeadApi.setAddressId(0);
-        myLeadApi.setAddress("53, Bay's Galleria, Gulshan-1, Dhaka");
-        myLeadApi.setSourceOfReference("string");
-        myLeadApi.setProductId(8);
-        myLeadApi.setProduct("Home Loan");
-        myLeadApi.setProductSubCategoryId(34);
-        myLeadApi.setProductSubCategory("Apartment purchase");
+        myLeadApi.setAddressId(myNewLead.getAddressId());
+        myLeadApi.setAddress(myNewLead.getAddress());
+        myLeadApi.setSourceOfReference(myNewLead.getSourceRef());
+        myLeadApi.setProductId(myNewLead.getProductCode());
+        myLeadApi.setProduct(myNewLead.getProductType());
+        myLeadApi.setProductSubCategoryId(myNewLead.getSubCode());
+        myLeadApi.setProductSubCategory(myNewLead.getProductSubcategory());
         myLeadApi.setLoanAmount(Integer.valueOf(myNewLead.getLoanAmount().replace(",","")));
         myLeadApi.setOfferedInterestRate(Integer.valueOf(myNewLead.getOrInterest()));
         myLeadApi.setOfferedProcessFee(Integer.valueOf(myNewLead.getOpFee()));
-        myLeadApi.setDisbursementDate(myNewLead.getDisDate());
-        myLeadApi.setVisitId(0);
-        myLeadApi.setFollowUp("yes");
-        myLeadApi.setFollowUpDate(myNewLead.getVisitDate());
-        myLeadApi.setRemark("re");
-        myLeadApi.setLeadReferenceNo("");
+        myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(myNewLead.getDisDate()));
+        myLeadApi.setVisitId(myNewLead.getVisitId());
+        myLeadApi.setFollowUp(myNewLead.getFollowUp());
+        myLeadApi.setFollowUpDate(DateUtils.getDateFormateForSqlite(myNewLead.getVisitDate()));
+        myLeadApi.setRemark(myNewLead.getRemark());
+        myLeadApi.setLeadReferenceNo(myNewLead.getRefNumber());
 
 
         return myLeadApi;
     }
+
+
+    public SharedPreferencesEnum localCash(Context context) {
+        return SharedPreferencesEnum.getInstance(context);
+    }
+
 }
 

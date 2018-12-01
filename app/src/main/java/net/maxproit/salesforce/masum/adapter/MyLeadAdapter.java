@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.api.LeadLeastDataFromApi;
+import net.maxproit.salesforce.masum.model.api.lead.LeadLeastDataFromApi;
 
 import java.util.ArrayList;
 

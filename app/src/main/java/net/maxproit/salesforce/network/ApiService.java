@@ -1,14 +1,13 @@
 package net.maxproit.salesforce.network;
 
-/**
- * Created by Rezwan Khan Chowdhury on 4/12/18.
- */
 
-
-import net.maxproit.salesforce.masum.model.api.MyGetLeadApi;
-import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
-import net.maxproit.salesforce.masum.model.api.MyLeadDataModelApi;
-import net.maxproit.salesforce.masum.model.api.MyOldLeadApi;
+import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
+import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
+import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
+import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
+import net.maxproit.salesforce.masum.model.api.myactivity.Data;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
 import net.maxproit.salesforce.model.cib.notRequestedCIB.NotRequestedCIBData;
 import net.maxproit.salesforce.model.cib.post.CibPost;
 import net.maxproit.salesforce.model.cib.postResponce.CibPostResponce;
@@ -77,7 +76,14 @@ public interface ApiService {
     @GET("GlobalSettings/AppData/0")
     Call<GlobalSettings> getSetting();
 
+    @POST("Activity/Activity")
+    Call<MyActivityApi> createActivity(@Body Data data);
 
+    @GET("Activity/api/MyActivity/{userName}/{timestamp}")
+    Call<MyActivityGetDataApi> getActivityData(@Path("userName") String userName, @Path("timestamp") String random);
+
+
+    // lead api interface
     @POST("CdLead/Lead")
     Call<MyOldLeadApi> createMyLead(@Body MyLeadDataModelApi newLead);
 

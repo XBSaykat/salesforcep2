@@ -1,9 +1,9 @@
-package net.maxproit.salesforce.masum.model.api;
+package net.maxproit.salesforce.masum.model.api.myactivity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MyLeadByRefApi {
+public class MyActivityApi {
 
 @SerializedName("status")
 @Expose

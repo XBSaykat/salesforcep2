@@ -1,10 +1,11 @@
-package net.maxproit.salesforce.masum.model.api;
+package net.maxproit.salesforce.masum.model.api.lead;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MyGetLeadApi {
+import net.maxproit.salesforce.masum.model.api.lead.Data;
+
+public class MyLeadByRefApi {
 
 @SerializedName("status")
 @Expose
@@ -17,7 +18,7 @@ private String code;
 private String message;
 @SerializedName("data")
 @Expose
-private List<LeadLeastDataFromApi> data = null;
+private Data data;
 
 public String getStatus() {
 return status;
@@ -43,11 +44,11 @@ public void setMessage(String message) {
 this.message = message;
 }
 
-public List<LeadLeastDataFromApi> getData() {
+public Data getData() {
 return data;
 }
 
-public void setData(List<LeadLeastDataFromApi> data) {
+public void setData(Data data) {
 this.data = data;
 }
 

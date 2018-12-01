@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,9 +35,12 @@ import net.maxproit.salesforce.common.base.Global;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.model.api.myactivity.Data;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +49,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static net.maxproit.salesforce.masum.appdata.AppConstant.DHAKA_NORTH;
 import static net.maxproit.salesforce.masum.appdata.AppConstant.DHAKA_SOUTH;
@@ -85,7 +93,7 @@ public class VisitPlanActivity extends BaseActivity {
     Context context = this;
     Global g;
     Calendar myCalendar = Calendar.getInstance();
-    String dateFormat = "dd.MM.yyyy";
+    String dateFormat = "dd.MM.yyyy", userName;
     DatePickerDialog.OnDateSetListener date;
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
 
@@ -98,7 +106,8 @@ public class VisitPlanActivity extends BaseActivity {
     protected void initComponents() {
 
         backButton = findViewById(R.id.btn_back);
-
+        userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
+        localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
         g = Global.getInstance();
         dbController = new VisitPlanDbController(VisitPlanActivity.this);
         spinnerDbController = new SpinnerDbController(VisitPlanActivity.this);
@@ -223,8 +232,6 @@ public class VisitPlanActivity extends BaseActivity {
     }
 
     private void initAdapterForSpinners(Context context) {
-        polishStationAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, polishStationList);
-        spinnerPoliceStation.setAdapter(polishStationAdapter);
         adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getSourceOfRefString());
         spinnerClientType.setAdapter(adptrClientType);
 
@@ -250,19 +257,11 @@ public class VisitPlanActivity extends BaseActivity {
         listDhakaSouth = new ArrayList<String>();
         listDhakaNorth = new ArrayList<String>();
         polishStationList = new ArrayList<String>();
+        polishStationList.addAll(mLocalSetting.getPseStringList());
 
         if (!listPurpose.isEmpty()) {
             listPurpose.clear();
         }
-        listClientType.addAll(spinnerDbController.getClientTypeData());
-        listProductType.addAll(spinnerDbController.getProductTypeData());
-        listPurpose.addAll(spinnerDbController.getPurposeOfVisitData());
-        listCity.addAll(spinnerDbController.getCityData());
-        listDhakaNorth.addAll(spinnerDbController.getDhakaNorthData());
-        listDhakaSouth.addAll(spinnerDbController.getDhakaSouthData());
-        polishStationList.addAll(spinnerDbController.getNarayanganjData());
-
-
         listArea.add("1-syd");
 
 //        listPurpose.add("Fresh");
@@ -394,8 +393,6 @@ public class VisitPlanActivity extends BaseActivity {
             @Override
             public void onItemSelected(int i, String s) {
                 city = s;
-                LongOperation longOperation=new LongOperation();
-                longOperation.execute(i);
 
 
             }
@@ -471,40 +468,16 @@ public class VisitPlanActivity extends BaseActivity {
             }
 
 
-            if (visitPlanModel.getCity().equals(DHAKA_NORTH)) {
+            ArrayAdapter<String> dhakaNorth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, polishStationList);
+            spinnerPoliceStation.setAdapter(dhakaNorth);
 
-                ArrayAdapter<String> dhakaNorth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listDhakaNorth);
-                spinnerPoliceStation.setAdapter(dhakaNorth);
-
-                try {
-                    spinnerPoliceStation.setSelection(dhakaNorth.getPosition(visitPlanModel.getPoliceStation()));
-                } catch (final IllegalStateException e) {
-
-                }
-
-            } else if (visitPlanModel.getCity().equals(DHAKA_SOUTH)) {
-
-                ArrayAdapter<String> dhakaSouth = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listDhakaSouth);
-                spinnerPoliceStation.setAdapter(dhakaSouth);
-                try {
-                    spinnerPoliceStation.setSelection(dhakaSouth.getPosition(visitPlanModel.getPoliceStation()));
-                } catch (final IllegalStateException e) {
-
-                }
-
-            } else if (visitPlanModel.getCity().equals(NARAYANGONJ)) {
-
-
-                ArrayAdapter<String> narayanganj = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, polishStationList);
-                spinnerPoliceStation.setAdapter(narayanganj);
-                try {
-                    spinnerPoliceStation.setSelection(narayanganj.getPosition(visitPlanModel.getPoliceStation()));
-                } catch (final IllegalStateException e) {
-
-                }
-
+            try {
+                spinnerPoliceStation.setSelection(dhakaNorth.getPosition(visitPlanModel.getPoliceStation()));
+            } catch (final IllegalStateException e) {
 
             }
+
+
         }
 
         if (visitPlanModel.getProductType() != null) {
@@ -572,26 +545,94 @@ public class VisitPlanActivity extends BaseActivity {
         builder.setPositiveButton("Yes", (dialog, which) -> {
             int insert = 0;
             if (visitPlanModel != null) {
-                VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), clientName, spinnerClientType.getSelectedItem(),
-                        mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
-                        purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN);
-                insert = dbController.updateData(visitPlan);
+                Data data = new Data();
+                data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
+                data.setActivityJournalID(0);
+                data.setActivityStatus(AppConstant.LEAD_STATUS_New_PLAN);
+                data.setCity(city);
+                data.setClientType(clientType);
+                data.setCustomerName(clientName);
+                data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
+                data.setFollowupRemarks(remarks);
+                data.setMaker(userName);
+                data.setMobileNo(mobileNo);
+                data.setProductType(productType);
+                data.setPs(policeStation);
+                data.setRemarks(remarks);
+                data.setVisitPurposeType(purposeOfVisit);
+
+                if (isNetworkAvailable()) {
+                    getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
+                        @Override
+                        public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+
+                            VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), visitPlanModel.getJournalId(), clientName, spinnerClientType.getSelectedItem(),
+                                    mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                                    purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
+                            dbController.updateData(visitPlan);
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyActivityApi> call, Throwable t) {
+
+                        }
+                    });
+                } else {
+                    VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), visitPlanModel.getJournalId(), clientName, spinnerClientType.getSelectedItem(),
+                            mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                            purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_WAIT);
+                    dbController.updateData(visitPlan);
+                }
+
+
             } else {
-                insert = dbController.insertData(clientName, spinnerClientType.getSelectedItem(),
-                        mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
-                        spinnerPoliceStation.getSelectedItem(),
-                        purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN);
+                Data data = new Data();
+                data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
+                data.setActivityJournalID(0);
+                data.setActivityStatus(AppConstant.LEAD_STATUS_New_PLAN);
+                data.setCity(city);
+                data.setClientType(clientType);
+                data.setCustomerName(clientName);
+                data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
+                data.setFollowupRemarks(remarks);
+                data.setMaker(userName);
+                data.setMobileNo(mobileNo);
+                data.setProductType(productType);
+                data.setPs(policeStation);
+                data.setRemarks(remarks);
+                data.setVisitPurposeType(purposeOfVisit);
+                if (isNetworkAvailable()) {
+                    getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
+                        @Override
+                        public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+                            if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                Data data1 = response.body().getData();
+                                dbController.insertData(data1.getActivityJournalID(), clientName, spinnerClientType.getSelectedItem(),
+                                        mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                                        spinnerPoliceStation.getSelectedItem(),
+                                        purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
+                                Log.e("status", "save data into server and local");
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                            getAlertDialog("ERROR", t.getMessage());
+
+                        }
+                    });
+                } else {
+                    dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
+                            mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                            spinnerPoliceStation.getSelectedItem(),
+                            purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_WAIT);
+                    Log.e("status", " no internet save data into local");
+                }
+
 
             }
 
-            if (insert > 0) {
-                Toast.makeText(VisitPlanActivity.this, "Successfully save", Toast.LENGTH_SHORT).show();
-                finish();
-
-            } else {
-                Toast.makeText(VisitPlanActivity.this, "Save failed", Toast.LENGTH_SHORT).show();
-
-            }
 
         });
         android.app.AlertDialog dialog = builder.create();
@@ -603,8 +644,6 @@ public class VisitPlanActivity extends BaseActivity {
         @Override
         protected String doInBackground(Integer... params) {
             int cityCode = mLocalSetting.getCityCode(params[0]);
-            polishStationList.addAll(mLocalSetting.getPseStringList(cityCode));
-            polishStationAdapter.notifyDataSetChanged();
             return null;
         }
 
@@ -616,10 +655,12 @@ public class VisitPlanActivity extends BaseActivity {
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+        }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 
 }

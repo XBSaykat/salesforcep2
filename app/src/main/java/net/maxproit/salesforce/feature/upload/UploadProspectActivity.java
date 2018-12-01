@@ -15,7 +15,7 @@ import net.alhazmy13.mediapicker.Image.ImagePicker;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityUploadProspectBinding;
-import net.maxproit.salesforce.feature.salesOfficer.newProspect.adapter.ProspectDocumentAdapter;
+
 import net.maxproit.salesforce.model.uploads.file.FileUploadResponce;
 import net.maxproit.salesforce.util.PdfUtil;
 
@@ -160,11 +160,7 @@ public class UploadProspectActivity extends BaseActivity implements Documentinfo
 
     @Override
     protected void getIntentData() {
-        if (getIntent().getExtras().containsKey(ProspectDocumentAdapter.FILE_TYPE)) {
-            fileType = getIntent().getExtras().getString(ProspectDocumentAdapter.FILE_TYPE);
-            ProspectId = getIntent().getExtras().getString(ProspectDocumentAdapter.PROSPECT_Id);
-            fileId = getIntent().getExtras().getString(ProspectDocumentAdapter.FILE_Id);
-        }
+
 
     }
 

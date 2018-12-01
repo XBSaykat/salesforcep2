@@ -31,11 +31,12 @@ public class VisitPlanDbController {
         dbHelper.close();
     }
     //                           clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit,remarks
-    public int insertData(String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
-                          String dateOfVisit, String remarks,String status) {
+    public int insertData(int jId,String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
+                          String dateOfVisit, String remarks,String status,String SyncStatus) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.VISIT_PLAN_CLIENT_NAME, clientName);
+        values.put(DbConstants.VISIT_JOURNAL_ID, jId);
         values.put(DbConstants.VISIT_PLAN_CLIENT_TYPE, clientType);
         values.put(DbConstants.VISIT_PLAN_MOBILE_NUMBER, mobileNumber);
         values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, productType);
@@ -45,6 +46,7 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, DateUtils.getDateFormateForSqlite(dateOfVisit));
         values.put(DbConstants.VISIT_PLAN_REMARKS,remarks);
         values.put(DbConstants.LEAD_STATUS, status);
+        values.put(DbConstants.SYNC_STATUS, SyncStatus);
         // Insert the new row, returning the primary key value of the new row
         open();
         int insert= (int) db.insert(DbConstants.TABLE_VISIT_PLAN, DbConstants.COLUMN_NAME_NULLABLE, values);
@@ -58,6 +60,7 @@ public class VisitPlanDbController {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.VISIT_PLAN_CLIENT_NAME, visitPlan.getClientName());
+        values.put(DbConstants.VISIT_JOURNAL_ID, visitPlan.getJournalId());
         values.put(DbConstants.VISIT_PLAN_CLIENT_TYPE, visitPlan.getClientType());
         values.put(DbConstants.VISIT_PLAN_MOBILE_NUMBER, visitPlan.getMobileNumber());
         values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, visitPlan.getProductType());
@@ -67,6 +70,7 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT,DateUtils.getDateFormateForSqlite(visitPlan.getDateOfVisit()) );
         values.put(DbConstants.VISIT_PLAN_REMARKS,visitPlan.getRemarks());
         values.put(DbConstants.LEAD_STATUS,visitPlan.getStatus());
+        values.put(DbConstants.SYNC_STATUS,visitPlan.getSynStatus());
         // Insert the new row, returning the primary key value of the new row
         open();
         int update= db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + visitPlan.getId(), null);
@@ -92,6 +96,8 @@ public class VisitPlanDbController {
 
         String[] projection = {
                 DbConstants._V_ID,
+                DbConstants.VISIT_JOURNAL_ID,
+                DbConstants.SYNC_STATUS,
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
@@ -125,6 +131,8 @@ public class VisitPlanDbController {
 
         String[] projection = {
                 DbConstants._V_ID,
+                DbConstants.VISIT_JOURNAL_ID,
+                DbConstants.SYNC_STATUS,
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
@@ -160,6 +168,8 @@ public class VisitPlanDbController {
 
         String[] projection = {
                 DbConstants._V_ID,
+                DbConstants.VISIT_JOURNAL_ID,
+                DbConstants.SYNC_STATUS,
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
@@ -194,6 +204,9 @@ public class VisitPlanDbController {
 
         String[] projection = {
                 DbConstants._V_ID,
+                DbConstants.VISIT_JOURNAL_ID,
+                DbConstants.SYNC_STATUS,
+
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
@@ -229,6 +242,9 @@ public class VisitPlanDbController {
 
         String[] projection = {
                 DbConstants._V_ID,
+                DbConstants.VISIT_JOURNAL_ID,
+                DbConstants.SYNC_STATUS,
+
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
@@ -262,6 +278,9 @@ public class VisitPlanDbController {
     public ArrayList<VisitPlan> getPlanData(){
         String[] projection = {
                 DbConstants._V_ID,
+                DbConstants.VISIT_JOURNAL_ID,
+                DbConstants.SYNC_STATUS,
+
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
@@ -294,6 +313,8 @@ public class VisitPlanDbController {
     public ArrayList<VisitPlan> getPlanDataUsingStatus(String status){
         String[] projection = {
                 DbConstants._V_ID,
+                DbConstants.VISIT_JOURNAL_ID,
+                DbConstants.SYNC_STATUS,
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
@@ -335,6 +356,7 @@ public class VisitPlanDbController {
                 do {
                     // get  the  data into array,or class variable
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants._V_ID));
+                    int jId = c.getInt(c.getColumnIndexOrThrow(DbConstants.VISIT_JOURNAL_ID));
                     String clientName = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_CLIENT_NAME));
                     String clientType = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_CLIENT_TYPE));
                     String mobileNumber = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_MOBILE_NUMBER));
@@ -345,8 +367,9 @@ public class VisitPlanDbController {
                     String dateOfVisit = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_DATE_OF_VISIT));
                     String remarks = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_REMARKS));
                     String status = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_STATUS));
+                    String synStatus = c.getString(c.getColumnIndexOrThrow(DbConstants.SYNC_STATUS));
                     // wrap up data list and return
-                    favDataArray.add(new VisitPlan(id, clientName, clientType, mobileNumber,policeStation, productType, city, purposeOfVisit, dateOfVisit, remarks,status));
+                    favDataArray.add(new VisitPlan(id,jId, clientName, clientType, mobileNumber,policeStation, productType, city, purposeOfVisit, dateOfVisit, remarks,status,synStatus));
                 } while (c.moveToNext());
             }
             c.close();

@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.model.api.lead.LeadLeastDataFromApi;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 
 
 import java.util.ArrayList;
@@ -49,8 +51,8 @@ public class MyLeadDbController {
         values.put(DbConstants.TENTETIVE_LEAD_AMOUNT, amount);
         values.put(DbConstants.LEAD_OR_INTEREST, interest);
         values.put(DbConstants.LEAD_OP_FEE, fee);
-        values.put(DbConstants.LEAD_DISBURSEMENT_DATE, disDate);
-        values.put(DbConstants.LEAD_VISIT_DATE, date);
+        values.put(DbConstants.LEAD_DISBURSEMENT_DATE,DateUtils.getDateFormateForSqlite(disDate) );
+        values.put(DbConstants.LEAD_VISIT_DATE,DateUtils.getDateFormateForSqlite(date));
         values.put(DbConstants.LEAD_FOLLOW_UP, follow);
         values.put(DbConstants.LEAD_REMARK, remark);
         values.put(DbConstants.SYNC_STATUS, syncStatus);
@@ -195,7 +197,7 @@ public class MyLeadDbController {
                 DbConstants.CUSTOMER_ID,
                 DbConstants.VISIT_ID,
                 DbConstants.MOBILE_ID,
-                DbConstants.VISIT_ID,
+                DbConstants.ADDRESS_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_BRANCH_CODE,
@@ -246,7 +248,7 @@ public class MyLeadDbController {
                 DbConstants.CUSTOMER_ID,
                 DbConstants.VISIT_ID,
                 DbConstants.MOBILE_ID,
-                DbConstants.VISIT_ID,
+                DbConstants.ADDRESS_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_BRANCH_CODE,
@@ -297,7 +299,7 @@ public class MyLeadDbController {
                 DbConstants.CUSTOMER_ID,
                 DbConstants.VISIT_ID,
                 DbConstants.MOBILE_ID,
-                DbConstants.VISIT_ID,
+                DbConstants.ADDRESS_ID,
                 DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
                 DbConstants.LEAD_BRANCH_CODE,
@@ -561,6 +563,59 @@ public class MyLeadDbController {
 
         return myNewProspectFetchData(c);
     }
+
+
+    public ArrayList<LeadLeastDataFromApi> getLeadListData(){
+        String[] projection = {
+                DbConstants.LEAD_USER_NAME,
+                DbConstants.LEAD_ADDRESS,
+                DbConstants.REF_NUMBER,
+                DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_REMARK,
+                DbConstants.LEAD_STATUS,
+        };
+        String sortOrder = DbConstants._L_ID + " DESC";
+        String WHERE = DbConstants.LEAD_STATUS + "=?";
+        Cursor c = db.query(
+                DbConstants.TABLE_LEAD,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{AppConstant.LEAD_STATUS_NEW},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return myLeadListData(c);
+    }
+
+
+
+    private ArrayList<LeadLeastDataFromApi> myLeadListData(Cursor c) {
+        ArrayList<LeadLeastDataFromApi> favDataArray = new ArrayList<>();
+
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    // get  the  data into array,or class variable
+
+                    String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
+                    String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
+                    String address = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_ADDRESS));
+                    String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
+                    String remark = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_REMARK));
+                    String status = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_STATUS));
+
+
+                    // wrap up data list and return
+                    favDataArray.add(new LeadLeastDataFromApi(refnumber,userName,branchName,address,"","",status,remark));
+                } while (c.moveToNext());
+            }
+            c.close();
+        }
+        return favDataArray;
+    }
+
 
     public ArrayList<MyNewProspect> myNewLeadGetAllData() {
 

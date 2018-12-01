@@ -12,7 +12,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.adapter.MyPerfomanceLeadAdapter;
-import net.maxproit.salesforce.feature.salesOfficer.newlead.NewLeadActivity;
+
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.model.mylead.Mylead;
@@ -128,15 +128,12 @@ public class MyPerfomanceLeadActivity extends BaseActivity implements AdapterInf
 
     @Override
     public void startActivity(boolean self, Bundle bundle) {
-        startActivity(NewLeadActivity.class, self, bundle);
+
 
     }
 
     @Override
     public void startActivity(boolean self, Bundle bundle, int code) {
-        Intent intent = new Intent(MyPerfomanceLeadActivity.this, NewLeadActivity.class);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, code);
 
 
     }

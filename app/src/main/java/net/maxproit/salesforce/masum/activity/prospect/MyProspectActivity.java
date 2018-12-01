@@ -15,7 +15,6 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyProspectBinding;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
-import net.maxproit.salesforce.feature.salesOfficer.newProspect.NewProspectActivity;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.model.login.LocalLogin;
@@ -299,15 +298,13 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 
     @Override
     public void startActivity(boolean self, Bundle bundle) {
-        startActivity(NewProspectActivity.class, self, bundle);
+
 
     }
 
     @Override
     public void startActivity(boolean self, Bundle bundle, int code) {
-        Intent intent = new Intent(MyProspectActivity.this, NewProspectActivity.class);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, code);
+
 
     }
 

@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -23,21 +22,13 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.model.api.Data;
-import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
-import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**

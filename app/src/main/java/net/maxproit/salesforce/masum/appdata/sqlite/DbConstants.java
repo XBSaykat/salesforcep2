@@ -113,6 +113,7 @@ public class DbConstants {
     public static final String VISIT_PLAN_MOBILE_NUMBER = "mobile_number";
     public static final String VISIT_PLAN_PRODUCT_TYPE = "product_type";
     public static final String VISIT_PLAN_CITY = "city";
+    public static final String VISIT_JOURNAL_ID = "journal_id";
     public static final String VISIT_PLAN_POLICE_STATION = "police_station";
     public static final String VISIT_PLAN_PURPOSE_OF_VISIT = "purpose_of_visit";
     public static final String VISIT_PLAN_DATE_OF_VISIT = "date_of_visit";
@@ -263,6 +264,8 @@ public class DbConstants {
                     VISIT_PLAN_PURPOSE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_DATE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_REMARKS + TEXT_TYPE + COMMA_SEP +
+                    VISIT_JOURNAL_ID + INTEGER_TYPE + COMMA_SEP +
+                    SYNC_STATUS + TEXT_TYPE + COMMA_SEP +
                     LEAD_STATUS + TEXT_TYPE + " )";
 
     //attachment table sql

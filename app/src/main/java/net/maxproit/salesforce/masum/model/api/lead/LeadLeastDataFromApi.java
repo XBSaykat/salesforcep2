@@ -1,9 +1,11 @@
-package net.maxproit.salesforce.masum.model.api;
+package net.maxproit.salesforce.masum.model.api.lead;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum {
+import java.io.Serializable;
+
+public class LeadLeastDataFromApi implements Serializable {
 
 @SerializedName("Reference")
 @Expose
@@ -30,7 +32,20 @@ private String status;
 @Expose
 private String remark;
 
-public String getReference() {
+    public LeadLeastDataFromApi(String reference, String name,
+                                String branch, String address, String approvalSetID,
+                                String currentLevel, String status, String remark) {
+        this.reference = reference;
+        this.name = name;
+        this.branch = branch;
+        this.address = address;
+        this.approvalSetID = approvalSetID;
+        this.currentLevel = currentLevel;
+        this.status = status;
+        this.remark = remark;
+    }
+
+    public String getReference() {
 return reference;
 }
 

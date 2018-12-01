@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.App;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
@@ -27,10 +26,9 @@ import net.maxproit.salesforce.masum.fragment.lead.LeadStageAttachmentFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageVisitRecordFragment;
-import net.maxproit.salesforce.masum.model.api.Data;
-import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
-import net.maxproit.salesforce.masum.model.api.MyLeadDataModelApi;
-import net.maxproit.salesforce.masum.model.api.MyOldLeadApi;
+import net.maxproit.salesforce.masum.model.api.lead.Data;
+import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
+import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
 import net.maxproit.salesforce.masum.model.local.Attachment;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
@@ -45,7 +43,6 @@ import net.maxproit.salesforce.masum.utility.ImageUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;

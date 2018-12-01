@@ -15,13 +15,15 @@ public class VisitPlan implements Serializable {
     private String dateOfVisit;
     private String remarks;
     private String status;
-    private int id;
+    private String synStatus;
+    private int id,journalId;
 
-    public VisitPlan(int id, String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status ) {
+    public VisitPlan(int id,int journalId, String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status,String synStatus ) {
 
         this.clientName = clientName;
         this.policeStation = policeStation;
         this.id = id;
+        this.journalId = journalId;
         this.clientType = clientType;
         this.mobileNumber = mobileNumber;
         this.productType = productType;
@@ -30,13 +32,13 @@ public class VisitPlan implements Serializable {
         this.dateOfVisit = dateOfVisit;
         this.remarks = remarks;
         this.status = status;
-    }
-
-    public VisitPlan( String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status ) {
+        this.synStatus = synStatus;
+    }   public VisitPlan(int id,String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
 
         this.clientName = clientName;
         this.policeStation = policeStation;
-
+        this.id = id;
+        this.journalId = journalId;
         this.clientType = clientType;
         this.mobileNumber = mobileNumber;
         this.productType = productType;
@@ -45,6 +47,48 @@ public class VisitPlan implements Serializable {
         this.dateOfVisit = dateOfVisit;
         this.remarks = remarks;
         this.status = status;
+        this.synStatus = synStatus;
+    }
+
+    public VisitPlan(String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
+
+        this.clientName = clientName;
+        this.policeStation = policeStation;
+        this.id = id;
+        this.journalId = journalId;
+        this.clientType = clientType;
+        this.mobileNumber = mobileNumber;
+        this.productType = productType;
+        this.city = city;
+        this.purposeOfVisit = purposeOfVisit;
+        this.dateOfVisit = dateOfVisit;
+        this.remarks = remarks;
+        this.status = status;
+        this.synStatus = synStatus;
+    }
+
+    public VisitPlan(int journalId, String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status ,String synStatus) {
+
+        this.clientName = clientName;
+        this.journalId = journalId;
+        this.policeStation = policeStation;
+        this.clientType = clientType;
+        this.mobileNumber = mobileNumber;
+        this.productType = productType;
+        this.city = city;
+        this.purposeOfVisit = purposeOfVisit;
+        this.dateOfVisit = dateOfVisit;
+        this.remarks = remarks;
+        this.status = status;
+        this.synStatus = synStatus;
+    }
+
+    public int getJournalId() {
+        return journalId;
+    }
+
+    public String getSynStatus() {
+        return synStatus;
     }
 
     public String getClientName() {

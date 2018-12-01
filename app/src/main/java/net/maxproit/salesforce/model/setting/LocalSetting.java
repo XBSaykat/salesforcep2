@@ -309,6 +309,15 @@ public class LocalSetting {
 
     }
 
+    public List<String> getPseStringList() {
+        List<String> list = new ArrayList<>();
+        for (PSe in : getPse()) {
+                list.add(in.getPS());
+        }
+        return list;
+
+    }
+
 
     public List<BusinessType> getBusinessType() {
         if (getLocalSetting() != null) {

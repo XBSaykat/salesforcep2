@@ -43,8 +43,6 @@
         <activity
             android:name=".feature.login.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".feature.salesOfficer.newlead.NewLeadActivity" />
-        <activity android:name=".feature.salesOfficer.newProspect.NewProspectActivity" />
         <activity android:name=".feature.upload.UploadActivity" />
         <activity android:name=".feature.dashboard.DashboardVirifierActivity" />
         <activity android:name=".feature.dashboard.supervisor.DashboardSupervisorActivity" />
@@ -92,17 +90,7 @@
         <activity android:name=".feature.upload.UploadProspectActivity" />
         <activity android:name=".feature.salesOfficer.parallelprocess.daviation.DaviationListActivity" />
         <activity android:name=".feature.supervisor.prospectview.ProspectViewActivity" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.guarantorinfo.GuarantorInfoActivity"
-            android:label="Guarantor Info"
-            android:theme="@style/AppThemeDialog" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.guarantorinfo.GuarantorAddressActivity"
-            android:label=""
-            android:theme="@style/AppThemeDialog" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.ownersinfo.OwnersInfoActivity"
-            android:theme="@style/AppThemeDialog" />
+
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -111,9 +99,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAGtDC-bNybal6562n0HfNhxM1nzWiRbuQ" />
 
-        <activity
-            android:name=".feature.salesOfficer.newProspect.ownersinfo.PersonalAssetsActivity"
-            android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementSearchActivity"
             android:theme="@style/AppThemeDialog" />

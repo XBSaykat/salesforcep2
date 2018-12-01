@@ -7,20 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import net.maxproit.salesforce.databinding.ActivityMyLeadBinding;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
-import net.maxproit.salesforce.masum.model.api.Data;
-import net.maxproit.salesforce.masum.model.api.LeadLeastDataFromApi;
-import net.maxproit.salesforce.masum.model.api.MyGetLeadApi;
-import net.maxproit.salesforce.masum.model.api.MyLeadByRefApi;
+import net.maxproit.salesforce.masum.model.api.lead.Data;
+import net.maxproit.salesforce.masum.model.api.lead.LeadLeastDataFromApi;
+import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
+import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.adapter.MyLeadAdapter;
-import net.maxproit.salesforce.feature.salesOfficer.newlead.NewLeadActivity;
+
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
@@ -44,7 +43,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     MyLeadDbController myLeadDbController;
     LocalLogin localLogin;
     MyNewProspect myNewLead;
-    ArrayList<LeadLeastDataFromApi> leadLeastDataFromApiList, filterList;
+    ArrayList<LeadLeastDataFromApi> leadListDataFromApi, filterList;
     String username;
     ArrayList<MyNewProspect> leadList;
 
@@ -60,7 +59,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         binding.btnBack.setOnClickListener(v -> finish());
         localLogin = new LocalLogin(getApplicationContext());
         leadList = new ArrayList<>();
-        leadLeastDataFromApiList = new ArrayList<>();
+        leadListDataFromApi = new ArrayList<>();
         filterList = new ArrayList<>();
         myLeadDbController = new MyLeadDbController(MyLeadActivity.this);
         username = SharedPreferencesEnum.getInstance(getApplicationContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
@@ -68,8 +67,8 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
-        if (!leadLeastDataFromApiList.isEmpty()) {
-            leadLeastDataFromApiList.clear();
+        if (!leadListDataFromApi.isEmpty()) {
+            leadListDataFromApi.clear();
         }
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
@@ -95,35 +94,38 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_RBM));
                 binding.rvMyLead.setClickable(false);
             } else {
-                getDataFromServer();
-                leadList.addAll(myLeadDbController.myNewLeadGetAllData());
+                if (isNetworkAvailable()) {
+                    getDataFromServer();
+                } else {
+                    leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
+                }
             }
         } else {
-            getDataFromServer();
-            leadList.addAll(myLeadDbController.myNewLeadGetAllData());
+            if (isNetworkAvailable())
+                getDataFromServer();
+            else
+                leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
         }
 
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                filterList = getFilterData(leadLeastDataFromApiList, query);
+                filterList = getFilterData(leadListDataFromApi, query);
                 myLeadAdapter.setFilter(filterList);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // If remove data on test dataBase it Will be ok
-                // myLeadAdapter.getFilter().filter(newText);
-                filterList = getFilterData(leadLeastDataFromApiList, newText);
+                filterList = getFilterData(leadListDataFromApi, newText);
                 myLeadAdapter.setFilter(filterList);
                 return true;
             }
         });
 
 
-        myLeadAdapter = new MyLeadAdapter(MyLeadActivity.this, leadLeastDataFromApiList);
+        myLeadAdapter = new MyLeadAdapter(MyLeadActivity.this, leadListDataFromApi);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.rvMyLead.setLayoutManager(mLayoutManager);
         binding.rvMyLead.setAdapter(myLeadAdapter);
@@ -153,8 +155,8 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                     hideProgressDialog();
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            leadLeastDataFromApiList.addAll(response.body().getData());
-                            myLeadAdapter.notifyDataSetChanged();
+                            leadListDataFromApi.addAll(response.body().getData());
+                             myLeadAdapter.notifyDataSetChanged();
                         } else {
                             showAlertDialog("Error", response.body().getMessage());
                         }
@@ -187,7 +189,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
                 Data data = response.body().getData();
                 MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
-                        data.getVisitId(), data.getBranchCode(),data.getProductId(),data.getProductSubCategoryId(),0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
+                        data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
                         data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
                         data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
                         String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), data.getDisbursementDate(),
@@ -200,7 +202,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
                 hideProgressDialog();
-                showAlertDialog("ERROR",t.getMessage());
+                showAlertDialog("ERROR", t.getMessage());
 
             }
         });
@@ -278,15 +280,12 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
     @Override
     public void startActivity(boolean self, Bundle bundle) {
-        startActivity(NewLeadActivity.class, self, bundle);
+
 
     }
 
     @Override
     public void startActivity(boolean self, Bundle bundle, int code) {
-        Intent intent = new Intent(MyLeadActivity.this, NewLeadActivity.class);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, code);
 
 
     }

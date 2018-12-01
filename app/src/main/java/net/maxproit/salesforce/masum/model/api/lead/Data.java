@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.model.api;
+package net.maxproit.salesforce.masum.model.api.lead;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
