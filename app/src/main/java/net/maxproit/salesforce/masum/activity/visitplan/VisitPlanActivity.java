@@ -495,8 +495,8 @@ public class VisitPlanActivity extends BaseActivity {
         txtClientName.setText(clientName);
         txtMobileNo.setText(mobileNo);
         txtRemarks.setText(remarks);
-        if (visitPlanModel.getDateOfVisit() !=null)
-        tvVisitDT.setText(visitPlanModel.getDateOfVisit());
+        if (visitPlanModel.getDateOfVisit() != null)
+            tvVisitDT.setText(visitPlanModel.getDateOfVisit());
 
 
     }
@@ -548,7 +548,7 @@ public class VisitPlanActivity extends BaseActivity {
                 data.setClientType(clientType);
                 data.setCustomerName(clientName);
                 data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
-                data.setFollowupRemarks(remarks);
+                data.setFollowupRemarks("");
                 data.setMaker(userName);
                 data.setMobileNo(mobileNo);
                 data.setProductType(productType);
@@ -583,37 +583,36 @@ public class VisitPlanActivity extends BaseActivity {
 
 
             } else {
-           /*     {
-                    "mobileNo": "01717695590",
-                        "productType": "CAR LOAN",
-                        "followupDate": "2018-12-02",
-                        "followupRemarks": "",
-                        "activityJournalID": 0,
-                        "clientType": "Individual",
-                        "visitPurposeType": "Lead",
-                        "customerName": "Masum",
-                        "city": "Dhaka",
-                        "ps": "Dhaka",
-                        "activityDate": "2018-12-02",
-                        "remarks": "Visit",
-                        "activityStatus": "",
-                        "maker": "MAsif"
-                }*/
                 Data data = new Data();
-                data.setActivityDate("2018-12-02");
+                data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
                 data.setActivityJournalID(0);
                 data.setActivityStatus("");
-                data.setCity("Dhaka");
-                data.setClientType("Individual");
-                data.setCustomerName("Arman hossan");
-                data.setFollowupDate("2018-12-02");
+                data.setCity(city);
+                data.setClientType(clientType);
+                data.setCustomerName(clientName);
+                data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
                 data.setFollowupRemarks("");
-                data.setMaker("MAsif");
-                data.setMobileNo("01717695590");
-                data.setProductType("CAR LOAN");
-                data.setPs("Dhaka");
-                data.setRemarks("Visit");
-                data.setVisitPurposeType("Lead");
+                data.setMaker(userName);
+                data.setMobileNo(mobileNo);
+                data.setProductType(productType);
+                data.setPs(policeStation);
+                data.setRemarks(remarks);
+                data.setVisitPurposeType(purposeOfVisit);
+      /*          Data data = new Data();
+                data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
+                data.setActivityJournalID(0);
+                data.setActivityStatus("");
+                data.setCity(city);
+                data.setClientType(clientType);
+                data.setCustomerName(clientName);
+                data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
+                data.setFollowupRemarks(remarks);
+                data.setMaker(userName);
+                data.setMobileNo(mobileNo);
+                data.setProductType(productType);
+                data.setPs(policeStation);
+                data.setRemarks(remarks);
+                data.setVisitPurposeType(purposeOfVisit);*/
                 if (isNetworkAvailable()) {
                     getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
                         @Override
@@ -624,7 +623,7 @@ public class VisitPlanActivity extends BaseActivity {
                                         mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
                                         spinnerPoliceStation.getSelectedItem(),
                                         purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
-                                Log.e("status", "save data into server and local"+response.body().getData().toString());
+                                Log.e("status", "save data into server and local" + response.body().getData().toString());
                                 finish();
                             }
 
