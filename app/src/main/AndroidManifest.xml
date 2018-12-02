@@ -8,11 +8,12 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -42,8 +43,6 @@
         <activity
             android:name=".feature.login.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".feature.salesOfficer.newlead.NewLeadActivity" />
-        <activity android:name=".feature.salesOfficer.newProspect.NewProspectActivity" />
         <activity android:name=".feature.upload.UploadActivity" />
         <activity android:name=".feature.dashboard.DashboardVirifierActivity" />
         <activity android:name=".feature.dashboard.supervisor.DashboardSupervisorActivity" />
@@ -91,17 +90,7 @@
         <activity android:name=".feature.upload.UploadProspectActivity" />
         <activity android:name=".feature.salesOfficer.parallelprocess.daviation.DaviationListActivity" />
         <activity android:name=".feature.supervisor.prospectview.ProspectViewActivity" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.guarantorinfo.GuarantorInfoActivity"
-            android:label="Guarantor Info"
-            android:theme="@style/AppThemeDialog" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.guarantorinfo.GuarantorAddressActivity"
-            android:label=""
-            android:theme="@style/AppThemeDialog" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.ownersinfo.OwnersInfoActivity"
-            android:theme="@style/AppThemeDialog" />
+
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -110,9 +99,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAGtDC-bNybal6562n0HfNhxM1nzWiRbuQ" />
 
-        <activity
-            android:name=".feature.salesOfficer.newProspect.ownersinfo.PersonalAssetsActivity"
-            android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementSearchActivity"
             android:theme="@style/AppThemeDialog" />
@@ -136,6 +122,14 @@
         <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity" />
         <activity android:name=".CoApplicantRbmView" />
         <activity android:name=".masum.activity.prospect.MyProspectFragmentActivity"></activity>
+
+        <receiver android:name=".masum.reciever.NetworkMonitor"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

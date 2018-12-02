@@ -22,8 +22,8 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
-import net.maxproit.salesforce.masum.model.CarLoan;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.CarLoan;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -133,8 +133,8 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         etProposedInterest = view.findViewById(R.id.input_proposed_interest_rate);
         etFee = view.findViewById(R.id.input_fee);
 
-        etProposedInterest.addTextChangedListener(new NumberTextWatcher(etProposedInterest));
-        etFee.addTextChangedListener(new NumberTextWatcher(etFee));
+       // etProposedInterest.addTextChangedListener(new NumberTextWatcher(etProposedInterest));
+        //etFee.addTextChangedListener(new NumberTextWatcher(etFee));
 
         spinnerBrand = view.findViewById(R.id.awe_spinner_prospect_stage_brand_name);
         spinnerYear = view.findViewById(R.id.awe_spinner_prospect_stage_manufacturing_year);
@@ -142,7 +142,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         spinnerVehicleType = view.findViewById(R.id.awe_spinner_prospect_stage_vehicle_type);
 
         initAdapters();
-        initListener();
+
 
 
         commaSeparator();
@@ -201,7 +201,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
         ArrayAdapter<String> vehicleTypeAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listvehicleType);
         spinnerVehicleType.setAdapter(vehicleTypeAdapter);
-
+        initListener();
         if (prospectStageActivity.getDataFromProspect()!=null){
 
             MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
@@ -245,9 +245,9 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
             }
 
 
-            etLoanRequired.setText(myNewLead.getLoanReq());
+          /*  etLoanRequired.setText(myNewLead.getLoanReq());
             etProposedInterest.setText(myNewLead.getPiRate());
-            etFee.setText(myNewLead.getProspectFee());
+            etFee.setText(myNewLead.getProspectFee());*/
 
         }
 

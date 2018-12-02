@@ -25,9 +25,19 @@ public class DbConstants {
 
     //lead table
     public static final String _L_ID = "_id";
+    public static final String CUSTOMER_ID = "customer_id";
+    public static final String MOBILE_ID = "mobile_id";
+    public static final String ADDRESS_ID = "address_id";
+    public static final String VISIT_ID = "visit_id";
+
     public static final String LEAD_BRANCH_NAME = "branch";
+    public static final String LEAD_BRANCH_CODE = "branch_code";
+    public static final String LEAD_PRODUCT_CODE = "product_code";
+    public static final String LEAD_SUBCAT_CODE = "sub_cat_code";
+    public static final String USER_ID = "user_id";
+    public static final String REF_NUMBER = "ref_number";
     public static final String LEAD_USER_NAME = "user_name";
-    public static final String LEAD_PROFESSION = "profession";
+    public static final String LEAD_PROFESSION = "getProfessionString";
     public static final String LEAD_ORGANIZATION = "organzation";
     public static final String LEAD_DESIGNATION = "designation";
     public static final String LEAD_PHONE = "phone";
@@ -84,6 +94,7 @@ public class DbConstants {
     public static final String PROSPECT_FEE = "fee";
 
     public static final String LEAD_STATUS = "status";
+    public static final String SYNC_STATUS = "sync";
 
     //car loan
 
@@ -102,6 +113,7 @@ public class DbConstants {
     public static final String VISIT_PLAN_MOBILE_NUMBER = "mobile_number";
     public static final String VISIT_PLAN_PRODUCT_TYPE = "product_type";
     public static final String VISIT_PLAN_CITY = "city";
+    public static final String VISIT_JOURNAL_ID = "journal_id";
     public static final String VISIT_PLAN_POLICE_STATION = "police_station";
     public static final String VISIT_PLAN_PURPOSE_OF_VISIT = "purpose_of_visit";
     public static final String VISIT_PLAN_DATE_OF_VISIT = "date_of_visit";
@@ -134,7 +146,14 @@ public class DbConstants {
     public static final String SQL_CREATE_LEAD_ENTRIES =
             "CREATE TABLE " + TABLE_LEAD + " (" +
                     _L_ID + " INTEGER PRIMARY KEY," +
+                    USER_ID + TEXT_TYPE + COMMA_SEP +
+                    CUSTOMER_ID + INTEGER_TYPE + COMMA_SEP +
+                    MOBILE_ID + INTEGER_TYPE + COMMA_SEP +
+                    ADDRESS_ID + INTEGER_TYPE + COMMA_SEP +
+                    VISIT_ID + INTEGER_TYPE + COMMA_SEP +
+                    REF_NUMBER + TEXT_TYPE + COMMA_SEP +
                     LEAD_BRANCH_NAME + TEXT_TYPE + COMMA_SEP +
+                    LEAD_BRANCH_CODE + INTEGER_TYPE + COMMA_SEP +
                     LEAD_PROFESSION + TEXT_TYPE + COMMA_SEP +
                     LEAD_USER_NAME + TEXT_TYPE + COMMA_SEP +
                     LEAD_ORGANIZATION + TEXT_TYPE + COMMA_SEP +
@@ -143,7 +162,9 @@ public class DbConstants {
                     LEAD_ADDRESS + TEXT_TYPE + COMMA_SEP +
                     LEAD_REF + TEXT_TYPE + COMMA_SEP +
                     LEAD_PRODUCT_TYPE + TEXT_TYPE + COMMA_SEP +
+                    LEAD_PRODUCT_CODE + INTEGER_TYPE + COMMA_SEP +
                     LEAD_PRODUCT_SUBCATEGORY + TEXT_TYPE + COMMA_SEP +
+                    LEAD_SUBCAT_CODE + INTEGER_TYPE + COMMA_SEP +
                     TENTETIVE_LEAD_AMOUNT + TEXT_TYPE + COMMA_SEP +
                     LEAD_OR_INTEREST + TEXT_TYPE + COMMA_SEP +
                     LEAD_OP_FEE + TEXT_TYPE + COMMA_SEP +
@@ -185,6 +206,7 @@ public class DbConstants {
                     PROSPECT_LOAD_TERM + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_PI_RATE + TEXT_TYPE + COMMA_SEP +
                     PROSPECT_FEE + TEXT_TYPE + COMMA_SEP +
+                    SYNC_STATUS + TEXT_TYPE + COMMA_SEP +
                     LEAD_STATUS + TEXT_TYPE + " )";
 
 
@@ -242,6 +264,8 @@ public class DbConstants {
                     VISIT_PLAN_PURPOSE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_DATE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_REMARKS + TEXT_TYPE + COMMA_SEP +
+                    VISIT_JOURNAL_ID + INTEGER_TYPE + COMMA_SEP +
+                    SYNC_STATUS + TEXT_TYPE + COMMA_SEP +
                     LEAD_STATUS + TEXT_TYPE + " )";
 
     //attachment table sql

@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import net.maxproit.salesforce.masum.model.FollowUpActivity;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.FollowUpActivity;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.util.ArrayList;

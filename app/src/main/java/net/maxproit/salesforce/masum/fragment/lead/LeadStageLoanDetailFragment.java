@@ -5,10 +5,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +23,17 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.NumberTextWatcher;
 import net.maxproit.salesforce.NumberToWords;
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.model.MyNewLead;
+
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -39,7 +44,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class LeadStageLoanDetailFragment extends Fragment {
+public class LeadStageLoanDetailFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,11 +54,11 @@ public class LeadStageLoanDetailFragment extends Fragment {
     Calendar myCalendar = Calendar.getInstance();
 
     TextView tvTentativeNumberToWord;
-
+    boolean isFirst=false;
     //TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<MyNewLead> myNewLeadArrayList;
+    private ArrayList<MyNewProspect> myNewLeadArrayList;
     private MyLeadDbController myLeadDbController;
     private SpinnerDbController spinnerDbController;
     private ArrayAdapter<String> productSubAdapter;
@@ -63,7 +68,8 @@ public class LeadStageLoanDetailFragment extends Fragment {
     private List<String> listCarloan = null;
     private List<String> listHomeloan = null;
     private List<String> listPersonalloan = null;
-
+    private LocalSetting localSetting;
+    public static int productTypeCode=0,productSubCatCode=0;
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
     public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate;
     public static int ref = 0;
@@ -103,15 +109,26 @@ public class LeadStageLoanDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //Inflate the layout for this fragment
+        Log.e("crash","loan");
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_loan_detail, container, false);
         initVariable();
         initView(rootView);
-        initListener();
         return rootView;
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
+
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+
     private void initVariable() {
+        localSetting=new LocalSetting(getActivity());
         spinnerDbController = new SpinnerDbController(getActivity());
         listSourceReference = new ArrayList<String>();
         listProductType = new ArrayList<String>();
@@ -120,11 +137,10 @@ public class LeadStageLoanDetailFragment extends Fragment {
         listHomeloan = new ArrayList<String>();
         listPersonalloan = new ArrayList<String>();
         listSourceReference.addAll(spinnerDbController.getSourceOfReferenceData());
-        listProductType.addAll(spinnerDbController.getProductTypeData());
-        listProductSubCategory.addAll(spinnerDbController.getProductSubcategoryData());
-        listHomeloan.addAll(spinnerDbController.getHomeLoanData());
-        listCarloan.addAll(spinnerDbController.getCarLoanData());
-        listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
+        listHomeloan.addAll(localSetting.getProductSubCategorystring(8));
+        listCarloan.addAll(localSetting.getProductSubCategorystring(9));
+        listPersonalloan.addAll(localSetting.getProductSubCategorystring(10));
+
     }
 
     private void initListener() {
@@ -140,32 +156,45 @@ public class LeadStageLoanDetailFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
 //                productType = i;
-                productType = s;
-
-                if (s.equals(AppConstant.HOME_LOAN)) {
-
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
-
+                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (myNewLead ==null){
+                    isFirst=true;
                 }
-                if (s.equals(AppConstant.CAR_LOAN)) {
+                if (isFirst) {
+                    productType = s;
+                    LongOperation longOperation = new LongOperation();
+                    longOperation.execute(i);
+                    if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
 
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
 
+                    }
+                    if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
+                    if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                        spinnerSubCategory.setAdapter(productSubAdapter);
+
+                    }
                 }
-                if (s.equals(AppConstant.PERSONAL_LOAN)) {
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                    spinnerSubCategory.setAdapter(productSubAdapter);
-
+                else {
+                    isFirst=true;
                 }
 
             }
         });
+
         spinnerSubCategory.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 subCategory = s;
+                LongOperationSubCategory longOperationSubCategory=new LongOperationSubCategory();
+                longOperationSubCategory.execute(i);
             }
         });
 
@@ -290,9 +319,9 @@ public class LeadStageLoanDetailFragment extends Fragment {
         ArrayAdapter<String> sourceReferenceAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSourceReference);
         spinnerRef.setAdapter(sourceReferenceAdapter);
 
-        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProductType);
+        ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
-
+        initListener();
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
@@ -309,8 +338,14 @@ public class LeadStageLoanDetailFragment extends Fragment {
 
                 }
             } else {
-                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
+
+                    etLoanAmount.setText("" + myNewLead.getLoanAmount());
+                    etInterest.setText("" + myNewLead.getOrInterest());
+                    etDisbursementDate.setText(myNewLead.getDisDate());
+                    etFee.setText("" + myNewLead.getOpFee());
+
                     if (myNewLead.getSourceRef() != null)
                         try {
                             spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getSourceRef()));
@@ -322,47 +357,39 @@ public class LeadStageLoanDetailFragment extends Fragment {
                     if (myNewLead.getProductType() != null) {
                         try {
                             spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
+                        }
+                        catch (IllegalStateException ignored){
+
+                        }
+
+                        if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+
+                        } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+
+
+                        } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                            productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                            spinnerSubCategory.setAdapter(productSubAdapter);
+
+
+                        }
+
+                        try {
+
+                            spinnerSubCategory.setSelection(productSubAdapter.
+                                    getPosition(myNewLead.getProductSubcategory()));
                         } catch (IllegalStateException ignored) {
-                        } catch (NullPointerException e) {
-
                         }
-                        if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
-                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                            spinnerSubCategory.setAdapter(productSubAdapter);
-                            try {
 
-                                spinnerSubCategory.setSelection(productSubAdapter.
-                                        getPosition(myNewLead.getProductSubcategory()));
-                            } catch (IllegalStateException ignored) {
-                            }
-                        } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
-                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                            spinnerSubCategory.setAdapter(productSubAdapter);
-                            try {
 
-                                spinnerSubCategory.setSelection(productSubAdapter.
-                                        getPosition(myNewLead.getProductSubcategory()));
-                            } catch (IllegalStateException ignored) {
-                            }
-
-                        } else if (myNewLead.getProductType().equals(AppConstant.PERSONAL_LOAN)) {
-                            ArrayAdapter productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                            spinnerSubCategory.setAdapter(productSubAdapter);
-                            try {
-
-                                spinnerSubCategory.setSelection(productSubAdapter.
-                                        getPosition(myNewLead.getProductSubcategory()));
-                            } catch (IllegalStateException ignored) {
-                            }
-
-                        }
                     }
 
-                    etLoanAmount.setText(myNewLead.getLoadAmount());
-                    etInterest.setText(myNewLead.getOrInterest());
-                    etDisbursementDate.setText(myNewLead.getDisDate());
-                    etFee.setText(myNewLead.getOpFee());
                 }
+
             }
         }
     }
@@ -389,6 +416,51 @@ public class LeadStageLoanDetailFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private class LongOperation extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            productTypeCode=localSetting.getProductCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+
+    private class LongOperationSubCategory extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+          productSubCatCode=localSetting.getSubCatCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 
     /**

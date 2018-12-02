@@ -19,7 +19,8 @@ import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.api.myactivity.Datum;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
@@ -43,6 +44,7 @@ public class FragmentUpComingList extends Fragment {
     LocalLogin localLogin;
     String username;
     private ArrayList<VisitPlan> leadList, filterList, visitPlanList;
+    private ArrayList<Datum> visitPlanApiList,visitPlanFilterApiList;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -98,6 +100,8 @@ public class FragmentUpComingList extends Fragment {
         leadList = new ArrayList<>();
         filterList = new ArrayList<>();
         visitPlanList = new ArrayList<>();
+        visitPlanApiList = new ArrayList<>();
+        visitPlanFilterApiList = new ArrayList<>();
         myDbController = new VisitPlanDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
         myActivitiesActivity= (MyActivitiesActivity) getActivity();
@@ -127,34 +131,8 @@ public class FragmentUpComingList extends Fragment {
         }
 
 
-//        searchView = findViewById(R.id.search_view);
         rvMyActivity = rootView.findViewById(R.id.rv_my_activity);
-
-//        backButton = findViewById(R.id.btn_back);
-//        addButton = findViewById(R.id.btn_add);
-//        rvMyLead = findViewById(R.id.rvMyLead);
-
-
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                filterList = getFilterData(followUpList, query);
-//                myLeadAdapter.setFilter(filterList);
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                // If remove data on test dataBase it Will be ok
-//                // myLeadAdapter.getFilter().filter(newText);
-//                filterList = getFilterData(followUpList, newText);
-//                myLeadAdapter.setFilter(filterList);
-//                return true;
-//            }
-//        });
-
-
-        myLeadAdapter = new MyVisitPlanListAdapter(getActivity(), visitPlanList);
+        myLeadAdapter = new MyVisitPlanListAdapter(getActivity(), visitPlanApiList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rvMyActivity.setLayoutManager(mLayoutManager);
         rvMyActivity.setAdapter(myLeadAdapter);
@@ -169,15 +147,15 @@ public class FragmentUpComingList extends Fragment {
     }
 
 
-    private ArrayList<VisitPlan> getFilterData(ArrayList<VisitPlan> models, CharSequence searchKey) {
+    private ArrayList<Datum> getFilterData(ArrayList<Datum> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<VisitPlan> filteredModelList = new ArrayList<>();
-        for (VisitPlan model : models) {
+        final ArrayList<Datum> filteredModelList = new ArrayList<>();
+        for (Datum model : models) {
             final String uName = model.getCity().toLowerCase();
             final String type = model.getClientType().toLowerCase();
-            final String name = model.getClientName().toLowerCase();
-            final String mobile = model.getMobileNumber().toLowerCase();
+            final String name = model.getCustomerName().toLowerCase();
+            final String mobile = model.getMobileNo().toLowerCase();
 
             if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey) || mobile.contains(searchKey) ) {
                 filteredModelList.add(model);
@@ -187,10 +165,10 @@ public class FragmentUpComingList extends Fragment {
     }
 
     private void loadFilterData() {
-        if (!filterList.isEmpty()) {
-            filterList.clear();
+        if (!visitPlanFilterApiList.isEmpty()) {
+            visitPlanFilterApiList.clear();
         }
-        filterList.addAll(myLeadAdapter.getDataList());
+        visitPlanFilterApiList.addAll(myLeadAdapter.getDataList());
     }
 
 
@@ -213,8 +191,8 @@ public class FragmentUpComingList extends Fragment {
     }
 
     public void beginSearching(String s){
-        filterList= getFilterData(visitPlanList,s);
-        myLeadAdapter.setFilter(filterList);
+        visitPlanFilterApiList= getFilterData(visitPlanApiList,s);
+        myLeadAdapter.setFilter(visitPlanFilterApiList);
     }
 
     private void removeItemFromList(int position, String status) {

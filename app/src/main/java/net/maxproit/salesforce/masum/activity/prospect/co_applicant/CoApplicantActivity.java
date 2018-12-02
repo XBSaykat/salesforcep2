@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,33 +15,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantProductAndCustomerDetailsFragment;
-import net.maxproit.salesforce.masum.model.CarLoan;
-import net.maxproit.salesforce.masum.model.CoApplicant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoApplicantActivity extends AppCompatActivity {
+public class CoApplicantActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView btnSave;
     private CoApplicantDBController coApplicantDBController;
-    private CoApplicantProductAndCustomerDetailsFragment coApplicantProductAndCustomerDetailsFragment;
     int leadId=0;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_co_applicant);
 
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_co_applicant;
+    }
+
+    @Override
+    protected void initComponents() {
+
+        toolbar =findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage: Co-Applicant");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,6 +64,10 @@ public class CoApplicantActivity extends AppCompatActivity {
         leadId = getIntent().getIntExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, -1);
 
         initListener();
+    }
+
+    @Override
+    protected void getIntentData() {
 
     }
 
