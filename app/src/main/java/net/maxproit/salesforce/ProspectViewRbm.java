@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanActivity;
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
@@ -147,7 +149,22 @@ public class ProspectViewRbm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myLeadDbController.updateLeadDataStatus(getDataFromProspect().getId(),AppConstant.STATUS_RETURN_RBM);
-                finish();
+                android.app.AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+                } else {
+                    builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this);
+                }
+                builder.setTitle("Return prospect");
+                builder.setMessage("Do you want to return this prospect?");
+                builder.setIcon(R.drawable.lead);
+                builder.setNegativeButton("No", null);
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    startActivity(new Intent(ProspectViewRbm.this, SupervisorRbmProspect.class));
+                });
+                android.app.AlertDialog dialog = builder.create();
+                dialog.show();
+//                finish();
             }
         });
 
