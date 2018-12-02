@@ -97,6 +97,10 @@ public class VisitPlanListActivity extends BaseActivity {
         if (!visitPlanList.isEmpty()){
             visitPlanList.clear();
         }
+        if (!visitPlanApiList.isEmpty()){
+            visitPlanApiList.clear();
+        }
+
         Bundle extraDetail = getIntent().getExtras();
 
         if (extraDetail !=null){

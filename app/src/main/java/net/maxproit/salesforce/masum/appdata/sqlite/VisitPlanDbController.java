@@ -87,8 +87,6 @@ public class VisitPlanDbController {
         ContentValues values = new ContentValues();
         values.put(DbConstants.LEAD_STATUS, status);
         return db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + id, null);
-
-
     }
 
 
@@ -244,7 +242,6 @@ public class VisitPlanDbController {
                 DbConstants._V_ID,
                 DbConstants.VISIT_JOURNAL_ID,
                 DbConstants.SYNC_STATUS,
-
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,

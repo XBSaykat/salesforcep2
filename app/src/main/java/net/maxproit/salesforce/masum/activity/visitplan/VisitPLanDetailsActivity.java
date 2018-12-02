@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
-import net.maxproit.salesforce.App;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
@@ -35,12 +34,15 @@ import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.model.api.myactivity.Data;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
 import net.maxproit.salesforce.masum.model.local.FollowUpActivity;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 import net.maxproit.salesforce.model.setting.LocalSetting;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +52,10 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class VisitPLanDetailsActivity extends BaseActivity {
 
     Calendar myCalendar = Calendar.getInstance();
@@ -58,34 +64,34 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
     public EditText tvClientType, tvVisitPurpose, tvClientName, tvMobileNumber, tvProductType, tvCity, tvPoliceStation,
             tvVisitDate, tvRemarks, etNewRemark, etNewFollowUpdate;
-    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerPurposeOfVisit,spinnerCity,spinnerPoliceStation;
+    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerPurposeOfVisit, spinnerCity, spinnerPoliceStation;
     private SpinnerDbController spinnerDbController;
     private CardView tvProceedToLead, tvRejected, tvSave;
-    Intent myActivityItemIntent;
-    LinearLayout secMobiile;
+    private Intent myActivityItemIntent;
+    private LinearLayout secMobiile;
     private LocalSetting localSetting;
-    int itemPosition;
-    List<String> listClientType, listProductType, listPurpose,polishStationList;
-    private ArrayAdapter<String> productTypeAdapter,cityAdapter;
+    private int itemPosition;
+    private List<String> listClientType, listProductType, listPurpose, polishStationList;
+    private ArrayAdapter<String> productTypeAdapter, cityAdapter;
     private LinearLayout mlayout, mLayoutCLientTypeField;
     private Button btnFollowUp;
     private ImageView backButton;
     private ArrayList<FollowUpActivity> followUpList;
     private ArrayAdapter<String> adptrClientType = null;
-    ArrayAdapter<String> adptrPurpose = null;
+    private ArrayAdapter<String> adptrPurpose = null;
     private ArrayList<VisitPlan> visitPlanArrayList, visitPlanFilterList;
     private VisitPlanDbController visitPlanDbController;
     private FollowUpDbController followUpDbController;
     private VisitPlan visitPlanModel = null;
-    String spinerClientTypeStr = null,city;
-    String sProductTypeString = null;
-    String sPurposeOfVisitStr = null;
-    private LinearLayout layoutNewRemark, layoutNewDate, lPTypeSpinner, lPrtype, layoutPurOfvisit, lspiner_pov,lnCity,lnPStation,lnSpinnerPolis,lnSpinerCity;
+    private String spinerClientTypeStr = null, citySpn, polisStattionSpn, userName;
+    private String sProductTypeString = null;
+    private String sPurposeOfVisitStr = null;
+    private LinearLayout layoutNewRemark, layoutNewDate, lPTypeSpinner, lPrtype, layoutPurOfvisit, lspiner_pov, lnCity, lnPStation, lnSpinnerPolis, lnSpinerCity;
     static final String PRE_DISBURSEMENT = "Pre- Disbursement";
     static final String POST_DISBURSEMENT = "Post- Disbursement";
     static final String INDIVIDUAL = "Individual";
     private ArrayAdapter<String> polishStationAdapter;
-    String clientType, productType, purposeOfVisit;
+    private String clientType, productType, purposeOfVisit;
 
 
     @Override
@@ -107,7 +113,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     }
 
     private void initVariable() {
-        localSetting=new LocalSetting(this);
+        localSetting = new LocalSetting(this);
+        userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
+        localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
         visitPlanDbController = new VisitPlanDbController(this);
         followUpDbController = new FollowUpDbController(getContext());
         listClientType = new ArrayList<String>();
@@ -206,10 +214,10 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         layoutNewDate = findViewById(R.id.layout_follow_up);
         layoutNewRemark = findViewById(R.id.layout_new_remark);
         lspiner_pov = findViewById(R.id.lspiner_pov);
-        lnCity=findViewById(R.id.lnet_city);
-        lnSpinerCity=findViewById(R.id.ln_spinner_city);
-        lnSpinerCity=findViewById(R.id.ln_spinner_polis);
-        lnPStation=findViewById(R.id.lnet_polis);
+        lnCity = findViewById(R.id.lnet_city);
+        lnSpinerCity = findViewById(R.id.ln_spinner_city);
+        lnSpinerCity = findViewById(R.id.ln_spinner_polis);
+        lnPStation = findViewById(R.id.lnet_polis);
         lnPStation.setVisibility(View.GONE);
         lnCity.setVisibility(View.GONE);
         spinnerCity = findViewById(R.id.awe_spinner_visit_plan_city);
@@ -284,12 +292,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             @Override
             public void onItemSelected(int i, String s) {
                 spinerClientTypeStr = s;
-//                if (s.equals(INDIVIDUAL)) {
-//                    secMobiile.setVisibility(View.VISIBLE);
-//
-//                } else {
-//                    secMobiile.setVisibility(View.GONE);
-//                }
 
             }
         });
@@ -321,72 +323,66 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                city = s;
+                citySpn = s;
 
             }
 
         });
-
-        tvProceedToLead.setOnClickListener(new View.OnClickListener() {
+        spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
-            public void onClick(View v) {
+            public void onItemSelected(int i, String s) {
+                polisStattionSpn = s;
+
+            }
+        });
+
+        tvProceedToLead.setOnClickListener(view -> {
                 alertDialogProceed();
-            }
+
         });
 
 
-        tvRejected.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        tvRejected.setOnClickListener(view -> {
                 alertDialog();
-            }
+
         });
 
-        tvSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        tvSave.setOnClickListener(view -> {
                 alertDialogSave();
-            }
+
         });
 
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        backButton.setOnClickListener(view -> {
+
                 onBackPressed();
-            }
+
         });
 
 
-        tvVisitDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        tvVisitDate.setOnClickListener(view -> {
                 datePickerDialog(tvVisitDate);
-            }
+
         });
 
         layoutNewRemark.setVisibility(View.GONE);
 
 
-        etNewFollowUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        etNewFollowUpdate.setOnClickListener(view -> {
                 datePickerDialog(etNewFollowUpdate);
-                if(etNewFollowUpdate!=null){
+                if (etNewFollowUpdate != null) {
                     layoutNewRemark.setVisibility(View.VISIBLE);
                 } else {
                     layoutNewRemark.setVisibility(View.GONE);
                 }
-            }
+
         });
 
-        btnFollowUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnFollowUp.setOnClickListener(view -> {
                 if (!followUpList.isEmpty()) {
                     followUpAlert();
                 }
-            }
+
         });
 
 
@@ -419,16 +415,52 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         } else if (visitPlanModel != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY)) {
             updatePlanData();
         } else {
+            Data data = new Data();
+            data.setActivityDate(DateUtils.getDateFormateForSqlite(tvVisitDate.getText().toString()));
+            data.setActivityJournalID(0);
+            data.setActivityStatus("");
+            data.setCity(citySpn);
+            data.setClientType(spinerClientTypeStr);
+            data.setCustomerName(tvClientName.getText().toString());
+            data.setFollowupDate(DateUtils.getDateFormateForSqlite(tvVisitDate.getText().toString()));
+            data.setFollowupRemarks(tvRemarks.getText().toString());
+            data.setMaker(userName);
+            data.setMobileNo(tvMobileNumber.getText().toString());
+            data.setProductType(sProductTypeString);
+            data.setPs(polisStattionSpn);
+            data.setRemarks(tvRemarks.getText().toString());
+            data.setVisitPurposeType(sPurposeOfVisitStr);
 
-            int insert = visitPlanDbController.insertData(0,tvClientName.getText().toString(), spinerClientTypeStr,
-                    tvMobileNumber.getText().toString(), tvProductType.getText().toString(),
-                    tvCity.getText().toString(), tvPoliceStation.getText().toString(), tvVisitPurpose.getText().toString(), tvVisitDate.getText().toString(),
-                    tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY,AppConstant.SYNC_STATUS_WAIT);
-            if (insert > 0) {
-                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
-                Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
+            if (isNetworkAvailable()) {
+                getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
+                    @Override
+                    public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+                        if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                            Data data1 = response.body().getData();
+                            visitPlanDbController.insertData(data1.getActivityJournalID(), tvClientName.getText().toString(), spinerClientTypeStr,
+                                    tvMobileNumber.getText().toString(), sProductTypeString,
+                                    citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
+                                    tvRemarks.getText().toString(), data1.getActivityStatus(), AppConstant.SYNC_STATUS_WAIT);
+                            Log.e("status", "save data into server and local" + response.body().getData().toString());
+                            finish();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                        getAlertDialog("ERROR", t.getMessage());
+
+                    }
+                });
             } else {
-                Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();
+                visitPlanDbController.insertData(0, tvClientName.getText().toString(), spinerClientTypeStr,
+                        tvMobileNumber.getText().toString(), sProductTypeString,
+                        citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
+                        tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT);
+                Log.e("status", " no internet save data into local");
+
+                finish();
             }
 
 
@@ -446,7 +478,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             followUpList.addAll(followUpDbController.getAllData(visitPlanModel.getId()));
 
 
-            if (followUpList.size()==0){
+            if (followUpList.size() == 0) {
                 btnFollowUp.setVisibility(View.GONE);
             }
             sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
@@ -476,7 +508,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                 !TextUtils.isEmpty(etNewRemark.getText())) {
 
-            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(),visitPlanModel.getJournalId(),
+            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), visitPlanModel.getJournalId(),
                     visitPlanModel.getClientName(),
                     visitPlanModel.getClientType(),
                     tvMobileNumber.getText().toString(),
@@ -486,15 +518,15 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     visitPlanModel.getPurposeOfVisit(),
                     etNewFollowUpdate.getText().toString(),
                     etNewRemark.getText().toString(),
-                    AppConstant.STATUS_ACTIVITY,AppConstant.SYNC_STATUS_WAIT));
+                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
             if (update > 0) {
                 Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(VisitPLanDetailsActivity.this, "failed update", Toast.LENGTH_SHORT).show();
 
             }
-            int dataAvailable=followUpDbController.getAllData(visitPlanModel.getId()).size();
-            if (dataAvailable == 0){
+            int dataAvailable = followUpDbController.getAllData(visitPlanModel.getId()).size();
+            if (dataAvailable == 0) {
                 int insert = followUpDbController.insertData(visitPlanModel.getId(),
                         tvVisitDate.getText().toString(), tvRemarks.getText().toString());
                 if (insert > 0) {
@@ -523,7 +555,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     visitPlanModel.getPurposeOfVisit(),
                     tvVisitDate.getText().toString(),
                     visitPlanModel.getRemarks(),
-                    AppConstant.STATUS_ACTIVITY,AppConstant.SYNC_STATUS_WAIT));
+                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
             if (update > 0) {
                 ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
                 Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
@@ -540,7 +572,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                 !TextUtils.isEmpty(etNewRemark.getText())) {
 
-            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getJournalId(),visitPlanModel.getId(),
+            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getJournalId(), visitPlanModel.getId(),
                     tvClientName.getText().toString(),
                     spinerClientTypeStr,
                     tvMobileNumber.getText().toString(),
@@ -550,7 +582,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     sPurposeOfVisitStr,
                     etNewFollowUpdate.getText().toString(),
                     etNewRemark.getText().toString(),
-                    AppConstant.STATUS_ACTIVITY,AppConstant.SYNC_STATUS_WAIT));
+                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
             if (update > 0) {
                 Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
             } else {
@@ -558,8 +590,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
             }
 
-            int dataAvailable=followUpDbController.getAllData(visitPlanModel.getId()).size();
-            if (dataAvailable == 0){
+            int dataAvailable = followUpDbController.getAllData(visitPlanModel.getId()).size();
+            if (dataAvailable == 0) {
                 int insert = followUpDbController.insertData(visitPlanModel.getId(),
                         tvVisitDate.getText().toString(), tvRemarks.getText().toString());
                 if (insert > 0) {
@@ -578,7 +610,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             }
         } else {
 
-            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getJournalId(),visitPlanModel.getId(),
+            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getJournalId(), visitPlanModel.getId(),
                     tvClientName.getText().toString(),
                     spinerClientTypeStr,
                     tvMobileNumber.getText().toString(),
@@ -588,7 +620,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     sPurposeOfVisitStr,
                     tvVisitDate.getText().toString(),
                     tvRemarks.getText().toString(),
-                    AppConstant.STATUS_ACTIVITY,AppConstant.SYNC_STATUS_WAIT));
+                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
             if (update > 0) {
                 ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
 
@@ -608,11 +640,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     }
 
 
-    private VisitPlan getPLanDataModel(int id,int journalId, String clientName, String clientType,
+    private VisitPlan getPLanDataModel(int id, int journalId, String clientName, String clientType,
                                        String phone, String station, String pType, String
-                                               city, String pov, String dov, String re, String status,String synStatus) {
-        VisitPlan visitPlan = new VisitPlan(id, journalId,clientName, clientType, phone,
-                station, pType, city, pov, dov, re, status,synStatus);
+                                               city, String pov, String dov, String re, String status, String synStatus) {
+        VisitPlan visitPlan = new VisitPlan(id, journalId, clientName, clientType, phone,
+                station, pType, city, pov, dov, re, status, synStatus);
         return visitPlan;
     }
 
@@ -667,7 +699,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
 
             if (visitPlanModel != null) {
-                int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getJournalId(),visitPlanModel.getId(),
+                int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getJournalId(), visitPlanModel.getId(),
                         tvClientName.getText().toString(),
                         spinerClientTypeStr,
                         tvMobileNumber.getText().toString(),
@@ -677,7 +709,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         sPurposeOfVisitStr,
                         tvVisitDate.getText().toString(),
                         tvRemarks.getText().toString(),
-                        AppConstant.VISITED,AppConstant.SYNC_STATUS_WAIT));
+                        AppConstant.VISITED, AppConstant.SYNC_STATUS_WAIT));
                 VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(),
                         tvClientName.getText().toString(),
                         spinerClientTypeStr,

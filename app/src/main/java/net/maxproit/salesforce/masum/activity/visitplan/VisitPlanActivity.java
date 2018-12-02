@@ -353,7 +353,7 @@ public class VisitPlanActivity extends BaseActivity {
             public void onItemSelected(int i, String s) {
 
                 clientType = s;
-                if (s.equals(INDIVIDUAL)) {
+                if (s.equals("Others")) {
                     secMobileNo.setVisibility(View.VISIBLE);
                     secProductType.setVisibility(View.VISIBLE);
 
@@ -495,7 +495,8 @@ public class VisitPlanActivity extends BaseActivity {
         txtClientName.setText(clientName);
         txtMobileNo.setText(mobileNo);
         txtRemarks.setText(remarks);
-        tvVisitDT.setText(DateUtils.getDateFormateEt(dateOfvisit));
+        if (visitPlanModel.getDateOfVisit() !=null)
+        tvVisitDT.setText(visitPlanModel.getDateOfVisit());
 
 
     }
@@ -505,12 +506,6 @@ public class VisitPlanActivity extends BaseActivity {
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.activity_visit_plan_cif_dialog, null);
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext(), R.style.Theme_AppCompat);
-//        LayoutInflater inflater = this.getLayoutInflater();
-//        View cifDialog = inflater.inflate(R.layout., null);
-//        builder.setView(cifDialog);
-//        final AlertDialog dialog = builder.create();
-
         EditText editText = (EditText) dialogView.findViewById(R.id.et_dialog_cif_number);
         Button cifSubmit = (Button) dialogView.findViewById(R.id.btn_dialog_cif_submit);
         Button cifCancel = (Button) dialogView.findViewById(R.id.btn_dialog_cif_cancel);
@@ -548,7 +543,7 @@ public class VisitPlanActivity extends BaseActivity {
                 Data data = new Data();
                 data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
                 data.setActivityJournalID(visitPlanModel.getJournalId());
-                data.setActivityStatus(AppConstant.LEAD_STATUS_New_PLAN);
+                data.setActivityStatus(visitPlanModel.getStatus());
                 data.setCity(city);
                 data.setClientType(clientType);
                 data.setCustomerName(clientName);
@@ -570,6 +565,7 @@ public class VisitPlanActivity extends BaseActivity {
                                     mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
                                     purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
                             dbController.updateData(visitPlan);
+                            finish();
                         }
 
                         @Override
@@ -582,6 +578,7 @@ public class VisitPlanActivity extends BaseActivity {
                             mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
                             purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_WAIT);
                     dbController.updateData(visitPlan);
+                    finish();
                 }
 
 
@@ -589,7 +586,7 @@ public class VisitPlanActivity extends BaseActivity {
                 Data data = new Data();
                 data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
                 data.setActivityJournalID(0);
-                data.setActivityStatus(AppConstant.LEAD_STATUS_New_PLAN);
+                data.setActivityStatus("");
                 data.setCity(city);
                 data.setClientType(clientType);
                 data.setCustomerName(clientName);
@@ -611,7 +608,8 @@ public class VisitPlanActivity extends BaseActivity {
                                         mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
                                         spinnerPoliceStation.getSelectedItem(),
                                         purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
-                                Log.e("status", "save data into server and local");
+                                Log.e("status", "save data into server and local"+response.body().getData().toString());
+                                finish();
                             }
 
                         }
@@ -628,6 +626,7 @@ public class VisitPlanActivity extends BaseActivity {
                             spinnerPoliceStation.getSelectedItem(),
                             purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_WAIT);
                     Log.e("status", " no internet save data into local");
+                    finish();
                 }
 
 
