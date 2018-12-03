@@ -62,4 +62,13 @@ public class AppConstant {
     public static final String IS_NETWORK_AVAILABLE = "isNetworkAvailable";
     public static final String SYNC_STATUS_OK ="ok" ;
     public static final String SYNC_STATUS_WAIT ="wait" ;
+
+    // Approval
+
+    public static final String APPROVAL_LEAD ="Lead" ;
+    public static final int APPROVAL_SET_ID_0 = 0 ;
+    public static final int APPROVAL_CURRWENT_LEVEL_1 = 1;
+    public static final String APPROVAL_STATUS_YES = "Y";
+
+
 }

@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by Rezwan Khan chowdhury on 6/21/18.
- * heyRezwan@gmail.com
- */
 public class LocalSetting {
     private Context context;
 
@@ -269,7 +265,6 @@ public class LocalSetting {
             list.add(in.getRelationshipType());
         }
         return list;
-
     }
 
 

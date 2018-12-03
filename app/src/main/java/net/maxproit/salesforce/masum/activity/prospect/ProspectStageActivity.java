@@ -40,9 +40,18 @@ import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
+import net.maxproit.salesforce.model.myprospect.MyProspect;
+import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
+import net.maxproit.salesforce.model.newprospect.mynewprosppect.NewProspectUpdate;
+import net.maxproit.salesforce.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProspectStageActivity extends BaseActivity {
 
@@ -261,7 +270,7 @@ public class ProspectStageActivity extends BaseActivity {
             mLayout.setVisibility(View.VISIBLE);
 
         }
-
+            myNewLead.setDateOfBirth(CommonUtil.jsonToDate(myNewLead.getDateOfBirth()));
         return myNewLead;
     }
 
@@ -362,6 +371,8 @@ public class ProspectStageActivity extends BaseActivity {
             getDataFromFragment();
 
             if (getDataFromProspect() != null) {
+                String ref = getDataFromProspect().getRefNumber();
+
                 MyNewProspect myNewProspect = new MyNewProspect(
                         mybranchName,
                         name,
@@ -390,7 +401,28 @@ public class ProspectStageActivity extends BaseActivity {
                         interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
                         securityValue, loanRequired, loanTerm, proposedInterest,
                         fee);
+                NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
 
+                if (isNetworkAvailable()) {
+                    getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldProspect>() {
+                        @Override
+                        public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
+                            if (response.body().getCode().equals("200")) {
+                                finish();
+                                Toast.makeText(getApplicationContext(), "save successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "save failed", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<OldProspect> call, Throwable t) {
+
+                        }
+                    });
+                }
                 int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
                 if (update > 0) {
                     if (brandName !=null && year !=null && country !=null && vehicleType !=null){
@@ -405,6 +437,52 @@ public class ProspectStageActivity extends BaseActivity {
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private NewProspectUpdate convertToApiModel(MyNewProspect myNewProspect) {
+        NewProspectUpdate updateModel = new NewProspectUpdate();
+
+        updateModel.setAgriculturalIncome(Integer.valueOf(myNewProspect.getAg_Income()));
+        updateModel.setApartmentIncome(Integer.valueOf(myNewProspect.getApartmentAmount()));
+        updateModel.setBusinessIncome(Integer.valueOf(myNewProspect.getBusinessIncomeAmount()));
+        updateModel.setCommercialSpaceIncome(Integer.valueOf(myNewProspect.getOfficeSpaceINcome()));
+        updateModel.setCompany(myNewProspect.getOrganization());
+        updateModel.setContactId(0);
+        updateModel.setCountryOfBirth(myNewProspect.getCob());
+        updateModel.setCurrentJobDuration(myNewProspect.getCurrentJob());
+        updateModel.setCustomerId(myNewProspect.getCusId());
+        updateModel.setCustomerName(myNewProspect.getUserName());
+        updateModel.setDateOfBirth(myNewProspect.getDateOfBirth());
+        updateModel.setDesignation(myNewProspect.getDesignation());
+        updateModel.setDistrictOfBirth(myNewProspect.getDob());
+        updateModel.setETin(myNewProspect.getEtin());
+         updateModel.setFactoryIncome(1000);
+        updateModel.setFatherName(myNewProspect.getfName());
+        updateModel.setInterestIncomeOfFDR(2000);
+        updateModel.setMobileNo(myNewProspect.getPhone());
+        updateModel.setMotherName(myNewProspect.getmName());
+        updateModel.setNetSalary(6000);
+//        updateModel.setPermanentAddress(myNewProspect.getA);
+//        updateModel.setPermanentAddressCity(myNewProspect.getPermanentAddressCity());
+        updateModel.setPermanentAddressId(0);
+//        updateModel.setPermanentAddressPS(myNewProspect.getPermanentAddressPS());
+        updateModel.setPhotoIdIssueDate(myNewProspect.getpIssueDate());
+        updateModel.setPhotoIdNumber(myNewProspect.getpIdNumber());
+//        updateModel.setPhotoIdTypeCode(myNewProspect.getPhotoIdType);
+        updateModel.setPresentAddress(myNewProspect.getpAddress());
+//        updateModel.setPresentAddressCity(myNewProspect.getPresentAddressCity());
+        updateModel.setPresentAddressId(myNewProspect.getAddressId());
+//        updateModel.setPresentAddressPS(myNewProspect.getPresentAddressPS());
+        updateModel.setProfession(myNewProspect.getProfession());
+//        updateModel.setRelationshipWithApplicant(myNewProspect.getRelationshipWithApplicant());
+        updateModel.setSemipakaIncome(8000);
+        updateModel.setSpouseName(myNewProspect.getsName());
+        updateModel.setRemittanceIncome(5500);
+        updateModel.setTutionIncome(2222);
+
+
+
+        return updateModel;
     }
 
     private void alertDialogProceed() {

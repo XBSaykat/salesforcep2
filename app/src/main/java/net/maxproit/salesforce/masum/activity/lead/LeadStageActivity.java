@@ -20,26 +20,23 @@ import android.widget.Toast;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
-
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
-import net.maxproit.salesforce.masum.fragment.lead.LeadStageAttachmentFragment;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageVisitRecordFragment;
 import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
-import net.maxproit.salesforce.masum.model.local.Attachment;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
-import net.maxproit.salesforce.masum.model.local.MyNewProspect;
-import net.maxproit.salesforce.masum.appdata.AppConstant;
-
-import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
-import net.maxproit.salesforce.masum.utility.ImageUtils;
+import net.maxproit.salesforce.model.approval.Approval;
+import net.maxproit.salesforce.model.mylead.MyLeadApproval;
+import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
@@ -203,6 +200,7 @@ public class LeadStageActivity extends BaseActivity {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 alertDialogProceed(finalMyNewLead);
             }
         });
@@ -256,7 +254,13 @@ public class LeadStageActivity extends BaseActivity {
         myLeadApi.setRmCode("336132");
         myLeadApi.setUserName(userName);
         myLeadApi.setBranchName(branchName);
-        myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+        if (LeadStageBasicInformationFragment.branchCode != null){
+            myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+        }else{
+            myLeadApi.setBranchCode(myNewLead.getBranchCode());
+        }
+
+
         myLeadApi.setCustomerName(name);
         if (myNewLead != null) {
             myLeadApi.setCustomerId(myNewLead.getCusId());
@@ -304,8 +308,6 @@ public class LeadStageActivity extends BaseActivity {
 
         return myLeadApi;
     }
-
-
 
 
     private void alertDialog(int id) {
@@ -424,7 +426,6 @@ public class LeadStageActivity extends BaseActivity {
                                         Log.e("data", "internet  connected also save into local and server");
 
 
-
                                     } else {
                                         Log.e("data", "internet  connected save failed into local but save into server");
 
@@ -496,119 +497,121 @@ public class LeadStageActivity extends BaseActivity {
             MyLeadDataModelApi myLeadDataModelApi = getDataFromFragment(myNewLead);
             int insert = 0;
 
-                if (myNewLead.getRefNumber() != null) {
-                    if (isNetworkAvailable()) {
-                        getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
-                            @Override
-                            public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
-                                if (response.isSuccessful()) {
-                                    if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                                        Data data = response.body().getData();
-                                        int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
-                                                designation, phone, address, ref, productType, subCat,
-                                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
-                                            ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-
-                                    }
-                                } else {
-                                    int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
-                                            Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
+            if (myNewLead.getRefNumber() != null) { // old lead
+                if (isNetworkAvailable()) {
+                    getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
+                        @Override
+                        public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
+                            if (response.isSuccessful()) {
+                                if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                    Data data = response.body().getData(); // old lead update online, offline
+                                    int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
                                             designation, phone, address, ref, productType, subCat,
-                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
+
+                                    leadApprove(data);
+
+                                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
 
 
                                 }
+                            } else { // old lead update offline
+                                int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
+                                        Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
+                                        designation, phone, address, ref, productType, subCat,
+                                        loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
+                                ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+
 
                             }
 
-                            @Override
-                            public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-
-                            }
-                        });
-                    } else {
-                        insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
-                                Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
-                                designation, phone, address, ref, productType, subCat,
-                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-
-                            ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-
-                    }
-
-                } else {
-
-                    if (isNetworkAvailable()) {
-
-                        getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
-                            @Override
-                            public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
-                                if (response.isSuccessful()) {
-                                    if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                                        Data data = response.body().getData();
-                                        int insert = myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(),
-                                                data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
-                                                designation, phone, address, ref, productType, subCat,
-                                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_OK);
-
-                                            ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-
-                                    }
-                                } else {
-                                    int insert = myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0, Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
-                                            Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
-                                            designation, phone, address, ref, productType, subCat,
-                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
-
-                                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-
-
-                                }
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-
-                            }
-                        });
-                    } else {
-                        insert = myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0, Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
-                                Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
-                                designation, phone, address, ref, productType, subCat,
-                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
-                        if (insert > 0) {
-                            ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-                            Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
-
-
-                        } else {
-                            Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                         }
+
+                        @Override
+                        public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
+
+                        }
+                    });
+                } else { // old lead update offline
+                    insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
+                            Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
+
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+
+                }
+
+            } else {
+
+                if (isNetworkAvailable()) { // new lead
+
+                    getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
+                        @Override
+                        public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
+                            if (response.isSuccessful()) {
+                                if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                    Data data = response.body().getData();
+                                    // new lead offline
+                                    int insert = myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(),
+                                            data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
+                                            designation, phone, address, ref, productType, subCat,
+                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_OK);
+
+
+                                    leadApprove(data);
+
+                                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+
+                                }
+                            } else { // new lead offline
+                                int insert = myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0, Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
+                                        Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
+                                        designation, phone, address, ref, productType, subCat,
+                                        loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
+
+                                ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
+
+                        }
+                    });
+                } else { // new lead offline
+                    insert = myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0, Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
+                            Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
+                    if (insert > 0) {
+                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+
+
+                    } else {
+                        Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
                     }
-
                 }
 
-                if (insert > 0) {
+            }
 
-                    Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    Toast.makeText(LeadStageActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
-                }
 
-                android.app.AlertDialog.Builder builderAttach;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builderAttach = new android.app.AlertDialog.Builder(LeadStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-                } else {
-                    builderAttach = new android.app.AlertDialog.Builder(LeadStageActivity.this);
-                }
-                builderAttach.setIcon(R.drawable.ic_required);
-                builderAttach.setTitle(Html.fromHtml("<font color='#FF0000'>Attachment can't be empty while proceed</font>"));
-                builderAttach.setNegativeButton("OK", null);
-                android.app.AlertDialog dialogAttach = builderAttach.create();
-                dialogAttach.show();
+            android.app.AlertDialog.Builder builderAttach;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builderAttach = new android.app.AlertDialog.Builder(LeadStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+            } else {
+                builderAttach = new android.app.AlertDialog.Builder(LeadStageActivity.this);
+            }
+            builderAttach.setIcon(R.drawable.ic_required);
+            builderAttach.setTitle(Html.fromHtml("<font color='#FF0000'>Attachment can't be empty while proceed</font>"));
+            builderAttach.setNegativeButton("OK", null);
+            android.app.AlertDialog dialogAttach = builderAttach.create();
+            dialogAttach.show();
 
 
         });
@@ -616,4 +619,28 @@ public class LeadStageActivity extends BaseActivity {
         dialog.show();
     }
 
+    private void leadApprove(Data data) {
+        Approval myLeadApproval = new Approval(AppConstant.APPROVAL_LEAD,
+                data.getLeadReferenceNo(),
+                AppConstant.APPROVAL_SET_ID_0,
+                AppConstant.APPROVAL_CURRWENT_LEVEL_1,
+                AppConstant.APPROVAL_STATUS_YES, "",
+                data.getUserName(), data.getBranchName(), 8);
+        Log.d("TAG", "leadApprove: "+myLeadApproval.toString());
+        getApiService().myleadApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
+            @Override
+            public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
+                Log.d("tag", "onResponse: "+response.body().toString());
+
+                if (response.body().getCode().equals("200")) {
+                    Toast.makeText(LeadStageActivity.this, "Lead Approved", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApprovalResponce> call, Throwable t) {
+                Toast.makeText(LeadStageActivity.this, "Lead approved failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
