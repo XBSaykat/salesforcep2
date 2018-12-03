@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.PreviousPlanListAdapter;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.api.myactivity.Data;
+import net.maxproit.salesforce.masum.model.api.myactivity.Datum;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetByJournalIdApi;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
@@ -30,8 +36,13 @@ import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class FragmentPreViousList extends Fragment {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class FragmentPreViousList extends BaseFragment {
 
 
     private PreviousPlanListAdapter myLeadAdapter;
@@ -45,7 +56,7 @@ public class FragmentPreViousList extends Fragment {
     public static int itemPosition = 0;
     LocalLogin localLogin;
     String username;
-    private ArrayList<VisitPlan> leadList, filterList,visitPlanList;
+    private ArrayList<Datum> leadList, filterList,visitPlanList;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -113,9 +124,9 @@ public class FragmentPreViousList extends Fragment {
         }
         if (!myDbController.getAllData().equals(null)){
 
-            leadList.addAll(myDbController.getAllData());
+          //  leadList.addAll(myDbController.getAllData());
 
-            for (int i=0;i<leadList.size();i++){
+       /*     for (int i=0;i<leadList.size();i++){
 
                 try {
                     if (DateUtils.isPending(leadList.get(i).getDateOfVisit())==1
@@ -129,7 +140,7 @@ public class FragmentPreViousList extends Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
 
 
         }
@@ -169,28 +180,65 @@ public class FragmentPreViousList extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rvMyActivity.setLayoutManager(mLayoutManager);
         rvMyActivity.setAdapter(myLeadAdapter);
-        myLeadAdapter.notifyDataSetChanged();
 
 //        initView(rootView);
         initListener();
         // Inflate the layout for this fragment
+        getDataFromApi();
         return rootView;
 
 
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
 
-    private ArrayList<VisitPlan> getFilterData(ArrayList<VisitPlan> models, CharSequence searchKey) {
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+    private void getDataFromApi(){
+        String random = UUID.randomUUID().toString();
+        //int journalId, String clientName, String clientType,
+        // String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit,
+        // String dateOfVisit, String remarks, String status ,String synStatus
+
+        getApiService().getActivityData(username,random).enqueue(new Callback<MyActivityGetDataApi>() {
+            @Override
+            public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
+                if (response.body().getCode().equals("200")){
+                    for (int i=0;i<response.body().getData().size();i++){
+                        if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_PREVIOUS_ACTIVITY)){
+                            visitPlanList.add(response.body().getData().get(i));
+                        }
+                    }
+
+                    myLeadAdapter.notifyDataSetChanged();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private ArrayList<Datum> getFilterData(ArrayList<Datum> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<VisitPlan> filteredModelList = new ArrayList<>();
-        for (VisitPlan model : models) {
-            final String uName = model.getCity().toLowerCase();
+        final ArrayList<Datum> filteredModelList = new ArrayList<>();
+        for (Datum model : models) {
+            final String uName = model.getActivityJournalID().toLowerCase();
             final String type = model.getClientType().toLowerCase();
             final String name = model.getClientName().toLowerCase();
-            final String mobile = model.getMobileNumber().toLowerCase();
 
-            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey) || mobile.contains(searchKey) ) {
+
+            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey)  ) {
                 filteredModelList.add(model);
             }
         }
@@ -229,30 +277,9 @@ public class FragmentPreViousList extends Fragment {
         myLeadAdapter.setFilter(filterList);
     }
 
-    private void removeItemFromList(int position, String status) {
-        for (int i = 0; i < leadList.size(); i++) {
-            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.get(i).setStatus(status);
-                leadList.remove(i);
-                myLeadAdapter.notifyItemRemoved(position);
-                break;
 
-            }
-        }
-    }
 
-    private void changeItemStatus(int position, String status) {
-        for (int i = 0; i < leadList.size(); i++) {
-            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.get(i).setStatus(status);
-                myLeadAdapter.notifyDataSetChanged();
-                break;
-
-            }
-        }
-    }
-
-    private void sentDataToDetail(int position) {
+/*    private void sentDataToDetail(int position) {
         VisitPlan visitPlan = new VisitPlan(
                 filterList.get(position).getId(),
                 filterList.get(position).getJournalId(),
@@ -268,6 +295,29 @@ public class FragmentPreViousList extends Fragment {
                 filterList.get(position).getStatus(),
                 filterList.get(position).getSynStatus());
         ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+    }*/
+
+    private void sentDataToDetail(int position) {
+        String journalId = filterList.get(position).getActivityJournalID();
+        String random = UUID.randomUUID().toString();
+        getApiService().getActivityByJournalId(journalId, random).enqueue(new Callback<MyActivityGetByJournalIdApi>() {
+            @Override
+            public void onResponse(Call<MyActivityGetByJournalIdApi> call, Response<MyActivityGetByJournalIdApi> response) {
+                Log.e("","");
+                Data data=response.body().getData();
+                VisitPlan visitPlan=new VisitPlan(data.getActivityJournalID(),data.getCustomerName()
+                        ,data.getClientType(),data.getMobileNo(),data.getPs(),
+                        data.getProductType(),data.getCity(),data.getVisitPurposeType(),
+                        data.getActivityDate(),data.getRemarks(),data.getActivityStatus(),data.getFollowupDate(),data.getFollowupRemarks());
+                ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+
+            }
+
+            @Override
+            public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
+
+            }
+        });
     }
 
 

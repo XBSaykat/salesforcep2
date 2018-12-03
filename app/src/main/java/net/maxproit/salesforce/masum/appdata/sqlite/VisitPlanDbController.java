@@ -277,7 +277,6 @@ public class VisitPlanDbController {
                 DbConstants._V_ID,
                 DbConstants.VISIT_JOURNAL_ID,
                 DbConstants.SYNC_STATUS,
-
                 DbConstants.VISIT_PLAN_CLIENT_NAME,
                 DbConstants.VISIT_PLAN_CLIENT_TYPE,
                 DbConstants.VISIT_PLAN_MOBILE_NUMBER,
@@ -298,7 +297,7 @@ public class VisitPlanDbController {
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{AppConstant.LEAD_STATUS_New_PLAN},                            // The values for the WHERE clause
+                new String[]{AppConstant.STATUS_ACTIVITY_NEW},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order

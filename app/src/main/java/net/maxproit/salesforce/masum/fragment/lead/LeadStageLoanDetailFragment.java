@@ -156,7 +156,13 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
 //                productType = i;
-                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                MyNewLead myNewLead = null;
+                if (getArguments() != null) {
+                    int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
+                    if (status == 1) {
+                        myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                    }
+                }
                 if (myNewLead ==null){
                     isFirst=true;
                 }
