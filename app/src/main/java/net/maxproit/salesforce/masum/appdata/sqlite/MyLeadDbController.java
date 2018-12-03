@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import net.maxproit.salesforce.masum.appdata.AppConstant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.model.api.lead.LeadLeastDataFromApi;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 
 
 import java.util.ArrayList;
@@ -22,12 +24,19 @@ public class MyLeadDbController {
         mContext = context;
     }
 
-    public int insertLeadData(String branchName, String uName, String profession, String organization, String designation,
+    public int insertLeadData(String userId,String referenceNumber,int c_id,int m_id,int v_id,int a_id,int b_code,int p_code,int sub_code,String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
-                                      interest, String fee, String disDate, String date, String follow, String remark,String status) {
+                                      interest, String fee, String disDate, String date, String follow, String remark,String status,String syncStatus) {
 
         ContentValues values = new ContentValues();
+        values.put(DbConstants.USER_ID, userId);
+        values.put(DbConstants.REF_NUMBER, referenceNumber);
+        values.put(DbConstants.CUSTOMER_ID, c_id);
+        values.put(DbConstants.MOBILE_ID, m_id);
+        values.put(DbConstants.VISIT_ID, v_id);
+        values.put(DbConstants.ADDRESS_ID, a_id);
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
+        values.put(DbConstants.LEAD_BRANCH_CODE, b_code);
         values.put(DbConstants.LEAD_USER_NAME, uName);
         values.put(DbConstants.LEAD_PROFESSION, profession);
         values.put(DbConstants.LEAD_ORGANIZATION, organization);
@@ -36,14 +45,17 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_ADDRESS, address);
         values.put(DbConstants.LEAD_REF, ref);
         values.put(DbConstants.LEAD_PRODUCT_TYPE, product);
+        values.put(DbConstants.LEAD_PRODUCT_CODE, p_code);
         values.put(DbConstants.LEAD_PRODUCT_SUBCATEGORY, subCat);
+        values.put(DbConstants.LEAD_SUBCAT_CODE, sub_code);
         values.put(DbConstants.TENTETIVE_LEAD_AMOUNT, amount);
         values.put(DbConstants.LEAD_OR_INTEREST, interest);
         values.put(DbConstants.LEAD_OP_FEE, fee);
-        values.put(DbConstants.LEAD_DISBURSEMENT_DATE, disDate);
-        values.put(DbConstants.LEAD_VISIT_DATE, date);
+        values.put(DbConstants.LEAD_DISBURSEMENT_DATE,DateUtils.getDateFormateForSqlite(disDate) );
+        values.put(DbConstants.LEAD_VISIT_DATE,DateUtils.getDateFormateForSqlite(date));
         values.put(DbConstants.LEAD_FOLLOW_UP, follow);
         values.put(DbConstants.LEAD_REMARK, remark);
+        values.put(DbConstants.SYNC_STATUS, syncStatus);
         values.put(DbConstants.LEAD_STATUS, status);
 
         // Insert the new row, returning the primary key value of the new row
@@ -54,11 +66,23 @@ public class MyLeadDbController {
     }
 
 
-    public int updateLeadData(int id,String branchName, String uName, String profession, String organization, String designation,
+    public int updateLeadData(String userName,String referenceNumber,int c_id,int m_id,int v_id,int a_id,int b_code,int p_code,int sub_code,String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
-                                      interest, String fee, String disDate, String date, String follow, String remark,String status) {
+                                      interest, String fee, String disDate, String date, String follow, String remark,String status,String synStatus) {
 
         ContentValues values = new ContentValues();
+        values.put(DbConstants.REF_NUMBER, referenceNumber);
+        values.put(DbConstants.USER_ID, userName);
+
+        if (c_id>0) {
+            values.put(DbConstants.CUSTOMER_ID, c_id);
+            values.put(DbConstants.MOBILE_ID, m_id);
+            values.put(DbConstants.VISIT_ID, v_id);
+            values.put(DbConstants.ADDRESS_ID, a_id);
+            values.put(DbConstants.LEAD_BRANCH_CODE, b_code);
+            values.put(DbConstants.LEAD_PRODUCT_CODE, p_code);
+            values.put(DbConstants.LEAD_SUBCAT_CODE, sub_code);
+        }
         values.put(DbConstants.LEAD_BRANCH_NAME, branchName);
         values.put(DbConstants.LEAD_USER_NAME, uName);
         values.put(DbConstants.LEAD_PROFESSION, profession);
@@ -76,10 +100,11 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_VISIT_DATE, date);
         values.put(DbConstants.LEAD_FOLLOW_UP, follow);
         values.put(DbConstants.LEAD_REMARK, remark);
+        values.put(DbConstants.SYNC_STATUS, synStatus);
         values.put(DbConstants.LEAD_STATUS, status);
 
         // Insert the new row, returning the primary key value of the new row
-        return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
+        return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants.REF_NUMBER + "=" + referenceNumber, null);
 
     }
 
@@ -137,6 +162,7 @@ public class MyLeadDbController {
         values.put(DbConstants.PROSPECT_LOAD_TERM, myProspect.getLoanTerm());
         values.put(DbConstants.PROSPECT_PI_RATE, myProspect.getPiRate());
         values.put(DbConstants.PROSPECT_FEE, myProspect.getProspectFee());
+        values.put( DbConstants.SYNC_STATUS, myProspect.getSyncStatus());
         values.put(DbConstants.LEAD_STATUS, myProspect.getStatus());
 
         return db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
@@ -153,12 +179,30 @@ public class MyLeadDbController {
 
     }
 
+    public int updateSyncDataStatus(int id, String status) {
+
+        ContentValues values = new ContentValues();
+        values.put(DbConstants.SYNC_STATUS, status);
+        return db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + id, null);
+
+
+    }
+
 
     public ArrayList<MyNewLead> getProspectData() {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -175,6 +219,7 @@ public class MyLeadDbController {
                 DbConstants.LEAD_DISBURSEMENT_DATE,
                 DbConstants.LEAD_FOLLOW_UP,
                 DbConstants.LEAD_REMARK,
+                DbConstants.SYNC_STATUS,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -199,7 +244,16 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -216,6 +270,7 @@ public class MyLeadDbController {
                 DbConstants.LEAD_VISIT_DATE,
                 DbConstants.LEAD_FOLLOW_UP,
                 DbConstants.LEAD_REMARK,
+                DbConstants.SYNC_STATUS,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -236,11 +291,20 @@ public class MyLeadDbController {
     }
 
 
-    public ArrayList<MyNewLead> getAllData() {
+    public ArrayList<MyNewLead> getDataForSync() {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -258,6 +322,60 @@ public class MyLeadDbController {
                 DbConstants.LEAD_FOLLOW_UP,
                 DbConstants.LEAD_REMARK,
                 DbConstants.LEAD_STATUS,
+                DbConstants.SYNC_STATUS,
+
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = DbConstants._L_ID + " DESC";
+        String WHERE = DbConstants.SYNC_STATUS + "=?";
+        Cursor c = db.query(
+                DbConstants.TABLE_LEAD,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{AppConstant.SYNC_STATUS_WAIT},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchData(c);
+    }
+
+
+    public ArrayList<MyNewLead> getAllData() {
+
+        String[] projection = {
+                DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.REF_NUMBER,
+                DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
+                DbConstants.LEAD_USER_NAME,
+                DbConstants.LEAD_PROFESSION,
+                DbConstants.LEAD_ORGANIZATION,
+                DbConstants.LEAD_DESIGNATION,
+                DbConstants.LEAD_PHONE,
+                DbConstants.LEAD_ADDRESS,
+                DbConstants.LEAD_REF,
+                DbConstants.LEAD_PRODUCT_TYPE,
+                DbConstants.LEAD_PRODUCT_SUBCATEGORY,
+                DbConstants.TENTETIVE_LEAD_AMOUNT,
+                DbConstants.LEAD_OR_INTEREST,
+                DbConstants.LEAD_OP_FEE,
+                DbConstants.LEAD_DISBURSEMENT_DATE,
+                DbConstants.LEAD_VISIT_DATE,
+                DbConstants.LEAD_FOLLOW_UP,
+                DbConstants.LEAD_REMARK,
+                DbConstants.LEAD_STATUS,
+                DbConstants.SYNC_STATUS,
+
         };
 
         // How you want the results sorted in the resulting Cursor
@@ -280,7 +398,16 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -331,6 +458,7 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_LOAD_TERM,
                 DbConstants.PROSPECT_PI_RATE,
                 DbConstants.PROSPECT_FEE,
+                DbConstants.SYNC_STATUS,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -356,7 +484,16 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -407,6 +544,7 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_LOAD_TERM,
                 DbConstants.PROSPECT_PI_RATE,
                 DbConstants.PROSPECT_FEE,
+                DbConstants.SYNC_STATUS,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -426,11 +564,73 @@ public class MyLeadDbController {
         return myNewProspectFetchData(c);
     }
 
+
+    public ArrayList<LeadLeastDataFromApi> getLeadListData(){
+        String[] projection = {
+                DbConstants.LEAD_USER_NAME,
+                DbConstants.LEAD_ADDRESS,
+                DbConstants.REF_NUMBER,
+                DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_REMARK,
+                DbConstants.LEAD_STATUS,
+        };
+        String sortOrder = DbConstants._L_ID + " DESC";
+        String WHERE = DbConstants.LEAD_STATUS + "=?";
+        Cursor c = db.query(
+                DbConstants.TABLE_LEAD,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{AppConstant.LEAD_STATUS_NEW},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return myLeadListData(c);
+    }
+
+
+
+    private ArrayList<LeadLeastDataFromApi> myLeadListData(Cursor c) {
+        ArrayList<LeadLeastDataFromApi> favDataArray = new ArrayList<>();
+
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    // get  the  data into array,or class variable
+
+                    String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
+                    String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
+                    String address = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_ADDRESS));
+                    String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
+                    String remark = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_REMARK));
+                    String status = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_STATUS));
+
+
+                    // wrap up data list and return
+                    favDataArray.add(new LeadLeastDataFromApi(refnumber,userName,branchName,address,"","",status,remark));
+                } while (c.moveToNext());
+            }
+            c.close();
+        }
+        return favDataArray;
+    }
+
+
     public ArrayList<MyNewProspect> myNewLeadGetAllData() {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -481,6 +681,7 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_LOAD_TERM,
                 DbConstants.PROSPECT_PI_RATE,
                 DbConstants.PROSPECT_FEE,
+                DbConstants.SYNC_STATUS,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -505,7 +706,16 @@ public class MyLeadDbController {
 
         String[] projection = {
                 DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.REF_NUMBER,
                 DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_PROFESSION,
                 DbConstants.LEAD_ORGANIZATION,
@@ -556,6 +766,7 @@ public class MyLeadDbController {
                 DbConstants.PROSPECT_LOAD_TERM,
                 DbConstants.PROSPECT_PI_RATE,
                 DbConstants.PROSPECT_FEE,
+                DbConstants.SYNC_STATUS,
                 DbConstants.LEAD_STATUS,
         };
 
@@ -584,6 +795,16 @@ public class MyLeadDbController {
                 do {
                     // get  the  data into array,or class variable
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants._L_ID));
+                    String userId = c.getString(c.getColumnIndexOrThrow(DbConstants.USER_ID));
+                    int cus_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.CUSTOMER_ID));
+                    int m_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.MOBILE_ID));
+                    int adress_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.ADDRESS_ID));
+                    int visit_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.VISIT_ID));
+                    int branchCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_CODE));
+                    int productCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_PRODUCT_CODE));
+                    int subCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_SUBCAT_CODE));
+
+                    String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
                     String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
                     String profession = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PROFESSION));
@@ -602,11 +823,12 @@ public class MyLeadDbController {
                     String followUp = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_FOLLOW_UP));
                     String remark = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_REMARK));
                     String status = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_STATUS));
+                    String synStatus = c.getString(c.getColumnIndexOrThrow(DbConstants.SYNC_STATUS));
 
 
                     // wrap up data list and return
-                    favDataArray.add(new MyNewLead(id, branchName, userName, profession, organization, designation, phone, address, ref
-                            , productType, subCategory, amount, interest, fee, disDate, visitDate, followUp, remark, status));
+                    favDataArray.add(new MyNewLead(userId,refnumber,cus_id,m_id,adress_id,visit_id,branchCode,productCode,subCode,id, branchName, userName, profession, organization, designation, phone, address, ref
+                            , productType, subCategory, amount, interest, fee, disDate, visitDate, followUp, remark, status,synStatus));
                 } while (c.moveToNext());
             }
             c.close();
@@ -622,6 +844,15 @@ public class MyLeadDbController {
                 do {
                     // get  the  data into array,or class variable
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants._L_ID));
+                    String userId = c.getString(c.getColumnIndexOrThrow(DbConstants.USER_ID));
+                    int cus_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.CUSTOMER_ID));
+                    int m_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.MOBILE_ID));
+                    int adress_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.ADDRESS_ID));
+                    int visit_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.VISIT_ID));
+                    int branchCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_CODE));
+                    int productCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_PRODUCT_CODE));
+                    int subCode = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_SUBCAT_CODE));
+                    String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
                     String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
                     String profession = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PROFESSION));
@@ -675,18 +906,19 @@ public class MyLeadDbController {
                     String loanTerm = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_LOAD_TERM));
                     String piRate = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_PI_RATE));
                     String propectFee = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_FEE));
+                    String synStatus = c.getString(c.getColumnIndexOrThrow(DbConstants.SYNC_STATUS));
 
 
 
 
 
                     // wrap up data list and return
-                    favDataArray.add(new MyNewProspect(id,branchName, userName, profession,
+                    favDataArray.add(new MyNewProspect(userId,refnumber,cus_id,m_id,adress_id,visit_id,branchCode,productCode,subCode,id,branchName, userName, profession,
                             organization, designation, phone,
                             address, ref, productType,
                             subCategory, amount,
                             interest, fee, disDate, visitDate,
-                            followUp, remark, status, segment,dateOfBirth, age, dob,
+                            followUp, remark, status,synStatus, segment,dateOfBirth, age, dob,
                             cob,photoIdType, pIdNumber, pIssueDate, etin,
                             fName, mName, sName, exList,
                             currentJob, applicant, pAddress, netSalary,

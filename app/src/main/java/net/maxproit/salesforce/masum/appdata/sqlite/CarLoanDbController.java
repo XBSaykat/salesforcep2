@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import net.maxproit.salesforce.masum.model.CarLoan;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.CarLoan;
 
 import java.util.ArrayList;
 

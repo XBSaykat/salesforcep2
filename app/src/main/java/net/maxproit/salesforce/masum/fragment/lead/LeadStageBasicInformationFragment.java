@@ -3,10 +3,12 @@ package net.maxproit.salesforce.masum.fragment.lead;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +21,14 @@ import android.widget.TextView;
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.feature.search.SearchUserActivity;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,20 +44,21 @@ import java.util.regex.Pattern;
  * Use the {@link LeadStageBasicInformationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LeadStageBasicInformationFragment extends Fragment {
+public class LeadStageBasicInformationFragment extends BaseFragment {
 
 
     private MyLeadDbController myLeadDbController;
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private AwesomeSpinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession = null, branchName = null;
+    public static String profession = null, branchName = null,branchCode=null;
     private List<String> listBranchArray = null;
     private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
     public CheckBox cbExist;
     public TextView etChif;
     public LinearLayout liChif;
+    private LocalSetting mLocalSettting;
 
     public static final int SERCH_CODE = 500;
 
@@ -72,6 +76,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
     public LeadStageBasicInformationFragment() {
         // Required empty public constructor
+        Log.e("crash","basic");
     }
 
     /**
@@ -116,6 +121,16 @@ public class LeadStageBasicInformationFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
+
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+
 
     private void initListener() {
 
@@ -123,6 +138,8 @@ public class LeadStageBasicInformationFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 branchName = s;
+                LongOperation longOperation=new LongOperation();
+                longOperation.execute(i);
             }
         });
 
@@ -138,13 +155,7 @@ public class LeadStageBasicInformationFragment extends Fragment {
     private void initView(View rootView) {
 
         spinnerDbController = new SpinnerDbController(getActivity());
-
-
-        listBranchArray = new ArrayList<String>();
-        listProfessionArray = new ArrayList<String>();
-        listBranchArray.addAll(spinnerDbController.getBranchData());
-        listProfessionArray.addAll(spinnerDbController.getProfessionData());
-
+        mLocalSettting = new LocalSetting(getActivity());
 
         spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
         spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
@@ -216,10 +227,10 @@ public class LeadStageBasicInformationFragment extends Fragment {
 
     private void initSpinnerAdapter() {
 
-        ArrayAdapter<String> branchAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBranchArray);
+        ArrayAdapter<String> branchAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getBranchString());
         spinnerBranchName.setAdapter(branchAdapter);
 
-        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProfessionArray);
+        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
@@ -232,29 +243,27 @@ public class LeadStageBasicInformationFragment extends Fragment {
                     etAddress.setText(visitPlan.getPoliceStation() + "," + visitPlan.getCity());
                 }
             } else {
-                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+
+                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
                     etUserName.setText(myNewLead.getUserName());
                     etPhone.setText(myNewLead.getPhone());
                     etAddress.setText(myNewLead.getAddress());
                     etUserOrganization.setText(myNewLead.getOrganization());
                     etDesignattion.setText(myNewLead.getDesignation());
-                    if (myNewLead.getBranchName() != null && myNewLead.getProfession() != null) {
+                    if (myNewLead.getBranchName() != null ) {
                         try {
                             spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
                         } catch (final IllegalStateException ignored) {
-
                         } catch (NullPointerException e) {
-
-                        }
-                        try {
-
-                            spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
-                        } catch (final IllegalStateException ignored) {
-
                         }
                     }
-
+                    if (myNewLead.getProfession() != null) {
+                        try {
+                            spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
+                        } catch (final IllegalStateException ignored) {
+                        }
+                    }
 
                 }
 
@@ -277,6 +286,9 @@ public class LeadStageBasicInformationFragment extends Fragment {
         }
     }
 
+    private void getDataFromServer(String ref) {
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -288,11 +300,37 @@ public class LeadStageBasicInformationFragment extends Fragment {
 //        }
     }
 
+    private class LongOperation extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+          branchCode=mLocalSettting.getBranchCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+          // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this

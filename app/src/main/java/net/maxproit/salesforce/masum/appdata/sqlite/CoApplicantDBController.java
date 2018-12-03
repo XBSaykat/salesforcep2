@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import net.maxproit.salesforce.masum.model.CoApplicant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
 
 import java.util.ArrayList;
 

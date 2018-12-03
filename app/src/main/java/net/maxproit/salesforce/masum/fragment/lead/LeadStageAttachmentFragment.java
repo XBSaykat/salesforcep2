@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import net.alhazmy13.mediapicker.Image.ImagePicker;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
-import net.maxproit.salesforce.masum.model.Attachment;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.Attachment;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
 
 import java.io.IOException;
@@ -51,7 +55,7 @@ public class LeadStageAttachmentFragment extends Fragment {
     private Uri filePathUri = null;
     AttachmentDbController attachmentDbController;
     ArrayList<Attachment> attachmentArrayList;
-
+    public static Bitmap attachPp=null,attachIdcard=null,attachvCard=null;
     public LeadStageAttachmentFragment() {
         // Required empty public constructor
     }
@@ -87,6 +91,7 @@ public class LeadStageAttachmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.e("crash","attach");
         View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
 
         initView(rootView);
@@ -224,16 +229,16 @@ public class LeadStageAttachmentFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstant.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
-            imgAtach.setImageBitmap(bitmap);
+            attachPp  = (Bitmap) extras.get("data");
+            imgAtach.setImageBitmap(attachPp);
 
             imgAtach.setVisibility(View.VISIBLE);
             tvPhoto.setVisibility(View.GONE);
 
         } else if (requestCode == AppConstant.REQUEST_ID_CARD_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
-            imgIdCard.setImageBitmap(bitmap);
+             attachIdcard = (Bitmap) extras.get("data");
+            imgIdCard.setImageBitmap(attachIdcard);
 
             imgIdCard.setVisibility(View.VISIBLE);
             tvID.setVisibility(View.GONE);
@@ -241,8 +246,8 @@ public class LeadStageAttachmentFragment extends Fragment {
 
         } else if (requestCode == AppConstant.REQUEST_VCARD_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
-            imgVisitingCard.setImageBitmap(bitmap);
+             attachvCard = (Bitmap) extras.get("data");
+            imgVisitingCard.setImageBitmap(attachvCard);
 
             imgVisitingCard.setVisibility(View.VISIBLE);
             tvVCard.setVisibility(View.GONE);
@@ -254,9 +259,10 @@ public class LeadStageAttachmentFragment extends Fragment {
             try {
 
                 // Getting selected image into Bitmap.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+               attachPp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
                 // Setting up bitmap selected image into ImageView.
-                imgAtach.setImageBitmap(bitmap);
+                Glide.with(getActivity()).load(filePathUri).into(imgAtach);
+                //imgAtach.setImageBitmap(bitmap);
                 if (data.getData() != null) {
                     imgAtach.setVisibility(View.VISIBLE);
                     tvPhoto.setVisibility(View.GONE);
@@ -273,9 +279,11 @@ public class LeadStageAttachmentFragment extends Fragment {
             try {
 
                 // Getting selected image into Bitmap.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+                attachIdcard = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
                 // Setting up bitmap selected image into ImageView.
-                imgIdCard.setImageBitmap(bitmap);
+                Glide.with(getActivity()).load(filePathUri).into(imgIdCard);
+
+                //imgIdCard.setImageBitmap(bitmap);
                 if (data.getData() != null) {
                     imgIdCard.setVisibility(View.VISIBLE);
                     tvID.setVisibility(View.GONE);
@@ -293,9 +301,10 @@ public class LeadStageAttachmentFragment extends Fragment {
             try {
 
                 // Getting selected image into Bitmap.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+                attachvCard= MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+                Glide.with(getActivity()).load(filePathUri).into(imgVisitingCard);
                 // Setting up bitmap selected image into ImageView.
-                imgVisitingCard.setImageBitmap(bitmap);
+                //imgVisitingCard.setImageBitmap(bitmap);
                 if (data.getData() != null) {
                     imgVisitingCard.setVisibility(View.VISIBLE);
                     tvVCard.setVisibility(View.GONE);
@@ -307,6 +316,7 @@ public class LeadStageAttachmentFragment extends Fragment {
             }
         }
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

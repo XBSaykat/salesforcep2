@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 
 import java.util.ArrayList;
 

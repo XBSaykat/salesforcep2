@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.model.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,7 +39,7 @@ import java.util.List;
  * Use the {@link LeadStageVisitRecordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LeadStageVisitRecordFragment extends Fragment {
+public class LeadStageVisitRecordFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,7 +55,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
     private List<String> listfollowUp = null;
     private List<String> listRemark = null;
-
+    private boolean isFirst = false;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -96,12 +96,23 @@ public class LeadStageVisitRecordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e("crash","visit");
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_visit_record, container, false);
         initView(rootView);
-        initListener();
+
         return rootView;
         // Inflate the layout for this fragment
+    }
+
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
+
+    @Override
+    protected void initFragmentComponents() {
+
     }
 
     private void initView(View rootView) {
@@ -130,10 +141,6 @@ public class LeadStageVisitRecordFragment extends Fragment {
     }
 
     private void initSpinnerAdapter() {
-//        ArrayAdapter<CharSequence> decisionAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.decision_array,
-//                android.R.layout.simple_spinner_dropdown_item);
-//        spinnerFollowUp.setAdapter(decisionAdapter, 0);
 
         ArrayAdapter<String> followUpAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listfollowUp);
         spinnerFollowUp.setAdapter(followUpAdapter);
@@ -141,13 +148,11 @@ public class LeadStageVisitRecordFragment extends Fragment {
         ArrayAdapter<String> remarkAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRemark);
         spinnerRemarks.setAdapter(remarkAdapter);
 
-//        ArrayAdapter<CharSequence> remarksAdapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.remarks_arr,
-//                android.R.layout.simple_spinner_dropdown_item);
-//        spinnerRemarks.setAdapter(remarksAdapter, 0);
-
+        initListener();
         if (getArguments() != null) {
-            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
+            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY, -1);
+            if (status < 0)
+                return;
 
             if (status == 0) {
                 VisitPlan visitPlan = (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
@@ -155,48 +160,46 @@ public class LeadStageVisitRecordFragment extends Fragment {
 
                 }
             } else if (status == 1) {
-                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
+
                 if (myNewLead != null) {
-                    try{
-                    spinnerFollowUp.setSelection(followUpAdapter.getPosition(myNewLead.getFollowUp()));
-                    } catch (final IllegalStateException ignored) {
+                    if (myNewLead.getVisitDate() != null) {
+                        try {
+                            spinnerFollowUp.setSelection(1);
+                        } catch (final IllegalStateException ignored) {
 
-                    }
-                        if (myNewLead.getFollowUp() != null) {
-                            if (myNewLead.getFollowUp().equalsIgnoreCase("Yes")) {
-                                if (etVisitDate.getVisibility() != View.VISIBLE) {
-                                    etVisitDate.setVisibility(View.VISIBLE);
-                                }
-                                etVisitDate.setText(myNewLead.getVisitDate());
-                                etRemark.setText(myNewLead.getRemark());
+                        }
+                        if (etVisitDate.getVisibility() != View.VISIBLE) {
+                            etVisitDate.setVisibility(View.VISIBLE);
+                        }
+                        etVisitDate.setText(myNewLead.getVisitDate());
+                        etRemark.setText(myNewLead.getRemark());
+                    } else {
+                        try {
+                            spinnerFollowUp.setSelection(0);
+                        } catch (final IllegalStateException ignored) {
 
-                            } else if (myNewLead.getFollowUp().equalsIgnoreCase("No")) {
-                                    spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                        }
+                        try {
+                            spinnerRemarks.setSelection(remarkAdapter.getPosition(myNewLead.getRemark()));
+                        } catch (final IllegalStateException ignored) {
 
-                            }
                         }
 
-
-
+                    }
 
                 }
-
-
             }
-        } else {
-            Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     private void initListener() {
 
-
         spinnerFollowUp.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 followUp = s;
-
                 if (s.equals("Yes")) {
                     followDateLayout.setVisibility(View.VISIBLE);
                     etRemarksLayout.setVisibility(View.VISIBLE);
@@ -206,31 +209,19 @@ public class LeadStageVisitRecordFragment extends Fragment {
                     etRemarksLayout.setVisibility(View.GONE);
                     spRemarksLayout.setVisibility(View.VISIBLE);
                 }
-
             }
+
 
         });
 
         spinnerRemarks.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                remark=s;
+                remark = s;
             }
 
         });
 
-//        spinnerFollowUp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                followUp= String.valueOf(position);
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
         etVisitDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,6 +229,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
                 datePickerDialog();
             }
         });
+
     }
 
 
@@ -247,7 +239,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
-                String selectedDate = (dayOfMonth + "/" + month + "/" + year);
+                String selectedDate = (dayOfMonth + "." + month + "." + year);
                 etVisitDate.getText().clear();
                 etVisitDate.setText(selectedDate);
                 visitDate = etVisitDate.getText().toString();
@@ -263,7 +255,7 @@ public class LeadStageVisitRecordFragment extends Fragment {
                 listener,
                 year, month, day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         dialog.show();
 
     }

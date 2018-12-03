@@ -20,7 +20,7 @@ import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.PreviousPlanListAdapter;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
@@ -255,6 +255,7 @@ public class FragmentPreViousList extends Fragment {
     private void sentDataToDetail(int position) {
         VisitPlan visitPlan = new VisitPlan(
                 filterList.get(position).getId(),
+                filterList.get(position).getJournalId(),
                 filterList.get(position).getClientName(),
                 filterList.get(position).getClientType(),
                 filterList.get(position).getMobileNumber(),
@@ -264,7 +265,8 @@ public class FragmentPreViousList extends Fragment {
                 filterList.get(position).getPurposeOfVisit(),
                 filterList.get(position).getDateOfVisit(),
                 filterList.get(position).getRemarks(),
-                filterList.get(position).getStatus());
+                filterList.get(position).getStatus(),
+                filterList.get(position).getSynStatus());
         ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
     }
 

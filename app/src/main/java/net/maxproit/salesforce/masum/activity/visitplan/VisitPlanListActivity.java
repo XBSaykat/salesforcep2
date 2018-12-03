@@ -1,8 +1,8 @@
 package net.maxproit.salesforce.masum.activity.visitplan;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,13 +18,24 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityVisitPlanListBinding;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.api.myactivity.Datum;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.model.setting.LocalSetting;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VisitPlanListActivity extends BaseActivity {
 
@@ -39,10 +50,13 @@ public class VisitPlanListActivity extends BaseActivity {
     private ActivityVisitPlanListBinding binding;
     private MyVisitPlanListAdapter myLeadAdapter;
     private ArrayList<VisitPlan> leadList,visitPlanList, filterList;
+    private ArrayList<Datum> visitPlanApiList,filterApiList;
     private VisitPlanDbController myDbController;
     private FollowUpDbController followUpDbController;
     SearchView searchView;
+    LocalSetting localSetting;
     public static int itemPosition=0;
+    String userName=null;
 
     @Override
     protected int getLayoutResourceId() {
@@ -53,40 +67,103 @@ public class VisitPlanListActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivityVisitPlanListBinding) getBinding();
         myDbController = new VisitPlanDbController(getContext());
-
+        localSetting=new LocalSetting(this);
         leadList=new ArrayList<>();
         visitPlanList=new ArrayList<>();
+        visitPlanApiList=new ArrayList<>();
         filterList=new ArrayList<>();
+        filterApiList=new ArrayList<>();
+        userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
+        localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
+
+        backButton = findViewById(R.id.btn_back);
+        addButton = findViewById(R.id.btn_add);
+        searchView=findViewById(R.id.search_view);
+        myLeadAdapter=new MyVisitPlanListAdapter(this,visitPlanApiList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        binding.rvMyLead.setLayoutManager(mLayoutManager);
+        binding.rvMyLead.setAdapter(myLeadAdapter);
+        myLeadAdapter.notifyDataSetChanged();
+        initListener();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
         if (!visitPlanList.isEmpty()){
             visitPlanList.clear();
         }
-        if (!myDbController.getPlanData().equals(null)){
-
-            visitPlanList.addAll(myDbController.getPlanData());
+        if (!visitPlanApiList.isEmpty()){
+            visitPlanApiList.clear();
         }
 
-        else {
-            Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+        Bundle extraDetail = getIntent().getExtras();
+
+        if (extraDetail !=null){
+            int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
+            if (status==1){
+                visitPlanList.addAll(myDbController.getPreviousData(DateUtils.getDateString()));
+                myLeadAdapter.notifyDataSetChanged();
+                searchView.setQueryHint("search unexecuted plan");
+
+            }
+
+            else if (status==2){
+                visitPlanList.addAll(myDbController.getUpComingData(DateUtils.getDateString()));
+                myLeadAdapter.notifyDataSetChanged();
+                searchView.setQueryHint("search upcoming plan");
+            }
+            else if (status==3){
+                visitPlanList.addAll(myDbController.getPlanDataUsingStatus(AppConstant.STATUS_ACTIVITY));
+                myLeadAdapter.notifyDataSetChanged();
+                searchView.setQueryHint("search Fresh Activity");
+            }
+            else if (status==4){
+                visitPlanList.addAll(myDbController.getPlanDataUsingStatus(AppConstant.VISITED));
+                myLeadAdapter.notifyDataSetChanged();
+                searchView.setQueryHint("search visited Activity");
+
+
+            }
+            else{
+                if (isNetworkAvailable()){
+                    String random = UUID.randomUUID().toString();
+                    getApiService().getActivityData(userName,random).enqueue(new Callback<MyActivityGetDataApi>() {
+                        @Override
+                        public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
+                            if (response.body().getCode().equals("200") &&
+                                    response.body().getStatus().equalsIgnoreCase("ok")){
+                                visitPlanApiList.addAll(response.body().getData());
+                                myLeadAdapter.notifyDataSetChanged();
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
+
+                        }
+                    });
+                }
+                if (!myDbController.getPlanData().equals(null)){
+                    visitPlanList.addAll(myDbController.getPlanData());
+                    myLeadAdapter.notifyDataSetChanged();
+                }
+
+                else {
+                    Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+                }
+            }
+
         }
 
 
-        backButton = findViewById(R.id.btn_back);
-        addButton = findViewById(R.id.btn_add);
-        searchView=findViewById(R.id.search_view);
-        myLeadAdapter=new MyVisitPlanListAdapter(this,visitPlanList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        binding.rvMyLead.setLayoutManager(mLayoutManager);
-        binding.rvMyLead.setAdapter(myLeadAdapter);
-        myLeadAdapter.notifyDataSetChanged();
-
-        initListener();
 
     }
-
-
 
     @Override
     protected void getIntentData() {
@@ -138,7 +215,7 @@ public class VisitPlanListActivity extends BaseActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VisitPlanListActivity.super.onBackPressed();
+            onBackPressed();
             }
         });
 
@@ -147,23 +224,6 @@ public class VisitPlanListActivity extends BaseActivity {
             public void onClick(View v) {
 
                 alertDialog();
-           /*     AlertDialog dialog = new AlertDialog.Builder(VisitPlanListActivity.this).create();
-                dialog.setTitle("Create new Plan?");
-                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(VisitPlanListActivity.this, VisitPlanActivity.class));
-                        dialog.dismiss();
-                    }
-                });
-                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();*/
-
             }
         });
 
@@ -183,15 +243,15 @@ public class VisitPlanListActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                filterList = getFilterData(visitPlanList, query);
-                myLeadAdapter.setFilter(filterList);
+                filterApiList = getFilterData(visitPlanApiList, query);
+                myLeadAdapter.setFilter(filterApiList);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
-                filterList = getFilterData(visitPlanList, query);
-                myLeadAdapter.setFilter(filterList);
+                filterApiList = getFilterData(visitPlanApiList, query);
+                myLeadAdapter.setFilter(filterApiList);
                 return true;
             }
         });
@@ -200,13 +260,13 @@ public class VisitPlanListActivity extends BaseActivity {
 
 
     //filter  data
-    private ArrayList<VisitPlan> getFilterData(ArrayList<VisitPlan> models, CharSequence searchKey) {
+    private ArrayList<Datum> getFilterData(ArrayList<Datum> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<VisitPlan> filteredModelList = new ArrayList<>();
-        for (VisitPlan model : models) {
-            final String uName = model.getClientName().toLowerCase();
-            final String phone = model.getMobileNumber().toLowerCase();
+        final ArrayList<Datum> filteredModelList = new ArrayList<>();
+        for (Datum model : models) {
+            final String uName = model.getCustomerName().toLowerCase();
+            final String phone = model.getMobileNo().toLowerCase();
 
             if (uName.contains(searchKey) || phone.contains(searchKey)) {
                 filteredModelList.add(model);
@@ -216,26 +276,28 @@ public class VisitPlanListActivity extends BaseActivity {
     }
 
     private void loadFilterData() {
-        if (!filterList.isEmpty()) {
-            filterList.clear();
+        if (!filterApiList.isEmpty()) {
+            filterApiList.clear();
         }
-        filterList.addAll(myLeadAdapter.getDataList());
+        filterApiList.addAll(myLeadAdapter.getDataList());
     }
 
     private void sentDataToDetail(int position) {
         VisitPlan visitPlan = new VisitPlan(
-                filterList.get(position).getId(),
-                filterList.get(position).getClientName(),
-                filterList.get(position).getClientType(),
-                filterList.get(position).getMobileNumber(),
-                filterList.get(position).getPoliceStation(),
-                filterList.get(position).getProductType(),
-                filterList.get(position).getCity(),
-                filterList.get(position).getPurposeOfVisit(),
-                filterList.get(position).getDateOfVisit(),
-                filterList.get(position).getRemarks(),
-                filterList.get(position).getStatus());
-        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+                Integer.valueOf(filterApiList.get(position).getActivityJournalID()),
+                filterApiList.get(position).getCustomerName(),
+                filterApiList.get(position).getClientType(),
+                filterApiList.get(position).getMobileNo(),
+                filterApiList.get(position).getPS(),
+                filterApiList.get(position).getProductType(),
+                filterApiList.get(position).getCity(),
+                filterApiList.get(position).getVisitPurposeType(),
+                filterApiList.get(position).getActivityDate(),
+                filterApiList.get(position).getRemarks(),
+                filterApiList.get(position).getActivityStatus(),
+                filterApiList.get(position).getActivityStatus()
+                );
+        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPlanActivity.class, visitPlan);
     }
 
 
@@ -251,7 +313,7 @@ public class VisitPlanListActivity extends BaseActivity {
         builder.setIcon(R.drawable.lead);
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-            startActivity(new Intent(VisitPlanListActivity.this, VisitPlanActivity.class));
+            ActivityUtils.getInstance().invokeActivity(VisitPlanListActivity.this, VisitPlanActivity.class,false);
         });
         AlertDialog dialog = builder.create();
         dialog.show();

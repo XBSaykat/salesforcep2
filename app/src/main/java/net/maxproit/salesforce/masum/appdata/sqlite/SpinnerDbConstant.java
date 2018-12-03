@@ -77,7 +77,7 @@ public class SpinnerDbConstant {
     public static final String BRANCH = "branch";
 
     public static final String PROFESSION_ID = "_id";
-    public static final String PROFESSION = "profession";
+    public static final String PROFESSION = "getProfessionString";
 
     public static final String SOURCE_OF_REFERENCE_ID = "_id";
     public static final String SOURCE_OF_REFERENCE = "source_of_reference_id";

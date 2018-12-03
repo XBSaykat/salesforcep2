@@ -3,55 +3,30 @@ package net.maxproit.salesforce.model.setting;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Rezwan Khan Chowdhury on 10/2/2018.
- * heyrezwan@gmail.com
- */
+
 public class Profession {
-
-    @SerializedName("InActive")
+    @SerializedName("ProfessionType")
     @Expose
-    private Boolean inActive;
-    @SerializedName("IsDefault")
+    private String professionType;
+    @SerializedName("ProfessionTypeCode")
     @Expose
-    private Boolean isDefault;
-    @SerializedName("OccupationTypeCode")
-    @Expose
-    private Integer occupationTypeCode;
-    @SerializedName("OccupationTypeName")
-    @Expose
-    private String occupationTypeName;
+    private Integer professionTypeCode;
 
-    public Boolean getInActive() {
-        return inActive;
+    public String getProfessionType() {
+        return professionType;
     }
 
-    public void setInActive(Boolean inActive) {
-        this.inActive = inActive;
+    public void setProfessionType(String professionType) {
+        this.professionType = professionType;
     }
 
-    public Boolean getIsDefault() {
-        return isDefault;
+    public Integer getProfessionTypeCode() {
+        return professionTypeCode;
     }
 
-    public void setIsDefault(Boolean isDefault) {
-        this.isDefault = isDefault;
+    public void setProfessionTypeCode(Integer professionTypeCode) {
+        this.professionTypeCode = professionTypeCode;
     }
 
-    public Integer getOccupationTypeCode() {
-        return occupationTypeCode;
-    }
-
-    public void setOccupationTypeCode(Integer occupationTypeCode) {
-        this.occupationTypeCode = occupationTypeCode;
-    }
-
-    public String getOccupationTypeName() {
-        return occupationTypeName;
-    }
-
-    public void setOccupationTypeName(String occupationTypeName) {
-        this.occupationTypeName = occupationTypeName;
-    }
 
 }

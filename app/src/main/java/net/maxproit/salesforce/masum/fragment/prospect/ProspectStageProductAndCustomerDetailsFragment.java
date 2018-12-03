@@ -20,17 +20,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
-import net.maxproit.salesforce.App;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +49,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LocalSetting localSetting;
 
     Calendar myCalendar = Calendar.getInstance();
 
@@ -186,6 +186,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        localSetting=new LocalSetting(getActivity());
 
         initAdapters();
         initListener();
@@ -490,10 +491,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
     public void initAdapters() {
 
-        ArrayAdapter<String> productCat = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProductCategory);
+        ArrayAdapter<String> productCat = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductCat.setAdapter(productCat);
 
-        ArrayAdapter<String> branchNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBranch);
+        ArrayAdapter<String> branchNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getBranchString());
         spinnerBranchName.setAdapter(branchNameAdapter);
 
         ArrayAdapter<String> segmentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSegment);
@@ -505,10 +506,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthCountry);
         spinnerCountOfBirth.setAdapter(disCountryAdater);
 
-        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listProfession);
+        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listRelationshipWithApplicant);
+        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
         spinnerRelationship.setAdapter(realationAdapter);
 
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);

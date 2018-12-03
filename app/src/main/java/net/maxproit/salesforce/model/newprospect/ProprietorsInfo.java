@@ -63,7 +63,7 @@ public class ProprietorsInfo {
     @SerializedName("relationShip")
     @Expose
     private String relationShip = "";
-    @SerializedName("profession")
+    @SerializedName("getProfessionString")
     @Expose
     private String profession = "";
     @SerializedName("dob")

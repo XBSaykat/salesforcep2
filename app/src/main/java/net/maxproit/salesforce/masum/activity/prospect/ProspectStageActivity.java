@@ -18,36 +18,43 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
+import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
+import net.maxproit.salesforce.masum.fragment.lead.LeadStageAttachmentFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageCoApplicantFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageLoanAndSecurityDetailFragment;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.fragment.prospect.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.masum.model.CarLoan;
-import net.maxproit.salesforce.masum.model.CoApplicant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.Attachment;
+import net.maxproit.salesforce.masum.model.local.CarLoan;
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProspectStageActivity extends AppCompatActivity {
+public class ProspectStageActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private MyLeadDbController myLeadDbController;
     private CarLoanDbController carLoanDbController;
+    private AttachmentDbController attachmentDbController;
     private CoApplicantDBController coApplicantDBController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
-
+    private LeadStageAttachmentFragment leadStageAttachmentFragment;
     MyNewProspect prospect;
     String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
             relationship = null, name = null, age = null, photoId = null, photoIdDate = null, eTin = null, fatherName = null, motherName = null, spouseName = null,
@@ -65,12 +72,17 @@ public class ProspectStageActivity extends AppCompatActivity {
     private LinearLayout mLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lead_stage);
+    protected int getLayoutResourceId() {
+        return R.layout.activity_lead_stage;
+    }
+
+    @Override
+    protected void initComponents() {
+
+        attachmentDbController = new AttachmentDbController(ProspectStageActivity.this);
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
         btnReject = findViewById(R.id.tv_activity_details_rejected);
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage");
         setSupportActionBar(toolbar);
         myLeadDbController = new MyLeadDbController(ProspectStageActivity.this);
@@ -92,6 +104,11 @@ public class ProspectStageActivity extends AppCompatActivity {
 
         mLayout = findViewById(R.id.btn_layout_lead);
         initListener();
+    }
+
+    @Override
+    protected void getIntentData() {
+
     }
 
     private void initListener() {
@@ -271,6 +288,7 @@ public class ProspectStageActivity extends AppCompatActivity {
         adapter.addFragment(new ProspectStageProductAndCustomerDetailsFragment(), "Product & Customer Details");
         adapter.addFragment(new ProspectStageFinancialFragment(), "Financials");
         adapter.addFragment(new ProspectStageLoanAndSecurityDetailFragment(), "Loan & Security Detail");
+        adapter.addFragment(new LeadStageAttachmentFragment(), "Attachment");
         adapter.addFragment(new ProspectStageCoApplicantFragment(), "Co-Applicant");
         viewPager.setAdapter(adapter);
     }
@@ -378,12 +396,9 @@ public class ProspectStageActivity extends AppCompatActivity {
                     if (brandName !=null && year !=null && country !=null && vehicleType !=null){
                         insertBrandData();
                     }
-                    Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
-                    ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, MyProspectActivity.class, true);
-                } else {
-                    Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
 
                 }
+                insertAttachmentData(getDataFromProspect().getId(),myNewProspect);
             }
 
 
@@ -404,52 +419,84 @@ public class ProspectStageActivity extends AppCompatActivity {
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
             getDataFromFragment();
-            if (getDataFromProspect() != null) {
-                MyNewProspect myNewProspect = new MyNewProspect(
-                        mybranchName,
-                        name,
-                        profession,
-                        companyName,
-                        designation,
-                        mobileNumber, presentAddress,
-                        getDataFromProspect().getSourceRef(),
-                        productCat,
-                        productDetails,
-                        loanRequired,
-                        proposedInterest,
-                        fee,
-                        getDataFromProspect().getVisitDate(),
-                        getDataFromProspect().getDisDate(),
-                        getDataFromProspect().getFollowUp(),
-                        getDataFromProspect().getRemark(),
-                        AppConstant.STATUS_RBM,
-                        segment, dateOfBirth, age, districtOfBirth,
-                        countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
-                        motherName, spouseName, "", noYrsInCureentJob,
-                        relationship, permanentAddress, monthlyNetSalary,
-                        monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
-                        semiPakaIncome, officeIncome, wireHouseIncome,
-                        agriculturalIncome, practiceConsultancyTution, remittance,
-                        interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
-                        securityValue, loanRequired, loanTerm, proposedInterest,
-                        fee);
+            if (leadStageAttachmentFragment.attachPp != null
+                    && leadStageAttachmentFragment.attachIdcard != null
+                    && leadStageAttachmentFragment.attachvCard != null) {
+                if (getDataFromProspect() != null) {
+                    MyNewProspect myNewProspect = new MyNewProspect(
+                            mybranchName,
+                            name,
+                            profession,
+                            companyName,
+                            designation,
+                            mobileNumber, presentAddress,
+                            getDataFromProspect().getSourceRef(),
+                            productCat,
+                            productDetails,
+                            loanRequired,
+                            proposedInterest,
+                            fee,
+                            getDataFromProspect().getVisitDate(),
+                            getDataFromProspect().getDisDate(),
+                            getDataFromProspect().getFollowUp(),
+                            getDataFromProspect().getRemark(),
+                            AppConstant.STATUS_RBM,
+                            segment, dateOfBirth, age, districtOfBirth,
+                            countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
+                            motherName, spouseName, "", noYrsInCureentJob,
+                            relationship, permanentAddress, monthlyNetSalary,
+                            monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
+                            semiPakaIncome, officeIncome, wireHouseIncome,
+                            agriculturalIncome, practiceConsultancyTution, remittance,
+                            interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
+                            securityValue, loanRequired, loanTerm, proposedInterest,
+                            fee);
 
-                int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
-                if (update > 0) {
-                    if (brandName !=null && year !=null && country !=null && vehicleType !=null){
-                        insertBrandData();
-                    }
-
-                    Toast.makeText(ProspectStageActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
-                    ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, DashboardSalesOfficerActivity.class, true);
-                } else {
-                    Toast.makeText(ProspectStageActivity.this, "failed", Toast.LENGTH_SHORT).show();
-
+                    int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+                    insertAttachmentData(getDataFromProspect().getId(),myNewProspect);
+                    if (update > 0) {
+                        if (brandName != null && year != null && country != null && vehicleType != null) {
+                            insertBrandData();
+                        }
+                        }
                 }
             }
-
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void insertAttachmentData(int insert, final MyNewProspect myNewProspect) {
+        byte[] bytesAtachpp = null;
+        byte[] bytesAtachIdCard = null;
+        byte[] bytesAtachVCard = null;
+        if (leadStageAttachmentFragment.attachPp != null
+                && leadStageAttachmentFragment.attachIdcard != null
+                && leadStageAttachmentFragment.attachvCard != null) {
+
+            bytesAtachpp = ImageUtils.imagetoByte(LeadStageAttachmentFragment.attachPp);
+            bytesAtachIdCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.attachIdcard);
+            bytesAtachVCard = ImageUtils.imagetoByte(LeadStageAttachmentFragment.attachvCard);
+            int insertAttach = 0;
+            if (myNewProspect != null) {
+                if (attachmentDbController.getAllData(String.valueOf(myNewProspect.getId())).size() > 0) {
+                    Attachment attachment = new Attachment(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
+                    insertAttach = attachmentDbController.updateData(attachment);
+                } else {
+                    insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
+                }
+            } else {
+                insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
+
+            }
+            if (insertAttach > 0) {
+                Toast.makeText(this, "Attach data save successfully", Toast.LENGTH_SHORT).show();
+                ActivityUtils.getInstance().invokeActivity(this, DashboardSalesOfficerActivity.class, true);
+
+            } else {
+                Toast.makeText(this, "upload failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 }

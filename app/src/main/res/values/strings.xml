@@ -18,7 +18,7 @@
 
     <string name="google_place_api_key">AIzaSyDgeGFfb30M5w85K0q3nOtRM41FUGDDLl0</string>
 
-
+    <string name="empty_result">No data found!</string>
     <string name="pdf_ext">.pdf</string>
     <string name="pdf_dir">/PDFfiles</string>
     <string name="pdf_type">application/pdf</string>

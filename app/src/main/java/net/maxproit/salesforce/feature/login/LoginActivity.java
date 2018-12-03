@@ -3,7 +3,6 @@ package net.maxproit.salesforce.feature.login;
 import android.Manifest;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -19,7 +18,11 @@ import net.maxproit.salesforce.feature.dashboard.DashboardVirifierActivity;
 import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervisorActivity;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.login.Login;
 import net.maxproit.salesforce.model.login.LoginResponse;
 import net.maxproit.salesforce.model.setting.GlobalSettings;
@@ -31,50 +34,65 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+
 public class LoginActivity extends BaseActivity {
     ActivityLoginBinding binding;
     private static final String TAG = "LoginActivity";
     SpinnerDbController spinnerDbController;
-    String clientType[]=null;
-    String purposeOfVisit[]=null;
-    String city[]=null;
-    String dhakaNorthPoliceStation[]=null;
-    String dhakaSouthPoliceStation[]=null;
-    String narayanganjPoliceStation[]=null;
-    String branch[]=null;
-    String profession[]=null;
-    String sourceOfReference[]=null;
-    String productType[]=null;
-    String productSubcategoryHomeLoan[]=null;
-    String productSubcategoryCarLoan[]=null;
-    String productSubcategoryPersonalLoan[]=null;
-    String followUp[]=null;
-    String remarks[]=null;
-    String productCategory[]=null;
-    String segment[]=null;
-    String birthDistrict[]=null;
-    String birthCountry[]=null;
-    String relationshipWithApplicant[]=null;
-    String monthlySalary[]=null;
-    String monthlyRentalIncome[]=null;
-    String brandName[]=null;
-    String manufacturingYear[]=null;
-    String manufacturingCountry[]=null;
-    String vehicleType[]=null;
-    String validPhoto[]=null;
+    String clientType[] = null;
+    String purposeOfVisit[] = null;
+    String city[] = null;
+    String dhakaNorthPoliceStation[] = null;
+    String dhakaSouthPoliceStation[] = null;
+    String narayanganjPoliceStation[] = null;
+    String branch[] = null;
+    String profession[] = null;
+    String sourceOfReference[] = null;
+    String productType[] = null;
+    String productSubcategoryHomeLoan[] = null;
+    String productSubcategoryCarLoan[] = null;
+    String productSubcategoryPersonalLoan[] = null;
+    String followUp[] = null;
+    String remarks[] = null;
+    String productCategory[] = null;
+    String segment[] = null;
+    String birthDistrict[] = null;
+    String birthCountry[] = null;
+    String relationshipWithApplicant[] = null;
+    String monthlySalary[] = null;
+    String monthlyRentalIncome[] = null;
+    String brandName[] = null;
+    String manufacturingYear[] = null;
+    String manufacturingCountry[] = null;
+    String vehicleType[] = null;
+    String validPhoto[] = null;
+    private MyLeadDbController myLeadDbController;
 
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_login;
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     @Override
     protected void initComponents() {
         binding = (ActivityLoginBinding) getBinding();
         binding.setModel(new Login());
-        spinnerDbController=new SpinnerDbController(this);
-        if (!AppPreference.getInstance(LoginActivity.this).getBoolean(PrefKey.IS_LOADED)){
-            AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOADED,true);
+        myLeadDbController = new MyLeadDbController(this);
+        spinnerDbController = new SpinnerDbController(this);
+        if (!AppPreference.getInstance(LoginActivity.this).getBoolean(PrefKey.IS_LOADED)) {
+            AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOADED, true);
             setSpinnerData();
         }
 
@@ -90,11 +108,13 @@ public class LoginActivity extends BaseActivity {
 
         }
 
+
+
+
         binding.btnLogin.setOnClickListener(v -> {
 
                 }
         );
-
 
         binding.btnLogin.setOnClickListener(view -> {
 
@@ -177,9 +197,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void setSpinnerData() {
-        clientType=getResources().getStringArray(R.array.client_types);
-        if (spinnerDbController.getClientTypeData().size()==0){
-            for (int i = 0; i<clientType.length;i++){
+        clientType = getResources().getStringArray(R.array.client_types);
+        if (spinnerDbController.getClientTypeData().size() == 0) {
+            for (int i = 0; i < clientType.length; i++) {
                 int insert = spinnerDbController.insertClientTypeData(clientType[i]);
 
             }
@@ -187,7 +207,7 @@ public class LoginActivity extends BaseActivity {
 
         purposeOfVisit = getResources().getStringArray(R.array.purpose_of_visit);
 
-        for (int i = 0; i<purposeOfVisit.length;i++){
+        for (int i = 0; i < purposeOfVisit.length; i++) {
             int insert = spinnerDbController.insertPurposeOfVisitData(purposeOfVisit[i]);
 
 
@@ -195,7 +215,7 @@ public class LoginActivity extends BaseActivity {
 
         city = getResources().getStringArray(R.array.city_array);
 
-        for (int i = 0; i<city.length;i++){
+        for (int i = 0; i < city.length; i++) {
             int insert = spinnerDbController.insertCityData(city[i]);
 
 
@@ -203,7 +223,7 @@ public class LoginActivity extends BaseActivity {
 
         dhakaNorthPoliceStation = getResources().getStringArray(R.array.dhaka_north_police_station_array);
 
-        for (int i = 0; i<dhakaNorthPoliceStation.length;i++){
+        for (int i = 0; i < dhakaNorthPoliceStation.length; i++) {
             int insert = spinnerDbController.insertDhakaNorthData(dhakaNorthPoliceStation[i]);
 
 
@@ -211,7 +231,7 @@ public class LoginActivity extends BaseActivity {
 
         dhakaSouthPoliceStation = getResources().getStringArray(R.array.dhaka_south_police_station_array);
 
-        for (int i = 0; i<dhakaSouthPoliceStation.length;i++){
+        for (int i = 0; i < dhakaSouthPoliceStation.length; i++) {
             int insert = spinnerDbController.insertDhakaSouthData(dhakaSouthPoliceStation[i]);
 
 
@@ -219,7 +239,7 @@ public class LoginActivity extends BaseActivity {
 
         narayanganjPoliceStation = getResources().getStringArray(R.array.narayanganj_police_station_array);
 
-        for (int i = 0; i<narayanganjPoliceStation.length;i++){
+        for (int i = 0; i < narayanganjPoliceStation.length; i++) {
             int insert = spinnerDbController.insertNarayanganjData(narayanganjPoliceStation[i]);
 
 
@@ -227,7 +247,7 @@ public class LoginActivity extends BaseActivity {
 
         branch = getResources().getStringArray(R.array.branch_name_array);
 
-        for (int i = 0; i<branch.length;i++){
+        for (int i = 0; i < branch.length; i++) {
             int insert = spinnerDbController.insertBranchData(branch[i]);
 
 
@@ -235,7 +255,7 @@ public class LoginActivity extends BaseActivity {
 
         profession = getResources().getStringArray(R.array.profession_array);
 
-        for (int i = 0; i<profession.length;i++){
+        for (int i = 0; i < profession.length; i++) {
             int insert = spinnerDbController.insertProfessionData(profession[i]);
 
 
@@ -243,7 +263,7 @@ public class LoginActivity extends BaseActivity {
 
         sourceOfReference = getResources().getStringArray(R.array.source_of_reference_array);
 
-        for (int i = 0; i<sourceOfReference.length;i++){
+        for (int i = 0; i < sourceOfReference.length; i++) {
             int insert = spinnerDbController.insertSourceOfReferenceData(sourceOfReference[i]);
 
 
@@ -251,7 +271,7 @@ public class LoginActivity extends BaseActivity {
 
         productType = getResources().getStringArray(R.array.product_categories_array);
 
-        for (int i = 0; i<productType.length;i++){
+        for (int i = 0; i < productType.length; i++) {
             int insert = spinnerDbController.insertProductTypeData(productType[i]);
 
 
@@ -259,7 +279,7 @@ public class LoginActivity extends BaseActivity {
 
         productSubcategoryHomeLoan = getResources().getStringArray(R.array.hl_array);
 
-        for (int i = 0; i<productSubcategoryHomeLoan.length;i++){
+        for (int i = 0; i < productSubcategoryHomeLoan.length; i++) {
             int insert = spinnerDbController.insertHomeLoanData(productSubcategoryHomeLoan[i]);
 
 
@@ -267,7 +287,7 @@ public class LoginActivity extends BaseActivity {
 
         productSubcategoryCarLoan = getResources().getStringArray(R.array.cl_array);
 
-        for (int i = 0; i<productSubcategoryCarLoan.length;i++){
+        for (int i = 0; i < productSubcategoryCarLoan.length; i++) {
             int insert = spinnerDbController.insertCarLoanData(productSubcategoryCarLoan[i]);
 
 
@@ -275,7 +295,7 @@ public class LoginActivity extends BaseActivity {
 
         productSubcategoryPersonalLoan = getResources().getStringArray(R.array.pl_array);
 
-        for (int i = 0; i<productSubcategoryPersonalLoan.length;i++){
+        for (int i = 0; i < productSubcategoryPersonalLoan.length; i++) {
             int insert = spinnerDbController.insertPersonalLoanData(productSubcategoryPersonalLoan[i]);
 
 
@@ -283,7 +303,7 @@ public class LoginActivity extends BaseActivity {
 
         followUp = getResources().getStringArray(R.array.decision_array);
 
-        for (int i = 0; i<followUp.length;i++){
+        for (int i = 0; i < followUp.length; i++) {
             int insert = spinnerDbController.insertFollowUpData(followUp[i]);
 
 
@@ -291,7 +311,7 @@ public class LoginActivity extends BaseActivity {
 
         remarks = getResources().getStringArray(R.array.remarks_arr);
 
-        for (int i = 0; i<remarks.length;i++){
+        for (int i = 0; i < remarks.length; i++) {
             int insert = spinnerDbController.insertRemarksData(remarks[i]);
 
 
@@ -299,7 +319,7 @@ public class LoginActivity extends BaseActivity {
 
         productCategory = getResources().getStringArray(R.array.product_categories_array);
 
-        for (int i = 0; i<productCategory.length;i++){
+        for (int i = 0; i < productCategory.length; i++) {
             int insert = spinnerDbController.insertProductCategoryData(productCategory[i]);
 
 
@@ -307,7 +327,7 @@ public class LoginActivity extends BaseActivity {
 
         segment = getResources().getStringArray(R.array.segment_array);
 
-        for (int i = 0; i<segment.length;i++){
+        for (int i = 0; i < segment.length; i++) {
             int insert = spinnerDbController.insertSegmentData(segment[i]);
 
 
@@ -315,7 +335,7 @@ public class LoginActivity extends BaseActivity {
 
         birthDistrict = getResources().getStringArray(R.array.district_array);
 
-        for (int i = 0; i<birthDistrict.length;i++){
+        for (int i = 0; i < birthDistrict.length; i++) {
             int insert = spinnerDbController.insertBirthDistrictData(birthDistrict[i]);
 
 
@@ -323,7 +343,7 @@ public class LoginActivity extends BaseActivity {
 
         birthCountry = getResources().getStringArray(R.array.countries);
 
-        for (int i = 0; i<birthCountry.length;i++){
+        for (int i = 0; i < birthCountry.length; i++) {
             int insert = spinnerDbController.insertBirthCountryData(birthCountry[i]);
 
 
@@ -331,7 +351,7 @@ public class LoginActivity extends BaseActivity {
 
         relationshipWithApplicant = getResources().getStringArray(R.array.relationship_array);
 
-        for (int i = 0; i<relationshipWithApplicant.length;i++){
+        for (int i = 0; i < relationshipWithApplicant.length; i++) {
             int insert = spinnerDbController.insertRelationshipWithApplicantData(relationshipWithApplicant[i]);
 
 
@@ -339,7 +359,7 @@ public class LoginActivity extends BaseActivity {
 
         monthlySalary = getResources().getStringArray(R.array.monthly_net_salary_array);
 
-        for (int i = 0; i<monthlySalary.length;i++){
+        for (int i = 0; i < monthlySalary.length; i++) {
             int insert = spinnerDbController.insertMonthlySalarytData(monthlySalary[i]);
 
 
@@ -347,7 +367,7 @@ public class LoginActivity extends BaseActivity {
 
         monthlyRentalIncome = getResources().getStringArray(R.array.monthly_rental_income);
 
-        for (int i = 0; i<monthlyRentalIncome.length;i++){
+        for (int i = 0; i < monthlyRentalIncome.length; i++) {
             int insert = spinnerDbController.insertMonthlyRentalIncometData(monthlyRentalIncome[i]);
 
 
@@ -355,7 +375,7 @@ public class LoginActivity extends BaseActivity {
 
         brandName = getResources().getStringArray(R.array.car_brands);
 
-        for (int i = 0; i<brandName.length;i++){
+        for (int i = 0; i < brandName.length; i++) {
             int insert = spinnerDbController.insertBrandNameData(brandName[i]);
 
 
@@ -363,7 +383,7 @@ public class LoginActivity extends BaseActivity {
 
         manufacturingYear = getResources().getStringArray(R.array.years);
 
-        for (int i = 0; i<manufacturingYear.length;i++){
+        for (int i = 0; i < manufacturingYear.length; i++) {
             int insert = spinnerDbController.insertManufacturingYearData(manufacturingYear[i]);
 
 
@@ -371,7 +391,7 @@ public class LoginActivity extends BaseActivity {
 
         manufacturingCountry = getResources().getStringArray(R.array.countries);
 
-        for (int i = 0; i<manufacturingYear.length;i++){
+        for (int i = 0; i < manufacturingYear.length; i++) {
             int insert = spinnerDbController.insertManufacturingCountryData(manufacturingCountry[i]);
 
 
@@ -379,7 +399,7 @@ public class LoginActivity extends BaseActivity {
 
         vehicleType = getResources().getStringArray(R.array.vehicle_types);
 
-        for (int i = 0; i<vehicleType.length;i++){
+        for (int i = 0; i < vehicleType.length; i++) {
             int insert = spinnerDbController.insertVehicleTypeData(vehicleType[i]);
 
 
@@ -387,7 +407,7 @@ public class LoginActivity extends BaseActivity {
 
         validPhoto = getResources().getStringArray(R.array.valid_photo_id_list);
 
-        for (int i = 0; i<validPhoto.length;i++){
+        for (int i = 0; i < validPhoto.length; i++) {
             int insert = spinnerDbController.insertValidPhotoData(validPhoto[i]);
 
 
@@ -424,7 +444,7 @@ public class LoginActivity extends BaseActivity {
         if (uT.equals("1")) {
             localCash().put(SharedPreferencesEnum.Key.ROLLUSER, uT);
             startActivity(DashboardSalesOfficerActivity.class, true);
-           // startActivity(LocationTestActivity.class, true);
+            // startActivity(LocationTestActivity.class, true);
 
 
         } else if (uT.equals("2")) {
@@ -440,6 +460,41 @@ public class LoginActivity extends BaseActivity {
         }
 
     }
+
+    private MyLeadDataModelApi myLeadDataModelApi(MyNewLead myNewLead) {
+        MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
+        myLeadApi.setRmCode("336132");
+        myLeadApi.setUserName(myNewLead.getUserID());
+        myLeadApi.setBranchName(myNewLead.getBranchName());
+        myLeadApi.setBranchCode(myNewLead.getBranchCode());
+        myLeadApi.setCustomerName(myNewLead.getUserName());
+        myLeadApi.setCustomerId(myNewLead.getCusId());
+        myLeadApi.setProfession(myNewLead.getProfession());
+        myLeadApi.setOrganization(myNewLead.getOrganization());
+        myLeadApi.setDesignation(myNewLead.getDesignation());
+        myLeadApi.setMobileNumberId(myNewLead.getMobileId());
+        myLeadApi.setMobileNumber(myNewLead.getPhone());
+        myLeadApi.setAddressId(myNewLead.getAddressId());
+        myLeadApi.setAddress(myNewLead.getAddress());
+        myLeadApi.setSourceOfReference(myNewLead.getSourceRef());
+        myLeadApi.setProductId(myNewLead.getProductCode());
+        myLeadApi.setProduct(myNewLead.getProductType());
+        myLeadApi.setProductSubCategoryId(myNewLead.getSubCode());
+        myLeadApi.setProductSubCategory(myNewLead.getProductSubcategory());
+        myLeadApi.setLoanAmount(Integer.valueOf(myNewLead.getLoanAmount().replace(",","")));
+        myLeadApi.setOfferedInterestRate(Integer.valueOf(myNewLead.getOrInterest()));
+        myLeadApi.setOfferedProcessFee(Integer.valueOf(myNewLead.getOpFee()));
+        myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(myNewLead.getDisDate()));
+        myLeadApi.setVisitId(myNewLead.getVisitId());
+        myLeadApi.setFollowUp(myNewLead.getFollowUp());
+        myLeadApi.setFollowUpDate(DateUtils.getDateFormateForSqlite(myNewLead.getVisitDate()));
+        myLeadApi.setRemark(myNewLead.getRemark());
+        myLeadApi.setLeadReferenceNo(myNewLead.getRefNumber());
+
+
+        return myLeadApi;
+    }
+
 
 
     @Override

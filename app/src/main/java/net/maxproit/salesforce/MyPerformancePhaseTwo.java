@@ -10,15 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.fragment.myactivity.FragmentPreViousList;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 
@@ -120,7 +119,7 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
         if (!upComingPLanList.isEmpty()) {
             allVisitPlanList.clear();
         }
-        int unexPLan = visitPlanDbController.getDateBetween(DateUtils.getDateStringSqLite(), "2018-11-22").size();
+        int unexPLan = visitPlanDbController.getPreviousData(DateUtils.getDateString()).size();
 
         if (!visitPlanDbController.getPlanDataUsingStatus(AppConstant.LEAD_STATUS_New_PLAN).equals(null)) {
 

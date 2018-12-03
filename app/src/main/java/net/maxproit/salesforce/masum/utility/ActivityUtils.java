@@ -7,12 +7,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
-import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.MyPerfomanceActivity;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
-import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
-import net.maxproit.salesforce.masum.model.CoApplicant;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
-import net.maxproit.salesforce.masum.model.VisitPlan;
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 
@@ -43,6 +42,15 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
+    public static void invokRefNumber(Activity activity, Class<?> tClass,String ref){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(activity, tClass);
+        bundle.putString(AppConstant.INTENT_KEY, ref);
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
     public static void invokLeadDetailForProspectStage(Activity activity, MyNewProspect myNewLead){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
@@ -52,7 +60,7 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void invokLeadDetailForLeadStage(Activity activity, MyNewProspect myNewLead){
+    public static void invokLeadDetailForLeadStage(Activity activity, MyNewLead myNewLead){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);

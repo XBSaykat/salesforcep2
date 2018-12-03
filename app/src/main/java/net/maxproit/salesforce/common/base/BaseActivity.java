@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.GsonBuilder;
@@ -209,6 +210,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         }
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void showEmptyView() {
+       LinearLayout noDataView = (LinearLayout) findViewById(R.id.noDataView);
+        if (noDataView != null) {
+            noDataView.setVisibility(View.VISIBLE);
+        }
     }
 
    /* public Util getUtility() {

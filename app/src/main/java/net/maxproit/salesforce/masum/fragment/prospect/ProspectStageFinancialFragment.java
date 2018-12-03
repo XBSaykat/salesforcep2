@@ -15,13 +15,11 @@ import android.widget.EditText;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
-import net.maxproit.salesforce.NumberToWords;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
-import net.maxproit.salesforce.masum.model.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
-import net.maxproit.salesforce.masum.model.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

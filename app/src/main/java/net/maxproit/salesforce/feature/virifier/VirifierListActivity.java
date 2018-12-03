@@ -11,7 +11,7 @@ import com.google.gson.GsonBuilder;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityVirifierListBinding;
-import net.maxproit.salesforce.feature.salesOfficer.newProspect.NewProspectActivity;
+
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.feature.virifier.adapter.VirifierListAdapter;
 import net.maxproit.salesforce.model.login.LocalLogin;
@@ -106,7 +106,6 @@ public class VirifierListActivity extends BaseActivity implements AdapterInfo {
                     Bundle bundle = new Bundle();
                     bundle.putString("ROOT", VERRIFIER);
                     bundle.putString("DATA", en);
-                    startActivity(NewProspectActivity.class, false, bundle);
                 }
 
             }
