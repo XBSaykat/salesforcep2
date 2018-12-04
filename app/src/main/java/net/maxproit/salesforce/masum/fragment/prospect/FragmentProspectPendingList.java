@@ -1,5 +1,4 @@
 package net.maxproit.salesforce.masum.fragment.prospect;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -104,20 +103,20 @@ public class FragmentProspectPendingList extends BaseFragment {
 
                 switch (view.getId()){
                     default:
-                String ref = dataFilterList.get(position).getReference();
-                       getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
-                           @Override
-                           public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
-                               Log.d("tag", "onResponse: "+response.body().toString());
-                               OldProspect oldProspect = response.body();
-                               ActivityUtils.invokLeadDetailForProspectStage(getActivity(),oldProspect.getMyNewProspect());
-                           }
+                        String ref = dataFilterList.get(position).getReference();
+                        getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
+                            @Override
+                            public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
+                                Log.d("tag", "onResponse: "+response.body().toString());
+                                OldProspect oldProspect = response.body();
+                                ActivityUtils.invokLeadDetailForProspectStage(getActivity(),oldProspect.getMyNewProspect());
+                            }
 
-                           @Override
-                           public void onFailure(Call<OldProspect> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<OldProspect> call, Throwable t) {
 
-                           }
-                       });
+                            }
+                        });
 
                         break;
                 }
@@ -213,7 +212,7 @@ public class FragmentProspectPendingList extends BaseFragment {
             getApiService().getMyProspect(userName, UUID.randomUUID().toString()).enqueue(new Callback<MyProspect>() {
                 @Override
                 public void onResponse(Call<MyProspect> call, Response<MyProspect> response) {
-                    hideProgressDialog();
+
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
 
@@ -223,7 +222,7 @@ public class FragmentProspectPendingList extends BaseFragment {
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setAdapter(myProspectAdapter);
                             initListener();
-
+                            hideProgressDialog();
                         } else showAlertDialog("Error", response.body().getMessage());
 
                     } else showAlertDialog("Error", response.message());

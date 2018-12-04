@@ -35,8 +35,8 @@ import net.maxproit.salesforce.common.base.Global;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
-import net.maxproit.salesforce.masum.model.api.myactivity.Data;
-import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
+import net.maxproit.salesforce.masum.model.api.visitPlan.Data;
+import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
@@ -54,10 +54,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static net.maxproit.salesforce.masum.appdata.AppConstant.DHAKA_NORTH;
-import static net.maxproit.salesforce.masum.appdata.AppConstant.DHAKA_SOUTH;
-import static net.maxproit.salesforce.masum.appdata.AppConstant.INDIVIDUAL;
-import static net.maxproit.salesforce.masum.appdata.AppConstant.NARAYANGONJ;
 import static net.maxproit.salesforce.masum.appdata.AppConstant.POST_DISBURSEMENT;
 import static net.maxproit.salesforce.masum.appdata.AppConstant.PRE_DISBURSEMENT;
 
@@ -496,7 +492,7 @@ public class VisitPlanActivity extends BaseActivity {
         txtMobileNo.setText(mobileNo);
         txtRemarks.setText(remarks);
         if (visitPlanModel.getDateOfVisit() != null)
-            tvVisitDT.setText(visitPlanModel.getDateOfVisit());
+            tvVisitDT.setText(DateUtils.getDateFormateEt(visitPlanModel.getDateOfVisit()));
 
 
     }
@@ -547,8 +543,7 @@ public class VisitPlanActivity extends BaseActivity {
                 data.setCity(city);
                 data.setClientType(clientType);
                 data.setCustomerName(clientName);
-                data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
-                data.setFollowupRemarks("");
+
                 data.setMaker(userName);
                 data.setMobileNo(mobileNo);
                 data.setProductType(productType);
@@ -557,9 +552,9 @@ public class VisitPlanActivity extends BaseActivity {
                 data.setVisitPurposeType(purposeOfVisit);
 
                 if (isNetworkAvailable()) {
-                    getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
+                    getApiService().createVisitPlan(data).enqueue(new Callback<MyVisitPlanApi>() {
                         @Override
-                        public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+                        public void onResponse(Call<MyVisitPlanApi> call, Response<MyVisitPlanApi> response) {
 
                             VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), visitPlanModel.getJournalId(), clientName, spinnerClientType.getSelectedItem(),
                                     mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
@@ -569,7 +564,7 @@ public class VisitPlanActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                        public void onFailure(Call<MyVisitPlanApi> call, Throwable t) {
 
                         }
                     });
@@ -590,33 +585,17 @@ public class VisitPlanActivity extends BaseActivity {
                 data.setCity(city);
                 data.setClientType(clientType);
                 data.setCustomerName(clientName);
-                data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
-                data.setFollowupRemarks("");
+
                 data.setMaker(userName);
                 data.setMobileNo(mobileNo);
                 data.setProductType(productType);
                 data.setPs(policeStation);
                 data.setRemarks(remarks);
                 data.setVisitPurposeType(purposeOfVisit);
-      /*          Data data = new Data();
-                data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
-                data.setActivityJournalID(0);
-                data.setActivityStatus("");
-                data.setCity(city);
-                data.setClientType(clientType);
-                data.setCustomerName(clientName);
-                data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
-                data.setFollowupRemarks(remarks);
-                data.setMaker(userName);
-                data.setMobileNo(mobileNo);
-                data.setProductType(productType);
-                data.setPs(policeStation);
-                data.setRemarks(remarks);
-                data.setVisitPurposeType(purposeOfVisit);*/
                 if (isNetworkAvailable()) {
-                    getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
+                    getApiService().createVisitPlan(data).enqueue(new Callback<MyVisitPlanApi>() {
                         @Override
-                        public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+                        public void onResponse(Call<MyVisitPlanApi> call, Response<MyVisitPlanApi> response) {
                             if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                 Data data1 = response.body().getData();
                                 dbController.insertData(data1.getActivityJournalID(), clientName, spinnerClientType.getSelectedItem(),
@@ -630,24 +609,20 @@ public class VisitPlanActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                        public void onFailure(Call<MyVisitPlanApi> call, Throwable t) {
                             getAlertDialog("ERROR", t.getMessage());
 
                         }
                     });
                 } else {
-                    dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
+                  int insert1= dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
                             mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
                             spinnerPoliceStation.getSelectedItem(),
-                            purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_WAIT);
+                            purposeOfVisit, dateOfvisit, remarks, AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
                     Log.e("status", " no internet save data into local");
                     finish();
                 }
-
-
             }
-
-
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();

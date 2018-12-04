@@ -3,31 +3,42 @@ package net.maxproit.salesforce.masum.fragment.myactivity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.CurrentPLanListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.api.myactivity.Data;
+import net.maxproit.salesforce.masum.model.api.myactivity.Datum;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetByJournalIdApi;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
+import net.maxproit.salesforce.util.CommonUtil;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class FragmentCurrentActivity extends Fragment {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class FragmentCurrentActivity extends BaseFragment {
 
 
     private CurrentPLanListAdapter myLeadAdapter;
@@ -39,6 +50,7 @@ public class FragmentCurrentActivity extends Fragment {
     public static int itemPosition = 0;
     LocalLogin localLogin;
     String username;
+    private ArrayList<Datum> leadListApi, filterListApi, visitPlanListApi;
     private ArrayList<VisitPlan> leadList, filterList, visitPlanList;
 
     private static MyActivitiesActivity myActivitiesActivity;
@@ -92,13 +104,22 @@ public class FragmentCurrentActivity extends Fragment {
 
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_my_activity_list, container, false);
+        leadListApi = new ArrayList<>();
         leadList = new ArrayList<>();
+        filterListApi = new ArrayList<>();
         filterList = new ArrayList<>();
+        visitPlanListApi = new ArrayList<>();
         visitPlanList = new ArrayList<>();
-        myActivitiesActivity= (MyActivitiesActivity) getActivity();
+        myActivitiesActivity = (MyActivitiesActivity) getActivity();
         myDbController = new VisitPlanDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
 
+        if (!leadListApi.isEmpty()) {
+            leadListApi.clear();
+        }
+        if (!visitPlanListApi.isEmpty()) {
+            visitPlanListApi.clear();
+        }
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
@@ -106,43 +127,47 @@ public class FragmentCurrentActivity extends Fragment {
             visitPlanList.clear();
         }
 
-        leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
-        for (int i=0;i<leadList.size();i++){
-            if (!leadList.get(i).getStatus().equals(AppConstant.VISITED)){
-                visitPlanList.add(leadList.get(i));
-            }
-        }
 
 //      searchView = findViewById(R.id.search_view);
         rvMyActivity = rootView.findViewById(R.id.rv_my_activity);
 
 
-        myLeadAdapter = new CurrentPLanListAdapter(getContext(), visitPlanList);
+        myLeadAdapter = new CurrentPLanListAdapter(getContext(), visitPlanListApi);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rvMyActivity.setLayoutManager(mLayoutManager);
         rvMyActivity.setAdapter(myLeadAdapter);
-        myLeadAdapter.notifyDataSetChanged();
 
 //      initView(rootView);
         initListener();
         // Inflate the layout for this fragment
+        getData();
         return rootView;
 
 
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
 
-    private ArrayList<VisitPlan> getFilterData(ArrayList<VisitPlan> models, CharSequence searchKey) {
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+
+
+    private ArrayList<Datum> getFilterData(ArrayList<Datum> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<VisitPlan> filteredModelList = new ArrayList<>();
-        for (VisitPlan model : models) {
-            final String uName = model.getCity().toLowerCase();
+        final ArrayList<Datum> filteredModelList = new ArrayList<>();
+        for (Datum model : models) {
+            final String uName = model.getActivityJournalID().toLowerCase();
             final String type = model.getClientType().toLowerCase();
             final String name = model.getClientName().toLowerCase();
-            final String mobile = model.getMobileNumber().toLowerCase();
 
-            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey) || mobile.contains(searchKey) ) {
+
+            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey)) {
                 filteredModelList.add(model);
             }
         }
@@ -150,10 +175,10 @@ public class FragmentCurrentActivity extends Fragment {
     }
 
     private void loadFilterData() {
-        if (!filterList.isEmpty()) {
-            filterList.clear();
+        if (!filterListApi.isEmpty()) {
+            filterListApi.clear();
         }
-        filterList.addAll(myLeadAdapter.getDataList());
+        filterListApi.addAll(myLeadAdapter.getDataList());
     }
 
 
@@ -174,54 +199,49 @@ public class FragmentCurrentActivity extends Fragment {
         });
 
 
-
-
     }
 
-    public void beginSearching(String s){
-        filterList= getFilterData(visitPlanList,s);
-        myLeadAdapter.setFilter(filterList);
+    public void beginSearching(String s) {
+        filterListApi = getFilterData(visitPlanListApi, s);
+        myLeadAdapter.setFilter(filterListApi);
     }
 
-    private void removeItemFromList(int position, String status) {
-        for (int i = 0; i < leadList.size(); i++) {
-            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.get(i).setStatus(status);
-                leadList.remove(i);
-                myLeadAdapter.notifyItemRemoved(position);
-                break;
-
-            }
-        }
-    }
-
-    private void changeItemStatus(int position, String status) {
-        for (int i = 0; i < leadList.size(); i++) {
-            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.get(i).setStatus(status);
-                myLeadAdapter.notifyDataSetChanged();
-                break;
-
-            }
-        }
-    }
 
     private void sentDataToDetail(int position) {
-        VisitPlan visitPlan = new VisitPlan(
-                filterList.get(position).getId(),
-                filterList.get(position).getJournalId(),
-                filterList.get(position).getClientName(),
-                filterList.get(position).getClientType(),
-                filterList.get(position).getMobileNumber(),
-                filterList.get(position).getPoliceStation(),
-                filterList.get(position).getProductType(),
-                filterList.get(position).getCity(),
-                filterList.get(position).getPurposeOfVisit(),
-                filterList.get(position).getDateOfVisit(),
-                filterList.get(position).getRemarks(),
-                filterList.get(position).getStatus(),
-        filterList.get(position).getSynStatus());
-        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+        if (isNetworkAvailable()) {
+            String journalId = filterListApi.get(position).getActivityJournalID();
+            String random = UUID.randomUUID().toString();
+            getApiService().getActivityByJournalId(journalId, random).enqueue(new Callback<MyActivityGetByJournalIdApi>() {
+                @Override
+                public void onResponse(Call<MyActivityGetByJournalIdApi> call, Response<MyActivityGetByJournalIdApi> response) {
+                    Log.e("", "");
+                    Data data = response.body().getData();
+                    String followupDate = null;
+                    String activityDate = null;
+                    if (data.getFollowupDate() != null) {
+                        followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
+                    }
+                    if (data.getActivityDate() != null) {
+                        followupDate = CommonUtil.jsonToDate(data.getActivityDate());
+                    }
+                    VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
+                            , data.getClientType(), data.getMobileNo(), data.getPs(),
+                            data.getProductType(), data.getCity(), data.getVisitPurposeType(),
+                            activityDate, data.getRemarks(), data.getActivityStatus(), followupDate, data.getFollowupRemarks());
+                    ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+
+                }
+
+                @Override
+                public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
+
+                }
+            });
+        } else {
+            int id = filterListApi.get(position).getId();
+            VisitPlan visitPlan = myDbController.getAllData(id).get(0);
+            ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+        }
     }
 
 
@@ -230,6 +250,36 @@ public class FragmentCurrentActivity extends Fragment {
 
     }
 
+    private void getData() {
+        if (isNetworkAvailable()) {
+            String random = UUID.randomUUID().toString();
+            getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
+                @Override
+                public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
+                    if (response.body().getCode().equals("200")) {
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_CURRENT_ACTIVITY)) {
+                                visitPlanListApi.add(response.body().getData().get(i));
+                            }
+                        }
+                        myLeadAdapter.notifyDataSetChanged();
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
+
+                }
+            });
+        } else {
+            MyActivityGetDataApi myActivityGetDataApi = new MyActivityGetDataApi();
+            leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
+            visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(leadList));
+            myLeadAdapter.notifyDataSetChanged();
+        }
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

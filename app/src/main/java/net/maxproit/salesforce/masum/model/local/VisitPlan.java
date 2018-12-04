@@ -17,6 +17,7 @@ public class VisitPlan implements Serializable {
     private String status;
     private String synStatus;
     private int id,journalId;
+    String followUpDate,followUpRemark;
 
     public VisitPlan(int id,int journalId, String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status,String synStatus ) {
 
@@ -33,12 +34,13 @@ public class VisitPlan implements Serializable {
         this.remarks = remarks;
         this.status = status;
         this.synStatus = synStatus;
-    }   public VisitPlan(int id,String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
+    }
+
+    public VisitPlan(int id,String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
 
         this.clientName = clientName;
         this.policeStation = policeStation;
         this.id = id;
-        this.journalId = journalId;
         this.clientType = clientType;
         this.mobileNumber = mobileNumber;
         this.productType = productType;
@@ -48,6 +50,24 @@ public class VisitPlan implements Serializable {
         this.remarks = remarks;
         this.status = status;
         this.synStatus = synStatus;
+    }
+
+    public VisitPlan(int journalId,String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status,String followUpDate,String followUpRemark) {
+
+        this.clientName = clientName;
+        this.policeStation = policeStation;
+        this.followUpDate = followUpDate;
+        this.followUpRemark = followUpRemark;
+        this.journalId = journalId;
+        this.clientType = clientType;
+        this.mobileNumber = mobileNumber;
+        this.productType = productType;
+        this.city = city;
+        this.purposeOfVisit = purposeOfVisit;
+        this.dateOfVisit = dateOfVisit;
+        this.remarks = remarks;
+        this.status = status;
+
     }
 
     public VisitPlan(String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
@@ -82,6 +102,8 @@ public class VisitPlan implements Serializable {
         this.status = status;
         this.synStatus = synStatus;
     }
+
+
 
     public int getJournalId() {
         return journalId;
