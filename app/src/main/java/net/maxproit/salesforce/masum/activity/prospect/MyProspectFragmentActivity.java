@@ -138,6 +138,7 @@ public class MyProspectFragmentActivity extends BaseActivity {
         adapter.addFragment(new FragmentProspectPendingList(), "Pending                  ");
         adapter.addFragment(new FragmentProspectreturn(), "Return From RBM");
         viewPager.setAdapter(adapter);
+
     }
 
     //
@@ -166,6 +167,7 @@ public class MyProspectFragmentActivity extends BaseActivity {
         }
 
         public void addFragment(Fragment fragment, String title) {
+
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
 

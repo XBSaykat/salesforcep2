@@ -105,7 +105,7 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
         }
 
         Bundle extraDetail = getIntent().getExtras();
-        showProgressDialog();
+
         if (extraDetail != null) {
             int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
             if (status == 1) {
@@ -129,6 +129,8 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
 
             } else {
                 if (isNetworkAvailable()) {
+                    showProgressDialog();
+
 
                     String random = UUID.randomUUID().toString();
                     getApiService().getVisitPlan(userName, random).enqueue(new Callback<MyVisitPlanGetApi>() {
@@ -138,9 +140,12 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
                                     response.body().getStatus().equalsIgnoreCase("ok")) {
                                 visitPlanApiList.addAll(response.body().getData());
                                 myLeadAdapter.notifyDataSetChanged();
+                                hideProgressDialog();
+
                             } else {
                                 showAlertDialog("ERROR", response.message());
                                 showEmptyView();
+                                hideProgressDialog();
                             }
                         }
 

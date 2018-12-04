@@ -67,7 +67,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 
         localLogin = new LocalLogin(getApplicationContext());
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
-        myProspectAdapter = new MyNewProspectAdapter(MyProspectActivity.this, leadList);
+      //  myProspectAdapter = new MyNewProspectAdapter(MyProspectActivity.this, leadList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.rvMyProspect.setLayoutManager(mLayoutManager);
         binding.rvMyProspect.setAdapter(myProspectAdapter);
@@ -76,14 +76,14 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 filterList = getFilterData(leadList, query);
-                myProspectAdapter.setFilter(filterList);
+                //myProspectAdapter.setFilter(filterList);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterList = getFilterData(leadList, newText);
-                myProspectAdapter.setFilter(filterList);
+               // myProspectAdapter.setFilter(filterList);
                 return true;
             }
         });
@@ -213,7 +213,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
         if (!filterList.isEmpty()) {
             filterList.clear();
         }
-        filterList.addAll(myProspectAdapter.getDataList());
+      //  filterList.addAll(myProspectAdapter.getDataList());
     }
 
 
