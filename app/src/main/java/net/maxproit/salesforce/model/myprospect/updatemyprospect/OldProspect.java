@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
-import net.maxproit.salesforce.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,29 +65,29 @@ public class OldProspect {
         myNewProspect.setAssetType(data.getAssetType());
         myNewProspect.setAssetTypeId(data.getAssetTypeId());
         myNewProspect.setApplicant(data.getCustomerName());
+        myNewProspect.setBrandName(data.getBrandName());
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
         myNewProspect.setBranchCode(data.getBranchCode());
-        myNewProspect.setBranchName(data.getBranchName());
         myNewProspect.setBusinessIncomeAmount(String.valueOf(data.getBusinessIncome()));
+        myNewProspect.setBranchName(data.getBranchName());
         myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
         myNewProspect.setPermAddressId(data.getPermanentAddressId());
         myNewProspect.setPresAddressId(data.getPresentAddressId());
-
-//        myNewProspect.setOrganization(data.getCompany());
-//        myNewProspect.setContactId(data.getContactId());
-//        myNewProspect.setCountryOfBirth(countOfBirth);
-//        myNewProspect.setCurrentJobDuration(noYrsInCureentJob);
-//        myNewProspect.setCustomerId(getDataFromProspect().getCusId());
-//        myNewProspect.setCustomerName("Helal");
-//        myNewProspect.setDateOfBirth("/Date(-2209010400000+0600)/");
-//        myNewProspect.setDesignation( "Hope car");
-//        myNewProspect.setDistrictOfBirth("");
-//        myNewProspect.setETin("");
-//        myNewProspect.setEmiOfOtherLoan(9);
-//        myNewProspect.setFactoryIncome(1000);
-//        myNewProspect.setFamilyExpenditure(50000);
-//        myNewProspect.setFatherName("");
-//        myNewProspect.setFee(0);
+        myNewProspect.setContactId(data.getContactId());
+        myNewProspect.setCob(data.getCountryOfBirth());
+        myNewProspect.setCurrentJob(data.getCurrentJobDuration());
+        myNewProspect.setCusId(data.getCustomerId());
+        myNewProspect.setDob(data.getDistrictOfBirth());
+        myNewProspect.setDateOfBirth(data.getDateOfBirth());
+        myNewProspect.setPiRate(String.valueOf(data.getIntersetRate()));
+        myNewProspect.setInFdr(String.valueOf(data.getInterestIncomeOfFDR()));
+        myNewProspect.setEmiOther(String.valueOf(data.getEmiOfOtherLoan()));
+        myNewProspect.setWireHouseINcome(String.valueOf(data.getFactoryIncome()));
+        myNewProspect.setfExpense(String.valueOf(data.getFamilyExpenditure()));
+        myNewProspect.setfName(data.getFatherName());
+        myNewProspect.setmName(data.getMotherName());
+        myNewProspect.setsName(data.getSpouseName());
+        myNewProspect.setProspectFee(String.valueOf(data.getFee()));
         myNewProspect.setRmCode(data.getRmCode());
         myNewProspect.setStatus(data.getStatus());
         myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
@@ -99,12 +98,38 @@ public class OldProspect {
         myNewProspect.setProductSubcategory(data.getProductSubCategory());
         myNewProspect.setSubCode(data.getProductSubCategoryId());
         myNewProspect.setDateOfBirth(data.getDateOfBirth());
-        myNewProspect.setDob(CommonUtil.jsonToDate(data.getDistrictOfBirth()));
         myNewProspect.setPhone(data.getMobileNo());
         myNewProspect.setProfession(data.getProfession());
         myNewProspect.setDesignation(data.getDesignation());
-        myNewProspect.setLoadAmount(String.valueOf(data.getLoanRequired()));
+        myNewProspect.setLoanReq(String.valueOf(data.getLoanRequired()));
+        myNewProspect.setLoanTerm(String.valueOf(data.getLoanTerm()));
         myNewProspect.setOpFee(String.valueOf(data.getFee()));
+        myNewProspect.setManufacturingCountry(data.getManufacturingCountry());
+        myNewProspect.setManufacturingName(data.getManufacturerName());
+        myNewProspect.setManufacturingNameId(data.getManufacturerNameId());
+        myNewProspect.setManufacturingYear(data.getManufacturingYear());
+        myNewProspect.setMobileId(data.getMobileNoId());
+        myNewProspect.setNetSalary(data.getNetSalaryType());
+        myNewProspect.setSalaryAmount(String.valueOf(data.getNetSalary()));
+        myNewProspect.setNetSalary(String.valueOf(data.getNetSalary()));
+        myNewProspect.setPermAddressCity(data.getPermanentAddressCity());
+        myNewProspect.setpAddress(data.getPermanentAddress());
+        myNewProspect.setPermAddressPs(data.getPermanentAddressPS());
+        myNewProspect.setpIssueDate(data.getPhotoIdIssueDate());
+        myNewProspect.setpIdNumber(data.getPhotoIdNumber());
+        myNewProspect.setAddress(data.getPresentAddress());
+        myNewProspect.setPresAddressCity(data.getPresentAddressCity());
+        myNewProspect.setPresAddressPs(data.getPresentAddressPS());
+        myNewProspect.setSourceRef(data.getRelationshipWithApplicant());
+        myNewProspect.setsValue(String.valueOf(data.getSecurityValue()));
+//        myNewProspect.setRmCode(data.getRmCode());
+//        myNewProspect.setUserName(data.getUserName());
+        myNewProspect.setTution(String.valueOf(data.getTutionIncome()));
+        myNewProspect.setSegment(data.getSegment());
+        myNewProspect.setRemitance(String.valueOf(data.getRemittanceIncome()));
+        myNewProspect.setSemipakaIncome(String.valueOf(data.getSemipakaIncome()));
+
+
 
         List<CoApplicant> coApplicantList = new ArrayList<>();
         if ( !data.getCoApplicants().isEmpty()){

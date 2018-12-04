@@ -1,21 +1,18 @@
 package net.maxproit.salesforce.masum.fragment.prospect;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseFragment;
-import net.maxproit.salesforce.masum.activity.prospect.MyProspectActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
-import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
@@ -24,7 +21,6 @@ import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.model.myprospect.Data;
 import net.maxproit.salesforce.model.myprospect.MyProspect;
 import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
-import net.maxproit.salesforce.model.newprospect.NewProspect;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
@@ -109,6 +105,8 @@ public class FragmentProspectPendingList extends BaseFragment {
                             public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
                                 Log.d("tag", "onResponse: "+response.body().toString());
                                 OldProspect oldProspect = response.body();
+//                             MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
+
                                 ActivityUtils.invokLeadDetailForProspectStage(getActivity(),oldProspect.getMyNewProspect());
                             }
 

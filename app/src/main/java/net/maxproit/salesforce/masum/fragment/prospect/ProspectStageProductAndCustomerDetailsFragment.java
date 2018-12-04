@@ -29,7 +29,6 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
-import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 
@@ -513,8 +512,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
-        spinnerRelationship.setAdapter(realationAdapter);
+//        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
+//        spinnerRelationship.setAdapter(realationAdapter);
 
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
@@ -624,7 +623,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             if (myNewLead.getApplicant() != null) {
                 try {
-                    spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
+//                    spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
                 } catch (final IllegalStateException ignored) {
 
                 }
