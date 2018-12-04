@@ -12,6 +12,7 @@ import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetByJournal
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanGetApi;
+import net.maxproit.salesforce.model.approval.Approval;
 import net.maxproit.salesforce.model.cib.notRequestedCIB.NotRequestedCIBData;
 import net.maxproit.salesforce.model.cib.post.CibPost;
 import net.maxproit.salesforce.model.cib.postResponce.CibPostResponce;
@@ -35,8 +36,10 @@ import net.maxproit.salesforce.model.mylead.updateLead.OldLead;
 import net.maxproit.salesforce.model.myprospect.MyProspect;
 import net.maxproit.salesforce.model.myprospect.documentlist.ProspectDocList;
 import net.maxproit.salesforce.model.myprospect.updateProspect.OleProspect;
+import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
 import net.maxproit.salesforce.model.newlead.NewLead;
 import net.maxproit.salesforce.model.newprospect.NewProspect;
+import net.maxproit.salesforce.model.newprospect.mynewprosppect.NewProspectUpdate;
 import net.maxproit.salesforce.model.salesOfficer.disbursement.Disbursement;
 import net.maxproit.salesforce.model.salesOfficer.myPerfomance.MyPerfomance;
 import net.maxproit.salesforce.model.sd.DisbursementList;
@@ -130,8 +133,11 @@ public interface ApiService {
     Call<Mylead> getMyLead(@Path("user") String user, @Path("random") String random);
 
     // Lead Step 3. Lead Approval
-    @POST("proceedLead")
-    Call<ApprovalResponce> myleadApproval(@Body MyLeadApproval myLeadApproval);
+//    @POST("proceedLead")
+//    Call<ApprovalResponce> myleadApproval(@Body MyLeadApproval myLeadApproval);
+
+    @POST("CdApproval/proceedLead")
+    Call<ApprovalResponce> myleadApproval(@Body Approval myLeadApproval);
 
     // Lead Step 4. Get Lead By id
     @GET("Lead/{id}/{random}")
@@ -157,15 +163,21 @@ public interface ApiService {
     */
 
     // Prospect Stem 1. My Prospect list
-    @GET("MyProspect/{user}/{random}")
+    @GET("CdProspect/MyProspect/{user}/{random}")
     Call<MyProspect> getMyProspect(@Path("user") String user, @Path("random") String random);
 
     @POST("Prospect")
     Call<OleProspect> myProspect(@Body NewProspect newProspect);
 
+ @POST("CdProspect/Prospect")
+    Call<OldProspect> myNewProspect(@Body NewProspectUpdate newProspectUpdate);
+
 
     @GET("Prospect/{id}/{random}")
     Call<OleProspect> getProspect(@Path("id") String id, @Path("random") String random);
+
+    @GET("CdProspect/Prospect/{id}/{random}")
+    Call<OldProspect> getNewProspect(@Path("id") String id, @Path("random") String random);
 
     @POST("proceed")
     Call<ApprovalResponce> myProspectApproval(@Body MyLeadApproval myLeadApproval);
@@ -337,3 +349,5 @@ public interface ApiService {
 
 
 }
+
+

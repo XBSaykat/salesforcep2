@@ -30,7 +30,9 @@ public class MyNewLead implements Serializable {
 
     private int id,cusId,mobileId,addressId,visitId,branchCode,productCode,subCode;
 
+public MyNewLead(){
 
+}
     public MyNewLead(String branchName, String userName, String profession,
                      String organization, String designation, String phone,
                      String address, String sourceRef, String productType,
@@ -117,6 +119,118 @@ public class MyNewLead implements Serializable {
         this.remark = remark;
         this.status = status;
         this.syncStatus = syncStatus;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public void setRefNumber(String refNumber) {
+        this.refNumber = refNumber;
+    }
+
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setSourceRef(String sourceRef) {
+        this.sourceRef = sourceRef;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
+    public void setProductSubcategory(String productSubcategory) {
+        this.productSubcategory = productSubcategory;
+    }
+
+    public void setLoadAmount(String loadAmount) {
+        this.loadAmount = loadAmount;
+    }
+
+    public void setOrInterest(String orInterest) {
+        this.orInterest = orInterest;
+    }
+
+    public void setOpFee(String opFee) {
+        this.opFee = opFee;
+    }
+
+    public void setDisDate(String disDate) {
+        this.disDate = disDate;
+    }
+
+    public void setVisitDate(String visitDate) {
+        this.visitDate = visitDate;
+    }
+
+    public void setFollowUp(String followUp) {
+        this.followUp = followUp;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCusId(int cusId) {
+        this.cusId = cusId;
+    }
+
+    public void setMobileId(int mobileId) {
+        this.mobileId = mobileId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
+    public void setVisitId(int visitId) {
+        this.visitId = visitId;
+    }
+
+    public void setBranchCode(int branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public void setProductCode(int productCode) {
+        this.productCode = productCode;
+    }
+
+    public void setSubCode(int subCode) {
+        this.subCode = subCode;
     }
 
     public int getBranchCode() {
