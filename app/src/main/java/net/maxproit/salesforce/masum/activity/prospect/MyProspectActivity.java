@@ -88,14 +88,6 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
             }
         });
 
-//        try {
-//            callApi();
-//        } catch (Exception e) {
-//            showAlertDialog("Error", e.getMessage());
-//        }
-
-
-
         initListener();
 
 
