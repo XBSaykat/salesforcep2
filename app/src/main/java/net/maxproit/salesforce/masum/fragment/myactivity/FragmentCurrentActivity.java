@@ -26,7 +26,9 @@ import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
+import net.maxproit.salesforce.util.CommonUtil;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
@@ -48,7 +50,8 @@ public class FragmentCurrentActivity extends BaseFragment {
     public static int itemPosition = 0;
     LocalLogin localLogin;
     String username;
-    private ArrayList<Datum> leadList, filterList, visitPlanList;
+    private ArrayList<Datum> leadListApi, filterListApi, visitPlanListApi;
+    private ArrayList<VisitPlan> leadList, filterList, visitPlanList;
 
     private static MyActivitiesActivity myActivitiesActivity;
     // TODO: Rename parameter arguments, choose names that match
@@ -101,13 +104,22 @@ public class FragmentCurrentActivity extends BaseFragment {
 
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_my_activity_list, container, false);
+        leadListApi = new ArrayList<>();
         leadList = new ArrayList<>();
+        filterListApi = new ArrayList<>();
         filterList = new ArrayList<>();
+        visitPlanListApi = new ArrayList<>();
         visitPlanList = new ArrayList<>();
         myActivitiesActivity = (MyActivitiesActivity) getActivity();
         myDbController = new VisitPlanDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
 
+        if (!leadListApi.isEmpty()) {
+            leadListApi.clear();
+        }
+        if (!visitPlanListApi.isEmpty()) {
+            visitPlanListApi.clear();
+        }
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
@@ -115,18 +127,12 @@ public class FragmentCurrentActivity extends BaseFragment {
             visitPlanList.clear();
         }
 
-     /*   leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
-        for (int i=0;i<leadList.size();i++){
-            if (!leadList.get(i).getStatus().equals(AppConstant.VISITED)){
-                visitPlanList.add(leadList.get(i));
-            }
-        }*/
 
 //      searchView = findViewById(R.id.search_view);
         rvMyActivity = rootView.findViewById(R.id.rv_my_activity);
 
 
-        myLeadAdapter = new CurrentPLanListAdapter(getContext(), visitPlanList);
+        myLeadAdapter = new CurrentPLanListAdapter(getContext(), visitPlanListApi);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rvMyActivity.setLayoutManager(mLayoutManager);
         rvMyActivity.setAdapter(myLeadAdapter);
@@ -134,7 +140,7 @@ public class FragmentCurrentActivity extends BaseFragment {
 //      initView(rootView);
         initListener();
         // Inflate the layout for this fragment
-        getDataFromApi();
+        getData();
         return rootView;
 
 
@@ -169,10 +175,10 @@ public class FragmentCurrentActivity extends BaseFragment {
     }
 
     private void loadFilterData() {
-        if (!filterList.isEmpty()) {
-            filterList.clear();
+        if (!filterListApi.isEmpty()) {
+            filterListApi.clear();
         }
-        filterList.addAll(myLeadAdapter.getDataList());
+        filterListApi.addAll(myLeadAdapter.getDataList());
     }
 
 
@@ -196,46 +202,46 @@ public class FragmentCurrentActivity extends BaseFragment {
     }
 
     public void beginSearching(String s) {
-        filterList = getFilterData(visitPlanList, s);
-        myLeadAdapter.setFilter(filterList);
+        filterListApi = getFilterData(visitPlanListApi, s);
+        myLeadAdapter.setFilter(filterListApi);
     }
 
 
     private void sentDataToDetail(int position) {
-        String journalId = filterList.get(position).getActivityJournalID();
-        String random = UUID.randomUUID().toString();
-        getApiService().getActivityByJournalId(journalId, random).enqueue(new Callback<MyActivityGetByJournalIdApi>() {
-            @Override
-            public void onResponse(Call<MyActivityGetByJournalIdApi> call, Response<MyActivityGetByJournalIdApi> response) {
-                Log.e("","");
-                Data data=response.body().getData();
-                VisitPlan visitPlan=new VisitPlan(data.getActivityJournalID(),data.getCustomerName()
-                        ,data.getClientType(),data.getMobileNo(),data.getPs(),
-                        data.getProductType(),data.getCity(),data.getVisitPurposeType(),
-                        data.getActivityDate(),data.getRemarks(),data.getActivityStatus(),data.getFollowupDate(),data.getFollowupRemarks());
-                ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+        if (isNetworkAvailable()) {
+            String journalId = filterListApi.get(position).getActivityJournalID();
+            String random = UUID.randomUUID().toString();
+            getApiService().getActivityByJournalId(journalId, random).enqueue(new Callback<MyActivityGetByJournalIdApi>() {
+                @Override
+                public void onResponse(Call<MyActivityGetByJournalIdApi> call, Response<MyActivityGetByJournalIdApi> response) {
+                    Log.e("", "");
+                    Data data = response.body().getData();
+                    String followupDate = null;
+                    String activityDate = null;
+                    if (data.getFollowupDate() != null) {
+                        followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
+                    }
+                    if (data.getActivityDate() != null) {
+                        followupDate = CommonUtil.jsonToDate(data.getActivityDate());
+                    }
+                    VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
+                            , data.getClientType(), data.getMobileNo(), data.getPs(),
+                            data.getProductType(), data.getCity(), data.getVisitPurposeType(),
+                            activityDate, data.getRemarks(), data.getActivityStatus(), followupDate, data.getFollowupRemarks());
+                    ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
+                @Override
+                public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
 
-            }
-        });
-    /*    VisitPlan visitPlan = new VisitPlan(
-                filterList.get(position).getActivityJournalID(),
-                filterList.get(position).getJournalId(),
-                filterList.get(position).getClientName(),
-                filterList.get(position).getClientType(),
-                filterList.get(position).getMobileNumber(),
-                filterList.get(position).getPoliceStation(),
-                filterList.get(position).getProductType(),
-                filterList.get(position).getCity(),
-                filterList.get(position).getPurposeOfVisit(),
-                filterList.get(position).getDateOfVisit(),
-                filterList.get(position).getRemarks(),
-                filterList.get(position).getStatus());
-        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);*/
+                }
+            });
+        } else {
+            int id = filterListApi.get(position).getId();
+            VisitPlan visitPlan = myDbController.getAllData(id).get(0);
+            ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+        }
     }
 
 
@@ -244,33 +250,35 @@ public class FragmentCurrentActivity extends BaseFragment {
 
     }
 
-    private void getDataFromApi() {
-        String random = UUID.randomUUID().toString();
-        //int journalId, String clientName, String clientType,
-        // String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit,
-        // String dateOfVisit, String remarks, String status ,String synStatus
-
-        getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
-            @Override
-            public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
-                if (response.body().getCode().equals("200")) {
-                    for (int i = 0; i < response.body().getData().size(); i++) {
-                        if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_CURRENT_ACTIVITY)) {
-                            visitPlanList.add(response.body().getData().get(i));
+    private void getData() {
+        if (isNetworkAvailable()) {
+            String random = UUID.randomUUID().toString();
+            getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
+                @Override
+                public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
+                    if (response.body().getCode().equals("200")) {
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_CURRENT_ACTIVITY)) {
+                                visitPlanListApi.add(response.body().getData().get(i));
+                            }
                         }
-                    }
+                        myLeadAdapter.notifyDataSetChanged();
 
-                    myLeadAdapter.notifyDataSetChanged();
+                    }
 
                 }
 
-            }
+                @Override
+                public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
-
-            }
-        });
+                }
+            });
+        } else {
+            MyActivityGetDataApi myActivityGetDataApi = new MyActivityGetDataApi();
+            leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
+            visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(leadList));
+            myLeadAdapter.notifyDataSetChanged();
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

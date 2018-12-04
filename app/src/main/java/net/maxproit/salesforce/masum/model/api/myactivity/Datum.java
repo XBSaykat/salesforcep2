@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Datum {
 
+    int id;
+
     @SerializedName("ActivityJournalID")
     @Expose
     private String activityJournalID;
@@ -23,6 +25,14 @@ public class Datum {
     @SerializedName("ActivityType")
     @Expose
     private String activityType;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getActivityJournalID() {
         return activityJournalID;

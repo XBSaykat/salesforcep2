@@ -492,7 +492,7 @@ public class VisitPlanActivity extends BaseActivity {
         txtMobileNo.setText(mobileNo);
         txtRemarks.setText(remarks);
         if (visitPlanModel.getDateOfVisit() != null)
-            tvVisitDT.setText(visitPlanModel.getDateOfVisit());
+            tvVisitDT.setText(DateUtils.getDateFormateEt(visitPlanModel.getDateOfVisit()));
 
 
     }
@@ -592,21 +592,6 @@ public class VisitPlanActivity extends BaseActivity {
                 data.setPs(policeStation);
                 data.setRemarks(remarks);
                 data.setVisitPurposeType(purposeOfVisit);
-      /*          Data data = new Data();
-                data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
-                data.setActivityJournalID(0);
-                data.setActivityStatus("");
-                data.setCity(city);
-                data.setClientType(clientType);
-                data.setCustomerName(clientName);
-                data.setFollowupDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
-                data.setFollowupRemarks(remarks);
-                data.setMaker(userName);
-                data.setMobileNo(mobileNo);
-                data.setProductType(productType);
-                data.setPs(policeStation);
-                data.setRemarks(remarks);
-                data.setVisitPurposeType(purposeOfVisit);*/
                 if (isNetworkAvailable()) {
                     getApiService().createVisitPlan(data).enqueue(new Callback<MyVisitPlanApi>() {
                         @Override
@@ -630,10 +615,10 @@ public class VisitPlanActivity extends BaseActivity {
                         }
                     });
                 } else {
-                    dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
+                  int insert1= dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
                             mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
                             spinnerPoliceStation.getSelectedItem(),
-                            purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_WAIT);
+                            purposeOfVisit, dateOfvisit, remarks, AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
                     Log.e("status", " no internet save data into local");
                     finish();
                 }

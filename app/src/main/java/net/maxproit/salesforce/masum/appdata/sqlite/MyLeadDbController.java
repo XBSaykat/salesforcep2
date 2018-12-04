@@ -66,7 +66,7 @@ public class MyLeadDbController {
     }
 
 
-    public int updateLeadData(String userName,String referenceNumber,int c_id,int m_id,int v_id,int a_id,int b_code,int p_code,int sub_code,String branchName, String uName, String profession, String organization, String designation,
+    public int updateLeadData(int leadId,String userName,String referenceNumber,int c_id,int m_id,int v_id,int a_id,int b_code,int p_code,int sub_code,String branchName, String uName, String profession, String organization, String designation,
                               String phone, String address, String ref, String product, String subCat, String amount, String
                                       interest, String fee, String disDate, String date, String follow, String remark,String status,String synStatus) {
 
@@ -102,9 +102,8 @@ public class MyLeadDbController {
         values.put(DbConstants.LEAD_REMARK, remark);
         values.put(DbConstants.SYNC_STATUS, synStatus);
         values.put(DbConstants.LEAD_STATUS, status);
-
         // Insert the new row, returning the primary key value of the new row
-        return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants.REF_NUMBER + "=" + referenceNumber, null);
+        return (int) db.update(DbConstants.TABLE_LEAD, values, DbConstants._L_ID + "=" + leadId, null);
 
     }
 
@@ -231,6 +230,56 @@ public class MyLeadDbController {
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
                 new String[]{AppConstant.STATUS_NEW_PROSPECT},                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        return fetchData(c);
+    }
+
+    public ArrayList<MyNewLead> getDataById(int id) {
+
+        String[] projection = {
+                DbConstants._L_ID,
+                DbConstants.USER_ID,
+                DbConstants.CUSTOMER_ID,
+                DbConstants.VISIT_ID,
+                DbConstants.MOBILE_ID,
+                DbConstants.ADDRESS_ID,
+                DbConstants.REF_NUMBER,
+                DbConstants.LEAD_BRANCH_NAME,
+                DbConstants.LEAD_BRANCH_CODE,
+                DbConstants.LEAD_PRODUCT_CODE,
+                DbConstants.LEAD_SUBCAT_CODE,
+                DbConstants.LEAD_USER_NAME,
+                DbConstants.LEAD_PROFESSION,
+                DbConstants.LEAD_ORGANIZATION,
+                DbConstants.LEAD_DESIGNATION,
+                DbConstants.LEAD_PHONE,
+                DbConstants.LEAD_ADDRESS,
+                DbConstants.LEAD_REF,
+                DbConstants.LEAD_PRODUCT_TYPE,
+                DbConstants.LEAD_PRODUCT_SUBCATEGORY,
+                DbConstants.TENTETIVE_LEAD_AMOUNT,
+                DbConstants.LEAD_OR_INTEREST,
+                DbConstants.LEAD_OP_FEE,
+                DbConstants.LEAD_DISBURSEMENT_DATE,
+                DbConstants.LEAD_VISIT_DATE,
+                DbConstants.LEAD_FOLLOW_UP,
+                DbConstants.LEAD_REMARK,
+                DbConstants.SYNC_STATUS,
+                DbConstants.LEAD_STATUS,
+        };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = DbConstants._L_ID + " DESC";
+        String WHERE = DbConstants._L_ID + "=?";
+        Cursor c = db.query(
+                DbConstants.TABLE_LEAD,  // The table name to query
+                projection,                               // The columns to return
+                WHERE,                                // The columns for the WHERE clause
+                new String[]{String.valueOf(id)},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -567,6 +616,7 @@ public class MyLeadDbController {
 
     public ArrayList<LeadLeastDataFromApi> getLeadListData(){
         String[] projection = {
+                DbConstants._L_ID,
                 DbConstants.LEAD_USER_NAME,
                 DbConstants.LEAD_ADDRESS,
                 DbConstants.REF_NUMBER,
@@ -600,6 +650,7 @@ public class MyLeadDbController {
                     // get  the  data into array,or class variable
 
                     String refnumber = c.getString(c.getColumnIndexOrThrow(DbConstants.REF_NUMBER));
+                    int lId = c.getInt(c.getColumnIndexOrThrow(DbConstants._L_ID));
                     String branchName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_BRANCH_NAME));
                     String address = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_ADDRESS));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
@@ -608,7 +659,7 @@ public class MyLeadDbController {
 
 
                     // wrap up data list and return
-                    favDataArray.add(new LeadLeastDataFromApi(refnumber,userName,branchName,address,"","",status,remark));
+                    favDataArray.add(new LeadLeastDataFromApi(lId,refnumber,userName,branchName,address,"","",status,remark));
                 } while (c.moveToNext());
             }
             c.close();

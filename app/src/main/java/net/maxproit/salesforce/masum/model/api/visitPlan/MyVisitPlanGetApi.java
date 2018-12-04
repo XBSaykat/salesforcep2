@@ -1,5 +1,6 @@
 package net.maxproit.salesforce.masum.model.api.visitPlan;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
@@ -54,15 +55,26 @@ public class MyVisitPlanGetApi {
         this.data = data;
     }
 
-    public void setVisitPlanList(List<VisitPlan> visitPlanList) {
-
+    public List<Datum> getVisitPlanList(List<VisitPlan> visitPlanList) {
+        List<Datum> dataList=new ArrayList<>();
         for (int i=0;i<visitPlanList.size();i++){
             Datum datum=new Datum();
+            datum.setActivityJournalID(String.valueOf(visitPlanList.get(i).getJournalId()));
             datum.setClientType(visitPlanList.get(i).getClientType());
             datum.setCustomerName(visitPlanList.get(i).getClientName());
             datum.setActivityStatus(visitPlanList.get(i).getStatus());
-            data.add(datum);
+            datum.setActivityDate(visitPlanList.get(i).getDateOfVisit());
+            datum.setVisitPurposeType(visitPlanList.get(i).getPurposeOfVisit());
+            datum.setCity(visitPlanList.get(i).getCity());
+            datum.setPS(visitPlanList.get(i).getPoliceStation());
+            datum.setMobileNo(visitPlanList.get(i).getMobileNumber());
+            datum.setRemarks(visitPlanList.get(i).getRemarks());
+            datum.setProductType(visitPlanList.get(i).getProductType());
+
+            dataList.add(datum);
         }
+
+        return dataList;
     }
 
 }

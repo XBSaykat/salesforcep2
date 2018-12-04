@@ -344,7 +344,7 @@ public class LeadStageActivity extends BaseActivity {
                             if (response.isSuccessful()) {
                                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                     Data data = response.body().getData();
-                                    int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
+                                    int insert = myLeadDbController.updateLeadData(myNewLead.getId(),userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
                                             designation, phone, address, ref, productType, subCat,
                                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
                                     if (insert > 0) {
@@ -359,7 +359,7 @@ public class LeadStageActivity extends BaseActivity {
 
                                 }
                             } else {
-                                int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), myNewLead.getCusId(),
+                                int insert = myLeadDbController.updateLeadData(myNewLead.getId(),userName, myNewLead.getRefNumber(), myNewLead.getCusId(),
                                         myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode), Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
                                         designation, phone, address, ref, productType, subCat,
                                         loanAmount, interest, fee, disDate, visitDate, followUp, remark,
@@ -385,7 +385,7 @@ public class LeadStageActivity extends BaseActivity {
                     });
 
                 } else {
-                    int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(),
+                    int insert = myLeadDbController.updateLeadData(myNewLead.getId(),userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(),
                             myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
                             Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode),
                             branchName, name, profession, organization,
@@ -509,14 +509,14 @@ public class LeadStageActivity extends BaseActivity {
                             if (response.isSuccessful()) {
                                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                     Data data = response.body().getData();
-                                    int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
+                                    int insert = myLeadDbController.updateLeadData(myNewLead.getId(),userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
                                             designation, phone, address, ref, productType, subCat,
                                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
                                     ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
 
                                 }
                             } else {
-                                int insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
+                                int insert = myLeadDbController.updateLeadData(myNewLead.getId(),userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
                                         Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
                                         designation, phone, address, ref, productType, subCat,
                                         loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
@@ -533,7 +533,7 @@ public class LeadStageActivity extends BaseActivity {
                         }
                     });
                 } else {
-                    insert = myLeadDbController.updateLeadData(userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
+                    insert = myLeadDbController.updateLeadData(myNewLead.getId(),userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
                             Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
