@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.masum.model.local;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class MyNewProspect extends MyNewLead implements Serializable {
 
@@ -11,6 +12,20 @@ public class MyNewProspect extends MyNewLead implements Serializable {
             semipakaIncome,officeSpaceINcome,wireHouseINcome,
             ag_Income,tution,remitance,inFdr,fExpense,emiOther,sValue,loanReq,
             loanTerm,piRate, prospectFee;
+    private List<CoApplicant> coApplicantList;
+
+
+    int branchCode, contactId;
+    String manufacturingName, manufacturingNameId, manufacturingCountry,
+            manufacturingYear, assetType, assetTypeId, PermAddressCity,PermAddressPs,PresAddressCity,PresAddressPs ;
+
+    public List<CoApplicant> getCoApplicantList() {
+        return coApplicantList;
+    }
+
+    public void setCoApplicantList(List<CoApplicant> coApplicantList) {
+        this.coApplicantList = coApplicantList;
+    }
 
 
     public MyNewProspect(int id,String branchName, String userName, String profession, String organization, String designation, String phone, String address, String sourceRef, String productType, String productSubcategory, String loadAmount, String orInterest, String opFee, String disDate, String visitDate, String followUp, String remark, String status) {
@@ -57,8 +72,22 @@ public class MyNewProspect extends MyNewLead implements Serializable {
         this.prospectFee = prospectFee;
     }
 
-    public MyNewProspect(int id, String branchName, String userName, String profession, String organization, String designation, String phone, String address, String sourceRef, String productType, String productSubcategory, String loadAmount, String orInterest, String opFee, String disDate, String visitDate, String followUp, String remark, String status, String segment, String dateOfBirth, String age, String dob, String cob, String pIDType,String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String businessIncomeAmount, String apartmentAmount, String semipakaIncome, String officeSpaceINcome, String wireHouseINcome,String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String prospectFee) {
-        super(id, branchName, userName, profession, organization, designation, phone, address, sourceRef, productType, productSubcategory, loadAmount, orInterest, opFee, disDate, visitDate, followUp, remark, status);
+
+    public MyNewProspect(int id, String branchName, String userName, String profession, String organization,
+                         String designation, String phone, String address, String sourceRef, String productType,
+                         String productSubcategory, String loadAmount, String orInterest, String opFee,
+                         String disDate, String visitDate, String followUp, String remark, String status,
+                         String segment, String dateOfBirth, String age, String dob, String cob, String pIDType,
+                         String pIdNumber, String pIssueDate, String etin, String fName, String mName,
+                         String sName, String exList, String currentJob, String applicant, String pAddress,
+                         String netSalary, String salaryAmount, String businessIncomeAmount,
+                         String apartmentAmount, String semipakaIncome, String officeSpaceINcome,
+                         String wireHouseINcome,String ag_Income, String tution, String remitance,
+                         String inFdr, String fExpense, String emiOther, String sValue, String loanReq,
+                         String loanTerm, String piRate, String prospectFee) {
+        super(id, branchName, userName, profession, organization, designation, phone, address,
+                sourceRef, productType, productSubcategory, loadAmount, orInterest, opFee, disDate,
+                visitDate, followUp, remark, status);
         this.segment = segment;
         this.dateOfBirth = dateOfBirth;
         this.age = age;
@@ -94,8 +123,26 @@ public class MyNewProspect extends MyNewLead implements Serializable {
         this.piRate = piRate;
         this.prospectFee = prospectFee;
     }
-    public MyNewProspect(String userID,String refNumber,int cusId,int mobileId,int addressId,int visitId,int branchCode,int productCode,int subCode,int id, String branchName, String userName, String profession, String organization, String designation, String phone, String address, String sourceRef, String productType, String productSubcategory, String loadAmount, String orInterest, String opFee, String disDate, String visitDate, String followUp, String remark, String status,String synStatus, String segment, String dateOfBirth, String age, String dob, String cob, String pIDType,String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String businessIncomeAmount, String apartmentAmount, String semipakaIncome, String officeSpaceINcome, String wireHouseINcome,String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String prospectFee) {
-        super(userID,refNumber,cusId,mobileId,addressId,visitId,branchCode,productCode,subCode,id, branchName, userName, profession, organization, designation, phone, address, sourceRef, productType, productSubcategory, loadAmount, orInterest, opFee, disDate, visitDate, followUp, remark, status,synStatus);
+    public MyNewProspect(String userID,String refNumber,int cusId,int mobileId,int addressId,int
+            visitId,int branchCode,int productCode,int subCode,int id, String branchName,
+                         String userName, String profession, String organization,
+                         String designation, String phone, String address, String sourceRef,
+                         String productType, String productSubcategory, String loadAmount,
+                         String orInterest, String opFee, String disDate, String visitDate,
+                         String followUp, String remark, String status,String synStatus,
+                         String segment, String dateOfBirth, String age, String dob,
+                         String cob, String pIDType,String pIdNumber, String pIssueDate,
+                         String etin, String fName, String mName, String sName, String exList,
+                         String currentJob, String applicant, String pAddress, String netSalary,
+                         String salaryAmount, String businessIncomeAmount, String apartmentAmount,
+                         String semipakaIncome, String officeSpaceINcome, String wireHouseINcome,
+                         String ag_Income, String tution, String remitance, String inFdr,
+                         String fExpense, String emiOther, String sValue, String loanReq,
+                         String loanTerm, String piRate, String prospectFee) {
+        super(userID,refNumber,cusId,mobileId,addressId,visitId,branchCode,
+                productCode, subCode, id, branchName, userName, profession, organization,
+                designation, phone, address, sourceRef, productType, productSubcategory,
+                loadAmount, orInterest, opFee, disDate, visitDate, followUp, remark, status,synStatus);
         this.segment = segment;
         this.dateOfBirth = dateOfBirth;
         this.age = age;

@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import android.widget.LinearLayout;
@@ -38,11 +39,17 @@ import net.maxproit.salesforce.masum.model.local.CarLoan;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
+import net.maxproit.salesforce.model.newprospect.mynewprosppect.NewProspectUpdate;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProspectStageActivity extends BaseActivity {
 
@@ -390,7 +397,36 @@ public class ProspectStageActivity extends BaseActivity {
                         interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
                         securityValue, loanRequired, loanTerm, proposedInterest,
                         fee);
+                NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
+                if (newProspectUpdate.getPhotoIdNumber().equals("")){
+                    newProspectUpdate.setPhotoIdNumber("2300");
+                }
 
+
+
+                if (isNetworkAvailable()) {
+                    getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
+                        @Override
+                        public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
+                            if (response.body().getCode().equals("200")) {
+                                showToast(""+response.body().toString());
+                                finish();
+                                Toast.makeText(getApplicationContext(), "save successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                showToast(""+response.body().toString());
+                                Toast.makeText(getApplicationContext(), "save failed", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
+                            showToast(""+t.getLocalizedMessage());
+                            Log.d("Prospect_stage", "onFailure: "+t.getLocalizedMessage());
+                        }
+                    });
+                }
                 int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
                 if (update > 0) {
                     if (brandName !=null && year !=null && country !=null && vehicleType !=null){
@@ -405,6 +441,77 @@ public class ProspectStageActivity extends BaseActivity {
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private NewProspectUpdate convertToApiModel(MyNewProspect myNewProspect) {
+        NewProspectUpdate updateModel = new NewProspectUpdate();
+        updateModel.setAgriculturalIncome(Integer.valueOf(myNewProspect.getAg_Income()));
+        updateModel.setApartmentIncome(Integer.valueOf(myNewProspect.getApartmentAmount()));
+        updateModel.setAssetType("");
+        updateModel.setAssetTypeId(0);
+        updateModel.setBranchCode(0);
+        updateModel.setBranchName("");
+        updateModel.setBusinessIncome(Integer.valueOf(myNewProspect.getBusinessIncomeAmount()));
+        updateModel.setCoApplicantsFromProspect(myNewProspect);
+        updateModel.setCommercialSpaceIncome(Integer.valueOf(myNewProspect.getOfficeSpaceINcome()));
+        updateModel.setCompany(myNewProspect.getOrganization());
+        updateModel.setContactId(0);
+        updateModel.setCountryOfBirth(myNewProspect.getCob());
+        updateModel.setCurrentJobDuration(myNewProspect.getCurrentJob());
+        updateModel.setCustomerId(myNewProspect.getCusId());
+        updateModel.setCustomerName(myNewProspect.getApplicant());
+        updateModel.setDateOfBirth(myNewProspect.getDateOfBirth());
+        updateModel.setDesignation(myNewProspect.getDesignation());
+        updateModel.setDistrictOfBirth(myNewProspect.getDob());
+        updateModel.setETin(myNewProspect.getEtin());
+        updateModel.setEmiOfOtherLoan(9);
+        updateModel.setFactoryIncome(1000);
+        updateModel.setFamilyExpenditure(50000);
+        updateModel.setFatherName(myNewProspect.getfName());
+        updateModel.setFee(0);
+        updateModel.setInterestIncomeOfFDR(2000);
+        updateModel.setIntersetRate(0);
+        updateModel.setLeadReferenceNo(myNewProspect.getRefNumber());
+        updateModel.setLoanRequired(230);
+        updateModel.setLoanTerm( 45);
+        updateModel.setManufacturerName( "");
+        updateModel.setManufacturerNameId( 0);
+        updateModel.setManufacturingCountry( "");
+        updateModel.setManufacturingYear( "");
+        updateModel.setManufacturerName( "");
+        updateModel.setMobileNo(myNewProspect.getPhone());
+        updateModel.setMobileNoId(0);
+        updateModel.setMotherName(myNewProspect.getmName());
+        updateModel.setNetSalary(6000);
+        updateModel.setNetSalaryType("");
+        updateModel.setPermanentAddress("");
+        updateModel.setPermanentAddressCity("");
+        updateModel.setPermanentAddressId(0);
+        updateModel.setPermanentAddressPS("");
+        updateModel.setPhotoIdIssueDate(myNewProspect.getpIssueDate());
+        updateModel.setPhotoIdNumber(myNewProspect.getpIdNumber());
+        updateModel.setPhotoIdTypeCode(0);
+        updateModel.setPresentAddress(myNewProspect.getpAddress());
+        updateModel.setPresentAddressCity("");
+        updateModel.setPresentAddressId(0);
+        updateModel.setPresentAddressPS("");
+        updateModel.setProduct("");
+        updateModel.setProductId(0);
+        updateModel.setProductSubCategory("");
+        updateModel.setProductSubCategoryId(0);
+        updateModel.setProfession(myNewProspect.getProfession());
+        updateModel.setRelationshipWithApplicant("");
+        updateModel.setRemittanceIncome(5500);
+        updateModel.setRmCode("336132");
+        updateModel.setSecurityValue(00);
+        updateModel.setSegment("");
+        updateModel.setSemipakaIncome(8000);
+        updateModel.setSpouseName(myNewProspect.getsName());
+        updateModel.setStatus(myNewProspect.getStatus());
+        updateModel.setTutionIncome(2222);
+        updateModel.setUserName(myNewProspect.getUserName());
+
+        return updateModel;
     }
 
     private void alertDialogProceed() {
@@ -452,12 +559,16 @@ public class ProspectStageActivity extends BaseActivity {
                             securityValue, loanRequired, loanTerm, proposedInterest,
                             fee);
 
+
+
+
                     int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
                     insertAttachmentData(getDataFromProspect().getId(),myNewProspect);
                     if (update > 0) {
                         if (brandName != null && year != null && country != null && vehicleType != null) {
                             insertBrandData();
-                        }
+
+                            }
                         }
                 }
             }
