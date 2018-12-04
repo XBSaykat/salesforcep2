@@ -507,15 +507,15 @@ public class ProspectStageActivity extends BaseActivity {
         updateModel.setProductSubCategoryId(0);
         updateModel.setProfession(myNewProspect.getProfession());
         updateModel.setRelationshipWithApplicant("");
+        updateModel.setRemittanceIncome(5500);
         updateModel.setRmCode("336132");
         updateModel.setSecurityValue(00);
+        updateModel.setSegment("");
         updateModel.setSemipakaIncome(8000);
         updateModel.setSpouseName(myNewProspect.getsName());
-        updateModel.setRemittanceIncome(5500);
+        updateModel.setStatus(myNewProspect.getStatus());
         updateModel.setTutionIncome(2222);
         updateModel.setUserName(myNewProspect.getUserName());
-
-
 
         return updateModel;
     }
