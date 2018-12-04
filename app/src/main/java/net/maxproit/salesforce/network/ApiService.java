@@ -8,6 +8,7 @@ import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.Data;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
+import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.model.approval.Approval;
 import net.maxproit.salesforce.model.cib.notRequestedCIB.NotRequestedCIBData;
 import net.maxproit.salesforce.model.cib.post.CibPost;
@@ -146,7 +147,7 @@ public interface ApiService {
     Call<OleProspect> myProspect(@Body NewProspect newProspect);
 
  @POST("CdProspect/Prospect")
-    Call<OldProspect> myNewProspect(@Body NewProspectUpdate newProspectUpdate);
+    Call<OldPostpectResponse> myNewProspect(@Body NewProspectUpdate newProspectUpdate);
 
 
     @GET("Prospect/{id}/{random}")

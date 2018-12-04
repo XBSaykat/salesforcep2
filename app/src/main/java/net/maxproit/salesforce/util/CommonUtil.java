@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 import com.whiteelephant.monthpicker.MonthPickerDialog;
@@ -117,7 +118,17 @@ public class CommonUtil {
 
     }
 
+    public static String emptyFieldToZero(String value){
 
+            if (value.equals("")) {
+                value = "0";
+                return value;
+            } else {
+                return value;
+            }
+
+
+    }
     public static void showCurrentDatePicker(Context context, final EditText editText, Calendar c) {
         DatePickerDialog dpd = new DatePickerDialog(context, R.style.DatePickerDialogTheme, (datePicker, yy, mm, dd) -> {
 

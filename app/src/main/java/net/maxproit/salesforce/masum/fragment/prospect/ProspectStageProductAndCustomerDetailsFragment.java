@@ -518,7 +518,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
 
-            etName.setText(myNewLead.getUserName());
+            etName.setText(myNewLead.getApplicant());
             etPresentAddress.setText(myNewLead.getAddress());
             etDesignation.setText(myNewLead.getDesignation());
             etMobileNumber.setText(myNewLead.getPhone());
