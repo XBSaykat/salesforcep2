@@ -18,7 +18,7 @@ public class Data {
     private Integer apartmentIncome;
     @SerializedName("assetType")
     @Expose
-    private Object assetType;
+    private String assetType;
     @SerializedName("assetTypeId")
     @Expose
     private Integer assetTypeId;
@@ -30,7 +30,7 @@ public class Data {
     private String branchName;
     @SerializedName("brandName")
     @Expose
-    private Object brandName;
+    private String brandName;
     @SerializedName("businessIncome")
     @Expose
     private Integer businessIncome;
@@ -102,16 +102,16 @@ public class Data {
     private Integer loanTerm;
     @SerializedName("manufacturerName")
     @Expose
-    private Object manufacturerName;
+    private String manufacturerName;
     @SerializedName("manufacturerNameId")
     @Expose
     private Integer manufacturerNameId;
     @SerializedName("manufacturingCountry")
     @Expose
-    private Object manufacturingCountry;
+    private String manufacturingCountry;
     @SerializedName("manufacturingYear")
     @Expose
-    private Object manufacturingYear;
+    private String manufacturingYear;
     @SerializedName("mobileNo")
     @Expose
     private String mobileNo;
@@ -239,11 +239,11 @@ public class Data {
         this.branchName = branchName;
     }
 
-    public Object getBrandName() {
+    public String getBrandName() {
         return brandName;
     }
 
-    public void setBrandName(Object brandName) {
+    public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
 
@@ -431,19 +431,19 @@ public class Data {
         this.loanTerm = loanTerm;
     }
 
-    public Object getManufacturingCountry() {
+    public String getManufacturingCountry() {
         return manufacturingCountry;
     }
 
-    public void setManufacturingCountry(Object manufacturingCountry) {
+    public void setManufacturingCountry(String manufacturingCountry) {
         this.manufacturingCountry = manufacturingCountry;
     }
 
-    public Object getManufacturingYear() {
+    public String getManufacturingYear() {
         return manufacturingYear;
     }
 
-    public void setManufacturingYear(Object manufacturingYear) {
+    public void setManufacturingYear(String manufacturingYear) {
         this.manufacturingYear = manufacturingYear;
     }
 
@@ -695,11 +695,11 @@ public class Data {
         this.userName = userName;
     }
 
-    public Object getAssetType() {
+    public String getAssetType() {
         return assetType;
     }
 
-    public void setAssetType(Object assetType) {
+    public void setAssetType(String assetType) {
         this.assetType = assetType;
     }
 
@@ -719,11 +719,11 @@ public class Data {
         this.eTin = eTin;
     }
 
-    public Object getManufacturerName() {
+    public String getManufacturerName() {
         return manufacturerName;
     }
 
-    public void setManufacturerName(Object manufacturerName) {
+    public void setManufacturerName(String manufacturerName) {
         this.manufacturerName = manufacturerName;
     }
 

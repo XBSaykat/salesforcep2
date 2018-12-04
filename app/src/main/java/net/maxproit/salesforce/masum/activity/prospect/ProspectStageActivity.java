@@ -46,6 +46,7 @@ import net.maxproit.salesforce.model.myprospect.MyProspect;
 import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
 import net.maxproit.salesforce.model.newprospect.mynewprosppect.NewProspectUpdate;
 import net.maxproit.salesforce.util.CommonUtil;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,7 @@ public class ProspectStageActivity extends BaseActivity {
     private AttachmentDbController attachmentDbController;
     private CoApplicantDBController coApplicantDBController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
+    private String userName = null;
     private LeadStageAttachmentFragment leadStageAttachmentFragment;
     MyNewProspect prospect;
     String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
@@ -72,7 +74,7 @@ public class ProspectStageActivity extends BaseActivity {
             companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null;
     String brandName = null, year = null, country = null, vehicleType = null, securityValue = null, loanRequired = null, loanTerm = null, proposedInterest = null,
             fee = null, dateOfBirth = null, photoIdType = null;
-    String monthlyNetSalary = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
+    String rmCode, monthlyNetSalary = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
             officeIncome = null, wireHouseIncome = null, apartmentIncome = null, agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
             monthlyFamilyExpenditure = null, emiOfOtherLoans = null;
     ArrayList<CoApplicant> coApplicantArrayList;
@@ -98,6 +100,8 @@ public class ProspectStageActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         myLeadDbController = new MyLeadDbController(ProspectStageActivity.this);
         carLoanDbController = new CarLoanDbController(ProspectStageActivity.this);
+        userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
+        rmCode = "336132";
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,6 +246,10 @@ public class ProspectStageActivity extends BaseActivity {
         proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
         fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
 
+        NewProspectUpdate updateProspect = new NewProspectUpdate();
+
+
+
 
     }
 
@@ -273,6 +281,8 @@ public class ProspectStageActivity extends BaseActivity {
 
         }
             myNewLead.setDateOfBirth(CommonUtil.jsonToDate(myNewLead.getDateOfBirth()));
+            myNewLead.setFollowUp(CommonUtil.jsonToDate(myNewLead.getFollowUp()));
+
         return myNewLead;
     }
 
@@ -403,6 +413,16 @@ public class ProspectStageActivity extends BaseActivity {
                         interestIncome, monthlyFamilyExpenditure, emiOfOtherLoans,
                         securityValue, loanRequired, loanTerm, proposedInterest,
                         fee);
+
+
+//                myNewProspect.setAssetType(getDataFromProspect().getAssetType());
+//                myNewProspect.setAssetTypeId(getDataFromProspect().getAssetTypeId());
+                myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
+                myNewProspect.setRefNumber(getDataFromProspect().getRefNumber());
+
+
+
+
                 NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
                 if (newProspectUpdate.getPhotoIdNumber().equals("")){
                     newProspectUpdate.setPhotoIdNumber("2300");
@@ -451,71 +471,72 @@ public class ProspectStageActivity extends BaseActivity {
 
     private NewProspectUpdate convertToApiModel(MyNewProspect myNewProspect) {
         NewProspectUpdate updateModel = new NewProspectUpdate();
-        updateModel.setAgriculturalIncome(Integer.valueOf(myNewProspect.getAg_Income()));
-        updateModel.setApartmentIncome(Integer.valueOf(myNewProspect.getApartmentAmount()));
-        updateModel.setAssetType("");
-        updateModel.setAssetTypeId(0);
-        updateModel.setBranchCode(0);
-        updateModel.setBranchName("");
-        updateModel.setBusinessIncome(Integer.valueOf(myNewProspect.getBusinessIncomeAmount()));
+
+        updateModel.setAgriculturalIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(agriculturalIncome)));
+
+        updateModel.setApartmentIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(apartmentIncome)));
+        updateModel.setAssetType(myNewProspect.getAssetType());
+        updateModel.setAssetTypeId(myNewProspect.getAssetTypeId());
+        updateModel.setBranchCode(myNewProspect.getBranchCode());
+        updateModel.setBranchName(myNewProspect.getBranchName());
+        updateModel.setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(businessIncome)));
         updateModel.setCoApplicantsFromProspect(myNewProspect);
-        updateModel.setCommercialSpaceIncome(Integer.valueOf(myNewProspect.getOfficeSpaceINcome()));
-        updateModel.setCompany(myNewProspect.getOrganization());
-        updateModel.setContactId(0);
-        updateModel.setCountryOfBirth(myNewProspect.getCob());
-        updateModel.setCurrentJobDuration(myNewProspect.getCurrentJob());
-        updateModel.setCustomerId(myNewProspect.getCusId());
-        updateModel.setCustomerName(myNewProspect.getApplicant());
-        updateModel.setDateOfBirth(myNewProspect.getDateOfBirth());
-        updateModel.setDesignation(myNewProspect.getDesignation());
-        updateModel.setDistrictOfBirth(myNewProspect.getDob());
-        updateModel.setETin(myNewProspect.getEtin());
-        updateModel.setEmiOfOtherLoan(9);
-        updateModel.setFactoryIncome(1000);
-        updateModel.setFamilyExpenditure(50000);
-        updateModel.setFatherName(myNewProspect.getfName());
-        updateModel.setFee(0);
-        updateModel.setInterestIncomeOfFDR(2000);
-        updateModel.setIntersetRate(0);
+        updateModel.setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(wireHouseIncome)));
+        updateModel.setCompany(companyName);
+        updateModel.setContactId(getDataFromProspect().getContactId());
+        updateModel.setCountryOfBirth(countOfBirth);
+        updateModel.setCurrentJobDuration(noYrsInCureentJob);
+        updateModel.setCustomerId(getDataFromProspect().getCusId());
+        updateModel.setCustomerName(name);
+        updateModel.setDateOfBirth(dateOfBirth);
+        updateModel.setDesignation( designation);
+        updateModel.setDistrictOfBirth(districtOfBirth);
+        updateModel.setETin(eTin);
+        updateModel.setEmiOfOtherLoan(Integer.valueOf(CommonUtil.emptyFieldToZero(emiOfOtherLoans)));
+        updateModel.setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(wireHouseIncome)));
+        updateModel.setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(monthlyFamilyExpenditure)));
+        updateModel.setFatherName(fatherName);
+        updateModel.setFee(Integer.valueOf(CommonUtil.emptyFieldToZero(fee)));
+        updateModel.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(interestIncome)));
+        updateModel.setIntersetRate(Integer.valueOf(CommonUtil.emptyFieldToZero(proposedInterest)));
         updateModel.setLeadReferenceNo(myNewProspect.getRefNumber());
-        updateModel.setLoanRequired(230);
-        updateModel.setLoanTerm( 45);
+        updateModel.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(loanRequired)));
+        updateModel.setLoanTerm( Integer.valueOf(CommonUtil.emptyFieldToZero(loanTerm)));
         updateModel.setManufacturerName( "");
         updateModel.setManufacturerNameId( 0);
         updateModel.setManufacturingCountry( "");
         updateModel.setManufacturingYear( "");
-        updateModel.setManufacturerName( "");
-        updateModel.setMobileNo(myNewProspect.getPhone());
-        updateModel.setMobileNoId(0);
-        updateModel.setMotherName(myNewProspect.getmName());
-        updateModel.setNetSalary(6000);
-        updateModel.setNetSalaryType("");
+        updateModel.setMobileNo(mobileNumber);
+        updateModel.setMobileNoId(myNewProspect.getMobileId());
+        updateModel.setMotherName(motherName);
+        updateModel.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(monthlyNetSalary)));
+        updateModel.setNetSalaryType(monthlyNetSalary);
         updateModel.setPermanentAddress("");
         updateModel.setPermanentAddressCity("");
-        updateModel.setPermanentAddressId(0);
+        updateModel.setPermanentAddressId(myNewProspect.getPermAddressId());
         updateModel.setPermanentAddressPS("");
-        updateModel.setPhotoIdIssueDate(myNewProspect.getpIssueDate());
-        updateModel.setPhotoIdNumber(myNewProspect.getpIdNumber());
+        updateModel.setPhotoIdIssueDate("/Date(1543919991642+0600)/");
+        updateModel.setPhotoIdNumber("2300");
         updateModel.setPhotoIdTypeCode(0);
-        updateModel.setPresentAddress(myNewProspect.getpAddress());
+        updateModel.setPresentAddress("");
         updateModel.setPresentAddressCity("");
-        updateModel.setPresentAddressId(0);
-        updateModel.setPresentAddressPS("");
-        updateModel.setProduct("");
-        updateModel.setProductId(0);
-        updateModel.setProductSubCategory("");
+        updateModel.setPresentAddressId(myNewProspect.getPresAddressId());
+        updateModel.setPresentAddressPS(myNewProspect.getPresAddressPs());
+        updateModel.setProduct(productCat);
+        updateModel.setProductId(8);
+        updateModel.setProductSubCategory(productDetails);
         updateModel.setProductSubCategoryId(0);
-        updateModel.setProfession(myNewProspect.getProfession());
-        updateModel.setRelationshipWithApplicant("");
-        updateModel.setRemittanceIncome(5500);
-        updateModel.setRmCode("336132");
-        updateModel.setSecurityValue(00);
-        updateModel.setSegment("");
-        updateModel.setSemipakaIncome(8000);
-        updateModel.setSpouseName(myNewProspect.getsName());
+        updateModel.setProfession( profession);
+        updateModel.setRelationshipWithApplicant(relationship);
+        updateModel.setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(remittance)));
+        updateModel.setRmCode(rmCode);
+        updateModel.setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(securityValue)));
+        updateModel.setSegment(segment);
+        updateModel.setSemipakaIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(semiPakaIncome)));
+        updateModel.setSpouseName(spouseName);
         updateModel.setStatus(myNewProspect.getStatus());
-        updateModel.setTutionIncome(2222);
-        updateModel.setUserName(myNewProspect.getUserName());
+        updateModel.setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(practiceConsultancyTution)));
+        updateModel.setUserName(userName);
 
         return updateModel;
     }

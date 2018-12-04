@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -28,6 +29,7 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 
@@ -84,7 +86,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
 
-    public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
+    public static String productCat, productDetails, branchName, branchCode = null, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
 
@@ -388,6 +390,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 branchName = s;
+                LongOperation longOperation=new LongOperation();
+                longOperation.execute(i);
             }
         });
 
@@ -633,6 +637,28 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     private void setDataFromProspect(ArrayAdapter<CharSequence> adapter) {
 
 
+    }
+
+    private class LongOperation extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+             branchCode = localSetting.getBranchCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 
 

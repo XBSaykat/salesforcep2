@@ -149,6 +149,9 @@ public interface ApiService {
  @POST("CdProspect/Prospect")
     Call<OldPostpectResponse> myNewProspect(@Body NewProspectUpdate newProspectUpdate);
 
+// @POST("CdProspect/Prospect")
+//    Call<OldPostpectResponse> myNewProspectData(@Body net.maxproit.salesforce.masum.model.prospectmodel.Data newProspectUpdate);
+
 
     @GET("Prospect/{id}/{random}")
     Call<OleProspect> getProspect(@Path("id") String id, @Path("random") String random);
