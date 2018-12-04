@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.salesOfficer.mylead.MyLeadActivity">
+        tools:context=".masum.activity.lead.MyLeadActivity">
 
 
 
@@ -42,14 +42,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_weight="3"
-                    android:background="@color/colorPrimary"
                     android:focusable="false"
                     app:divider="@color/green"
                     app:iconifiedByDefault="false"
                     app:queryHint="Search Activity"
                     android:shadowColor="@color/white"
-
-                    app:searchIcon="@null" />
+                    app:searchIcon="@null"
+                    android:theme="@style/WallSearchView"/>
 
                 <ImageView
                     android:id="@+id/btn_add"
@@ -63,12 +62,12 @@
             </LinearLayout>
 
             <!--<android.support.v7.widget.Toolbar-->
-                <!--android:id="@+id/tb_activity_toolbar"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--android:background="?attr/colorPrimary"-->
-                <!--app:layout_scrollFlags="scroll|enterAlways"-->
-                <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+            <!--android:id="@+id/tb_activity_toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="?attr/colorPrimary"-->
+            <!--app:layout_scrollFlags="scroll|enterAlways"-->
+            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout_my_activity"

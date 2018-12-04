@@ -18,7 +18,7 @@
 
     <string name="google_place_api_key">AIzaSyDgeGFfb30M5w85K0q3nOtRM41FUGDDLl0</string>
 
-
+    <string name="empty_result">No data found!</string>
     <string name="pdf_ext">.pdf</string>
     <string name="pdf_dir">/PDFfiles</string>
     <string name="pdf_type">application/pdf</string>
@@ -207,6 +207,14 @@
         <item>Corporate House</item>
     </string-array>
 
+    <string-array name="purpose_of_visit">
+        <item>Fresh</item>
+        <item>Lead Generation</item>
+        <item>Relationship Mgt</item>
+        <item>Pre- Disbursement</item>
+        <item>Post- Disbursement</item>
+    </string-array>
+
     <string-array name="years">
         <item>2015</item>
         <item>2016</item>
@@ -233,11 +241,27 @@
         <item>Remarks 3</item>
     </string-array>
 
+    <string-array name="valid_photo_id_list">
+        <item>NID</item>
+        <item>Passport</item>
+        <item>Driving License</item>
+        <item>Birth Certificate with attested picture</item>
+    </string-array>
+
     <string name="title_activity_my_activity">MyActivityActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="visit_plan">visit plan</string>
+    <string name="create_plan">Do you want to create a new plan?</string>
+    <string name="create_activity">Do you want to create a new activity?</string>
+    <string name="remove">complete</string>
+    <string name="Reject">complete</string>
+    <string name="reject_item">Are you sure,want to complete this?</string>
+    <string name="reject_plan">Are you sure,want to reject this visit plan?</string>
+    <string name="my_activity">My Activity</string>
+    <string name="date_of_birth">Date of birth :</string>
 </resources>
 
 

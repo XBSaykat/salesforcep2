@@ -23,6 +23,8 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void run() {
+
+
                 startActivity(LoginActivity.class, true);
                 SplashActivity.this.finish();
             }

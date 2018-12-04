@@ -38,6 +38,22 @@
                 android:textSize="@dimen/text_size_20sp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/size_10dp"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:background="@color/transparent"
+                android:text="Log out"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
 
         </RelativeLayout>
 
@@ -175,6 +191,28 @@
                         android:layout_weight="1"
                         android:text=""
                         android:id="@+id/tv_segment"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/greyWhite"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/date_of_birth"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_date_of_birth"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -637,6 +675,7 @@
                         android:text=""
                         android:id="@+id/tv_business_income"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -647,7 +686,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Montly rental income :"
+                        android:text="Semipaka income :"
                         android:textStyle="bold" />
 
                     <TextView
@@ -655,7 +694,51 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:id="@+id/tv_rental_income"/>
+                        android:id="@+id/tv_semipaka_income"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/greyWhite"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Multi-storied building/Apartment income :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:id="@+id/tv_multi_apartment_income"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Office/Shop/Commercial space income :"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:id="@+id/tv_office_commercial_space_income"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -669,7 +752,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rental Income :"
+                        android:text="Warehouse/Go Down/Factory income :"
                         android:textStyle="bold" />
 
                     <TextView
@@ -677,8 +760,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:id="@+id/tv_rental_income_amount"/>
+                        android:id="@+id/tv_warehouse_factory_income"/>
                 </LinearLayout>
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -850,6 +935,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/li_brand_name"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/greyWhite"
@@ -873,6 +960,8 @@
 
 
                 <LinearLayout
+                    android:id="@+id/li_maufacturing_year"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -894,6 +983,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/li_maufacturing_country"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/greyWhite"
@@ -917,6 +1008,8 @@
 
 
                 <LinearLayout
+                    android:id="@+id/li_vehicle_type"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -1023,7 +1116,41 @@
                         android:text=""
                         android:id="@+id/tv_fee"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
 
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Co Applicants"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_4dp">
+
+                   <Button
+                       android:id="@+id/btn_rbm_prospect_view_coaplicant"
+                       android:layout_margin="@dimen/size_20dp"
+                       style="@style/ButtonStyle"
+                       android:layout_weight="1"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:text="View Co Applicants"
+                       android:background="@drawable/fab_label_background"
+                       />
+
+                </LinearLayout>
 
 
 
@@ -1055,8 +1182,26 @@
                         android:layout_weight="1"
                         android:background="@drawable/fab_label_background"
                         android:gravity="center"
-                        android:text="Approval"
+                        android:text="Accept &amp; Proceed"
                         android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_take_approval"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/fab_label_background"
+                        android:gravity="center"
+                        android:text="Take approval"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutButtonSegTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_reject"
@@ -1077,7 +1222,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/fab_label_background"
                         android:gravity="center"
-                        android:text="Return"
+                        android:text="Return to RM"
                         android:textColor="@color/white" />
 
 

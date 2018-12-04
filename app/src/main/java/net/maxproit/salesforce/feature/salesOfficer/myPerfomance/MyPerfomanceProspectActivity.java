@@ -13,7 +13,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyProspectBinding;
 import net.maxproit.salesforce.feature.salesOfficer.myPerfomance.adapter.MyPerfomanceProspectAdapter;
-import net.maxproit.salesforce.feature.salesOfficer.newProspect.NewProspectActivity;
+
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.feature.supervisor.prospectview.ProspectViewActivity;
 import net.maxproit.salesforce.model.login.LocalLogin;
@@ -119,7 +119,7 @@ public class MyPerfomanceProspectActivity extends BaseActivity implements Adapte
 
     @Override
     public void adSuccess(String message) {
-        startActivity(NewProspectActivity.class, false);
+
 
     }
 

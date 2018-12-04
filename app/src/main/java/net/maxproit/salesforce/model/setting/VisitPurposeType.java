@@ -6,37 +6,29 @@ import com.google.gson.annotations.SerializedName;
 
 public class VisitPurposeType {
 
-    @SerializedName("ActivityType")
+    @SerializedName("VisitPurposeType")
     @Expose
-    private String activityType;
-    @SerializedName("ActivityTypeCode")
+    private String visitPurposeType;
+    @SerializedName("VisitPurposeTypeID")
     @Expose
-    private int activityTypeCode;
+    private Integer visitPurposeTypeID;
 
-    public String getActivityType() {
-        return activityType;
+    public String getVisitPurposeType() {
+        return visitPurposeType;
     }
 
-    public void setActivityType(String activityType) {
-        this.activityType = activityType;
+    public void setVisitPurposeType(String visitPurposeType) {
+        this.visitPurposeType = visitPurposeType;
     }
 
-    public VisitPurposeType withActivityType(String activityType) {
-        this.activityType = activityType;
-        return this;
+    public Integer getVisitPurposeTypeID() {
+        return visitPurposeTypeID;
     }
 
-    public int getActivityTypeCode() {
-        return activityTypeCode;
-    }
-
-    public void setActivityTypeCode(int activityTypeCode) {
-        this.activityTypeCode = activityTypeCode;
-    }
-
-    public VisitPurposeType withActivityTypeCode(int activityTypeCode) {
-        this.activityTypeCode = activityTypeCode;
-        return this;
+    public void setVisitPurposeTypeID(Integer visitPurposeTypeID) {
+        this.visitPurposeTypeID = visitPurposeTypeID;
     }
 
 }
+
+

@@ -36,6 +36,10 @@ public class MyLeadApproval {
     @Expose
     private int spApprovalReqId;
 
+    @SerializedName("productId")
+    @Expose
+    private int productId;
+
     public String getApprovalType() {
         return approvalType;
     }
@@ -151,5 +155,52 @@ public class MyLeadApproval {
     public MyLeadApproval withSpApprovalReqId(int spApprovalReqId) {
         this.spApprovalReqId = spApprovalReqId;
         return this;
+
+    }
+        public int getProductId() {
+            return productId;
+        }
+
+        public void setProductId(int productId) {
+            this.productId = productId;
+        }
+
+    public MyLeadApproval() {
+        }
+
+    public MyLeadApproval(String approvalType, String referenceNo, int approvalSetID, int currentLevel, String status, String remark, String user, String branch, int productId) {
+            this.approvalType = approvalType;
+            this.referenceNo = referenceNo;
+            this.approvalSetID = approvalSetID;
+            this.currentLevel = currentLevel;
+            this.status = status;
+            this.remark = remark;
+            this.user = user;
+            this.branch = branch;
+            this.productId = productId;
+        }
+
+        public MyLeadApproval withProductId(int productId) {
+            this.productId = productId;
+            return this;
+
+
+        }
+
+    @Override
+    public String toString() {
+        return "MyLeadApproval{" +
+                "approvalType='" + approvalType + '\'' +
+                ", referenceNo='" + referenceNo + '\'' +
+                ", approvalSetID=" + approvalSetID +
+                ", currentLevel=" + currentLevel +
+                ", status='" + status + '\'' +
+                ", remark='" + remark + '\'' +
+                ", user='" + user + '\'' +
+                ", branch='" + branch + '\'' +
+                ", spApprovalReqId=" + spApprovalReqId +
+                ", productId=" + productId +
+                '}';
     }
 }
+

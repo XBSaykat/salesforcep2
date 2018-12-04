@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_marginBottom="?attr/actionBarSize"
-        tools:context=".ProspectStageLoanAndSecurityDetailFragment">
+        tools:context=".masum.fragment.ProspectStageLoanAndSecurityDetailFragment">
 
 
         <LinearLayout
@@ -34,7 +34,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Security Value" />
 
                 <EditText
@@ -49,6 +48,15 @@
                     android:textSize="@dimen/text_size_16sp" />
 
             </LinearLayout>
+<LinearLayout
+    android:id="@+id/li_car_loan_section"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    >
+
+
 
             <LinearLayout
                 android:id="@+id/brand_name_label"
@@ -92,7 +100,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Manufacturing Year" />
 
                 <!--<Spinner-->
@@ -126,7 +133,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Manufacturing Country" />
 
                 <!--<Spinner-->
@@ -159,7 +165,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Vehicle Type" />
 
                 <!--<Spinner-->
@@ -177,6 +182,7 @@
                     android:layout_height="wrap_content"
                     app:spinnerDirection="ltr"
                     app:spinnerHint="Select Vehicle" />
+            </LinearLayout>
 
             </LinearLayout>
 
@@ -191,7 +197,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Loan Required" />
 
                 <EditText
@@ -216,7 +221,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Loan Term(Month)" />
 
                 <EditText
@@ -240,17 +244,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Proposed Interest Rate/ROI" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/input_proposed_interest_rate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                        <EditText
+                            android:id="@+id/input_proposed_interest_rate"
+                            android:layout_width="258dp"
+                            android:layout_height="wrap_content"
+                            android:focusable="true"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textSize="@dimen/text_size_16sp" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="%"/>
+                    </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -264,18 +277,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fee" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/input_fee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text=""
-                    android:layout_marginBottom="?attr/actionBarSize"
+                        <EditText
+                            android:id="@+id/input_fee"
+                            android:layout_width="258dp"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:text=""
+                            android:layout_marginBottom="?attr/actionBarSize"
 
-                    android:textSize="@dimen/text_size_16sp" />
+                            android:textSize="@dimen/text_size_16sp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="%"/>
+                    </LinearLayout>
             </LinearLayout>
 
 

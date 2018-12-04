@@ -21,8 +21,8 @@
                 android:layout_width="@dimen/size_40dp"
                 android:layout_height="@dimen/size_40dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/size_8dp"
                 android:layout_marginStart="@dimen/size_8dp"
+                android:layout_marginLeft="@dimen/size_8dp"
                 android:padding="@dimen/size_8dp"
                 android:src="@drawable/ic_back" />
 
@@ -55,171 +55,44 @@
                 android:orientation="vertical"
                 android:padding="@dimen/size_16dp">
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:text="My Plan" />
+
+                <include layout="@layout/my_plan_performance" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:text="My Activity" />
+
+                <include layout="@layout/my_activity_performance"/>
                 <!--1st-->
-                <LinearLayout
+                <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:text="My Lead" />
 
-                    <!--(1)No of Leads-->
-                    <LinearLayout
-                        android:id="@+id/ll_my_activities_performance"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/size_8dp"
-                        android:background="@color/colorPrimary"
-                        android:elevation="@dimen/size_4dp"
-                        android:orientation="vertical"
-                        android:padding="@dimen/size_4dp">
+                <include layout="@layout/lead__performance" />
 
-
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:lines="2"
-                            android:text="My Activities"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_20sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:text=""
-                                    android:textColor="@color/greyWhite"
-                                    android:textSize="@dimen/text_size_12sp" />
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/text_size_12sp"
-                                    android:textColor="@color/greyWhite"/>
-                            </LinearLayout>
-
-
-
-                        </LinearLayout>
-
-
-
-                    </LinearLayout>
-                    <!--(2)No of Prospects-->
-                    <LinearLayout
-                        android:id="@+id/ll_my_leads_performance"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/size_8dp"
-                        android:background="@color/colorPrimary"
-                        android:elevation="@dimen/size_4dp"
-                        android:orientation="vertical"
-                        android:padding="@dimen/size_4dp">
-
-
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:lines="2"
-                            android:text="My Leads"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_20sp" />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:text=""
-                                    android:textColor="@color/greyWhite"
-                                    android:textSize="@dimen/text_size_12sp" />
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/text_size_12sp"
-                                    android:textColor="@color/greyWhite"/>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--2nd-->
-                <LinearLayout
+                <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:text="My Propect" />
 
-                    <!--(3)No of Sanction-->
-                    <LinearLayout
-                        android:id="@+id/ll_my_prospects_performance"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/size_8dp"
-                        android:background="@color/colorPrimary"
-                        android:elevation="@dimen/size_4dp"
-                        android:orientation="vertical"
-                        android:padding="@dimen/size_4dp">
-
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:lines="2"
-                            android:text="My Prospects"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_size_20sp" />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:text=""
-                                    android:textColor="@color/greyWhite"
-                                    android:textSize="@dimen/text_size_12sp" />
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/text_size_12sp"
-                                    android:textColor="@color/greyWhite"/>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
+                <include layout="@layout/prospect_performance_layout" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>

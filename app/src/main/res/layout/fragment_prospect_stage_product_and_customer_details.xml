@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ProspectStageProductAndCustomerDetailsFragment">
+    tools:context=".masum.fragment.prospect.ProspectStageProductAndCustomerDetailsFragment">
 
 
     <LinearLayout
@@ -27,6 +27,7 @@
 
 
             <LinearLayout
+                android:id="@+id/li_product_cat_sec"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,6 +58,7 @@
             </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/li_product_detail_sec"
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,6 +86,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/li_branch_sec"
+
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -138,6 +142,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/li_segment_sec"
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -150,14 +155,6 @@
                 android:drawableRight="@drawable/ic_required"
                 android:text="Segment" />
 
-            <!--<Spinner android:id="@+id/spinner_segment"-->
-                <!--android:drawSelectorOnTop="true"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0"-->
-                <!--android:textSize="20sp"-->
-                <!--android:entries="@array/segment_array"/>-->
-
             <com.isapanah.awesomespinner.AwesomeSpinner
                 android:id="@+id/awe_spinner_prospect_stage_segment"
                 android:layout_width="match_parent"
@@ -166,6 +163,32 @@
                 app:spinnerHint="Select Segment" />
         </LinearLayout>
 
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of Birth" />
+
+            <EditText
+                android:id="@+id/input_date_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:imeOptions="actionNext"
+                android:inputType="date"
+                android:maxLines="1"
+                android:text=""
+                android:drawableRight="@drawable/ic_datepicker_calender"
+                android:textSize="@dimen/text_size_16sp" />
+
+
+        </LinearLayout>
         <LinearLayout
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
@@ -191,6 +214,7 @@
 
 
         </LinearLayout>
+
 
         <LinearLayout
             style="@style/LayoutQuestion"
@@ -259,18 +283,50 @@
                 style="@style/TextViewQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_required"
-                android:text="Valid Photo ID No." />
+                android:text="Valid Photo ID Type" />
 
-            <EditText
-                android:id="@+id/input_valid_photo_id_no"
+            <!--<Spinner android:id="@+id/spinner_country_of_birth"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:textSize="20sp"/>-->
+
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_prospect_stage_valid_photo_id_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLines="1"
-                android:text=""
-                android:textSize="@dimen/text_size_16sp" />
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select ID category" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/li_photo_id_no"
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_photo_id_no"
+            style="@style/TextViewQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_required"
+            android:text="" />
+
+            <EditText
+            android:id="@+id/et_photo_id_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLines="1"
+            android:text=""
+            android:textSize="@dimen/text_size_16sp" />
 
         </LinearLayout>
 
@@ -292,7 +348,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textSize="@dimen/text_size_16sp"
+                android:focusable="false"
+                android:inputType="date"
+                android:maxLines="1"
+                android:text=""
+                android:drawableRight="@drawable/ic_datepicker_calender"/>
 
         </LinearLayout>
 
@@ -429,18 +490,18 @@
                 android:text="Exception List" />
 
             <RadioGroup
-                android:id="@+id/radioSex"
+                android:id="@+id/rg_exlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioMale"
+                    android:id="@+id/rb_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="YES"/>
 
                 <RadioButton
-                    android:id="@+id/radioFemale"
+                    android:id="@+id/rb_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NO" />
@@ -550,6 +611,23 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_address"
+            android:visibility="gone"
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/cb_address"
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address same as applicant"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             style="@style/LayoutQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -617,6 +695,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLines="1"
+                android:maxLength="11"
                 android:text=""
                 android:textSize="@dimen/text_size_16sp" />
         </LinearLayout>

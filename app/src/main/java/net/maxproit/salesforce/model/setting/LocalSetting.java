@@ -7,12 +7,9 @@ import com.google.gson.GsonBuilder;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by Rezwan Khan chowdhury on 6/21/18.
- * heyRezwan@gmail.com
- */
 public class LocalSetting {
     private Context context;
 
@@ -41,6 +38,23 @@ public class LocalSetting {
         List<String> list = new ArrayList<>();
         for (IndustryType in : getIndType()) {
             list.add(in.getCategoryByProduct());
+        }
+        return list;
+
+    }
+
+    public List<SourceOfReference> getSourceOfRef() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getSourceOfReference();
+        }
+        return new ArrayList<>();
+
+    }
+
+    public List<String> getSourceOfRefString() {
+        List<String> list = new ArrayList<>();
+        for (SourceOfReference in : getSourceOfRef()) {
+            list.add(in.getSourceOfReference());
         }
         return list;
 
@@ -101,7 +115,6 @@ public class LocalSetting {
     }
 
 
-
     public List<PropertyType> getPropertyType() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getPropertyTypes();
@@ -111,8 +124,7 @@ public class LocalSetting {
     }
 
 
-
-    public List<Product> getPropertyCategory() {
+    public List<Product> getProductCategory() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getProducts();
         }
@@ -121,18 +133,88 @@ public class LocalSetting {
     }
 
 
-    public List<String> getPropertyCategoryString() {
+    public List<String> getProductCategorystring() {
         List<String> list = new ArrayList<>();
-        for (Product in : getPropertyCategory()) {
+        for (Product in : getProductCategory()) {
             list.add(in.getProductName());
+        }
+        return list;
+    }
+
+
+    public int getProductCode(int position) {
+        int code = 0;
+        for (int i = 0; i < getProductCategory().size(); i++) {
+            if (i == position) {
+                code = getProductCategory().get(i).getProductCode();
+                break;
+            }
+        }
+        return code;
+    }
+
+    public List<ProductSubCategory> getProductSubCategory() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getProductSubCategory();
+        }
+        return new ArrayList<>();
+
+    }
+
+
+    public List<String> getProductSubCategorystring(int code) {
+        List<String> list = new ArrayList<>();
+        for (ProductSubCategory in : getProductSubCategory()) {
+            if (in.getProductID() == code)
+                list.add(in.getLoanPurposeType());
+        }
+        return list;
+    }
+
+    public int getSubCatCode(int position) {
+        int code = 0;
+        for (int i = 0; i < getProductSubCategory().size(); i++) {
+            if (i == position) {
+                code = getProductSubCategory().get(i).getLoanPurposeTypeCode();
+                break;
+            }
+        }
+        return code;
+    }
+
+
+    public List<Branch> getBranch() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getBranches();
+        }
+        return new ArrayList<>();
+
+    }
+
+
+    public List<String> getBranchString() {
+        List<String> list = new ArrayList<>();
+        for (Branch in : getBranch()) {
+            list.add(in.getBranch());
         }
         return list;
 
     }
 
+    public String getBranchCode(int position) {
+        String code = null;
+        for (int i = 0; i < getBranch().size(); i++) {
+            if (i == position) {
+                code = getBranch().get(i).getBranchCode();
+                break;
+            }
+        }
+        return code;
+    }
+
 //    Title list
 
-    public List<Profession> ProfessionObj() {
+    public List<Profession> professionObj() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getProfession();
         }
@@ -141,15 +223,14 @@ public class LocalSetting {
     }
 
 
-    public List<String> Profession() {
+    public List<String> getProfessionString() {
         List<String> list = new ArrayList<>();
-        for (Profession in : ProfessionObj()) {
-            list.add(in.getOccupationTypeName());
+        for (Profession in : professionObj()) {
+            list.add(in.getProfessionType());
         }
         return list;
 
     }
-
 
 
     public List<Title> getAllTitleObj() {
@@ -184,7 +265,6 @@ public class LocalSetting {
             list.add(in.getRelationshipType());
         }
         return list;
-
     }
 
 
@@ -206,7 +286,6 @@ public class LocalSetting {
     }
 
 
-
     public List<PSe> getPse() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getPSes();
@@ -215,10 +294,20 @@ public class LocalSetting {
 
     }
 
+    public List<String> getPseStringList(int cityCode) {
+        List<String> list = new ArrayList<>();
+        for (PSe in : getPse()) {
+            if (in.getCityID() == cityCode)
+                list.add(in.getPS());
+        }
+        return list;
+
+    }
+
     public List<String> getPseStringList() {
         List<String> list = new ArrayList<>();
         for (PSe in : getPse()) {
-            list.add(in.getPS());
+                list.add(in.getPS());
         }
         return list;
 
@@ -246,7 +335,7 @@ public class LocalSetting {
     public List<String> getVisitPurposeTypeStringList() {
         List<String> list = new ArrayList<>();
         for (VisitPurposeType in : getVisitPurposeType()) {
-            list.add(in.getActivityType());
+            list.add(in.getVisitPurposeType());
         }
         return list;
 
@@ -297,4 +386,17 @@ public class LocalSetting {
         return list;
 
     }
+
+    public int getCityCode(int position) {
+        int code = 0;
+        for (int i = 0; i < getCity().size(); i++) {
+            if (i == position) {
+                code = getCity().get(i).getCityID();
+                break;
+            }
+        }
+        return code;
+    }
+
+
 }
