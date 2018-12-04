@@ -349,7 +349,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
                     etLoanAmount.setText("" + myNewLead.getLoanAmount());
                     etInterest.setText("" + myNewLead.getOrInterest());
-                    etDisbursementDate.setText(myNewLead.getDisDate());
+                    etDisbursementDate.setText(DateUtils.getDateFormateEt(myNewLead.getDisDate()));
                     etFee.setText("" + myNewLead.getOpFee());
 
                     if (myNewLead.getSourceRef() != null)

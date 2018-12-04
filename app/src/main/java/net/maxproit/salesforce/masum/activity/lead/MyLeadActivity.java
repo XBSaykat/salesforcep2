@@ -25,6 +25,7 @@ import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.util.CommonUtil;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
@@ -63,6 +64,49 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         filterList = new ArrayList<>();
         myLeadDbController = new MyLeadDbController(MyLeadActivity.this);
         username = SharedPreferencesEnum.getInstance(getApplicationContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
+
+
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterList = getFilterData(leadListDataFromApi, query);
+                myLeadAdapter.setFilter(filterList);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList = getFilterData(leadListDataFromApi, newText);
+                myLeadAdapter.setFilter(filterList);
+                return true;
+            }
+        });
+
+
+        myLeadAdapter = new MyLeadAdapter(MyLeadActivity.this, leadListDataFromApi);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        binding.rvMyLead.setLayoutManager(mLayoutManager);
+        binding.rvMyLead.setAdapter(myLeadAdapter);
+        myLeadAdapter.notifyDataSetChanged();
+
+
+        myLeadAdapter.setItemClickListener(new OnItemClickListener() {
+            @Override
+            public void itemClickListener(View view, int position) {
+                loadFilterData();
+                switch (view.getId()) {
+                    case R.id.clLeadItem:
+                        sentDataToDetail(position);
+                        break;
+                }
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         if (!leadList.isEmpty()) {
             leadList.clear();
@@ -107,42 +151,6 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
         }
 
-
-        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                filterList = getFilterData(leadListDataFromApi, query);
-                myLeadAdapter.setFilter(filterList);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterList = getFilterData(leadListDataFromApi, newText);
-                myLeadAdapter.setFilter(filterList);
-                return true;
-            }
-        });
-
-
-        myLeadAdapter = new MyLeadAdapter(MyLeadActivity.this, leadListDataFromApi);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        binding.rvMyLead.setLayoutManager(mLayoutManager);
-        binding.rvMyLead.setAdapter(myLeadAdapter);
-        myLeadAdapter.notifyDataSetChanged();
-
-
-        myLeadAdapter.setItemClickListener(new OnItemClickListener() {
-            @Override
-            public void itemClickListener(View view, int position) {
-                loadFilterData();
-                switch (view.getId()) {
-                    case R.id.clLeadItem:
-                        sentDataToDetail(position);
-                        break;
-                }
-            }
-        });
     }
 
     private void getDataFromServer() {
@@ -193,12 +201,14 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 @Override
                 public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
                     Data data = response.body().getData();
+                    String disDate=CommonUtil.jsonToDate(data.getDisbursementDate());
+                    String followUpDate=CommonUtil.jsonToDate(data.getFollowUpDate());
                     MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
                             data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
                             data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
                             data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
-                            String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), data.getDisbursementDate(),
-                            data.getFollowUpDate(), data.getFollowUp(), data.getRemark(), data.getStatus(), "");
+                            String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), disDate,
+                            followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
                     ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
                     hideProgressDialog();
 

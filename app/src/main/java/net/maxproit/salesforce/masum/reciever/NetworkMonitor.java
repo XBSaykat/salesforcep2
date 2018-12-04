@@ -11,6 +11,7 @@ import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.NetworkUtil;
 import net.maxproit.salesforce.network.ApiService;
@@ -35,10 +36,14 @@ public class NetworkMonitor extends BroadcastReceiver {
             userName = localCash(context).getString(SharedPreferencesEnum.Key.USER_NAME);
             localCash(context).put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
             ArrayList<MyNewLead> myLeadList = new ArrayList<>();
+            ArrayList<VisitPlan> visitPlanList = new ArrayList<>();
 
                 Log.e("status", "connected");
                 myLeadDbController = new MyLeadDbController(context);
                 myLeadList.addAll(myLeadDbController.getDataForSync());
+
+
+                if (myLeadList.size()>0){}
                 for (int i = 0; i < myLeadList.size(); i++) {
                     MyNewLead myNewLead = myLeadList.get(i);
                     MyLeadDataModelApi  myLeadDataModelApi=new MyLeadDataModelApi();

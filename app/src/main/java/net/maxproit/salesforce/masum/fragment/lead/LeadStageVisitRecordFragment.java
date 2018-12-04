@@ -25,6 +25,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -172,7 +173,7 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
                         if (etVisitDate.getVisibility() != View.VISIBLE) {
                             etVisitDate.setVisibility(View.VISIBLE);
                         }
-                        etVisitDate.setText(myNewLead.getVisitDate());
+                        etVisitDate.setText(DateUtils.getDateFormateEt(myNewLead.getVisitDate()));
                         etRemark.setText(myNewLead.getRemark());
                     } else {
                         try {
