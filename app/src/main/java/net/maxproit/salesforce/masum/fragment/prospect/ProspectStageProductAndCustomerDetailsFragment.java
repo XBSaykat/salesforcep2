@@ -30,7 +30,9 @@ import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
+import net.maxproit.salesforce.util.CommonUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,6 +91,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
 
+    public static int photoIdcode=0;
     private LinearLayout llAddress;
 
     private RadioGroup rgExList;
@@ -434,7 +437,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 validPhoto = s;
-
+                LongOperationPhotoIDCode longOperationPhotoIDCode=new LongOperationPhotoIDCode();
+                longOperationPhotoIDCode.execute(i);
                 if (i == 0) {
                     getphotoIdNumber(s);
 
@@ -515,7 +519,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
 //        spinnerRelationship.setAdapter(realationAdapter);
 
-        ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);
+        ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
 
         if (prospectStageActivity.getDataFromProspect() != null) {
@@ -529,15 +533,14 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etCompanyName.setText(myNewLead.getOrganization());
             etPermanentAddress.setText(myNewLead.getpAddress());
             etNoYrsInCurrentJob.setText(myNewLead.getCurrentJob());
-            etDob.setText(myNewLead.getDateOfBirth());
+            etDob.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getpIssueDate())));
             etAge.setText(myNewLead.getAge());
             etETin.setText(myNewLead.getEtin());
             etFatherName.setText(myNewLead.getfName());
             etMotherName.setText(myNewLead.getmName());
             etSpouseName.setText(myNewLead.getsName());
-            etPhotoIdDate.setText(myNewLead.getpIssueDate());
+            etPhotoIdDate.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getpIssueDate())));
             if (myNewLead.getDob() != null) {
-
                 try {
                     spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getDob()));
 
@@ -644,6 +647,29 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         @Override
         protected String doInBackground(Integer... params) {
              branchCode = localSetting.getBranchCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+
+    private class LongOperationPhotoIDCode extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            photoIdcode=localSetting.getPhotoIdCode(params[0]);
             return null;
         }
 

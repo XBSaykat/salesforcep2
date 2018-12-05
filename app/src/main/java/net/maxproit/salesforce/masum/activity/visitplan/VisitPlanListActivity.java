@@ -257,7 +257,6 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
     private void sentDataToDetail(int position) {
 
         if (isNetworkAvailable()) {
-            CommonUtil.showProgressDialog(this,"please wat......","");
             String random = UUID.randomUUID().toString();
             int journalId= Integer.parseInt(filterApiList.get(position).getActivityJournalID());
             getApiService().getVisitPlanByJournalId(journalId,random).enqueue(new Callback<MyVisitPlanApi>() {
@@ -278,7 +277,7 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
                                filterApiList.get(position).getActivityStatus(),
                                filterApiList.get(position).getActivityStatus()
                        );
-                       CommonUtil.hideProgressDialog();
+
                        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPlanActivity.class, visitPlan);
                    }
                 }
@@ -286,7 +285,7 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
                 @Override
                 public void onFailure(Call<MyVisitPlanApi> call, Throwable t) {
                     showAlertDialog("Error",t.getMessage());
-                    CommonUtil.hideProgressDialog();
+
                 }
             });
         } else {

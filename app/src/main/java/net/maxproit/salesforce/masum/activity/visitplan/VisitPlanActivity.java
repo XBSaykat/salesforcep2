@@ -228,7 +228,7 @@ public class VisitPlanActivity extends BaseActivity {
     }
 
     private void initAdapterForSpinners(Context context) {
-        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getSourceOfRefString());
+        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getClientTypeString());
         spinnerClientType.setAdapter(adptrClientType);
 
         productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getProductCategorystring());
@@ -349,7 +349,7 @@ public class VisitPlanActivity extends BaseActivity {
             public void onItemSelected(int i, String s) {
 
                 clientType = s;
-                if (s.equals("Others")) {
+                if (s.equalsIgnoreCase("INDIVIDUAL")) {
                     secMobileNo.setVisibility(View.VISIBLE);
                     secProductType.setVisibility(View.VISIBLE);
 

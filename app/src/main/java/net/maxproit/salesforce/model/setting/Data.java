@@ -68,6 +68,21 @@ public class Data {
     @Expose
     private List<VisitPurposeType> visitPurposeType = null;
 
+    @SerializedName("photoIdType")
+    @Expose
+    private List<PhotoIdType> photoIdType = null;
+
+    @SerializedName("clientType")
+    @Expose
+    private List<ClientType> clientType = null;
+
+    public List<ClientType> getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(List<ClientType> clientType) {
+        this.clientType = clientType;
+    }
 
     @SerializedName("profession")
     @Expose
@@ -81,6 +96,21 @@ public class Data {
         this.profession = profession;
     }
 
+    public List<PSe> getpSes() {
+        return pSes;
+    }
+
+    public void setpSes(List<PSe> pSes) {
+        this.pSes = pSes;
+    }
+
+    public List<PhotoIdType> getPhotoIdType() {
+        return photoIdType;
+    }
+
+    public void setPhotoIdType(List<PhotoIdType> photoIdType) {
+        this.photoIdType = photoIdType;
+    }
 
     @SerializedName("productSubCategory")
     @Expose
