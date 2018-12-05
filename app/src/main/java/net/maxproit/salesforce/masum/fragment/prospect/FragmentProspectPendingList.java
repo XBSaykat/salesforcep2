@@ -118,11 +118,13 @@ public class FragmentProspectPendingList extends BaseFragment {
 //                             MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
 
                 ActivityUtils.invokLeadDetailForProspectStage(getActivity(),oldProspect.getMyNewProspect());
+
+
             }
 
             @Override
             public void onFailure(Call<OldProspect> call, Throwable t) {
-
+                Log.d("tag", "onFailure: "+t.getLocalizedMessage());
             }
         });
     }

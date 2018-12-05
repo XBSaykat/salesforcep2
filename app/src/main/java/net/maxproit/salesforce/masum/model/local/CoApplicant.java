@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class CoApplicant implements Serializable{
 
 
-    int id, leadId;
+    int id, leadId, contactId, customerId, permanentAddressCityId,presentAddressId ;
     String  name,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
             photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
             designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
@@ -14,7 +14,10 @@ public class CoApplicant implements Serializable{
             monthBusinessIncomeAmount, monthWareHouseAmount,monthOfficeSpaceIncomeAmount,
             monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
             monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
-            emiOfOtherLoans;
+            emiOfOtherLoans, permanentAddressCity,  permanentAddressPS, presentAddressCity,presentAddressPS
+             ;
+
+                    ;
 //            for retrieving from DB
     public CoApplicant(int id, int leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
@@ -117,6 +120,13 @@ public class CoApplicant implements Serializable{
         this.emiOfOtherLoans = emiOfOtherLoans;
     }
 
+    public int getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
 
     public int getId() {
         return id;
@@ -246,6 +256,199 @@ public class CoApplicant implements Serializable{
         return monthTuitionIncomeAmount;
     }
 
+    public int getPermanentAddressCityId() {
+        return permanentAddressCityId;
+    }
+
+    public void setPermanentAddressCityId(int permanentAddressCityId) {
+        this.permanentAddressCityId = permanentAddressCityId;
+    }
+
+    public int getPresentAddressId() {
+        return presentAddressId;
+    }
+
+    public void setPresentAddressId(int presentAddressId) {
+        this.presentAddressId = presentAddressId;
+    }
+
+    public String getPermanentAddressCity() {
+        return permanentAddressCity;
+    }
+
+    public void setPermanentAddressCity(String permanentAddressCity) {
+        this.permanentAddressCity = permanentAddressCity;
+    }
+
+    public String getPermanentAddressPS() {
+        return permanentAddressPS;
+    }
+
+    public void setPermanentAddressPS(String permanentAddressPS) {
+        this.permanentAddressPS = permanentAddressPS;
+    }
+
+    public String getPresentAddressCity() {
+        return presentAddressCity;
+    }
+
+    public void setPresentAddressCity(String presentAddressCity) {
+        this.presentAddressCity = presentAddressCity;
+    }
+
+    public String getPresentAddressPS() {
+        return presentAddressPS;
+    }
+
+    public void setPresentAddressPS(String presentAddressPS) {
+        this.presentAddressPS = presentAddressPS;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setLeadId(int leadId) {
+        this.leadId = leadId;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public void setDistrictOfBirth(String districtOfBirth) {
+        this.districtOfBirth = districtOfBirth;
+    }
+
+    public void setCountryOfBirth(String countryOfBirth) {
+        this.countryOfBirth = countryOfBirth;
+    }
+
+    public void setPhotoIdType(String photoIdType) {
+        this.photoIdType = photoIdType;
+    }
+
+    public void setPhotoIdNo(String photoIdNo) {
+        this.photoIdNo = photoIdNo;
+    }
+
+    public void setPhotoIdIssueDate(String photoIdIssueDate) {
+        this.photoIdIssueDate = photoIdIssueDate;
+    }
+
+    public void seteTin(String eTin) {
+        this.eTin = eTin;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public void setsName(String sName) {
+        this.sName = sName;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public void setExList(String exList) {
+        this.exList = exList;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public void setNoOfYrsInCurrentJob(String noOfYrsInCurrentJob) {
+        this.noOfYrsInCurrentJob = noOfYrsInCurrentJob;
+    }
+
+    public void setRelationWithApplicant(String relationWithApplicant) {
+        this.relationWithApplicant = relationWithApplicant;
+    }
+
+    public void setPermanentAddress(String permanentAddress) {
+        this.permanentAddress = permanentAddress;
+    }
+
+    public void setPresentAddress(String presentAddress) {
+        this.presentAddress = presentAddress;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public void setMonthSalaryType(String monthSalaryType) {
+        this.monthSalaryType = monthSalaryType;
+    }
+
+    public void setMonthSalaryAmount(String monthSalaryAmount) {
+        this.monthSalaryAmount = monthSalaryAmount;
+    }
+
+    public void setMonthBusinessIncomeAmount(String monthBusinessIncomeAmount) {
+        this.monthBusinessIncomeAmount = monthBusinessIncomeAmount;
+    }
+
+    public void setMonthWareHouseAmount(String monthWareHouseAmount) {
+        this.monthWareHouseAmount = monthWareHouseAmount;
+    }
+
+    public void setMonthOfficeSpaceIncomeAmount(String monthOfficeSpaceIncomeAmount) {
+        this.monthOfficeSpaceIncomeAmount = monthOfficeSpaceIncomeAmount;
+    }
+
+    public void setMonthSemipakaIncomeAmount(String monthSemipakaIncomeAmount) {
+        this.monthSemipakaIncomeAmount = monthSemipakaIncomeAmount;
+    }
+
+    public void setMonthApartmentIncomeAmount(String monthApartmentIncomeAmount) {
+        this.monthApartmentIncomeAmount = monthApartmentIncomeAmount;
+    }
+
+    public void setMonthAgricultureIncomeAmount(String monthAgricultureIncomeAmount) {
+        this.monthAgricultureIncomeAmount = monthAgricultureIncomeAmount;
+    }
+
+    public void setMonthTuitionIncomeAmount(String monthTuitionIncomeAmount) {
+        this.monthTuitionIncomeAmount = monthTuitionIncomeAmount;
+    }
+
+    public void setRemittance(String remittance) {
+        this.remittance = remittance;
+    }
+
+    public void setInterestFDRIncomeAmount(String interestFDRIncomeAmount) {
+        this.interestFDRIncomeAmount = interestFDRIncomeAmount;
+    }
+
+    public void setMonthFamilyExpenditure(String monthFamilyExpenditure) {
+        this.monthFamilyExpenditure = monthFamilyExpenditure;
+    }
+
+    public void setEmiOfOtherLoans(String emiOfOtherLoans) {
+        this.emiOfOtherLoans = emiOfOtherLoans;
+    }
+
     public String getRemittance() {
         return remittance;
     }
@@ -260,5 +463,13 @@ public class CoApplicant implements Serializable{
 
     public String getEmiOfOtherLoans() {
         return emiOfOtherLoans;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 }

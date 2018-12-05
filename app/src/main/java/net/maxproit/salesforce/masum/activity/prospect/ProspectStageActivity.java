@@ -487,8 +487,8 @@ public class ProspectStageActivity extends BaseActivity {
 
 
 
-
-
+                ArrayList<CoApplicant> coApplicantList = coApplicantDBController.getAllData(Integer.valueOf(getDataFromProspect().getRefNumber()));
+//                newProspectUpdate.setCoApplicantsFromProspect(coApplicantList);
 
 //                NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
                 if (newProspectUpdate.getPhotoIdNumber().equals("")) {
@@ -519,14 +519,14 @@ public class ProspectStageActivity extends BaseActivity {
                         }
                     });
                 }
-//                int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
-//                if (update > 0) {
+                int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+                if (update > 0) {
 //                    if (brandName != null && year != null && country != null && vehicleType != null) {
 //                        insertBrandData();
 //                    }
-//
-//                }
-//                insertAttachmentData(getDataFromProspect().getId(), myNewProspect);
+
+                }
+                insertAttachmentData(getDataFromProspect().getId(), myNewProspect);
             }
 
 
@@ -546,7 +546,7 @@ public class ProspectStageActivity extends BaseActivity {
         updateModel.setBranchCode(myNewProspect.getBranchCode());
         updateModel.setBranchName(myNewProspect.getBranchName());
         updateModel.setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(businessIncome)));
-        updateModel.setCoApplicantsFromProspect(myNewProspect);
+//        updateModel.setCoApplicantsFromProspect();
         updateModel.setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(wireHouseIncome)));
         updateModel.setCompany(companyName);
         updateModel.setContactId(getDataFromProspect().getContactId());
@@ -766,16 +766,13 @@ public class ProspectStageActivity extends BaseActivity {
 
 
 
-//                    int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
-//                    insertAttachmentData(getDataFromProspect().getId(), myNewProspect);
-//                    if (update > 0) {
+                    int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+                    insertAttachmentData(getDataFromProspect().getId(), myNewProspect);
+                    if (update > 0) {
 //                        if (brandName != null && year != null && country != null && vehicleType != null) {
 //                            insertBrandData();
-//
-//
-//
 //                        }
-//                    }
+                    }
                 }
 //            }
         });

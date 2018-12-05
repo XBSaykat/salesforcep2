@@ -136,6 +136,7 @@ public class CoApplicantActivity extends BaseActivity {
                 int update=0;
                 if (getDataFromApplicant() !=null){
                     update = coApplicantDBController.updateCoApplicantData(coApplicant,getDataFromApplicant().getId());
+
                 }
                 else {
                      update = coApplicantDBController.insertData(coApplicant);

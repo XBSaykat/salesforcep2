@@ -117,6 +117,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         viewListItems();
         if (coApplicantList.size()>0){
             Collections.reverse(coApplicantList);
+
         }
         coApplicantAdapter.notifyDataSetChanged();
 
