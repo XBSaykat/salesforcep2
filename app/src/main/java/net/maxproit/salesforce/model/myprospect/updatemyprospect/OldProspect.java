@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class OldProspect {
         myNewProspect.setProductType(data.getProduct());
         myNewProspect.setProductSubcategory(data.getProductSubCategory());
         myNewProspect.setSubCode(data.getProductSubCategoryId());
-        myNewProspect.setDateOfBirth(data.getDateOfBirth());
+        myNewProspect.setDateOfBirth(CommonUtil.jsonToDate(data.getDateOfBirth()));
         myNewProspect.setPhone(data.getMobileNo());
         myNewProspect.setProfession(data.getProfession());
         myNewProspect.setDesignation(data.getDesignation());
@@ -115,7 +116,7 @@ public class OldProspect {
         myNewProspect.setPermAddressCity(data.getPermanentAddressCity());
         myNewProspect.setpAddress(data.getPermanentAddress());
         myNewProspect.setPermAddressPs(data.getPermanentAddressPS());
-        myNewProspect.setpIssueDate(data.getPhotoIdIssueDate());
+        myNewProspect.setpIssueDate(CommonUtil.jsonToDate(data.getPhotoIdIssueDate()));
         myNewProspect.setpIdNumber(data.getPhotoIdNumber());
         myNewProspect.setAddress(data.getPresentAddress());
         myNewProspect.setPresAddressCity(data.getPresentAddressCity());
@@ -124,6 +125,7 @@ public class OldProspect {
         myNewProspect.setsValue(String.valueOf(data.getSecurityValue()));
 //        myNewProspect.setRmCode(data.getRmCode());
 //        myNewProspect.setUserName(data.getUserName());
+        myNewProspect.setEtin(data.getETin());
         myNewProspect.setTution(String.valueOf(data.getTutionIncome()));
         myNewProspect.setSegment(data.getSegment());
         myNewProspect.setRemitance(String.valueOf(data.getRemittanceIncome()));

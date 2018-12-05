@@ -137,6 +137,9 @@ public interface ApiService {
 //    @POST("proceedLead")
 //    Call<ApprovalResponce> myleadApproval(@Body MyLeadApproval myLeadApproval);
 
+    @POST("CdApproval/proceedprospect")
+    Call<ApprovalResponce> myprospectApproval(@Body Approval myLeadApproval);
+
     @POST("CdApproval/proceedLead")
     Call<ApprovalResponce> myleadApproval(@Body Approval myLeadApproval);
 
