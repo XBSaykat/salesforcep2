@@ -57,6 +57,7 @@ public class SupervisorRbmProspect extends BaseActivity {
     protected int getLayoutResourceId() {
         return R.layout.activity_supervisor_rbm_prospect;
     }
+
     @Override
     protected void initComponents() {
         rvProspect = findViewById(R.id.rv_supervisor_rbm);
@@ -138,15 +139,14 @@ public class SupervisorRbmProspect extends BaseActivity {
                     MyProspect myProspect = new MyProspect();
                     filterList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
                     myAdapter.notifyDataSetChanged();
-                }
-                else {
-                    showAlertDialog("Error",response.body().getMessage());
+                } else {
+                    showAlertDialog("Error", response.body().getMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<GetRbmData> call, Throwable t) {
-                showAlertDialog("Error",t.getMessage());
+                showAlertDialog("Error", t.getMessage());
 
             }
         });
@@ -154,25 +154,26 @@ public class SupervisorRbmProspect extends BaseActivity {
 
     private void sentDataToDetail(int position) {
         String ref = filterList.get(position).getReference();
-        getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
-            @Override
-            public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
+        if (isNetworkAvailable()) {
+            getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
+                @Override
+                public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
 
-                if (response.body().getCode().equals("200")){
-                OldProspect oldProspect = response.body();
-                MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
-                ActivityUtils.invokProspectRbmViewStage(SupervisorRbmProspect.this,myNewProspect);
-                
+                    if (response.body().getCode().equals("200")) {
+                        OldProspect oldProspect = response.body();
+                        MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
+                        ActivityUtils.invokProspectRbmViewStage(SupervisorRbmProspect.this, myNewProspect);
+
+                    } else showAlertDialog("ERROR", response.body().getMessage());
+
                 }
-                else showAlertDialog("ERROR",response.body().getMessage());
 
-            }
-
-            @Override
-            public void onFailure(Call<OldProspect> call, Throwable t) {
-                showAlertDialog("ERROR",t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<OldProspect> call, Throwable t) {
+                    showAlertDialog("ERROR", t.getMessage());
+                }
+            });
+        } else showAlertDialog("ERROR", "internet not available,please connect to the internet");
 
     }
 
@@ -202,7 +203,6 @@ public class SupervisorRbmProspect extends BaseActivity {
     public Activity getActivity() {
         return this;
     }
-
 
 
     /* MyNewProspect myNewLead=new MyNewProspect(filterList.get(position).getId(),
