@@ -88,7 +88,7 @@ public class ProspectStageActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
-
+        coApplicantDBController=new CoApplicantDBController(this);
         attachmentDbController = new AttachmentDbController(ProspectStageActivity.this);
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
         btnReject = findViewById(R.id.tv_activity_details_rejected);
@@ -486,10 +486,9 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setUserName(userName);
 
 
-
-                ArrayList<CoApplicant> coApplicantList = coApplicantDBController.getAllData(Integer.valueOf(getDataFromProspect().getRefNumber()));
-//                newProspectUpdate.setCoApplicantsFromProspect(coApplicantList);
-
+                String refNo=getDataFromProspect().getRefNumber();
+                ArrayList<CoApplicant> coApplicantList = coApplicantDBController.getAllData(refNo);
+                newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
 //                NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
                 if (newProspectUpdate.getPhotoIdNumber().equals("")) {
                     newProspectUpdate.setPhotoIdNumber("2300");

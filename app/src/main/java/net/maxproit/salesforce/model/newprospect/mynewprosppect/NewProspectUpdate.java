@@ -719,55 +719,58 @@ public class NewProspectUpdate {
         this.coApplicants = coApplicants;
     }
 
-    public void setCoApplicantsFromProspect(net.maxproit.salesforce.masum.model.local.CoApplicant coApplicantssss) {
+    public ArrayList<CoApplicant> setCoApplicantsFromProspect(ArrayList<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicanLocalList) {
 
 
-        coApplicants = new ArrayList<>();
-
+        ArrayList<CoApplicant> coApplicantsList = new ArrayList<>();
         CoApplicant coApplicant = new CoApplicant();
 
-        coApplicant.setAgriculturalIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getMonthAgricultureIncomeAmount().replace(",", ""))));
-        coApplicant.setApartmentIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getMonthApartmentIncomeAmount().replace(",", ""))));
-        coApplicant.setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getMonthBusinessIncomeAmount().replace(",", ""))));
-        coApplicant.setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getMonthOfficeSpaceIncomeAmount().replace(",", ""))));
-        coApplicant.setCompany(coApplicantssss.getCompanyName());
-        coApplicant.setContactId(coApplicantssss.getContactId());
-        coApplicant.setCountryOfBirth(coApplicantssss.getCountryOfBirth());
-        coApplicant.setCurrentJobDuration(coApplicantssss.getNoOfYrsInCurrentJob());
-        coApplicant.setCustomerId(coApplicantssss.getCustomerId());
-        coApplicant.setCustomerName(coApplicantssss.getName());
-        coApplicant.setDateOfBirth(coApplicantssss.getDateOfBirth());
-        coApplicant.setDesignation(coApplicantssss.getDesignation());
-        coApplicant.setDistrictOfBirth(coApplicantssss.getDateOfBirth());
-        coApplicant.setETin(coApplicantssss.geteTin());
-        coApplicant.setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getMonthWareHouseAmount().replace(",", ""))));
-        coApplicant.setFatherName(coApplicantssss.getfName());
-        coApplicant.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getInterestFDRIncomeAmount().replace(",", ""))));
-        coApplicant.setMobile(coApplicantssss.getMobileNo());
-        coApplicant.setMotherName(coApplicantssss.getmName());
-        coApplicant.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getMonthSalaryAmount())));
-        coApplicant.setNetSalaryType(coApplicantssss.getMonthSalaryType());
-        coApplicant.setPermanentAddress(coApplicantssss.getPermanentAddress());
-        coApplicant.setPermanentAddressCity(coApplicantssss.getPresentAddressCity());
-        coApplicant.setPermanentAddressId(22);
-        coApplicant.setPermanentAddressPS(coApplicantssss.getPermanentAddressPS());
-        coApplicant.setPhotoIdIssueDate(coApplicantssss.getPhotoIdIssueDate());
-        coApplicant.setPhotoIdNumber(coApplicantssss.getPhotoIdNo());
-        coApplicant.setPhotoIdTypeCode(2300);
-        coApplicant.setPresentAddress(coApplicantssss.getPresentAddress());
-        coApplicant.setPresentAddressCity(coApplicantssss.getPresentAddressCity());
-        coApplicant.setPresentAddressId(12);
-        coApplicant.setPresentAddressPS(coApplicantssss.getPresentAddressPS());
-        coApplicant.setProfession(coApplicantssss.getProfession());
-        coApplicant.setRelationshipWithApplicant(coApplicantssss.getRelationWithApplicant());
-        coApplicant.setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getRemittance())));
-        coApplicant.setSemipakaIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getMonthSemipakaIncomeAmount())));
-        coApplicant.setSpouseName(coApplicantssss.getsName());
-        coApplicant.setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(coApplicantssss.getMonthTuitionIncomeAmount())));
-
-        coApplicants.add(coApplicant);
+        for (int i = 0; i < coApplicanLocalList.size(); i++) {
 
 
+            coApplicant.setAgriculturalIncome(0);
+            coApplicant.setApartmentIncome(0);
+            coApplicant.setBusinessIncome(0);
+            coApplicant.setCommercialSpaceIncome(0);
+            coApplicant.setCompany(coApplicanLocalList.get(i).getCompanyName());
+            coApplicant.setContactId(coApplicanLocalList.get(i).getContactId());
+            coApplicant.setCountryOfBirth(coApplicanLocalList.get(i).getCountryOfBirth());
+            coApplicant.setCurrentJobDuration(coApplicanLocalList.get(i).getNoOfYrsInCurrentJob());
+            coApplicant.setCustomerId(coApplicanLocalList.get(i).getCustomerId());
+            coApplicant.setCustomerName(coApplicanLocalList.get(i).getName());
+            coApplicant.setDateOfBirth(coApplicanLocalList.get(i).getDateOfBirth());
+            coApplicant.setDesignation(coApplicanLocalList.get(i).getDesignation());
+            coApplicant.setDistrictOfBirth(coApplicanLocalList.get(i).getDateOfBirth());
+            coApplicant.setETin(coApplicanLocalList.get(i).geteTin());
+            coApplicant.setFactoryIncome(0);
+            coApplicant.setFatherName(coApplicanLocalList.get(i).getfName());
+            coApplicant.setInterestIncomeOfFDR(0);
+            coApplicant.setMobile(coApplicanLocalList.get(i).getMobileNo());
+            coApplicant.setMotherName(coApplicanLocalList.get(i).getmName());
+            coApplicant.setNetSalary(0);
+            coApplicant.setNetSalaryType(coApplicanLocalList.get(i).getMonthSalaryType());
+            coApplicant.setPermanentAddress(coApplicanLocalList.get(i).getPermanentAddress());
+            coApplicant.setPermanentAddressCity(coApplicanLocalList.get(i).getPresentAddressCity());
+            coApplicant.setPermanentAddressId(22);
+            coApplicant.setPermanentAddressPS(coApplicanLocalList.get(i).getPermanentAddressPS());
+            coApplicant.setPhotoIdIssueDate(coApplicanLocalList.get(i).getPhotoIdIssueDate());
+            coApplicant.setPhotoIdNumber(coApplicanLocalList.get(i).getPhotoIdNo());
+            coApplicant.setPhotoIdTypeCode(2300);
+            coApplicant.setPresentAddress(coApplicanLocalList.get(i).getPresentAddress());
+            coApplicant.setPresentAddressCity(coApplicanLocalList.get(i).getPresentAddressCity());
+            coApplicant.setPresentAddressId(12);
+            coApplicant.setPresentAddressPS(coApplicanLocalList.get(i).getPresentAddressPS());
+            coApplicant.setProfession(coApplicanLocalList.get(i).getProfession());
+            coApplicant.setRelationshipWithApplicant(coApplicanLocalList.get(i).getRelationWithApplicant());
+            coApplicant.setRemittanceIncome(0);
+            coApplicant.setSemipakaIncome(0);
+            coApplicant.setSpouseName(coApplicanLocalList.get(i).getsName());
+            coApplicant.setTutionIncome(0);
+
+            coApplicantsList.add(coApplicant);
+        }
+
+        return coApplicantsList;
     }
 
     public void getDBCoApplicants(ArrayList<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicantList) {

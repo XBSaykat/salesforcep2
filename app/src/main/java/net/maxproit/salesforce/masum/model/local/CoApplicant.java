@@ -6,11 +6,11 @@ import java.io.Serializable;
 public class CoApplicant implements Serializable{
 
 
-    int id, leadId, contactId, customerId, permanentAddressCityId,presentAddressId ;
+    int id, contactId, customerId, permanentAddressCityId,presentAddressId ;
     String  name,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
             photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
             designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
-            presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,
+            presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,leadId,
             monthBusinessIncomeAmount, monthWareHouseAmount,monthOfficeSpaceIncomeAmount,
             monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
             monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
@@ -19,7 +19,7 @@ public class CoApplicant implements Serializable{
 
                     ;
 //            for retrieving from DB
-    public CoApplicant(int id, int leadId, String name, String dateOfBirth, String age,
+    public CoApplicant(int id, String leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
                        String mName, String sName, String profession, String exList,
@@ -70,7 +70,7 @@ public class CoApplicant implements Serializable{
         this.emiOfOtherLoans = emiOfOtherLoans;
     }
 //                for inserting in DB
-    public CoApplicant(int leadId, String name, String dateOfBirth, String age,
+    public CoApplicant(String leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
                        String mName, String sName, String profession, String exList,
@@ -132,7 +132,7 @@ public class CoApplicant implements Serializable{
         return id;
     }
 
-    public int getLeadId() {
+    public String getLeadId() {
         return leadId;
     }
 
@@ -308,7 +308,7 @@ public class CoApplicant implements Serializable{
         this.id = id;
     }
 
-    public void setLeadId(int leadId) {
+    public void setLeadId(String leadId) {
         this.leadId = leadId;
     }
 
