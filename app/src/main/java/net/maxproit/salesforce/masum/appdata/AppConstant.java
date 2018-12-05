@@ -77,9 +77,11 @@ public class AppConstant {
     // Approval
 
     public static final String APPROVAL_LEAD ="Lead" ;
+    public static final String APPROVAL_PROSPECT ="Prospect" ;
     public static final int APPROVAL_SET_ID_0 = 0 ;
     public static final int APPROVAL_CURRWENT_LEVEL_1 = 1;
     public static final String APPROVAL_STATUS_YES = "Y";
+    public static final String APPROVAL_PROSPECT_STATUS_YES = "N";
 
 
 }
