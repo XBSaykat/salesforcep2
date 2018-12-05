@@ -70,10 +70,10 @@ private String productSubCategory;
 private Integer loanAmount;
 @SerializedName("offeredInterestRate")
 @Expose
-private Integer offeredInterestRate;
+private Float offeredInterestRate;
 @SerializedName("offeredProcessFee")
 @Expose
-private Integer offeredProcessFee;
+private Float offeredProcessFee;
 @SerializedName("disbursementDate")
 @Expose
 private String disbursementDate;
@@ -251,19 +251,19 @@ public void setLoanAmount(Integer loanAmount) {
 this.loanAmount = loanAmount;
 }
 
-public Integer getOfferedInterestRate() {
+public Float getOfferedInterestRate() {
 return offeredInterestRate;
 }
 
-public void setOfferedInterestRate(Integer offeredInterestRate) {
+public void setOfferedInterestRate(Float offeredInterestRate) {
 this.offeredInterestRate = offeredInterestRate;
 }
 
-public Integer getOfferedProcessFee() {
+public Float getOfferedProcessFee() {
 return offeredProcessFee;
 }
 
-public void setOfferedProcessFee(Integer offeredProcessFee) {
+public void setOfferedProcessFee(Float offeredProcessFee) {
 this.offeredProcessFee = offeredProcessFee;
 }
 
@@ -328,8 +328,8 @@ this.remark = remark;
         myLeadApi.setProductSubCategoryId(myNewLead.getSubCode());
         myLeadApi.setProductSubCategory(myNewLead.getProductSubcategory());
         myLeadApi.setLoanAmount(Integer.valueOf(myNewLead.getLoanAmount().replace(",","")));
-        myLeadApi.setOfferedInterestRate(Integer.valueOf(myNewLead.getOrInterest()));
-        myLeadApi.setOfferedProcessFee(Integer.valueOf(myNewLead.getOpFee()));
+        myLeadApi.setOfferedInterestRate((float)Float.valueOf(myNewLead.getOrInterest()));
+        myLeadApi.setOfferedProcessFee((float)Float.valueOf(myNewLead.getOpFee()));
         myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(myNewLead.getDisDate()));
         myLeadApi.setVisitId(myNewLead.getVisitId());
         myLeadApi.setFollowUp(myNewLead.getFollowUp());

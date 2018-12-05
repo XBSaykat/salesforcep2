@@ -17,9 +17,10 @@ public class MyNewProspect extends MyNewLead implements Serializable {
     private List<CoApplicant> coApplicantList;
 
 
-    int branchCode, contactId;
-    String manufacturingName, manufacturingNameId, manufacturingCountry,
-            manufacturingYear, assetType, assetTypeId, PermAddressCity,PermAddressPs,PresAddressCity,PresAddressPs ;
+    int branchCode, assetTypeId,  manufacturingNameId,  contactId, permAddressId, presAddressId;
+    String manufacturingName, manufacturingCountry,
+            manufacturingYear, assetType, rmCode, PermAddressCity,PermAddressPs,
+            PresAddressCity,PresAddressPs, brandName ;
 
     public List<CoApplicant> getCoApplicantList() {
         return coApplicantList;
@@ -27,6 +28,14 @@ public class MyNewProspect extends MyNewLead implements Serializable {
 
     public void setCoApplicantList(List<CoApplicant> coApplicantList) {
         this.coApplicantList = coApplicantList;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public MyNewProspect(int id, String branchName, String userName, String profession,
@@ -43,8 +52,129 @@ public class MyNewProspect extends MyNewLead implements Serializable {
 
     }
 
+    public String getRmCode() {
+        return rmCode;
+    }
 
-    public MyNewProspect(String branchName, String userName, String profession, String organization, String designation, String phone, String address, String sourceRef, String productType, String productSubcategory, String loadAmount, String orInterest, String opFee, String disDate, String visitDate, String followUp, String remark, String status, String segment, String dateOfBirth, String age, String dob, String cob,String pIDType,String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String businessIncomeAmount, String apartmentAmount, String semipakaIncome, String officeSpaceINcome, String wireHouseINcome,String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String prospectFee) {
+    public void setRmCode(String rmCode) {
+        this.rmCode = rmCode;
+    }
+
+    public int getPermAddressId() {
+        return permAddressId;
+    }
+
+    public void setPermAddressId(int permAddressId) {
+        this.permAddressId = permAddressId;
+    }
+
+    public int getPresAddressId() {
+        return presAddressId;
+    }
+
+    public void setPresAddressId(int presAddressId) {
+        this.presAddressId = presAddressId;
+    }
+
+    @Override
+    public int getBranchCode() {
+        return branchCode;
+    }
+
+    @Override
+    public void setBranchCode(int branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public int getAssetTypeId() {
+        return assetTypeId;
+    }
+
+    public void setAssetTypeId(int assetTypeId) {
+        this.assetTypeId = assetTypeId;
+    }
+
+    public int getManufacturingNameId() {
+        return manufacturingNameId;
+    }
+
+    public void setManufacturingNameId(int manufacturingNameId) {
+        this.manufacturingNameId = manufacturingNameId;
+    }
+
+    public int getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
+    public String getManufacturingName() {
+        return manufacturingName;
+    }
+
+    public void setManufacturingName(String manufacturingName) {
+        this.manufacturingName = manufacturingName;
+    }
+
+    public String getManufacturingCountry() {
+        return manufacturingCountry;
+    }
+
+    public void setManufacturingCountry(String manufacturingCountry) {
+        this.manufacturingCountry = manufacturingCountry;
+    }
+
+    public String getManufacturingYear() {
+        return manufacturingYear;
+    }
+
+    public void setManufacturingYear(String manufacturingYear) {
+        this.manufacturingYear = manufacturingYear;
+    }
+
+    public String getAssetType() {
+        return assetType;
+    }
+
+    public void setAssetType(String assetType) {
+        this.assetType = assetType;
+    }
+
+    public String getPermAddressCity() {
+        return PermAddressCity;
+    }
+
+    public void setPermAddressCity(String permAddressCity) {
+        PermAddressCity = permAddressCity;
+    }
+
+    public String getPermAddressPs() {
+        return PermAddressPs;
+    }
+
+    public void setPermAddressPs(String permAddressPs) {
+        PermAddressPs = permAddressPs;
+    }
+
+    public String getPresAddressCity() {
+        return PresAddressCity;
+    }
+
+    public void setPresAddressCity(String presAddressCity) {
+        PresAddressCity = presAddressCity;
+    }
+
+    public String getPresAddressPs() {
+        return PresAddressPs;
+    }
+
+    public void setPresAddressPs(String presAddressPs) {
+        PresAddressPs = presAddressPs;
+    }
+
+    public MyNewProspect(String branchName, String userName, String profession, String organization, String designation, String phone, String address, String sourceRef, String productType, String productSubcategory, String loadAmount, String orInterest, String opFee, String disDate, String visitDate, String followUp, String remark, String status, String segment, String dateOfBirth, String age, String dob, String cob, String pIDType, String pIdNumber, String pIssueDate, String etin, String fName, String mName, String sName, String exList, String currentJob, String applicant, String pAddress, String netSalary, String salaryAmount, String businessIncomeAmount, String apartmentAmount, String semipakaIncome, String officeSpaceINcome, String wireHouseINcome, String ag_Income, String tution, String remitance, String inFdr, String fExpense, String emiOther, String sValue, String loanReq, String loanTerm, String piRate, String prospectFee) {
         super(branchName,  userName, profession, organization, designation, phone, address, sourceRef, productType, productSubcategory, loadAmount, orInterest, opFee, disDate, visitDate, followUp, remark, status);
         this.segment = segment;
         this.dateOfBirth = dateOfBirth;

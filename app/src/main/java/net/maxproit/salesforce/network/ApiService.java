@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.network;
 
 
+import net.maxproit.salesforce.masum.model.api.followup.FollowUpHistoryApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
@@ -67,6 +68,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
@@ -98,8 +100,11 @@ public interface ApiService {
     Call<CompleteActivity> actionCompleteActivity(@Path("ActivityJournalID") int journalId);
 
     @POST("Activity/api/ProccedActivity/{ActivityJournalID}/{LeadReferenceNo}")
-    Call<CompleteActivity> ActivityProceed(@Path("ActivityJournalID") int journalId,@Path("LeadReferenceNo") String refNo);
+    Call<CompleteActivity> ActivityProceed(@Path("ActivityJournalID") int journalId, @Path("LeadReferenceNo") String refNo);
 
+    //gollow up api
+    @GET("Activity/api/HistoryOfActivity/{ActivityJournalID}/{timestamp}")
+    Call<FollowUpHistoryApi> getFollowUpHistory(@Path("ActivityJournalID") int journalId, @Path("timestamp") String random);
 
     //visit plan
     @POST("VisitPlan/VisitPlan")
@@ -137,6 +142,9 @@ public interface ApiService {
 //    @POST("proceedLead")
 //    Call<ApprovalResponce> myleadApproval(@Body MyLeadApproval myLeadApproval);
 
+    @POST("CdApproval/proceedprospect")
+    Call<ApprovalResponce> myprospectApproval(@Body Approval myLeadApproval);
+
     @POST("CdApproval/proceedLead")
     Call<ApprovalResponce> myleadApproval(@Body Approval myLeadApproval);
 
@@ -170,8 +178,11 @@ public interface ApiService {
     @POST("Prospect")
     Call<OleProspect> myProspect(@Body NewProspect newProspect);
 
- @POST("CdProspect/Prospect")
+    @POST("CdProspect/Prospect")
     Call<OldPostpectResponse> myNewProspect(@Body NewProspectUpdate newProspectUpdate);
+
+// @POST("CdProspect/Prospect")
+//    Call<OldPostpectResponse> myNewProspectData(@Body net.maxproit.salesforce.masum.model.prospectmodel.Data newProspectUpdate);
 
 
     @GET("Prospect/{id}/{random}")

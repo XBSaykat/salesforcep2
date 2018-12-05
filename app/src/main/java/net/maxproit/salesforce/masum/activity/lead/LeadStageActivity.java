@@ -254,7 +254,11 @@ public class LeadStageActivity extends BaseActivity {
         myLeadApi.setRmCode("336132");
         myLeadApi.setUserName(userName);
         myLeadApi.setBranchName(branchName);
-        myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+
+        if (LeadStageBasicInformationFragment.branchCode != null)
+            myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+
+
         myLeadApi.setCustomerName(name);
         if (myNewLead != null) {
             myLeadApi.setCustomerId(myNewLead.getCusId());
@@ -278,17 +282,29 @@ public class LeadStageActivity extends BaseActivity {
         myLeadApi.setProductSubCategoryId(LeadStageLoanDetailFragment.productSubCatCode);
         myLeadApi.setProductSubCategory(subCat);
         if (loanAmount != null)
-            myLeadApi.setLoanAmount(Integer.valueOf(loanAmount.replace(",", "")));
+            try {
+                myLeadApi.setLoanAmount(Integer.valueOf(loanAmount.replace(",", "")));
+            } catch (NumberFormatException e) {
+
+            }
         else
             myLeadApi.setLoanAmount(0);
         if (interest != null)
-            myLeadApi.setOfferedInterestRate(Integer.valueOf(interest));
+            try {
+                myLeadApi.setOfferedInterestRate((float) Float.valueOf(interest));
+            } catch (NumberFormatException e) {
+
+            }
         else
-            myLeadApi.setOfferedInterestRate(0);
+            myLeadApi.setOfferedInterestRate((float) 0);
         if (fee != null)
-            myLeadApi.setOfferedProcessFee(Integer.valueOf(fee));
+            try {
+                myLeadApi.setOfferedProcessFee((float) Float.valueOf(fee));
+            } catch (NumberFormatException e) {
+
+            }
         else
-            myLeadApi.setOfferedProcessFee(0);
+            myLeadApi.setOfferedProcessFee((float) 0);
         myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(disDate));
 
         myLeadApi.setFollowUp(followUp);
@@ -323,8 +339,6 @@ public class LeadStageActivity extends BaseActivity {
     }
 
     private void alertDialogSave(final MyNewLead myNewLead) {
-
-
         android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new android.app.AlertDialog.Builder(LeadStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
@@ -397,6 +411,7 @@ public class LeadStageActivity extends BaseActivity {
                                             designation, phone, address, ref, productType, subCat,
                                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
                                     if (visitPlan != null) {
+
                                         callActivityApi(visitPlan.getJournalId(), data.getLeadReferenceNo());
                                     }
                                     finish();
@@ -441,7 +456,8 @@ public class LeadStageActivity extends BaseActivity {
         getApiService().ActivityProceed(journalId, refNo).enqueue(new Callback<CompleteActivity>() {
             @Override
             public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
-                Log.e("", "");
+
+
             }
 
             @Override
@@ -480,6 +496,7 @@ public class LeadStageActivity extends BaseActivity {
                                         int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
                                                 designation, phone, address, ref, productType, subCat,
                                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
+
                                         leadApprove(data);
                                     } else {
                                         showAlertDialog("ERROR", response.body().getMessage());
@@ -505,8 +522,7 @@ public class LeadStageActivity extends BaseActivity {
                                 designation, phone, address, ref, productType, subCat,
                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
 
-                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-
+                        finish();
                     }
 
                 } else {
@@ -525,6 +541,9 @@ public class LeadStageActivity extends BaseActivity {
                                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_OK);
                                         if (visitPlan != null) {
                                             callActivityApi(visitPlan.getJournalId(), data.getLeadReferenceNo());
+                                            leadApprove(data);
+                                        } else {
+                                            leadApprove(data);
                                         }
                                         finish();
 
@@ -535,8 +554,7 @@ public class LeadStageActivity extends BaseActivity {
                                             designation, phone, address, ref, productType, subCat,
                                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
 
-                                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-
+                                    finish();
 
                                 }
 
@@ -552,8 +570,7 @@ public class LeadStageActivity extends BaseActivity {
                                 Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
-                        ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
-                        Toast.makeText(LeadStageActivity.this, "data save successfully", Toast.LENGTH_SHORT).show();
+                        finish();
 
                     }
 

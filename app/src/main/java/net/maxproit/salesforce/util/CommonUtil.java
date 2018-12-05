@@ -119,14 +119,15 @@ public class CommonUtil {
     }
 
     public static String emptyFieldToZero(String value){
-
+            if (value != null){
             if (value.equals("")) {
                 value = "0";
                 return value;
             } else {
                 return value;
             }
-
+            }
+        return value = "0";
 
     }
     public static void showCurrentDatePicker(Context context, final EditText editText, Calendar c) {

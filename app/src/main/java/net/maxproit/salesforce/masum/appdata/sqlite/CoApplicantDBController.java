@@ -123,7 +123,7 @@ public class CoApplicantDBController {
 
 
 
-    public ArrayList<CoApplicant> getAllData(int id) {
+    public ArrayList<CoApplicant> getAllData(String id) {
 
         String[] projection = {
                 DbConstants.CO_APPLICANT_ID,
@@ -193,7 +193,7 @@ public class CoApplicantDBController {
                 do {
                     // get  the  data into array,or class variable
                     int id = c.getInt(c.getColumnIndexOrThrow(DbConstants.CO_APPLICANT_ID));
-                    int lead_id = c.getInt(c.getColumnIndexOrThrow(DbConstants.LEAD_ID_FOR_CO));
+                    String lead_id = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_ID_FOR_CO));
                     String userName = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_USER_NAME));
                     String dateOfBirth = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_DATE_OF_BIRTH));
                     String age = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_AGE));
