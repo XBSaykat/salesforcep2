@@ -2,6 +2,12 @@ package net.maxproit.salesforce.masum.model.api.visitPlan;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.VisitPlan;
+import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
+
 public class Data {
 
     @SerializedName("ActivityDate")
@@ -135,6 +141,24 @@ public class Data {
 
     public void setVisitPurposeType(String visitPurposeType) {
         this.visitPurposeType = visitPurposeType;
+    }
+
+    public Data getVisitPlanApiModelData(VisitPlan visitPlan,String userName) {
+        Data myLeadApi = new Data();
+        myLeadApi.setVisitPurposeType(visitPlan.getPurposeOfVisit());
+        myLeadApi.setActivityDate(visitPlan.getDateOfVisit());
+        myLeadApi.setActivityJournalID(visitPlan.getJournalId());
+        myLeadApi.setActivityStatus(visitPlan.getStatus());
+        myLeadApi.setCustomerName(visitPlan.getClientName());
+        myLeadApi.setCity(visitPlan.getCity());
+        myLeadApi.setClientType(visitPlan.getClientType());
+        myLeadApi.setProductType(visitPlan.getProductType());
+        myLeadApi.setMaker(userName);
+        myLeadApi.setMobileNo(visitPlan.getMobileNumber());
+        myLeadApi.setRemarks(visitPlan.getRemarks());
+        myLeadApi.setPs(visitPlan.getPoliceStation());
+
+        return myLeadApi;
     }
 
 }

@@ -51,10 +51,10 @@ public class Data implements Serializable {
     private Integer mobileNumberId;
     @SerializedName("offeredInterestRate")
     @Expose
-    private Integer offeredInterestRate;
+    private Float offeredInterestRate;
     @SerializedName("offeredProcessFee")
     @Expose
-    private Integer offeredProcessFee;
+    private Float offeredProcessFee;
     @SerializedName("organization")
     @Expose
     private String organization;
@@ -204,19 +204,19 @@ public class Data implements Serializable {
         this.mobileNumberId = mobileNumberId;
     }
 
-    public Integer getOfferedInterestRate() {
+    public Float getOfferedInterestRate() {
         return offeredInterestRate;
     }
 
-    public void setOfferedInterestRate(Integer offeredInterestRate) {
+    public void setOfferedInterestRate(Float offeredInterestRate) {
         this.offeredInterestRate = offeredInterestRate;
     }
 
-    public Integer getOfferedProcessFee() {
+    public Float getOfferedProcessFee() {
         return offeredProcessFee;
     }
 
-    public void setOfferedProcessFee(Integer offeredProcessFee) {
+    public void setOfferedProcessFee(Float offeredProcessFee) {
         this.offeredProcessFee = offeredProcessFee;
     }
 

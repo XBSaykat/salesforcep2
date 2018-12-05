@@ -242,7 +242,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         layoutPurOfvisit = findViewById(R.id.lyout_purpose_of_visit);
         lPTypeSpinner = findViewById(R.id.secProductTypeSpinner);
         secMobiile = (LinearLayout) findViewById(R.id.secinput_mobile_no);
-        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localSetting.getSourceOfRefString());
+        adptrClientType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localSetting.getClientTypeString());
         spinnerClientType.setAdapter(adptrClientType);
         adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localSetting.getVisitPurposeTypeStringList());
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
@@ -397,7 +397,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         builder.setMessage(getString(R.string.reject_item));
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-           if(isNetworkAvailable())  {
+            if (isNetworkAvailable()) {
                 getApiService().actionCompleteActivity(visitPlanModel.getJournalId()).enqueue(new Callback<CompleteActivity>() {
                     @Override
                     public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
@@ -412,12 +412,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                     }
                 });
-            }
-            else{
-               Log.e("", "");
-               visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(), AppConstant.REJECTED);
-               startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivity.class));
-               finish();
+            } else {
+                Log.e("", "");
+                visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(), AppConstant.REJECTED);
+                startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivity.class));
+                finish();
             }
 
         });
@@ -428,9 +427,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     private void setUpdatedData() {
 
         if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_NEW)) {
-
             upactivityData();
-
         }
         /*else if (visitPlanModel != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY_NEW)) {
             updatePlanData();
@@ -519,22 +516,20 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             }
             sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
 
-            if (visitPlanModel.getCity() !=null) {
+            if (visitPlanModel.getCity() != null) {
                 try {
                     spinnerCity.setSelection(cityAdapter.getPosition(visitPlanModel.getCity()));
                 } catch (final IllegalStateException e) {
                     e.getMessage();
                 }
             }
-            if (visitPlanModel.getPoliceStation() !=null) {
+            if (visitPlanModel.getPoliceStation() != null) {
                 try {
                     spinnerPoliceStation.setSelection(polishStationAdapter.getPosition(visitPlanModel.getPoliceStation()));
                 } catch (final IllegalStateException e) {
                     e.getMessage();
                 }
             }
-
-
 
 
             lnCity.setVisibility(View.GONE);
@@ -586,9 +581,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                             Log.e("status", "save data into server and local" + response.body().getData().toString());
                             finish();
-                        }
-
-                        else {
+                        } else {
                             visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                                     data.getCustomerName(),
                                     data.getClientType(),
@@ -613,9 +606,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                     }
                 });
-            }
-
-            else {
+            } else {
                 visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                         data.getCustomerName(),
                         data.getClientType(),
@@ -804,7 +795,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
 
     private void processToLeadDetails() {
-        Data data=getDataFromField(visitPlanModel.getJournalId());
+        Data data = getDataFromField(visitPlanModel.getJournalId());
         if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
 
             if (visitPlanModel != null) {
@@ -827,9 +818,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                         data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
                                 Log.e("status", "save data into server and local" + response.body().getData().toString());
                                 finish();
-                            }
-
-                            else {
+                            } else {
                                 visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                                         data.getCustomerName(),
                                         data.getClientType(),
@@ -854,8 +843,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                         }
                     });
-                }
-                else{
+                } else {
                     visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                             data.getCustomerName(),
                             data.getClientType(),
@@ -883,6 +871,57 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         data.getFollowupRemarks(),
                         AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT);
                 ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, visitPlan);
+            }
+
+            else {
+                Data data1 = getDataFromField(0);
+
+                if (isNetworkAvailable()) {
+                    getApiService().createActivity(data1).enqueue(new Callback<MyActivityApi>() {
+                        @Override
+                        public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+                            if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                Data data1 = response.body().getData();
+                                visitPlanDbController.insertData(data1.getActivityJournalID(), tvClientName.getText().toString(), spinerClientTypeStr,
+                                        tvMobileNumber.getText().toString(), sProductTypeString,
+                                        citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
+                                        tvRemarks.getText().toString(), data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK);
+                                Log.e("status", "save data into server and local" + response.body().getData().toString());
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                            getAlertDialog("ERROR", t.getMessage());
+
+                        }
+                    });
+                } else {
+                    visitPlanDbController.insertData(0, tvClientName.getText().toString(), spinerClientTypeStr,
+                            tvMobileNumber.getText().toString(), sProductTypeString,
+                            citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
+                            tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
+                    Log.e("status", " no internet save data into local");
+
+
+                }
+
+
+                VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), data1.getActivityJournalID(),
+                        data1.getCustomerName(),
+                        data1.getClientType(),
+                        data1.getMobileNo(),
+                        data1.getPs(),
+                        data1.getProductType(),
+                        data1.getCity(),
+                        data1.getVisitPurposeType(),
+                        data1.getFollowupDate(),
+                        data1.getFollowupRemarks(),
+                        AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT);
+                ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, visitPlan);
+
             }
 
         } else {

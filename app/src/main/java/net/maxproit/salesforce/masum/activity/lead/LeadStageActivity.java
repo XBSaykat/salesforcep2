@@ -254,7 +254,12 @@ public class LeadStageActivity extends BaseActivity {
         myLeadApi.setRmCode("336132");
         myLeadApi.setUserName(userName);
         myLeadApi.setBranchName(branchName);
-        myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+        try {
+            myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+        }
+        catch (NullPointerException e){
+            e.getMessage();
+        }
         myLeadApi.setCustomerName(name);
         if (myNewLead != null) {
             myLeadApi.setCustomerId(myNewLead.getCusId());
@@ -282,13 +287,13 @@ public class LeadStageActivity extends BaseActivity {
         else
             myLeadApi.setLoanAmount(0);
         if (interest != null)
-            myLeadApi.setOfferedInterestRate(Integer.valueOf(interest));
+            myLeadApi.setOfferedInterestRate((float)Float.valueOf(interest));
         else
-            myLeadApi.setOfferedInterestRate(0);
+            myLeadApi.setOfferedInterestRate((float) 0);
         if (fee != null)
-            myLeadApi.setOfferedProcessFee(Integer.valueOf(fee));
+            myLeadApi.setOfferedProcessFee((float)Float.valueOf(fee));
         else
-            myLeadApi.setOfferedProcessFee(0);
+            myLeadApi.setOfferedProcessFee((float) 0);
         myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(disDate));
 
         myLeadApi.setFollowUp(followUp);
