@@ -62,6 +62,9 @@ public class DateUtils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         return strDate;
     }
