@@ -86,6 +86,7 @@ public class VisitPlanDbController {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.LEAD_STATUS, status);
+
         return db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + id, null);
     }
 
@@ -124,10 +125,11 @@ public class VisitPlanDbController {
         return fetchData(c);
     }
 
-    public int updateSyncDataStatus(int id, String status) {
+    public int updateSyncDataStatus(int id, String status,int journalId) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.SYNC_STATUS, status);
+        values.put(DbConstants.VISIT_JOURNAL_ID, journalId);
         return db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + id, null);
 
 
