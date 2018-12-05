@@ -159,4 +159,20 @@ public class VisitPlan implements Serializable {
     public int getId() {
         return id;
     }
+
+    public String getFollowUpDate() {
+        return followUpDate;
+    }
+
+    public void setFollowUpDate(String followUpDate) {
+        this.followUpDate = followUpDate;
+    }
+
+    public String getFollowUpRemark() {
+        return followUpRemark;
+    }
+
+    public void setFollowUpRemark(String followUpRemark) {
+        this.followUpRemark = followUpRemark;
+    }
 }

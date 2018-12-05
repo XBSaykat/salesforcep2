@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.api.followup.FollowUpDatum;
 import net.maxproit.salesforce.masum.model.local.FollowUpActivity;
 
 
@@ -16,13 +17,13 @@ import java.util.ArrayList;
 
 public class FollowUpActivityAdapter  extends RecyclerView.Adapter<FollowUpActivityAdapter.CustomViewHolder>  {
     private Context context;
-    public ArrayList<FollowUpActivity> followUpList;
+    public ArrayList<FollowUpDatum> followUpList;
     public static OnItemClickListener mListener;
 
 
 
 
-    public FollowUpActivityAdapter(Context context, ArrayList<FollowUpActivity> leadList) {
+    public FollowUpActivityAdapter(Context context, ArrayList<FollowUpDatum> leadList) {
         this.context = context;
         this.followUpList = leadList;
     }
@@ -31,12 +32,12 @@ public class FollowUpActivityAdapter  extends RecyclerView.Adapter<FollowUpActiv
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         Context context;
-        ArrayList<FollowUpActivity> followUpList;
+        ArrayList<FollowUpDatum> followUpList;
         private TextView tvDate,tvRemark,tvFollowUpSerial;
 
 
 
-        public CustomViewHolder(View itemView, Context context, ArrayList<FollowUpActivity> followUpList) {
+        public CustomViewHolder(View itemView, Context context, ArrayList<FollowUpDatum> followUpList) {
             super(itemView);
             this.context = context;
             this.followUpList = followUpList;
@@ -62,8 +63,8 @@ public class FollowUpActivityAdapter  extends RecyclerView.Adapter<FollowUpActiv
 
     @Override
     public void onBindViewHolder(FollowUpActivityAdapter.CustomViewHolder holder, final int position) {
-        holder.tvDate.setText(""+ followUpList.get(position).getFollowUpdate());
-        holder.tvRemark.setText(""+ followUpList.get(position).getRemark());
+        holder.tvDate.setText(""+ followUpList.get(position).getFollowupDate());
+        holder.tvRemark.setText(""+ followUpList.get(position).getRemarks());
         int s=position+1;
         holder.tvFollowUpSerial.setText(""+s);
 
@@ -71,13 +72,13 @@ public class FollowUpActivityAdapter  extends RecyclerView.Adapter<FollowUpActiv
 
     }
 
-    public void setFilter(ArrayList<FollowUpActivity> newDataList) {
+    public void setFilter(ArrayList<FollowUpDatum> newDataList) {
         followUpList =new ArrayList<>();
         followUpList.addAll(newDataList);
         notifyDataSetChanged();
     }
 
-    public ArrayList<FollowUpActivity> getDataList() {
+    public ArrayList<FollowUpDatum> getDataList() {
         return followUpList;
     }
 
