@@ -219,7 +219,7 @@ public class FragmentCurrentActivity extends BaseFragment {
                     String followupDate = null;
                     String activityDate = null;
                     if (data.getFollowupDate() != null) {
-                        followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
+                        activityDate = CommonUtil.jsonToDate(data.getFollowupDate());
                     }
                     if (data.getActivityDate() != null) {
                         followupDate = CommonUtil.jsonToDate(data.getActivityDate());
