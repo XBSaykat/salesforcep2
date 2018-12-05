@@ -50,8 +50,8 @@ public class ProspectStageCoApplicantFragment extends Fragment {
     CoApplicantListAdapter coApplicantAdapter;
     private ArrayList<CoApplicant> coApplicantList, filteredList;
     private CoApplicantDBController coApplicantDBController;
-//    private MyNewLead mylead;
-
+    //    private MyNewLead mylead;
+    String refId = null;
 
     private static ProspectStageActivity prospectStageActivity;
     int leadIdForCoApplicant;
@@ -100,6 +100,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         coApplicantDBController = new CoApplicantDBController(getActivity());
 
         MyNewLead mylead = prospectStageActivity.getDataFromProspect();
+        refId = prospectStageActivity.getDataFromProspect().getRefNumber();
         leadIdForCoApplicant = mylead.getId();
         coApplicantList = new ArrayList<>();
         filteredList = new ArrayList<>();
@@ -113,10 +114,11 @@ public class ProspectStageCoApplicantFragment extends Fragment {
             coApplicantList.clear();
         }
 
-        coApplicantList.addAll(coApplicantDBController.getAllData(leadIdForCoApplicant));
+        coApplicantList.addAll(coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()));
         viewListItems();
-        if (coApplicantList.size()>0){
+        if (coApplicantList.size() > 0) {
             Collections.reverse(coApplicantList);
+
         }
         coApplicantAdapter.notifyDataSetChanged();
 
@@ -130,7 +132,6 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         rvCoapplicantList.setLayoutManager(mLayoutManager);
         rvCoapplicantList.addItemDecoration(new DividerItemDecoration(getActivity(), ((LinearLayoutManager) mLayoutManager).VERTICAL, 16));
         rvCoapplicantList.setAdapter(coApplicantAdapter);
-
 
 
     }
@@ -151,7 +152,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
-                intent.putExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, leadIdForCoApplicant);
+                intent.putExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, refId);
                 startActivityForResult(intent, 1);
 
             }
@@ -160,7 +161,7 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         coApplicantAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
-               sentDataToCoApplicant(position);
+                sentDataToCoApplicant(position);
 
             }
         });
@@ -168,45 +169,45 @@ public class ProspectStageCoApplicantFragment extends Fragment {
 
     private void sentDataToCoApplicant(int position) {
 
-        CoApplicant coApplicant=new CoApplicant(coApplicantList.get(position).getId(),
-        coApplicantList.get(position).getLeadId(),
-        coApplicantList.get(position).getName(),
-        coApplicantList.get(position).getDateOfBirth(),
-        coApplicantList.get(position).getAge(),
-        coApplicantList.get(position).getDistrictOfBirth(),
-        coApplicantList.get(position).getCountryOfBirth(),
-        coApplicantList.get(position).getPhotoIdType(),
-        coApplicantList.get(position).getPhotoIdNo(),
-        coApplicantList.get(position).getPhotoIdIssueDate(),
-        coApplicantList.get(position).geteTin(),
-        coApplicantList.get(position).getfName(),
-        coApplicantList.get(position).getmName(),
-        coApplicantList.get(position).getsName(),
-        coApplicantList.get(position).getProfession(),
-        coApplicantList.get(position).getExList(),
-        coApplicantList.get(position).getCompanyName(),
-        coApplicantList.get(position).getDesignation(),
-        coApplicantList.get(position).getNoOfYrsInCurrentJob(),
-        coApplicantList.get(position).getRelationWithApplicant(),
-        coApplicantList.get(position).getPermanentAddress(),
-        coApplicantList.get(position).getPresentAddress(),
-        coApplicantList.get(position).getMobileNo(),
-        coApplicantList.get(position).getMonthSalaryType(),
-        coApplicantList.get(position).getMonthSalaryAmount(),
-        coApplicantList.get(position).getMonthBusinessIncomeAmount(),
-        coApplicantList.get(position).getMonthWareHouseAmount(),
-        coApplicantList.get(position).getMonthOfficeSpaceIncomeAmount(),
-        coApplicantList.get(position).getMonthSemipakaIncomeAmount(),
-        coApplicantList.get(position).getMonthApartmentIncomeAmount(),
-        coApplicantList.get(position).getMonthAgricultureIncomeAmount(),
-        coApplicantList.get(position).getMonthTuitionIncomeAmount(),
-        coApplicantList.get(position).getRemittance(),
-        coApplicantList.get(position).getInterestFDRIncomeAmount(),
-        coApplicantList.get(position).getMonthFamilyExpenditure(),
-        coApplicantList.get(position).getEmiOfOtherLoans()
-                );
+        CoApplicant coApplicant = new CoApplicant(coApplicantList.get(position).getId(),
+                coApplicantList.get(position).getLeadId(),
+                coApplicantList.get(position).getName(),
+                coApplicantList.get(position).getDateOfBirth(),
+                coApplicantList.get(position).getAge(),
+                coApplicantList.get(position).getDistrictOfBirth(),
+                coApplicantList.get(position).getCountryOfBirth(),
+                coApplicantList.get(position).getPhotoIdType(),
+                coApplicantList.get(position).getPhotoIdNo(),
+                coApplicantList.get(position).getPhotoIdIssueDate(),
+                coApplicantList.get(position).geteTin(),
+                coApplicantList.get(position).getfName(),
+                coApplicantList.get(position).getmName(),
+                coApplicantList.get(position).getsName(),
+                coApplicantList.get(position).getProfession(),
+                coApplicantList.get(position).getExList(),
+                coApplicantList.get(position).getCompanyName(),
+                coApplicantList.get(position).getDesignation(),
+                coApplicantList.get(position).getNoOfYrsInCurrentJob(),
+                coApplicantList.get(position).getRelationWithApplicant(),
+                coApplicantList.get(position).getPermanentAddress(),
+                coApplicantList.get(position).getPresentAddress(),
+                coApplicantList.get(position).getMobileNo(),
+                coApplicantList.get(position).getMonthSalaryType(),
+                coApplicantList.get(position).getMonthSalaryAmount(),
+                coApplicantList.get(position).getMonthBusinessIncomeAmount(),
+                coApplicantList.get(position).getMonthWareHouseAmount(),
+                coApplicantList.get(position).getMonthOfficeSpaceIncomeAmount(),
+                coApplicantList.get(position).getMonthSemipakaIncomeAmount(),
+                coApplicantList.get(position).getMonthApartmentIncomeAmount(),
+                coApplicantList.get(position).getMonthAgricultureIncomeAmount(),
+                coApplicantList.get(position).getMonthTuitionIncomeAmount(),
+                coApplicantList.get(position).getRemittance(),
+                coApplicantList.get(position).getInterestFDRIncomeAmount(),
+                coApplicantList.get(position).getMonthFamilyExpenditure(),
+                coApplicantList.get(position).getEmiOfOtherLoans()
+        );
 
-        ActivityUtils.invokCoApplicantViewStage(getActivity(),CoApplicantActivity.class,coApplicant);
+        ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant);
 
     }
 

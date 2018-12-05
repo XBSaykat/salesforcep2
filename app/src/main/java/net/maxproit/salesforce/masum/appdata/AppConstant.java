@@ -84,4 +84,5 @@ public class AppConstant {
     public static final String APPROVAL_PROSPECT_STATUS_YES = "N";
 
 
+    public static final String STATUS_ACTIVITY_PROCESS ="Process" ;
 }

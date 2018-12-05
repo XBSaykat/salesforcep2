@@ -433,9 +433,10 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_NEW)) {
             upactivityData();
         }
-        /*else if (visitPlanModel != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY_NEW)) {
-            updatePlanData();
-        } */
+        else if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_PROCESS)){
+            upactivityData();
+        }
+
         else {
             Data data = getDataFromField(0);
 
