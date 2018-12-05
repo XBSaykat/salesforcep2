@@ -461,40 +461,6 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    private MyLeadDataModelApi myLeadDataModelApi(MyNewLead myNewLead) {
-        MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
-        myLeadApi.setRmCode("336132");
-        myLeadApi.setUserName(myNewLead.getUserID());
-        myLeadApi.setBranchName(myNewLead.getBranchName());
-        myLeadApi.setBranchCode(myNewLead.getBranchCode());
-        myLeadApi.setCustomerName(myNewLead.getUserName());
-        myLeadApi.setCustomerId(myNewLead.getCusId());
-        myLeadApi.setProfession(myNewLead.getProfession());
-        myLeadApi.setOrganization(myNewLead.getOrganization());
-        myLeadApi.setDesignation(myNewLead.getDesignation());
-        myLeadApi.setMobileNumberId(myNewLead.getMobileId());
-        myLeadApi.setMobileNumber(myNewLead.getPhone());
-        myLeadApi.setAddressId(myNewLead.getAddressId());
-        myLeadApi.setAddress(myNewLead.getAddress());
-        myLeadApi.setSourceOfReference(myNewLead.getSourceRef());
-        myLeadApi.setProductId(myNewLead.getProductCode());
-        myLeadApi.setProduct(myNewLead.getProductType());
-        myLeadApi.setProductSubCategoryId(myNewLead.getSubCode());
-        myLeadApi.setProductSubCategory(myNewLead.getProductSubcategory());
-        myLeadApi.setLoanAmount(Integer.valueOf(myNewLead.getLoanAmount().replace(",","")));
-        myLeadApi.setOfferedInterestRate(Integer.valueOf(myNewLead.getOrInterest()));
-        myLeadApi.setOfferedProcessFee(Integer.valueOf(myNewLead.getOpFee()));
-        myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(myNewLead.getDisDate()));
-        myLeadApi.setVisitId(myNewLead.getVisitId());
-        myLeadApi.setFollowUp(myNewLead.getFollowUp());
-        myLeadApi.setFollowUpDate(DateUtils.getDateFormateForSqlite(myNewLead.getVisitDate()));
-        myLeadApi.setRemark(myNewLead.getRemark());
-        myLeadApi.setLeadReferenceNo(myNewLead.getRefNumber());
-
-
-        return myLeadApi;
-    }
-
 
 
     @Override

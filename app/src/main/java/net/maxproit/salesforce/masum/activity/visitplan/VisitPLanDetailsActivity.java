@@ -397,7 +397,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         builder.setMessage(getString(R.string.reject_item));
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-           if(isNetworkAvailable())  {
+            if (isNetworkAvailable()) {
                 getApiService().actionCompleteActivity(visitPlanModel.getJournalId()).enqueue(new Callback<CompleteActivity>() {
                     @Override
                     public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
@@ -412,12 +412,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                     }
                 });
-            }
-            else{
-               Log.e("", "");
-               visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(), AppConstant.REJECTED);
-               startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivity.class));
-               finish();
+            } else {
+                Log.e("", "");
+                visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(), AppConstant.REJECTED);
+                startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivity.class));
+                finish();
             }
 
         });
@@ -428,9 +427,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     private void setUpdatedData() {
 
         if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_NEW)) {
-
             upactivityData();
-
         }
         /*else if (visitPlanModel != null && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY_NEW)) {
             updatePlanData();
@@ -519,22 +516,20 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             }
             sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
 
-            if (visitPlanModel.getCity() !=null) {
+            if (visitPlanModel.getCity() != null) {
                 try {
                     spinnerCity.setSelection(cityAdapter.getPosition(visitPlanModel.getCity()));
                 } catch (final IllegalStateException e) {
                     e.getMessage();
                 }
             }
-            if (visitPlanModel.getPoliceStation() !=null) {
+            if (visitPlanModel.getPoliceStation() != null) {
                 try {
                     spinnerPoliceStation.setSelection(polishStationAdapter.getPosition(visitPlanModel.getPoliceStation()));
                 } catch (final IllegalStateException e) {
                     e.getMessage();
                 }
             }
-
-
 
 
             lnCity.setVisibility(View.GONE);
@@ -586,9 +581,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                             Log.e("status", "save data into server and local" + response.body().getData().toString());
                             finish();
-                        }
-
-                        else {
+                        } else {
                             visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                                     data.getCustomerName(),
                                     data.getClientType(),
@@ -613,9 +606,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                     }
                 });
-            }
-
-            else {
+            } else {
                 visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                         data.getCustomerName(),
                         data.getClientType(),
@@ -804,7 +795,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
 
     private void processToLeadDetails() {
-        Data data=getDataFromField(visitPlanModel.getJournalId());
+        Data data = getDataFromField(visitPlanModel.getJournalId());
         if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
 
             if (visitPlanModel != null) {
@@ -827,9 +818,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                         data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
                                 Log.e("status", "save data into server and local" + response.body().getData().toString());
                                 finish();
-                            }
-
-                            else {
+                            } else {
                                 visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                                         data.getCustomerName(),
                                         data.getClientType(),
@@ -854,8 +843,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                         }
                     });
-                }
-                else{
+                } else {
                     visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                             data.getCustomerName(),
                             data.getClientType(),
