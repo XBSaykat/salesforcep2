@@ -114,6 +114,24 @@ public class LocalSetting {
 
     }
 
+    public List<ClientType> getClientType() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getClientType();
+        }
+        return new ArrayList<>();
+
+    }
+
+
+    public List<String> getClientTypeString() {
+        List<String> list = new ArrayList<>();
+        for (ClientType in : getClientType()) {
+            list.add(in.getClientType());
+        }
+        return list;
+
+    }
+
 
     public List<PropertyType> getPropertyType() {
         if (getLocalSetting() != null) {
@@ -147,6 +165,37 @@ public class LocalSetting {
         for (int i = 0; i < getProductCategory().size(); i++) {
             if (i == position) {
                 code = getProductCategory().get(i).getProductCode();
+                break;
+            }
+        }
+        return code;
+    }
+
+
+
+    public List<PhotoIdType> getPhotoIDType() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getPhotoIdType();
+        }
+        return new ArrayList<>();
+
+    }
+
+
+    public List<String> getphotoIDTypestring() {
+        List<String> list = new ArrayList<>();
+        for (PhotoIdType in : getPhotoIDType()) {
+            list.add(in.getIdentityType());
+        }
+        return list;
+    }
+
+
+    public int getPhotoIdCode(int position) {
+        int code = 0;
+        for (int i = 0; i < getPhotoIDType().size(); i++) {
+            if (i == position) {
+                code = getPhotoIDType().get(i).getIdentityTypeCode();
                 break;
             }
         }

@@ -254,7 +254,12 @@ public class LeadStageActivity extends BaseActivity {
         myLeadApi.setRmCode("336132");
         myLeadApi.setUserName(userName);
         myLeadApi.setBranchName(branchName);
-        myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+        try {
+            myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
+        }
+        catch (NullPointerException e){
+            e.getMessage();
+        }
         myLeadApi.setCustomerName(name);
         if (myNewLead != null) {
             myLeadApi.setCustomerId(myNewLead.getCusId());
