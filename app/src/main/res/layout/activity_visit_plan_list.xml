@@ -81,7 +81,7 @@
             android:layout_below="@+id/toolbar"
             android:layout_alignParentLeft="true" />
 
-
+        <include layout="@layout/view_common_loader" />
     </RelativeLayout>
 </layout>
 

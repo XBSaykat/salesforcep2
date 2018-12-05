@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 public class LeadLeastDataFromApi implements Serializable {
 
+private int id;
+
 @SerializedName("Reference")
 @Expose
 private String reference;
@@ -32,10 +34,11 @@ private String status;
 @Expose
 private String remark;
 
-    public LeadLeastDataFromApi(String reference, String name,
+    public LeadLeastDataFromApi(int id,String reference, String name,
                                 String branch, String address, String approvalSetID,
                                 String currentLevel, String status, String remark) {
         this.reference = reference;
+        this.id = id;
         this.name = name;
         this.branch = branch;
         this.address = address;
@@ -49,7 +52,15 @@ private String remark;
 return reference;
 }
 
-public void setReference(String reference) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setReference(String reference) {
 this.reference = reference;
 }
 

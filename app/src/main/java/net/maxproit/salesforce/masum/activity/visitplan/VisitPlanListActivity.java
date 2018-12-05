@@ -17,17 +17,21 @@ import android.widget.Toast;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityVisitPlanListBinding;
+import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.adapter.adapterplanlist.MyVisitPlanListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.FollowUpDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.api.myactivity.Datum;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
+import net.maxproit.salesforce.masum.model.api.visitPlan.Datum;
+import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
+import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanGetApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
+import net.maxproit.salesforce.util.CommonUtil;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
@@ -37,8 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VisitPlanListActivity extends BaseActivity {
-
+public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
 
 
     private android.support.v7.widget.Toolbar toolbar;
@@ -49,14 +52,14 @@ public class VisitPlanListActivity extends BaseActivity {
     private ImageView backButton, addButton;
     private ActivityVisitPlanListBinding binding;
     private MyVisitPlanListAdapter myLeadAdapter;
-    private ArrayList<VisitPlan> leadList,visitPlanList, filterList;
-    private ArrayList<Datum> visitPlanApiList,filterApiList;
+    private ArrayList<VisitPlan> leadList, visitPlanList, filterList;
+    private ArrayList<Datum> visitPlanApiList, filterApiList;
     private VisitPlanDbController myDbController;
     private FollowUpDbController followUpDbController;
     SearchView searchView;
     LocalSetting localSetting;
-    public static int itemPosition=0;
-    String userName=null;
+    public static int itemPosition = 0;
+    String userName = null;
 
     @Override
     protected int getLayoutResourceId() {
@@ -67,19 +70,19 @@ public class VisitPlanListActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivityVisitPlanListBinding) getBinding();
         myDbController = new VisitPlanDbController(getContext());
-        localSetting=new LocalSetting(this);
-        leadList=new ArrayList<>();
-        visitPlanList=new ArrayList<>();
-        visitPlanApiList=new ArrayList<>();
-        filterList=new ArrayList<>();
-        filterApiList=new ArrayList<>();
+        localSetting = new LocalSetting(this);
+        leadList = new ArrayList<>();
+        visitPlanList = new ArrayList<>();
+        visitPlanApiList = new ArrayList<>();
+        filterList = new ArrayList<>();
+        filterApiList = new ArrayList<>();
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
 
         backButton = findViewById(R.id.btn_back);
         addButton = findViewById(R.id.btn_add);
-        searchView=findViewById(R.id.search_view);
-        myLeadAdapter=new MyVisitPlanListAdapter(this,visitPlanApiList);
+        searchView = findViewById(R.id.search_view);
+        myLeadAdapter = new MyVisitPlanListAdapter(this, visitPlanApiList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         binding.rvMyLead.setLayoutManager(mLayoutManager);
         binding.rvMyLead.setAdapter(myLeadAdapter);
@@ -94,69 +97,79 @@ public class VisitPlanListActivity extends BaseActivity {
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
-        if (!visitPlanList.isEmpty()){
+        if (!visitPlanList.isEmpty()) {
             visitPlanList.clear();
         }
+        if (!visitPlanApiList.isEmpty()) {
+            visitPlanApiList.clear();
+        }
+
         Bundle extraDetail = getIntent().getExtras();
 
-        if (extraDetail !=null){
-            int status=extraDetail.getInt(AppConstant.STATUS_INTENT_KEY,-1);
-            if (status==1){
+        if (extraDetail != null) {
+            int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
+            if (status == 1) {
                 visitPlanList.addAll(myDbController.getPreviousData(DateUtils.getDateString()));
                 myLeadAdapter.notifyDataSetChanged();
                 searchView.setQueryHint("search unexecuted plan");
 
-            }
-
-            else if (status==2){
+            } else if (status == 2) {
                 visitPlanList.addAll(myDbController.getUpComingData(DateUtils.getDateString()));
                 myLeadAdapter.notifyDataSetChanged();
                 searchView.setQueryHint("search upcoming plan");
-            }
-            else if (status==3){
+            } else if (status == 3) {
                 visitPlanList.addAll(myDbController.getPlanDataUsingStatus(AppConstant.STATUS_ACTIVITY));
                 myLeadAdapter.notifyDataSetChanged();
                 searchView.setQueryHint("search Fresh Activity");
-            }
-            else if (status==4){
+            } else if (status == 4) {
                 visitPlanList.addAll(myDbController.getPlanDataUsingStatus(AppConstant.VISITED));
                 myLeadAdapter.notifyDataSetChanged();
                 searchView.setQueryHint("search visited Activity");
 
 
-            }
-            else{
-                if (isNetworkAvailable()){
+            } else {
+                if (isNetworkAvailable()) {
+                    showProgressDialog();
+
+
                     String random = UUID.randomUUID().toString();
-                    getApiService().getActivityData(userName,random).enqueue(new Callback<MyActivityGetDataApi>() {
+                    getApiService().getVisitPlan(userName, random).enqueue(new Callback<MyVisitPlanGetApi>() {
                         @Override
-                        public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
+                        public void onResponse(Call<MyVisitPlanGetApi> call, Response<MyVisitPlanGetApi> response) {
                             if (response.body().getCode().equals("200") &&
-                                    response.body().getStatus().equalsIgnoreCase("ok")){
+                                    response.body().getStatus().equalsIgnoreCase("ok")) {
                                 visitPlanApiList.addAll(response.body().getData());
                                 myLeadAdapter.notifyDataSetChanged();
+                                hideProgressDialog();
 
+                            } else {
+                                showAlertDialog("ERROR", response.message());
+                                showEmptyView();
+                                hideProgressDialog();
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
+                        public void onFailure(Call<MyVisitPlanGetApi> call, Throwable t) {
+                            showAlertDialog("ERROR", t.getMessage());
+                            showEmptyView();
 
                         }
                     });
-                }
-                if (!myDbController.getPlanData().equals(null)){
-                    visitPlanList.addAll(myDbController.getPlanData());
-                    myLeadAdapter.notifyDataSetChanged();
-                }
-
-                else {
-                    Toast.makeText(this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (myDbController.getPlanData().size() > 0) {
+                        MyVisitPlanGetApi myVisitPlanGetApi = new MyVisitPlanGetApi();
+                        visitPlanApiList.addAll(myVisitPlanGetApi.getVisitPlanList(myDbController.getPlanData()));
+                        myLeadAdapter.notifyDataSetChanged();
+                        hideProgressDialog();
+                    } else {
+                        showEmptyView();
+                        hideProgressDialog();
+                    }
                 }
             }
-
+            hideProgressDialog();
         }
-
 
 
     }
@@ -167,44 +180,6 @@ public class VisitPlanListActivity extends BaseActivity {
 
     }
 
-    //    private Toolbar toolbar;
-//    private TabLayout tabLayout;
-//    private ViewPager viewPager;
-//    private TextView btnSave;
-//
-//
-//    private Spinner spnClientType;
-//
-//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_my_activites_new);
-//
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        viewPager = (ViewPager) findViewById(R.id.my_activities_viewpager);
-//        setupViewPager(viewPager);
-//
-//        tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
-//
-//
-//
-//    }
-//
-
-//    @Override
-//    public void onBackPressed() {
-//
-//
-//        super.onBackPressed();
-//        startActivity(new Intent(MyActivitiesActivity.this, DashboardSalesOfficerActivity.class));
-//        finish();
-//    }
 
     private void initListener() {
 
@@ -218,7 +193,6 @@ public class VisitPlanListActivity extends BaseActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 alertDialog();
             }
         });
@@ -262,7 +236,7 @@ public class VisitPlanListActivity extends BaseActivity {
         final ArrayList<Datum> filteredModelList = new ArrayList<>();
         for (Datum model : models) {
             final String uName = model.getCustomerName().toLowerCase();
-            final String phone = model.getMobileNo().toLowerCase();
+            final String phone = model.getActivityJournalID().toLowerCase();
 
             if (uName.contains(searchKey) || phone.contains(searchKey)) {
                 filteredModelList.add(model);
@@ -279,21 +253,57 @@ public class VisitPlanListActivity extends BaseActivity {
     }
 
     private void sentDataToDetail(int position) {
-        VisitPlan visitPlan = new VisitPlan(
-                Integer.valueOf(filterApiList.get(position).getActivityJournalID()),
-                filterApiList.get(position).getCustomerName(),
-                filterApiList.get(position).getClientType(),
-                filterApiList.get(position).getMobileNo(),
-                filterApiList.get(position).getPS(),
-                filterApiList.get(position).getProductType(),
-                filterApiList.get(position).getCity(),
-                filterApiList.get(position).getVisitPurposeType(),
-                filterApiList.get(position).getActivityDate(),
-                filterApiList.get(position).getRemarks(),
-                filterApiList.get(position).getActivityStatus(),
-                filterApiList.get(position).getActivityStatus()
-                );
-        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPlanActivity.class, visitPlan);
+
+        if (isNetworkAvailable()) {
+            String random = UUID.randomUUID().toString();
+            int journalId= Integer.parseInt(filterApiList.get(position).getActivityJournalID());
+            getApiService().getVisitPlanByJournalId(journalId,random).enqueue(new Callback<MyVisitPlanApi>() {
+                @Override
+                public void onResponse(Call<MyVisitPlanApi> call, Response<MyVisitPlanApi> response) {
+                   if (response.body().getCode().equals("200")){
+                       VisitPlan visitPlan = new VisitPlan(
+                               Integer.valueOf(filterApiList.get(position).getActivityJournalID()),
+                               filterApiList.get(position).getCustomerName(),
+                               filterApiList.get(position).getClientType(),
+                               filterApiList.get(position).getMobileNo(),
+                               filterApiList.get(position).getPS(),
+                               filterApiList.get(position).getProductType(),
+                               filterApiList.get(position).getCity(),
+                               filterApiList.get(position).getVisitPurposeType(),
+                               CommonUtil.jsonToDate(response.body().getData().getActivityDate()),
+                               filterApiList.get(position).getRemarks(),
+                               filterApiList.get(position).getActivityStatus(),
+                               filterApiList.get(position).getActivityStatus()
+                       );
+
+                       ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPlanActivity.class, visitPlan);
+                   }
+                }
+
+                @Override
+                public void onFailure(Call<MyVisitPlanApi> call, Throwable t) {
+
+                }
+            });
+        } else {
+            VisitPlan visitPlan = new VisitPlan(
+                    Integer.valueOf(filterApiList.get(position).getActivityJournalID()),
+                    filterApiList.get(position).getCustomerName(),
+                    filterApiList.get(position).getClientType(),
+                    filterApiList.get(position).getMobileNo(),
+                    filterApiList.get(position).getPS(),
+                    filterApiList.get(position).getProductType(),
+                    filterApiList.get(position).getCity(),
+                    filterApiList.get(position).getVisitPurposeType(),
+                    filterApiList.get(position).getActivityDate(),
+                    filterApiList.get(position).getRemarks(),
+                    filterApiList.get(position).getActivityStatus(),
+                    filterApiList.get(position).getActivityStatus()
+            );
+
+            ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPlanActivity.class, visitPlan);
+
+        }
     }
 
 
@@ -309,9 +319,42 @@ public class VisitPlanListActivity extends BaseActivity {
         builder.setIcon(R.drawable.lead);
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-            ActivityUtils.getInstance().invokeActivity(VisitPlanListActivity.this, VisitPlanActivity.class,false);
+            ActivityUtils.getInstance().invokeActivity(VisitPlanListActivity.this, VisitPlanActivity.class, false);
         });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    @Override
+    public void adShowProgressDialog() {
+
+
+    }
+
+    @Override
+    public void adHideProgressDialog() {
+
+
+    }
+
+    @Override
+    public void adSuccess(String message) {
+
+    }
+
+    @Override
+    public void adFailed(String message) {
+
+    }
+
+    @Override
+    public void startActivity(boolean self, Bundle bundle) {
+
+    }
+
+    @Override
+    public void startActivity(boolean self, Bundle bundle, int code) {
+
+    }
+
 }

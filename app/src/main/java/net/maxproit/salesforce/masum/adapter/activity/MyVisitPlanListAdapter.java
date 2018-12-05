@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.adapter.adapterplanlist;
+package net.maxproit.salesforce.masum.adapter.activity;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.api.visitPlan.Datum;
-
+import net.maxproit.salesforce.masum.model.api.myactivity.Datum;
 
 import java.util.ArrayList;
 
@@ -76,7 +75,7 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
     public void onBindViewHolder(MyVisitPlanListAdapter.CustomViewHolder holder, final int position) {
         holder.tvId.setText(""+leadList.get(position).getActivityJournalID());
         holder.tvName.setText(leadList.get(position).getClientType());
-        holder.tvBranch.setText(leadList.get(position).getCustomerName());
+        holder.tvBranch.setText(leadList.get(position).getClientName());
         holder.tvStatus.setText(leadList.get(position).getActivityStatus());
 
     }

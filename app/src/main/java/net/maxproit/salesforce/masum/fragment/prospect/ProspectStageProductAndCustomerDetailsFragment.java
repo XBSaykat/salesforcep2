@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -84,7 +85,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
 
-    public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
+    public static String productCat, productDetails, branchName, branchCode = null, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
 
@@ -388,6 +389,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 branchName = s;
+                LongOperation longOperation=new LongOperation();
+                longOperation.execute(i);
             }
         });
 
@@ -509,8 +512,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
-        spinnerRelationship.setAdapter(realationAdapter);
+//        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
+//        spinnerRelationship.setAdapter(realationAdapter);
 
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listValidphoto);
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
@@ -519,7 +522,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
 
-            etName.setText(myNewLead.getUserName());
+            etName.setText(myNewLead.getApplicant());
             etPresentAddress.setText(myNewLead.getAddress());
             etDesignation.setText(myNewLead.getDesignation());
             etMobileNumber.setText(myNewLead.getPhone());
@@ -620,7 +623,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             if (myNewLead.getApplicant() != null) {
                 try {
-                    spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
+//                    spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
                 } catch (final IllegalStateException ignored) {
 
                 }
@@ -634,6 +637,28 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     private void setDataFromProspect(ArrayAdapter<CharSequence> adapter) {
 
 
+    }
+
+    private class LongOperation extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+             branchCode = localSetting.getBranchCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 
 

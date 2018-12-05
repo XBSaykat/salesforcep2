@@ -5,9 +5,15 @@ import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
+import net.maxproit.salesforce.masum.model.api.myactivity.CompleteActivity;
 import net.maxproit.salesforce.masum.model.api.myactivity.Data;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetByJournalIdApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
+import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
+import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanGetApi;
+import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
+import net.maxproit.salesforce.model.approval.Approval;
 import net.maxproit.salesforce.model.cib.notRequestedCIB.NotRequestedCIBData;
 import net.maxproit.salesforce.model.cib.post.CibPost;
 import net.maxproit.salesforce.model.cib.postResponce.CibPostResponce;
@@ -31,8 +37,10 @@ import net.maxproit.salesforce.model.mylead.updateLead.OldLead;
 import net.maxproit.salesforce.model.myprospect.MyProspect;
 import net.maxproit.salesforce.model.myprospect.documentlist.ProspectDocList;
 import net.maxproit.salesforce.model.myprospect.updateProspect.OleProspect;
+import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
 import net.maxproit.salesforce.model.newlead.NewLead;
 import net.maxproit.salesforce.model.newprospect.NewProspect;
+import net.maxproit.salesforce.model.newprospect.mynewprosppect.NewProspectUpdate;
 import net.maxproit.salesforce.model.salesOfficer.disbursement.Disbursement;
 import net.maxproit.salesforce.model.salesOfficer.myPerfomance.MyPerfomance;
 import net.maxproit.salesforce.model.sd.DisbursementList;
@@ -76,12 +84,32 @@ public interface ApiService {
     @GET("GlobalSettings/AppData/0")
     Call<GlobalSettings> getSetting();
 
+    //activity
     @POST("Activity/Activity")
     Call<MyActivityApi> createActivity(@Body Data data);
 
     @GET("Activity/api/MyActivity/{userName}/{timestamp}")
     Call<MyActivityGetDataApi> getActivityData(@Path("userName") String userName, @Path("timestamp") String random);
 
+    @GET("Activity/LookupActivity/{ActivityJournalID}/{timestamp}")
+    Call<MyActivityGetByJournalIdApi> getActivityByJournalId(@Path("ActivityJournalID") String journalId, @Path("timestamp") String random);
+
+    @POST("Activity/api/CompleteActivity/{ActivityJournalID}")
+    Call<CompleteActivity> actionCompleteActivity(@Path("ActivityJournalID") int journalId);
+
+    @POST("Activity/api/ProccedActivity/{ActivityJournalID}/{LeadReferenceNo}")
+    Call<CompleteActivity> ActivityProceed(@Path("ActivityJournalID") int journalId,@Path("LeadReferenceNo") String refNo);
+
+
+    //visit plan
+    @POST("VisitPlan/VisitPlan")
+    Call<MyVisitPlanApi> createVisitPlan(@Body net.maxproit.salesforce.masum.model.api.visitPlan.Data data);
+
+    @GET("VisitPlan/api/MyVisitPlans/{userName}/{timestamp}")
+    Call<MyVisitPlanGetApi> getVisitPlan(@Path("userName") String userName, @Path("timestamp") String random);
+
+    @GET("VisitPlan/LookupVisitPlan/{ActivityJournalID}/{timestamp}")
+    Call<MyVisitPlanApi> getVisitPlanByJournalId(@Path("ActivityJournalID") int journalId, @Path("timestamp") String random);
 
     // lead api interface
     @POST("CdLead/Lead")
@@ -106,8 +134,11 @@ public interface ApiService {
     Call<Mylead> getMyLead(@Path("user") String user, @Path("random") String random);
 
     // Lead Step 3. Lead Approval
-    @POST("proceedLead")
-    Call<ApprovalResponce> myleadApproval(@Body MyLeadApproval myLeadApproval);
+//    @POST("proceedLead")
+//    Call<ApprovalResponce> myleadApproval(@Body MyLeadApproval myLeadApproval);
+
+    @POST("CdApproval/proceedLead")
+    Call<ApprovalResponce> myleadApproval(@Body Approval myLeadApproval);
 
     // Lead Step 4. Get Lead By id
     @GET("Lead/{id}/{random}")
@@ -133,29 +164,37 @@ public interface ApiService {
     */
 
     // Prospect Stem 1. My Prospect list
-    @GET("MyProspect/{user}/{random}")
+    @GET("CdProspect/MyProspect/{user}/{random}")
     Call<MyProspect> getMyProspect(@Path("user") String user, @Path("random") String random);
 
     @POST("Prospect")
     Call<OleProspect> myProspect(@Body NewProspect newProspect);
 
+ @POST("CdProspect/Prospect")
+    Call<OldPostpectResponse> myNewProspect(@Body NewProspectUpdate newProspectUpdate);
+
+// @POST("CdProspect/Prospect")
+//    Call<OldPostpectResponse> myNewProspectData(@Body net.maxproit.salesforce.masum.model.prospectmodel.Data newProspectUpdate);
+
 
     @GET("Prospect/{id}/{random}")
     Call<OleProspect> getProspect(@Path("id") String id, @Path("random") String random);
+
+    @GET("CdProspect/Prospect/{id}/{random}")
+    Call<OldProspect> getNewProspect(@Path("id") String id, @Path("random") String random);
 
     @POST("proceed")
     Call<ApprovalResponce> myProspectApproval(@Body MyLeadApproval myLeadApproval);
 
     @GET("SalesOfficer/DashboardInformation/{user}/{random}")
-    Call<MyPerfomance> getMyPerfomance(@Path("user") String user,@Path("random") String random);
+    Call<MyPerfomance> getMyPerfomance(@Path("user") String user, @Path("random") String random);
 
 
     @GET("SalesOfficer/Disbursements/{user}/{random}")
-    Call<Disbursement> getDisbursements(@Path("user") String user,@Path("random") String random);
+    Call<Disbursement> getDisbursements(@Path("user") String user, @Path("random") String random);
 
     @GET("SalesOfficer/Leads/{user}/{random}")
-    Call<Mylead> getSalesOfficerLead(@Path("user") String user,@Path("random") String random);
-
+    Call<Mylead> getSalesOfficerLead(@Path("user") String user, @Path("random") String random);
 
 
     @GET("SalesOfficer/Disbursements/{user}/{random}")
@@ -169,16 +208,16 @@ public interface ApiService {
     Call<FollowupList> getSalesOfficerFolloUp(@Path("user") String user, @Path("random") String random);
 
     @GET("SalesOfficer/Prospects/{user}/{random}")
-    Call<MyProspect> getSalesOfficerProspect(@Path("user") String user,@Path("random") String random);
+    Call<MyProspect> getSalesOfficerProspect(@Path("user") String user, @Path("random") String random);
 
     @GET("SalesOffice/SalesOfficers/{user}")
     Call<SalesOfficers> getSalesOfficerSalesOfficer(@Path("user") String user);
 
     @GET("SalesOfficer/Sanctions/{user}/{random}")
-    Call<Sanctions> getSalesOfficerSanctions(@Path("user") String user,@Path("random") String random);
+    Call<Sanctions> getSalesOfficerSanctions(@Path("user") String user, @Path("random") String random);
 
     @GET("SalesOffice/Visits/{user}/{random}")
-    Call<Visits> getSalesOfficerVisit(@Path("user") String user,@Path("random") String random);
+    Call<Visits> getSalesOfficerVisit(@Path("user") String user, @Path("random") String random);
 
     @GET("Documentlist/{user}")
     Call<ProspectDocList> getDockList(@Path("user") String user);
@@ -244,12 +283,14 @@ public interface ApiService {
     // Cif Search
     @POST("CIF")
     Call<SearchList> searchUserInfo(@Body Search search);
+
     // Get Lead
     @GET("LeadPopulate/{id}/{random}")
     Call<OldLead> getLeadByLeadIndexId(@Path("id") String id, @Path("random") String random);
 
     @GET("Proprietor/{id}/{random}")
     Call<SearchProprietor> getProprietor(@Path("id") String id, @Path("random") String random);
+
     @GET("Guarantor/{id}/{random}")
     Call<SearchGuarantor> getGuarantor(@Path("id") String id, @Path("random") String random);
 
@@ -266,6 +307,7 @@ public interface ApiService {
 
     @GET("Suppervisor/Leads/{user}/{random}")
     Call<UseList> getSupervisorLead(@Path("user") String user, @Path("random") String random);
+
     @GET("Suppervisor/Prospects/{user}/ff/{random}")
     Call<UseList> getSupervisorProspect(@Path("user") String user, @Path("random") String random);
 
@@ -281,12 +323,8 @@ public interface ApiService {
     Call<UseList> getSupervisorFup(@Path("user") String user, @Path("random") String random);
 
 
-
     @GET("Suppervisor/Calls/{user}")
     Call<Calls> getSupervisorCall(@Path("user") String user);
-
-
-
 
 
     @GET("Prospect/ProspectsForAapproval/{user}/{random}")
@@ -294,7 +332,6 @@ public interface ApiService {
 
     @GET("Suppervisor/SalesOfficers/{user}")
     Call<SalesOfficers> getSupervisorSalesOfficer(@Path("user") String user);
-
 
 
     @GET("Suppervisor/Visits/{user}")
@@ -316,3 +353,5 @@ public interface ApiService {
 
 
 }
+
+

@@ -11,17 +11,18 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.api.myactivity.Datum;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 
 import java.util.ArrayList;
 
 public class PreviousPlanListAdapter extends RecyclerView.Adapter<PreviousPlanListAdapter.CustomViewHolder>  {
     private Context context;
-    public ArrayList<VisitPlan> leadList;
+    public ArrayList<Datum> leadList;
     public static OnItemClickListener mListener;
 
 
-    public PreviousPlanListAdapter(Context context, ArrayList<VisitPlan> leadList) {
+    public PreviousPlanListAdapter(Context context, ArrayList<Datum> leadList) {
         this.context = context;
         this.leadList = leadList;
     }
@@ -30,13 +31,13 @@ public class PreviousPlanListAdapter extends RecyclerView.Adapter<PreviousPlanLi
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         Context context;
-        ArrayList<VisitPlan> leadList;
+        ArrayList<Datum> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
         private ImageView imgApproved,imgReject;
         private ConstraintLayout clListItem;
 
 
-        public CustomViewHolder(View itemView, Context context, ArrayList<VisitPlan> leadList) {
+        public CustomViewHolder(View itemView, Context context, ArrayList<Datum> leadList) {
             super(itemView);
             this.context = context;
             this.leadList = leadList;
@@ -86,20 +87,20 @@ public class PreviousPlanListAdapter extends RecyclerView.Adapter<PreviousPlanLi
 
     @Override
     public void onBindViewHolder(PreviousPlanListAdapter.CustomViewHolder holder, final int position) {
-        holder.tvId.setText(""+leadList.get(position).getId());
+        holder.tvId.setText(""+leadList.get(position).getActivityJournalID());
         holder.tvName.setText(leadList.get(position).getClientType());
         holder.tvBranch.setText(leadList.get(position).getClientName());
-        holder.tvStatus.setText(leadList.get(position).getStatus());
+        holder.tvStatus.setText(leadList.get(position).getActivityStatus());
 
     }
 
-    public void setFilter(ArrayList<VisitPlan> newDataList) {
+    public void setFilter(ArrayList<Datum> newDataList) {
         leadList =new ArrayList<>();
         leadList.addAll(newDataList);
         notifyDataSetChanged();
     }
 
-    public ArrayList<VisitPlan> getDataList() {
+    public ArrayList<Datum> getDataList() {
         return leadList;
     }
 

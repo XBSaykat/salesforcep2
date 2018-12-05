@@ -160,4 +160,23 @@ public void setProductType(String productType) {
 this.productType = productType;
 }
 
+    @Override
+    public String toString() {
+        return "Data{" +
+                "activityDate='" + activityDate + '\'' +
+                ", activityJournalID=" + activityJournalID +
+                ", activityStatus='" + activityStatus + '\'' +
+                ", city='" + city + '\'' +
+                ", clientType='" + clientType + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", maker='" + maker + '\'' +
+                ", ps='" + ps + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", visitPurposeType='" + visitPurposeType + '\'' +
+                ", followupDate='" + followupDate + '\'' +
+                ", followupRemarks='" + followupRemarks + '\'' +
+                ", mobileNo='" + mobileNo + '\'' +
+                ", productType='" + productType + '\'' +
+                '}';
+    }
 }

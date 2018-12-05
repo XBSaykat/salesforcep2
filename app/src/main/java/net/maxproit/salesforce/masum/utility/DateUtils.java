@@ -37,6 +37,21 @@ public class DateUtils {
         return strDate;
     }
 
+    public static String jsonToDate(String jsonDateString) {
+
+        try {
+            String timestamp = jsonDateString.split("\\(")[1].split("\\+")[0];
+            Date createdOn = new Date(Long.parseLong(timestamp));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = sdf.format(createdOn);
+            return formattedDate;
+        } catch (Exception e) {
+            return jsonDateString;
+        }
+
+    }
+
     public static String getDateFormateEt(String date) {
         SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

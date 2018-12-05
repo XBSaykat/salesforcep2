@@ -51,7 +51,7 @@ public class SupervisorRbmProspect extends AppCompatActivity {
         prospectArrayList = new ArrayList<>();
         filterList = new ArrayList<>();
 
-        myAdapter = new MyNewProspectAdapter(this, filterList);
+        //myAdapter = new MyNewProspectAdapter(this, filterList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rvProspect.setLayoutManager(mLayoutManager);
         rvProspect.setAdapter(myAdapter);
