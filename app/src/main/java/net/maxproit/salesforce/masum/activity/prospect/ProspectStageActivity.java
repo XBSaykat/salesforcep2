@@ -745,7 +745,6 @@ public class ProspectStageActivity extends BaseActivity {
                                     showToast("" + response.body().toString());
                                     net.maxproit.salesforce.masum.model.prospectmodel.Data data = response.body().getData();
                                     leadApprove(data);
-                                    finish();
                                     Toast.makeText(getApplicationContext(), "save successfully", Toast.LENGTH_SHORT).show();
 
                                 } else {
@@ -824,7 +823,7 @@ public class ProspectStageActivity extends BaseActivity {
                 AppConstant.APPROVAL_SET_ID_0,
                 AppConstant.APPROVAL_CURRWENT_LEVEL_1,
                 AppConstant.APPROVAL_PROSPECT_STATUS_YES, "",
-                data.getUserName(), data.getBranchName(), 8);
+                data.getUserName(), data.getBranchName(), data.getProductId());
         Log.d("TAG", "leadApprove: " + myLeadApproval.toString());
         getApiService().myprospectApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
