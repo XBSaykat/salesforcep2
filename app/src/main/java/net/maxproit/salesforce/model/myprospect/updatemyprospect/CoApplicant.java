@@ -67,7 +67,7 @@ import com.google.gson.annotations.SerializedName;
         private Integer interestIncomeOfFDR;
         @SerializedName("mobile")
         @Expose
-        private Object mobile;
+        private String mobile;
         @SerializedName("motherName")
         @Expose
         private String motherName;
@@ -91,10 +91,10 @@ import com.google.gson.annotations.SerializedName;
         private String permanentAddressPS;
         @SerializedName("photoIdIssueDate")
         @Expose
-        private Object photoIdIssueDate;
+        private String photoIdIssueDate;
         @SerializedName("photoIdNumber")
         @Expose
-        private Object photoIdNumber;
+        private String photoIdNumber;
         @SerializedName("photoIdTypeCode")
         @Expose
         private Integer photoIdTypeCode;
@@ -265,11 +265,11 @@ import com.google.gson.annotations.SerializedName;
             this.interestIncomeOfFDR = interestIncomeOfFDR;
         }
 
-        public Object getMobile() {
+        public String getMobile() {
             return mobile;
         }
 
-        public void setMobile(Object mobile) {
+        public void setMobile(String mobile) {
             this.mobile = mobile;
         }
 
@@ -329,19 +329,19 @@ import com.google.gson.annotations.SerializedName;
             this.permanentAddressPS = permanentAddressPS;
         }
 
-        public Object getPhotoIdIssueDate() {
+        public String getPhotoIdIssueDate() {
             return photoIdIssueDate;
         }
 
-        public void setPhotoIdIssueDate(Object photoIdIssueDate) {
+        public void setPhotoIdIssueDate(String photoIdIssueDate) {
             this.photoIdIssueDate = photoIdIssueDate;
         }
 
-        public Object getPhotoIdNumber() {
+        public String getPhotoIdNumber() {
             return photoIdNumber;
         }
 
-        public void setPhotoIdNumber(Object photoIdNumber) {
+        public void setPhotoIdNumber(String photoIdNumber) {
             this.photoIdNumber = photoIdNumber;
         }
 

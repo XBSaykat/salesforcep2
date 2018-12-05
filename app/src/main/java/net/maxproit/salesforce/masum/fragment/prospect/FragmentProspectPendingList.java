@@ -99,21 +99,7 @@ public class FragmentProspectPendingList extends BaseFragment {
 
                 switch (view.getId()){
                     default:
-                        String ref = dataFilterList.get(position).getReference();
-                        getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
-                            @Override
-                            public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
-                                Log.d("tag", "onResponse: "+response.body().toString());
-                                OldProspect oldProspect = response.body();
-//                             MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
-                                ActivityUtils.invokLeadDetailForProspectStage(getActivity(),oldProspect.getMyNewProspect());
-                            }
-
-                            @Override
-                            public void onFailure(Call<OldProspect> call, Throwable t) {
-                                Log.e("","");
-                            }
-                        });
+                       callApiLoadList(position);
 
                         break;
                 }
@@ -122,7 +108,35 @@ public class FragmentProspectPendingList extends BaseFragment {
 
     }
 
-//    private void sentDataToDetail(int position) {
+    private void callApiLoadList(int position) {
+        String ref = dataFilterList.get(position).getReference();
+        getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
+            @Override
+            public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
+                Log.d("tag", "onResponse: "+response.body().toString());
+                OldProspect oldProspect = response.body();
+//                             MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
+
+                ActivityUtils.invokLeadDetailForProspectStage(getActivity(),oldProspect.getMyNewProspect());
+
+
+            }
+
+            @Override
+            public void onFailure(Call<OldProspect> call, Throwable t) {
+                Log.d("tag", "onFailure: "+t.getLocalizedMessage());
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        callApi();
+        Log.d("tag", "onResume: calling api from onResume" );
+
+    }
+    //    private void sentDataToDetail(int position) {
 //        MyNewProspect myNewLead=new MyNewProspect(filterList.get(position).getId(),
 //                filterList.get(position).getBranchName(),
 //                filterList.get(position).getUserName(),
@@ -204,6 +218,7 @@ public class FragmentProspectPendingList extends BaseFragment {
     }
 
     private void callApi() {
+        Log.d("tag", "callApi: ");
         if (isNetworkAvailable()) {
             showProgressDialog();
             getApiService().getMyProspect(userName, UUID.randomUUID().toString()).enqueue(new Callback<MyProspect>() {

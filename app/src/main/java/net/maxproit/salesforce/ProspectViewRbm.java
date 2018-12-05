@@ -177,7 +177,7 @@ public class ProspectViewRbm extends AppCompatActivity {
         }
 
 
-        coApplicantList.addAll(coApplicantDBController.getAllData(getDataFromProspect().getId()));
+        coApplicantList.addAll(coApplicantDBController.getAllData(getDataFromProspect().getRefNumber()));
 
         return coApplicantList;
     }

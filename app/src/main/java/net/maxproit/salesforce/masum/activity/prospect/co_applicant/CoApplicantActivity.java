@@ -33,7 +33,7 @@ public class CoApplicantActivity extends BaseActivity {
     private ViewPager viewPager;
     private TextView btnSave;
     private CoApplicantDBController coApplicantDBController;
-    int leadId=0;
+    String leadId=null;
 
     @Override
     protected int getLayoutResourceId() {
@@ -61,7 +61,7 @@ public class CoApplicantActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
         btnSave = findViewById(R.id.btn_save);
         coApplicantDBController = new CoApplicantDBController(getApplicationContext());
-        leadId = getIntent().getIntExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, -1);
+        leadId = getIntent().getStringExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY);
 
         initListener();
     }
@@ -136,6 +136,7 @@ public class CoApplicantActivity extends BaseActivity {
                 int update=0;
                 if (getDataFromApplicant() !=null){
                     update = coApplicantDBController.updateCoApplicantData(coApplicant,getDataFromApplicant().getId());
+
                 }
                 else {
                      update = coApplicantDBController.insertData(coApplicant);
@@ -171,7 +172,7 @@ public class CoApplicantActivity extends BaseActivity {
         return coApplicant;
     }
 
-    public int getLeadId() {
+    public String getLeadId() {
         return leadId;
     }
 
