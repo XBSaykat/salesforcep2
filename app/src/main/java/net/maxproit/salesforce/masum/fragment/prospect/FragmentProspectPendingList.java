@@ -100,7 +100,6 @@ public class FragmentProspectPendingList extends BaseFragment {
                 switch (view.getId()){
                     default:
                        callApiLoadList(position);
-
                         break;
                 }
             }
