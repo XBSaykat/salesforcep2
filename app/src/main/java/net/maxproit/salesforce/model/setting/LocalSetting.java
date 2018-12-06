@@ -152,6 +152,25 @@ public class LocalSetting {
     }
 
 
+    public List<Country> getCountry() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getCountries();
+        }
+        return new ArrayList<>();
+
+    }
+
+
+    public List<String> getCountryString() {
+        List<String> list = new ArrayList<>();
+        for (Country in : getCountry()) {
+            list.add(in.getCountry());
+        }
+        return list;
+
+    }
+
+
     public List<PropertyType> getPropertyType() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getPropertyTypes();
@@ -343,6 +362,23 @@ public class LocalSetting {
         List<String> list = new ArrayList<>();
         for (RelationshipTypes in : getIdlcRelationType()) {
             list.add(in.getRelationshipType());
+        }
+        return list;
+    }
+
+
+    public List<NetSalaryType> getnetSalaryType() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getNetSalaryTypes();
+        }
+        return new ArrayList<>();
+
+    }
+
+    public List<String> getnetSalaryTypeStringList() {
+        List<String> list = new ArrayList<>();
+        for (NetSalaryType in : getnetSalaryType()) {
+            list.add(in.getNetSalaryType());
         }
         return list;
     }

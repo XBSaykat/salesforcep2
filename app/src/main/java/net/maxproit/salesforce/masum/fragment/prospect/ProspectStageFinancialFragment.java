@@ -20,6 +20,7 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -39,17 +40,17 @@ public class ProspectStageFinancialFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    private LocalSetting localSetting;
     private SpinnerDbController spinnerDbController;
 
-    private List<String> listMonthlySalary=null;
-    private List<String> listMonthlyRentalSalary=null;
+    private List<String> listMonthlySalary = null;
+    private List<String> listMonthlyRentalSalary = null;
 
-    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome,etMonthlyWarehouseAmount,
-            etMonthlyOfficeSpaceAmount, etMonthlySemipakaAmount,etMonthlyApartmentAmount,
-                    etAgriculturalIncome, etPracticeConsultancyTuition, etRemittance, etInterestIncome,
-                    etMonthlyFamilyExpenditure, etEMIOfOtherLoans, etApartmentIncomeAmount, etSemipakaIncome,
-                    etOfficeSpaceIncome, etWarehouseIncome;
+    public static EditText etMonthlySalaryAmount, etMonthlyBusinessIncome, etMonthlyWarehouseAmount,
+            etMonthlyOfficeSpaceAmount, etMonthlySemipakaAmount, etMonthlyApartmentAmount,
+            etAgriculturalIncome, etPracticeConsultancyTuition, etRemittance, etInterestIncome,
+            etMonthlyFamilyExpenditure, etEMIOfOtherLoans, etApartmentIncomeAmount, etSemipakaIncome,
+            etOfficeSpaceIncome, etWarehouseIncome;
     AwesomeSpinner spinnerMonthlyNetSalary;
     public static String monthlyNetSalary, rentalIncome;
     private SharedViewModel model;
@@ -90,7 +91,7 @@ public class ProspectStageFinancialFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         spinnerDbController = new SpinnerDbController(getActivity());
-
+        localSetting = new LocalSetting(getActivity());
         listMonthlySalary = new ArrayList<String>();
         listMonthlyRentalSalary = new ArrayList<String>();
 
@@ -98,8 +99,8 @@ public class ProspectStageFinancialFragment extends Fragment {
         listMonthlyRentalSalary.addAll(spinnerDbController.getMonthlyRentalIncomeData());
 
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_prospect_stage_financial, container, false);
-        prospectStageActivity= (ProspectStageActivity) getActivity();
+        View view = inflater.inflate(R.layout.fragment_prospect_stage_financial, container, false);
+        prospectStageActivity = (ProspectStageActivity) getActivity();
 
         etMonthlySalaryAmount = view.findViewById(R.id.input_monthly_net_salary_amount);
         etMonthlyBusinessIncome = view.findViewById(R.id.input_monthly_business_income);
@@ -121,12 +122,11 @@ public class ProspectStageFinancialFragment extends Fragment {
 
 
         spinnerMonthlyNetSalary = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_net_salary);
-       // spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
+        // spinnerRentalIncome = view.findViewById(R.id.awe_spinner_prospect_stage_monthly_rental_income);
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         initAdapters();
         initListener();
-
 
 
         commaSeparator();
@@ -153,18 +153,17 @@ public class ProspectStageFinancialFragment extends Fragment {
 
     private void initAdapters() {
 
-        ArrayAdapter<String> monthlySalaryAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listMonthlySalary);
+        ArrayAdapter<String> monthlySalaryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getnetSalaryTypeStringList());
         spinnerMonthlyNetSalary.setAdapter(monthlySalaryAdapter);
 
 
-        if (prospectStageActivity.getDataFromProspect()!=null){
+        if (prospectStageActivity.getDataFromProspect() != null) {
 
-            MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
-            if (myNewLead.getNetSalary() !=null){
+            MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
+            if (myNewLead.getNetSalary() != null) {
                 try {
                     spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getNetSalary()));
-                }
-                catch (final IllegalStateException ignored) {
+                } catch (final IllegalStateException ignored) {
                 }
             }
 
@@ -223,7 +222,7 @@ public class ProspectStageFinancialFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void commaSeparator(){
+    public void commaSeparator() {
         etMonthlySalaryAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -238,7 +237,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etMonthlySalaryAmount.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -250,7 +249,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etMonthlySalaryAmount.setText(formattedString);
                     etMonthlySalaryAmount.setSelection(etMonthlySalaryAmount.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etMonthlySalaryAmount.addTextChangedListener(this);
@@ -271,7 +270,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etMonthlyBusinessIncome.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -283,7 +282,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etMonthlyBusinessIncome.setText(formattedString);
                     etMonthlyBusinessIncome.setSelection(etMonthlyBusinessIncome.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etMonthlyBusinessIncome.addTextChangedListener(this);
@@ -304,7 +303,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etApartmentIncomeAmount.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -316,7 +315,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etApartmentIncomeAmount.setText(formattedString);
                     etApartmentIncomeAmount.setSelection(etApartmentIncomeAmount.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etApartmentIncomeAmount.addTextChangedListener(this);
@@ -337,7 +336,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etSemipakaIncome.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -349,7 +348,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etSemipakaIncome.setText(formattedString);
                     etSemipakaIncome.setSelection(etSemipakaIncome.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etSemipakaIncome.addTextChangedListener(this);
@@ -370,7 +369,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etOfficeSpaceIncome.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -382,7 +381,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etOfficeSpaceIncome.setText(formattedString);
                     etOfficeSpaceIncome.setSelection(etOfficeSpaceIncome.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etOfficeSpaceIncome.addTextChangedListener(this);
@@ -403,7 +402,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etWarehouseIncome.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -415,7 +414,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etWarehouseIncome.setText(formattedString);
                     etWarehouseIncome.setSelection(etWarehouseIncome.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etWarehouseIncome.addTextChangedListener(this);
@@ -436,7 +435,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etAgriculturalIncome.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -448,7 +447,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etAgriculturalIncome.setText(formattedString);
                     etAgriculturalIncome.setSelection(etAgriculturalIncome.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etAgriculturalIncome.addTextChangedListener(this);
@@ -469,7 +468,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etPracticeConsultancyTuition.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -481,7 +480,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etPracticeConsultancyTuition.setText(formattedString);
                     etPracticeConsultancyTuition.setSelection(etPracticeConsultancyTuition.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etPracticeConsultancyTuition.addTextChangedListener(this);
@@ -502,7 +501,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etRemittance.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -514,7 +513,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etRemittance.setText(formattedString);
                     etRemittance.setSelection(etRemittance.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etRemittance.addTextChangedListener(this);
@@ -535,7 +534,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etInterestIncome.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -547,7 +546,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etInterestIncome.setText(formattedString);
                     etInterestIncome.setSelection(etInterestIncome.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etInterestIncome.addTextChangedListener(this);
@@ -568,7 +567,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etMonthlyFamilyExpenditure.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -580,7 +579,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etMonthlyFamilyExpenditure.setText(formattedString);
                     etMonthlyFamilyExpenditure.setSelection(etMonthlyFamilyExpenditure.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etMonthlyFamilyExpenditure.addTextChangedListener(this);
@@ -601,7 +600,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etEMIOfOtherLoans.removeTextChangedListener(this);
-                try{
+                try {
 
                     String originalTentativeLoanAmount = editable.toString();
                     originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
@@ -613,7 +612,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
                     etEMIOfOtherLoans.setText(formattedString);
                     etEMIOfOtherLoans.setSelection(etEMIOfOtherLoans.getText().length());
-                }catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                 }
                 etEMIOfOtherLoans.addTextChangedListener(this);
