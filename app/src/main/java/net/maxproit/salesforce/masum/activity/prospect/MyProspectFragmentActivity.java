@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
+import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
+import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.fragment.myactivity.FragmentCurrentActivity;
 import net.maxproit.salesforce.masum.fragment.myactivity.FragmentPreViousList;
@@ -48,7 +50,7 @@ public class MyProspectFragmentActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
-
+        AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED,false);
         linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
         viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);

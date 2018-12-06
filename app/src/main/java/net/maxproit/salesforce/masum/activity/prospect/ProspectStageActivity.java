@@ -503,8 +503,6 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
 //                NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
 
-
-
                 if (isNetworkAvailable()) {
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override

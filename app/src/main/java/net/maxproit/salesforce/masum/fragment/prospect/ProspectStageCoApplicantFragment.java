@@ -2,6 +2,7 @@ package net.maxproit.salesforce.masum.fragment.prospect;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
+import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
@@ -42,7 +45,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    boolean isFirst=false;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -127,10 +130,19 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
             coApplicantList.clear();
         }
 
-        if (prospectStageActivity.getDataFromProspect().getCoApplicantList() !=null){
-        coApplicantList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
+
+
+        if(AppPreference.getInstance(getActivity()).getBoolean(PrefKey.IS_LOADED)){
+        if (coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()).size()>0){
+            coApplicantList.addAll(coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()));
+
         }
-        //coApplicantList.addAll(coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()));
+        }
+        else {
+            if (prospectStageActivity.getDataFromProspect().getCoApplicantList() !=null){
+                coApplicantList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
+            }
+        }
         viewListItems();
         if (coApplicantList.size() > 0) {
             Collections.reverse(coApplicantList);
@@ -262,4 +274,6 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }
