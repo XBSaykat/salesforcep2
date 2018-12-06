@@ -436,10 +436,12 @@ public class ProspectStageActivity extends BaseActivity {
                     newProspectUpdate.setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
                     newProspectUpdate.setFee(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
                     newProspectUpdate.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
-                    newProspectUpdate.setIntersetRate(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOrInterest().replace(",", ""))));
+                    newProspectUpdate.setIntersetRate(Integer.valueOf(CommonUtil.emptyFieldToZero(proposedInterest.replace(",", ""))));
                     newProspectUpdate.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
                     newProspectUpdate.setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanTerm())));
                     newProspectUpdate.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
+                    newProspectUpdate.setSemipakaIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(semiPakaIncome).replace(",", "")));
+
                 } catch (NumberFormatException e) {
 
                 }
@@ -479,7 +481,6 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setPresentAddressCity("Dhaka");
                 newProspectUpdate.setPresentAddressId(getDataFromProspect().getPresAddressId());
                 newProspectUpdate.setPresentAddressPS("Dhaka");
-
                 newProspectUpdate.setProduct(myNewProspect.getProductType());
                 newProspectUpdate.setProductId(myNewProspect.getProductCode());
                 newProspectUpdate.setProductSubCategory(myNewProspect.getProductSubcategory());
