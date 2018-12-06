@@ -84,7 +84,7 @@ public class Data {
     private String fatherName;
     @SerializedName("fee")
     @Expose
-    private Integer fee;
+    private Float fee;
     @SerializedName("interestIncomeOfFDR")
     @Expose
     private Integer interestIncomeOfFDR;
@@ -383,11 +383,11 @@ public class Data {
         this.fatherName = fatherName;
     }
 
-    public Integer getFee() {
+    public Float getFee() {
         return fee;
     }
 
-    public void setFee(Integer fee) {
+    public void setFee(Float fee) {
         this.fee = fee;
     }
 

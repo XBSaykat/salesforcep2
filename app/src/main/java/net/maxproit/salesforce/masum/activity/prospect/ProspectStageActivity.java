@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.common.logging.FLog;
+
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
@@ -438,7 +440,7 @@ public class ProspectStageActivity extends BaseActivity {
                     newProspectUpdate.setEmiOfOtherLoan(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getEmiOther().replace(",", ""))));
                     newProspectUpdate.setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getWireHouseINcome().replace(",", ""))));
                     newProspectUpdate.setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
-                    newProspectUpdate.setFee(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
+                    newProspectUpdate.setFee(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
                     newProspectUpdate.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
                     newProspectUpdate.setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(proposedInterest.replace(",", ""))));
                     newProspectUpdate.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
@@ -487,7 +489,7 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setPresentAddressId(getDataFromProspect().getPresAddressId());
                 newProspectUpdate.setPresentAddressPS("Dhaka");
                 newProspectUpdate.setProduct(myNewProspect.getProductType());
-                newProspectUpdate.setProductId(myNewProspect.getProductCode());
+                newProspectUpdate.setProductId(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 newProspectUpdate.setProductSubCategory(myNewProspect.getProductSubcategory());
                 newProspectUpdate.setProductSubCategoryId(myNewProspect.getSubCode());
                 newProspectUpdate.setProfession(myNewProspect.getProfession());
@@ -667,7 +669,8 @@ public class ProspectStageActivity extends BaseActivity {
                         fee);
 
                 try {
-                    myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
+                    if (ProspectStageProductAndCustomerDetailsFragment.branchCode != null)
+                        myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
                     myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 } catch (NullPointerException e) {
                     Log.d("prospectStageDebug", "alertDialogSave: " + e.getLocalizedMessage());
@@ -699,7 +702,7 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getWireHouseINcome().replace(",", ""))));
                 newProspectUpdate.setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
                 newProspectUpdate.setFatherName(myNewProspect.getfName());
-                newProspectUpdate.setFee(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
+                newProspectUpdate.setFee(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
                 newProspectUpdate.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
                 newProspectUpdate.setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOrInterest().replace(",", ""))));
                 newProspectUpdate.setLeadReferenceNo(myNewProspect.getRefNumber());
@@ -727,7 +730,7 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setPresentAddressPS("");
 
                 newProspectUpdate.setProduct(myNewProspect.getProductType());
-                newProspectUpdate.setProductId(myNewProspect.getProductCode());
+                newProspectUpdate.setProductId(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 newProspectUpdate.setProductSubCategory(myNewProspect.getProductSubcategory());
                 newProspectUpdate.setProductSubCategoryId(myNewProspect.getSubCode());
                 newProspectUpdate.setProfession(myNewProspect.getProfession());
@@ -842,7 +845,7 @@ public class ProspectStageActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
-                Toast.makeText(ProspectStageActivity.this, "Prospect approved failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProspectStageActivity.this, "Prospect approval failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

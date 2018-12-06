@@ -131,7 +131,10 @@ public class FragmentProspectPendingList extends BaseFragment {
         callApi();
         Log.d("tag", "onResume: calling api from onResume" );
 
+
     }
+
+
     //    private void sentDataToDetail(int position) {
 //        MyNewProspect myNewLead=new MyNewProspect(filterList.get(position).getId(),
 //                filterList.get(position).getBranchName(),
