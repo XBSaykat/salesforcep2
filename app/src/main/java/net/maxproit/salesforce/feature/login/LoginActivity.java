@@ -91,8 +91,8 @@ public class LoginActivity extends BaseActivity {
         binding.setModel(new Login());
         myLeadDbController = new MyLeadDbController(this);
         spinnerDbController = new SpinnerDbController(this);
-        if (!AppPreference.getInstance(LoginActivity.this).getBoolean(PrefKey.IS_LOADED)) {
-            AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOADED, true);
+        if (!AppPreference.getInstance(LoginActivity.this).getBoolean(PrefKey.IS_LOADED_SPPINER)) {
+            AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOADED_SPPINER, true);
             setSpinnerData();
         }
 
