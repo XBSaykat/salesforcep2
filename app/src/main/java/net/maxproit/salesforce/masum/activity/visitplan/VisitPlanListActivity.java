@@ -142,7 +142,6 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
                                 myLeadAdapter.notifyDataSetChanged();
                                 CommonUtil.hideProgressDialog();
 
-
                             } else {
                                 showAlertDialog("ERROR", response.message());
                                 showEmptyView();

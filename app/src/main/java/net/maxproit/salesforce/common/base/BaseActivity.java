@@ -46,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     private ProgressDialog progressDialog;
     private ViewDataBinding binding;
-
+    private LinearLayout loadingView, noDataView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,12 +212,40 @@ public abstract class BaseActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+
+    public void initLoader() {
+        loadingView = (LinearLayout) findViewById(R.id.loadingView);
+        noDataView = (LinearLayout) findViewById(R.id.noDataView);
+    }
+
+    public void showLoader() {
+        if (loadingView != null) {
+            loadingView.setVisibility(View.VISIBLE);
+        }
+
+        if (noDataView != null) {
+            noDataView.setVisibility(View.GONE);
+        }
+    }
+
+    public void hideLoader() {
+        if (loadingView != null) {
+            loadingView.setVisibility(View.GONE);
+        }
+        if (noDataView != null) {
+            noDataView.setVisibility(View.GONE);
+        }
+    }
+
     public void showEmptyView() {
-       LinearLayout noDataView = (LinearLayout) findViewById(R.id.noDataView);
+        if (loadingView != null) {
+            loadingView.setVisibility(View.GONE);
+        }
         if (noDataView != null) {
             noDataView.setVisibility(View.VISIBLE);
         }
     }
+
 
    /* public Util getUtility() {
         return Util.getInstance();

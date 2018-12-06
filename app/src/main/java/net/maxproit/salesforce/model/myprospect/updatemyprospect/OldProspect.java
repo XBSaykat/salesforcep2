@@ -67,7 +67,7 @@ public class OldProspect {
         myNewProspect.setAssetType(data.getAssetType());
         myNewProspect.setAssetTypeId(data.getAssetTypeId());
         myNewProspect.setApplicant(data.getRelationshipWithApplicant());
-        myNewProspect.setUserName(data.getUserName());
+        myNewProspect.setUserName(data.getCustomerName());
         myNewProspect.setBrandName(data.getBrandName());
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
         myNewProspect.setBranchCode(data.getBranchCode());
