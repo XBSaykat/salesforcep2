@@ -160,7 +160,7 @@ public class SupervisorRbmProspect extends BaseActivity {
             } else {
                 showAlertDialog("Error", "Network isn't connected");
             }
-            
+
     }
 
     private void sentDataToDetail(int position) {
