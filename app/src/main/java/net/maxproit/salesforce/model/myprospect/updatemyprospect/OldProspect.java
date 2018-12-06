@@ -125,6 +125,7 @@ public class OldProspect {
         myNewProspect.setPresAddressPs(data.getPresentAddressPS());
         myNewProspect.setSourceRef(data.getRelationshipWithApplicant());
         myNewProspect.setsValue(String.valueOf(data.getSecurityValue()));
+        myNewProspect.setOrInterest(String.valueOf(data.getIntersetRate()));
 //        myNewProspect.setRmCode(data.getRmCode());
 //        myNewProspect.setUserName(data.getUserName());
         myNewProspect.setEtin(data.getETin());
