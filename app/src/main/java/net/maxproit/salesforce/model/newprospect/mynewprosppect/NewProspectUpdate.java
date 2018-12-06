@@ -200,7 +200,7 @@ public class NewProspectUpdate {
     private Integer loanTerm;
     @SerializedName("intersetRate")
     @Expose
-    private Integer intersetRate;
+    private Float intersetRate;
     @SerializedName("fee")
     @Expose
     private Integer fee;
@@ -696,11 +696,11 @@ public class NewProspectUpdate {
         this.loanTerm = loanTerm;
     }
 
-    public Integer getIntersetRate() {
+    public Float getIntersetRate() {
         return intersetRate;
     }
 
-    public void setIntersetRate(Integer intersetRate) {
+    public void setIntersetRate(Float intersetRate) {
         this.intersetRate = intersetRate;
     }
 

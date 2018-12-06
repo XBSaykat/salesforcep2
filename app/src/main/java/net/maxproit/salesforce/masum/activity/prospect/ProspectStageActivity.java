@@ -340,7 +340,7 @@ public class ProspectStageActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //
-        if (resultCode == RESULT_OK) {
+        if (resultCode == AppConstant.ACTIVITY_RESULLT_200) {
             prospect = null;
             Bundle bundle = data.getExtras();
             if (bundle != null) {
@@ -349,8 +349,12 @@ public class ProspectStageActivity extends BaseActivity {
 
             }
 
-        } else {
-            Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
+        }else if(resultCode == AppConstant.ACTIVITY_RESULLT_300){
+            Toast.makeText(getApplicationContext(), "co-applicant data saved", Toast.LENGTH_LONG).show();
+        }
+        else {
+//            Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
+
         }
 
 
@@ -415,7 +419,7 @@ public class ProspectStageActivity extends BaseActivity {
                 try {
                     if (ProspectStageProductAndCustomerDetailsFragment.branchCode != null)
                         myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
-
+                        myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 } catch (NullPointerException e) {
                     Log.d("prospectStageDebug", "alertDialogSave: " + e.getLocalizedMessage());
                 } catch (NumberFormatException e) {
@@ -436,7 +440,7 @@ public class ProspectStageActivity extends BaseActivity {
                     newProspectUpdate.setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
                     newProspectUpdate.setFee(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
                     newProspectUpdate.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
-                    newProspectUpdate.setIntersetRate(Integer.valueOf(CommonUtil.emptyFieldToZero(proposedInterest.replace(",", ""))));
+                    newProspectUpdate.setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(proposedInterest.replace(",", ""))));
                     newProspectUpdate.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
                     newProspectUpdate.setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanTerm())));
                     newProspectUpdate.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
@@ -508,7 +512,7 @@ public class ProspectStageActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
                             if (response.body().getCode().equals("200")) {
-                                showToast("" + response.body().toString());
+                                showToast("Prospect Updated");
                                 finish();
                                 Toast.makeText(getApplicationContext(), "save successfully", Toast.LENGTH_SHORT).show();
                             } else {
@@ -664,6 +668,7 @@ public class ProspectStageActivity extends BaseActivity {
 
                 try {
                     myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
+                    myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 } catch (NullPointerException e) {
                     Log.d("prospectStageDebug", "alertDialogSave: " + e.getLocalizedMessage());
                 }
@@ -696,7 +701,7 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setFatherName(myNewProspect.getfName());
                 newProspectUpdate.setFee(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
                 newProspectUpdate.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
-                newProspectUpdate.setIntersetRate(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOrInterest().replace(",", ""))));
+                newProspectUpdate.setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOrInterest().replace(",", ""))));
                 newProspectUpdate.setLeadReferenceNo(myNewProspect.getRefNumber());
                 newProspectUpdate.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
                 newProspectUpdate.setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanTerm())));
@@ -733,6 +738,7 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setSpouseName(myNewProspect.getsName());
                 newProspectUpdate.setStatus(getDataFromProspect().getStatus());
 
+
                 newProspectUpdate.setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
                 newProspectUpdate.setUserName(userName);
 
@@ -743,7 +749,7 @@ public class ProspectStageActivity extends BaseActivity {
                             if (response.body().getCode().equals("200")) {
                                 showToast("" + response.body().toString());
                                 net.maxproit.salesforce.masum.model.prospectmodel.Data data = response.body().getData();
-                                leadApprove(data);
+                                leadApprove(data, newProspectUpdate.getProductId());
                                 Toast.makeText(getApplicationContext(), "save successfully", Toast.LENGTH_SHORT).show();
 
                             } else {
@@ -811,13 +817,13 @@ public class ProspectStageActivity extends BaseActivity {
 
     }
 
-    private void leadApprove(net.maxproit.salesforce.masum.model.prospectmodel.Data data) {
+    private void leadApprove(net.maxproit.salesforce.masum.model.prospectmodel.Data data, int productId) {
         Approval myLeadApproval = new Approval(AppConstant.APPROVAL_PROSPECT,
                 data.getLeadReferenceNo(),
                 AppConstant.APPROVAL_SET_ID_0,
                 AppConstant.APPROVAL_CURRWENT_LEVEL_1,
                 AppConstant.APPROVAL_PROSPECT_STATUS_YES, "",
-                data.getUserName(), data.getBranchName(), data.getProductId());
+                data.getUserName(), data.getBranchName(), productId);
         Log.d("TAG", "leadApprove: " + myLeadApproval.toString());
         getApiService().myprospectApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
@@ -825,7 +831,7 @@ public class ProspectStageActivity extends BaseActivity {
                 Log.d("tag", "onResponse: " + response.body().toString());
 
                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                    Toast.makeText(ProspectStageActivity.this, "Lead Approved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProspectStageActivity.this, "Prospect Approved", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
 
@@ -836,7 +842,7 @@ public class ProspectStageActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
-                Toast.makeText(ProspectStageActivity.this, "Lead approved failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProspectStageActivity.this, "Prospect approved failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -269,6 +269,18 @@ public class LocalSetting {
 
     }
 
+    public String getBranchCodeByName(String branchName) {
+        String code = null;
+        for (Branch in : getBranch()) {
+
+            if (in.getBranch().equalsIgnoreCase(branchName)){
+                code=in.getBranchCode();
+                break;
+            }
+        }
+        return code;
+    }
+
     public String getBranchCode(int position) {
         String code = null;
         for (int i = 0; i < getBranch().size(); i++) {
@@ -465,6 +477,7 @@ public class LocalSetting {
         }
         return code;
     }
+
 
 
 }
