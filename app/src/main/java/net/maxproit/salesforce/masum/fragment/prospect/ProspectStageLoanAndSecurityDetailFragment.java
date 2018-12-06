@@ -207,7 +207,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
             MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
 
             etSecurityValue.setText(myNewLead.getsValue());
-            etLoanRequired.setText(myNewLead.getLoadAmount());
+            etLoanRequired.setText(myNewLead.getLoanReq());
             etProposedInterest.setText(myNewLead.getOrInterest());
             etLoanTerm.setText(myNewLead.getLoanTerm());
             etFee.setText(myNewLead.getOpFee());

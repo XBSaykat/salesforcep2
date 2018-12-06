@@ -604,6 +604,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 }
             }
+
+
             if (myNewLead.getProductType() != null) {
                 if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
                     productTypeCode = 8;

@@ -105,7 +105,6 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
         }
 
         Bundle extraDetail = getIntent().getExtras();
-
         if (extraDetail != null) {
             int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
             if (status == 1) {
