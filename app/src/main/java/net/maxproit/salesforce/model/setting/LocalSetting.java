@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class LocalSetting {
@@ -127,6 +126,26 @@ public class LocalSetting {
         List<String> list = new ArrayList<>();
         for (ClientType in : getClientType()) {
             list.add(in.getClientType());
+        }
+        return list;
+
+    }
+
+
+
+    public List<Segment> getSegment() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getSegments();
+        }
+        return new ArrayList<>();
+
+    }
+
+
+    public List<String> getSegmentString() {
+        List<String> list = new ArrayList<>();
+        for (Segment in : getSegment()) {
+            list.add(in.getSegment());
         }
         return list;
 
@@ -300,9 +319,9 @@ public class LocalSetting {
     }
 
 
-    public List<RelationshipTypesWithIDLC> getIdlcRelationType() {
+    public List<RelationshipTypes> getIdlcRelationType() {
         if (getLocalSetting() != null) {
-            return getLocalSetting().getData().getRelationshipTypesWithIDLC();
+            return getLocalSetting().getData().getRelationshipTypes();
         }
         return new ArrayList<>();
 
@@ -310,7 +329,7 @@ public class LocalSetting {
 
     public List<String> getIdlcRelationTypeStringList() {
         List<String> list = new ArrayList<>();
-        for (RelationshipTypesWithIDLC in : getIdlcRelationType()) {
+        for (RelationshipTypes in : getIdlcRelationType()) {
             list.add(in.getRelationshipType());
         }
         return list;

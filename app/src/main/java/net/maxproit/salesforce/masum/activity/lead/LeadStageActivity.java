@@ -411,7 +411,6 @@ public class LeadStageActivity extends BaseActivity {
                                             designation, phone, address, ref, productType, subCat,
                                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
                                     if (visitPlan != null) {
-
                                         callActivityApi(visitPlan.getJournalId(), data.getLeadReferenceNo());
                                     }
                                     finish();

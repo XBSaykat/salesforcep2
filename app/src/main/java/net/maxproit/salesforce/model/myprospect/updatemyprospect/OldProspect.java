@@ -120,10 +120,12 @@ public class OldProspect {
         myNewProspect.setpIssueDate(CommonUtil.jsonToDate(data.getPhotoIdIssueDate()));
         myNewProspect.setpIdNumber(data.getPhotoIdNumber());
         myNewProspect.setAddress(data.getPresentAddress());
+        myNewProspect.setpIDType(String.valueOf(data.getPhotoIdTypeCode()));
         myNewProspect.setPresAddressCity(data.getPresentAddressCity());
         myNewProspect.setPresAddressPs(data.getPresentAddressPS());
         myNewProspect.setSourceRef(data.getRelationshipWithApplicant());
         myNewProspect.setsValue(String.valueOf(data.getSecurityValue()));
+        myNewProspect.setOrInterest(String.valueOf(data.getIntersetRate()));
 //        myNewProspect.setRmCode(data.getRmCode());
 //        myNewProspect.setUserName(data.getUserName());
         myNewProspect.setEtin(data.getETin());

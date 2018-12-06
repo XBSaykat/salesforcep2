@@ -171,21 +171,20 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                     LongOperation longOperation = new LongOperation();
                     longOperation.execute(i);
                     if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-
+                        productTypeCode=8;
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
-
                     }
                     if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-
+                        productTypeCode=9;
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
 
                     }
                     if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                        productTypeCode=10;
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
-
                     }
                 }
                 else {
@@ -369,15 +368,18 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                         }
 
                         if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
+                            productTypeCode=8;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
 
                         } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+                            productTypeCode=9;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
 
 
                         } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                            productTypeCode=10;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
 

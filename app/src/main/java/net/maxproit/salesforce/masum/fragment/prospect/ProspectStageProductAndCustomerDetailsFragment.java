@@ -91,7 +91,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
 
-    public static int photoIdcode=0;
+    public static int photoIdcode = 0;
     private LinearLayout llAddress;
 
     private RadioGroup rgExList;
@@ -188,9 +188,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id_type);
 
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
-
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        localSetting=new LocalSetting(getActivity());
+        localSetting = new LocalSetting(getActivity());
 
         initAdapters();
         initListener();
@@ -392,7 +391,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 branchName = s;
-                LongOperation longOperation=new LongOperation();
+                LongOperation longOperation = new LongOperation();
                 longOperation.execute(i);
             }
         });
@@ -436,8 +435,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
+                liPhotoIdNo.setVisibility(View.GONE);
                 validPhoto = s;
-                LongOperationPhotoIDCode longOperationPhotoIDCode=new LongOperationPhotoIDCode();
+                LongOperationPhotoIDCode longOperationPhotoIDCode = new LongOperationPhotoIDCode();
                 longOperationPhotoIDCode.execute(i);
                 if (i == 0) {
                     getphotoIdNumber(s);
@@ -504,7 +504,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> branchNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getBranchString());
         spinnerBranchName.setAdapter(branchNameAdapter);
 
-        ArrayAdapter<String> segmentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSegment);
+        ArrayAdapter<String> segmentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getSegmentString());
         spinnerSegment.setAdapter(segmentAdapter);
 
         ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthDistric);
@@ -516,8 +516,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
 
-//        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
-//        spinnerRelationship.setAdapter(realationAdapter);
+        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
+        spinnerRelationship.setAdapter(realationAdapter);
 
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
@@ -533,8 +533,13 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etCompanyName.setText(myNewLead.getOrganization());
             etPermanentAddress.setText(myNewLead.getpAddress());
             etNoYrsInCurrentJob.setText(myNewLead.getCurrentJob());
-            etDob.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getpIssueDate())));
-            etAge.setText(myNewLead.getAge());
+
+            etDob.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getDateOfBirth())));
+            if (myNewLead.getDateOfBirth() != null) {
+                long timeinMIlis = DateUtils.getStringtoDate(DateUtils.getDateFormateEt(myNewLead.getDateOfBirth()));
+                etAge.setText(calcutateAge(timeinMIlis));
+            }
+
             etETin.setText(myNewLead.getEtin());
             etFatherName.setText(myNewLead.getfName());
             etMotherName.setText(myNewLead.getmName());
@@ -559,10 +564,13 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 try {
                     spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
+                    getphotoIdNumber(myNewLead.getpIDType());
 
                 } catch (IllegalStateException er) {
 
                 }
+            } else {
+                liPhotoIdNo.setVisibility(View.GONE);
             }
 
             if (myNewLead.getSegment() != null) {
@@ -580,13 +588,14 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             } catch (final IllegalStateException ignored) {
 
-            } try {
+            }
+            try {
                 spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
 
             } catch (final IllegalStateException ignored) {
 
             }
-            if (myNewLead.getProductType() !=null) {
+            if (myNewLead.getProductType() != null) {
                 if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);
@@ -626,7 +635,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             if (myNewLead.getApplicant() != null) {
                 try {
-//                    spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
+                    spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
                 } catch (final IllegalStateException ignored) {
 
                 }
@@ -646,7 +655,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         @Override
         protected String doInBackground(Integer... params) {
-             branchCode = localSetting.getBranchCode(params[0]);
+            branchCode = localSetting.getBranchCode(params[0]);
             return null;
         }
 
@@ -658,10 +667,12 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+        }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 
 
@@ -669,7 +680,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         @Override
         protected String doInBackground(Integer... params) {
-            photoIdcode=localSetting.getPhotoIdCode(params[0]);
+            photoIdcode = localSetting.getPhotoIdCode(params[0]);
             return null;
         }
 
@@ -681,10 +692,12 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+        }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 
 

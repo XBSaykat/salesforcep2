@@ -8,6 +8,17 @@ import java.util.Date;
 public class DateUtils {
 
 
+    public static  long getStringtoDate( String date){
+        SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
+        Date newDate=null;
+        try {
+             newDate = sdfStr.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return newDate.getTime();
+    }
+
     public static String getDateString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         Date date = new Date();

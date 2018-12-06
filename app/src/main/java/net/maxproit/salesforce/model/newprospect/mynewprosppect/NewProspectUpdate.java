@@ -729,10 +729,10 @@ public class NewProspectUpdate {
         for (int i = 0; i < coApplicanLocalList.size(); i++) {
 
 
-            coApplicant.setAgriculturalIncome(0);
-            coApplicant.setApartmentIncome(0);
-            coApplicant.setBusinessIncome(0);
-            coApplicant.setCommercialSpaceIncome(0);
+            coApplicant.setAgriculturalIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthAgricultureIncomeAmount()));
+            coApplicant.setApartmentIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthApartmentIncomeAmount()));
+            coApplicant.setBusinessIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthBusinessIncomeAmount()));
+            coApplicant.setCommercialSpaceIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthOfficeSpaceIncomeAmount()));
             coApplicant.setCompany(coApplicanLocalList.get(i).getCompanyName());
             coApplicant.setContactId(coApplicanLocalList.get(i).getContactId());
             coApplicant.setCountryOfBirth(coApplicanLocalList.get(i).getCountryOfBirth());
@@ -743,12 +743,12 @@ public class NewProspectUpdate {
             coApplicant.setDesignation(coApplicanLocalList.get(i).getDesignation());
             coApplicant.setDistrictOfBirth(coApplicanLocalList.get(i).getDistrictOfBirth());
             coApplicant.setETin(coApplicanLocalList.get(i).geteTin());
-            coApplicant.setFactoryIncome(0);
+            coApplicant.setFactoryIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthWareHouseAmount()));
             coApplicant.setFatherName(coApplicanLocalList.get(i).getfName());
-            coApplicant.setInterestIncomeOfFDR(0);
+            coApplicant.setInterestIncomeOfFDR(Integer.valueOf(coApplicanLocalList.get(i).getInterestFDRIncomeAmount()));
             coApplicant.setMobile(coApplicanLocalList.get(i).getMobileNo());
             coApplicant.setMotherName(coApplicanLocalList.get(i).getmName());
-            coApplicant.setNetSalary(0);
+            coApplicant.setNetSalary(Integer.valueOf(coApplicanLocalList.get(i).getMonthSalaryAmount()));
             coApplicant.setNetSalaryType(coApplicanLocalList.get(i).getMonthSalaryType());
             coApplicant.setPermanentAddress(coApplicanLocalList.get(i).getPermanentAddress());
             coApplicant.setPermanentAddressCity("");
@@ -756,17 +756,17 @@ public class NewProspectUpdate {
             coApplicant.setPermanentAddressPS("");
             coApplicant.setPhotoIdIssueDate(coApplicanLocalList.get(i).getPhotoIdIssueDate());
             coApplicant.setPhotoIdNumber(coApplicanLocalList.get(i).getPhotoIdNo());
-            coApplicant.setPhotoIdTypeCode(2300);
+            coApplicant.setPhotoIdTypeCode(Integer.valueOf(coApplicanLocalList.get(i).getPhotoIdType()));
             coApplicant.setPresentAddress(coApplicanLocalList.get(i).getPresentAddress());
             coApplicant.setPresentAddressCity("Dhakax");
-            coApplicant.setPresentAddressId(12);
+            coApplicant.setPresentAddressId(coApplicanLocalList.get(i).getPresentAddressId());
             coApplicant.setPresentAddressPS("Dhaka");
             coApplicant.setProfession(coApplicanLocalList.get(i).getProfession());
             coApplicant.setRelationshipWithApplicant(coApplicanLocalList.get(i).getRelationWithApplicant());
-            coApplicant.setRemittanceIncome(0);
-            coApplicant.setSemipakaIncome(0);
+            coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance()));
+            coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount()));
             coApplicant.setSpouseName(coApplicanLocalList.get(i).getsName());
-            coApplicant.setTutionIncome(0);
+            coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount()));
 
             coApplicantsList.add(coApplicant);
         }

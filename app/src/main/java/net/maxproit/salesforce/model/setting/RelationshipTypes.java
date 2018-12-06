@@ -4,7 +4,7 @@ package net.maxproit.salesforce.model.setting;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RelationshipTypesWithIDLC {
+public class RelationshipTypes {
 
     @SerializedName("RelationshipType")
     @Expose
@@ -21,7 +21,7 @@ public class RelationshipTypesWithIDLC {
         this.relationshipType = relationshipType;
     }
 
-    public RelationshipTypesWithIDLC withRelationshipType(String relationshipType) {
+    public RelationshipTypes withRelationshipType(String relationshipType) {
         this.relationshipType = relationshipType;
         return this;
     }
@@ -34,7 +34,7 @@ public class RelationshipTypesWithIDLC {
         this.relationshipTypeCode = relationshipTypeCode;
     }
 
-    public RelationshipTypesWithIDLC withRelationshipTypeCode(int relationshipTypeCode) {
+    public RelationshipTypes withRelationshipTypeCode(int relationshipTypeCode) {
         this.relationshipTypeCode = relationshipTypeCode;
         return this;
     }
