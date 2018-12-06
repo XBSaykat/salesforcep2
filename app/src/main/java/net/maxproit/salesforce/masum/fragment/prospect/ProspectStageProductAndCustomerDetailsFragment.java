@@ -600,7 +600,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             }
             if (myNewLead.getProductType() != null) {
-                if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
+                if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
                     productTypeCode=8;
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);
@@ -609,7 +609,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                     } catch (final IllegalStateException ignored) {
 
                     }
-                } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
+                } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
                     productTypeCode=9;
                     ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                     spinnerProductDetail.setAdapter(carLoan);

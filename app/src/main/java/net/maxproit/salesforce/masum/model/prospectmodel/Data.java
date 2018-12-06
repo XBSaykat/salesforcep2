@@ -78,13 +78,13 @@ public class Data {
     private String fatherName;
     @SerializedName("fee")
     @Expose
-    private Integer fee;
+    private Float fee;
     @SerializedName("interestIncomeOfFDR")
     @Expose
     private Integer interestIncomeOfFDR;
     @SerializedName("intersetRate")
     @Expose
-    private Integer intersetRate;
+    private Float intersetRate;
     @SerializedName("leadReferenceNo")
     @Expose
     private String leadReferenceNo;
@@ -384,11 +384,11 @@ public class Data {
         this.fatherName = fatherName;
     }
 
-    public Integer getFee() {
+    public Float getFee() {
         return fee;
     }
 
-    public void setFee(Integer fee) {
+    public void setFee(Float fee) {
         this.fee = fee;
     }
 
@@ -400,11 +400,11 @@ public class Data {
         this.interestIncomeOfFDR = interestIncomeOfFDR;
     }
 
-    public Integer getIntersetRate() {
+    public Float getIntersetRate() {
         return intersetRate;
     }
 
-    public void setIntersetRate(Integer intersetRate) {
+    public void setIntersetRate(Float intersetRate) {
         this.intersetRate = intersetRate;
     }
 
