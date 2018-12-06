@@ -544,7 +544,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etFatherName.setText(myNewLead.getfName());
             etMotherName.setText(myNewLead.getmName());
             etSpouseName.setText(myNewLead.getsName());
-            etPhotoIdDate.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getpIssueDate())));
+            etPhotoIdDate.setText(DateUtils.getDateFormateEt(myNewLead.getpIssueDate()));
             if (myNewLead.getDob() != null) {
                 try {
                     spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getDob()));

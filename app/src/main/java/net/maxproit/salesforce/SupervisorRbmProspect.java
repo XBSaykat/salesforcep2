@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.login.LoginActivity;
@@ -28,6 +29,7 @@ import net.maxproit.salesforce.model.myprospect.MyProspect;
 import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -124,32 +126,41 @@ public class SupervisorRbmProspect extends BaseActivity {
         if (isNetworkAvailable()) {
             callApi();
         }
+        else showAlertDialog("Error","Network isn't connected");
+
 
 
     }
 
     private void callApi() {
-        String userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
-        String random = UUID.randomUUID().toString();
-        localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
-        getApiService().getRbmData(userName, random).enqueue(new Callback<GetRbmData>() {
-            @Override
-            public void onResponse(Call<GetRbmData> call, Response<GetRbmData> response) {
-                if (response.body().getCode().equals("200")) {
-                    MyProspect myProspect = new MyProspect();
-                    filterList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
-                    myAdapter.notifyDataSetChanged();
-                } else {
-                    showAlertDialog("Error", response.body().getMessage());
-                }
+
+
+            if(isNetworkAvailable()){
+                String userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
+                String random = UUID.randomUUID().toString();
+                localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
+                getApiService().getRbmData(userName, random).enqueue(new Callback<GetRbmData>() {
+                    @Override
+                    public void onResponse(Call<GetRbmData> call, Response<GetRbmData> response) {
+                        if (response.body().getCode().equals("200")) {
+                            MyProspect myProspect = new MyProspect();
+                            filterList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
+                            myAdapter.notifyDataSetChanged();
+                        } else {
+                            showAlertDialog("Error", response.body().getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetRbmData> call, Throwable t) {
+                        showAlertDialog("Error", t.getMessage());
+
+                    }
+                });
+            } else {
+                showAlertDialog("Error", "Network isn't connected");
             }
 
-            @Override
-            public void onFailure(Call<GetRbmData> call, Throwable t) {
-                showAlertDialog("Error", t.getMessage());
-
-            }
-        });
     }
 
     private void sentDataToDetail(int position) {

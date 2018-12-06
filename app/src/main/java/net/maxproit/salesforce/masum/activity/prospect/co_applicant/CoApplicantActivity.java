@@ -18,6 +18,8 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
+import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantProductAndCustomerDetailsFragment;
@@ -84,7 +86,7 @@ public class CoApplicantActivity extends BaseActivity {
                         monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
                         monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
                         emiOfOtherLoans;
-
+                AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED,true);
                 name = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
                 dateOfBirth = CoApplicantProductAndCustomerDetailsFragment.etDateOfBirth.getText().toString();
                 age = CoApplicantProductAndCustomerDetailsFragment.etAge.getText().toString();

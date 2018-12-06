@@ -478,6 +478,7 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setPermanentAddressCity("");
                 newProspectUpdate.setPermanentAddressId(getDataFromProspect().getPermAddressId());
                 newProspectUpdate.setPermanentAddressPS("");
+                newProspectUpdate.setSegment(segment);
                 newProspectUpdate.setPhotoIdIssueDate(DateUtils.getDateFormateForSqlite(myNewProspect.getpIssueDate()));
                 newProspectUpdate.setPhotoIdNumber(myNewProspect.getpIdNumber());
                 newProspectUpdate.setPhotoIdTypeCode(Integer.valueOf(photoIdType)); // issue
@@ -490,7 +491,7 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setProductSubCategory(myNewProspect.getProductSubcategory());
                 newProspectUpdate.setProductSubCategoryId(myNewProspect.getSubCode());
                 newProspectUpdate.setProfession(myNewProspect.getProfession());
-                newProspectUpdate.setRelationshipWithApplicant(myNewProspect.getSourceRef());
+                newProspectUpdate.setRelationshipWithApplicant(myNewProspect.getApplicant());
                 newProspectUpdate.setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
                 newProspectUpdate.setRmCode(myNewProspect.getRmCode());
                 newProspectUpdate.setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
@@ -505,8 +506,6 @@ public class ProspectStageActivity extends BaseActivity {
                 ArrayList<CoApplicant> coApplicantList = coApplicantDBController.getAllData(refNo);
                 newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
 //                NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
-
-
 
                 if (isNetworkAvailable()) {
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
