@@ -91,7 +91,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
 
-    public static int photoIdcode = 0;
+    public static int productTypeCode=0, photoIdcode = 0;
     private LinearLayout llAddress;
 
     private RadioGroup rgExList;
@@ -507,10 +507,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> segmentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getSegmentString());
         spinnerSegment.setAdapter(segmentAdapter);
 
-        ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthDistric);
+        ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerDistOfBirth.setAdapter(disBirthAdapter);
 
-        ArrayAdapter<String> disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthCountry);
+        ArrayAdapter<String> disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCountryString());
         spinnerCountOfBirth.setAdapter(disCountryAdater);
 
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
@@ -589,6 +589,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             } catch (final IllegalStateException ignored) {
 
             }
+
+            if (myNewLead.getBrandName() !=null){
+                localSetting.getBranchCodeByName(myNewLead.getBranchName());
+            }
             try {
                 spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
 
@@ -597,6 +601,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
             if (myNewLead.getProductType() != null) {
                 if (myNewLead.getProductType().equals(AppConstant.HOME_LOAN)) {
+                    productTypeCode=8;
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);
                     try {
@@ -605,6 +610,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                     }
                 } else if (myNewLead.getProductType().equals(AppConstant.CAR_LOAN)) {
+                    productTypeCode=9;
                     ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                     spinnerProductDetail.setAdapter(carLoan);
                     try {
@@ -614,6 +620,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                     }
                 } else {
+                    productTypeCode=10;
                     ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                     spinnerProductDetail.setAdapter(personalLoan);
                     try {

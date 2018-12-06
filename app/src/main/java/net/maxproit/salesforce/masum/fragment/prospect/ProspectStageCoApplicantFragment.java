@@ -182,13 +182,13 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
             }
         });
 
-        coApplicantAdapter.setItemClickListener(new OnItemClickListener() {
+       /* coApplicantAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
                 sentDataToCoApplicant(position);
 
             }
-        });
+        });*/
     }
 
     private void sentDataToCoApplicant(int position) {

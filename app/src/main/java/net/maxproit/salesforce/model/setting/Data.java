@@ -146,6 +146,29 @@ public class Data {
     public void setSourceOfReference(List<SourceOfReference> sourceOfReference) {
         this.sourceOfReference = sourceOfReference;
     }
+    @SerializedName("netSalaryTypes")
+    @Expose
+    private List<NetSalaryType> netSalaryTypes = null;
+
+    public List<NetSalaryType> getNetSalaryTypes() {
+        return netSalaryTypes;
+    }
+
+    public void setNetSalaryTypes(List<NetSalaryType> netSalaryTypes) {
+        this.netSalaryTypes = netSalaryTypes;
+    }
+
+    @SerializedName("countries")
+    @Expose
+    private List<Country> countries = null;
+
+    public List<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(List<Country> countries) {
+        this.countries = countries;
+    }
 
     public List<PSe> getPSes() {
         return pSes;

@@ -301,7 +301,7 @@ public class LeadStageAttachmentFragment extends Fragment {
             try {
 
                 // Getting selected image into Bitmap.
-                attachvCard= MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+                attachvCard = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
                 Glide.with(getActivity()).load(filePathUri).into(imgVisitingCard);
                 // Setting up bitmap selected image into ImageView.
                 //imgVisitingCard.setImageBitmap(bitmap);
