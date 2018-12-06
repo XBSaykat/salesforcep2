@@ -1,10 +1,13 @@
 
 package net.maxproit.salesforce.model.myprospect;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import net.maxproit.salesforce.masum.model.api.rbm.Datum;
 
 public class MyProspect {
 
@@ -71,6 +74,25 @@ public class MyProspect {
     public MyProspect withData(List<Data> data) {
         this.data = data;
         return this;
+    }
+
+
+    public ArrayList<Data> setRbmDataModelList(ArrayList<Datum> rbmList){
+        ArrayList<Data> dataList=new ArrayList<>();
+
+
+        for (int i=0;i<rbmList.size();i++){
+           Data data=new Data();
+           data.setBranch(rbmList.get(i).getBranch());
+           data.setName(rbmList.get(i).getName());
+           data.setStatus(rbmList.get(i).getCurrentLevel());
+           data.setReference(rbmList.get(i).getReference());
+           dataList.add(data);
+        }
+
+
+        return dataList;
+
     }
 
 }
