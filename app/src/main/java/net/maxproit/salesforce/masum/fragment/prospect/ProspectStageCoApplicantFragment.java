@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
@@ -36,7 +37,7 @@ import java.util.Collections;
  * Use the {@link ProspectStageCoApplicantFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProspectStageCoApplicantFragment extends Fragment {
+public class ProspectStageCoApplicantFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -109,7 +110,19 @@ public class ProspectStageCoApplicantFragment extends Fragment {
         return view;
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
+
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+
     private void loadCoapplicants() {
+
+
         if (!coApplicantList.isEmpty()) {
             coApplicantList.clear();
         }
