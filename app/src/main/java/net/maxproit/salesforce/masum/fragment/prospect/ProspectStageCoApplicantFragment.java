@@ -126,8 +126,9 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         if (!coApplicantList.isEmpty()) {
             coApplicantList.clear();
         }
-        coApplicantList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
-
+        if (!coApplicantList.isEmpty()) {
+            coApplicantList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
+        }
         //coApplicantList.addAll(coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()));
         viewListItems();
         if (coApplicantList.size() > 0) {

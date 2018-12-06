@@ -90,7 +90,7 @@ public class Data {
     private Integer interestIncomeOfFDR;
     @SerializedName("intersetRate")
     @Expose
-    private Integer intersetRate;
+    private Float intersetRate;
     @SerializedName("leadReferenceNo")
     @Expose
     private String leadReferenceNo;
@@ -399,11 +399,11 @@ public class Data {
         this.interestIncomeOfFDR = interestIncomeOfFDR;
     }
 
-    public Integer getIntersetRate() {
+    public Float getIntersetRate() {
         return intersetRate;
     }
 
-    public void setIntersetRate(Integer intersetRate) {
+    public void setIntersetRate(Float intersetRate) {
         this.intersetRate = intersetRate;
     }
 
