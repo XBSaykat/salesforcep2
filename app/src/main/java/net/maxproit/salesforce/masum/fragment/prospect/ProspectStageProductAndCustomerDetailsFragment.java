@@ -188,7 +188,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id_type);
 
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
-
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         localSetting=new LocalSetting(getActivity());
 
@@ -436,6 +435,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
+                liPhotoIdNo.setVisibility(View.GONE);
                 validPhoto = s;
                 LongOperationPhotoIDCode longOperationPhotoIDCode=new LongOperationPhotoIDCode();
                 longOperationPhotoIDCode.execute(i);
@@ -504,7 +504,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> branchNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getBranchString());
         spinnerBranchName.setAdapter(branchNameAdapter);
 
-        ArrayAdapter<String> segmentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSegment);
+        ArrayAdapter<String> segmentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getSegmentString());
         spinnerSegment.setAdapter(segmentAdapter);
 
         ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listBirthDistric);
@@ -559,10 +559,14 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 try {
                     spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
+                    getphotoIdNumber(myNewLead.getpIDType());
 
                 } catch (IllegalStateException er) {
 
                 }
+            }
+            else {
+                liPhotoIdNo.setVisibility(View.GONE);
             }
 
             if (myNewLead.getSegment() != null) {
