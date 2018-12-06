@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
@@ -31,6 +32,7 @@ import net.maxproit.salesforce.util.SharedPreferencesEnum;
 public abstract class BaseFragment extends Fragment {
     private ViewDataBinding binding;
     private ProgressDialog progressDialog;
+    private LinearLayout loadingView, noDataView;
 
     // Inflate the view for the fragment based on layout XML
     @Override
@@ -123,6 +125,39 @@ public abstract class BaseFragment extends Fragment {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    public void initLoader() {
+        loadingView = (LinearLayout)getActivity().findViewById(R.id.loadingView);
+        noDataView = (LinearLayout) getActivity().findViewById(R.id.noDataView);
+    }
+
+    public void showLoader() {
+        if (loadingView != null) {
+            loadingView.setVisibility(View.VISIBLE);
+        }
+
+        if (noDataView != null) {
+            noDataView.setVisibility(View.GONE);
+        }
+    }
+
+    public void hideLoader() {
+        if (loadingView != null) {
+            loadingView.setVisibility(View.GONE);
+        }
+        if (noDataView != null) {
+            noDataView.setVisibility(View.GONE);
+        }
+    }
+
+    public void showEmptyView() {
+        if (loadingView != null) {
+            loadingView.setVisibility(View.GONE);
+        }
+        if (noDataView != null) {
+            noDataView.setVisibility(View.VISIBLE);
+        }
     }
 
 }
