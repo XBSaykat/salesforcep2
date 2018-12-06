@@ -66,7 +66,8 @@ public class OldProspect {
         myNewProspect.setApartmentAmount(String.valueOf(data.getApartmentIncome()));
         myNewProspect.setAssetType(data.getAssetType());
         myNewProspect.setAssetTypeId(data.getAssetTypeId());
-        myNewProspect.setApplicant(data.getCustomerName());
+        myNewProspect.setApplicant(data.getRelationshipWithApplicant());
+        myNewProspect.setUserName(data.getUserName());
         myNewProspect.setBrandName(data.getBrandName());
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
         myNewProspect.setBranchCode(data.getBranchCode());
@@ -92,6 +93,7 @@ public class OldProspect {
         myNewProspect.setProspectFee(String.valueOf(data.getFee()));
         myNewProspect.setRmCode(data.getRmCode());
         myNewProspect.setStatus(data.getStatus());
+        myNewProspect.setSegment(data.getSegment());
         myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
         myNewProspect.setMobileId(data.getMobileNoId());
         myNewProspect.setOrganization(data.getCompany());
@@ -126,6 +128,7 @@ public class OldProspect {
         myNewProspect.setSourceRef(data.getRelationshipWithApplicant());
         myNewProspect.setsValue(String.valueOf(data.getSecurityValue()));
         myNewProspect.setOrInterest(String.valueOf(data.getIntersetRate()));
+
 //        myNewProspect.setRmCode(data.getRmCode());
 //        myNewProspect.setUserName(data.getUserName());
         myNewProspect.setEtin(data.getETin());
