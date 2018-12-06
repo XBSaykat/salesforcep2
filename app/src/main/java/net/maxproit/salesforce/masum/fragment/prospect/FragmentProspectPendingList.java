@@ -96,7 +96,6 @@ public class FragmentProspectPendingList extends BaseFragment {
             @Override
             public void itemClickListener(View view, int position) {
                 loadFilterData();
-
                 switch (view.getId()){
                     default:
                        callApiLoadList(position);
@@ -114,8 +113,6 @@ public class FragmentProspectPendingList extends BaseFragment {
             public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
                 Log.d("tag", "onResponse: "+response.body().toString());
                 OldProspect oldProspect = response.body();
-//                             MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
-
                 ActivityUtils.invokLeadDetailForProspectStage(getActivity(),oldProspect.getMyNewProspect());
 
 

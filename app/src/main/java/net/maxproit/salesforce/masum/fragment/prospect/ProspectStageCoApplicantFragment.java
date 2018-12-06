@@ -121,8 +121,6 @@ public class ProspectStageCoApplicantFragment extends Fragment {
 
         }
         coApplicantAdapter.notifyDataSetChanged();
-
-
     }
 
     private void viewListItems() {
