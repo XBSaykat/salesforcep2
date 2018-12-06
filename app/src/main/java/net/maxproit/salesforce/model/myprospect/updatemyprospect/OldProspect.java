@@ -58,12 +58,23 @@ public class OldProspect {
         this.data = data;
     }
 
-    public MyNewProspect getMyNewProspect(){
+    public MyNewProspect getMyNewProspect() {
 
         MyNewProspect myNewProspect = new MyNewProspect();
+        try {
+            myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
+            myNewProspect.setAg_Income(String.valueOf(data.getAgriculturalIncome()));
+            myNewProspect.setPiRate(String.valueOf(data.getIntersetRate()));
+            myNewProspect.setInFdr(String.valueOf(data.getInterestIncomeOfFDR()));
+            myNewProspect.setEmiOther(String.valueOf(data.getEmiOfOtherLoan()));
+            myNewProspect.setWireHouseINcome(String.valueOf(data.getFactoryIncome()));
+            myNewProspect.setfExpense(String.valueOf(data.getFamilyExpenditure()));
+            myNewProspect.setBusinessIncomeAmount(String.valueOf(data.getBusinessIncome()));
+            myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
+            myNewProspect.setApartmentAmount(String.valueOf(data.getApartmentIncome()));
+        } catch (NullPointerException e) {
 
-        myNewProspect.setAg_Income(String.valueOf(data.getAgriculturalIncome()));
-        myNewProspect.setApartmentAmount(String.valueOf(data.getApartmentIncome()));
+        }
         myNewProspect.setAssetType(data.getAssetType());
         myNewProspect.setAssetTypeId(data.getAssetTypeId());
         myNewProspect.setApplicant(data.getRelationshipWithApplicant());
@@ -71,9 +82,7 @@ public class OldProspect {
         myNewProspect.setBrandName(data.getBrandName());
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
         myNewProspect.setBranchCode(data.getBranchCode());
-        myNewProspect.setBusinessIncomeAmount(String.valueOf(data.getBusinessIncome()));
         myNewProspect.setBranchName(data.getBranchName());
-        myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
         myNewProspect.setPermAddressId(data.getPermanentAddressId());
         myNewProspect.setPresAddressId(data.getPresentAddressId());
         myNewProspect.setContactId(data.getContactId());
@@ -82,11 +91,6 @@ public class OldProspect {
         myNewProspect.setCusId(data.getCustomerId());
         myNewProspect.setDob(data.getDistrictOfBirth());
         myNewProspect.setDateOfBirth(data.getDateOfBirth());
-        myNewProspect.setPiRate(String.valueOf(data.getIntersetRate()));
-        myNewProspect.setInFdr(String.valueOf(data.getInterestIncomeOfFDR()));
-        myNewProspect.setEmiOther(String.valueOf(data.getEmiOfOtherLoan()));
-        myNewProspect.setWireHouseINcome(String.valueOf(data.getFactoryIncome()));
-        myNewProspect.setfExpense(String.valueOf(data.getFamilyExpenditure()));
         myNewProspect.setfName(data.getFatherName());
         myNewProspect.setmName(data.getMotherName());
         myNewProspect.setsName(data.getSpouseName());
@@ -94,7 +98,6 @@ public class OldProspect {
         myNewProspect.setRmCode(data.getRmCode());
         myNewProspect.setStatus(data.getStatus());
         myNewProspect.setSegment(data.getSegment());
-        myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
         myNewProspect.setMobileId(data.getMobileNoId());
         myNewProspect.setOrganization(data.getCompany());
         myNewProspect.setProductCode(data.getProductId());
@@ -138,9 +141,8 @@ public class OldProspect {
         myNewProspect.setSemipakaIncome(String.valueOf(data.getSemipakaIncome()));
 
 
-
         List<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicantList = new ArrayList<>();
-        if ( !data.getCoApplicants().isEmpty()){
+        if (!data.getCoApplicants().isEmpty()) {
 
             for (int i = 0; i < data.getCoApplicants().size(); i++) {
                 net.maxproit.salesforce.masum.model.local.CoApplicant coApplicant = new CoApplicant();
@@ -190,7 +192,7 @@ public class OldProspect {
         }
 
 
-            return myNewProspect;
+        return myNewProspect;
 
     }
 

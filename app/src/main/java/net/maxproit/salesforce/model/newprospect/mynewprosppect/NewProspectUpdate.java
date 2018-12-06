@@ -203,7 +203,7 @@ public class NewProspectUpdate {
     private Float intersetRate;
     @SerializedName("fee")
     @Expose
-    private Integer fee;
+    private Float fee;
     @SerializedName("coApplicants")
     @Expose
     private List<CoApplicant> coApplicants = new ArrayList<>();
@@ -704,11 +704,11 @@ public class NewProspectUpdate {
         this.intersetRate = intersetRate;
     }
 
-    public Integer getFee() {
+    public Float getFee() {
         return fee;
     }
 
-    public void setFee(Integer fee) {
+    public void setFee(Float fee) {
         this.fee = fee;
     }
 

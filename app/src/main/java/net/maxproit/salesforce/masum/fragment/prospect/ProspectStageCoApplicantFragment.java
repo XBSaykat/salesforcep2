@@ -143,6 +143,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                 coApplicantList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
             }
         }
+        //coApplicantList.addAll(coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()));
         viewListItems();
         if (coApplicantList.size() > 0) {
             Collections.reverse(coApplicantList);
@@ -274,6 +275,4 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
 }
