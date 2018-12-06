@@ -478,7 +478,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getRealStateTypeString());
+        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
         spinnerRelationship.setAdapter(realationAdapter);
 
 
