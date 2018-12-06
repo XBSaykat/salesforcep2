@@ -51,7 +51,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private AwesomeSpinner spinnerBranchName, spinnerProfession;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession = null, branchName = null,branchCode=null;
+    public static String profession = null, branchName = null, branchCode = null;
     private List<String> listBranchArray = null;
     private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
@@ -76,7 +76,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
     public LeadStageBasicInformationFragment() {
         // Required empty public constructor
-        Log.e("crash","basic");
+        Log.e("crash", "basic");
     }
 
     /**
@@ -138,7 +138,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
                 branchName = s;
-                LongOperation longOperation=new LongOperation();
+                LongOperation longOperation = new LongOperation();
                 longOperation.execute(i);
             }
         });
@@ -243,16 +243,16 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                     etAddress.setText(visitPlan.getPoliceStation() + "," + visitPlan.getCity());
                 }
             } else {
-
+                initLoader();
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-                    branchCode= String.valueOf(myNewLead.getBranchCode());
+                    branchCode = String.valueOf(myNewLead.getBranchCode());
                     etUserName.setText(myNewLead.getUserName());
                     etPhone.setText(myNewLead.getPhone());
                     etAddress.setText(myNewLead.getAddress());
                     etUserOrganization.setText(myNewLead.getOrganization());
                     etDesignattion.setText(myNewLead.getDesignation());
-                    if (myNewLead.getBranchName() != null ) {
+                    if (myNewLead.getBranchName() != null) {
                         try {
                             spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
                         } catch (final IllegalStateException ignored) {
@@ -267,6 +267,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                     }
 
                 }
+                hideLoader();
 
 
             }
@@ -305,22 +306,24 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
         @Override
         protected String doInBackground(Integer... params) {
-          branchCode=mLocalSettting.getBranchCode(params[0]);
+            branchCode = mLocalSettting.getBranchCode(params[0]);
             return null;
         }
 
         @Override
         protected void onPostExecute(String result) {
-          // txt.setText(result);
+            // txt.setText(result);
             // might want to change "executed" for the returned string passed
             // into onPostExecute() but that is upto you
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+        }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 
 
@@ -329,8 +332,6 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
         super.onDetach();
         mListener = null;
     }
-
-
 
 
     /**
