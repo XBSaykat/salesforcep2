@@ -497,7 +497,7 @@ public class LeadStageActivity extends BaseActivity {
                                                 designation, phone, address, ref, productType, subCat,
                                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
 
-                                        leadApprove(data);
+                                        leadApprove(data, myLeadDataModelApi.getProductId());
                                     } else {
                                         showAlertDialog("ERROR", response.body().getMessage());
                                     }
@@ -541,9 +541,9 @@ public class LeadStageActivity extends BaseActivity {
                                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_OK);
                                         if (visitPlan != null) {
                                             callActivityApi(visitPlan.getJournalId(), data.getLeadReferenceNo());
-                                            leadApprove(data);
+                                            leadApprove(data, myLeadDataModelApi.getProductId());
                                         } else {
-                                            leadApprove(data);
+                                            leadApprove(data, myLeadDataModelApi.getProductId());
                                         }
                                         finish();
 
@@ -599,13 +599,13 @@ public class LeadStageActivity extends BaseActivity {
         dialog.show();
     }
 
-    private void leadApprove(Data data) {
+    private void leadApprove(Data data, int productId) {
         Approval myLeadApproval = new Approval(AppConstant.APPROVAL_LEAD,
                 data.getLeadReferenceNo(),
                 AppConstant.APPROVAL_SET_ID_0,
                 AppConstant.APPROVAL_CURRWENT_LEVEL_1,
                 AppConstant.APPROVAL_STATUS_YES, "",
-                data.getUserName(), data.getBranchName(), data.getProductId());
+                data.getUserName(), data.getBranchName(), productId);
         Log.d("TAG", "leadApprove: " + myLeadApproval.toString());
         getApiService().myleadApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override

@@ -146,7 +146,7 @@ public class CoApplicantActivity extends BaseActivity {
                     Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
 
                     Intent coApplicantIntent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
-                    setResult(Activity.RESULT_OK, coApplicantIntent);
+                    setResult( AppConstant.ACTIVITY_RESULLT_200, coApplicantIntent);
                     finish();
 
                 }

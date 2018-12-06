@@ -340,7 +340,7 @@ public class ProspectStageActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //
-        if (resultCode == RESULT_OK) {
+        if (resultCode == AppConstant.ACTIVITY_RESULLT_200) {
             prospect = null;
             Bundle bundle = data.getExtras();
             if (bundle != null) {
@@ -349,8 +349,12 @@ public class ProspectStageActivity extends BaseActivity {
 
             }
 
-        } else {
+        }else if(resultCode == AppConstant.ACTIVITY_RESULLT_300){
+            Toast.makeText(getApplicationContext(), "co-applicant data saved", Toast.LENGTH_LONG).show();
+        }
+        else {
             Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
+
         }
 
 

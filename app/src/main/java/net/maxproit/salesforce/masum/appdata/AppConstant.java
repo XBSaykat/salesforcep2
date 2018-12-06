@@ -85,4 +85,10 @@ public class AppConstant {
 
 
     public static final String STATUS_ACTIVITY_PROCESS ="Process" ;
+    public static final int ACTIVITY_RESULLT_100 = 100 ;
+    public static final int ACTIVITY_RESULLT_200 = 200 ;
+    public static final int ACTIVITY_RESULLT_300 = 300 ;
+    public static final int ACTIVITY_RESULLT_400 = 400 ;
+
+
 }
