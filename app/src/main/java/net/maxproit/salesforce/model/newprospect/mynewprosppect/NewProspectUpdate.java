@@ -763,7 +763,7 @@ public class NewProspectUpdate {
             coApplicant.setPresentAddressPS("Dhaka");
             coApplicant.setProfession(coApplicanLocalList.get(i).getProfession());
             coApplicant.setRelationshipWithApplicant(coApplicanLocalList.get(i).getRelationWithApplicant());
-            coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance()));
+            coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance().replace(",", "")));
             coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
             coApplicant.setSpouseName(coApplicanLocalList.get(i).getsName());
             coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
