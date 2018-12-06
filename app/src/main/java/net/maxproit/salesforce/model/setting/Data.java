@@ -55,9 +55,9 @@ public class Data {
     @SerializedName("realStateTypes")
     @Expose
     private List<RealStateType> realStateTypes = null;
-    @SerializedName("relationshipTypesWithIDLC")
+    @SerializedName("relationshipTypes")
     @Expose
-    private List<RelationshipTypesWithIDLC> relationshipTypesWithIDLC = null;
+    private List<RelationshipTypes> relationshipTypes = null;
     @SerializedName("titles")
     @Expose
     private List<Title> titles = null;
@@ -122,6 +122,17 @@ public class Data {
 
     public void setProductSubCategory(List<ProductSubCategory> productSubCategory) {
         this.productSubCategory = productSubCategory;
+    }
+    @SerializedName("segments")
+    @Expose
+    private List<Segment> segments = null;
+
+    public List<Segment> getSegments() {
+        return segments;
+    }
+
+    public void setSegments(List<Segment> segments) {
+        this.segments = segments;
     }
 
     @SerializedName("sourceOfReference")
@@ -264,12 +275,12 @@ public class Data {
         this.realStateTypes = realStateTypes;
     }
 
-    public List<RelationshipTypesWithIDLC> getRelationshipTypesWithIDLC() {
-        return relationshipTypesWithIDLC;
+    public List<RelationshipTypes> getRelationshipTypes() {
+        return relationshipTypes;
     }
 
-    public void setRelationshipTypesWithIDLC(List<RelationshipTypesWithIDLC> relationshipTypesWithIDLC) {
-        this.relationshipTypesWithIDLC = relationshipTypesWithIDLC;
+    public void setRelationshipTypes(List<RelationshipTypes> relationshipTypes) {
+        this.relationshipTypes = relationshipTypes;
     }
 
     public List<Title> getTitles() {

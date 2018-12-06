@@ -140,9 +140,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     }
 
     private void viewListItems() {
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-
         rvCoapplicantList.setLayoutManager(mLayoutManager);
         rvCoapplicantList.addItemDecoration(new DividerItemDecoration(getActivity(), ((LinearLayoutManager) mLayoutManager).VERTICAL, 16));
         rvCoapplicantList.setAdapter(coApplicantAdapter);

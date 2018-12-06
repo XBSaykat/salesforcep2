@@ -120,6 +120,7 @@ public class OldProspect {
         myNewProspect.setpIssueDate(CommonUtil.jsonToDate(data.getPhotoIdIssueDate()));
         myNewProspect.setpIdNumber(data.getPhotoIdNumber());
         myNewProspect.setAddress(data.getPresentAddress());
+        myNewProspect.setpIDType(String.valueOf(data.getPhotoIdTypeCode()));
         myNewProspect.setPresAddressCity(data.getPresentAddressCity());
         myNewProspect.setPresAddressPs(data.getPresentAddressPS());
         myNewProspect.setSourceRef(data.getRelationshipWithApplicant());
