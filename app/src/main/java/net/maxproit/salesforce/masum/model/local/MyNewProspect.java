@@ -1,6 +1,5 @@
 package net.maxproit.salesforce.masum.model.local;
 
-import net.maxproit.salesforce.model.myprospect.updatemyprospect.CoApplicant;
 
 import java.io.Serializable;
 import java.util.List;

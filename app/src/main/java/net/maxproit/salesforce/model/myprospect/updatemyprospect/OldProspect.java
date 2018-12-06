@@ -3,6 +3,7 @@ package net.maxproit.salesforce.model.myprospect.updatemyprospect;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.util.CommonUtil;
 
@@ -133,51 +134,53 @@ public class OldProspect {
 
 
 
-        List<CoApplicant> coApplicantList = new ArrayList<>();
+        List<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicantList = new ArrayList<>();
         if ( !data.getCoApplicants().isEmpty()){
 
             for (int i = 0; i < data.getCoApplicants().size(); i++) {
-                CoApplicant coApplicant = new CoApplicant();
-                coApplicant.setAgriculturalIncome(data.getCoApplicants().get(i).getAgriculturalIncome());
-                coApplicant.setApartmentIncome(data.getCoApplicants().get(i).getApartmentIncome());
-                coApplicant.setBusinessIncome(data.getCoApplicants().get(i).getBusinessIncome());
-                coApplicant.setCommercialSpaceIncome(data.getCoApplicants().get(i).getCommercialSpaceIncome());
-                coApplicant.setCompany(data.getCoApplicants().get(i).getCompany());
+                net.maxproit.salesforce.masum.model.local.CoApplicant coApplicant = new CoApplicant();
+                coApplicant.setMonthAgricultureIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getAgriculturalIncome()));
+                coApplicant.setMonthApartmentIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getApartmentIncome()));
+                coApplicant.setMonthBusinessIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getBusinessIncome()));
+                coApplicant.setMonthOfficeSpaceIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getCommercialSpaceIncome()));
+                coApplicant.setCompanyName(data.getCoApplicants().get(i).getCompany());
                 coApplicant.setContactId(data.getCoApplicants().get(i).getContactId());
                 coApplicant.setCountryOfBirth(data.getCoApplicants().get(i).getCountryOfBirth());
-                coApplicant.setCurrentJobDuration(data.getCoApplicants().get(i).getCurrentJobDuration());
+                coApplicant.setNoOfYrsInCurrentJob(data.getCoApplicants().get(i).getCurrentJobDuration());
                 coApplicant.setCustomerId(data.getCoApplicants().get(i).getCustomerId());
-                coApplicant.setCustomerName(data.getCoApplicants().get(i).getCustomerName());
+                coApplicant.setName(data.getCoApplicants().get(i).getCustomerName());
                 coApplicant.setDateOfBirth(data.getCoApplicants().get(i).getDateOfBirth());
                 coApplicant.setDesignation(data.getCoApplicants().get(i).getDesignation());
                 coApplicant.setDistrictOfBirth(data.getCoApplicants().get(i).getDistrictOfBirth());
-                coApplicant.setETin(data.getCoApplicants().get(i).getETin());
-                coApplicant.setFactoryIncome(data.getCoApplicants().get(i).getFactoryIncome());
-                coApplicant.setFatherName(data.getCoApplicants().get(i).getFatherName());
-                coApplicant.setInterestIncomeOfFDR(data.getCoApplicants().get(i).getInterestIncomeOfFDR());
-                coApplicant.setMobile(data.getCoApplicants().get(i).getMobile());
-                coApplicant.setMotherName(data.getCoApplicants().get(i).getMotherName());
-                coApplicant.setNetSalary(data.getCoApplicants().get(i).getNetSalary());
+                coApplicant.seteTin(data.getCoApplicants().get(i).getETin());
+                coApplicant.setMonthWareHouseAmount(String.valueOf(data.getCoApplicants().get(i).getFactoryIncome()));
+                coApplicant.setfName(data.getCoApplicants().get(i).getFatherName());
+                coApplicant.setInterestFDRIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getInterestIncomeOfFDR()));
+                coApplicant.setMobileNo(data.getCoApplicants().get(i).getMobile());
+                coApplicant.setmName(data.getCoApplicants().get(i).getMotherName());
+                coApplicant.setMonthSalaryAmount(String.valueOf(data.getCoApplicants().get(i).getNetSalary()));
                 coApplicant.setPermanentAddress(data.getCoApplicants().get(i).getPermanentAddress());
                 coApplicant.setPermanentAddressCity(data.getCoApplicants().get(i).getPermanentAddressCity());
-                coApplicant.setPermanentAddressId(data.getCoApplicants().get(i).getPermanentAddressId());
+                coApplicant.setPresentAddressId(data.getCoApplicants().get(i).getPermanentAddressId());
                 coApplicant.setPermanentAddressPS(data.getCoApplicants().get(i).getPermanentAddressPS());
                 coApplicant.setPhotoIdIssueDate(data.getCoApplicants().get(i).getPhotoIdIssueDate());
-                coApplicant.setPhotoIdNumber(data.getCoApplicants().get(i).getPhotoIdNumber());
-                coApplicant.setPhotoIdTypeCode(data.getCoApplicants().get(i).getPhotoIdTypeCode());
+                coApplicant.setPhotoIdNo(data.getCoApplicants().get(i).getPhotoIdNumber());
+                coApplicant.setPhotoIdCode(data.getCoApplicants().get(i).getPhotoIdTypeCode());
                 coApplicant.setPresentAddress(data.getCoApplicants().get(i).getPresentAddress());
                 coApplicant.setPresentAddressCity(data.getCoApplicants().get(i).getPresentAddressCity());
                 coApplicant.setPresentAddressId(data.getCoApplicants().get(i).getPresentAddressId());
                 coApplicant.setPresentAddressPS(data.getCoApplicants().get(i).getPresentAddressPS());
                 coApplicant.setProfession(data.getCoApplicants().get(i).getProfession());
-                coApplicant.setRelationshipWithApplicant(data.getCoApplicants().get(i).getRelationshipWithApplicant());
-                coApplicant.setSemipakaIncome(data.getCoApplicants().get(i).getSemipakaIncome());
-                coApplicant.setSpouseName(data.getCoApplicants().get(i).getSpouseName());
-                coApplicant.setRemittanceIncome(data.getCoApplicants().get(i).getRemittanceIncome());
-                coApplicant.setTutionIncome(data.getCoApplicants().get(i).getTutionIncome());
+                coApplicant.setRelationWithApplicant(data.getCoApplicants().get(i).getRelationshipWithApplicant());
+                coApplicant.setMonthSemipakaIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getSemipakaIncome()));
+                coApplicant.setsName(data.getCoApplicants().get(i).getSpouseName());
+                coApplicant.setRemittance(String.valueOf(data.getCoApplicants().get(i).getRemittanceIncome()));
+                coApplicant.setMonthTuitionIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getTutionIncome()));
 
                 coApplicantList.add(coApplicant);
             }
+
+            myNewProspect.setCoApplicantList(coApplicantList);
 
         }
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class CoApplicant implements Serializable{
 
 
-    int id, contactId, customerId, permanentAddressCityId,presentAddressId ;
+    int id, contactId, customerId, permanentAddressCityId,presentAddressId,photoIdCode ;
     String  name,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
             photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
             designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
@@ -17,7 +17,7 @@ public class CoApplicant implements Serializable{
             emiOfOtherLoans, permanentAddressCity,  permanentAddressPS, presentAddressCity,presentAddressPS
              ;
 
-                    ;
+    public CoApplicant(){};
 //            for retrieving from DB
     public CoApplicant(int id, String leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
@@ -118,6 +118,14 @@ public class CoApplicant implements Serializable{
         this.interestFDRIncomeAmount = interestFDRIncomeAmount;
         this.monthFamilyExpenditure = monthFamilyExpenditure;
         this.emiOfOtherLoans = emiOfOtherLoans;
+    }
+
+    public int getPhotoIdCode() {
+        return photoIdCode;
+    }
+
+    public void setPhotoIdCode(int photoIdCode) {
+        this.photoIdCode = photoIdCode;
     }
 
     public int getContactId() {
