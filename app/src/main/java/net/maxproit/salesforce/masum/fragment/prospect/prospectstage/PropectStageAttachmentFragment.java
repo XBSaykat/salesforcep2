@@ -99,6 +99,9 @@ public class PropectStageAttachmentFragment extends Fragment {
         return rootView;
     }
 
+    public void btnDocument(View v){
+
+    }
     private void initView(View rootView) {
         imgAtach = rootView.findViewById(R.id.img_atach_pp);
         imgIdCard = rootView.findViewById(R.id.img_atach_id_card);

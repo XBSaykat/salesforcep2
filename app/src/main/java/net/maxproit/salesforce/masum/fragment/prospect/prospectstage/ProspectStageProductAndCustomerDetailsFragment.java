@@ -176,7 +176,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
 
         initAdapters();
-        initListener();
+
 
 
 //        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -493,7 +493,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
-
+        initListener();
         if (prospectStageActivity.getDataFromProspect() != null) {
 
             MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
