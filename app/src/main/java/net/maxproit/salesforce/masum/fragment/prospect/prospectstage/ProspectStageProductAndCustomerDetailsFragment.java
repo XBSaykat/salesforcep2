@@ -569,7 +569,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             if (myNewLead.getBrandName() != null) {
                 localSetting.getBranchCodeByName(myNewLead.getBranchName());
             }
-            if (myNewLead.getProductType() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
                 try {
                     spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
 
@@ -601,7 +601,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
 
 
-            if (myNewLead.getProfession() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getProfession())) {
                 try {
                     spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
 
@@ -610,7 +610,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
 
-            if (myNewLead.getApplicant() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getApplicant())) {
                 try {
                     spinnerRelationship.setSelection(realationAdapter.getPosition(myNewLead.getApplicant()));
                 } catch (final IllegalStateException ignored) {

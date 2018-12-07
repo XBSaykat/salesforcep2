@@ -5,11 +5,11 @@ public class MasumCommonUtils {
 
     public static boolean isNullStr(String str){
         boolean isnull=true;
-        if (str !=null || !str.equals("")) {
-            isnull = false;
+        if (str ==null || str.equals("")) {
+            isnull = true;
         }
         else {
-            isnull=true;
+            isnull=false;
         }
         return isnull;
     }
