@@ -162,7 +162,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         listPersonalloan.addAll(localSetting.getProductSubCategorystring(10));
 
 
-
         spinnerProductCat = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_category);
         spinnerProductDetail = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_detail);
         spinnerBranchName = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_branch);
@@ -346,19 +345,19 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 productCat = s;
 
                 if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                    productTypeCode=8;
+                    productTypeCode = 8;
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
 
                 } else if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                    productTypeCode=9;
+                    productTypeCode = 9;
                     ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                     spinnerProductDetail.setAdapter(carLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.VISIBLE);
 
                 } else if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                    productTypeCode=10;
+                    productTypeCode = 10;
                     ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                     spinnerProductDetail.setAdapter(personalLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
@@ -426,22 +425,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 validPhoto = s;
                 LongOperationPhotoIDCode longOperationPhotoIDCode = new LongOperationPhotoIDCode();
                 longOperationPhotoIDCode.execute(i);
-                if (i == 0) {
-                    getphotoIdNumber(s);
+                getphotoIdNumber(s);
 
-                } else if (i == 1) {
-                    getphotoIdNumber(s);
+                liPhotoIdNo.setVisibility(View.GONE);
 
-                } else if (i == 2) {
-                    etPhotoId.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-                    getphotoIdNumber(s);
-
-                } else if (i == 3) {
-                    getphotoIdNumber(s);
-
-                } else {
-                    liPhotoIdNo.setVisibility(View.GONE);
-                }
             }
         });
 
@@ -548,9 +535,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 }
             if (!MasumCommonUtils.isNullStr(myNewLead.getpIDType())) {
+               String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(myNewLead.getpIDType()));
 
                 try {
-                    spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
+                    spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(pIdTypeStr));
                     getphotoIdNumber(myNewLead.getpIDType());
 
                 } catch (IllegalStateException er) {

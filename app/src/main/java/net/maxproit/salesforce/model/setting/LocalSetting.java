@@ -240,6 +240,21 @@ public class LocalSetting {
         return code;
     }
 
+    public String getPhotoIdTypeStrByCode(int position) {
+        String code =null;
+
+        for (PhotoIdType in : getPhotoIDType()) {
+            if (in.getIdentityTypeCode() ==position){
+                code=in.getIdentityType();
+                break;
+            }
+
+
+        }
+
+        return code;
+    }
+
     public List<ProductSubCategory> getProductSubCategory() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getProductSubCategory();
