@@ -54,6 +54,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private LocalSetting localSetting;
+    private ArrayAdapter<String>productSubAdapter;
 
     Calendar myCalendar = Calendar.getInstance();
 
@@ -345,22 +346,20 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 productCat = s;
 
                 if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                    productTypeCode = 8;
-                    ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                    spinnerProductDetail.setAdapter(homeLoan);
-                    ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
+                    productTypeCode=8;
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                    spinnerProductDetail.setAdapter(productSubAdapter);
+                }
+                if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+                    productTypeCode=9;
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                    spinnerProductDetail.setAdapter(productSubAdapter);
 
-                } else if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                    productTypeCode = 9;
-                    ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                    spinnerProductDetail.setAdapter(carLoan);
-                    ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.VISIBLE);
-
-                } else if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                    productTypeCode = 10;
-                    ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                    spinnerProductDetail.setAdapter(personalLoan);
-                    ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
+                }
+                if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                    productTypeCode=10;
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                    spinnerProductDetail.setAdapter(productSubAdapter);
                 }
             }
         });
@@ -427,7 +426,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 longOperationPhotoIDCode.execute(i);
                 getphotoIdNumber(s);
 
-                liPhotoIdNo.setVisibility(View.GONE);
 
             }
         });
@@ -583,36 +581,24 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
                 if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                    productTypeCode = 8;
-                    ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                    spinnerProductDetail.setAdapter(homeLoan);
-                    try {
-                        spinnerProductDetail.setSelection(homeLoan.getPosition(myNewLead.getProductSubcategory()));
-                    } catch (final IllegalStateException ignored) {
-
-                    }
-                } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                    productTypeCode = 9;
-                    ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                    spinnerProductDetail.setAdapter(carLoan);
-                    try {
-                        spinnerProductDetail.setSelection(carLoan.getPosition(myNewLead.getProductSubcategory()));
-
-                    } catch (final IllegalStateException ignored) {
-
-                    }
-                } else {
-                    productTypeCode = 10;
-                    ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                    spinnerProductDetail.setAdapter(personalLoan);
-                    try {
-                        spinnerProductDetail.setSelection(personalLoan.getPosition(myNewLead.getProductSubcategory()));
-                    } catch (final IllegalStateException ignored) {
-
-                    }
+                    productTypeCode=8;
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                    spinnerProductDetail.setAdapter(productSubAdapter);
+                }
+                if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+                    productTypeCode=9;
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                    spinnerProductDetail.setAdapter(productSubAdapter);
 
                 }
-            }
+                if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                    productTypeCode=10;
+                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                    spinnerProductDetail.setAdapter(productSubAdapter);
+                }
+
+                }
+
 
 
             if (myNewLead.getProfession() != null) {

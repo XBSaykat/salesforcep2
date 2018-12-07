@@ -16,8 +16,8 @@ public class MyNewProspect extends MyNewLead implements Serializable {
     private List<CoApplicant> coApplicantList;
 
 
-    int branchCode, assetTypeId,  manufacturingNameId,  contactId, permAddressId, presAddressId;
-    String manufacturingName, manufacturingCountry,
+    private int branchCode, assetTypeId,  manufacturingNameId,  contactId, permAddressId, presAddressId;
+    private String manufacturingName, manufacturingCountry,
             manufacturingYear, assetType, rmCode, PermAddressCity,PermAddressPs,
             PresAddressCity,PresAddressPs, brandName ;
 
