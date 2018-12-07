@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.myprospect.updatemyprospect.CoApplicant;
 import net.maxproit.salesforce.util.CommonUtil;
 
@@ -730,45 +731,51 @@ public class NewProspectUpdate {
 
         for (int i = 0; i < coApplicanLocalList.size(); i++) {
 
+            try {
+                coApplicant.setAgriculturalIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthAgricultureIncomeAmount().replace(",", "")));
+                coApplicant.setApartmentIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthApartmentIncomeAmount().replace(",", "")));
+                coApplicant.setBusinessIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthBusinessIncomeAmount().replace(",", "")));
+                coApplicant.setCommercialSpaceIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthOfficeSpaceIncomeAmount().replace(",", "")));
+                coApplicant.setFactoryIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthWareHouseAmount().replace(",", "")));
+                coApplicant.setInterestIncomeOfFDR(Integer.valueOf(coApplicanLocalList.get(i).getInterestFDRIncomeAmount().replace(",", "")));
+                coApplicant.setNetSalary(Integer.valueOf(coApplicanLocalList.get(i).getMonthSalaryAmount().replace(",", "")));
+                coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance()));
+                coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
+                coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
+            }
+            catch (NumberFormatException e){
 
-            coApplicant.setAgriculturalIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthAgricultureIncomeAmount().replace(",", "")));
-            coApplicant.setApartmentIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthApartmentIncomeAmount().replace(",", "")));
-            coApplicant.setBusinessIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthBusinessIncomeAmount().replace(",", "")));
-            coApplicant.setCommercialSpaceIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthOfficeSpaceIncomeAmount().replace(",", "")));
+            }
             coApplicant.setCompany(coApplicanLocalList.get(i).getCompanyName());
             coApplicant.setContactId(coApplicanLocalList.get(i).getContactId());
+            coApplicant.setCustomerId(coApplicanLocalList.get(i).getCustomerId());
+            coApplicant.setMobile(coApplicanLocalList.get(i).getMobileNo());
             coApplicant.setCountryOfBirth(coApplicanLocalList.get(i).getCountryOfBirth());
             coApplicant.setCurrentJobDuration(coApplicanLocalList.get(i).getNoOfYrsInCurrentJob());
-            coApplicant.setCustomerId(coApplicanLocalList.get(i).getCustomerId());
             coApplicant.setCustomerName(coApplicanLocalList.get(i).getName());
             coApplicant.setDateOfBirth(DateUtils.getDateFormateForSqlite(coApplicanLocalList.get(i).getDateOfBirth()));
             coApplicant.setDesignation(coApplicanLocalList.get(i).getDesignation());
             coApplicant.setDistrictOfBirth(coApplicanLocalList.get(i).getDistrictOfBirth());
             coApplicant.setETin(coApplicanLocalList.get(i).geteTin());
-            coApplicant.setFactoryIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthWareHouseAmount().replace(",", "")));
             coApplicant.setFatherName(coApplicanLocalList.get(i).getfName());
-            coApplicant.setInterestIncomeOfFDR(Integer.valueOf(coApplicanLocalList.get(i).getInterestFDRIncomeAmount().replace(",", "")));
-            coApplicant.setMobile(coApplicanLocalList.get(i).getMobileNo());
             coApplicant.setMotherName(coApplicanLocalList.get(i).getmName());
-            coApplicant.setNetSalary(Integer.valueOf(coApplicanLocalList.get(i).getMonthSalaryAmount().replace(",", "")));
             coApplicant.setNetSalaryType(coApplicanLocalList.get(i).getMonthSalaryType());
             coApplicant.setPermanentAddress(coApplicanLocalList.get(i).getPermanentAddress());
             coApplicant.setPermanentAddressCity("");
             coApplicant.setPermanentAddressId(22);
             coApplicant.setPermanentAddressPS("");
-            coApplicant.setPhotoIdIssueDate(coApplicanLocalList.get(i).getPhotoIdIssueDate());
+            coApplicant.setPhotoIdIssueDate(DateUtils.getDateFormateForSqlite(coApplicanLocalList.get(i).getPhotoIdIssueDate()));
             coApplicant.setPhotoIdNumber(coApplicanLocalList.get(i).getPhotoIdNo());
             coApplicant.setPhotoIdTypeCode(coApplicanLocalList.get(i).getPhotoIdCode());
             coApplicant.setPresentAddress(coApplicanLocalList.get(i).getPresentAddress());
             coApplicant.setPresentAddressCity("Dhakax");
             coApplicant.setPresentAddressId(coApplicanLocalList.get(i).getPresentAddressId());
             coApplicant.setPresentAddressPS("Dhaka");
+            if (!MasumCommonUtils.isNullStr(coApplicanLocalList.get(i).getProfession()))
             coApplicant.setProfession(coApplicanLocalList.get(i).getProfession());
+            else coApplicant.setProfession("");
             coApplicant.setRelationshipWithApplicant(coApplicanLocalList.get(i).getRelationWithApplicant());
-            coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance()));
-            coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
             coApplicant.setSpouseName(coApplicanLocalList.get(i).getsName());
-            coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
 
             coApplicantsList.add(coApplicant);
         }
@@ -777,73 +784,82 @@ public class NewProspectUpdate {
     }
 
 
-    public NewProspectUpdate getPRospectDAtaForPostAPi(MyNewProspect myNewProspect){
-        NewProspectUpdate newProspectUpdate=new NewProspectUpdate();
-        newProspectUpdate.setAgriculturalIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getAg_Income().replace(",", ""))));
-        newProspectUpdate.setApartmentIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getApartmentAmount().replace(",", ""))));
-        newProspectUpdate.setAssetType(myNewProspect.getAssetType());
-        newProspectUpdate.setAssetTypeId(myNewProspect.getAssetTypeId());
-        newProspectUpdate.setBranchCode(myNewProspect.getBranchCode());
-        newProspectUpdate.setBranchName(myNewProspect.getBranchName());
-        newProspectUpdate.setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getBusinessIncomeAmount().replace(",", ""))));
-        newProspectUpdate.setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOfficeSpaceINcome().replace(",", ""))));
-        newProspectUpdate.setCompany(myNewProspect.getOrganization());
-        newProspectUpdate.setContactId(myNewProspect.getContactId());
-        newProspectUpdate.setCountryOfBirth(myNewProspect.getCob());
-        newProspectUpdate.setCurrentJobDuration(myNewProspect.getCurrentJob());
-        newProspectUpdate.setCustomerId(myNewProspect.getCusId());
-        newProspectUpdate.setCustomerName(myNewProspect.getUserName());
-        newProspectUpdate.setDateOfBirth(DateUtils.getDateFormateForSqlite(myNewProspect.getDateOfBirth()));
-        newProspectUpdate.setDesignation(myNewProspect.getDesignation());
-        newProspectUpdate.setDistrictOfBirth(myNewProspect.getDob());
-        newProspectUpdate.setETin(myNewProspect.getEtin());
-        newProspectUpdate.setEmiOfOtherLoan(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getEmiOther().replace(",", ""))));
-        newProspectUpdate.setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getWireHouseINcome().replace(",", ""))));
-        newProspectUpdate.setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
-        newProspectUpdate.setFatherName(myNewProspect.getfName());
-        newProspectUpdate.setFee(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
-        newProspectUpdate.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
-        newProspectUpdate.setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOrInterest().replace(",", ""))));
-        newProspectUpdate.setLeadReferenceNo(myNewProspect.getRefNumber());
-        newProspectUpdate.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
-        newProspectUpdate.setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanTerm())));
-        newProspectUpdate.setManufacturerName(myNewProspect.getManufacturingName());
-        newProspectUpdate.setManufacturerNameId(myNewProspect.getManufacturingNameId());
-        newProspectUpdate.setManufacturingCountry(myNewProspect.getManufacturingCountry());
-        newProspectUpdate.setManufacturingYear(myNewProspect.getManufacturingYear());
-        newProspectUpdate.setMobileNo(myNewProspect.getPhone());
-        newProspectUpdate.setMobileNoId(myNewProspect.getMobileId());
-        newProspectUpdate.setMotherName(myNewProspect.getmName());
-        newProspectUpdate.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
-        newProspectUpdate.setNetSalaryType(myNewProspect.getNetSalary());
-        newProspectUpdate.setPermanentAddress(myNewProspect.getpAddress());
-        newProspectUpdate.setPermanentAddressCity("");
-        newProspectUpdate.setPermanentAddressId(myNewProspect.getPermAddressId());
-        newProspectUpdate.setPermanentAddressPS("");
-        newProspectUpdate.setPhotoIdIssueDate(DateUtils.getDateFormateForSqlite(myNewProspect.getpIssueDate()));
-        newProspectUpdate.setPhotoIdNumber(myNewProspect.getpIdNumber());
-        newProspectUpdate.setPhotoIdTypeCode(Integer.valueOf(myNewProspect.getpIDType())); // issue
-        newProspectUpdate.setPresentAddress(myNewProspect.getAddress());
-        newProspectUpdate.setPresentAddressCity("");
-        newProspectUpdate.setPresentAddressId(myNewProspect.getPresAddressId());
-        newProspectUpdate.setPresentAddressPS("");
+    public void getPRospectDAtaForPostAPi(MyNewProspect myNewProspect) {
 
-        newProspectUpdate.setProduct(myNewProspect.getProductType());
-        newProspectUpdate.setProductId(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
-        newProspectUpdate.setProductSubCategory(myNewProspect.getProductSubcategory());
-        newProspectUpdate.setProductSubCategoryId(myNewProspect.getSubCode());
-        newProspectUpdate.setProfession(myNewProspect.getProfession());
-        newProspectUpdate.setRelationshipWithApplicant(myNewProspect.getSourceRef());
-        newProspectUpdate.setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
-        newProspectUpdate.setRmCode(myNewProspect.getRmCode());
-        newProspectUpdate.setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
-        newProspectUpdate.setSpouseName(myNewProspect.getsName());
-        newProspectUpdate.setStatus(myNewProspect.getStatus());
+        try {
+            setAgriculturalIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getAg_Income().replace(",", ""))));
+            setApartmentIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getApartmentAmount().replace(",", ""))));
+            setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getBusinessIncomeAmount().replace(",", ""))));
+            setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOfficeSpaceINcome().replace(",", ""))));
+            setEmiOfOtherLoan(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getEmiOther().replace(",", ""))));
+            setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getWireHouseINcome().replace(",", ""))));
+            setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
+            setFee(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
+            setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
+            setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getPiRate().replace(",", ""))));
+            setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
+            setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanTerm())));
+            setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
+            setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
+            setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
+            setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
+            setSemipakaIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSemipakaIncome()).replace(",", "")));
 
-        newProspectUpdate.setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
-        newProspectUpdate.setUserName(userName);
+        } catch (NumberFormatException e) {
 
-        return newProspectUpdate;
+        } catch (NullPointerException e) {
+
+        }
+        setAssetType("");
+        setAssetTypeId(myNewProspect.getAssetTypeId());
+        setBranchCode(myNewProspect.getBranchCode());
+        setBranchName(myNewProspect.getBranchName());
+
+        setCompany(myNewProspect.getOrganization());
+        setContactId(myNewProspect.getContactId());
+        setCountryOfBirth(myNewProspect.getCob());
+        setCurrentJobDuration(myNewProspect.getCurrentJob());
+        setCustomerId(myNewProspect.getCusId());
+        setCustomerName(myNewProspect.getUserName());
+        setDateOfBirth(DateUtils.getDateFormateForSqlite(myNewProspect.getDateOfBirth()));
+        setDesignation(myNewProspect.getDesignation());
+        setDistrictOfBirth(myNewProspect.getDob());
+        setETin(myNewProspect.getEtin());
+        setFatherName(myNewProspect.getfName());
+        setLeadReferenceNo(myNewProspect.getRefNumber());
+        setManufacturerName(myNewProspect.getManufacturingName());
+        setManufacturerNameId(myNewProspect.getManufacturingNameId());
+        setManufacturingCountry(myNewProspect.getManufacturingCountry());
+        setManufacturingYear(myNewProspect.getManufacturingYear());
+        setMobileNo(myNewProspect.getPhone());
+        setMobileNoId(myNewProspect.getMobileId());
+        setMotherName(myNewProspect.getmName());
+        setNetSalaryType(myNewProspect.getNetSalary());
+        setPermanentAddress(myNewProspect.getpAddress());
+        setPermanentAddressCity("");
+        setPermanentAddressId(myNewProspect.getPermAddressId());
+        setPermanentAddressPS("");
+        setSegment(myNewProspect.getSegment());
+        setPhotoIdIssueDate(DateUtils.getDateFormateForSqlite(myNewProspect.getpIssueDate()));
+        setPhotoIdNumber(myNewProspect.getpIdNumber());
+        setPhotoIdTypeCode(Integer.valueOf(myNewProspect.getpIDType())); // issue
+        setPresentAddress(myNewProspect.getAddress());
+        setPresentAddressCity("");
+        setPresentAddressId(myNewProspect.getPresAddressId());
+        setPresentAddressPS("");
+        setProduct(myNewProspect.getProductType());
+        setProductId(myNewProspect.getProductCode());
+        setProductSubCategory(myNewProspect.getProductSubcategory());
+        setProductSubCategoryId(myNewProspect.getSubCode());
+        setProfession(myNewProspect.getProfession());
+        setRelationshipWithApplicant(myNewProspect.getApplicant());
+        setRmCode("336132");
+        setSpouseName(myNewProspect.getsName());
+        setUserName(myNewProspect.getUserID());
+        setStatus(myNewProspect.getStatus());
+
+
+
     }
 
     public void getDBCoApplicants(ArrayList<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicantList) {

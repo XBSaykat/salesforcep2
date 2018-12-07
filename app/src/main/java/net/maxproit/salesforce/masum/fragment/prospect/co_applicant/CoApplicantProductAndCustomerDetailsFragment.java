@@ -142,7 +142,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        localSetting=new LocalSetting(getActivity());
+        localSetting = new LocalSetting(getActivity());
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
         coApplicantActivity = (CoApplicantActivity) getActivity();
         myLeadDbController = new MyLeadDbController(getActivity());
@@ -319,12 +319,11 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             public void onClick(View v) {
 
                 if (cbAddress.isChecked()) {
-                    if (prosList.get(0).getAddress() !=null)
-                    etPresentAddress.setText(prosList.get(0).getAddress());
-                    if (prosList.get(0).getpAddress() !=null)
-                    etPermanentAddress.setText(prosList.get(0).getpAddress());
-                }
-                else {
+                /*    if (prosList.get(0).getAddress() != null)
+                        etPresentAddress.setText(prosList.get(0).getAddress());
+                    if (prosList.get(0).getpAddress() != null)
+                        etPermanentAddress.setText(prosList.get(0).getpAddress());*/
+                } else {
                     etPresentAddress.setText("");
                     etPermanentAddress.setText("");
                 }
@@ -478,7 +477,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getRealStateTypeString());
+        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
         spinnerRelationship.setAdapter(realationAdapter);
 
 
