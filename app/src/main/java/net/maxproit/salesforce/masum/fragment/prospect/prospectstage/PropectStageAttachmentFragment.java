@@ -1,5 +1,6 @@
 package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,10 +19,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.feature.upload.UploadActivity;
+import net.maxproit.salesforce.feature.upload.UploadProspectActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.model.local.Attachment;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
 
 import java.io.IOException;
@@ -47,6 +51,7 @@ public class PropectStageAttachmentFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Button btnDoc;
     public static ImageView imgAtach, imgIdCard, imgVisitingCard;
     private Button btnImgCap, btnIDCardCap, btnVCardCap, btnChoosePP, btnChooseId, btnChooseVCard;
     private OnFragmentInteractionListener mListener;
@@ -99,13 +104,12 @@ public class PropectStageAttachmentFragment extends Fragment {
         return rootView;
     }
 
-    public void btnDocument(View v){
 
-    }
     private void initView(View rootView) {
         imgAtach = rootView.findViewById(R.id.img_atach_pp);
         imgIdCard = rootView.findViewById(R.id.img_atach_id_card);
         imgVisitingCard = rootView.findViewById(R.id.img_atach_v_card);
+        btnDoc=rootView.findViewById(R.id.btn_doc);
         btnImgCap = rootView.findViewById(R.id.btn_capture_pp);
         btnIDCardCap = rootView.findViewById(R.id.btn_atach_id);
         btnVCardCap = rootView.findViewById(R.id.btn_atach_v_card);
@@ -118,6 +122,9 @@ public class PropectStageAttachmentFragment extends Fragment {
     }
 
     private void initListener() {
+        btnDoc.setOnClickListener(view->{
+            ActivityUtils.getInstance().invokeActivity(getActivity(),UploadProspectActivity.class,false);
+        });
         btnImgCap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

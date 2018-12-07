@@ -558,6 +558,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             getphotoIdNumber(myNewLead.getpIDType());
             etPhotoId.setText(myNewLead.getpIdNumber());
             if (!MasumCommonUtils.isNullStr(myNewLead.getBranchName())) {
+                branchCode= localSetting.getBranchCodeByName(myNewLead.getBranchName());
                 try {
                     spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
 
@@ -567,7 +568,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
 
             if (myNewLead.getBrandName() != null) {
-                localSetting.getBranchCodeByName(myNewLead.getBranchName());
+
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
                 try {

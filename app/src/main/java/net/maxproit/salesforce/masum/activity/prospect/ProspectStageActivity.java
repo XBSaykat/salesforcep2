@@ -70,7 +70,7 @@ public class ProspectStageActivity extends BaseActivity {
             companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null;
     String brandName = null, year = null, country = null, vehicleType = null, securityValue = null, loanRequired = null, loanTerm = null, proposedInterest = null,
             fee = null, dateOfBirth = null, photoIdType = null;
-    String rmCode, monthlyNetSalary = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
+    String rmCode, monthlyNetSalaryType = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
             officeIncome = null, wireHouseIncome = null, apartmentIncome = null, agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
             monthlyFamilyExpenditure = null, emiOfOtherLoans = null;
     ArrayList<CoApplicant> coApplicantArrayList;
@@ -169,8 +169,8 @@ public class ProspectStageActivity extends BaseActivity {
 
 
     private void getDataFromFragment() {
-        if (ProspectStageFinancialFragment.monthlyNetSalary != null) {
-            monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
+        if (ProspectStageFinancialFragment.monthlyNetSalaryType != null) {
+            monthlyNetSalaryType = ProspectStageFinancialFragment.monthlyNetSalaryType;
         }
         if (ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString() != null) {
             monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
@@ -182,17 +182,12 @@ public class ProspectStageActivity extends BaseActivity {
             agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
 
         }
-
-        monthlyNetSalary = ProspectStageFinancialFragment.monthlyNetSalary;
-
-        monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
         agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
         practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
         remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
         interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
         monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
         emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
-        monthlySalaryAmount = ProspectStageFinancialFragment.etMonthlySalaryAmount.getText().toString();
         monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
         semiPakaIncome = ProspectStageFinancialFragment.etSemipakaIncome.getText().toString();
         apartmentIncome = ProspectStageFinancialFragment.etApartmentIncomeAmount.getText().toString();
@@ -347,10 +342,9 @@ public class ProspectStageActivity extends BaseActivity {
 
             }
 
-        }else if(resultCode == AppConstant.ACTIVITY_RESULLT_300){
+        } else if (resultCode == AppConstant.ACTIVITY_RESULLT_300) {
             Toast.makeText(getApplicationContext(), "co-applicant data saved", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
 //            Toast.makeText(getApplicationContext(), "result not ok", Toast.LENGTH_LONG).show();
 
         }
@@ -402,7 +396,7 @@ public class ProspectStageActivity extends BaseActivity {
                         segment, dateOfBirth, age, districtOfBirth,
                         countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
                         motherName, spouseName, "", noYrsInCureentJob,
-                        relationship, permanentAddress, monthlyNetSalary,
+                        relationship, permanentAddress, monthlyNetSalaryType,
                         monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
                         semiPakaIncome, officeIncome, wireHouseIncome,
                         agriculturalIncome, practiceConsultancyTution, remittance,
@@ -417,7 +411,7 @@ public class ProspectStageActivity extends BaseActivity {
                 try {
                     if (ProspectStageProductAndCustomerDetailsFragment.branchCode != null)
                         myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
-                        myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
+                    myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 } catch (NullPointerException e) {
                     Log.d("prospectStageDebug", "alertDialogSave: " + e.getLocalizedMessage());
                 } catch (NumberFormatException e) {
@@ -442,9 +436,14 @@ public class ProspectStageActivity extends BaseActivity {
                     newProspectUpdate.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
                     newProspectUpdate.setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanTerm())));
                     newProspectUpdate.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
+                    newProspectUpdate.setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
+                    newProspectUpdate.setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
+                    newProspectUpdate.setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
                     newProspectUpdate.setSemipakaIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(semiPakaIncome).replace(",", "")));
 
                 } catch (NumberFormatException e) {
+
+                } catch (NullPointerException e) {
 
                 }
                 newProspectUpdate.setAssetType(myNewProspect.getAssetType());
@@ -481,22 +480,19 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setPhotoIdNumber(myNewProspect.getpIdNumber());
                 newProspectUpdate.setPhotoIdTypeCode(Integer.valueOf(photoIdType)); // issue
                 newProspectUpdate.setPresentAddress(myNewProspect.getAddress());
-                newProspectUpdate.setPresentAddressCity("Dhaka");
+                newProspectUpdate.setPresentAddressCity("");
                 newProspectUpdate.setPresentAddressId(getDataFromProspect().getPresAddressId());
-                newProspectUpdate.setPresentAddressPS("Dhaka");
+                newProspectUpdate.setPresentAddressPS("");
                 newProspectUpdate.setProduct(myNewProspect.getProductType());
                 newProspectUpdate.setProductId(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 newProspectUpdate.setProductSubCategory(myNewProspect.getProductSubcategory());
                 newProspectUpdate.setProductSubCategoryId(myNewProspect.getSubCode());
                 newProspectUpdate.setProfession(myNewProspect.getProfession());
                 newProspectUpdate.setRelationshipWithApplicant(myNewProspect.getApplicant());
-                newProspectUpdate.setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
                 newProspectUpdate.setRmCode(myNewProspect.getRmCode());
-                newProspectUpdate.setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
                 newProspectUpdate.setSpouseName(myNewProspect.getsName());
                 newProspectUpdate.setStatus(getDataFromProspect().getStatus());
 
-                newProspectUpdate.setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
                 newProspectUpdate.setUserName(userName);
 
 
@@ -585,8 +581,8 @@ public class ProspectStageActivity extends BaseActivity {
         updateModel.setMobileNo(mobileNumber);
         updateModel.setMobileNoId(myNewProspect.getMobileId());
         updateModel.setMotherName(motherName);
-        updateModel.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(monthlyNetSalary)));
-        updateModel.setNetSalaryType(monthlyNetSalary);
+        updateModel.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(monthlyNetSalaryType)));
+        updateModel.setNetSalaryType(monthlyNetSalaryType);
         updateModel.setPermanentAddress("");
         updateModel.setPermanentAddressCity("");
         updateModel.setPermanentAddressId(myNewProspect.getPermAddressId());
@@ -656,7 +652,7 @@ public class ProspectStageActivity extends BaseActivity {
                         segment, dateOfBirth, age, districtOfBirth,
                         countOfBirth, photoIdType, photoId, photoIdDate, eTin, fatherName,
                         motherName, spouseName, "", noYrsInCureentJob,
-                        relationship, permanentAddress, monthlyNetSalary,
+                        relationship, permanentAddress, monthlyNetSalaryType,
                         monthlySalaryAmount, monthlyBusinessIncome, apartmentIncome,
                         semiPakaIncome, officeIncome, wireHouseIncome,
                         agriculturalIncome, practiceConsultancyTution, remittance,

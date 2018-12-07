@@ -20,6 +20,7 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.DecimalFormat;
@@ -52,7 +53,7 @@ public class ProspectStageFinancialFragment extends Fragment {
             etMonthlyFamilyExpenditure, etEMIOfOtherLoans, etApartmentIncomeAmount, etSemipakaIncome,
             etOfficeSpaceIncome, etWarehouseIncome;
     AwesomeSpinner spinnerMonthlyNetSalary;
-    public static String monthlyNetSalary, rentalIncome;
+    public static String monthlyNetSalaryType, rentalIncome;
     private SharedViewModel model;
 
     public ProspectStageFinancialFragment() {
@@ -126,7 +127,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         initAdapters();
-        initListener();
+
 
 
         commaSeparator();
@@ -139,7 +140,7 @@ public class ProspectStageFinancialFragment extends Fragment {
         spinnerMonthlyNetSalary.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                monthlyNetSalary = s;
+                monthlyNetSalaryType = s;
             }
         });
 
@@ -155,12 +156,12 @@ public class ProspectStageFinancialFragment extends Fragment {
 
         ArrayAdapter<String> monthlySalaryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getnetSalaryTypeStringList());
         spinnerMonthlyNetSalary.setAdapter(monthlySalaryAdapter);
-
+        initListener();
 
         if (prospectStageActivity.getDataFromProspect() != null) {
 
             MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
-            if (myNewLead.getNetSalary() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getNetSalary())) {
                 try {
                     spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getNetSalary()));
                 } catch (final IllegalStateException ignored) {
