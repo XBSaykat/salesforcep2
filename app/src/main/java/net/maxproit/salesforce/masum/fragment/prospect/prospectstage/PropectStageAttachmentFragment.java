@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment.lead;
+package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import net.alhazmy13.mediapicker.Image.ImagePicker;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
@@ -34,12 +33,12 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LeadStageAttachmentFragment.OnFragmentInteractionListener} interface
+ * {@link PropectStageAttachmentFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LeadStageAttachmentFragment#newInstance} factory method to
+ * Use the {@link PropectStageAttachmentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LeadStageAttachmentFragment extends Fragment {
+public class PropectStageAttachmentFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,7 +55,7 @@ public class LeadStageAttachmentFragment extends Fragment {
     AttachmentDbController attachmentDbController;
     ArrayList<Attachment> attachmentArrayList;
     public static Bitmap attachPp=null,attachIdcard=null,attachvCard=null;
-    public LeadStageAttachmentFragment() {
+    public PropectStageAttachmentFragment() {
         // Required empty public constructor
     }
 
@@ -66,11 +65,11 @@ public class LeadStageAttachmentFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LeadStageAttachmentFragment.
+     * @return A new instance of fragment PropectStageAttachmentFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LeadStageAttachmentFragment newInstance(String param1, String param2) {
-        LeadStageAttachmentFragment fragment = new LeadStageAttachmentFragment();
+    public static PropectStageAttachmentFragment newInstance(String param1, String param2) {
+        PropectStageAttachmentFragment fragment = new PropectStageAttachmentFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment.prospect;
+package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;

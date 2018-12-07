@@ -123,8 +123,9 @@ public class LeadStageVisitRecordFragment extends BaseFragment {
         listfollowUp = new ArrayList<String>();
         listRemark = new ArrayList<String>();
 
-        listfollowUp.addAll(spinnerDbController.getFollowUpData());
-        listRemark.addAll(spinnerDbController.getRemarkData());
+        listfollowUp.add("Yes");
+        listfollowUp.add("No");
+
 
         spinnerFollowUp = rootView.findViewById(R.id.awe_spinner_lead_follow_up);
         spinnerRemarks = rootView.findViewById(R.id.sp_remarks);

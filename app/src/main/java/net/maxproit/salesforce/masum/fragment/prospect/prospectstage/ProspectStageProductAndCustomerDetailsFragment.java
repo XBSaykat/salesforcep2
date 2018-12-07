@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment.prospect;
+package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
@@ -31,6 +31,7 @@ import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.CommonUtil;
 
@@ -128,6 +129,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
         prospectStageActivity = (ProspectStageActivity) getActivity();
 
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        localSetting = new LocalSetting(getActivity());
 
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
@@ -149,32 +152,15 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
 
 
-        spinnerDbController = new SpinnerDbController(getActivity());
-        listProductCategory = new ArrayList<String>();
-        listPoroductDetail = new ArrayList<String>();
-        listBranch = new ArrayList<String>();
-        listSegment = new ArrayList<String>();
-        listBirthDistric = new ArrayList<String>();
-        listBirthCountry = new ArrayList<String>();
-        listProfession = new ArrayList<String>();
-        listRelationshipWithApplicant = new ArrayList<String>();
         listCarloan = new ArrayList<String>();
         listHomeloan = new ArrayList<String>();
         listPersonalloan = new ArrayList<String>();
         listValidphoto = new ArrayList<String>();
 
-        listProductCategory.addAll(spinnerDbController.getProductCategoryData());
-        listPoroductDetail.addAll(spinnerDbController.getProductDetailData());
-        listCarloan.addAll(spinnerDbController.getCarLoanData());
-        listHomeloan.addAll(spinnerDbController.getHomeLoanData());
-        listPersonalloan.addAll(spinnerDbController.getPersonalLoanData());
-        listBranch.addAll(spinnerDbController.getBranchData());
-        listSegment.addAll(spinnerDbController.getSegmentData());
-        listProfession.addAll(spinnerDbController.getProfessionData());
-        listBirthDistric.addAll(spinnerDbController.getBirthDistrictData());
-        listBirthCountry.addAll(spinnerDbController.getBirthCountryData());
-        listRelationshipWithApplicant.addAll(spinnerDbController.getRelationshipWithApplicantData());
-        listValidphoto.addAll(spinnerDbController.getValidPhotoData());
+        listCarloan.addAll(localSetting.getProductSubCategorystring(9));
+        listHomeloan.addAll(localSetting.getProductSubCategorystring(8));
+        listPersonalloan.addAll(localSetting.getProductSubCategorystring(10));
+
 
 
         spinnerProductCat = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_category);
@@ -188,8 +174,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id_type);
 
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
-        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
-        localSetting = new LocalSetting(getActivity());
 
         initAdapters();
         initListener();
@@ -361,17 +345,20 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 productCat = s;
 
-                if (s.equals(AppConstant.HOME_LOAN)) {
+                if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
+                    productTypeCode=8;
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                     spinnerProductDetail.setAdapter(homeLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
 
-                } else if (s.equals(AppConstant.CAR_LOAN)) {
+                } else if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+                    productTypeCode=9;
                     ArrayAdapter<String> carLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                     spinnerProductDetail.setAdapter(carLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.VISIBLE);
 
-                } else if (s.equals(AppConstant.PERSONAL_LOAN)) {
+                } else if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                    productTypeCode=10;
                     ArrayAdapter<String> personalLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                     spinnerProductDetail.setAdapter(personalLoan);
                     ProspectStageLoanAndSecurityDetailFragment.liSecCarLoan.setVisibility(View.GONE);
@@ -545,7 +532,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etMotherName.setText(myNewLead.getmName());
             etSpouseName.setText(myNewLead.getsName());
             etPhotoIdDate.setText(DateUtils.getDateFormateEt(myNewLead.getpIssueDate()));
-            if (myNewLead.getDob() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getDob())) {
                 try {
                     spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getDob()));
 
@@ -553,14 +540,14 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 }
             }
-            if (myNewLead.getCob() != null)
+            if (!MasumCommonUtils.isNullStr(myNewLead.getCob()))
                 try {
                     spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(myNewLead.getCob()));
 
                 } catch (final IllegalStateException e) {
 
                 }
-            if (myNewLead.getpIDType() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getpIDType())) {
 
                 try {
                     spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(myNewLead.getpIDType()));
@@ -573,7 +560,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 liPhotoIdNo.setVisibility(View.GONE);
             }
 
-            if (myNewLead.getSegment() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getSegment())) {
                 try {
                     spinnerSegment.setSelection(segmentAdapter.getPosition(myNewLead.getSegment()));
 
@@ -584,7 +571,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             getphotoIdNumber(myNewLead.getpIDType());
             etPhotoId.setText(myNewLead.getpIdNumber());
-            if (myNewLead.getBrandName() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getBranchName())) {
                 try {
                     spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
 
@@ -606,7 +593,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
 
 
-            if (myNewLead.getProductType() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
                 if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
                     productTypeCode = 8;
                     ArrayAdapter<String> homeLoan = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);

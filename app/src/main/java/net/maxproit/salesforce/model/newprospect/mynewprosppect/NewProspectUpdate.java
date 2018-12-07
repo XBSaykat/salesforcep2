@@ -3,6 +3,8 @@ package net.maxproit.salesforce.model.newprospect.mynewprosppect;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageProductAndCustomerDetailsFragment;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.myprospect.updatemyprospect.CoApplicant;
 import net.maxproit.salesforce.util.CommonUtil;
@@ -772,6 +774,76 @@ public class NewProspectUpdate {
         }
 
         return coApplicantsList;
+    }
+
+
+    public NewProspectUpdate getPRospectDAtaForPostAPi(MyNewProspect myNewProspect){
+        NewProspectUpdate newProspectUpdate=new NewProspectUpdate();
+        newProspectUpdate.setAgriculturalIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getAg_Income().replace(",", ""))));
+        newProspectUpdate.setApartmentIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getApartmentAmount().replace(",", ""))));
+        newProspectUpdate.setAssetType(myNewProspect.getAssetType());
+        newProspectUpdate.setAssetTypeId(myNewProspect.getAssetTypeId());
+        newProspectUpdate.setBranchCode(myNewProspect.getBranchCode());
+        newProspectUpdate.setBranchName(myNewProspect.getBranchName());
+        newProspectUpdate.setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getBusinessIncomeAmount().replace(",", ""))));
+        newProspectUpdate.setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOfficeSpaceINcome().replace(",", ""))));
+        newProspectUpdate.setCompany(myNewProspect.getOrganization());
+        newProspectUpdate.setContactId(myNewProspect.getContactId());
+        newProspectUpdate.setCountryOfBirth(myNewProspect.getCob());
+        newProspectUpdate.setCurrentJobDuration(myNewProspect.getCurrentJob());
+        newProspectUpdate.setCustomerId(myNewProspect.getCusId());
+        newProspectUpdate.setCustomerName(myNewProspect.getUserName());
+        newProspectUpdate.setDateOfBirth(DateUtils.getDateFormateForSqlite(myNewProspect.getDateOfBirth()));
+        newProspectUpdate.setDesignation(myNewProspect.getDesignation());
+        newProspectUpdate.setDistrictOfBirth(myNewProspect.getDob());
+        newProspectUpdate.setETin(myNewProspect.getEtin());
+        newProspectUpdate.setEmiOfOtherLoan(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getEmiOther().replace(",", ""))));
+        newProspectUpdate.setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getWireHouseINcome().replace(",", ""))));
+        newProspectUpdate.setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
+        newProspectUpdate.setFatherName(myNewProspect.getfName());
+        newProspectUpdate.setFee(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
+        newProspectUpdate.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
+        newProspectUpdate.setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOrInterest().replace(",", ""))));
+        newProspectUpdate.setLeadReferenceNo(myNewProspect.getRefNumber());
+        newProspectUpdate.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
+        newProspectUpdate.setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanTerm())));
+        newProspectUpdate.setManufacturerName(myNewProspect.getManufacturingName());
+        newProspectUpdate.setManufacturerNameId(myNewProspect.getManufacturingNameId());
+        newProspectUpdate.setManufacturingCountry(myNewProspect.getManufacturingCountry());
+        newProspectUpdate.setManufacturingYear(myNewProspect.getManufacturingYear());
+        newProspectUpdate.setMobileNo(myNewProspect.getPhone());
+        newProspectUpdate.setMobileNoId(myNewProspect.getMobileId());
+        newProspectUpdate.setMotherName(myNewProspect.getmName());
+        newProspectUpdate.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
+        newProspectUpdate.setNetSalaryType(myNewProspect.getNetSalary());
+        newProspectUpdate.setPermanentAddress(myNewProspect.getpAddress());
+        newProspectUpdate.setPermanentAddressCity("");
+        newProspectUpdate.setPermanentAddressId(myNewProspect.getPermAddressId());
+        newProspectUpdate.setPermanentAddressPS("");
+        newProspectUpdate.setPhotoIdIssueDate(DateUtils.getDateFormateForSqlite(myNewProspect.getpIssueDate()));
+        newProspectUpdate.setPhotoIdNumber(myNewProspect.getpIdNumber());
+        newProspectUpdate.setPhotoIdTypeCode(Integer.valueOf(myNewProspect.getpIDType())); // issue
+        newProspectUpdate.setPresentAddress(myNewProspect.getAddress());
+        newProspectUpdate.setPresentAddressCity("");
+        newProspectUpdate.setPresentAddressId(myNewProspect.getPresAddressId());
+        newProspectUpdate.setPresentAddressPS("");
+
+        newProspectUpdate.setProduct(myNewProspect.getProductType());
+        newProspectUpdate.setProductId(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
+        newProspectUpdate.setProductSubCategory(myNewProspect.getProductSubcategory());
+        newProspectUpdate.setProductSubCategoryId(myNewProspect.getSubCode());
+        newProspectUpdate.setProfession(myNewProspect.getProfession());
+        newProspectUpdate.setRelationshipWithApplicant(myNewProspect.getSourceRef());
+        newProspectUpdate.setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
+        newProspectUpdate.setRmCode(myNewProspect.getRmCode());
+        newProspectUpdate.setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
+        newProspectUpdate.setSpouseName(myNewProspect.getsName());
+        newProspectUpdate.setStatus(myNewProspect.getStatus());
+
+        newProspectUpdate.setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
+        newProspectUpdate.setUserName(userName);
+
+        return newProspectUpdate;
     }
 
     public void getDBCoApplicants(ArrayList<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicantList) {

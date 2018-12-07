@@ -1,8 +1,7 @@
-package net.maxproit.salesforce.masum.fragment.prospect;
+package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,7 +21,6 @@ import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
-import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;

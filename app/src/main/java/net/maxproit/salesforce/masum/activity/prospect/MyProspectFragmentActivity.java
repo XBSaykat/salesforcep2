@@ -18,10 +18,8 @@ import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.fragment.myactivity.FragmentCurrentActivity;
-import net.maxproit.salesforce.masum.fragment.myactivity.FragmentPreViousList;
-import net.maxproit.salesforce.masum.fragment.prospect.FragmentProspectPendingList;
-import net.maxproit.salesforce.masum.fragment.prospect.FragmentProspectreturn;
+import net.maxproit.salesforce.masum.fragment.prospect.myprospect.FragmentProspectPendingList;
+import net.maxproit.salesforce.masum.fragment.prospect.myprospect.FragmentProspectreturn;
 
 import java.util.ArrayList;
 import java.util.List;
