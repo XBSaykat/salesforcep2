@@ -141,7 +141,12 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 if (isNetworkAvailable()) {
                     getDataFromServer();
                 } else {
+
                     leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
+                    myLeadAdapter.notifyDataSetChanged();
+                    if (leadListDataFromApi.isEmpty()) {
+                        showEmptyView();
+                    } else hideLoader();
                 }
             }
         } else {
@@ -149,6 +154,10 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 getDataFromServer();
             else
                 leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
+            myLeadAdapter.notifyDataSetChanged();
+            if (leadListDataFromApi.isEmpty()) {
+                showEmptyView();
+            } else hideLoader();
         }
 
     }
@@ -218,8 +227,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                             showAlertDialog("Error", response.body().getMessage());
                             hideLoader();
                         }
-                    }
-                    else showAlertDialog("Error",response.message());
+                    } else showAlertDialog("Error", response.message());
 
                 }
 

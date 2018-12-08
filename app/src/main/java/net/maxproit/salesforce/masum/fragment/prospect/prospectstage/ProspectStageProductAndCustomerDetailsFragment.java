@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -508,8 +507,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             etDob.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getDateOfBirth())));
             if (myNewLead.getDateOfBirth() != null) {
-                long timeinMIlis = DateUtils.getStringtoDate(DateUtils.getDateFormateEt(myNewLead.getDateOfBirth()));
-                etAge.setText(calcutateAge(timeinMIlis));
+                long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(DateUtils.getDateFormateEt(myNewLead.getDateOfBirth()));
+                etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
             }
 
             etETin.setText(myNewLead.getEtin());

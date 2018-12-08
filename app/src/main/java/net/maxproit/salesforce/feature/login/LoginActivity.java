@@ -92,18 +92,18 @@ public class LoginActivity extends BaseActivity {
 
 
 
-        //String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
-       /* if (st.isEmpty()) {*/
+        String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
+        if (st.isEmpty()) {
         if (isNetworkAvailable())
             callSetting();
-/*
+
         } else {
             String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
             if (!roll.isEmpty()) {
                 gotoBoard(roll);
             }
 
-        }*/
+        }
 
 
 

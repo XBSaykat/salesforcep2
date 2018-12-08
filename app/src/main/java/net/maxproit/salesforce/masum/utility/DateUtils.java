@@ -8,7 +8,7 @@ import java.util.Date;
 public class DateUtils {
 
 
-    public static  long getStringtoDate( String date){
+    public static  long getDateStringtoTimeInMinlis(String date){
         SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
         Date newDate=null;
         try {

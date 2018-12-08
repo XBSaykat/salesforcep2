@@ -732,20 +732,47 @@ public class NewProspectUpdate {
         for (int i = 0; i < coApplicanLocalList.size(); i++) {
 
             try {
+
                 coApplicant.setAgriculturalIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthAgricultureIncomeAmount().replace(",", "")));
-                coApplicant.setApartmentIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthApartmentIncomeAmount().replace(",", "")));
-                coApplicant.setBusinessIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthBusinessIncomeAmount().replace(",", "")));
-                coApplicant.setCommercialSpaceIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthOfficeSpaceIncomeAmount().replace(",", "")));
-                coApplicant.setFactoryIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthWareHouseAmount().replace(",", "")));
-                coApplicant.setInterestIncomeOfFDR(Integer.valueOf(coApplicanLocalList.get(i).getInterestFDRIncomeAmount().replace(",", "")));
-                coApplicant.setNetSalary(Integer.valueOf(coApplicanLocalList.get(i).getMonthSalaryAmount().replace(",", "")));
-                coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance()));
-                coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
-                coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
-            }
-            catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
 
             }
+            try {
+
+                coApplicant.setApartmentIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthApartmentIncomeAmount().replace(",", "")));
+            } catch (NumberFormatException e) {
+
+            }
+            try {
+                coApplicant.setBusinessIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthBusinessIncomeAmount().replace(",", "")));
+            } catch (NumberFormatException e) {
+            }
+            try {
+                coApplicant.setCommercialSpaceIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthOfficeSpaceIncomeAmount().replace(",", "")));
+            } catch (NumberFormatException e) {
+            }
+            try {
+                coApplicant.setFactoryIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthWareHouseAmount().replace(",", "")));
+            } catch (NumberFormatException e) {
+            }
+            try {
+                coApplicant.setInterestIncomeOfFDR(Integer.valueOf(coApplicanLocalList.get(i).getInterestFDRIncomeAmount().replace(",", "")));
+            } catch (NumberFormatException e) {
+            }
+            try {
+                coApplicant.setNetSalary(Integer.valueOf(coApplicanLocalList.get(i).getMonthSalaryAmount().replace(",", "")));
+            } catch (NumberFormatException e) {
+            }
+            try {
+                coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance()));
+            } catch (NumberFormatException e) {
+            }
+            try {
+                coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
+            } catch (NumberFormatException e) {
+            }
+            coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
+
             coApplicant.setCompany(coApplicanLocalList.get(i).getCompanyName());
             coApplicant.setContactId(coApplicanLocalList.get(i).getContactId());
             coApplicant.setCustomerId(coApplicanLocalList.get(i).getCustomerId());
@@ -772,7 +799,7 @@ public class NewProspectUpdate {
             coApplicant.setPresentAddressId(coApplicanLocalList.get(i).getPresentAddressId());
             coApplicant.setPresentAddressPS("Dhaka");
             if (!MasumCommonUtils.isNullStr(coApplicanLocalList.get(i).getProfession()))
-            coApplicant.setProfession(coApplicanLocalList.get(i).getProfession());
+                coApplicant.setProfession(coApplicanLocalList.get(i).getProfession());
             else coApplicant.setProfession("");
             coApplicant.setRelationshipWithApplicant(coApplicanLocalList.get(i).getRelationWithApplicant());
             coApplicant.setSpouseName(coApplicanLocalList.get(i).getsName());
@@ -788,22 +815,118 @@ public class NewProspectUpdate {
 
         try {
             setAgriculturalIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getAg_Income().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setApartmentIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getApartmentAmount().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getBusinessIncomeAmount().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOfficeSpaceINcome().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setEmiOfOtherLoan(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getEmiOther().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getWireHouseINcome().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setFee(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getPiRate().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanTerm())));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
-            setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
+        } catch (NumberFormatException e) {
+
+        } catch (NullPointerException e) {
+
+        }
+        try {
             setSemipakaIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSemipakaIncome()).replace(",", "")));
+        } catch (NumberFormatException n) {
+
+        } catch (NullPointerException n) {
+
+        }
+        try {
+            setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
 
         } catch (NumberFormatException e) {
 
@@ -857,7 +980,6 @@ public class NewProspectUpdate {
         setSpouseName(myNewProspect.getsName());
         setUserName(myNewProspect.getUserID());
         setStatus(myNewProspect.getStatus());
-
 
 
     }

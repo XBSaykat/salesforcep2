@@ -1,6 +1,5 @@
 package net.maxproit.salesforce.masum.activity.prospect.co_applicant;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -35,7 +34,9 @@ public class CoApplicantActivity extends BaseActivity {
     private ViewPager viewPager;
     private TextView btnSave;
     private CoApplicantDBController coApplicantDBController;
-    String leadId=null;
+    String leadId = null;
+    CoApplicantProductAndCustomerDetailsFragment coApplicantProductAndCustomerDetailsFragment;
+    CoApplicantFinancialFragment coApplicantFinancialFragment;
 
     @Override
     protected int getLayoutResourceId() {
@@ -44,8 +45,7 @@ public class CoApplicantActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
-
-        toolbar =findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage: Co-Applicant");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,7 +64,6 @@ public class CoApplicantActivity extends BaseActivity {
         btnSave = findViewById(R.id.btn_save);
         coApplicantDBController = new CoApplicantDBController(getApplicationContext());
         leadId = getIntent().getStringExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY);
-
         initListener();
     }
 
@@ -77,16 +76,17 @@ public class CoApplicantActivity extends BaseActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
+
+
                 String name, segment, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
                         presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,
-                        monthBusinessIncomeAmount, monthWareHouseAmount,monthOfficeSpaceIncomeAmount,
+                        monthBusinessIncomeAmount, monthWareHouseAmount, monthOfficeSpaceIncomeAmount,
                         monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
                         monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
                         emiOfOtherLoans;
-                AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED,true);
+                AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED, true);
                 name = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
                 dateOfBirth = CoApplicantProductAndCustomerDetailsFragment.etDateOfBirth.getText().toString();
                 age = CoApplicantProductAndCustomerDetailsFragment.etAge.getText().toString();
@@ -123,36 +123,43 @@ public class CoApplicantActivity extends BaseActivity {
                 emiOfOtherLoans = CoApplicantFinancialFragment.etEMIOfOtherLoans.getText().toString();
 
 
-
                 CoApplicant coApplicant = new CoApplicant(leadId, name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
                         presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,
-                        monthBusinessIncomeAmount, monthWareHouseAmount,monthOfficeSpaceIncomeAmount,
+                        monthBusinessIncomeAmount, monthWareHouseAmount, monthOfficeSpaceIncomeAmount,
                         monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
                         monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
                         emiOfOtherLoans);
 
-                Log.d("tag", ""+coApplicant.getLeadId());
-                Log.d("tag", ""+coApplicant.getName());
-                int update=0;
-                if (getDataFromApplicant() !=null){
-                    update = coApplicantDBController.updateCoApplicantData(coApplicant,getDataFromApplicant().getId());
+                Log.d("tag", "" + coApplicant.getLeadId());
+                Log.d("tag", "" + coApplicant.getName());
+                int update = 0;
+                if (getDataFromApplicant() != null) {
+                    coApplicant.setContactId(getDataFromApplicant().getContactId());
+                    coApplicant.setCustomerId(getDataFromApplicant().getCustomerId());
+                    coApplicant.setMobileNoId(getDataFromApplicant().getMobileNoId());
+                    coApplicant.setPresentAddressId(getDataFromApplicant().getPresentAddressId());
+                    AppConstant.coAppLicantStaticList.add(coApplicant);
+                    update = coApplicantDBController.updateCoApplicantData(coApplicant, getDataFromApplicant().getId());
 
-                }
-                else {
-                     update = coApplicantDBController.insertData(coApplicant);
+                } else {
+                    coApplicant.setCustomerId(0);
+                    coApplicant.setMobileNoId(0);
+                    coApplicant.setPresentAddressId(0);
+                    coApplicant.setContactId(0);
+                    AppConstant.coAppLicantStaticList.add(coApplicant);
+                    update = coApplicantDBController.insertData(coApplicant);
                 }
 
-                if (update > 0){
+                if (update > 0) {
                     Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
 
                     Intent coApplicantIntent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
-                    setResult( AppConstant.ACTIVITY_RESULLT_200, coApplicantIntent);
+                    setResult(AppConstant.ACTIVITY_RESULLT_200, coApplicantIntent);
                     finish();
 
-                }
-                else {
+                } else {
                     Toast.makeText(CoApplicantActivity.this, "failed", Toast.LENGTH_SHORT).show();
 
                 }
@@ -160,8 +167,8 @@ public class CoApplicantActivity extends BaseActivity {
         });
 
 
-
     }
+
     public CoApplicant getDataFromApplicant() {
         CoApplicant coApplicant = null;
 
@@ -213,7 +220,6 @@ public class CoApplicantActivity extends BaseActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
 
 
 }

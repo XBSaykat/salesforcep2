@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +21,28 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.feature.upload.UploadActivity;
 import net.maxproit.salesforce.feature.upload.UploadProspectActivity;
+import net.maxproit.salesforce.feature.upload.adapter.DocumentUploadAdapter;
+import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
+import net.maxproit.salesforce.masum.model.api.file.Document;
+import net.maxproit.salesforce.masum.model.api.file.GetDocument;
 import net.maxproit.salesforce.masum.model.local.Attachment;
+import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -42,24 +55,27 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link PropectStageAttachmentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PropectStageAttachmentFragment extends Fragment {
+public class PropectStageAttachmentFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private DocumentUploadAdapter documentUploadAdapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button btnDoc;
+    private TextView btnDoc;
+    private ArrayList<Document> docList;
     public static ImageView imgAtach, imgIdCard, imgVisitingCard;
     private Button btnImgCap, btnIDCardCap, btnVCardCap, btnChoosePP, btnChooseId, btnChooseVCard;
     private OnFragmentInteractionListener mListener;
     private TextView tvID, tvPhoto, tvVCard;
     private Uri filePathUri = null;
+    RecyclerView recyclerView;
     AttachmentDbController attachmentDbController;
     ArrayList<Attachment> attachmentArrayList;
-    public static Bitmap attachPp=null,attachIdcard=null,attachvCard=null;
+    public static Bitmap attachPp = null, attachIdcard = null, attachvCard = null;
+
     public PropectStageAttachmentFragment() {
         // Required empty public constructor
     }
@@ -95,37 +111,41 @@ public class PropectStageAttachmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.e("crash","attach");
+        Log.e("crash", "attach");
         View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
-
+        docList = new ArrayList<>();
         initView(rootView);
         initListener();
         initIntentData();
         return rootView;
     }
 
-
     private void initView(View rootView) {
-        imgAtach = rootView.findViewById(R.id.img_atach_pp);
-        imgIdCard = rootView.findViewById(R.id.img_atach_id_card);
-        imgVisitingCard = rootView.findViewById(R.id.img_atach_v_card);
-        btnDoc=rootView.findViewById(R.id.btn_doc);
-        btnImgCap = rootView.findViewById(R.id.btn_capture_pp);
-        btnIDCardCap = rootView.findViewById(R.id.btn_atach_id);
-        btnVCardCap = rootView.findViewById(R.id.btn_atach_v_card);
-        btnChoosePP = rootView.findViewById(R.id.btn_choose_pp);
-        btnChooseId = rootView.findViewById(R.id.btn_choose_id);
-        btnChooseVCard = rootView.findViewById(R.id.btn_choose_v_card);
-        tvID = rootView.findViewById(R.id.tv_id_text);
-        tvPhoto = rootView.findViewById(R.id.tv_photo_text);
-        tvVCard = rootView.findViewById(R.id.tv_v_text);
+        btnDoc = rootView.findViewById(R.id.btndoc1);
+        recyclerView = rootView.findViewById(R.id.recycleView);
+        documentUploadAdapter = new DocumentUploadAdapter(getActivity(), docList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(documentUploadAdapter);
+
     }
 
+    @Override
+    protected Integer layoutResourceId() {
+        return null;
+    }
+
+    @Override
+    protected void initFragmentComponents() {
+
+    }
+
+
     private void initListener() {
-        btnDoc.setOnClickListener(view->{
-            ActivityUtils.getInstance().invokeActivity(getActivity(),UploadProspectActivity.class,false);
+        btnDoc.setOnClickListener(view -> {
+            ActivityUtils.getInstance().invokeActivity(getActivity(), UploadProspectActivity.class, false);
         });
-        btnImgCap.setOnClickListener(new View.OnClickListener() {
+    /*    btnImgCap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -194,7 +214,7 @@ public class PropectStageAttachmentFragment extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, AppConstant.SELECT_IMAGE_TITLE), AppConstant.REQUEST_VCARD_CHOOSE);
             }
         });
-
+*/
     }
 
     private void initIntentData() {
@@ -203,8 +223,8 @@ public class PropectStageAttachmentFragment extends Fragment {
             if (status == 1) {
                 MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-
-                    initAttachMentData(myNewLead);
+                   // initAttachMentData(myNewLead);
+                    callApi(myNewLead);
 
                 }
             }
@@ -233,12 +253,46 @@ public class PropectStageAttachmentFragment extends Fragment {
     }
 
 
+    private void callApi(MyNewLead myNewLead) {
+        if (isNetworkAvailable()) {
+            String refNo = myNewLead.getRefNumber();
+            String random = UUID.randomUUID().toString();
+            getApiService().getDocumentList(refNo, random).enqueue(new Callback<GetDocument>() {
+                @Override
+                public void onResponse(Call<GetDocument> call, Response<GetDocument> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("200")) {
+                            docList.addAll(response.body().getData());
+                            documentUploadAdapter.notifyDataSetChanged();
+
+                        } else {
+
+                            showAlertDialog("Error", response.body().getMessage());
+
+                        }
+                    } else {
+                        showAlertDialog("Error", response.message());
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<GetDocument> call, Throwable t) {
+                    showAlertDialog("Error", t.getMessage());
+
+                }
+            });
+        }
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstant.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
-            attachPp  = (Bitmap) extras.get("data");
+            attachPp = (Bitmap) extras.get("data");
             imgAtach.setImageBitmap(attachPp);
 
             imgAtach.setVisibility(View.VISIBLE);
@@ -246,7 +300,7 @@ public class PropectStageAttachmentFragment extends Fragment {
 
         } else if (requestCode == AppConstant.REQUEST_ID_CARD_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
-             attachIdcard = (Bitmap) extras.get("data");
+            attachIdcard = (Bitmap) extras.get("data");
             imgIdCard.setImageBitmap(attachIdcard);
 
             imgIdCard.setVisibility(View.VISIBLE);
@@ -255,7 +309,7 @@ public class PropectStageAttachmentFragment extends Fragment {
 
         } else if (requestCode == AppConstant.REQUEST_VCARD_CAPTURE && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
-             attachvCard = (Bitmap) extras.get("data");
+            attachvCard = (Bitmap) extras.get("data");
             imgVisitingCard.setImageBitmap(attachvCard);
 
             imgVisitingCard.setVisibility(View.VISIBLE);
@@ -268,7 +322,7 @@ public class PropectStageAttachmentFragment extends Fragment {
             try {
 
                 // Getting selected image into Bitmap.
-               attachPp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
+                attachPp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
                 // Setting up bitmap selected image into ImageView.
                 Glide.with(getActivity()).load(filePathUri).into(imgAtach);
                 //imgAtach.setImageBitmap(bitmap);

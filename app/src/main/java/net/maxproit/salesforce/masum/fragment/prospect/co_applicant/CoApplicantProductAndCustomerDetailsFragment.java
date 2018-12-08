@@ -31,7 +31,10 @@ import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
+import net.maxproit.salesforce.util.CommonUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -227,7 +230,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         }
 
 */
-        prosList.addAll(myLeadDbController.myNewLeadGetAllData(coApplicantActivity.getLeadId()));
+      //  prosList.addAll(myLeadDbController.myNewLeadGetAllData(coApplicantActivity.getLeadId()));
         return view;
     }
 
@@ -487,7 +490,11 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         if (coApplicantActivity.getDataFromApplicant() != null) {
             CoApplicant coApplicant = coApplicantActivity.getDataFromApplicant();
             etName.setText(coApplicant.getName());
-            etDateOfBirth.setText(coApplicant.getDateOfBirth());
+            if (coApplicant.getDateOfBirth() !=null) {
+                etDateOfBirth.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getDateOfBirth())));
+                long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(etDateOfBirth.getText().toString());
+                etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+            }
             etAge.setText(coApplicant.getAge());
             etDesignation.setText(coApplicant.getDesignation());
             etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
@@ -495,7 +502,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             etFatherName.setText(coApplicant.getfName());
             etMotherName.setText(coApplicant.getmName());
             etSpouseName.setText(coApplicant.getsName());
-            etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
+            etPhotoIdDate.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getPhotoIdIssueDate())));
             etCompanyName.setText(coApplicant.getCompanyName());
             etPermanentAddress.setText(coApplicant.getPermanentAddress());
             etPresentAddress.setText(coApplicant.getPresentAddress());
@@ -503,7 +510,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             etMobileNumber.setText(coApplicant.getMobileNo());
             getphotoIdNumber(coApplicant.getPhotoIdType());
             etPhotoId.setText(coApplicant.getPhotoIdNo());
-            if (coApplicant.getDistrictOfBirth() != null) {
+            if (!MasumCommonUtils.isNullStr(coApplicant.getDistrictOfBirth())) {
 
                 try {
                     spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(coApplicant.getDistrictOfBirth()));
@@ -512,14 +519,15 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
                 }
             }
-            if (coApplicant.getCountryOfBirth() != null)
+            if (!MasumCommonUtils.isNullStr(coApplicant.getCountryOfBirth())) {
                 try {
                     spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(coApplicant.getCountryOfBirth()));
 
                 } catch (final IllegalStateException e) {
 
                 }
-            if (coApplicant.getPhotoIdType() != null) {
+            }
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPhotoIdType())) {
 
                 try {
                     spinnerValidPhotoType.setSelection(validPhotoIdAdapter.getPosition(coApplicant.getPhotoIdType()));
@@ -529,7 +537,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
 
-            if (coApplicant.getProfession() != null) {
+            if (!MasumCommonUtils.isNullStr(coApplicant.getProfession())) {
                 try {
                     spinnerProfession.setSelection(professionAdapter.getPosition(coApplicant.getProfession()));
 
@@ -538,7 +546,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
 
-            if (coApplicant.getRelationWithApplicant() != null) {
+            if (!MasumCommonUtils.isNullStr(coApplicant.getRelationWithApplicant())) {
                 try {
                     spinnerRelationship.setSelection(realationAdapter.getPosition(coApplicant.getRelationWithApplicant()));
                 } catch (final IllegalStateException ignored) {

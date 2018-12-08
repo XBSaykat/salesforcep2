@@ -13,33 +13,20 @@
         android:layout_gravity="center"
         android:layout_marginTop="?attr/actionBarSize">
         <Button
-            android:id="@+id/btn_doc"
+            android:id="@+id/btndoc1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
             android:layout_margin="@dimen/size_20dp"
             android:layout_gravity="center"
             android:text="Document List"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="@dimen/size_50dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:orientation="vertical">
-
-            <include layout="@layout/photo_atach_layout" />
-
-            <include layout="@layout/atach_id_card_layout" />
-
-            <include layout="@layout/visiting_card_atach_layout" />
-        </LinearLayout>
-    </ScrollView>
 </FrameLayout>

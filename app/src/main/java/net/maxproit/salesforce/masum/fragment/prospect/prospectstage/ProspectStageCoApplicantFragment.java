@@ -21,6 +21,7 @@ import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
+import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
@@ -181,13 +182,13 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
             }
         });
 
-       /* coApplicantAdapter.setItemClickListener(new OnItemClickListener() {
+        coApplicantAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
                 sentDataToCoApplicant(position);
 
             }
-        });*/
+        });
     }
 
     private void sentDataToCoApplicant(int position) {

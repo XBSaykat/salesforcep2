@@ -22,6 +22,8 @@ import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
+import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
@@ -411,7 +413,7 @@ public class ProspectStageActivity extends BaseActivity {
                 try {
                     if (ProspectStageProductAndCustomerDetailsFragment.branchCode != null)
                         myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
-                        myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
+                    myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 } catch (NullPointerException e) {
                     Log.d("prospectStageDebug", "alertDialogSave: " + e.getLocalizedMessage());
                 } catch (NumberFormatException e) {
@@ -429,7 +431,8 @@ public class ProspectStageActivity extends BaseActivity {
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
                 newProspectUpdate.getPRospectDAtaForPostAPi(myNewProspect);
                 String refNo = getDataFromProspect().getRefNumber();
-                ArrayList<CoApplicant> coApplicantList = coApplicantDBController.getAllData(refNo);
+
+                ArrayList<CoApplicant> coApplicantList = AppConstant.coAppLicantStaticList;
                 newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
                 newProspectUpdate.setUserName(userName);
 //                NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
@@ -440,6 +443,11 @@ public class ProspectStageActivity extends BaseActivity {
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
                             if (response.body().getCode().equals("200")) {
                                 showToast("Prospect Updated");
+                                if (AppConstant.coAppLicantStaticList.isEmpty()) {
+                                    coApplicantList.clear();
+                                    AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED, false);
+
+                                }
                                 finish();
                                 Toast.makeText(getApplicationContext(), "save successfully", Toast.LENGTH_SHORT).show();
                             } else {
