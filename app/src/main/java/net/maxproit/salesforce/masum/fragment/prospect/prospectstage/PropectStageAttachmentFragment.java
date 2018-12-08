@@ -25,9 +25,11 @@ import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.feature.upload.UploadActivity;
 import net.maxproit.salesforce.feature.upload.UploadProspectActivity;
 import net.maxproit.salesforce.feature.upload.adapter.DocumentUploadAdapter;
+import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
+import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.api.file.Document;
 import net.maxproit.salesforce.masum.model.api.file.GetDocument;
 import net.maxproit.salesforce.masum.model.local.Attachment;
@@ -65,6 +67,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
     private TextView btnDoc;
+    private ProspectStageActivity prospectStageActivity;
     private ArrayList<Document> docList;
     public static ImageView imgAtach, imgIdCard, imgVisitingCard;
     private Button btnImgCap, btnIDCardCap, btnVCardCap, btnChoosePP, btnChooseId, btnChooseVCard;
@@ -111,6 +114,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        prospectStageActivity = (ProspectStageActivity) getActivity();
         Log.e("crash", "attach");
         View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
         docList = new ArrayList<>();
@@ -144,6 +148,23 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     private void initListener() {
         btnDoc.setOnClickListener(view -> {
             ActivityUtils.getInstance().invokeActivity(getActivity(), UploadProspectActivity.class, false);
+        });
+
+
+        documentUploadAdapter.setItemClickListener(new OnItemClickListener() {
+            @Override
+            public void itemClickListener(View view, int position) {
+                Document document=new Document();
+                document.setDocCheckListID(docList.get(0).getDocCheckListID());
+                document.setLeadReferenceNo(docList.get(0).getLeadReferenceNo());
+                document.setDocCheckListItem(docList.get(0).getDocCheckListItem());
+                document.setFileName(docList.get(0).getFileName());
+                document.setURL(docList.get(0).getURL());
+                document.setDocCheckListItemID(docList.get(0).getDocCheckListItemID());
+                ActivityUtils.invokDoc(getActivity(),UploadProspectActivity.class,document);
+
+
+            }
         });
     /*    btnImgCap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,19 +239,13 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     }
 
     private void initIntentData() {
-        if (getArguments() != null) {
-            int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
-            if (status == 1) {
-                MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
-                if (myNewLead != null) {
-                   // initAttachMentData(myNewLead);
-                    callApi(myNewLead);
-
-                }
-            }
+        if (prospectStageActivity.getDataFromProspect() != null) {
+            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+            callApi(myNewLead);
 
         }
     }
+
 
     private void initAttachMentData(MyNewProspect myNewLead) {
         attachmentDbController = new AttachmentDbController(getActivity());
@@ -262,8 +277,10 @@ public class PropectStageAttachmentFragment extends BaseFragment {
                 public void onResponse(Call<GetDocument> call, Response<GetDocument> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            docList.addAll(response.body().getData());
-                            documentUploadAdapter.notifyDataSetChanged();
+                            if (!response.body().getData().isEmpty()) {
+                                docList.addAll(response.body().getData());
+                                documentUploadAdapter.notifyDataSetChanged();
+                            }
 
                         } else {
 

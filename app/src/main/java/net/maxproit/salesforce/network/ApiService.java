@@ -367,6 +367,8 @@ public interface ApiService {
     Call<String> getfileByid(@Path("user") String user);
 
 
+
+    //Document
     @GET("Documentlist/{ReferenceNo}/{timestamp}")
     Call<GetDocument> getDocumentList(@Path("ReferenceNo") String refNo,@Path("timestamp") String random);
 

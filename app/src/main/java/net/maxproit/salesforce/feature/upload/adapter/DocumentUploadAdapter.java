@@ -53,9 +53,9 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
 
     @Override
     public void onBindViewHolder(@NonNull DocumentUploadAdapter.MyViewHolder holder, int position) {
-        int i=position+1;
-       holder.tvId.setText(""+coApplicantsList.get(position).getDocCheckListItemID());
-        holder.tvName.setText(""+coApplicantsList.get(position).getFileName());
+        int i = position + 1;
+        holder.tvId.setText("" + coApplicantsList.get(position).getLeadReferenceNo());
+        holder.tvName.setText("" + coApplicantsList.get(position).getDocCheckListItem());
 
     }
 
@@ -78,11 +78,12 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
             tvName = itemView.findViewById(R.id.tvName);
             tvId = itemView.findViewById(R.id.tvId);
             itemView.setOnClickListener(view -> {
-                    mListener.itemClickListener(view, getLayoutPosition());
-                });
+                mListener.itemClickListener(view, getLayoutPosition());
+            });
 
         }
     }
+
     public void setItemClickListener(OnItemClickListener mListener) {
         this.mListener = mListener;
     }

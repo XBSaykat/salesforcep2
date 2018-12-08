@@ -2,6 +2,7 @@ package net.maxproit.salesforce.feature.upload;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -16,6 +17,8 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityUploadProspectBinding;
 
+import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.model.api.file.Document;
 import net.maxproit.salesforce.model.uploads.file.FileUploadResponce;
 import net.maxproit.salesforce.util.PdfUtil;
 
@@ -38,9 +41,9 @@ public class UploadProspectActivity extends BaseActivity implements Documentinfo
     List<String> mPaths;
     String pdfNUmber;
     String uploadFile = "";
-    String fileType;
+    String fileType="pdf";
     String fileId;
-    String ProspectId;
+    String prospectId;
 
 
     @Override
@@ -57,6 +60,14 @@ public class UploadProspectActivity extends BaseActivity implements Documentinfo
 
 
         pdfNUmber = getIntent().getStringExtra("pdf");
+        Bundle extraDetail = getIntent().getExtras();
+        if (extraDetail !=null){
+            Document document= (Document) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+            prospectId=document.getLeadReferenceNo();
+            fileId=document.getDocCheckListItemID();
+        }
+
+
 
 
         //Create/Open folder
@@ -81,7 +92,7 @@ public class UploadProspectActivity extends BaseActivity implements Documentinfo
         binding.btnPdf.setOnClickListener(v -> {
             if (imgList != null) {
                 PdfUtil pdfUtil = new PdfUtil(imgList, getContext());
-                pdfUtil.createPdf();
+              uploadFile= pdfUtil.createPdf();
 
 
             }
@@ -102,8 +113,8 @@ public class UploadProspectActivity extends BaseActivity implements Documentinfo
     }
 
     private void fileUpload() {
-        String fileName = fileType + "_" + ProspectId + "_" + fileId + ".pdf";
-        //  File f= new File("/storage/emulated/0/PDFfilesIDLC_2018:07:06_15:15:27.pdf");
+        String fileName = fileType + "_" + prospectId + "_" + fileId + ".pdf";
+        //File f= new File("/storage/emulated/0/PDFfilesIDLC_2018:07:06_15:15:27.pdf");
         File pdffile = new File(uploadFile);
         showProgressDialog("File Unloaded");
 

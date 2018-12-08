@@ -3,7 +3,9 @@ package net.maxproit.salesforce.masum.model.api.file;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Document {
+import java.io.Serializable;
+
+public class Document implements Serializable {
     @SerializedName("LeadReferenceNo")
     @Expose
     private String leadReferenceNo;
