@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment.prospect;
+package net.maxproit.salesforce.masum.fragment.prospect.myprospect;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -107,22 +107,27 @@ public class FragmentProspectPendingList extends BaseFragment {
     }
 
     private void callApiLoadList(int position) {
-        String ref = dataFilterList.get(position).getReference();
-        getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
-            @Override
-            public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
-                Log.d("tag", "onResponse: "+response.body().toString());
-                OldProspect oldProspect = response.body();
-                ActivityUtils.invokLeadDetailForProspectStage(getActivity(),oldProspect.getMyNewProspect());
+        if (isNetworkAvailable()) {
+            String ref = dataFilterList.get(position).getReference();
+            getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
+                @Override
+                public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("200")) {
+                            OldProspect oldProspect = response.body();
+                            ActivityUtils.invokLeadDetailForProspectStage(getActivity(), oldProspect.getMyNewProspect());
+                        } else showAlertDialog("Error", response.body().getMessage());
+                    } else showAlertDialog("Error", response.message());
 
+                }
 
-            }
-
-            @Override
-            public void onFailure(Call<OldProspect> call, Throwable t) {
-                Log.d("tag", "onFailure: "+t.getLocalizedMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<OldProspect> call, Throwable t) {
+                    showAlertDialog("Error", t.getMessage());
+                }
+            });
+        }
+        else showAlertDialog("Error","No Internet,please connect to the internet");
     }
 
     @Override

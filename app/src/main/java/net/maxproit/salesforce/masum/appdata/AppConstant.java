@@ -1,5 +1,11 @@
 package net.maxproit.salesforce.masum.appdata;
 
+import android.widget.ArrayAdapter;
+
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
+
+import java.util.ArrayList;
+
 public class AppConstant {
 
     public static final String NID = "NID";
@@ -71,8 +77,7 @@ public class AppConstant {
     public static final String SYNC_STATUS_OK ="ok" ;
     public static final String SYNC_STATUS_WAIT ="wait" ;
 
-
-
+    public static ArrayList<CoApplicant> coAppLicantStaticList=new ArrayList<>();
 
     // Approval
 

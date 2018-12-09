@@ -141,7 +141,12 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 if (isNetworkAvailable()) {
                     getDataFromServer();
                 } else {
+
                     leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
+                    myLeadAdapter.notifyDataSetChanged();
+                    if (leadListDataFromApi.isEmpty()) {
+                        showEmptyView();
+                    } else hideLoader();
                 }
             }
         } else {
@@ -149,6 +154,10 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 getDataFromServer();
             else
                 leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
+            myLeadAdapter.notifyDataSetChanged();
+            if (leadListDataFromApi.isEmpty()) {
+                showEmptyView();
+            } else hideLoader();
         }
 
     }
@@ -156,7 +165,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     private void getDataFromServer() {
         String random = UUID.randomUUID().toString();
         if (isNetworkAvailable()) {
-            showProgressDialog();
+            initLoader();
             getApiService().getLeadData(username, random).enqueue(new Callback<MyGetLeadApi>() {
                 @Override
                 public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
@@ -164,11 +173,12 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
                             leadListDataFromApi.addAll(response.body().getData());
-                             myLeadAdapter.notifyDataSetChanged();
-                             if (leadListDataFromApi.isEmpty()){
-                                 showEmptyView();
-                             }
+                            myLeadAdapter.notifyDataSetChanged();
+                            if (leadListDataFromApi.isEmpty()) {
+                                showEmptyView();
+                            } else hideLoader();
                         } else {
+                            showEmptyView();
                             showAlertDialog("Error", response.body().getMessage());
                         }
 
@@ -185,8 +195,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
                 }
             });
-        }
-        else {
+        } else {
 
         }
 
@@ -200,31 +209,38 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             getApiService().getLeadDataByRef(refID, random).enqueue(new Callback<MyLeadByRefApi>() {
                 @Override
                 public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
-                    Data data = response.body().getData();
-                    String disDate=CommonUtil.jsonToDate(data.getDisbursementDate());
-                    String followUpDate=CommonUtil.jsonToDate(data.getFollowUpDate());
-                    MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
-                            data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
-                            data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
-                            data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
-                            String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), disDate,
-                            followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
-                    ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
-                    hideProgressDialog();
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("200")) {
+                            Data data = response.body().getData();
+                            String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
+                            String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
+                            MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
+                                    data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
+                                    data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
+                                    data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
+                                    String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), disDate,
+                                    followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
+                            ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
+                            hideProgressDialog();
+
+                        } else {
+                            showAlertDialog("Error", response.body().getMessage());
+                            hideLoader();
+                        }
+                    } else showAlertDialog("Error", response.message());
 
                 }
 
                 @Override
                 public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
-                    hideProgressDialog();
+                    hideLoader();
                     showAlertDialog("ERROR", t.getMessage());
 
                 }
             });
 
-        }
-        else {
-            MyNewLead myNewLead= myLeadDbController.getDataById(filterList.get(position).getId()).get(0);
+        } else {
+            MyNewLead myNewLead = myLeadDbController.getDataById(filterList.get(position).getId()).get(0);
             ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
             hideProgressDialog();
         }

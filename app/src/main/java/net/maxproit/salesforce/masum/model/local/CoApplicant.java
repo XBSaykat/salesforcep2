@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class CoApplicant implements Serializable{
 
 
-    int id, contactId, customerId, permanentAddressCityId,presentAddressId,photoIdCode ;
+    int id, contactId, customerId, permanentAddressCityId,presentAddressId,photoIdCode,mobileNoId ;
     String  name,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
             photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
             designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
@@ -18,7 +18,8 @@ public class CoApplicant implements Serializable{
              ;
 
     public CoApplicant(){};
-//            for retrieving from DB
+
+    //            for retrieving from DB
     public CoApplicant(int id, String leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
@@ -69,7 +70,7 @@ public class CoApplicant implements Serializable{
         this.monthFamilyExpenditure = monthFamilyExpenditure;
         this.emiOfOtherLoans = emiOfOtherLoans;
     }
-//                for inserting in DB
+    //                for inserting in DB
     public CoApplicant(String leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
@@ -119,7 +120,6 @@ public class CoApplicant implements Serializable{
         this.monthFamilyExpenditure = monthFamilyExpenditure;
         this.emiOfOtherLoans = emiOfOtherLoans;
     }
-
     public int getPhotoIdCode() {
         return photoIdCode;
     }
@@ -170,6 +170,14 @@ public class CoApplicant implements Serializable{
 
     public String getPhotoIdNo() {
         return photoIdNo;
+    }
+
+    public int getMobileNoId() {
+        return mobileNoId;
+    }
+
+    public void setMobileNoId(int mobileNoId) {
+        this.mobileNoId = mobileNoId;
     }
 
     public String getPhotoIdIssueDate() {

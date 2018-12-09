@@ -48,6 +48,7 @@
                     app:iconifiedByDefault="false"
                     app:queryHint="Search plan"
                     app:searchIcon="@null"
+                    android:focusable="false"
                     android:theme="@style/WallSearchView" />
 
                 <ImageView

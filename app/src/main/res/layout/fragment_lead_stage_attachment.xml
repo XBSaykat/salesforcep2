@@ -6,23 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".masum.fragment.lead.LeadStageBasicInformationFragment">
 
-    <ScrollView
+    <LinearLayout
+        android:paddingTop="@dimen/size_100dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="@dimen/size_50dp">
-
-        <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="?attr/actionBarSize">
+        <Button
+            android:id="@+id/btndoc1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
-            android:orientation="vertical">
+            android:layout_margin="@dimen/size_20dp"
+            android:layout_gravity="center"
+            android:text="Document List"/>
 
-            <include layout="@layout/photo_atach_layout" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <include layout="@layout/atach_id_card_layout" />
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
-            <include layout="@layout/visiting_card_atach_layout" />
-        </LinearLayout>
-    </ScrollView>
 </FrameLayout>

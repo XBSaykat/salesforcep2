@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.network;
 
 
+import net.maxproit.salesforce.masum.model.api.file.GetDocument;
 import net.maxproit.salesforce.masum.model.api.followup.FollowUpHistoryApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
@@ -364,6 +365,12 @@ public interface ApiService {
 
     @GET("LeadDocumentlist/{user}")
     Call<String> getfileByid(@Path("user") String user);
+
+
+
+    //Document
+    @GET("Documentlist/{ReferenceNo}/{timestamp}")
+    Call<GetDocument> getDocumentList(@Path("ReferenceNo") String refNo,@Path("timestamp") String random);
 
 
 }

@@ -1,8 +1,7 @@
-package net.maxproit.salesforce.masum.fragment.prospect;
+package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -183,13 +182,13 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
             }
         });
 
-       /* coApplicantAdapter.setItemClickListener(new OnItemClickListener() {
+        coApplicantAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
                 sentDataToCoApplicant(position);
 
             }
-        });*/
+        });
     }
 
     private void sentDataToCoApplicant(int position) {

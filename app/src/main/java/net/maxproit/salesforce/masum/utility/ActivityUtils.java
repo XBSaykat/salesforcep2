@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.ProspectViewRbm;
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
+import net.maxproit.salesforce.masum.model.api.file.Document;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
@@ -32,6 +33,15 @@ public class ActivityUtils {
         if (shouldFinish) {
             activity.finish();
         }
+    }
+
+
+    public static void invokDoc(Activity activity, Class<?> tClass, Document document){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, document);
+        Intent intent = new Intent(activity, tClass);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
     }
 
     public void invokFromPerformance(Activity activity, Class<?> tClass,int status){

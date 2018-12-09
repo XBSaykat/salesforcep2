@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.fragment.prospect;
+package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
-import net.maxproit.salesforce.NumberTextWatcher;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
@@ -207,7 +206,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
             MyNewProspect myNewLead=prospectStageActivity.getDataFromProspect();
 
             etSecurityValue.setText(myNewLead.getsValue());
-            etLoanRequired.setText(myNewLead.getLoadAmount());
+            etLoanRequired.setText(myNewLead.getLoanReq());
             etProposedInterest.setText(myNewLead.getOrInterest());
             etLoanTerm.setText(myNewLead.getLoanTerm());
             etFee.setText(myNewLead.getOpFee());

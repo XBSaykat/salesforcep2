@@ -321,7 +321,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     }
 
     private void initSpinnerAdapter() {
-        ArrayAdapter<String> sourceReferenceAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listSourceReference);
+        ArrayAdapter<String> sourceReferenceAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getSourceOfRefString());
         spinnerRef.setAdapter(sourceReferenceAdapter);
 
         ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
