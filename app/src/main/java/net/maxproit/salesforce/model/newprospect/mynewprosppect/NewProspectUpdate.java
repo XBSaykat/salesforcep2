@@ -771,7 +771,11 @@ public class NewProspectUpdate {
                 coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
             } catch (NumberFormatException e) {
             }
-            coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
+            try{
+                coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
+            }catch (NumberFormatException ex){
+
+            }
 
             coApplicant.setCompany(coApplicanLocalList.get(i).getCompanyName());
             coApplicant.setContactId(coApplicanLocalList.get(i).getContactId());
