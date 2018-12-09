@@ -27,6 +27,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
@@ -67,7 +68,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private LinearLayout liPhotoIdNo, liPassport, liDrivingLicense, liBirthCertificate;
     private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
     private RadioGroup rgExList;
-
     private SpinnerDbController spinnerDbController;
     private MyLeadDbController myLeadDbController;
     private List<String> listProductCategory = null;
@@ -223,13 +223,14 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         initAdapters();
         initListener();
         getExceptionlist();
-     /*   if (getArguments() !=null){
-            if (!prosList.isEmpty()){}
-            int leadId=getArguments().getInt(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY);
-            prosList.addAll(myLeadDbController.myNewLeadGetAllData(leadId));
-        }
+       /* if (getArguments() != null) {
+            presentAddress = getArguments().getString(AppConstant.PRESENT_ADDRESSS_KEY);
+            permanentAddress = getArguments().getString(AppConstant.PERMANENT_ADDRESSS_KEY);
+        }*/
 
-*/
+       presentAddress=coApplicantActivity.pr;
+       permanentAddress=coApplicantActivity.pe;
+
         //  prosList.addAll(myLeadDbController.myNewLeadGetAllData(coApplicantActivity.getLeadId()));
         return view;
     }
@@ -322,10 +323,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             public void onClick(View v) {
 
                 if (cbAddress.isChecked()) {
-                /*    if (prosList.get(0).getAddress() != null)
-                        etPresentAddress.setText(prosList.get(0).getAddress());
-                    if (prosList.get(0).getpAddress() != null)
-                        etPermanentAddress.setText(prosList.get(0).getpAddress());*/
+                    if (presentAddress != null)
+                        etPresentAddress.setText(presentAddress);
+                    if (permanentAddress != null)
+                        etPermanentAddress.setText(permanentAddress);
                 } else {
                     etPresentAddress.setText("");
                     etPermanentAddress.setText("");
@@ -495,8 +496,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                     etDateOfBirth.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getDateOfBirth())));
                     long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(etDateOfBirth.getText().toString());
                     etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
-                }
-                else {
+                } else {
                     etDateOfBirth.setText(coApplicant.getDateOfBirth());
                     long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(coApplicant.getDateOfBirth());
                     etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));

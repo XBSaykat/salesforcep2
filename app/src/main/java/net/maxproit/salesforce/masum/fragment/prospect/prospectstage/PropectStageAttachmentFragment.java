@@ -123,7 +123,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
         docList = new ArrayList<>();
         initView(rootView);
         initListener();
-        initIntentData();
+
         return rootView;
     }
 
@@ -149,6 +149,11 @@ public class PropectStageAttachmentFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initIntentData();
+    }
 
     private void initListener() {
         btnDoc.setOnClickListener(view -> {
@@ -192,6 +197,8 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     private void initIntentData() {
         if (prospectStageActivity.getDataFromProspect() != null) {
             MyNewLead myNewLead = prospectStageActivity.getDataFromProspect();
+            if (!docList.isEmpty())
+                docList.clear();
             callApi(myNewLead);
 
         }

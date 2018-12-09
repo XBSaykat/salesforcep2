@@ -11,13 +11,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_5dp">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/clLeadItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/greyWhite">
+            android:background="@color/greyWhite"
+            android:padding="@dimen/size_10dp">
 
 
             <TextView

@@ -107,7 +107,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     @Override
     protected void onResume() {
         super.onResume();
-
+        initLoader();
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
@@ -157,7 +157,10 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             myLeadAdapter.notifyDataSetChanged();
             if (leadListDataFromApi.isEmpty()) {
                 showEmptyView();
-            } else hideLoader();
+            } else {
+                hideLoader();
+            }
+
         }
 
     }
@@ -165,7 +168,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     private void getDataFromServer() {
         String random = UUID.randomUUID().toString();
         if (isNetworkAvailable()) {
-            initLoader();
+
             getApiService().getLeadData(username, random).enqueue(new Callback<MyGetLeadApi>() {
                 @Override
                 public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
@@ -190,7 +193,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
                 @Override
                 public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
-                    hideProgressDialog();
+                    hideLoader();
                     showAlertDialog("Error", t.getMessage());
 
                 }
@@ -242,7 +245,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         } else {
             MyNewLead myNewLead = myLeadDbController.getDataById(filterList.get(position).getId()).get(0);
             ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
-            hideProgressDialog();
+            hideLoader();
         }
 
     }

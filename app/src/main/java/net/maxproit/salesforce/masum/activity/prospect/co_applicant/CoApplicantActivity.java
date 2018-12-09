@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.App;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
@@ -35,6 +36,7 @@ public class CoApplicantActivity extends BaseActivity {
     private TextView btnSave;
     private CoApplicantDBController coApplicantDBController;
     String leadId = null;
+    public static String pr, pe;
     CoApplicantProductAndCustomerDetailsFragment coApplicantProductAndCustomerDetailsFragment;
     CoApplicantFinancialFragment coApplicantFinancialFragment;
     private int position = -1;
@@ -46,6 +48,7 @@ public class CoApplicantActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
+        initFragment();
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage: Co-Applicant");
         setSupportActionBar(toolbar);
@@ -65,11 +68,25 @@ public class CoApplicantActivity extends BaseActivity {
         btnSave = findViewById(R.id.btn_save);
         coApplicantDBController = new CoApplicantDBController(getApplicationContext());
         leadId = getIntent().getStringExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            Bundle extraFromFragment = new Bundle();
+            pr = bundle.getString(AppConstant.PRESENT_ADDRESSS_KEY);
+            pe = bundle.getString(AppConstant.PERMANENT_ADDRESSS_KEY);
+            extraFromFragment.putString(AppConstant.PRESENT_ADDRESSS_KEY, pr);
+            extraFromFragment.putString(AppConstant.PERMANENT_ADDRESSS_KEY, pe);
+            coApplicantProductAndCustomerDetailsFragment.setArguments(extraFromFragment);
+        }
         initListener();
     }
 
     @Override
     protected void getIntentData() {
+
+    }
+
+    private void initFragment() {
+        coApplicantProductAndCustomerDetailsFragment = new CoApplicantProductAndCustomerDetailsFragment();
 
     }
 
@@ -141,6 +158,7 @@ public class CoApplicantActivity extends BaseActivity {
                     coApplicant.setCustomerId(getDataFromApplicant().getCustomerId());
                     coApplicant.setMobileNoId(getDataFromApplicant().getMobileNoId());
                     coApplicant.setPresentAddressId(getDataFromApplicant().getPresentAddressId());
+                    coApplicant.setPermanentAddressCityId(getDataFromApplicant().getPermanentAddressCityId());
                     if (position >= 0) {
                         AppConstant.coAppLicantStaticList.set(position, coApplicant);
                     } else {
@@ -152,6 +170,7 @@ public class CoApplicantActivity extends BaseActivity {
                     coApplicant.setCustomerId(0);
                     coApplicant.setMobileNoId(0);
                     coApplicant.setPresentAddressId(0);
+                    coApplicant.setPermanentAddressCityId(0);
                     coApplicant.setContactId(0);
                     if (position >= 0) {
                         AppConstant.coAppLicantStaticList.set(position, coApplicant);

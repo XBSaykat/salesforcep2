@@ -24,6 +24,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 
@@ -102,7 +103,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         rvCoapplicantList = view.findViewById(R.id.rv_prospect_stage_co_applicant);
         coApplicantDBController = new CoApplicantDBController(getActivity());
 
-        MyNewLead mylead = prospectStageActivity.getDataFromProspect();
+        MyNewProspect mylead = prospectStageActivity.getDataFromProspect();
         refId = prospectStageActivity.getDataFromProspect().getRefNumber();
         leadIdForCoApplicant = mylead.getId();
         coApplicantList = new ArrayList<>();
@@ -163,15 +164,18 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
 
     }
 
-    private void initListener(MyNewLead myNewLead) {
+    private void initListener(MyNewProspect myNewLead) {
 
 
         btnCoApplicant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Bundle bundle=new Bundle();
                 Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
-                intent.putExtra(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, refId);
+                bundle.putString(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, refId);
+                bundle.putString(AppConstant.PRESENT_ADDRESSS_KEY, myNewLead.getAddress());
+                bundle.putString(AppConstant.PERMANENT_ADDRESSS_KEY, myNewLead.getPermAddressPs());
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
 
             }
