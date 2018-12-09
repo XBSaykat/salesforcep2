@@ -53,7 +53,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private LocalSetting localSetting;
-    private ArrayAdapter<String>productSubAdapter;
+    private ArrayAdapter<String> productSubAdapter;
 
     Calendar myCalendar = Calendar.getInstance();
 
@@ -79,7 +79,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //    Spinner productDetail;
 
 
-    private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
+    private AwesomeSpinner spinnerProductCat, spinnerSub, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto;
     private LinearLayout liPhotoIdNo;
     private TextView tvPhotoIdNo;
@@ -88,16 +88,16 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
 
-    public static String productCat, productDetails, branchName, branchCode = null, segment, countOfBirth, districtOfBirth, profession,
+    public static String productCat, productSub, branchName, branchCode = null, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
 
-    public static int productTypeCode = 0, photoIdcode = 0;
+    public static int productTypeCode = 0, photoIdcode = 0,productSubCatCode=0;
     private LinearLayout llAddress;
 
     private RadioGroup rgExList;
     private SharedViewModel model;
-
+    private boolean isFirst = false;
     private OnFragmentInteractionListener mListener;
 
     public ProspectStageProductAndCustomerDetailsFragment() {
@@ -163,7 +163,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
 
         spinnerProductCat = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_category);
-        spinnerProductDetail = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_detail);
+        spinnerSub = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_detail);
         spinnerBranchName = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_branch);
         spinnerSegment = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_segment);
         spinnerDistOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
@@ -175,7 +175,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
 
         initAdapters();
-
+        initListener();
 
 
 //        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -344,30 +344,35 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 productCat = s;
 
-                if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                    productTypeCode=8;
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                    spinnerProductDetail.setAdapter(productSubAdapter);
-                }
-                if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                    productTypeCode=9;
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                    spinnerProductDetail.setAdapter(productSubAdapter);
+                if (isFirst) {
 
-                }
-                if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                    productTypeCode=10;
-                    productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                    spinnerProductDetail.setAdapter(productSubAdapter);
-                }
+                    if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
+                        productTypeCode = 8;
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
+                        spinnerSub.setAdapter(productSubAdapter);
+                    }
+                    if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
+                        productTypeCode = 9;
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
+                        spinnerSub.setAdapter(productSubAdapter);
+
+                    }
+                    if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
+                        productTypeCode = 10;
+                        productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
+                        spinnerSub.setAdapter(productSubAdapter);
+                    }
+                } else isFirst = true;
             }
         });
 
 
-        spinnerProductDetail.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+        spinnerSub.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                productDetails = s;
+                productSub = s;
+                LongOperationSubCategory longOperationSubCategory = new LongOperationSubCategory();
+                longOperationSubCategory.execute(i);
             }
         });
 
@@ -492,7 +497,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
-        initListener();
+
         if (prospectStageActivity.getDataFromProspect() != null) {
 
             MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
@@ -532,7 +537,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 }
             if (!MasumCommonUtils.isNullStr(myNewLead.getpIDType())) {
-               String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(myNewLead.getpIDType()));
+                String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(myNewLead.getpIDType()));
 
                 try {
                     spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(pIdTypeStr));
@@ -557,7 +562,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             getphotoIdNumber(myNewLead.getpIDType());
             etPhotoId.setText(myNewLead.getpIdNumber());
             if (!MasumCommonUtils.isNullStr(myNewLead.getBranchName())) {
-                branchCode= localSetting.getBranchCodeByName(myNewLead.getBranchName());
+                branchCode = localSetting.getBranchCodeByName(myNewLead.getBranchName());
                 try {
                     spinnerBranchName.setSelection(branchNameAdapter.getPosition(myNewLead.getBranchName()));
 
@@ -581,24 +586,34 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
                 if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                    productTypeCode=8;
+                    productTypeCode = 8;
                     productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
-                    spinnerProductDetail.setAdapter(productSubAdapter);
+                    spinnerSub.setAdapter(productSubAdapter);
                 }
                 if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                    productTypeCode=9;
+                    productTypeCode = 9;
                     productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
-                    spinnerProductDetail.setAdapter(productSubAdapter);
+                    spinnerSub.setAdapter(productSubAdapter);
 
                 }
                 if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                    productTypeCode=10;
+                    productTypeCode = 10;
                     productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
-                    spinnerProductDetail.setAdapter(productSubAdapter);
+                    spinnerSub.setAdapter(productSubAdapter);
                 }
 
+                if (!MasumCommonUtils.isNullStr(myNewLead.getProductSubcategory())) {
+                    productSub = myNewLead.getProductSubcategory();
+
+                    try {
+                        spinnerSub.setSelection(productSubAdapter.getPosition(myNewLead.getProductSubcategory()));
+                    } catch (IllegalStateException e) {
+
+                    }
                 }
 
+
+            }
 
 
             if (!MasumCommonUtils.isNullStr(myNewLead.getProfession())) {
@@ -675,6 +690,28 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         @Override
         protected void onProgressUpdate(Void... values) {
         }
+    }
+
+    private class LongOperationSubCategory extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            productSubCatCode=localSetting.getSubCatCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 
 

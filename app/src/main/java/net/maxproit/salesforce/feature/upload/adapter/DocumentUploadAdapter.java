@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
@@ -68,6 +69,7 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ArrayList<Document> coApplicantsList;
         TextView tvId, tvName;
+        ImageView imgView;
         Context context;
 
 
@@ -77,9 +79,15 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
             this.coApplicantsList = coApplicantsList;
             tvName = itemView.findViewById(R.id.tvName);
             tvId = itemView.findViewById(R.id.tvId);
+            imgView = itemView.findViewById(R.id.btn_view);
             itemView.setOnClickListener(view -> {
                 mListener.itemClickListener(view, getLayoutPosition());
             });
+
+           imgView.setOnClickListener(view->{
+               mListener.itemClickListener(view, getLayoutPosition());
+
+           });
 
         }
     }

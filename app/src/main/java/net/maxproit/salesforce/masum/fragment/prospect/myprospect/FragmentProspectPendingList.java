@@ -39,10 +39,11 @@ public class FragmentProspectPendingList extends BaseFragment {
     RecyclerView recyclerView;
     ArrayList<MyNewProspect> leadList;
     ArrayList<Data> dataList, dataFilterList;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_my_activity_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_activity_list, container, false);
         leadList = new ArrayList<>();
         dataList = new ArrayList<>();
         dataFilterList = new ArrayList<>();
@@ -66,9 +67,7 @@ public class FragmentProspectPendingList extends BaseFragment {
 //        }
 
 
-
-
-        recyclerView=view.findViewById(R.id.rv_my_activity);
+        recyclerView = view.findViewById(R.id.rv_my_activity);
         callApi();
 
         return view;
@@ -86,9 +85,10 @@ public class FragmentProspectPendingList extends BaseFragment {
     }
 
     public void beginSearching(String s) {
-        dataFilterList = getFilterData(dataList,s);
+        dataFilterList = getFilterData(dataList, s);
         myProspectAdapter.setFilter(dataFilterList);
     }
+
     private void initListener() {
 
         myProspectAdapter.setItemClickListener(new OnItemClickListener() {
@@ -96,9 +96,9 @@ public class FragmentProspectPendingList extends BaseFragment {
             @Override
             public void itemClickListener(View view, int position) {
                 loadFilterData();
-                switch (view.getId()){
+                switch (view.getId()) {
                     default:
-                       callApiLoadList(position);
+                        callApiLoadList(position);
                         break;
                 }
             }
@@ -114,8 +114,12 @@ public class FragmentProspectPendingList extends BaseFragment {
                 public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            OldProspect oldProspect = response.body();
-                            ActivityUtils.invokLeadDetailForProspectStage(getActivity(), oldProspect.getMyNewProspect());
+                            if (response.body().getData() != null) {
+                                OldProspect oldProspect = response.body();
+                                ActivityUtils.invokLeadDetailForProspectStage(getActivity(), oldProspect.getMyNewProspect());
+                            } else {
+                                showAlertDialog("Error", "Server Error");
+                            }
                         } else showAlertDialog("Error", response.body().getMessage());
                     } else showAlertDialog("Error", response.message());
 
@@ -126,15 +130,14 @@ public class FragmentProspectPendingList extends BaseFragment {
                     showAlertDialog("Error", t.getMessage());
                 }
             });
-        }
-        else showAlertDialog("Error","No Internet,please connect to the internet");
+        } else showAlertDialog("Error", "No Internet,please connect to the internet");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         callApi();
-        Log.d("tag", "onResume: calling api from onResume" );
+        Log.d("tag", "onResume: calling api from onResume");
 
 
     }
@@ -231,14 +234,15 @@ public class FragmentProspectPendingList extends BaseFragment {
 
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-
-                            dataList.addAll(response.body().getData());
-                            myProspectAdapter = new MyNewProspectAdapter(getActivity(), dataList);
-                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-                            recyclerView.setLayoutManager(mLayoutManager);
-                            recyclerView.setAdapter(myProspectAdapter);
-                            initListener();
-                            hideProgressDialog();
+                            if (response.body().getData() != null) {
+                                dataList.addAll(response.body().getData());
+                                myProspectAdapter = new MyNewProspectAdapter(getActivity(), dataList);
+                                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                                recyclerView.setLayoutManager(mLayoutManager);
+                                recyclerView.setAdapter(myProspectAdapter);
+                                initListener();
+                                hideProgressDialog();
+                            } else showEmptyView();
                         } else showAlertDialog("Error", response.body().getMessage());
 
                     } else showAlertDialog("Error", response.message());

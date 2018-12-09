@@ -44,7 +44,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    boolean isFirst=false;
+    boolean isFirst = false;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -55,7 +55,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     private CoApplicantDBController coApplicantDBController;
     //    private MyNewLead mylead;
     String refId = null;
-
+    int size = 0;
     private static ProspectStageActivity prospectStageActivity;
     int leadIdForCoApplicant;
 
@@ -130,18 +130,13 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         }
 
 
+        if (prospectStageActivity.getDataFromProspect().getCoApplicantList() != null) {
+            coApplicantList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
+        }
+        coApplicantList.addAll(AppConstant.coAppLicantStaticList);
 
-        if(AppPreference.getInstance(getActivity()).getBoolean(PrefKey.IS_LOADED)){
-        if (coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()).size()>0){
-            coApplicantList.addAll(coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()));
 
-        }
-        }
-        else {
-            if (prospectStageActivity.getDataFromProspect().getCoApplicantList() !=null){
-                coApplicantList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
-            }
-        }
+
         //coApplicantList.addAll(coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()));
         viewListItems();
         if (coApplicantList.size() > 0) {
@@ -231,7 +226,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                 coApplicantList.get(position).getEmiOfOtherLoans()
         );
 
-        ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant);
+        ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant,position);
 
     }
 

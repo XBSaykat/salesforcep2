@@ -39,7 +39,6 @@ import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
 import net.maxproit.salesforce.model.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
@@ -67,6 +66,7 @@ public class ProspectStageActivity extends BaseActivity {
     private String userName = null;
     private PropectStageAttachmentFragment propectStageAttachmentFragment;
     MyNewProspect prospect;
+    int producSubCode=0;
     String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
             relationship = null, name = null, age = null, photoId = null, photoIdDate = null, eTin = null, fatherName = null, motherName = null, spouseName = null,
             companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null;
@@ -202,9 +202,10 @@ public class ProspectStageActivity extends BaseActivity {
         monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
         emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
         productCat = ProspectStageProductAndCustomerDetailsFragment.productCat;
-        productDetails = ProspectStageProductAndCustomerDetailsFragment.productDetails;
+        productDetails = ProspectStageProductAndCustomerDetailsFragment.productSub;
         mybranchName = ProspectStageProductAndCustomerDetailsFragment.branchName;
         segment = ProspectStageProductAndCustomerDetailsFragment.segment;
+        producSubCode = ProspectStageProductAndCustomerDetailsFragment.productSubCatCode;
         countOfBirth = ProspectStageProductAndCustomerDetailsFragment.countOfBirth;
         dateOfBirth = ProspectStageProductAndCustomerDetailsFragment.etDob.getText().toString();
         districtOfBirth = ProspectStageProductAndCustomerDetailsFragment.districtOfBirth;
@@ -426,6 +427,7 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setAssetTypeId(getDataFromProspect().getAssetTypeId());
                 myNewProspect.setAddressId(getDataFromProspect().getAddressId());
                 myNewProspect.setUserID(getDataFromProspect().getUserID());
+                myNewProspect.setSubCode(producSubCode);
 
 
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
@@ -443,7 +445,7 @@ public class ProspectStageActivity extends BaseActivity {
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
                             if (response.body().getCode().equals("200")) {
                                 showToast("Prospect Updated");
-                                if (AppConstant.coAppLicantStaticList.isEmpty()) {
+                                if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                     coApplicantList.clear();
                                     AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED, false);
 
@@ -537,7 +539,7 @@ public class ProspectStageActivity extends BaseActivity {
         updateModel.setPresentAddressPS(myNewProspect.getPresAddressPs());
         updateModel.setProduct(productCat);
         updateModel.setProductId(8);
-        updateModel.setProductSubCategory(productDetails);
+        updateModel.setProductSubCategory(productSub);
         updateModel.setProductSubCategoryId(0);
         updateModel.setProfession(profession);
         updateModel.setRelationshipWithApplicant(relationship);

@@ -7,7 +7,7 @@
     tools:context=".masum.fragment.lead.LeadStageBasicInformationFragment">
 
     <LinearLayout
-        android:paddingTop="@dimen/size_100dp"
+        android:paddingTop="@dimen/size_20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

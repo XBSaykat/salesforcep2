@@ -54,7 +54,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     Calendar myCalendar = Calendar.getInstance();
 
     TextView tvTentativeNumberToWord;
-    boolean isFirst=false;
+    boolean isFirst = false;
     //TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -69,7 +69,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     private List<String> listHomeloan = null;
     private List<String> listPersonalloan = null;
     private LocalSetting localSetting;
-    public static int productTypeCode=0,productSubCatCode=0;
+    public static int productTypeCode = 0, productSubCatCode = 0;
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
     public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate;
     public static int ref = 0;
@@ -109,11 +109,12 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //Inflate the layout for this fragment
-        Log.e("crash","loan");
+        Log.e("crash", "loan");
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_loan_detail, container, false);
         initVariable();
         initView(rootView);
+        initListener();
         return rootView;
     }
 
@@ -128,7 +129,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     }
 
     private void initVariable() {
-        localSetting=new LocalSetting(getActivity());
+        localSetting = new LocalSetting(getActivity());
         spinnerDbController = new SpinnerDbController(getActivity());
         listSourceReference = new ArrayList<String>();
         listProductType = new ArrayList<String>();
@@ -163,32 +164,31 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                         myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                     }
                 }
-                if (myNewLead ==null){
-                    isFirst=true;
+                if (myNewLead == null) {
+                    isFirst = true;
                 }
                 if (isFirst) {
                     productType = s;
                     LongOperation longOperation = new LongOperation();
                     longOperation.execute(i);
                     if (s.equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                        productTypeCode=8;
+                        productTypeCode = 8;
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
                     }
                     if (s.equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                        productTypeCode=9;
+                        productTypeCode = 9;
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
 
                     }
                     if (s.equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                        productTypeCode=10;
+                        productTypeCode = 10;
                         productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                         spinnerSubCategory.setAdapter(productSubAdapter);
                     }
-                }
-                else {
-                    isFirst=true;
+                } else {
+                    isFirst = true;
                 }
 
             }
@@ -198,7 +198,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
                 subCategory = s;
-                LongOperationSubCategory longOperationSubCategory=new LongOperationSubCategory();
+                LongOperationSubCategory longOperationSubCategory = new LongOperationSubCategory();
                 longOperationSubCategory.execute(i);
             }
         });
@@ -326,7 +326,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
         ArrayAdapter<String> productTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
-        initListener();
+
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
@@ -351,6 +351,8 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                     etDisbursementDate.setText(DateUtils.getDateFormateEt(myNewLead.getDisDate()));
                     etFee.setText("" + myNewLead.getOpFee());
 
+                    productSubCatCode = myNewLead.getSubCode();
+
                     if (myNewLead.getSourceRef() != null)
                         try {
                             spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getSourceRef()));
@@ -362,24 +364,23 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                     if (myNewLead.getProductType() != null) {
                         try {
                             spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
-                        }
-                        catch (IllegalStateException ignored){
+                        } catch (IllegalStateException ignored) {
 
                         }
 
                         if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.HOME_LOAN)) {
-                            productTypeCode=8;
+                            productTypeCode = 8;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
 
                         } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
-                            productTypeCode=9;
+                            productTypeCode = 9;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
 
 
                         } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
-                            productTypeCode=10;
+                            productTypeCode = 10;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
 
@@ -387,7 +388,6 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                         }
 
                         try {
-
                             spinnerSubCategory.setSelection(productSubAdapter.
                                     getPosition(myNewLead.getProductSubcategory()));
                         } catch (IllegalStateException ignored) {
@@ -430,7 +430,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
         @Override
         protected String doInBackground(Integer... params) {
-            productTypeCode=localSetting.getProductCode(params[0]);
+            productTypeCode = localSetting.getProductCode(params[0]);
             return null;
         }
 
@@ -442,10 +442,12 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+        }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 
 
@@ -453,7 +455,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
         @Override
         protected String doInBackground(Integer... params) {
-          productSubCatCode=localSetting.getSubCatCode(params[0]);
+            productSubCatCode = localSetting.getSubCatCode(params[0]);
             return null;
         }
 
@@ -465,10 +467,12 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+        }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 
     /**

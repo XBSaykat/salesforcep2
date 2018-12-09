@@ -89,10 +89,10 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void invokCoApplicantViewStage(Activity activity,Class<?> tClass, CoApplicant coApplicant){
+    public static void invokCoApplicantViewStage(Activity activity,Class<?> tClass, CoApplicant coApplicant,int position){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, coApplicant);
-
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY,position);
         Intent intent = new Intent(activity,tClass);
         intent.putExtras(bundle);
         activity.startActivity(intent);

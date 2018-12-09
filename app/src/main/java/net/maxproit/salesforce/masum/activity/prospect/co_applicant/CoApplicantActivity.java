@@ -37,6 +37,7 @@ public class CoApplicantActivity extends BaseActivity {
     String leadId = null;
     CoApplicantProductAndCustomerDetailsFragment coApplicantProductAndCustomerDetailsFragment;
     CoApplicantFinancialFragment coApplicantFinancialFragment;
+    private int position = -1;
 
     @Override
     protected int getLayoutResourceId() {
@@ -140,29 +141,36 @@ public class CoApplicantActivity extends BaseActivity {
                     coApplicant.setCustomerId(getDataFromApplicant().getCustomerId());
                     coApplicant.setMobileNoId(getDataFromApplicant().getMobileNoId());
                     coApplicant.setPresentAddressId(getDataFromApplicant().getPresentAddressId());
-                    AppConstant.coAppLicantStaticList.add(coApplicant);
-                    update = coApplicantDBController.updateCoApplicantData(coApplicant, getDataFromApplicant().getId());
+                    if (position >= 0) {
+                        AppConstant.coAppLicantStaticList.set(position, coApplicant);
+                    } else {
+                        AppConstant.coAppLicantStaticList.add(coApplicant);
+                        update = coApplicantDBController.updateCoApplicantData(coApplicant, getDataFromApplicant().getId());
+                    }
 
                 } else {
                     coApplicant.setCustomerId(0);
                     coApplicant.setMobileNoId(0);
                     coApplicant.setPresentAddressId(0);
                     coApplicant.setContactId(0);
-                    AppConstant.coAppLicantStaticList.add(coApplicant);
-                    update = coApplicantDBController.insertData(coApplicant);
+                    if (position >= 0) {
+                        AppConstant.coAppLicantStaticList.set(position, coApplicant);
+                    } else {
+                        AppConstant.coAppLicantStaticList.add(coApplicant);
+                        update = coApplicantDBController.insertData(coApplicant);
+                    }
                 }
 
-                if (update > 0) {
-                    Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
+                /*    if (update > 0) {*/
+                Toast.makeText(CoApplicantActivity.this, "save successfully", Toast.LENGTH_SHORT).show();
+                Intent coApplicantIntent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
+                setResult(AppConstant.ACTIVITY_RESULLT_200, coApplicantIntent);
+                finish();
 
-                    Intent coApplicantIntent = new Intent(CoApplicantActivity.this, ProspectStageActivity.class);
-                    setResult(AppConstant.ACTIVITY_RESULLT_200, coApplicantIntent);
-                    finish();
-
-                } else {
+              /*  } else {
                     Toast.makeText(CoApplicantActivity.this, "failed", Toast.LENGTH_SHORT).show();
 
-                }
+                }*/
             }
         });
 
@@ -174,6 +182,7 @@ public class CoApplicantActivity extends BaseActivity {
 
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
+            position = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
             coApplicant = (CoApplicant) extraDetail.getSerializable(AppConstant.INTENT_KEY);
 
         }

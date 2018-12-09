@@ -36,6 +36,7 @@ import net.maxproit.salesforce.masum.model.local.Attachment;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
 
 import java.io.IOException;
@@ -78,6 +79,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     AttachmentDbController attachmentDbController;
     ArrayList<Attachment> attachmentArrayList;
     public static Bitmap attachPp = null, attachIdcard = null, attachvCard = null;
+    Context context;
 
     public PropectStageAttachmentFragment() {
         // Required empty public constructor
@@ -115,6 +117,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         prospectStageActivity = (ProspectStageActivity) getActivity();
+        context = getContext();
         Log.e("crash", "attach");
         View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
         docList = new ArrayList<>();
@@ -129,6 +132,8 @@ public class PropectStageAttachmentFragment extends BaseFragment {
         recyclerView = rootView.findViewById(R.id.recycleView);
         documentUploadAdapter = new DocumentUploadAdapter(getActivity(), docList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), ((LinearLayoutManager) mLayoutManager).VERTICAL, 16));
+
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(documentUploadAdapter);
 
@@ -150,97 +155,43 @@ public class PropectStageAttachmentFragment extends BaseFragment {
             ActivityUtils.getInstance().invokeActivity(getActivity(), UploadProspectActivity.class, false);
         });
 
-
         documentUploadAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void itemClickListener(View view, int position) {
-                Document document=new Document();
-                document.setDocCheckListID(docList.get(0).getDocCheckListID());
-                document.setLeadReferenceNo(docList.get(0).getLeadReferenceNo());
-                document.setDocCheckListItem(docList.get(0).getDocCheckListItem());
-                document.setFileName(docList.get(0).getFileName());
-                document.setURL(docList.get(0).getURL());
-                document.setDocCheckListItemID(docList.get(0).getDocCheckListItemID());
-                ActivityUtils.invokDoc(getActivity(),UploadProspectActivity.class,document);
-
-
-            }
-        });
-    /*    btnImgCap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //takePicture.setType("image/*");
-                if (takePicture.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takePicture, AppConstant.REQUEST_IMAGE_CAPTURE);
-
+                switch (view.getId()) {
+                    case R.id.btn_view:
+                        sentDataToDetail(position);
+                        break;
+                    default:
+                        sentDataToDetail(position);
+                        break;
                 }
+
+
             }
         });
+    }
 
-        btnIDCardCap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //takePicture.setType("image/*");
-                if (takePicture.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takePicture, AppConstant.REQUEST_ID_CARD_CAPTURE);
+    private void sentDataToDetail(int position) {
+        Document document = new Document();
+        document.setDocCheckListID(docList.get(position).getDocCheckListID());
+        document.setLeadReferenceNo(docList.get(position).getLeadReferenceNo());
+        document.setDocCheckListItem(docList.get(position).getDocCheckListItem());
+        document.setFileName(docList.get(position).getFileName());
+        document.setURL(docList.get(position).getURL());
+        document.setDocCheckListItemID(docList.get(position).getDocCheckListItemID());
 
-                }
-            }
-        });
-
-        btnVCardCap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //takePicture.setType("image/*");
-                if (takePicture.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takePicture, AppConstant.REQUEST_VCARD_CAPTURE);
-                }
-            }
-        });
-
-        btnChoosePP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Creating intent.
-                Intent intent = new Intent();
-                // Setting intent type as image to select image from phone storage.
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, AppConstant.SELECT_IMAGE_TITLE), AppConstant.REQUEST_IMAGE_CHOOSE);
-            }
-        });
-
-        btnChooseId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                // Setting intent type as image to select image from phone storage.
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, AppConstant.SELECT_IMAGE_TITLE), AppConstant.REQUEST_ID_CARD_CHOOSE);
-            }
-        });
-
-        btnChooseVCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                // Setting intent type as image to select image from phone storage.
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, AppConstant.SELECT_IMAGE_TITLE), AppConstant.REQUEST_VCARD_CHOOSE);
-            }
-        });
-*/
+        if (document.getURL() == null || document.getURL().equals("")) {
+            ActivityUtils.invokDoc(getActivity(), UploadProspectActivity.class, document);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(document.getURL()));
+            getContext().startActivity(intent);
+        }
     }
 
     private void initIntentData() {
         if (prospectStageActivity.getDataFromProspect() != null) {
-            MyNewLead myNewLead=prospectStageActivity.getDataFromProspect();
+            MyNewLead myNewLead = prospectStageActivity.getDataFromProspect();
             callApi(myNewLead);
 
         }

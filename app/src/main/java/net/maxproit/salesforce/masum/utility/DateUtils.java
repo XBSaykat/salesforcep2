@@ -8,12 +8,14 @@ import java.util.Date;
 public class DateUtils {
 
 
-    public static  long getDateStringtoTimeInMinlis(String date){
+    public static long getDateStringtoTimeInMinlis(String date) {
         SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
-        Date newDate=null;
+        Date newDate = null;
         try {
-             newDate = sdfStr.parse(date);
+            newDate = sdfStr.parse(date);
         } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
         return newDate.getTime();
@@ -33,6 +35,20 @@ public class DateUtils {
         return strDate;
     }
 
+
+    public static boolean isValidFormat(String value) {
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return date != null;
+    }
 
     public static String getDateFormateForSqlite(String date) {
         SimpleDateFormat sdfStr = new SimpleDateFormat("dd.MM.yyyy");
@@ -72,8 +88,7 @@ public class DateUtils {
             strDate = sdfStr.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 

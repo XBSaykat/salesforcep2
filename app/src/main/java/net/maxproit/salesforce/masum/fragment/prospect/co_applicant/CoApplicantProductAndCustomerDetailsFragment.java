@@ -230,7 +230,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         }
 
 */
-      //  prosList.addAll(myLeadDbController.myNewLeadGetAllData(coApplicantActivity.getLeadId()));
+        //  prosList.addAll(myLeadDbController.myNewLeadGetAllData(coApplicantActivity.getLeadId()));
         return view;
     }
 
@@ -490,19 +490,28 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         if (coApplicantActivity.getDataFromApplicant() != null) {
             CoApplicant coApplicant = coApplicantActivity.getDataFromApplicant();
             etName.setText(coApplicant.getName());
-            if (coApplicant.getDateOfBirth() !=null) {
-                etDateOfBirth.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getDateOfBirth())));
-                long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(etDateOfBirth.getText().toString());
-                etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+            if (!MasumCommonUtils.isNullStr(coApplicant.getDateOfBirth())) {
+                if (!DateUtils.isValidFormat(coApplicant.getDateOfBirth())) {
+                    etDateOfBirth.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getDateOfBirth())));
+                    long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(etDateOfBirth.getText().toString());
+                    etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+                }
+                else {
+                    etDateOfBirth.setText(coApplicant.getDateOfBirth());
+                    long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(coApplicant.getDateOfBirth());
+                    etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+                }
             }
-            etAge.setText(coApplicant.getAge());
+
             etDesignation.setText(coApplicant.getDesignation());
             etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
             etETin.setText(coApplicant.geteTin());
             etFatherName.setText(coApplicant.getfName());
             etMotherName.setText(coApplicant.getmName());
             etSpouseName.setText(coApplicant.getsName());
-            etPhotoIdDate.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getPhotoIdIssueDate())));
+            if (coApplicant.getPhotoIdIssueDate() != null) {
+                etPhotoIdDate.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getPhotoIdIssueDate())));
+            }
             etCompanyName.setText(coApplicant.getCompanyName());
             etPermanentAddress.setText(coApplicant.getPermanentAddress());
             etPresentAddress.setText(coApplicant.getPresentAddress());
