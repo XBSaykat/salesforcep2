@@ -199,6 +199,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 }
             });
         } else {
+            showAlertDialog("Error", "Internet not Available,please connect to the internet");
 
         }
 
