@@ -228,9 +228,10 @@ public class FragmentProspectPendingList extends BaseFragment {
             dataList.clear();
         }
         initLoader();
+        showLoader();
         Log.d("tag", "callApi: ");
         if (isNetworkAvailable()) {
-            showProgressDialog();
+
             getApiService().getMyProspect(userName, UUID.randomUUID().toString()).enqueue(new Callback<MyProspect>() {
                 @Override
                 public void onResponse(Call<MyProspect> call, Response<MyProspect> response) {

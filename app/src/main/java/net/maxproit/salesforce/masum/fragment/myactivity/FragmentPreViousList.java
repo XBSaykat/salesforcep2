@@ -118,13 +118,7 @@ public class FragmentPreViousList extends BaseFragment {
         myDbController = new VisitPlanDbController(getContext());
         followUpDbController = new FollowUpDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
-        myActivitiesActivity= (MyActivitiesActivity) getActivity();
-        if (!leadList.isEmpty()) {
-            leadList.clear();
-        }
-        if (!visitPlanList.isEmpty()){
-            visitPlanList.clear();
-        }
+        myActivitiesActivity = (MyActivitiesActivity) getActivity();
 
 
 //        searchView = findViewById(R.id.search_view);
@@ -162,7 +156,7 @@ public class FragmentPreViousList extends BaseFragment {
 //        initView(rootView);
         initListener();
         // Inflate the layout for this fragment
-        getData();
+
         return rootView;
 
 
@@ -177,7 +171,22 @@ public class FragmentPreViousList extends BaseFragment {
     protected void initFragmentComponents() {
 
     }
-    private void getData(){
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    private void getData() {
+        if (!leadList.isEmpty()) {
+            leadList.clear();
+        }
+        if (!visitPlanList.isEmpty()) {
+            visitPlanList.clear();
+        }
+        initLoader();
         if (isNetworkAvailable()) {
             String random = UUID.randomUUID().toString();
             //int journalId, String clientName, String clientType,
@@ -188,31 +197,37 @@ public class FragmentPreViousList extends BaseFragment {
                 @Override
                 public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
                     if (response.body().getCode().equals("200")) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_PREVIOUS_ACTIVITY)) {
-                                visitPlanListApi.add(response.body().getData().get(i));
+                        if (response.body().getData() != null) {
+                            hideLoader();
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_PREVIOUS_ACTIVITY)) {
+                                    visitPlanListApi.add(response.body().getData().get(i));
+                                }
                             }
-                        }
-
-                        myLeadAdapter.notifyDataSetChanged();
-
+                            myLeadAdapter.notifyDataSetChanged();
+                        } else showEmptyView();
+                    } else {
+                        showEmptyView();
+                        showAlertDialog("ERROR", response.body().getMessage());
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
-
+                    showEmptyView();
+                    showAlertDialog("ERROR", t.getMessage());
                 }
             });
-        }
-        else {
+        } else {
 
-            MyActivityGetDataApi myActivityGetDataApi=new MyActivityGetDataApi();
+            MyActivityGetDataApi myActivityGetDataApi = new MyActivityGetDataApi();
             visitPlanList.addAll(myDbController.getPreviousData(DateUtils.getDateString()));
-            visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(visitPlanList));
-            myLeadAdapter.notifyDataSetChanged();
-
+            if (!visitPlanList.isEmpty()) {
+                visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(visitPlanList));
+                myLeadAdapter.notifyDataSetChanged();
+                hideLoader();
+            } else showEmptyView();
       /*      for (int i=0;i<leadList.size();i++){
 
                 try {
@@ -230,8 +245,7 @@ public class FragmentPreViousList extends BaseFragment {
             }*/
 
 
-            }
-
+        }
 
 
     }
@@ -246,12 +260,13 @@ public class FragmentPreViousList extends BaseFragment {
             final String name = model.getClientName().toLowerCase();
 
 
-            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey)  ) {
+            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey)) {
                 filteredModelList.add(model);
             }
         }
         return filteredModelList;
     }
+
     private void loadFilterData() {
         if (!filterListApi.isEmpty()) {
             filterListApi.clear();
@@ -277,11 +292,10 @@ public class FragmentPreViousList extends BaseFragment {
         });
 
 
-
     }
 
-    public void beginSearching(String s){
-        filterListApi= getFilterData(visitPlanListApi,s);
+    public void beginSearching(String s) {
+        filterListApi = getFilterData(visitPlanListApi, s);
         myLeadAdapter.setFilter(filterListApi);
     }
 
@@ -327,8 +341,7 @@ public class FragmentPreViousList extends BaseFragment {
 
                 }
             });
-        }
-        else {
+        } else {
             int id = filterListApi.get(position).getId();
             VisitPlan visitPlan = myDbController.getAllData(id).get(0);
             ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);

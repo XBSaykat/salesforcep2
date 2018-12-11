@@ -27,7 +27,6 @@ import java.util.List;
 public class MyProspectFragmentActivity extends BaseActivity {
 
 
-
     private android.support.v7.widget.Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -36,9 +35,8 @@ public class MyProspectFragmentActivity extends BaseActivity {
     private MyLeadDbController myLeadDbController;
     private ImageView backButton, addButton;
     private SearchView searchView;
-    private  FragmentProspectPendingList fragmentProspectPendingList;
-    private  FragmentProspectreturn prospectreturn;
-
+    private FragmentProspectPendingList fragmentProspectPendingList;
+    private FragmentProspectreturn prospectreturn;
 
 
     @Override
@@ -48,11 +46,11 @@ public class MyProspectFragmentActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
-        AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED,false);
+        AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED, false);
         linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
         viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
-         viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(2);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_my_activity);
         tabLayout.setupWithViewPager(viewPager);
         backButton = findViewById(R.id.btn_back);
@@ -63,7 +61,6 @@ public class MyProspectFragmentActivity extends BaseActivity {
                 MyProspectFragmentActivity.super.onBackPressed();
             }
         });
-
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
