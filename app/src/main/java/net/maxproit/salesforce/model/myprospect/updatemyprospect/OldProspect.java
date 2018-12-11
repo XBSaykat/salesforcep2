@@ -116,7 +116,6 @@ public class OldProspect {
         myNewProspect.setMobileId(data.getMobileNoId());
         myNewProspect.setNetSalary(data.getNetSalaryType());
         myNewProspect.setSalaryAmount(String.valueOf(data.getNetSalary()));
-        myNewProspect.setNetSalary(String.valueOf(data.getNetSalary()));
         myNewProspect.setpIssueDate(CommonUtil.jsonToDate(data.getPhotoIdIssueDate()));
         myNewProspect.setpIdNumber(data.getPhotoIdNumber());
         myNewProspect.setpIDType(String.valueOf(data.getPhotoIdTypeCode()));
