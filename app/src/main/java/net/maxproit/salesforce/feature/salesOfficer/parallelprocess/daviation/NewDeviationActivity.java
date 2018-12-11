@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
@@ -47,6 +48,13 @@ public class NewDeviationActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         binding = (ActivityNewDeviationBinding) getBinding();
         getIntentData();
         Bundle bundle = new Bundle();
