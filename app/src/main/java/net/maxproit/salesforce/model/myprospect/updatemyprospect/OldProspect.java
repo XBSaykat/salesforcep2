@@ -61,20 +61,23 @@ public class OldProspect {
     public MyNewProspect getMyNewProspect() {
 
         MyNewProspect myNewProspect = new MyNewProspect();
-        try {
-            myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
-            myNewProspect.setAg_Income(String.valueOf(data.getAgriculturalIncome()));
-            myNewProspect.setPiRate(String.valueOf(data.getIntersetRate()));
-            myNewProspect.setInFdr(String.valueOf(data.getInterestIncomeOfFDR()));
-            myNewProspect.setEmiOther(String.valueOf(data.getEmiOfOtherLoan()));
-            myNewProspect.setWireHouseINcome(String.valueOf(data.getFactoryIncome()));
-            myNewProspect.setfExpense(String.valueOf(data.getFamilyExpenditure()));
-            myNewProspect.setBusinessIncomeAmount(String.valueOf(data.getBusinessIncome()));
-            myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
-            myNewProspect.setApartmentAmount(String.valueOf(data.getApartmentIncome()));
-        } catch (NullPointerException e) {
 
-        }
+        if (data.getCommercialSpaceIncome() > 0)
+            myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
+        else myNewProspect.setOfficeSpaceINcome("");
+        if (data.getAgriculturalIncome() > 0)
+            myNewProspect.setAg_Income(String.valueOf(data.getAgriculturalIncome()));
+        else myNewProspect.setAg_Income("");
+        if (data.getIntersetRate() > 0)
+            myNewProspect.setPiRate(String.valueOf(data.getIntersetRate()));
+        else myNewProspect.setPiRate("");
+        myNewProspect.setInFdr(String.valueOf(data.getInterestIncomeOfFDR()));
+        myNewProspect.setEmiOther(String.valueOf(data.getEmiOfOtherLoan()));
+        myNewProspect.setWireHouseINcome(String.valueOf(data.getFactoryIncome()));
+        myNewProspect.setfExpense(String.valueOf(data.getFamilyExpenditure()));
+        myNewProspect.setBusinessIncomeAmount(String.valueOf(data.getBusinessIncome()));
+        myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
+        myNewProspect.setApartmentAmount(String.valueOf(data.getApartmentIncome()));
         myNewProspect.setAssetType(data.getAssetType());
         myNewProspect.setAssetTypeId(data.getAssetTypeId());
         myNewProspect.setApplicant(data.getRelationshipWithApplicant());
