@@ -181,7 +181,7 @@ public class FragmentPreViousList extends BaseFragment {
         if (isNetworkAvailable()) {
             String random = UUID.randomUUID().toString();
             //int journalId, String clientName, String clientType,
-            // String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit,
+            // String mobileNumber, String prePoliceStation, String productType, String preCity, String purposeOfVisit,
             // String dateOfVisit, String remarks, String status ,String synStatus
 
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {

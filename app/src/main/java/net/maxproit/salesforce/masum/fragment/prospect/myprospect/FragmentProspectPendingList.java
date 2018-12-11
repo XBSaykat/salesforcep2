@@ -68,7 +68,6 @@ public class FragmentProspectPendingList extends BaseFragment {
 
 
         recyclerView = view.findViewById(R.id.rv_my_activity);
-        callApi();
 
         return view;
 
@@ -225,6 +224,10 @@ public class FragmentProspectPendingList extends BaseFragment {
     }
 
     private void callApi() {
+        if (!dataList.isEmpty()) {
+            dataList.clear();
+        }
+        initLoader();
         Log.d("tag", "callApi: ");
         if (isNetworkAvailable()) {
             showProgressDialog();
@@ -235,29 +238,39 @@ public class FragmentProspectPendingList extends BaseFragment {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
                             if (response.body().getData() != null) {
+                                hideLoader();
                                 dataList.addAll(response.body().getData());
                                 myProspectAdapter = new MyNewProspectAdapter(getActivity(), dataList);
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                                 recyclerView.setLayoutManager(mLayoutManager);
                                 recyclerView.setAdapter(myProspectAdapter);
                                 initListener();
-                                hideProgressDialog();
-                            } else showEmptyView();
-                        } else showAlertDialog("Error", response.body().getMessage());
 
-                    } else showAlertDialog("Error", response.message());
+                            } else showEmptyView();
+                        } else {
+                            showEmptyView();
+                            showAlertDialog("Error", response.body().getMessage());
+                        }
+
+                    } else {
+                        showEmptyView();
+                        showAlertDialog("Error", response.message());
+                    }
 
                 }
 
                 @Override
                 public void onFailure(Call<MyProspect> call, Throwable t) {
-                    hideProgressDialog();
+                    showEmptyView();
                     showAlertDialog("Error", t.getMessage());
 
 
                 }
             });
-        } else showAlertDialog("Error", "Network is not available");
+        } else {
+            showEmptyView();
+            showAlertDialog("Error", "Network is not available");
+        }
     }
 
 }

@@ -42,7 +42,7 @@ public class ProspectAddress {
     @SerializedName("nearestLandMark")
     @Expose
     private String nearestLandMark;
-    @SerializedName("city")
+    @SerializedName("preCity")
     @Expose
     private String city;
 

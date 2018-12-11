@@ -30,7 +30,7 @@ public class VisitPlanDbController {
     public void close() {
         dbHelper.close();
     }
-    //                           clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit,remarks
+    //                           clientName, clientType, mobileNo, productType, preCity, prePoliceStation, purposeOfVisit, dateOfvisit,remarks
     public int insertData(int jId,String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
                           String dateOfVisit, String remarks,String status,String SyncStatus) {
 

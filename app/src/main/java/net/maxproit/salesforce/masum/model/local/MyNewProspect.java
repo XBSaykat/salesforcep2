@@ -380,7 +380,7 @@ public class MyNewProspect extends MyNewLead implements Serializable {
         this.applicant = applicant;
     }
 
-    public void setpAddress(String pAddress) {
+    public void setperAddress(String pAddress) {
         this.pAddress = pAddress;
     }
 

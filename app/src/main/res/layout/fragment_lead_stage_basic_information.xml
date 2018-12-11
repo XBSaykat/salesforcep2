@@ -284,7 +284,7 @@
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="?actionBarSize"
+                android:layout_marginBottom="@dimen/size_150dp"
                 android:orientation="vertical">
 
                 <TextView

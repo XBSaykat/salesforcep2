@@ -112,7 +112,7 @@ public class DbConstants {
     public static final String VISIT_PLAN_CLIENT_TYPE = "client_type";
     public static final String VISIT_PLAN_MOBILE_NUMBER = "mobile_number";
     public static final String VISIT_PLAN_PRODUCT_TYPE = "product_type";
-    public static final String VISIT_PLAN_CITY = "city";
+    public static final String VISIT_PLAN_CITY = "preCity";
     public static final String VISIT_JOURNAL_ID = "journal_id";
     public static final String VISIT_PLAN_POLICE_STATION = "police_station";
     public static final String VISIT_PLAN_PURPOSE_OF_VISIT = "purpose_of_visit";
