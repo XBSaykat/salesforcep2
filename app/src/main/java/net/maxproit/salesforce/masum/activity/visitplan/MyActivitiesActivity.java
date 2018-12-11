@@ -53,7 +53,7 @@ public class MyActivitiesActivity extends BaseActivity {
         linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
         viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(3);
+        
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_my_activity);
         tabLayout.setupWithViewPager(viewPager);
         backButton = findViewById(R.id.btn_back);
