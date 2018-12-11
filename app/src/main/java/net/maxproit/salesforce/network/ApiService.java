@@ -1,6 +1,9 @@
 package net.maxproit.salesforce.network;
 
 
+import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.PostDeviation;
+import net.maxproit.salesforce.masum.model.api.Deviation.queryapprovaltierfordeviation.QueryApprovalTier;
+import net.maxproit.salesforce.masum.model.api.Deviation.querydeviationpropertyresponce.QueryDeviationPropertyResponce;
 import net.maxproit.salesforce.masum.model.api.file.GetDocument;
 import net.maxproit.salesforce.masum.model.api.followup.FollowUpHistoryApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
@@ -70,7 +73,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
@@ -285,12 +287,28 @@ public interface ApiService {
     Call<DeviationEntities> deviationRequestById(@Path("id") String id);
 
 
-    @GET("DeviationAccHeads/{id}")
-    Call<DevAccountHeadEntities> deviationHeadById(@Path("id") String id);
+//    @GET("DeviationAccHeads/{id}")
+//    Call<DevAccountHeadEntities> deviationHeadById(@Path("id") String id);
 
+    @GET("Deviation/DeviationAccHeads/{deviationCatId}/{timestamp}")
+    Call<net.maxproit.salesforce.masum.model.api.Deviation.deviationaccounthead.DevAccountHeadEntities> deviationHeadById(@Path("deviationCatId") String deviationCatId,
+                                                                                                                          @Path("timestamp") String timestamp);
 
     @POST("Deviation/DeviationRequest")
-    Call<DaviationPostResponce> deviationPost(@Body DeviationPost deviationPost);
+    Call<DaviationPostResponce> postDeviationData(@Body PostDeviation postDeviation);
+
+
+
+
+    @GET("Deviation/QryApprovalTierForDeviation/{referenceNo}/{riskCategory}/{timestamp}")
+    Call<QueryApprovalTier> queryforApprovalTier(@Path("referenceNo") String referenceNo,
+                                                 @Path("riskCategory") String riskCategory,
+                                                 @Path("timestamp") String timestamp);
+
+    @GET("Deviation/QryDeviationProperty/{refNo}/{timestamp}")
+    Call<QueryDeviationPropertyResponce> queryDeviationProperty(@Path("refNo") String refNo, @Path("timestamp") String timestamp);
+// Deviation
+
 
 
 

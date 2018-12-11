@@ -10,6 +10,9 @@ public class Data {
     @SerializedName("PSes")
     @Expose
     private List<PSe> pSes = null;
+    @SerializedName("LstDeviationJustifications")
+    @Expose
+    private List<LstDeviationJustification> lstDeviationJustifications = null;
     @SerializedName("addressTypes")
     @Expose
     private List<AddressType> addressTypes = null;
@@ -102,6 +105,14 @@ public class Data {
 
     public void setpSes(List<PSe> pSes) {
         this.pSes = pSes;
+    }
+
+    public List<LstDeviationJustification> getLstDeviationJustifications() {
+        return lstDeviationJustifications;
+    }
+
+    public void setLstDeviationJustifications(List<LstDeviationJustification> lstDeviationJustifications) {
+        this.lstDeviationJustifications = lstDeviationJustifications;
     }
 
     public List<PhotoIdType> getPhotoIdType() {

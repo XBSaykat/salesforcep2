@@ -48,7 +48,7 @@
                             android:text="Exception areas" />
 
                         <Spinner
-                            android:id="@+id/dvcategory"
+                            android:id="@+id/exceptionArea"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/size_4dp"
@@ -73,7 +73,7 @@
                             android:text="Exception parameters" />
 
                         <Spinner
-                            android:id="@+id/dvhead"
+                            android:id="@+id/exceptionParameters"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/size_4dp"

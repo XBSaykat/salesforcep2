@@ -16,7 +16,8 @@ import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityNewDeviationBinding;
 import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.DeviationActivity;
 import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation.adapter.NewDaviationAdapter;
-import net.maxproit.salesforce.model.deviation.post.DeviationDetail;
+import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.DeviationDetail;
+import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.PostDeviation;
 import net.maxproit.salesforce.model.deviation.post.DeviationPost;
 import net.maxproit.salesforce.model.deviation.postresponce.DaviationPostResponce;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -91,21 +92,21 @@ public class NewDeviationActivity extends BaseActivity {
 
     private void nextRequest() {
 
-        DeviationPost deviationPost = new DeviationPost();
-        deviationPost.setProspectReferenceNo(referrenceid);
-        deviationPost.setMakerName(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
-      
+        PostDeviation postDeviation = new PostDeviation();
+        postDeviation.setProspectReferenceNo(referrenceid);
+        postDeviation.setMakerName(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
 
 
-        deviationPost.setRemark("");
-        deviationPost.setMakerName(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
-        deviationPost.setDeviationDetails(list);
+
+        postDeviation.setRemark("");
+        postDeviation.setMakerName(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
+        postDeviation.setDeviationDetails(list);
 
         showProgressDialog();
 
 
-        Log.d(TAG, "nextRequest: "+toJson(deviationPost));
-        getApiService().deviationPost(deviationPost).enqueue(new Callback<DaviationPostResponce>() {
+        Log.d(TAG, "nextRequest: "+toJson(postDeviation));
+        getApiService().postDeviationData(postDeviation).enqueue(new Callback<DaviationPostResponce>() {
             @Override
             public void onResponse(Call<DaviationPostResponce> call, Response<DaviationPostResponce> response) {
                 hideProgressDialog();
