@@ -140,12 +140,16 @@ public class DeviationActivity extends BaseActivity {
         deviationDetail.setDeviationDetailID(0);
         deviationDetail.setDeviationCategory(new net.maxproit.salesforce.model.deviation.post.DeviationCategory(dvCategoryId, dvcategory));
         deviationDetail.setDeviationHead(new DeviationHead(dvHead, dvHedId));
-        if (!StringUtils.isEmpty((binding.etRiskCategory.getText().toString()))) {
-            deviationDetail.setCurrentValue(Integer.parseInt(binding.etRiskCategory.getText().toString()));
-        }
-        if (!StringUtils.isEmpty((binding.etPrppese.getText().toString()))) {
-            deviationDetail.setProposedValue(Integer.parseInt(binding.etPrppese.getText().toString()));
-        }
+        binding.etRiskCategory.setEnabled(false);
+        binding.etLoanAmount.setEnabled(false);
+        binding.etLtv.setEnabled(false);
+        binding.etApproverTier.setEnabled(false);
+//        if (!StringUtils.isEmpty((binding.etRiskCategory.getText().toString()))) {
+//            deviationDetail.setCurrentValue(Integer.parseInt(binding.etRiskCategory.getText().toString()));
+//        }
+//        if (!StringUtils.isEmpty((binding.etPrppese.getText().toString()))) {
+//            deviationDetail.setProposedValue(Integer.parseInt(binding.etPrppese.getText().toString()));
+//        }
 
 
 
