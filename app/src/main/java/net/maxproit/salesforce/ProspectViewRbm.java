@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.login.LoginActivity;
+import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation.DaviationListActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
@@ -42,7 +43,7 @@ public class ProspectViewRbm extends AppCompatActivity {
             tvProfession, tvCompanyName, tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
             tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
-            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome;
+            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome, tvTakeApproval;
 
     private LinearLayout liBrandName, liManufacturingYear, liManufacturingCountry, liVehicleType;
 
@@ -54,6 +55,8 @@ public class ProspectViewRbm extends AppCompatActivity {
     private CoApplicantDBController coApplicantDBController;
     private CarLoanDbController carLoanDbController;
     MyLeadDbController myLeadDbController;
+
+    public static String KEY_REFERRENCE_ID = "KEY_REFERRENCE_ID";
 
 
     @Override
@@ -117,6 +120,7 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvReject = (TextView) findViewById(R.id.tv_reject);
         tvReturn = (TextView) findViewById(R.id.tv_return);
         backButton = (ImageView) findViewById(R.id.btnBack);
+        tvTakeApproval = (TextView) findViewById(R.id.tv_take_approval);
         btnLogout = (Button) findViewById(R.id.btn_logout);
 
         carLoanDbController=new CarLoanDbController(this);
@@ -165,6 +169,29 @@ public class ProspectViewRbm extends AppCompatActivity {
                 android.app.AlertDialog dialog = builder.create();
                 dialog.show();
 //                finish();
+            }
+        });
+
+        tvTakeApproval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.app.AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+                } else {
+                    builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this);
+                }
+                builder.setTitle("Take approval");
+                builder.setMessage("Do you want to take approval?");
+                builder.setIcon(R.drawable.lead);
+                builder.setNegativeButton("No", null);
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    Intent intent = new Intent(ProspectViewRbm.this, DaviationListActivity.class);
+                    intent.putExtra(KEY_REFERRENCE_ID, getDataFromProspect().getRefNumber());
+                    startActivity(intent);
+                });
+                android.app.AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
