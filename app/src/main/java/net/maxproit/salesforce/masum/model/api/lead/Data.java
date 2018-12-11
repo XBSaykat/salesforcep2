@@ -91,7 +91,7 @@ public class Data implements Serializable {
     @SerializedName("visitId")
     @Expose
     private Integer visitId;
-    @SerializedName("city")
+    @SerializedName("preCity")
     @Expose
     private String city;
 

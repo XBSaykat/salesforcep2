@@ -48,7 +48,7 @@ public class SpinnerDbConstant {
     public static final String PURPOSE_OF_VISIT = "purpose_of_visit";
 
     public static final String CITY_ID = "_id";
-    public static final String CITY = "city";
+    public static final String CITY = "preCity";
 
     public static final String POLICE_STATION_ID = "_id";
     public static final String POLICE_STATION = "police_station";

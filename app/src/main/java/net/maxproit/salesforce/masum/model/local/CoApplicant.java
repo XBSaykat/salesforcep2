@@ -276,7 +276,7 @@ public class CoApplicant implements Serializable{
         return permanentAddressCityId;
     }
 
-    public void setPermanentAddressCityId(int permanentAddressCityId) {
+    public void setPermanentAddressId(int permanentAddressCityId) {
         this.permanentAddressCityId = permanentAddressCityId;
     }
 

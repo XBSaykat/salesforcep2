@@ -56,6 +56,8 @@ public class MyLeadActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
+
+
         binding = (ActivityMyLeadBinding) getBinding();
         binding.btnBack.setOnClickListener(v -> finish());
         localLogin = new LocalLogin(getApplicationContext());
@@ -106,6 +108,7 @@ public class MyLeadActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        initLoader();
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
@@ -156,7 +159,7 @@ public class MyLeadActivity extends BaseActivity {
                 leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
             myLeadAdapter.notifyDataSetChanged();
             if (leadListDataFromApi.isEmpty()) {
-                showLoader();
+                showEmptyView();
             } else hideLoader();
 
         }
@@ -174,10 +177,8 @@ public class MyLeadActivity extends BaseActivity {
                         if (response.body().getCode().equals("200")) {
                             leadListDataFromApi.addAll(response.body().getData());
                             myLeadAdapter.notifyDataSetChanged();
-                            if (leadListDataFromApi.isEmpty()) {
-                                showEmptyView();
+                            hideLoader();
 
-                            } else hideLoader();
                         } else {
 
                             showAlertDialog("Error", response.body().getMessage());
@@ -223,6 +224,8 @@ public class MyLeadActivity extends BaseActivity {
                                         data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
                                         String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), disDate,
                                         followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
+                                myNewLead.setPs(data.getPs());
+                                myNewLead.setCity(data.getCity());
                                 ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
                                 hideProgressDialog();
                             } else showEmptyView();

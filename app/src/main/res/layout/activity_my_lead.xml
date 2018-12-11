@@ -30,10 +30,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_weight="3"
+                android:focusable="false"
                 android:shadowColor="@color/white"
                 android:theme="@style/WallSearchView"
                 app:iconifiedByDefault="false"
-                android:focusable="false"
                 app:queryHint="Search lead"
                 app:searchIcon="@null" />
 
@@ -58,7 +58,6 @@
             android:layout_below="@+id/toolbar"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true" />
-
 
         <include layout="@layout/view_common_loader" />
     </RelativeLayout>

@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.maxproit.salesforce.App;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
@@ -158,7 +157,7 @@ public class CoApplicantActivity extends BaseActivity {
                     coApplicant.setCustomerId(getDataFromApplicant().getCustomerId());
                     coApplicant.setMobileNoId(getDataFromApplicant().getMobileNoId());
                     coApplicant.setPresentAddressId(getDataFromApplicant().getPresentAddressId());
-                    coApplicant.setPermanentAddressCityId(getDataFromApplicant().getPermanentAddressCityId());
+                    coApplicant.setPermanentAddressId(getDataFromApplicant().getPermanentAddressCityId());
                     if (position >= 0) {
                         AppConstant.coAppLicantStaticList.set(position, coApplicant);
                     } else {
@@ -170,7 +169,7 @@ public class CoApplicantActivity extends BaseActivity {
                     coApplicant.setCustomerId(0);
                     coApplicant.setMobileNoId(0);
                     coApplicant.setPresentAddressId(0);
-                    coApplicant.setPermanentAddressCityId(0);
+                    coApplicant.setPermanentAddressId(0);
                     coApplicant.setContactId(0);
                     if (position >= 0) {
                         AppConstant.coAppLicantStaticList.set(position, coApplicant);
