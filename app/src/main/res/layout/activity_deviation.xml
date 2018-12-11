@@ -45,7 +45,7 @@
                             style="@style/TextViewQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Deviation category" />
+                            android:text="Exception areas" />
 
                         <Spinner
                             android:id="@+id/dvcategory"
@@ -70,7 +70,7 @@
                             style="@style/TextViewQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Deviation Heads" />
+                            android:text="Exception parameters" />
 
                         <Spinner
                             android:id="@+id/dvhead"
@@ -96,15 +96,16 @@
                             style="@style/TextViewQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Current Value" />
+                            android:text="Risk category" />
 
                         <EditText
-                            android:id="@+id/etCurrebt"
+                            android:id="@+id/etRiskCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="numberDecimal"
                             android:maxLines="1"
+                            android:inputType="none"
+                            android:editable="false"
                             android:text=""
                             android:textSize="@dimen/text_size_16sp" />
                     </LinearLayout>
@@ -120,17 +121,92 @@
                             style="@style/TextViewQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Proposed Value" />
+                            android:text="Loan amount" />
 
                         <EditText
-                            android:id="@+id/etPrppese"
+                            android:id="@+id/etLoanAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="numberDecimal"
                             android:maxLines="1"
+                            android:inputType="none"
+                            android:editable="false"
                             android:text=""
                             android:textSize="@dimen/text_size_16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="LTV" />
+
+                        <EditText
+                            android:id="@+id/etLtv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:maxLines="1"
+                            android:inputType="none"
+                            android:editable="false"
+                            android:text=""
+                            android:textSize="@dimen/text_size_16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Approver tier" />
+
+                        <EditText
+                            android:id="@+id/etApproverTier"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:maxLines="1"
+                            android:inputType="none"
+                            android:editable="false"
+                            android:text=""
+                            android:textSize="@dimen/text_size_16sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        style="@style/LayoutQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Justification" />
+
+                        <Spinner
+                            android:id="@+id/spJustification"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_4dp"
+                            android:padding="@dimen/size_8dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_2dp"
+                            android:background="#EEE" />
                     </LinearLayout>
 
 
