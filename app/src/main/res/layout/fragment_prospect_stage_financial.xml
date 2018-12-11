@@ -315,7 +315,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_required"
-                    android:text="Interest Income only for Lien of FDR" />
+                    android:text="Interest Income" />
 
                 <EditText
                     android:id="@+id/input_interest_income"

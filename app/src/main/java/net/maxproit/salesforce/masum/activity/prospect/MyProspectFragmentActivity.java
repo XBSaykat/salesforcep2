@@ -52,7 +52,7 @@ public class MyProspectFragmentActivity extends BaseActivity {
         linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
         viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
-        // viewPager.setOffscreenPageLimit(3);
+         viewPager.setOffscreenPageLimit(2);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_my_activity);
         tabLayout.setupWithViewPager(viewPager);
         backButton = findViewById(R.id.btn_back);

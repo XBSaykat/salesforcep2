@@ -127,8 +127,8 @@ public class OldProspect {
         myNewProspect.setperAddress(data.getPermanentAddress());
         myNewProspect.setPresAddressCity(data.getPresentAddressCity());
         myNewProspect.setPresAddressPs(data.getPresentAddressPS());
-        myNewProspect.setPermAddressCity(String.valueOf(data.getPermanentAddressCity()));
-        myNewProspect.setPermAddressPs(String.valueOf(data.getPermanentAddressPS()));
+        myNewProspect.setPermAddressCity(data.getPermanentAddressCity());
+        myNewProspect.setPermAddressPs(data.getPermanentAddressPS());
         myNewProspect.setSourceRef(data.getRelationshipWithApplicant());
         myNewProspect.setsValue(String.valueOf(data.getSecurityValue()));
         myNewProspect.setOrInterest(String.valueOf(data.getIntersetRate()));

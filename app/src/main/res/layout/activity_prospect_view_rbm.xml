@@ -839,7 +839,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Interest income only for Lien of FDR"
+                        android:text="Interest Income"
                         android:textStyle="bold" />
 
                     <TextView
