@@ -258,6 +258,7 @@ public class FragmentCurrentActivity extends BaseFragment {
                 @Override
                 public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
                     if (response.body().getCode().equals("200")) {
+                        hideLoader();
                         if (response.body().getData() != null) {
                             for (int i = 0; i < response.body().getData().size(); i++) {
                                 if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_CURRENT_ACTIVITY)) {
@@ -265,7 +266,7 @@ public class FragmentCurrentActivity extends BaseFragment {
                                 }
                             }
                             myLeadAdapter.notifyDataSetChanged();
-                            hideLoader();
+
 
                         } else showEmptyView();
                     } else {
