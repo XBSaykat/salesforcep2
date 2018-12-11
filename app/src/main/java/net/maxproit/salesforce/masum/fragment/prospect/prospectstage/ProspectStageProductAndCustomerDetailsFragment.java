@@ -80,7 +80,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
 
     private AwesomeSpinner spinnerProductCat, spinnerSub, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
-            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto;
+            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto, spinnerPreCity, spinnerPrePoliceStation, spinnerPerCity, spinnerPerPoliceStation;
     private LinearLayout liPhotoIdNo;
     private TextView tvPhotoIdNo;
 
@@ -90,9 +90,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
     public static String productCat, productSub, branchName, branchCode = null, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
-            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType;
+            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
 
-    public static int productTypeCode = 0, photoIdcode = 0,productSubCatCode=0;
+    public static int productTypeCode = 0, photoIdcode = 0, productSubCatCode = 0;
     private LinearLayout llAddress;
 
     private RadioGroup rgExList;
@@ -131,7 +131,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         localSetting = new LocalSetting(getActivity());
-
+        spinnerPreCity = view.findViewById(R.id.awe_spinner_visit_plan_city);
+        spinnerPrePoliceStation = view.findViewById(R.id.awe_spinner_visit_plan_police_station);
+        spinnerPerCity = view.findViewById(R.id.awe_spinner_visit_plan_city_per);
+        spinnerPerPoliceStation = view.findViewById(R.id.awe_spinner_visit_plan_police_station_per);
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
         etPhotoId = view.findViewById(R.id.et_photo_id_no);
@@ -337,6 +340,39 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     }
 
     public void initListener() {
+        spinnerPreCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                preCity = s;
+
+
+            }
+
+        });
+
+        spinnerPrePoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                prePoliceStation = s;
+            }
+        });
+        spinnerPerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                perCity = s;
+
+
+            }
+
+        });
+
+        spinnerPerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                perPoliceStation = s;
+            }
+        });
+
 
         spinnerProductCat.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -473,6 +509,17 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     }
 
     public void initAdapters() {
+        ArrayAdapter<String> perPolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getPseStringList());
+        spinnerPerPoliceStation.setAdapter(perPolishStationAdapter);
+
+        ArrayAdapter<String> perCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
+        spinnerPerCity.setAdapter(perCityAdapter);
+
+        ArrayAdapter<String> prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getPseStringList());
+        spinnerPrePoliceStation.setAdapter(perPolishStationAdapter);
+
+        ArrayAdapter<String> preCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
+        spinnerPreCity.setAdapter(perCityAdapter);
 
         ArrayAdapter<String> productCat = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductCat.setAdapter(productCat);
@@ -504,10 +551,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             etName.setText(myNewLead.getUserName());
             etPresentAddress.setText(myNewLead.getAddress());
+            etPermanentAddress.setText(myNewLead.getpAddress());
             etDesignation.setText(myNewLead.getDesignation());
             etMobileNumber.setText(myNewLead.getPhone());
             etCompanyName.setText(myNewLead.getOrganization());
-            etPermanentAddress.setText(myNewLead.getpAddress());
             etNoYrsInCurrentJob.setText(myNewLead.getCurrentJob());
 
             etDob.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getDateOfBirth())));
@@ -633,6 +680,35 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
 
+            if (!MasumCommonUtils.isNullStr(myNewLead.getPresAddressCity())) {
+                try {
+                    spinnerPreCity.setSelection(preCityAdapter.getPosition(myNewLead.getPresAddressCity()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+            if (!MasumCommonUtils.isNullStr(myNewLead.getPresAddressPs())) {
+                try {
+                    spinnerPrePoliceStation.setSelection(prePolishStationAdapter.getPosition(myNewLead.getPresAddressPs()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+            if (!MasumCommonUtils.isNullStr(myNewLead.getPermAddressCity())) {
+                try {
+                    spinnerPerCity.setSelection(perCityAdapter.getPosition(myNewLead.getPermAddressCity()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+            if (!MasumCommonUtils.isNullStr(myNewLead.getPermAddressPs())) {
+                try {
+                    spinnerPerPoliceStation.setSelection(perPolishStationAdapter.getPosition(myNewLead.getPermAddressPs()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+
         }
 
     }
@@ -696,7 +772,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         @Override
         protected String doInBackground(Integer... params) {
-            productSubCatCode=localSetting.getSubCatCode(params[0]);
+            productSubCatCode = localSetting.getSubCatCode(params[0]);
             return null;
         }
 
@@ -708,10 +784,12 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         }
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+        }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 
 

@@ -52,7 +52,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private AwesomeSpinner spinnerBranchName, spinnerProfession, spinnerCity, spinnerPoliceStation;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession = null, branchName = null, branchCode = null, city, policeStation;
+    public static String profession = "", branchName = "", branchCode = "", city="", policeStation="";
     private List<String> listBranchArray = null;
     private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
