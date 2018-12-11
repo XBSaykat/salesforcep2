@@ -240,12 +240,12 @@ public class LeadStageActivity extends BaseActivity {
         productType = LeadStageLoanDetailFragment.spinnerProductType.getSelectedItem();
         subCat = LeadStageLoanDetailFragment.spinnerSubCategory.getSelectedItem();
         disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
-        visitDate = LeadStageVisitRecordFragment.etVisitDate.getText().toString(); //
+//        visitDate = LeadStageVisitRecordFragment.etVisitDate.getText().toString(); //
 
         remark = LeadStageLoanDetailFragment.etRemark.getText().toString();
 
 
-        followUp = LeadStageVisitRecordFragment.spinnerFollowUp.getSelectedItem();
+        // followUp = LeadStageVisitRecordFragment.spinnerFollowUp.getSelectedItem();
         //api integate
         MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
         //api for proceed lead first time
