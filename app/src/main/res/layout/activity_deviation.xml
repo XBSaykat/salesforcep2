@@ -98,12 +98,13 @@
                             android:layout_height="wrap_content"
                             android:text="Risk category" />
 
-                        <TextView
-                            android:id="@+id/tvRiskCategory"
+                        <EditText
+                            android:id="@+id/etRiskCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
                             android:maxLines="1"
+                            android:editable="false"
                             android:text=""
                             android:textSize="@dimen/text_size_16sp" />
                     </LinearLayout>
