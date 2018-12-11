@@ -15,6 +15,7 @@ import net.maxproit.salesforce.masum.activity.prospect.MyProspectFragmentActivit
 import net.maxproit.salesforce.masum.activity.visitplan.MyActivitiesActivity;
 import net.maxproit.salesforce.masum.activity.prospect.MyProspectActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanActivity;
 import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -35,7 +36,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
         Bundle mBundle = new Bundle();
         mBundle.putString("ROOT", "new");
 
-        binding.visitPlan.setOnClickListener(v -> startActivity(VisitPlanListActivity.class, false, mBundle));
+        binding.visitPlan.setOnClickListener(v -> startActivity(VisitPlanActivity.class, false));
         //binding.newLead.setOnClickListener(v -> startActivity(NewLeadActivity.class, false, mBundle));
         binding.newLead.setOnClickListener(v -> startActivity(LeadStageActivity.class, false, mBundle));
         binding.myLeads.setOnClickListener(v -> startActivity(MyLeadActivity.class, false));

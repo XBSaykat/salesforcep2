@@ -275,7 +275,12 @@ public interface ApiService {
     Call<Daviationlist> daviationRequestById(@Path("id") String id, @Path("random") String random);
 
 
+
     // Deviation Request
+//
+//@GET("Deviation/{referenceNo}/{timestamp}")
+//Call<DeviationEntities> deviationRequestByReferenceNo(@Path("referenceNo") String referenceNo, @Path("random") String random );
+
     @GET("Deviation/{id}")
     Call<DeviationEntities> deviationRequestById(@Path("id") String id);
 
