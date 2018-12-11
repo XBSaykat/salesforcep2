@@ -257,6 +257,7 @@ public class FragmentCurrentActivity extends BaseFragment {
             visitPlanList.clear();
         }
         initLoader();
+        showLoader();
         if (isNetworkAvailable()) {
             String random = UUID.randomUUID().toString();
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
@@ -270,8 +271,13 @@ public class FragmentCurrentActivity extends BaseFragment {
                                     visitPlanListApi.add(response.body().getData().get(i));
                                 }
                             }
-                            myLeadAdapter.notifyDataSetChanged();
-                            hideLoader();
+                            if (visitPlanListApi.size() > 0) {
+                                myLeadAdapter.notifyDataSetChanged();
+                                hideLoader();
+                            } else {
+                                showEmptyView();
+                            }
+
                         } else {
                             showEmptyView();
 

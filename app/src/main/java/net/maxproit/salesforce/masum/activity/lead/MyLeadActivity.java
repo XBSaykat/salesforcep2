@@ -35,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyLeadActivity extends BaseActivity {
+public class MyLeadActivity extends BaseActivity implements AdapterInfo{
     private static final String TAG = "MyLeadActivity";
     public static final int APPROVED = 101;
 
@@ -109,6 +109,7 @@ public class MyLeadActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         initLoader();
+        showLoader();
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
@@ -148,7 +149,7 @@ public class MyLeadActivity extends BaseActivity {
                     myLeadAdapter.notifyDataSetChanged();
                     if (leadListDataFromApi.isEmpty()) {
                         showEmptyView();
-                    } else showLoader();
+                    } else hideLoader();
                 }
             }
         } else {
@@ -180,19 +181,20 @@ public class MyLeadActivity extends BaseActivity {
                             hideLoader();
 
                         } else {
-
+                            showEmptyView();
                             showAlertDialog("Error", response.body().getMessage());
                         }
 
 
                     } else {
+                        showEmptyView();
                         showAlertDialog("Error", response.message());
                     }
                 }
 
                 @Override
                 public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
-
+                    showEmptyView();
                     showAlertDialog("Error", t.getMessage());
 
                 }
@@ -305,10 +307,37 @@ public class MyLeadActivity extends BaseActivity {
         // When an Image is picked
         if (requestCode == APPROVED && resultCode == RESULT_OK && null != data) {
             startActivity(MyLeadActivity.class, true);
-
-
         }
 
+    }
+
+    @Override
+    public void adShowProgressDialog() {
+
+    }
+
+    @Override
+    public void adHideProgressDialog() {
+
+    }
+
+    @Override
+    public void adSuccess(String message) {
+
+    }
+
+    @Override
+    public void adFailed(String message) {
+
+    }
+
+    @Override
+    public void startActivity(boolean self, Bundle bundle) {
+
+    }
+
+    @Override
+    public void startActivity(boolean self, Bundle bundle, int code) {
 
     }
 }

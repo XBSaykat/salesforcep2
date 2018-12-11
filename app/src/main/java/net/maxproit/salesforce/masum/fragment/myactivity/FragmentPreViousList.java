@@ -338,6 +338,7 @@ public class FragmentPreViousList extends BaseFragment {
 
                 @Override
                 public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
+                    showAlertDialog("ERROR",t.getMessage());
 
                 }
             });
