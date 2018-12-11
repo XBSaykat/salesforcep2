@@ -298,7 +298,7 @@ android:layout_height="match_parent">
                 style="@style/TextViewQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="EMI of other loans" />
+                android:text="Total EMI of other Loans" />
 
             <EditText
                 android:id="@+id/et_co_applicant_emi_of_other_loans"
