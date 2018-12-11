@@ -266,9 +266,33 @@
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp"
-                    android:layout_marginBottom="?attr/actionBarSize"
                     android:drawableRight="@drawable/ic_datepicker_calender"
                     />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:id="@+id/et_remarks_layout"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remarks" />
+
+                <EditText
+                    android:id="@+id/input_remarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="textMultiLine"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>
 
         </LinearLayout>
