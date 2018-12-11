@@ -66,7 +66,7 @@ public class ProspectStageActivity extends BaseActivity {
     private String userName = null;
     private PropectStageAttachmentFragment propectStageAttachmentFragment;
     MyNewProspect prospect;
-    int producSubCode=0;
+    int producSubCode = 0;
     String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
             relationship = null, name = null, age = null, photoId = null, photoIdDate = null, eTin = null, fatherName = null, motherName = null, spouseName = null,
             companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null;
@@ -262,13 +262,15 @@ public class ProspectStageActivity extends BaseActivity {
     }
 
     public MyNewProspect getDataFromProspect() {
+        
         MyNewProspect myNewLead = null;
         CarLoan carLoan = null;
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
+            Bundle bundle = new Bundle();
             myNewLead = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+            bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
             mLayout.setVisibility(View.VISIBLE);
-
         }
 //        myNewLead.setDateOfBirth(CommonUtil.jsonToDate(myNewLead.getDateOfBirth()));
         myNewLead.setFollowUp(CommonUtil.jsonToDate(myNewLead.getFollowUp()));
