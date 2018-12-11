@@ -481,6 +481,14 @@ public class LocalSetting {
 
     }
 
+    public List<LstDeviationJustification> getLstDeviationJustification() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getLstDeviationJustifications();
+        }
+        return new ArrayList<>();
+
+    }
+
     public List<LegalStatusType> getLegalStatusType() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getLegalStatusType();
