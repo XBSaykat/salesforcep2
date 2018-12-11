@@ -81,7 +81,7 @@ public class LeadStageActivity extends BaseActivity {
         initFragments();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Create Lead");
+
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -173,6 +173,7 @@ public class LeadStageActivity extends BaseActivity {
         if (extraDetail != null) {
             int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
             Bundle bundle = new Bundle();
+            getSupportActionBar().setTitle("Lead");
             if (status == 0) {
                 visitPlan = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
                 bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
@@ -183,6 +184,8 @@ public class LeadStageActivity extends BaseActivity {
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
                 mLayout.setVisibility(View.VISIBLE);
 
+            }else {
+                getSupportActionBar().setTitle("Create Lead");
             }
 
             leadStageBasicInformationFragment.setArguments(bundle);
@@ -190,6 +193,7 @@ public class LeadStageActivity extends BaseActivity {
             leadStageVisitRecordFragment.setArguments(bundle);
 
         }
+
 
 
         MyNewLead finalMyNewLead = myNewLead;
