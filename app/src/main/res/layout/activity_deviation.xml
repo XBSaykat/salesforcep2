@@ -45,7 +45,7 @@
                             style="@style/TextViewQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Deviation category" />
+                            android:text="Exception areas" />
 
                         <Spinner
                             android:id="@+id/dvcategory"
@@ -70,7 +70,7 @@
                             style="@style/TextViewQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Deviation Heads" />
+                            android:text="Exception parameters" />
 
                         <Spinner
                             android:id="@+id/dvhead"
@@ -96,14 +96,13 @@
                             style="@style/TextViewQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Current Value" />
+                            android:text="Risk category" />
 
-                        <EditText
-                            android:id="@+id/etCurrebt"
+                        <TextView
+                            android:id="@+id/tvRiskCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionNext"
-                            android:inputType="numberDecimal"
                             android:maxLines="1"
                             android:text=""
                             android:textSize="@dimen/text_size_16sp" />
