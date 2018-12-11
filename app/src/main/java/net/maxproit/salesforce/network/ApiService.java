@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.network;
 
 
+import net.maxproit.salesforce.masum.model.api.Deviation.QueryDeviationPropertyResponce;
 import net.maxproit.salesforce.masum.model.api.file.GetDocument;
 import net.maxproit.salesforce.masum.model.api.followup.FollowUpHistoryApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
@@ -70,7 +71,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
@@ -291,6 +291,10 @@ public interface ApiService {
 
     @POST("Deviation/DeviationRequest")
     Call<DaviationPostResponce> deviationPost(@Body DeviationPost deviationPost);
+
+// Deviation
+    @GET("Deviation/QryDeviationProperty/{refNo}/{timestamp}")
+    Call<QueryDeviationPropertyResponce> queryDeviationProperty(@Path("refNo") String refNo, @Path("timestamp") String timestamp);
 
 
 

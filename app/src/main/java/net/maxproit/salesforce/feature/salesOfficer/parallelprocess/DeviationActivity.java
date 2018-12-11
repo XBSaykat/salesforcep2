@@ -19,8 +19,6 @@ import net.maxproit.salesforce.model.setting.DeviationCategory;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,8 +34,8 @@ public class DeviationActivity extends BaseActivity {
     String dvcategory = "";
     int dvHedId = 0;
     String dvHead = "";
-    UtilSpinner dvcategoryAdapter;
-    UtilSpinner dvHeadAdapter;
+    UtilSpinner exceptionAreaAdapter;
+    UtilSpinner exceptionParametersAdapter;
     List<DeviationCategory> deviationlist;
 
 
@@ -63,9 +61,9 @@ public class DeviationActivity extends BaseActivity {
             data1.add(in.getDeviationCategory());
         }
 
-        dvcategoryAdapter = new UtilSpinner(DeviationActivity.this, data1);
-        binding.dvcategory.setAdapter(dvcategoryAdapter);
-        binding.dvcategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        exceptionAreaAdapter = new UtilSpinner(DeviationActivity.this, data1);
+        binding.exceptionArea.setAdapter(exceptionAreaAdapter);
+        binding.exceptionArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -83,9 +81,9 @@ public class DeviationActivity extends BaseActivity {
                                 List<String> data2 = new ArrayList<>();
                                 for (DevAccountHead in : response.body().getData()) {
                                     data2.add(in.getDevAccountHeadName());
-                                    dvHeadAdapter = new UtilSpinner(DeviationActivity.this, data2);
-                                    binding.dvhead.setAdapter(dvHeadAdapter);
-                                    binding.dvhead.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    exceptionParametersAdapter = new UtilSpinner(DeviationActivity.this, data2);
+                                    binding.exceptionParameters.setAdapter(exceptionParametersAdapter);
+                                    binding.exceptionParameters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                         @Override
                                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                             dvHedId = response.body().getData().get(position).getDevAccountHeadCode();
