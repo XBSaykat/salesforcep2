@@ -35,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyLeadActivity extends BaseActivity implements AdapterInfo {
+public class MyLeadActivity extends BaseActivity {
     private static final String TAG = "MyLeadActivity";
     public static final int APPROVED = 101;
 
@@ -64,7 +64,6 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         filterList = new ArrayList<>();
         myLeadDbController = new MyLeadDbController(MyLeadActivity.this);
         username = SharedPreferencesEnum.getInstance(getApplicationContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
-
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -107,7 +106,6 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     @Override
     protected void onResume() {
         super.onResume();
-        initLoader();
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
@@ -138,6 +136,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_RBM));
                 binding.rvMyLead.setClickable(false);
             } else {
+
                 if (isNetworkAvailable()) {
                     getDataFromServer();
                 } else {
@@ -146,20 +145,19 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                     myLeadAdapter.notifyDataSetChanged();
                     if (leadListDataFromApi.isEmpty()) {
                         showEmptyView();
-                    } else hideLoader();
+                    } else showLoader();
                 }
             }
         } else {
+
             if (isNetworkAvailable())
                 getDataFromServer();
             else
                 leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
             myLeadAdapter.notifyDataSetChanged();
             if (leadListDataFromApi.isEmpty()) {
-                showEmptyView();
-            } else {
-                hideLoader();
-            }
+                showLoader();
+            } else hideLoader();
 
         }
 
@@ -172,16 +170,16 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             getApiService().getLeadData(username, random).enqueue(new Callback<MyGetLeadApi>() {
                 @Override
                 public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
-                    hideProgressDialog();
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
                             leadListDataFromApi.addAll(response.body().getData());
                             myLeadAdapter.notifyDataSetChanged();
                             if (leadListDataFromApi.isEmpty()) {
                                 showEmptyView();
+
                             } else hideLoader();
                         } else {
-                            showEmptyView();
+
                             showAlertDialog("Error", response.body().getMessage());
                         }
 
@@ -193,7 +191,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
                 @Override
                 public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
-                    hideLoader();
+
                     showAlertDialog("Error", t.getMessage());
 
                 }
@@ -215,21 +213,22 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            Data data = response.body().getData();
-                            String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
-                            String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
-                            MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
-                                    data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
-                                    data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
-                                    data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
-                                    String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), disDate,
-                                    followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
-                            ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
-                            hideProgressDialog();
-
+                            if (response.body().getData() != null) {
+                                Data data = response.body().getData();
+                                String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
+                                String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
+                                MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
+                                        data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
+                                        data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
+                                        data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
+                                        String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), disDate,
+                                        followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
+                                ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
+                                hideProgressDialog();
+                            } else showEmptyView();
                         } else {
                             showAlertDialog("Error", response.body().getMessage());
-                            hideLoader();
+
                         }
                     } else showAlertDialog("Error", response.message());
 
@@ -237,7 +236,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
                 @Override
                 public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
-                    hideLoader();
+
                     showAlertDialog("ERROR", t.getMessage());
 
                 }
@@ -246,7 +245,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         } else {
             MyNewLead myNewLead = myLeadDbController.getDataById(filterList.get(position).getId()).get(0);
             ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
-            hideLoader();
+
         }
 
     }
@@ -295,41 +294,6 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void adShowProgressDialog() {
-
-
-    }
-
-    @Override
-    public void adHideProgressDialog() {
-
-
-    }
-
-    @Override
-    public void adSuccess(String message) {
-        recreate();
-    }
-
-    @Override
-    public void adFailed(String message) {
-        showToast(message);
-
-    }
-
-    @Override
-    public void startActivity(boolean self, Bundle bundle) {
-
-
-    }
-
-    @Override
-    public void startActivity(boolean self, Bundle bundle, int code) {
-
-
     }
 
 

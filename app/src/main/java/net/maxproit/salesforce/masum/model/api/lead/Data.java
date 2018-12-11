@@ -91,7 +91,29 @@ public class Data implements Serializable {
     @SerializedName("visitId")
     @Expose
     private Integer visitId;
+    @SerializedName("city")
+    @Expose
+    private String city;
 
+    @SerializedName("ps")
+    @Expose
+    private String ps;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPs() {
+        return ps;
+    }
+
+    public void setPs(String ps) {
+        this.ps = ps;
+    }
     public String getAddress() {
         return address;
     }

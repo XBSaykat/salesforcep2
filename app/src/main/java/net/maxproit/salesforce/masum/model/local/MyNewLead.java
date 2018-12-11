@@ -26,6 +26,7 @@ public class MyNewLead implements Serializable {
     private String followUp;
     private String remark;
     private String status;
+    String ps,city;
 
 
     private int id,cusId,mobileId,addressId,visitId,branchCode,productCode,subCode;
@@ -119,6 +120,22 @@ public MyNewLead(){
         this.remark = remark;
         this.status = status;
         this.syncStatus = syncStatus;
+    }
+
+    public String getPs() {
+        return ps;
+    }
+
+    public void setPs(String ps) {
+        this.ps = ps;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public void setUserID(String userID) {

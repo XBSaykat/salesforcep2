@@ -28,6 +28,7 @@ import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.util.ArrayList;
@@ -49,9 +50,9 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
     private MyLeadDbController myLeadDbController;
     private ArrayList<MyNewLead> myNewLeadArrayList;
-    private AwesomeSpinner spinnerBranchName, spinnerProfession;
+    private AwesomeSpinner spinnerBranchName, spinnerProfession, spinnerCity, spinnerPoliceStation;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession = null, branchName = null, branchCode = null;
+    public static String profession = null, branchName = null, branchCode = null, city, policeStation;
     private List<String> listBranchArray = null;
     private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
@@ -150,13 +151,31 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             }
         });
 
+        spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                city = s;
+
+
+            }
+
+        });
+
+        spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                policeStation = s;
+            }
+        });
+
     }
 
     private void initView(View rootView) {
 
         spinnerDbController = new SpinnerDbController(getActivity());
         mLocalSettting = new LocalSetting(getActivity());
-
+        spinnerCity = rootView.findViewById(R.id.awe_spinner_visit_plan_city);
+        spinnerPoliceStation = rootView.findViewById(R.id.awe_spinner_visit_plan_police_station);
         spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
         spinnerProfession = rootView.findViewById(R.id.awe_spinner_lead_profession);
         etUserName = rootView.findViewById(R.id.et_lead_user_name);
@@ -232,6 +251,12 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
+
+        ArrayAdapter<String> polishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getPseStringList());
+        spinnerPoliceStation.setAdapter(polishStationAdapter);
+
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getCityStringList());
+        spinnerCity.setAdapter(cityAdapter);
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
@@ -240,7 +265,16 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                 if (visitPlan != null) {
                     etUserName.setText(visitPlan.getClientName());
                     etPhone.setText(visitPlan.getMobileNumber());
-                    etAddress.setText(visitPlan.getPoliceStation() + "," + visitPlan.getCity());
+                    try {
+                        spinnerCity.setSelection(cityAdapter.getPosition(visitPlan.getCity()));
+                    } catch (IllegalStateException i) {
+
+                    }
+                    try {
+                        spinnerPoliceStation.setSelection(polishStationAdapter.getPosition(visitPlan.getPoliceStation()));
+                    } catch (IllegalStateException i) {
+
+                    }
                 }
             } else {
                 initLoader();
@@ -252,19 +286,34 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                     etAddress.setText(myNewLead.getAddress());
                     etUserOrganization.setText(myNewLead.getOrganization());
                     etDesignattion.setText(myNewLead.getDesignation());
-                    if (myNewLead.getBranchName() != null) {
+                    if (!MasumCommonUtils.isNullStr(myNewLead.getBranchName())) {
                         try {
                             spinnerBranchName.setSelection(branchAdapter.getPosition(myNewLead.getBranchName()));
                         } catch (final IllegalStateException ignored) {
                         } catch (NullPointerException e) {
                         }
                     }
-                    if (myNewLead.getProfession() != null) {
+                    if (!MasumCommonUtils.isNullStr(myNewLead.getProfession())) {
                         try {
                             spinnerProfession.setSelection(professionAdapter.getPosition(myNewLead.getProfession()));
                         } catch (final IllegalStateException ignored) {
                         }
                     }
+
+                    if (!MasumCommonUtils.isNullStr(myNewLead.getCity())) {
+                        try {
+                            spinnerCity.setSelection(cityAdapter.getPosition(myNewLead.getCity()));
+                        } catch (final IllegalStateException ignored) {
+                        }
+                    }
+
+                    if (!MasumCommonUtils.isNullStr(myNewLead.getPs())) {
+                        try {
+                            spinnerPoliceStation.setSelection(polishStationAdapter.getPosition(myNewLead.getPs()));
+                        } catch (final IllegalStateException ignored) {
+                        }
+                    }
+
 
                 }
                 hideLoader();

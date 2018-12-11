@@ -8,304 +8,327 @@ import net.maxproit.salesforce.masum.utility.DateUtils;
 
 public class MyLeadDataModelApi {
 
-@SerializedName("leadReferenceNo")
-@Expose
-private String leadReferenceNo;
-@SerializedName("rmCode")
-@Expose
-private String rmCode;
-@SerializedName("userName")
-@Expose
-private String userName;
-@SerializedName("branchName")
-@Expose
-private String branchName;
-@SerializedName("branchCode")
-@Expose
-private Integer branchCode;
-@SerializedName("customerName")
-@Expose
-private String customerName;
-@SerializedName("customerId")
-@Expose
-private Integer customerId;
-@SerializedName("profession")
-@Expose
-private String profession;
-@SerializedName("organization")
-@Expose
-private String organization;
-@SerializedName("designation")
-@Expose
-private String designation;
-@SerializedName("mobileNumberId")
-@Expose
-private Integer mobileNumberId;
-@SerializedName("mobileNumber")
-@Expose
-private String mobileNumber;
-@SerializedName("addressId")
-@Expose
-private Integer addressId;
-@SerializedName("address")
-@Expose
-private String address;
-@SerializedName("sourceOfReference")
-@Expose
-private String sourceOfReference;
-@SerializedName("productId")
-@Expose
-private Integer productId;
-@SerializedName("product")
-@Expose
-private String product;
-@SerializedName("productSubCategoryId")
-@Expose
-private Integer productSubCategoryId;
-@SerializedName("productSubCategory")
-@Expose
-private String productSubCategory;
-@SerializedName("loanAmount")
-@Expose
-private Integer loanAmount;
-@SerializedName("offeredInterestRate")
-@Expose
-private Float offeredInterestRate;
-@SerializedName("offeredProcessFee")
-@Expose
-private Float offeredProcessFee;
-@SerializedName("disbursementDate")
-@Expose
-private String disbursementDate;
-@SerializedName("visitId")
-@Expose
-private Integer visitId;
-@SerializedName("followUp")
-@Expose
-private String followUp;
-@SerializedName("followUpDate")
-@Expose
-private String followUpDate;
-@SerializedName("remark")
-@Expose
-private String remark;
+    @SerializedName("leadReferenceNo")
+    @Expose
+    private String leadReferenceNo;
+    @SerializedName("rmCode")
+    @Expose
+    private String rmCode;
+    @SerializedName("userName")
+    @Expose
+    private String userName;
+    @SerializedName("branchName")
+    @Expose
+    private String branchName;
+    @SerializedName("branchCode")
+    @Expose
+    private Integer branchCode;
+    @SerializedName("customerName")
+    @Expose
+    private String customerName;
+    @SerializedName("customerId")
+    @Expose
+    private Integer customerId;
+    @SerializedName("profession")
+    @Expose
+    private String profession;
+    @SerializedName("organization")
+    @Expose
+    private String organization;
+    @SerializedName("designation")
+    @Expose
+    private String designation;
+    @SerializedName("mobileNumberId")
+    @Expose
+    private Integer mobileNumberId;
+    @SerializedName("mobileNumber")
+    @Expose
+    private String mobileNumber;
+    @SerializedName("addressId")
+    @Expose
+    private Integer addressId;
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("sourceOfReference")
+    @Expose
+    private String sourceOfReference;
+    @SerializedName("productId")
+    @Expose
+    private Integer productId;
+    @SerializedName("product")
+    @Expose
+    private String product;
+    @SerializedName("productSubCategoryId")
+    @Expose
+    private Integer productSubCategoryId;
+    @SerializedName("productSubCategory")
+    @Expose
+    private String productSubCategory;
+    @SerializedName("loanAmount")
+    @Expose
+    private Integer loanAmount;
+    @SerializedName("offeredInterestRate")
+    @Expose
+    private Float offeredInterestRate;
+    @SerializedName("offeredProcessFee")
+    @Expose
+    private Float offeredProcessFee;
+    @SerializedName("disbursementDate")
+    @Expose
+    private String disbursementDate;
+    @SerializedName("visitId")
+    @Expose
+    private Integer visitId;
+    @SerializedName("followUp")
+    @Expose
+    private String followUp;
+    @SerializedName("followUpDate")
+    @Expose
+    private String followUpDate;
+    @SerializedName("remark")
+    @Expose
+    private String remark;
 
+    @SerializedName("city")
+    @Expose
+    private String city;
 
-public String getLeadReferenceNo() {
-return leadReferenceNo;
-}
+    @SerializedName("ps")
+    @Expose
+    private String ps;
 
-public void setLeadReferenceNo(String leadReferenceNo) {
-this.leadReferenceNo = leadReferenceNo;
-}
+    public String getCity() {
+        return city;
+    }
 
-public String getRmCode() {
-return rmCode;
-}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-public void setRmCode(String rmCode) {
-this.rmCode = rmCode;
-}
+    public String getPs() {
+        return ps;
+    }
 
-public String getUserName() {
-return userName;
-}
+    public void setPs(String ps) {
+        this.ps = ps;
+    }
 
-public void setUserName(String userName) {
-this.userName = userName;
-}
+    public String getLeadReferenceNo() {
+        return leadReferenceNo;
+    }
 
-public String getBranchName() {
-return branchName;
-}
+    public void setLeadReferenceNo(String leadReferenceNo) {
+        this.leadReferenceNo = leadReferenceNo;
+    }
 
-public void setBranchName(String branchName) {
-this.branchName = branchName;
-}
+    public String getRmCode() {
+        return rmCode;
+    }
 
-public Integer getBranchCode(int i) {
-return branchCode;
-}
+    public void setRmCode(String rmCode) {
+        this.rmCode = rmCode;
+    }
 
-public void setBranchCode(Integer branchCode) {
-this.branchCode = branchCode;
-}
+    public String getUserName() {
+        return userName;
+    }
 
-public String getCustomerName() {
-return customerName;
-}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-public void setCustomerName(String customerName) {
-this.customerName = customerName;
-}
+    public String getBranchName() {
+        return branchName;
+    }
 
-public Integer getCustomerId() {
-return customerId;
-}
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
 
-public void setCustomerId(Integer customerId) {
-this.customerId = customerId;
-}
+    public Integer getBranchCode(int i) {
+        return branchCode;
+    }
 
-public String getProfession() {
-return profession;
-}
+    public void setBranchCode(Integer branchCode) {
+        this.branchCode = branchCode;
+    }
 
-public void setProfession(String profession) {
-this.profession = profession;
-}
+    public String getCustomerName() {
+        return customerName;
+    }
 
-public String getOrganization() {
-return organization;
-}
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
-public void setOrganization(String organization) {
-this.organization = organization;
-}
+    public Integer getCustomerId() {
+        return customerId;
+    }
 
-public String getDesignation() {
-return designation;
-}
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
 
-public void setDesignation(String designation) {
-this.designation = designation;
-}
+    public String getProfession() {
+        return profession;
+    }
 
-public Integer getMobileNumberId() {
-return mobileNumberId;
-}
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
-public void setMobileNumberId(Integer mobileNumberId) {
-this.mobileNumberId = mobileNumberId;
-}
+    public String getOrganization() {
+        return organization;
+    }
 
-public String getMobileNumber() {
-return mobileNumber;
-}
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
 
-public void setMobileNumber(String mobileNumber) {
-this.mobileNumber = mobileNumber;
-}
+    public String getDesignation() {
+        return designation;
+    }
 
-public Integer getAddressId() {
-return addressId;
-}
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
 
-public void setAddressId(Integer addressId) {
-this.addressId = addressId;
-}
+    public Integer getMobileNumberId() {
+        return mobileNumberId;
+    }
 
-public String getAddress() {
-return address;
-}
+    public void setMobileNumberId(Integer mobileNumberId) {
+        this.mobileNumberId = mobileNumberId;
+    }
 
-public void setAddress(String address) {
-this.address = address;
-}
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
 
-public String getSourceOfReference() {
-return sourceOfReference;
-}
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
-public void setSourceOfReference(String sourceOfReference) {
-this.sourceOfReference = sourceOfReference;
-}
+    public Integer getAddressId() {
+        return addressId;
+    }
 
-public Integer getProductId() {
-return productId;
-}
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
 
-public void setProductId(Integer productId) {
-this.productId = productId;
-}
+    public String getAddress() {
+        return address;
+    }
 
-public String getProduct() {
-return product;
-}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-public void setProduct(String product) {
-this.product = product;
-}
+    public String getSourceOfReference() {
+        return sourceOfReference;
+    }
 
-public Integer getProductSubCategoryId() {
-return productSubCategoryId;
-}
+    public void setSourceOfReference(String sourceOfReference) {
+        this.sourceOfReference = sourceOfReference;
+    }
 
-public void setProductSubCategoryId(Integer productSubCategoryId) {
-this.productSubCategoryId = productSubCategoryId;
-}
+    public Integer getProductId() {
+        return productId;
+    }
 
-public String getProductSubCategory() {
-return productSubCategory;
-}
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
-public void setProductSubCategory(String productSubCategory) {
-this.productSubCategory = productSubCategory;
-}
+    public String getProduct() {
+        return product;
+    }
 
-public Integer getLoanAmount() {
-return loanAmount;
-}
+    public void setProduct(String product) {
+        this.product = product;
+    }
 
-public void setLoanAmount(Integer loanAmount) {
-this.loanAmount = loanAmount;
-}
+    public Integer getProductSubCategoryId() {
+        return productSubCategoryId;
+    }
 
-public Float getOfferedInterestRate() {
-return offeredInterestRate;
-}
+    public void setProductSubCategoryId(Integer productSubCategoryId) {
+        this.productSubCategoryId = productSubCategoryId;
+    }
 
-public void setOfferedInterestRate(Float offeredInterestRate) {
-this.offeredInterestRate = offeredInterestRate;
-}
+    public String getProductSubCategory() {
+        return productSubCategory;
+    }
 
-public Float getOfferedProcessFee() {
-return offeredProcessFee;
-}
+    public void setProductSubCategory(String productSubCategory) {
+        this.productSubCategory = productSubCategory;
+    }
 
-public void setOfferedProcessFee(Float offeredProcessFee) {
-this.offeredProcessFee = offeredProcessFee;
-}
+    public Integer getLoanAmount() {
+        return loanAmount;
+    }
 
-public String getDisbursementDate() {
-return disbursementDate;
-}
+    public void setLoanAmount(Integer loanAmount) {
+        this.loanAmount = loanAmount;
+    }
 
-public void setDisbursementDate(String disbursementDate) {
-this.disbursementDate = disbursementDate;
-}
+    public Float getOfferedInterestRate() {
+        return offeredInterestRate;
+    }
 
-public Integer getVisitId() {
-return visitId;
-}
+    public void setOfferedInterestRate(Float offeredInterestRate) {
+        this.offeredInterestRate = offeredInterestRate;
+    }
 
-public void setVisitId(Integer visitId) {
-this.visitId = visitId;
-}
+    public Float getOfferedProcessFee() {
+        return offeredProcessFee;
+    }
 
-public String getFollowUp() {
-return followUp;
-}
+    public void setOfferedProcessFee(Float offeredProcessFee) {
+        this.offeredProcessFee = offeredProcessFee;
+    }
 
-public void setFollowUp(String followUp) {
-this.followUp = followUp;
-}
+    public String getDisbursementDate() {
+        return disbursementDate;
+    }
 
-public String getFollowUpDate() {
-return followUpDate;
-}
+    public void setDisbursementDate(String disbursementDate) {
+        this.disbursementDate = disbursementDate;
+    }
 
-public void setFollowUpDate(String followUpDate) {
-this.followUpDate = followUpDate;
-}
+    public Integer getVisitId() {
+        return visitId;
+    }
 
-public String getRemark() {
-return remark;
-}
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
+    }
 
-public void setRemark(String remark) {
-this.remark = remark;
-}
+    public String getFollowUp() {
+        return followUp;
+    }
+
+    public void setFollowUp(String followUp) {
+        this.followUp = followUp;
+    }
+
+    public String getFollowUpDate() {
+        return followUpDate;
+    }
+
+    public void setFollowUpDate(String followUpDate) {
+        this.followUpDate = followUpDate;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public MyLeadDataModelApi myLeadDataModelApi(MyNewLead myNewLead) {
         MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
@@ -327,9 +350,9 @@ this.remark = remark;
         myLeadApi.setProduct(myNewLead.getProductType());
         myLeadApi.setProductSubCategoryId(myNewLead.getSubCode());
         myLeadApi.setProductSubCategory(myNewLead.getProductSubcategory());
-        myLeadApi.setLoanAmount(Integer.valueOf(myNewLead.getLoanAmount().replace(",","")));
-        myLeadApi.setOfferedInterestRate((float)Float.valueOf(myNewLead.getOrInterest()));
-        myLeadApi.setOfferedProcessFee((float)Float.valueOf(myNewLead.getOpFee()));
+        myLeadApi.setLoanAmount(Integer.valueOf(myNewLead.getLoanAmount().replace(",", "")));
+        myLeadApi.setOfferedInterestRate((float) Float.valueOf(myNewLead.getOrInterest()));
+        myLeadApi.setOfferedProcessFee((float) Float.valueOf(myNewLead.getOpFee()));
         myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(myNewLead.getDisDate()));
         myLeadApi.setVisitId(myNewLead.getVisitId());
         myLeadApi.setFollowUp(myNewLead.getFollowUp());

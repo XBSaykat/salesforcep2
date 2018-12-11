@@ -63,7 +63,7 @@ public class LeadStageActivity extends BaseActivity {
     private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
     private LinearLayout mLayout;
     private MyLeadDataModelApi myLeadDataModelApi = null;
-    private String branchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null;
+    private String branchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null,city=null,polishStationl=null;
     private String userName = null;
     private int activityPosition;
     public static int myLeadPosition = -1;
@@ -224,6 +224,8 @@ public class LeadStageActivity extends BaseActivity {
         branchName = LeadStageBasicInformationFragment.branchName; //
         profession = LeadStageBasicInformationFragment.profession; //
         name = LeadStageBasicInformationFragment.etUserName.getText().toString(); //
+        city = LeadStageBasicInformationFragment.city; //
+        polishStationl = LeadStageBasicInformationFragment.policeStation; //
         organization = LeadStageBasicInformationFragment.etUserOrganization.getText().toString(); //
         designation = LeadStageBasicInformationFragment.etDesignattion.getText().toString(); //
         phone = LeadStageBasicInformationFragment.etPhone.getText().toString();
@@ -271,6 +273,8 @@ public class LeadStageActivity extends BaseActivity {
         myLeadApi.setDesignation(designation);
         myLeadApi.setMobileNumber(phone);
         myLeadApi.setAddress(address);
+        myLeadApi.setCity(city);
+        myLeadApi.setPs(polishStationl);
         myLeadApi.setSourceOfReference(ref);
         myLeadApi.setProductId(LeadStageLoanDetailFragment.productTypeCode);
         myLeadApi.setProduct(productType);
