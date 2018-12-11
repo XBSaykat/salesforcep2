@@ -449,7 +449,7 @@
                 android:id="@+id/btn_show_followUp_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="show follow history"
+                android:text="History"
                 android:layout_gravity="center_horizontal"/>
             <LinearLayout
                 style="@style/LayoutQuestion"

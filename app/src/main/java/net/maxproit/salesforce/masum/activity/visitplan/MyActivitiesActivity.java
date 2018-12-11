@@ -153,9 +153,9 @@ public class MyActivitiesActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentCurrentActivity(), "Current Activity");
-        adapter.addFragment(new FragmentPreViousList(), "Previous Activity");
-        adapter.addFragment(new FragmentUpComingList(), "Upcoming Activity");
+        adapter.addFragment(new FragmentCurrentActivity(), "Today's Plan");
+        adapter.addFragment(new FragmentPreViousList(), "Unexecuted Plan");
+        adapter.addFragment(new FragmentUpComingList(), "Upcoming Plan");
         viewPager.setAdapter(adapter);
     }
 
