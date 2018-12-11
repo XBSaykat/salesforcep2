@@ -262,7 +262,7 @@ public class ProspectStageActivity extends BaseActivity {
     }
 
     public MyNewProspect getDataFromProspect() {
-        
+
         MyNewProspect myNewLead = null;
         CarLoan carLoan = null;
         Bundle extraDetail = getIntent().getExtras();

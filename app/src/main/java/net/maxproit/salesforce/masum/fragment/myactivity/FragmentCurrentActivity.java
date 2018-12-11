@@ -251,33 +251,46 @@ public class FragmentCurrentActivity extends BaseFragment {
     }
 
     private void getData() {
+        initLoader();
         if (isNetworkAvailable()) {
             String random = UUID.randomUUID().toString();
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
                 @Override
                 public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
                     if (response.body().getCode().equals("200")) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_CURRENT_ACTIVITY)) {
-                                visitPlanListApi.add(response.body().getData().get(i));
+                        if (response.body().getData() != null) {
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_CURRENT_ACTIVITY)) {
+                                    visitPlanListApi.add(response.body().getData().get(i));
+                                }
                             }
-                        }
-                        myLeadAdapter.notifyDataSetChanged();
+                            myLeadAdapter.notifyDataSetChanged();
+                            hideLoader();
 
+                        } else showEmptyView();
+                    } else {
+                        showAlertDialog("Error", response.body().getMessage());
+                        showEmptyView();
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
+                    showAlertDialog("ERROR", t.getMessage());
+                    showEmptyView();
 
                 }
             });
         } else {
             MyActivityGetDataApi myActivityGetDataApi = new MyActivityGetDataApi();
             leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
-            visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(leadList));
-            myLeadAdapter.notifyDataSetChanged();
+            if (leadList.size() > 0) {
+                leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
+                visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(leadList));
+                myLeadAdapter.notifyDataSetChanged();
+                hideLoader();
+            } else showEmptyView();
         }
     }
 
