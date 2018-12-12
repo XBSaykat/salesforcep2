@@ -25,6 +25,8 @@ public class Data {
     @SerializedName("branches")
     @Expose
     private List<Branch> branches = null;
+
+
     @SerializedName("businessTypes")
     @Expose
     private List<BusinessType> businessTypes = null;
@@ -94,7 +96,17 @@ public class Data {
     public List<Profession> getProfession() {
         return profession;
     }
+    @SerializedName("manufacturerNames")
+    @Expose
+    private List<ManufacturerName> manufacturerNames = null;
 
+    public List<ManufacturerName> getManufacturerNames() {
+        return manufacturerNames;
+    }
+
+    public void setManufacturerNames(List<ManufacturerName> manufacturerNames) {
+        this.manufacturerNames = manufacturerNames;
+    }
     public void setProfession(List<Profession> profession) {
         this.profession = profession;
     }

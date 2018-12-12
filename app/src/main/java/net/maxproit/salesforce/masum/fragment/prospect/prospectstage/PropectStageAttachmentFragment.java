@@ -205,27 +205,6 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     }
 
 
-    private void initAttachMentData(MyNewProspect myNewLead) {
-        attachmentDbController = new AttachmentDbController(getActivity());
-        if (attachmentDbController.getAllData
-                (String.valueOf(myNewLead.getId())).size() > 0) {
-            attachmentArrayList = new ArrayList<>();
-            attachmentArrayList.addAll(attachmentDbController.getAllData(String.valueOf(myNewLead.getId())));
-            tvPhoto.setVisibility(View.GONE);
-            tvID.setVisibility(View.GONE);
-            tvVCard.setVisibility(View.GONE);
-            imgAtach.setVisibility(View.VISIBLE);
-            imgIdCard.setVisibility(View.VISIBLE);
-            imgVisitingCard.setVisibility(View.VISIBLE);
-
-            imgAtach.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getProfilePic()));
-            imgIdCard.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getIdCard()));
-            imgVisitingCard.setImageBitmap(ImageUtils.getBitmapFromByte(attachmentArrayList.get(0).getVisitingCard()));
-        }
-
-    }
-
-
     private void callApi(MyNewLead myNewLead) {
         if (isNetworkAvailable()) {
             String refNo = myNewLead.getRefNumber();
@@ -235,7 +214,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
                 public void onResponse(Call<GetDocument> call, Response<GetDocument> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            if (!response.body().getData().isEmpty()) {
+                            if (response.body().getData()!=null) {
                                 docList.addAll(response.body().getData());
                                 documentUploadAdapter.notifyDataSetChanged();
                             }
