@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.databinding.NewDaviationRequestRowBinding;
-import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.DeviationDetail;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationDetail;
 import net.maxproit.salesforce.model.login.LocalLogin;
 
 import java.util.List;

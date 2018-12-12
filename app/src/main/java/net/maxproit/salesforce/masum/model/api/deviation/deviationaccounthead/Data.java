@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.model.api.Deviation.deviationaccounthead;
+package net.maxproit.salesforce.masum.model.api.deviation.deviationaccounthead;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -14,6 +14,8 @@ import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDaviationListBinding;
 import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation.adapter.DaviationAdapter;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
+import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationList;
+import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationResponse;
 import net.maxproit.salesforce.model.deviation.getlist.Daviation;
 import net.maxproit.salesforce.model.deviation.getlist.Daviationlist;
 
@@ -33,7 +35,7 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
 
     public static String KEY_REFERRENCE_ID = "KEY_REFERRENCE_ID";
 
-    private List<Daviation> cibList;
+    private List<DeviationList> cibList;
     private String referrenceid = "";
 
 
@@ -70,9 +72,9 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
         showProgressDialog();
         String random = UUID.randomUUID().toString();
         Log.d(TAG, "getCibData: " + referrenceid);
-        getApiService().daviationRequestById(referrenceid, random).enqueue(new Callback<Daviationlist>() {
+        getApiService().daviationRequestById(referrenceid, random).enqueue(new Callback<DeviationResponse>() {
             @Override
-            public void onResponse(Call<Daviationlist> call, Response<Daviationlist> response) {
+            public void onResponse(Call<DeviationResponse> call, Response<DeviationResponse> response) {
                 hideProgressDialog();
                 if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse: " + toJson(response.body()));
@@ -85,7 +87,7 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
             }
 
             @Override
-            public void onFailure(Call<Daviationlist> call, Throwable t) {
+            public void onFailure(Call<DeviationResponse> call, Throwable t) {
                 hideProgressDialog();
                 showToast("Failed");
             }

@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.model.api.Deviation.postdeviation;
+package net.maxproit.salesforce.masum.model.api.deviation.postdeviation;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

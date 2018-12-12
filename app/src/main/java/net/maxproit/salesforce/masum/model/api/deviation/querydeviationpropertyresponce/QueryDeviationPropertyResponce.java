@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.model.api.Deviation.deviationaccounthead;
+package net.maxproit.salesforce.masum.model.api.deviation.querydeviationpropertyresponce;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Md. Mehedi Hasan on 12/11/2018.
  * mehedipy@gmail.com
  */
-public class DevAccountHeadEntities {
+public class QueryDeviationPropertyResponce {
     @SerializedName("status")
     @Expose
     private String status;
