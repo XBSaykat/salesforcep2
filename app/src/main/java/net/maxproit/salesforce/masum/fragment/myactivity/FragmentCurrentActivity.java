@@ -256,9 +256,10 @@ public class FragmentCurrentActivity extends BaseFragment {
         if (!visitPlanList.isEmpty()) {
             visitPlanList.clear();
         }
-        initLoader();
-        showLoader();
+
         if (isNetworkAvailable()) {
+            initLoader();
+            showLoader();
             String random = UUID.randomUUID().toString();
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
                 @Override
@@ -300,11 +301,12 @@ public class FragmentCurrentActivity extends BaseFragment {
             MyActivityGetDataApi myActivityGetDataApi = new MyActivityGetDataApi();
             leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
             if (leadList.size() > 0) {
-                leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
                 visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(leadList));
                 myLeadAdapter.notifyDataSetChanged();
-                hideLoader();
-            } else showEmptyView();
+                //hideLoader();
+            } else {
+                // showEmptyView();
+            }
         }
     }
 

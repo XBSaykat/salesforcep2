@@ -186,13 +186,13 @@ public class FragmentPreViousList extends BaseFragment {
         if (!visitPlanList.isEmpty()) {
             visitPlanList.clear();
         }
-        initLoader();
+
         if (isNetworkAvailable()) {
             String random = UUID.randomUUID().toString();
             //int journalId, String clientName, String clientType,
             // String mobileNumber, String prePoliceStation, String productType, String preCity, String purposeOfVisit,
             // String dateOfVisit, String remarks, String status ,String synStatus
-
+            initLoader();
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
                 @Override
                 public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
@@ -226,8 +226,8 @@ public class FragmentPreViousList extends BaseFragment {
             if (!visitPlanList.isEmpty()) {
                 visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(visitPlanList));
                 myLeadAdapter.notifyDataSetChanged();
-                hideLoader();
-            } else showEmptyView();
+              //  hideLoader();
+            } //else showEmptyView();
       /*      for (int i=0;i<leadList.size();i++){
 
                 try {
