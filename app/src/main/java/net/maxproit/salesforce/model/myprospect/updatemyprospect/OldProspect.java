@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.util.CommonUtil;
 
 import java.util.ArrayList;
@@ -62,22 +63,16 @@ public class OldProspect {
 
         MyNewProspect myNewProspect = new MyNewProspect();
 
-        if (data.getCommercialSpaceIncome() > 0)
-            myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
-        else myNewProspect.setOfficeSpaceINcome("");
-        if (data.getAgriculturalIncome() > 0)
-            myNewProspect.setAg_Income(String.valueOf(data.getAgriculturalIncome()));
-        else myNewProspect.setAg_Income("");
-        if (data.getIntersetRate() > 0)
-            myNewProspect.setPiRate(String.valueOf(data.getIntersetRate()));
-        else myNewProspect.setPiRate("");
-        myNewProspect.setInFdr(String.valueOf(data.getInterestIncomeOfFDR()));
-        myNewProspect.setEmiOther(String.valueOf(data.getEmiOfOtherLoan()));
-        myNewProspect.setWireHouseINcome(String.valueOf(data.getFactoryIncome()));
-        myNewProspect.setfExpense(String.valueOf(data.getFamilyExpenditure()));
-        myNewProspect.setBusinessIncomeAmount(String.valueOf(data.getBusinessIncome()));
-        myNewProspect.setOfficeSpaceINcome(String.valueOf(data.getCommercialSpaceIncome()));
-        myNewProspect.setApartmentAmount(String.valueOf(data.getApartmentIncome()));
+
+        myNewProspect.setAg_Income(MasumCommonUtils.isNotZero(data.getAgriculturalIncome()));
+        myNewProspect.setPiRate(MasumCommonUtils.isNotZero(data.getIntersetRate()));
+        myNewProspect.setInFdr(MasumCommonUtils.isNotZero(data.getInterestIncomeOfFDR()));
+        myNewProspect.setEmiOther(MasumCommonUtils.isNotZero(data.getEmiOfOtherLoan()));
+        myNewProspect.setWireHouseINcome(MasumCommonUtils.isNotZero(data.getFactoryIncome()));
+        myNewProspect.setfExpense(MasumCommonUtils.isNotZero(data.getFamilyExpenditure()));
+        myNewProspect.setBusinessIncomeAmount(MasumCommonUtils.isNotZero(data.getBusinessIncome()));
+        myNewProspect.setOfficeSpaceINcome(MasumCommonUtils.isNotZero(data.getCommercialSpaceIncome()));
+        myNewProspect.setApartmentAmount(MasumCommonUtils.isNotZero(data.getApartmentIncome()));
         myNewProspect.setAssetType(data.getAssetType());
         myNewProspect.setAssetTypeId(data.getAssetTypeId());
         myNewProspect.setApplicant(data.getRelationshipWithApplicant());
@@ -95,7 +90,7 @@ public class OldProspect {
         myNewProspect.setfName(data.getFatherName());
         myNewProspect.setmName(data.getMotherName());
         myNewProspect.setsName(data.getSpouseName());
-        myNewProspect.setProspectFee(String.valueOf(data.getFee()));
+        myNewProspect.setProspectFee(MasumCommonUtils.isNotZero(data.getFee()));
         myNewProspect.setRmCode(data.getRmCode());
         myNewProspect.setStatus(data.getStatus());
         myNewProspect.setSegment(data.getSegment());
@@ -109,16 +104,16 @@ public class OldProspect {
         myNewProspect.setPhone(data.getMobileNo());
         myNewProspect.setProfession(data.getProfession());
         myNewProspect.setDesignation(data.getDesignation());
-        myNewProspect.setLoanReq(String.valueOf(data.getLoanRequired()));
-        myNewProspect.setLoanTerm(String.valueOf(data.getLoanTerm()));
-        myNewProspect.setOpFee(String.valueOf(data.getFee()));
+        myNewProspect.setLoanReq(MasumCommonUtils.isNotZero(data.getLoanRequired()));
+        myNewProspect.setLoanTerm(MasumCommonUtils.isNotZero(data.getLoanTerm()));
+        myNewProspect.setOpFee(MasumCommonUtils.isNotZero(data.getFee()));
         myNewProspect.setManufacturingCountry(data.getManufacturingCountry());
         myNewProspect.setManufacturingName(data.getManufacturerName());
         myNewProspect.setManufacturingNameId(data.getManufacturerNameId());
         myNewProspect.setManufacturingYear(data.getManufacturingYear());
         myNewProspect.setMobileId(data.getMobileNoId());
         myNewProspect.setNetSalary(data.getNetSalaryType());
-        myNewProspect.setSalaryAmount(String.valueOf(data.getNetSalary()));
+        myNewProspect.setSalaryAmount(MasumCommonUtils.isNotZero(data.getNetSalary()));
         myNewProspect.setpIssueDate(CommonUtil.jsonToDate(data.getPhotoIdIssueDate()));
         myNewProspect.setpIdNumber(data.getPhotoIdNumber());
         myNewProspect.setpIDType(String.valueOf(data.getPhotoIdTypeCode()));
@@ -132,16 +127,16 @@ public class OldProspect {
         myNewProspect.setPermAddressCity(data.getPermanentAddressCity());
         myNewProspect.setPermAddressPs(data.getPermanentAddressPS());
         myNewProspect.setSourceRef(data.getRelationshipWithApplicant());
-        myNewProspect.setsValue(String.valueOf(data.getSecurityValue()));
-        myNewProspect.setOrInterest(String.valueOf(data.getIntersetRate()));
+        myNewProspect.setsValue(MasumCommonUtils.isNotZero(data.getSecurityValue()));
+        myNewProspect.setOrInterest(MasumCommonUtils.isNotZero(data.getIntersetRate()));
 
 //        myNewProspect.setRmCode(data.getRmCode());
 //        myNewProspect.setUserName(data.getUserName());
         myNewProspect.setEtin(data.getETin());
-        myNewProspect.setTution(String.valueOf(data.getTutionIncome()));
+        myNewProspect.setTution(MasumCommonUtils.isNotZero(data.getTutionIncome()));
         myNewProspect.setSegment(data.getSegment());
-        myNewProspect.setRemitance(String.valueOf(data.getRemittanceIncome()));
-        myNewProspect.setSemipakaIncome(String.valueOf(data.getSemipakaIncome()));
+        myNewProspect.setRemitance(MasumCommonUtils.isNotZero(data.getRemittanceIncome()));
+        myNewProspect.setSemipakaIncome(MasumCommonUtils.isNotZero(data.getSemipakaIncome()));
 
 
         List<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicantList = new ArrayList<>();
@@ -149,10 +144,10 @@ public class OldProspect {
 
             for (int i = 0; i < data.getCoApplicants().size(); i++) {
                 net.maxproit.salesforce.masum.model.local.CoApplicant coApplicant = new CoApplicant();
-                coApplicant.setMonthAgricultureIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getAgriculturalIncome()));
-                coApplicant.setMonthApartmentIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getApartmentIncome()));
-                coApplicant.setMonthBusinessIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getBusinessIncome()));
-                coApplicant.setMonthOfficeSpaceIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getCommercialSpaceIncome()));
+                coApplicant.setMonthAgricultureIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getAgriculturalIncome()));
+                coApplicant.setMonthApartmentIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getApartmentIncome()));
+                coApplicant.setMonthBusinessIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getBusinessIncome()));
+                coApplicant.setMonthOfficeSpaceIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getCommercialSpaceIncome()));
                 coApplicant.setCompanyName(data.getCoApplicants().get(i).getCompany());
                 coApplicant.setContactId(data.getCoApplicants().get(i).getContactId());
                 coApplicant.setCountryOfBirth(data.getCoApplicants().get(i).getCountryOfBirth());
@@ -163,12 +158,12 @@ public class OldProspect {
                 coApplicant.setDesignation(data.getCoApplicants().get(i).getDesignation());
                 coApplicant.setDistrictOfBirth(data.getCoApplicants().get(i).getDistrictOfBirth());
                 coApplicant.seteTin(data.getCoApplicants().get(i).getETin());
-                coApplicant.setMonthWareHouseAmount(String.valueOf(data.getCoApplicants().get(i).getFactoryIncome()));
+                coApplicant.setMonthWareHouseAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getFactoryIncome()));
                 coApplicant.setfName(data.getCoApplicants().get(i).getFatherName());
-                coApplicant.setInterestFDRIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getInterestIncomeOfFDR()));
+                coApplicant.setInterestFDRIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getInterestIncomeOfFDR()));
                 coApplicant.setMobileNo(data.getCoApplicants().get(i).getMobile());
                 coApplicant.setmName(data.getCoApplicants().get(i).getMotherName());
-                coApplicant.setMonthSalaryAmount(String.valueOf(data.getCoApplicants().get(i).getNetSalary()));
+                coApplicant.setMonthSalaryAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getNetSalary()));
                 coApplicant.setPermanentAddress(data.getCoApplicants().get(i).getPermanentAddress());
                 coApplicant.setPermanentAddressId(data.getCoApplicants().get(i).getPermanentAddressId());
                 coApplicant.setPresentAddressId(data.getCoApplicants().get(i).getPresentAddressId());
@@ -182,10 +177,10 @@ public class OldProspect {
                 coApplicant.setPhotoIdCode(data.getCoApplicants().get(i).getPhotoIdTypeCode());
                 coApplicant.setProfession(data.getCoApplicants().get(i).getProfession());
                 coApplicant.setRelationWithApplicant(data.getCoApplicants().get(i).getRelationshipWithApplicant());
-                coApplicant.setMonthSemipakaIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getSemipakaIncome()));
+                coApplicant.setMonthSemipakaIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getSemipakaIncome()));
                 coApplicant.setsName(data.getCoApplicants().get(i).getSpouseName());
-                coApplicant.setRemittance(String.valueOf(data.getCoApplicants().get(i).getRemittanceIncome()));
-                coApplicant.setMonthTuitionIncomeAmount(String.valueOf(data.getCoApplicants().get(i).getTutionIncome()));
+                coApplicant.setRemittance(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getRemittanceIncome()));
+                coApplicant.setMonthTuitionIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getTutionIncome()));
                 coApplicantList.add(coApplicant);
             }
 

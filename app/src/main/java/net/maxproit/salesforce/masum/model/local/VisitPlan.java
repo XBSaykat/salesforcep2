@@ -18,6 +18,7 @@ public class VisitPlan implements Serializable {
     private String synStatus;
     private int id,journalId;
     String followUpDate,followUpRemark;
+    private String MakerName;
 
     public VisitPlan(int id,int journalId, String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status,String synStatus ) {
 
@@ -103,7 +104,25 @@ public class VisitPlan implements Serializable {
         this.synStatus = synStatus;
     }
 
+    public String getMakerName() {
+        return MakerName;
+    }
 
+    public void setMakerName(String makerName) {
+        MakerName = makerName;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public void setDateOfVisit(String dateOfVisit) {
+        this.dateOfVisit = dateOfVisit;
+    }
 
     public int getJournalId() {
         return journalId;

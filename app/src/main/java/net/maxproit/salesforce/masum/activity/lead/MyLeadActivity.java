@@ -23,6 +23,7 @@ import net.maxproit.salesforce.masum.adapter.MyLeadAdapter;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.util.CommonUtil;
@@ -35,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyLeadActivity extends BaseActivity implements AdapterInfo{
+public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     private static final String TAG = "MyLeadActivity";
     public static final int APPROVED = 101;
 
@@ -220,11 +221,13 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo{
                                 Data data = response.body().getData();
                                 String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
                                 String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
+                                String loanAmount = MasumCommonUtils.isNotZero(data.getLoanAmount());
+                                String interestRate = MasumCommonUtils.isNotZero(data.getOfferedInterestRate());
+                                String opfee = MasumCommonUtils.isNotZero(data.getOfferedProcessFee());
                                 MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
                                         data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
                                         data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
-                                        data.getProductSubCategory(), String.valueOf(data.getLoanAmount()),
-                                        String.valueOf(data.getOfferedInterestRate()), String.valueOf(data.getOfferedProcessFee()), disDate,
+                                        data.getProductSubCategory(), loanAmount, interestRate, opfee, disDate,
                                         followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
                                 myNewLead.setPs(data.getPs());
                                 myNewLead.setCity(data.getCity());

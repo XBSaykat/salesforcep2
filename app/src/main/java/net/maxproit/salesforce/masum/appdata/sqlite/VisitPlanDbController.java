@@ -76,7 +76,7 @@ public class VisitPlanDbController {
         values.put(DbConstants.SYNC_STATUS, visitPlan.getSynStatus());
         // Insert the new row, returning the primary key value of the new row
         open();
-        int update = db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + visitPlan.getId(), null);
+        int update = db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants.VISIT_JOURNAL_ID + "=" + visitPlan.getJournalId(), null);
 
         close();
         return update;

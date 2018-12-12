@@ -963,17 +963,17 @@ public class NewProspectUpdate {
         setMotherName(myNewProspect.getmName());
         setNetSalaryType(myNewProspect.getNetSalary());
         setPermanentAddress(myNewProspect.getpAddress());
-        setPermanentAddressCity("");
+        setPermanentAddressCity(myNewProspect.getPermAddressCity());
         setPermanentAddressId(myNewProspect.getPermAddressId());
-        setPermanentAddressPS("");
+        setPermanentAddressPS(myNewProspect.getPermAddressPs());
         setSegment(myNewProspect.getSegment());
         setPhotoIdIssueDate(DateUtils.getDateFormateForSqlite(myNewProspect.getpIssueDate()));
         setPhotoIdNumber(myNewProspect.getpIdNumber());
         setPhotoIdTypeCode(Integer.valueOf(myNewProspect.getpIDType())); // issue
         setPresentAddress(myNewProspect.getAddress());
-        setPresentAddressCity("");
+        setPresentAddressCity(myNewProspect.getPresAddressCity());
         setPresentAddressId(myNewProspect.getPresAddressId());
-        setPresentAddressPS("");
+        setPresentAddressPS(myNewProspect.getPresAddressPs());
         setProduct(myNewProspect.getProductType());
         setProductId(myNewProspect.getProductCode());
         setProductSubCategory(myNewProspect.getProductSubcategory());

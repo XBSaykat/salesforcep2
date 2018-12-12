@@ -212,15 +212,15 @@ public class FragmentCurrentActivity extends BaseFragment {
                     String followupDate = null;
                     String activityDate = null;
                     if (data.getFollowupDate() != null) {
-                        activityDate = CommonUtil.jsonToDate(data.getFollowupDate());
+                        followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
                     }
                     if (data.getActivityDate() != null) {
-                        followupDate = CommonUtil.jsonToDate(data.getActivityDate());
+                        activityDate = CommonUtil.jsonToDate(data.getActivityDate());
                     }
                     VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
                             , data.getClientType(), data.getMobileNo(), data.getPs(),
                             data.getProductType(), data.getCity(), data.getVisitPurposeType(),
-                            activityDate, data.getRemarks(), data.getActivityStatus(), followupDate, data.getFollowupRemarks());
+                            activityDate, data.getRemarks(), data.getActivityStatus(), activityDate, data.getFollowupRemarks());
                     ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
 
                 }
@@ -256,9 +256,10 @@ public class FragmentCurrentActivity extends BaseFragment {
         if (!visitPlanList.isEmpty()) {
             visitPlanList.clear();
         }
-        initLoader();
-        showLoader();
+
         if (isNetworkAvailable()) {
+            initLoader();
+            showLoader();
             String random = UUID.randomUUID().toString();
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
                 @Override
@@ -300,11 +301,12 @@ public class FragmentCurrentActivity extends BaseFragment {
             MyActivityGetDataApi myActivityGetDataApi = new MyActivityGetDataApi();
             leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
             if (leadList.size() > 0) {
-                leadList.addAll(myDbController.getCurrentData(DateUtils.getDateString()));
                 visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(leadList));
                 myLeadAdapter.notifyDataSetChanged();
-                hideLoader();
-            } else showEmptyView();
+                //hideLoader();
+            } else {
+                // showEmptyView();
+            }
         }
     }
 

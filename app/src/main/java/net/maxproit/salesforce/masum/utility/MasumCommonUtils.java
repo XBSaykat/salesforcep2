@@ -16,6 +16,23 @@ public class MasumCommonUtils {
         return isnull;
     }
 
+    public static String isNotZero(int amount) {
+        String data = null;
+        if (amount > 0) {
+            data = String.valueOf(amount);
+        } else data = "";
+
+        return data;
+    }
+    public static String isNotZero(float amount) {
+        String data = null;
+        if (amount > 0) {
+            data = String.valueOf(amount);
+        } else data = "";
+
+        return data;
+    }
+
 
     public static String calcutateAge(long date) {
         Calendar dob = Calendar.getInstance();

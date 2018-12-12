@@ -76,6 +76,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     private LinearLayout secMobiile;
     private LocalSetting localSetting;
     private int itemPosition;
+    private String isVAlidText = null;
     private List<String> listClientType, listProductType, listPurpose, polishStationList;
     private ArrayAdapter<String> productTypeAdapter, cityAdapter;
     private LinearLayout mlayout, mLayoutCLientTypeField;
@@ -147,8 +148,14 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         tvMobileNumber.setText(visitPlanModel.getMobileNumber());
         tvCity.setText(visitPlanModel.getCity());
         tvPoliceStation.setText(visitPlanModel.getPoliceStation());
-        tvVisitDate.setText(DateUtils.getDateFormateEt(visitPlanModel.getDateOfVisit()));
-        tvRemarks.setText(visitPlanModel.getRemarks());
+
+        if (visitPlanModel.getFollowUpRemark() != null) {
+            tvRemarks.setText(visitPlanModel.getFollowUpRemark());
+            tvVisitDate.setText(DateUtils.getDateFormateEt(visitPlanModel.getFollowUpDate()));
+        } else {
+            tvRemarks.setText(visitPlanModel.getRemarks());
+            tvVisitDate.setText(DateUtils.getDateFormateEt(visitPlanModel.getDateOfVisit()));
+        }
 
 
         if (visitPlanModel.getProductType() != null/* && !visitPlanModel.getStatus().equals(AppConstant.STATUS_ACTIVITY_NEW)*/) {
@@ -337,7 +344,10 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         });
 
         tvProceedToLead.setOnClickListener(view -> {
-            alertDialogProceed();
+            if (isNetworkAvailable()) {
+                alertDialogProceed();
+            } else
+                showAlertDialog("Error", "Proceed is not available without internet,PLease connect to the internet");
 
         });
 
@@ -348,7 +358,16 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         });
 
         tvSave.setOnClickListener(view -> {
-            alertDialogSave();
+            if (isValidForProceed()) {
+                if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
+                        !TextUtils.isEmpty(etNewRemark.getText())) {
+                    alertDialogSave();
+                } else
+                    showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + "client & " + sPurposeOfVisitStr);
+
+            } else {
+                showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr+" client");
+            }
 
         });
 
@@ -381,7 +400,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         btnFollowUp.setOnClickListener(view -> {
             if (isNetworkAvailable())
                 followUpAlert();
-            else showAlertDialog("ERROR","internet is not connected,please connect to the internet");
+            else
+                showAlertDialog("ERROR", "internet is not connected,please connect to the internet");
 
 
         });
@@ -432,12 +452,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
         if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_NEW)) {
             upactivityData();
-        }
-        else if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_PROCESS)){
+        } else if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_PROCESS)) {
             upactivityData();
-        }
-
-        else {
+        } else {
             Data data = getDataFromField(0);
 
             if (isNetworkAvailable()) {
@@ -513,9 +530,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             visitPlanModel = (VisitPlan) extraDetail.getSerializable(AppConstant.INTENT_KEY);
             setAllData(visitPlanModel);
 
-           // followUpList.addAll(followUpDbController.getAllData(visitPlanModel.getId()));
+            // followUpList.addAll(followUpDbController.getAllData(visitPlanModel.getId()));
 
-            if (visitPlanModel.getFollowUpDate() !=null){
+            if (visitPlanModel.getFollowUpDate() != null) {
                 btnFollowUp.setVisibility(View.VISIBLE);
             }
 
@@ -549,7 +566,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             mLayoutCLientTypeField.setVisibility(View.GONE);
             btnFollowUp.setVisibility(View.GONE);
             layoutPurOfvisit.setVisibility(View.GONE);
-            layoutNewDate.setVisibility(View.GONE);
             tvRejected.setEnabled(false);
             lnCity.setVisibility(View.GONE);
             lnPStation.setVisibility(View.GONE);
@@ -559,9 +575,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
 
     private void upactivityData() {
-      /*  if (!isValidFollowUp()) {
+        if (!isValidFollowUp()) {
             return;
-        }*/
+        }
         Data data = getDataFromField(visitPlanModel.getJournalId());
         if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                 !TextUtils.isEmpty(etNewRemark.getText())) {
@@ -645,24 +661,68 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                 Toast.makeText(this, "update date", Toast.LENGTH_SHORT).show();
             }
         } else {
+            if (isNetworkAvailable()) {
+                getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
+                    @Override
+                    public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+                        if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                            Data data1 = response.body().getData();
+                            visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
+                                    data.getCustomerName(),
+                                    data.getClientType(),
+                                    data.getMobileNo(),
+                                    data.getPs(),
+                                    data.getProductType(),
+                                    data.getCity(),
+                                    data.getVisitPurposeType(),
+                                    data.getFollowupDate(),
+                                    data.getFollowupRemarks(),
+                                    data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
 
-            int update = visitPlanDbController.updateData(getPLanDataModel(
-                    visitPlanModel.getId(),
-                    data.getActivityJournalID(),
-                    data.getCustomerName(),
-                    data.getClientType(),
-                    data.getMobileNo(),
-                    data.getPs(),
-                    data.getProductType(),
-                    data.getCity(),
-                    data.getVisitPurposeType(),
-                    data.getFollowupDate(),
-                    data.getFollowupRemarks(),
-                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-            if (update > 0) {
-                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
-                Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
+                            Log.e("status", "save data into server and local" + response.body().getData().toString());
+                            finish();
+                        } else {
+                            visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
+                                    data.getCustomerName(),
+                                    data.getClientType(),
+                                    data.getMobileNo(),
+                                    data.getPs(),
+                                    data.getProductType(),
+                                    data.getCity(),
+                                    data.getVisitPurposeType(),
+                                    data.getFollowupDate(),
+                                    data.getFollowupRemarks(),
+                                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
+
+                            Log.e("status", "save data into local" + response.body().getData().toString());
+                            finish();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                        getAlertDialog("ERROR", t.getMessage());
+
+                    }
+                });
+            } else {
+                int update = visitPlanDbController.updateData(getPLanDataModel(
+                        visitPlanModel.getId(),
+                        data.getActivityJournalID(),
+                        data.getCustomerName(),
+                        data.getClientType(),
+                        data.getMobileNo(),
+                        data.getPs(),
+                        data.getProductType(),
+                        data.getCity(),
+                        data.getVisitPurposeType(),
+                        data.getFollowupDate(),
+                        data.getFollowupRemarks(),
+                        AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
+                finish();
             }
+
         }
     }
 
@@ -794,8 +854,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         rv.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         FollowUpActivityAdapter adapter = new FollowUpActivityAdapter(this, followUpList);
         rv.setAdapter(adapter);
-        if (isNetworkAvailable()){
-            getApiService().getFollowUpHistory(visitPlanModel.getJournalId(),random).enqueue(new Callback<FollowUpHistoryApi>() {
+        if (isNetworkAvailable()) {
+            getApiService().getFollowUpHistory(visitPlanModel.getJournalId(), random).enqueue(new Callback<FollowUpHistoryApi>() {
                 @Override
                 public void onResponse(Call<FollowUpHistoryApi> call, Response<FollowUpHistoryApi> response) {
                     followUpList.addAll(response.body().getData());
@@ -805,6 +865,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<FollowUpHistoryApi> call, Throwable t) {
+                    showAlertDialog("Error", t.getMessage());
 
                 }
             });
@@ -815,9 +876,26 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         dialog.show();
     }
 
+    private boolean isValidForProceed() {
+        boolean valid = true;
+        if (spinerClientTypeStr.equalsIgnoreCase(AppConstant.INDIVIDUAL)) {
+            if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
+                valid = true;
+            } else {
+                isVAlidText = "proceed is not valid for " + sPurposeOfVisitStr;
+                valid = false;
+            }
+        } else {
+            isVAlidText = "proceed is not valid for " + spinerClientTypeStr;
+            valid = false;
+        }
+
+        return valid;
+    }
+
 
     private void processToLeadDetails() {
-        if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
+        if (isValidForProceed()) {
 
             if (visitPlanModel != null) {
                 Data data = getDataFromField(visitPlanModel.getJournalId());
@@ -894,9 +972,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         data.getFollowupRemarks(),
                         AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT);
                 ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, visitPlan);
-            }
-
-            else {
+            } else {
                 Data data1 = getDataFromField(0);
 
                 if (isNetworkAvailable()) {
@@ -905,7 +981,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
                             if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                 Data data1 = response.body().getData();
-                               int insert= visitPlanDbController.insertData(data1.getActivityJournalID(), tvClientName.getText().toString(), spinerClientTypeStr,
+                                int insert = visitPlanDbController.insertData(data1.getActivityJournalID(), tvClientName.getText().toString(), spinerClientTypeStr,
                                         tvMobileNumber.getText().toString(), sProductTypeString,
                                         citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
                                         tvRemarks.getText().toString(), data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK);
@@ -960,7 +1036,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             }
 
         } else {
-            Toast.makeText(this, "Procedd is disable for " + sPurposeOfVisitStr, Toast.LENGTH_SHORT).show();
+            showAlertDialog("Alert", isVAlidText);
         }
 
     }

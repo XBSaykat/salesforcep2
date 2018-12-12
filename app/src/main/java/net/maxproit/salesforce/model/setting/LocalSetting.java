@@ -407,6 +407,8 @@ public class LocalSetting {
 
     }
 
+
+
     public List<String> getCityStringList() {
         List<String> list = new ArrayList<>();
         for (City in : getCity()) {
@@ -414,6 +416,19 @@ public class LocalSetting {
         }
         return list;
 
+    }
+
+    public List<String> getpsListByCityCode(int position) {
+        int code = 0;
+        List<String> list=new ArrayList<>();
+        for (int i = 0; i < getCity().size(); i++) {
+            if (i == position) {
+                code = getCity().get(i).getCityID();
+                list.addAll(getPseStringList(code));
+                break;
+            }
+        }
+        return list;
     }
 
 

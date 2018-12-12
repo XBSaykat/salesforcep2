@@ -29,6 +29,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
+import net.maxproit.salesforce.util.CommonUtil;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.text.ParseException;
@@ -53,7 +54,7 @@ public class FragmentUpComingList extends BaseFragment {
     LocalLogin localLogin;
     String username;
     private ArrayList<VisitPlan> leadList, filterList, visitPlanList;
-    private ArrayList<Datum> visitPlanApiList,visitPlanFilterApiList;
+    private ArrayList<Datum> visitPlanApiList, visitPlanFilterApiList;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -113,7 +114,7 @@ public class FragmentUpComingList extends BaseFragment {
         visitPlanFilterApiList = new ArrayList<>();
         myDbController = new VisitPlanDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
-        myActivitiesActivity= (MyActivitiesActivity) getActivity();
+        myActivitiesActivity = (MyActivitiesActivity) getActivity();
 
         rvMyActivity = rootView.findViewById(R.id.rv_my_activity);
         myLeadAdapter = new MyVisitPlanListAdapter(getActivity(), visitPlanApiList);
@@ -140,8 +141,8 @@ public class FragmentUpComingList extends BaseFragment {
 
     }
 
-    private void getData(){
-        if(isNetworkAvailable()) {
+    private void getData() {
+        if (isNetworkAvailable()) {
             String random = UUID.randomUUID().toString();
             //int journalId, String clientName, String clientType,
             // String mobileNumber, String prePoliceStation, String productType, String preCity, String purposeOfVisit,
@@ -172,11 +173,9 @@ public class FragmentUpComingList extends BaseFragment {
 
                 }
             });
-        }
-        else {
+        } else {
 
-            if (myDbController.getAllData().size()>0) {
-
+            if (myDbController.getAllData().size() > 0) {
                 leadList.addAll(myDbController.getPlanData());
                 MyActivityGetDataApi myVisitPlanGetApi = new MyActivityGetDataApi();
                 for (int i = 0; i < leadList.size(); i++) {
@@ -194,6 +193,7 @@ public class FragmentUpComingList extends BaseFragment {
 
         }
     }
+
     private ArrayList<Datum> getFilterData(ArrayList<Datum> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
@@ -203,7 +203,7 @@ public class FragmentUpComingList extends BaseFragment {
             final String type = model.getClientType().toLowerCase();
             final String name = model.getClientName().toLowerCase();
 
-            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey)  ) {
+            if (uName.contains(searchKey) || type.contains(searchKey) || name.contains(searchKey)) {
                 filteredModelList.add(model);
             }
         }
@@ -236,8 +236,8 @@ public class FragmentUpComingList extends BaseFragment {
 
     }
 
-    public void beginSearching(String s){
-        visitPlanFilterApiList= getFilterData(visitPlanApiList,s);
+    public void beginSearching(String s) {
+        visitPlanFilterApiList = getFilterData(visitPlanApiList, s);
         myLeadAdapter.setFilter(visitPlanFilterApiList);
     }
 
@@ -272,27 +272,35 @@ public class FragmentUpComingList extends BaseFragment {
                 @Override
                 public void onResponse(Call<MyActivityGetByJournalIdApi> call, Response<MyActivityGetByJournalIdApi> response) {
                     Data data = response.body().getData();
+                    String followupDate = null;
+                    String activityDate = null;
+                    if (data.getFollowupDate() != null) {
+                        followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
+                    }
+                    if (data.getActivityDate() != null) {
+                        activityDate = CommonUtil.jsonToDate(data.getActivityDate());
+                    }
                     VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
                             , data.getClientType(), data.getMobileNo(), data.getPs(),
                             data.getProductType(), data.getCity(), data.getVisitPurposeType(),
-                            data.getActivityDate(), data.getRemarks(), data.getActivityStatus(), data.getFollowupDate(), data.getFollowupRemarks());
+                            activityDate, data.getRemarks(), data.getActivityStatus(), followupDate, data.getFollowupRemarks());
+
                     ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
 
                 }
 
                 @Override
                 public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
+                    showAlertDialog("Error", t.getMessage());
 
                 }
             });
-        }
-        else {
+        } else {
             int id = visitPlanFilterApiList.get(position).getId();
             VisitPlan visitPlan = myDbController.getAllData(id).get(0);
             ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
         }
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event
