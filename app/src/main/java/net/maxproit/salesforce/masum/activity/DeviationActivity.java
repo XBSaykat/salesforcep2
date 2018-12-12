@@ -274,7 +274,7 @@ public class DeviationActivity extends BaseActivity {
 
         deviationDetail.setBranch(localCash().getString(SharedPreferencesEnum.Key.USER_BRANCH));
         deviationDetail.setApprovalTier(binding.etApproverTier.getText().toString());
-        deviationDetail.setApprovalTier(binding.etRemark.getText().toString());
+        deviationDetail.setRemark(binding.etRemark.getText().toString());
 
 
 

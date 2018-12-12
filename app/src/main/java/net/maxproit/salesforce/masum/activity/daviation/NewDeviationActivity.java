@@ -98,7 +98,7 @@ public class NewDeviationActivity extends BaseActivity {
 
 
         postDeviation.setRemark("");
-        postDeviation.setMakerName(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
+        postDeviation.setBranch(localCash().getString(SharedPreferencesEnum.Key.USER_BRANCH));
         postDeviation.setDeviationDetails(list);
 
         showProgressDialog();
@@ -130,10 +130,8 @@ public class NewDeviationActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String d = localCash().getString(SharedPreferencesEnum.Key.DAVIATION_LIST);
-
-
         if (!StringUtils.isEmpty(d)) {
-            DeviationDetail deviationDetail =  new GsonBuilder().serializeNulls().create().fromJson(d,DeviationDetail.class);
+            DeviationDetail deviationDetail =  new GsonBuilder().serializeNulls().create().fromJson(d, DeviationDetail.class);
             list.add(deviationDetail);
             Log.d(TAG, "onActivityResult: ---------"+list.size());
         }
