@@ -25,7 +25,7 @@
             android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginStart="@dimen/size_8dp"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="Deviation category :"
+            android:text="Exception area :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deviation Heads :"
+            android:text="Exception parameter :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/id"
             app:layout_constraintTop_toTopOf="@+id/tvName" />
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:text="Current Value :"
+            android:text="Risk category :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView24" />
@@ -87,6 +87,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:text="@{model.deviationHead.riskCategory}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView23"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
@@ -97,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:text="Proposed Value :"
+            android:text="Approver tier :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView26" />
@@ -111,6 +112,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:text="@{model.approvalTier}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView25"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
@@ -121,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:text="Remark :"
+            android:text="Justification :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView28" />
@@ -136,7 +138,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{model.remark}"
+            android:text="@{model.deviationJustification.justification}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView27"
