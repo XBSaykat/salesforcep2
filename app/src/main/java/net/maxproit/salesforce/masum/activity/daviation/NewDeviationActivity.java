@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation;
+package net.maxproit.salesforce.masum.activity.daviation;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,12 +14,11 @@ import com.google.gson.GsonBuilder;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityNewDeviationBinding;
-import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.DeviationActivity;
-import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation.adapter.NewDaviationAdapter;
-import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.DeviationDetail;
-import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.PostDeviation;
-import net.maxproit.salesforce.model.deviation.post.DeviationPost;
-import net.maxproit.salesforce.model.deviation.postresponce.DaviationPostResponce;
+import net.maxproit.salesforce.masum.activity.DeviationActivity;
+import net.maxproit.salesforce.masum.activity.daviation.adapter.NewDaviationAdapter;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationDetail;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.PostDeviation;
+import net.maxproit.salesforce.masum.model.api.deviation.deviationresponse.DeviationPostRespose;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import org.apache.commons.lang3.StringUtils;
@@ -99,16 +98,16 @@ public class NewDeviationActivity extends BaseActivity {
 
 
         postDeviation.setRemark("");
-        postDeviation.setMakerName(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
+        postDeviation.setBranch(localCash().getString(SharedPreferencesEnum.Key.USER_BRANCH));
         postDeviation.setDeviationDetails(list);
 
         showProgressDialog();
 
 
         Log.d(TAG, "nextRequest: "+toJson(postDeviation));
-        getApiService().postDeviationData(postDeviation).enqueue(new Callback<DaviationPostResponce>() {
+        getApiService().postDeviationData(postDeviation).enqueue(new Callback<DeviationPostRespose>() {
             @Override
-            public void onResponse(Call<DaviationPostResponce> call, Response<DaviationPostResponce> response) {
+            public void onResponse(Call<DeviationPostRespose> call, Response<DeviationPostRespose> response) {
                 hideProgressDialog();
                 if (response.isSuccessful()) {
                     finish();
@@ -118,7 +117,7 @@ public class NewDeviationActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<DaviationPostResponce> call, Throwable t) {
+            public void onFailure(Call<DeviationPostRespose> call, Throwable t) {
                 hideProgressDialog();
                 showToast(" Failed");
 
@@ -131,10 +130,8 @@ public class NewDeviationActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String d = localCash().getString(SharedPreferencesEnum.Key.DAVIATION_LIST);
-
-
         if (!StringUtils.isEmpty(d)) {
-            DeviationDetail deviationDetail =  new GsonBuilder().serializeNulls().create().fromJson(d,DeviationDetail.class);
+            DeviationDetail deviationDetail =  new GsonBuilder().serializeNulls().create().fromJson(d, DeviationDetail.class);
             list.add(deviationDetail);
             Log.d(TAG, "onActivityResult: ---------"+list.size());
         }

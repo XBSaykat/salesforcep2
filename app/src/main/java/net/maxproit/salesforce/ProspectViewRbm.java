@@ -17,10 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.login.LoginActivity;
-import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation.DaviationListActivity;
-import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
-import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanActivity;
-import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
+import net.maxproit.salesforce.masum.activity.daviation.DaviationListActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;

@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.model.api.Deviation.querydeviationpropertyresponce;
+package net.maxproit.salesforce.masum.model.api.deviation.querydeviationpropertyresponce;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

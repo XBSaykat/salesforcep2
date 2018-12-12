@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.model.api.Deviation.querydeviationpropertyresponce;
+package net.maxproit.salesforce.masum.model.api.deviation.queryapprovaltierfordeviation;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Md. Mehedi Hasan on 12/11/2018.
  * mehedipy@gmail.com
  */
-public class QueryDeviationPropertyResponce {
+public class QueryApprovalTier {
     @SerializedName("status")
     @Expose
     private String status;
@@ -54,4 +54,5 @@ public class QueryDeviationPropertyResponce {
     public void setData(List<Data> data) {
         this.data = data;
     }
+
 }

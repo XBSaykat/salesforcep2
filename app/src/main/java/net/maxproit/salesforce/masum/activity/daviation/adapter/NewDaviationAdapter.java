@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation.adapter;
+package net.maxproit.salesforce.masum.activity.daviation.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import net.maxproit.salesforce.R;
-import net.maxproit.salesforce.databinding.DaviationRequestRowBinding;
-import net.maxproit.salesforce.model.deviation.getlist.Daviation;
+import net.maxproit.salesforce.databinding.NewDaviationRequestRowBinding;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationDetail;
 import net.maxproit.salesforce.model.login.LocalLogin;
 
 import java.util.List;
@@ -17,11 +17,11 @@ import java.util.List;
  * Created by Rezwan Khan chowdhury on 6/29/18.
  * heyRezwan@gmail.com
  */
-public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.ViewFilesHolder> {
+public class NewDaviationAdapter extends RecyclerView.Adapter<NewDaviationAdapter.ViewFilesHolder> {
     private static final String TAG = "MyLeadAdapter";
     LocalLogin localLogin;
     private Context context;
-    private List<Daviation> list;
+    private List<DeviationDetail> list;
     private LayoutInflater layoutInflater;
     private String referrenceid;
 
@@ -32,7 +32,7 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
      * @param context the context calling this adapter
      * @param dataList array list containing path of files
      */
-    public DaviationAdapter(Context context, List<Daviation> dataList, String referrenceid) {
+    public NewDaviationAdapter(Context context, List<DeviationDetail> dataList, String referrenceid) {
         this.context = context;
         this.list = dataList;
         localLogin = new LocalLogin(context);
@@ -47,8 +47,8 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
-        DaviationRequestRowBinding binding =
-                DataBindingUtil.inflate(layoutInflater, R.layout.daviation_request_row, parent, false);
+        NewDaviationRequestRowBinding binding =
+                DataBindingUtil.inflate(layoutInflater, R.layout.new_daviation_request_row, parent, false);
         return new ViewFilesHolder(binding);
 
 
@@ -57,8 +57,6 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
     @Override
     public void onBindViewHolder(ViewFilesHolder holder, int position) {
         holder.binding.setModel(list.get(position));
-
-
     }
 
 
@@ -75,9 +73,9 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
 
     public class ViewFilesHolder extends RecyclerView.ViewHolder {
 
-        private final DaviationRequestRowBinding binding;
+        private final NewDaviationRequestRowBinding binding;
 
-        public ViewFilesHolder(final DaviationRequestRowBinding itemBinding) {
+        public ViewFilesHolder(final NewDaviationRequestRowBinding itemBinding) {
             super(itemBinding.getRoot());
             this.binding = itemBinding;
         }
