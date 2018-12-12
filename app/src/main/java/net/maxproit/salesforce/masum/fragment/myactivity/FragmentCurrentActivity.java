@@ -212,15 +212,15 @@ public class FragmentCurrentActivity extends BaseFragment {
                     String followupDate = null;
                     String activityDate = null;
                     if (data.getFollowupDate() != null) {
-                        activityDate = CommonUtil.jsonToDate(data.getFollowupDate());
+                        followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
                     }
                     if (data.getActivityDate() != null) {
-                        followupDate = CommonUtil.jsonToDate(data.getActivityDate());
+                        activityDate = CommonUtil.jsonToDate(data.getActivityDate());
                     }
                     VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
                             , data.getClientType(), data.getMobileNo(), data.getPs(),
                             data.getProductType(), data.getCity(), data.getVisitPurposeType(),
-                            activityDate, data.getRemarks(), data.getActivityStatus(), followupDate, data.getFollowupRemarks());
+                            activityDate, data.getRemarks(), data.getActivityStatus(), activityDate, data.getFollowupRemarks());
                     ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
 
                 }

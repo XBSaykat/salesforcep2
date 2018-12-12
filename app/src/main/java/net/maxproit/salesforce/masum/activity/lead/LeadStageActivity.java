@@ -199,7 +199,11 @@ public class LeadStageActivity extends BaseActivity {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialogProceed(finalMyNewLead);
+                if (isNetworkAvailable())
+                    alertDialogProceed(finalMyNewLead);
+                else
+                    showAlertDialog("Error", "Proceed is not available without internet,PLease connect to the internet");
+
             }
         });
 
