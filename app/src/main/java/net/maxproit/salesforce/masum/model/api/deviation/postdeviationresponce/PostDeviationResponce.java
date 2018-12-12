@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.model.api.Deviation.postdeviationresponce;
+package net.maxproit.salesforce.masum.model.api.deviation.postdeviationresponce;
 
 /**
  * Created by Md. Mehedi Hasan on 12/11/2018.

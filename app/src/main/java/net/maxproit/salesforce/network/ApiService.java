@@ -1,9 +1,11 @@
 package net.maxproit.salesforce.network;
 
 
-import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.PostDeviation;
-import net.maxproit.salesforce.masum.model.api.Deviation.queryapprovaltierfordeviation.QueryApprovalTier;
-import net.maxproit.salesforce.masum.model.api.Deviation.querydeviationpropertyresponce.QueryDeviationPropertyResponce;
+import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationResponse;
+import net.maxproit.salesforce.masum.model.api.deviation.deviationresponse.DeviationPostRespose;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.PostDeviation;
+import net.maxproit.salesforce.masum.model.api.deviation.queryapprovaltierfordeviation.QueryApprovalTier;
+import net.maxproit.salesforce.masum.model.api.deviation.querydeviationpropertyresponce.QueryDeviationPropertyResponce;
 import net.maxproit.salesforce.masum.model.api.file.GetDocument;
 import net.maxproit.salesforce.masum.model.api.followup.FollowUpHistoryApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
@@ -30,8 +32,6 @@ import net.maxproit.salesforce.model.cif.postResponce.CifPostResponce;
 import net.maxproit.salesforce.model.cif.requestedCIf.RequestedCIfData;
 import net.maxproit.salesforce.model.deviation.DeviationEntities;
 import net.maxproit.salesforce.model.deviation.getlist.Daviationlist;
-import net.maxproit.salesforce.model.deviation.head.DevAccountHeadEntities;
-import net.maxproit.salesforce.model.deviation.post.DeviationPost;
 import net.maxproit.salesforce.model.deviation.postresponce.DaviationPostResponce;
 import net.maxproit.salesforce.model.folowup.FollowupList;
 import net.maxproit.salesforce.model.login.Login;
@@ -273,8 +273,12 @@ public interface ApiService {
     // CIB Request--------------------------------
 
 
-    @GET("Deviation/{id}/{random}")
-    Call<Daviationlist> daviationRequestById(@Path("id") String id, @Path("random") String random);
+//    @GET("Deviation/{id}/{random}")
+//    Call<Daviationlist> daviationRequestById(@Path("id") String id, @Path("random") String random);
+//
+
+   @GET("Deviation/{id}/{random}")
+    Call<DeviationResponse> daviationRequestById(@Path("id") String id, @Path("random") String random);
 
 
 
@@ -291,11 +295,11 @@ public interface ApiService {
 //    Call<DevAccountHeadEntities> deviationHeadById(@Path("id") String id);
 
     @GET("Deviation/DeviationAccHeads/{deviationCatId}/{timestamp}")
-    Call<net.maxproit.salesforce.masum.model.api.Deviation.deviationaccounthead.DevAccountHeadEntities> deviationHeadById(@Path("deviationCatId") String deviationCatId,
+    Call<net.maxproit.salesforce.masum.model.api.deviation.deviationaccounthead.DevAccountHeadEntities> deviationHeadById(@Path("deviationCatId") String deviationCatId,
                                                                                                                           @Path("timestamp") String timestamp);
 
     @POST("Deviation/DeviationRequest")
-    Call<DaviationPostResponce> postDeviationData(@Body PostDeviation postDeviation);
+    Call<DeviationPostRespose> postDeviationData(@Body PostDeviation postDeviation);
 
 
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.databinding.DaviationRequestRowBinding;
+import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationList;
 import net.maxproit.salesforce.model.deviation.getlist.Daviation;
 import net.maxproit.salesforce.model.login.LocalLogin;
 
@@ -21,7 +22,7 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
     private static final String TAG = "MyLeadAdapter";
     LocalLogin localLogin;
     private Context context;
-    private List<Daviation> list;
+    private List<DeviationList> list;
     private LayoutInflater layoutInflater;
     private String referrenceid;
 
@@ -32,7 +33,7 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
      * @param context the context calling this adapter
      * @param dataList array list containing path of files
      */
-    public DaviationAdapter(Context context, List<Daviation> dataList, String referrenceid) {
+    public DaviationAdapter(Context context, List<DeviationList> dataList, String referrenceid) {
         this.context = context;
         this.list = dataList;
         localLogin = new LocalLogin(context);

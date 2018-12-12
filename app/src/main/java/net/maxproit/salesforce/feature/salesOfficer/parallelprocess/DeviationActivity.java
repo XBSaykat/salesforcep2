@@ -10,21 +10,20 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDeviationBinding;
 import net.maxproit.salesforce.feature.supervisor.adapter.UtilSpinner;
-import net.maxproit.salesforce.masum.model.api.Deviation.deviationaccounthead.Data;
-import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.DeviationDetail;
-import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.DeviationHead;
-import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.DeviationJustification;
-import net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.PostDeviation;
-import net.maxproit.salesforce.masum.model.api.Deviation.queryapprovaltierfordeviation.QueryApprovalTier;
-import net.maxproit.salesforce.masum.model.api.Deviation.querydeviationpropertyresponce.QueryDeviationPropertyResponce;
-import net.maxproit.salesforce.masum.model.api.Deviation.deviationaccounthead.DevAccountHeadEntities;
+import net.maxproit.salesforce.masum.model.api.deviation.deviationaccounthead.Data;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationDetail;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationHead;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationJustification;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.PostDeviation;
+import net.maxproit.salesforce.masum.model.api.deviation.queryapprovaltierfordeviation.QueryApprovalTier;
+import net.maxproit.salesforce.masum.model.api.deviation.querydeviationpropertyresponce.QueryDeviationPropertyResponce;
+import net.maxproit.salesforce.masum.model.api.deviation.deviationaccounthead.DevAccountHeadEntities;
 import net.maxproit.salesforce.model.setting.DeviationCategory;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.model.setting.LstDeviationJustification;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -172,7 +171,7 @@ public class DeviationActivity extends BaseActivity {
     }
 
     private void callQueryDeviationPropertyApi() {
-        showProgressDialog();
+
         getApiService().queryDeviationProperty(""+referrenceid, UUID.randomUUID().toString()).enqueue(new Callback<QueryDeviationPropertyResponce>() {
             @Override
             public void onResponse(Call<QueryDeviationPropertyResponce> call, Response<QueryDeviationPropertyResponce> response) {
@@ -192,19 +191,19 @@ public class DeviationActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<QueryDeviationPropertyResponce> call, Throwable t) {
-                hideProgressDialog();
+
             }
         });
     }
 
     private void callQueryApprovalTierForDeviation() {
-        showProgressDialog();
+
     getApiService().queryforApprovalTier(""+referrenceid, ""+riskCat, UUID.randomUUID().toString()).enqueue(new Callback<QueryApprovalTier>() {
         @Override
         public void onResponse(Call<QueryApprovalTier> call, Response<QueryApprovalTier> response) {
             if (response.isSuccessful()){
                 if (response.body().getCode().equals("200")){
-                    hideProgressDialog();
+
                     String approvalTier = response.body().getData().get(0).getApprovalTier();
                     binding.etApproverTier.setText(approvalTier);
                     loadJustificationSpinner();
@@ -226,17 +225,21 @@ public class DeviationActivity extends BaseActivity {
         justificationAdapter = new UtilSpinner(DeviationActivity.this, justifiList);
         binding.spJustification.setEnabled(true);
         binding.spJustification.setAdapter(justificationAdapter);
-        binding.spJustification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.spJustification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 binding.spJustification.setSelection(position);
                 if (justifiList.get(position) != null){
                     justification = justificationList.get(position).getJustification();
                     justificationId = justificationList.get(position).getJustificationID();
-
-
                 }
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
         });
     }
 
@@ -247,7 +250,7 @@ public class DeviationActivity extends BaseActivity {
         DeviationDetail deviationDetail = new DeviationDetail();
         DeviationJustification deviationJustification = new DeviationJustification();
         DeviationHead deviationHead = new DeviationHead();
-        net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.DeviationCategory deviationCategory = new net.maxproit.salesforce.masum.model.api.Deviation.postdeviation.DeviationCategory();
+        net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationCategory deviationCategory = new net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationCategory();
 
         postDeviation.setProspectReferenceNo(referrenceid);
         postDeviation.setDeviationSetID(0);
