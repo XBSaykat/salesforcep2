@@ -87,7 +87,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     public static EditText etName, etDob, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
-
+    public EditText etProductCat;
     public static String productCat, productSub, branchName, branchCode = null, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
@@ -150,7 +150,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
         etDob = view.findViewById(R.id.input_date_of_birth);
-
+        etProductCat = view.findViewById(R.id.et_product_cat);
         tvPhotoIdNo = view.findViewById(R.id.tv_photo_id_no);
         llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
 
@@ -624,11 +624,13 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
                 try {
                     spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
-                    spinnerProductCat.setEnabled(false);
-
                 } catch (final IllegalStateException ignored) {
-
                 }
+                etProductCat.setText(myNewLead.getProductType());
+                etProductCat.setVisibility(View.VISIBLE);
+            } else {
+                spinnerProductCat.setVisibility(View.VISIBLE);
+                etProductCat.setVisibility(View.GONE);
             }
 
 
@@ -652,7 +654,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 if (!MasumCommonUtils.isNullStr(myNewLead.getProductSubcategory())) {
                     productSub = myNewLead.getProductSubcategory();
-
                     try {
                         spinnerSub.setSelection(productSubAdapter.getPosition(myNewLead.getProductSubcategory()));
                     } catch (IllegalStateException e) {

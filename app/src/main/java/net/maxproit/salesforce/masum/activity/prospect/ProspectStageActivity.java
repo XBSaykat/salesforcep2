@@ -71,7 +71,7 @@ public class ProspectStageActivity extends BaseActivity {
             relationship = null, name = null, age = null, photoId = null, photoIdDate = null, eTin = null, fatherName = null, motherName = null, spouseName = null,
             companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null;
     String brandName = null, year = null, country = null, vehicleType = null, securityValue = null, loanRequired = null, loanTerm = null, proposedInterest = null,
-            fee = null, dateOfBirth = null, photoIdType = null;
+            fee = null, dateOfBirth = null, photoIdType = null, presentCity = null, presentPs = null, permanentCity = null, permanentPs = null;
     String rmCode, monthlyNetSalaryType = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
             officeIncome = null, wireHouseIncome = null, apartmentIncome = null, agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
             monthlyFamilyExpenditure = null, emiOfOtherLoans = null;
@@ -226,6 +226,11 @@ public class ProspectStageActivity extends BaseActivity {
         presentAddress = ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
         permanentAddress = ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
         mobileNumber = ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
+        presentCity = ProspectStageProductAndCustomerDetailsFragment.preCity;
+        presentPs = ProspectStageProductAndCustomerDetailsFragment.prePoliceStation;
+        permanentCity = ProspectStageProductAndCustomerDetailsFragment.perCity;
+        permanentPs = ProspectStageProductAndCustomerDetailsFragment.perPoliceStation;
+
 
         brandName = ProspectStageLoanAndSecurityDetailFragment.brandName;
         year = ProspectStageLoanAndSecurityDetailFragment.year;
@@ -237,7 +242,6 @@ public class ProspectStageActivity extends BaseActivity {
         loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanTerm.getText().toString();
         proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
         fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
-
         NewProspectUpdate updateProspect = new NewProspectUpdate();
 
 
@@ -427,9 +431,14 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setCusId(getDataFromProspect().getCusId());
                 myNewProspect.setMobileId(getDataFromProspect().getMobileId());
                 myNewProspect.setAssetTypeId(getDataFromProspect().getAssetTypeId());
-                myNewProspect.setAddressId(getDataFromProspect().getAddressId());
+                myNewProspect.setPresAddressId(getDataFromProspect().getPresAddressId());
+                myNewProspect.setPermAddressId(getDataFromProspect().getPermAddressId());
                 myNewProspect.setUserID(getDataFromProspect().getUserID());
                 myNewProspect.setSubCode(producSubCode);
+                myNewProspect.setPresAddressCity(presentCity);
+                myNewProspect.setPresAddressPs(presentPs);
+                myNewProspect.setPermAddressCity(permanentCity);
+                myNewProspect.setPermAddressPs(permanentPs);
 
 
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();

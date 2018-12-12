@@ -362,9 +362,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                         !TextUtils.isEmpty(etNewRemark.getText())) {
                     alertDialogSave();
-                }
+                } else
+                    showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + "client & " + sPurposeOfVisitStr);
+
             } else {
-                showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + "client &" + sPurposeOfVisitStr);
+                showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr+" client");
             }
 
         });

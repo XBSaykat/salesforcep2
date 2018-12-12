@@ -52,15 +52,15 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private AwesomeSpinner spinnerBranchName, spinnerProfession, spinnerCity, spinnerPoliceStation;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession = "", branchName = "", branchCode = "", city="", policeStation="";
-    private List<String> listBranchArray = null;
+    public static String profession = "", branchName = "", branchCode = "", city = "", policeStation = "";
+    private List<String> listPs = null;
     private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
     public CheckBox cbExist;
     public TextView etChif;
     public LinearLayout liChif;
     private LocalSetting mLocalSettting;
-
+    private ArrayAdapter<String> polishStationAdapter;
     public static final int SERCH_CODE = 500;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -110,14 +110,12 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        mLocalSettting = new LocalSetting(getActivity());
+        listPs = new ArrayList<>();
         View rootView = null;
         rootView = inflater.inflate(R.layout.fragment_lead_stage_basic_information, container, false);
-
         initView(rootView);
         initListener();
-
-
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -155,8 +153,10 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
                 city = s;
-
-
+                if (!listPs.isEmpty())
+                    listPs.clear();
+                listPs.addAll(mLocalSettting.getpsListByCityCode(i));
+                polishStationAdapter.notifyDataSetChanged();
             }
 
         });
@@ -173,7 +173,6 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     private void initView(View rootView) {
 
         spinnerDbController = new SpinnerDbController(getActivity());
-        mLocalSettting = new LocalSetting(getActivity());
         spinnerCity = rootView.findViewById(R.id.awe_spinner_visit_plan_city);
         spinnerPoliceStation = rootView.findViewById(R.id.awe_spinner_visit_plan_police_station);
         spinnerBranchName = rootView.findViewById(R.id.awe_spinner_lead_branch_name);
@@ -252,7 +251,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
         ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> polishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getPseStringList());
+        polishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPs);
         spinnerPoliceStation.setAdapter(polishStationAdapter);
 
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getCityStringList());
@@ -265,11 +264,20 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                 if (visitPlan != null) {
                     etUserName.setText(visitPlan.getClientName());
                     etPhone.setText(visitPlan.getMobileNumber());
-                    try {
-                        spinnerCity.setSelection(cityAdapter.getPosition(visitPlan.getCity()));
-                    } catch (IllegalStateException i) {
+                    if (!MasumCommonUtils.isNullStr(visitPlan.getCity())) {
+                        try {
+                            spinnerCity.setSelection(cityAdapter.getPosition(visitPlan.getCity()));
+                        } catch (IllegalStateException i) {
 
+                        }
+
+
+                        if (!listPs.isEmpty())
+                            listPs.clear();
+                        listPs.addAll(mLocalSettting.getpsListByCityCode(spinnerCity.getSelectedItemPosition()));
+                        polishStationAdapter.notifyDataSetChanged();
                     }
+
                     try {
                         spinnerPoliceStation.setSelection(polishStationAdapter.getPosition(visitPlan.getPoliceStation()));
                     } catch (IllegalStateException i) {
@@ -304,6 +312,12 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                             spinnerCity.setSelection(cityAdapter.getPosition(myNewLead.getCity()));
                         } catch (final IllegalStateException ignored) {
                         }
+
+
+                        if (!listPs.isEmpty())
+                            listPs.clear();
+                        listPs.addAll(mLocalSettting.getpsListByCityCode(spinnerCity.getSelectedItemPosition()));
+                        polishStationAdapter.notifyDataSetChanged();
                     }
 
                     if (!MasumCommonUtils.isNullStr(myNewLead.getPs())) {
