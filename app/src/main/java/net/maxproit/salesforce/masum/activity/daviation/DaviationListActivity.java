@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation;
+package net.maxproit.salesforce.masum.activity.daviation;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,12 +12,10 @@ import android.view.MenuItem;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityDaviationListBinding;
-import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation.adapter.DaviationAdapter;
+import net.maxproit.salesforce.masum.activity.daviation.adapter.DaviationAdapter;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationList;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationResponse;
-import net.maxproit.salesforce.model.deviation.getlist.Daviation;
-import net.maxproit.salesforce.model.deviation.getlist.Daviationlist;
 
 import java.util.ArrayList;
 import java.util.List;

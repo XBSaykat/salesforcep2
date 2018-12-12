@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation;
+package net.maxproit.salesforce.masum.activity.daviation;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import com.google.gson.GsonBuilder;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityNewDeviationBinding;
-import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.DeviationActivity;
-import net.maxproit.salesforce.feature.salesOfficer.parallelprocess.daviation.adapter.NewDaviationAdapter;
+import net.maxproit.salesforce.masum.activity.DeviationActivity;
+import net.maxproit.salesforce.masum.activity.daviation.adapter.NewDaviationAdapter;
 import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationDetail;
 import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.PostDeviation;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationresponse.DeviationPostRespose;

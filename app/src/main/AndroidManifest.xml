@@ -73,7 +73,7 @@
         <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceSanctionActivity" />
         <activity android:name=".feature.salesOfficer.myPerfomance.MyPerformanceVisitsActivity" />
         <activity
-            android:name=".feature.salesOfficer.parallelprocess.DeviationActivity"
+            android:name=".masum.activity.DeviationActivity"
             android:label="Deviation Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth" />
         <activity android:name=".feature.virifier.VirifierListActivity" />
@@ -88,7 +88,7 @@
             android:label="Cif Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity android:name=".feature.upload.UploadProspectActivity" />
-        <activity android:name=".feature.salesOfficer.parallelprocess.daviation.DaviationListActivity" />
+        <activity android:name=".masum.activity.daviation.DaviationListActivity" />
         <activity android:name=".feature.supervisor.prospectview.ProspectViewActivity" />
 
 
@@ -106,7 +106,7 @@
             android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementsActivity"
             android:theme="@style/AppThemeDialog" />
         <activity android:name=".feature.dashboard.supervisor.MainDashboardSupervisorActivity" />
-        <activity android:name=".feature.salesOfficer.parallelprocess.daviation.NewDeviationActivity" />
+        <activity android:name=".masum.activity.daviation.NewDeviationActivity" />
         <activity android:name=".feature.supervisor.SupervisorFollowUpActivity" />
         <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />

@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.feature.salesOfficer.parallelprocess;
+package net.maxproit.salesforce.masum.activity;
 
 import android.app.Activity;
 import android.util.Log;
@@ -273,8 +273,8 @@ public class DeviationActivity extends BaseActivity {
         deviationDetail.setDeviationJustification(deviationJustification);
 
         deviationDetail.setBranch(localCash().getString(SharedPreferencesEnum.Key.USER_BRANCH));
-        deviationDetail.setApprovalTier(binding.etApproverTier.toString());
-        deviationDetail.setApprovalTier(binding.etRemark.toString());
+        deviationDetail.setApprovalTier(binding.etApproverTier.getText().toString());
+        deviationDetail.setApprovalTier(binding.etRemark.getText().toString());
 
 
 
