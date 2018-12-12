@@ -76,6 +76,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     private LinearLayout secMobiile;
     private LocalSetting localSetting;
     private int itemPosition;
+    private String isVAlidText = null;
     private List<String> listClientType, listProductType, listPurpose, polishStationList;
     private ArrayAdapter<String> productTypeAdapter, cityAdapter;
     private LinearLayout mlayout, mLayoutCLientTypeField;
@@ -823,9 +824,26 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         dialog.show();
     }
 
+    private boolean isValidForProceed() {
+        boolean valid = true;
+        if (spinerClientTypeStr.equalsIgnoreCase(AppConstant.INDIVIDUAL)) {
+            if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
+                valid = true;
+            } else {
+                isVAlidText = "proceed is not valid for " + sPurposeOfVisitStr;
+                valid = false;
+            }
+        } else {
+            isVAlidText = "proceed is not valid for " + spinerClientTypeStr;
+            valid = false;
+        }
+
+        return valid;
+    }
+
 
     private void processToLeadDetails() {
-        if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
+        if (isValidForProceed()) {
 
             if (visitPlanModel != null) {
                 Data data = getDataFromField(visitPlanModel.getJournalId());
@@ -966,7 +984,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             }
 
         } else {
-            Toast.makeText(this, "Procedd is disable for " + sPurposeOfVisitStr, Toast.LENGTH_SHORT).show();
+            showAlertDialog("Alert", isVAlidText);
         }
 
     }
