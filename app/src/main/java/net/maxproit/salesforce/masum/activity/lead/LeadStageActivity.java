@@ -23,7 +23,6 @@ import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
-import net.maxproit.salesforce.masum.fragment.lead.LeadStageVisitRecordFragment;
 import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
@@ -59,7 +58,7 @@ public class LeadStageActivity extends BaseActivity {
     private VisitPlanDbController visitPlanDbController;
     private LeadStageBasicInformationFragment leadStageBasicInformationFragment;
 
-    private LeadStageVisitRecordFragment leadStageVisitRecordFragment;
+
     private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
     private LinearLayout mLayout;
     private MyLeadDataModelApi myLeadDataModelApi = null;
@@ -116,7 +115,7 @@ public class LeadStageActivity extends BaseActivity {
 
         leadStageBasicInformationFragment = new LeadStageBasicInformationFragment();
         leadStageLoanDetailFragment = new LeadStageLoanDetailFragment();
-        leadStageVisitRecordFragment = new LeadStageVisitRecordFragment();
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -190,7 +189,7 @@ public class LeadStageActivity extends BaseActivity {
 
             leadStageBasicInformationFragment.setArguments(bundle);
             leadStageLoanDetailFragment.setArguments(bundle);
-            leadStageVisitRecordFragment.setArguments(bundle);
+
 
         }
 

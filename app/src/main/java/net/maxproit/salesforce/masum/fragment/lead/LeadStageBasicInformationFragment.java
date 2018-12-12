@@ -280,7 +280,6 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                 initLoader();
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-                    branchCode = String.valueOf(myNewLead.getBranchCode());
                     etUserName.setText(myNewLead.getUserName());
                     etPhone.setText(myNewLead.getPhone());
                     etAddress.setText(myNewLead.getAddress());

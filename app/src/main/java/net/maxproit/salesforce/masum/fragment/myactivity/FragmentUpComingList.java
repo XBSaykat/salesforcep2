@@ -176,7 +176,6 @@ public class FragmentUpComingList extends BaseFragment {
         } else {
 
             if (myDbController.getAllData().size() > 0) {
-
                 leadList.addAll(myDbController.getPlanData());
                 MyActivityGetDataApi myVisitPlanGetApi = new MyActivityGetDataApi();
                 for (int i = 0; i < leadList.size(); i++) {
@@ -292,6 +291,7 @@ public class FragmentUpComingList extends BaseFragment {
 
                 @Override
                 public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
+                    showAlertDialog("Error", t.getMessage());
 
                 }
             });

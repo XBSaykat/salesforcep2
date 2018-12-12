@@ -20,7 +20,7 @@
             android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginStart="@dimen/size_8dp"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="ID :"
+            android:text="Client Name :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="Client Type :"
+            android:text="Mobile No :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/id"
             app:layout_constraintTop_toBottomOf="@+id/id" />
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="Client Name :"
+            android:text="Date :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name" />

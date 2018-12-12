@@ -33,6 +33,7 @@ import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.DecimalFormat;
@@ -71,7 +72,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     private LocalSetting localSetting;
     public static int productTypeCode = 0, productSubCatCode = 0;
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
-    public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate,etRemark;
+    public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate, etRemark;
     public static int ref = 0;
     public static String productType = null;
     public static String subCategory = null;
@@ -345,23 +346,21 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             } else {
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-
                     etLoanAmount.setText("" + myNewLead.getLoanAmount());
                     etInterest.setText("" + myNewLead.getOrInterest());
                     etDisbursementDate.setText(DateUtils.getDateFormateEt(myNewLead.getDisDate()));
                     etFee.setText("" + myNewLead.getOpFee());
-
+                    etRemark.setText(myNewLead.getRemark());
                     productSubCatCode = myNewLead.getSubCode();
 
-                    if (myNewLead.getSourceRef() != null)
+                    if (!MasumCommonUtils.isNullStr(myNewLead.getSourceRef()))
                         try {
                             spinnerRef.setSelection(sourceReferenceAdapter.getPosition(myNewLead.getSourceRef()));
-
                         } catch (IllegalStateException ignored) {
                         } catch (NullPointerException e) {
 
                         }
-                    if (myNewLead.getProductType() != null) {
+                    if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
                         try {
                             spinnerProductType.setSelection(productTypeAdapter.getPosition(myNewLead.getProductType()));
                         } catch (IllegalStateException ignored) {
@@ -372,18 +371,14 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                             productTypeCode = 8;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listHomeloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
-
                         } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
                             productTypeCode = 9;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listCarloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
-
-
                         } else if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.PERSONAL_LOAN)) {
                             productTypeCode = 10;
                             productSubAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPersonalloan);
                             spinnerSubCategory.setAdapter(productSubAdapter);
-
 
                         }
 

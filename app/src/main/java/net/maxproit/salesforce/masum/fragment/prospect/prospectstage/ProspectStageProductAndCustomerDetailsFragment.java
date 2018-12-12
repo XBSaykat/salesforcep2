@@ -624,6 +624,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
                 try {
                     spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
+                    spinnerProductCat.setEnabled(false);
 
                 } catch (final IllegalStateException ignored) {
 

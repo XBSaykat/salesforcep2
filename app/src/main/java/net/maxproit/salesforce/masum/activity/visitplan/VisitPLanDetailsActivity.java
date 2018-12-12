@@ -358,7 +358,14 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         });
 
         tvSave.setOnClickListener(view -> {
-            alertDialogSave();
+            if (isValidForProceed()) {
+                if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
+                        !TextUtils.isEmpty(etNewRemark.getText())) {
+                    alertDialogSave();
+                }
+            } else {
+                showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + "client &" + sPurposeOfVisitStr);
+            }
 
         });
 
@@ -557,7 +564,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             mLayoutCLientTypeField.setVisibility(View.GONE);
             btnFollowUp.setVisibility(View.GONE);
             layoutPurOfvisit.setVisibility(View.GONE);
-            layoutNewDate.setVisibility(View.GONE);
             tvRejected.setEnabled(false);
             lnCity.setVisibility(View.GONE);
             lnPStation.setVisibility(View.GONE);
@@ -567,9 +573,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
 
     private void upactivityData() {
-      /*  if (!isValidFollowUp()) {
+        if (!isValidFollowUp()) {
             return;
-        }*/
+        }
         Data data = getDataFromField(visitPlanModel.getJournalId());
         if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                 !TextUtils.isEmpty(etNewRemark.getText())) {
@@ -653,24 +659,68 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                 Toast.makeText(this, "update date", Toast.LENGTH_SHORT).show();
             }
         } else {
+            if (isNetworkAvailable()) {
+                getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
+                    @Override
+                    public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+                        if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                            Data data1 = response.body().getData();
+                            visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
+                                    data.getCustomerName(),
+                                    data.getClientType(),
+                                    data.getMobileNo(),
+                                    data.getPs(),
+                                    data.getProductType(),
+                                    data.getCity(),
+                                    data.getVisitPurposeType(),
+                                    data.getFollowupDate(),
+                                    data.getFollowupRemarks(),
+                                    data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
 
-            int update = visitPlanDbController.updateData(getPLanDataModel(
-                    visitPlanModel.getId(),
-                    data.getActivityJournalID(),
-                    data.getCustomerName(),
-                    data.getClientType(),
-                    data.getMobileNo(),
-                    data.getPs(),
-                    data.getProductType(),
-                    data.getCity(),
-                    data.getVisitPurposeType(),
-                    data.getFollowupDate(),
-                    data.getFollowupRemarks(),
-                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-            if (update > 0) {
-                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
-                Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
+                            Log.e("status", "save data into server and local" + response.body().getData().toString());
+                            finish();
+                        } else {
+                            visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
+                                    data.getCustomerName(),
+                                    data.getClientType(),
+                                    data.getMobileNo(),
+                                    data.getPs(),
+                                    data.getProductType(),
+                                    data.getCity(),
+                                    data.getVisitPurposeType(),
+                                    data.getFollowupDate(),
+                                    data.getFollowupRemarks(),
+                                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
+
+                            Log.e("status", "save data into local" + response.body().getData().toString());
+                            finish();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                        getAlertDialog("ERROR", t.getMessage());
+
+                    }
+                });
+            } else {
+                int update = visitPlanDbController.updateData(getPLanDataModel(
+                        visitPlanModel.getId(),
+                        data.getActivityJournalID(),
+                        data.getCustomerName(),
+                        data.getClientType(),
+                        data.getMobileNo(),
+                        data.getPs(),
+                        data.getProductType(),
+                        data.getCity(),
+                        data.getVisitPurposeType(),
+                        data.getFollowupDate(),
+                        data.getFollowupRemarks(),
+                        AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
+                finish();
             }
+
         }
     }
 

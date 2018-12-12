@@ -73,9 +73,9 @@ public class MyVisitPlanListAdapter extends RecyclerView.Adapter<MyVisitPlanList
 
     @Override
     public void onBindViewHolder(MyVisitPlanListAdapter.CustomViewHolder holder, final int position) {
-        holder.tvId.setText(""+leadList.get(position).getActivityJournalID());
+        holder.tvId.setText(""+leadList.get(position).getClientName());
         holder.tvName.setText(leadList.get(position).getClientType());
-        holder.tvBranch.setText(leadList.get(position).getClientName());
+        holder.tvBranch.setText(leadList.get(position).getMakerName());
         holder.tvStatus.setText(leadList.get(position).getActivityStatus());
 
     }
