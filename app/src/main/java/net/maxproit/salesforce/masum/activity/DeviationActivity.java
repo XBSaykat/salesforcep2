@@ -74,82 +74,22 @@ public class DeviationActivity extends BaseActivity {
 
 
         List<String> deviationCatList = new ArrayList<>();
+        deviationCatList.add("Select Exception Area");
+
         for (DeviationCategory in : deviationlist) {
             deviationCatList.add(in.getDeviationCategory());
         }
+
         justifiList = new ArrayList<>();
+        justifiList.add("Select Justification");
         for (LstDeviationJustification in : justificationList) {
             justifiList.add(in.getJustification());
         }
 
-        exceptionAreaAdapter = new UtilSpinner(DeviationActivity.this, deviationCatList);
-        binding.exceptionArea.setAdapter(exceptionAreaAdapter);
-        binding.exceptionArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                deviationlist.get(position);
-                if (deviationlist.get(position) != null) {
-                    dvCategoryId = deviationlist.get(position).getDeviationCategoryID();
-                    dvcategory = deviationlist.get(position).getDeviationCategory();
-                    if (isNetworkAvailable()){
-                    showProgressDialog();
+        exceptionAreaLoadList(deviationCatList);
 
-                    getApiService().deviationHeadById("" + deviationlist.get(position).getDeviationCategoryID(), UUID.randomUUID().toString()).enqueue(new Callback<DevAccountHeadEntities>() {
-                        @Override
-                        public void onResponse(Call<DevAccountHeadEntities> call, Response<DevAccountHeadEntities> response) {
-                            hideProgressDialog();
-                            if (response.isSuccessful()) {
-                                List<String> data2 = new ArrayList<>();
-                                for (Data in : response.body().getData()) {
-                                    data2.add(in.getDevAccountHeadName());
-                                    exceptionParametersAdapter = new UtilSpinner(DeviationActivity.this, data2);
-                                    binding.exceptionParameters.setEnabled(true);
-                                    binding.exceptionParameters.setAdapter(exceptionParametersAdapter);
-                                    binding.exceptionParameters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                        @Override
-                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                            binding.exceptionParameters.setSelection(position);
-                                            if (response.body().getData().get(position) != null) {
-                                                dvHedId = response.body().getData().get(position).getDevAccountHeadCode();
-                                                dvHead = response.body().getData().get(position).getDevAccountHeadName();
-                                                riskCat = response.body().getData().get(position).getRiskCategory();
-                                                binding.etRiskCategory.setText(riskCat);
 
-                                                callQueryDeviationPropertyApi();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onNothingSelected(AdapterView<?> parent) {
-
-                                        }
-                                    });
-                                }
-
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<DevAccountHeadEntities> call, Throwable t) {
-                            hideProgressDialog();
-
-                        }
-                    });
-                }else{
-                        hideProgressDialog();
-                        showAlertDialog("Network ! ", "Network not available");
-                    }
-            }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
         binding.btnSubmit.setOnClickListener(v -> {
@@ -159,6 +99,89 @@ public class DeviationActivity extends BaseActivity {
 
 
 
+    }
+
+    private void exceptionAreaLoadList(List<String> deviationCatList) {
+        exceptionAreaAdapter = new UtilSpinner(DeviationActivity.this, deviationCatList);
+        binding.exceptionArea.setAdapter(exceptionAreaAdapter);
+        binding.exceptionArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                binding.exceptionArea.setSelection(position);
+                if (position > 0){
+                    position = position - 1;
+                    if (deviationlist.get(position) != null) {
+                        dvCategoryId = deviationlist.get(position).getDeviationCategoryID();
+                        dvcategory = deviationlist.get(position).getDeviationCategory();
+                        if (isNetworkAvailable()){
+                            showProgressDialog();
+
+                            getApiService().deviationHeadById("" + deviationlist.get(position).getDeviationCategoryID(), UUID.randomUUID().toString()).enqueue(new Callback<DevAccountHeadEntities>() {
+                                @Override
+                                public void onResponse(Call<DevAccountHeadEntities> call, Response<DevAccountHeadEntities> response) {
+                                    hideProgressDialog();
+                                    if (response.isSuccessful()) {
+                                        List<String> data2 = new ArrayList<>();
+                                        data2.add("Select Exception Parameters");
+                                        for (Data in : response.body().getData()) {
+                                            data2.add(in.getDevAccountHeadName());
+                                            exceptionParametersAdapter = new UtilSpinner(DeviationActivity.this, data2);
+                                            binding.exceptionParameters.setEnabled(true);
+                                            binding.exceptionParameters.setAdapter(exceptionParametersAdapter);
+                                            binding.exceptionParameters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                @Override
+                                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                    binding.exceptionParameters.setSelection(position);
+                                                    if (position > 0){
+                                                        position = position - 1;
+                                                        if (response.body().getData().get(position) != null) {
+                                                            dvHedId = response.body().getData().get(position).getDevAccountHeadCode();
+                                                            dvHead = response.body().getData().get(position).getDevAccountHeadName();
+                                                            riskCat = response.body().getData().get(position).getRiskCategory();
+                                                            binding.etRiskCategory.setText(riskCat);
+
+                                                            callQueryDeviationPropertyApi();
+                                                        }
+                                                    }else{
+
+                                                    }
+
+                                                }
+
+                                                @Override
+                                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                                }
+                                            });
+                                        }
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<DevAccountHeadEntities> call, Throwable t) {
+                                    hideProgressDialog();
+
+                                }
+                            });
+                        }else{
+                            hideProgressDialog();
+                            showAlertDialog("Network ! ", "Network not available");
+                        }
+                    }
+                }else{
+                    showToast("select exception area");
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void setViewsDisable() {
@@ -229,10 +252,16 @@ public class DeviationActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 binding.spJustification.setSelection(position);
-                if (justifiList.get(position) != null){
-                    justification = justificationList.get(position).getJustification();
-                    justificationId = justificationList.get(position).getJustificationID();
+                if (position > 0){
+                    position = position - 1;
+                    if (justifiList.get(position) != null){
+                        justification = justificationList.get(position).getJustification();
+                        justificationId = justificationList.get(position).getJustificationID();
+                    }
+                }else{
+
                 }
+
             }
 
             @Override
