@@ -81,7 +81,7 @@ public abstract class BaseFragment extends Fragment {
         }
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
+/*
     public void showProgressDialog(final String title, final String message) {
     new Runnable() {
             @Override
@@ -108,7 +108,7 @@ public abstract class BaseFragment extends Fragment {
                 }
             };
         }
-    }
+    }*/
     public void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

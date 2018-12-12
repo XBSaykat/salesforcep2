@@ -56,7 +56,7 @@ public class NewDaviationAdapter extends RecyclerView.Adapter<NewDaviationAdapte
 
     @Override
     public void onBindViewHolder(ViewFilesHolder holder, int position) {
-        holder.binding.setModel(list.get(position));
+     //   holder.binding.setModel(list.get(position));
 
 
     }

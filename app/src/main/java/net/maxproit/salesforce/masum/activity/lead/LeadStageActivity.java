@@ -63,7 +63,7 @@ public class LeadStageActivity extends BaseActivity {
     private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
     private LinearLayout mLayout;
     private MyLeadDataModelApi myLeadDataModelApi = null;
-    private String branchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null,city=null,polishStationl=null;
+    private String branchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null, city = null, polishStationl = null;
     private String userName = null;
     private int activityPosition;
     public static int myLeadPosition = -1;
@@ -94,7 +94,7 @@ public class LeadStageActivity extends BaseActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(3);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         btnSave = findViewById(R.id.btnSave);
@@ -123,7 +123,7 @@ public class LeadStageActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(leadStageBasicInformationFragment, "Basic Information");
         adapter.addFragment(leadStageLoanDetailFragment, "Loan Detail");
-        adapter.addFragment(leadStageVisitRecordFragment, "Visit Record");
+
 
         viewPager.setAdapter(adapter);
     }
@@ -184,7 +184,7 @@ public class LeadStageActivity extends BaseActivity {
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
                 mLayout.setVisibility(View.VISIBLE);
 
-            }else {
+            } else {
                 getSupportActionBar().setTitle("Create Lead");
             }
 
@@ -193,7 +193,6 @@ public class LeadStageActivity extends BaseActivity {
             leadStageVisitRecordFragment.setArguments(bundle);
 
         }
-
 
 
         MyNewLead finalMyNewLead = myNewLead;
@@ -241,14 +240,12 @@ public class LeadStageActivity extends BaseActivity {
         productType = LeadStageLoanDetailFragment.spinnerProductType.getSelectedItem();
         subCat = LeadStageLoanDetailFragment.spinnerSubCategory.getSelectedItem();
         disDate = LeadStageLoanDetailFragment.etDisbursementDate.getText().toString();
-        visitDate = LeadStageVisitRecordFragment.etVisitDate.getText().toString(); //
-        if (LeadStageVisitRecordFragment.etRemark.getText().toString() != null) {
-            remark = LeadStageVisitRecordFragment.etRemark.getText().toString();
-        } else {
-            LeadStageVisitRecordFragment.spinnerRemarks.getSelectedItem();
-        }
+//        visitDate = LeadStageVisitRecordFragment.etVisitDate.getText().toString(); //
 
-        followUp = LeadStageVisitRecordFragment.spinnerFollowUp.getSelectedItem();
+        remark = LeadStageLoanDetailFragment.etRemark.getText().toString();
+
+
+        // followUp = LeadStageVisitRecordFragment.spinnerFollowUp.getSelectedItem();
         //api integate
         MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
         //api for proceed lead first time

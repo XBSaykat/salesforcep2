@@ -59,6 +59,8 @@ public class DateUtils {
             strDate = sdf.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+
         }
 
         return strDate;

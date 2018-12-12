@@ -91,9 +91,11 @@ public class Data implements Serializable {
     @SerializedName("visitId")
     @Expose
     private Integer visitId;
-    @SerializedName("preCity")
+
+    @SerializedName("city")
     @Expose
     private String city;
+
 
     @SerializedName("ps")
     @Expose
@@ -114,6 +116,7 @@ public class Data implements Serializable {
     public void setPs(String ps) {
         this.ps = ps;
     }
+
     public String getAddress() {
         return address;
     }

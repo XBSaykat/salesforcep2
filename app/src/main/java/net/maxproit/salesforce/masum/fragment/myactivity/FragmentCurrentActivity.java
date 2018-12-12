@@ -114,19 +114,6 @@ public class FragmentCurrentActivity extends BaseFragment {
         myDbController = new VisitPlanDbController(getContext());
         username = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
 
-        if (!leadListApi.isEmpty()) {
-            leadListApi.clear();
-        }
-        if (!visitPlanListApi.isEmpty()) {
-            visitPlanListApi.clear();
-        }
-        if (!leadList.isEmpty()) {
-            leadList.clear();
-        }
-        if (!visitPlanList.isEmpty()) {
-            visitPlanList.clear();
-        }
-
 
 //      searchView = findViewById(R.id.search_view);
         rvMyActivity = rootView.findViewById(R.id.rv_my_activity);
@@ -140,7 +127,7 @@ public class FragmentCurrentActivity extends BaseFragment {
 //      initView(rootView);
         initListener();
         // Inflate the layout for this fragment
-        getData();
+
         return rootView;
 
 
@@ -156,6 +143,12 @@ public class FragmentCurrentActivity extends BaseFragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getData();
+    }
 
     private ArrayList<Datum> getFilterData(ArrayList<Datum> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
@@ -251,24 +244,44 @@ public class FragmentCurrentActivity extends BaseFragment {
     }
 
     private void getData() {
+        if (!leadListApi.isEmpty()) {
+            leadListApi.clear();
+        }
+        if (!visitPlanListApi.isEmpty()) {
+            visitPlanListApi.clear();
+        }
+        if (!leadList.isEmpty()) {
+            leadList.clear();
+        }
+        if (!visitPlanList.isEmpty()) {
+            visitPlanList.clear();
+        }
         initLoader();
+        showLoader();
         if (isNetworkAvailable()) {
             String random = UUID.randomUUID().toString();
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
                 @Override
                 public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
                     if (response.body().getCode().equals("200")) {
-                        hideLoader();
                         if (response.body().getData() != null) {
+
                             for (int i = 0; i < response.body().getData().size(); i++) {
                                 if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_CURRENT_ACTIVITY)) {
                                     visitPlanListApi.add(response.body().getData().get(i));
                                 }
                             }
-                            myLeadAdapter.notifyDataSetChanged();
+                            if (visitPlanListApi.size() > 0) {
+                                myLeadAdapter.notifyDataSetChanged();
+                                hideLoader();
+                            } else {
+                                showEmptyView();
+                            }
 
+                        } else {
+                            showEmptyView();
 
-                        } else showEmptyView();
+                        }
                     } else {
                         showAlertDialog("Error", response.body().getMessage());
                         showEmptyView();

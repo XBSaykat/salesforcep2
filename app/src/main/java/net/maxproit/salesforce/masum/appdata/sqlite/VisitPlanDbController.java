@@ -27,12 +27,14 @@ public class VisitPlanDbController {
         db = dbHelper.getWritableDatabase();
         return this;
     }
+
     public void close() {
         dbHelper.close();
     }
+
     //                           clientName, clientType, mobileNo, productType, preCity, prePoliceStation, purposeOfVisit, dateOfvisit,remarks
-    public int insertData(int jId,String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
-                          String dateOfVisit, String remarks,String status,String SyncStatus) {
+    public int insertData(int jId, String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
+                          String dateOfVisit, String remarks, String status, String SyncStatus) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.VISIT_PLAN_CLIENT_NAME, clientName);
@@ -42,14 +44,14 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, productType);
         values.put(DbConstants.VISIT_PLAN_CITY, city);
         values.put(DbConstants.VISIT_PLAN_POLICE_STATION, policeStation);
-        values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,purposeOfVisit);
+        values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT, purposeOfVisit);
         values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, DateUtils.getDateFormateForSqlite(dateOfVisit));
-        values.put(DbConstants.VISIT_PLAN_REMARKS,remarks);
+        values.put(DbConstants.VISIT_PLAN_REMARKS, remarks);
         values.put(DbConstants.LEAD_STATUS, status);
         values.put(DbConstants.SYNC_STATUS, SyncStatus);
         // Insert the new row, returning the primary key value of the new row
         open();
-        int insert= (int) db.insert(DbConstants.TABLE_VISIT_PLAN, DbConstants.COLUMN_NAME_NULLABLE, values);
+        int insert = (int) db.insert(DbConstants.TABLE_VISIT_PLAN, DbConstants.COLUMN_NAME_NULLABLE, values);
         close();
         return insert;
 
@@ -66,14 +68,15 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, visitPlan.getProductType());
         values.put(DbConstants.VISIT_PLAN_CITY, visitPlan.getCity());
         values.put(DbConstants.VISIT_PLAN_POLICE_STATION, visitPlan.getPoliceStation());
-        values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT,visitPlan.getPurposeOfVisit());
-        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT,DateUtils.getDateFormateForSqlite(visitPlan.getDateOfVisit()) );
-        values.put(DbConstants.VISIT_PLAN_REMARKS,visitPlan.getRemarks());
-        values.put(DbConstants.LEAD_STATUS,visitPlan.getStatus());
-        values.put(DbConstants.SYNC_STATUS,visitPlan.getSynStatus());
+        values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT, visitPlan.getPurposeOfVisit());
+        if (visitPlan.getDateOfVisit() != null)
+            values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, DateUtils.getDateFormateForSqlite(visitPlan.getDateOfVisit()));
+        values.put(DbConstants.VISIT_PLAN_REMARKS, visitPlan.getRemarks());
+        values.put(DbConstants.LEAD_STATUS, visitPlan.getStatus());
+        values.put(DbConstants.SYNC_STATUS, visitPlan.getSynStatus());
         // Insert the new row, returning the primary key value of the new row
         open();
-        int update= db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + visitPlan.getId(), null);
+        int update = db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + visitPlan.getId(), null);
 
         close();
         return update;
@@ -111,7 +114,7 @@ public class VisitPlanDbController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
-        String WHERE = DbConstants.SYNC_STATUS+"=?";
+        String WHERE = DbConstants.SYNC_STATUS + "=?";
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
@@ -125,7 +128,7 @@ public class VisitPlanDbController {
         return fetchData(c);
     }
 
-    public int updateSyncDataStatus(int id, String status,int journalId) {
+    public int updateSyncDataStatus(int id, String status, int journalId) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.SYNC_STATUS, status);
@@ -156,12 +159,12 @@ public class VisitPlanDbController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
-        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + ">? AND "+DbConstants.LEAD_STATUS+"=?";
+        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + ">? AND " + DbConstants.LEAD_STATUS + "=?";
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{DateUtils.getDateFormateForSqlite(visitDate),AppConstant.STATUS_ACTIVITY_NEW},                            // The values for the WHERE clause
+                new String[]{DateUtils.getDateFormateForSqlite(visitDate), AppConstant.STATUS_ACTIVITY_NEW},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -191,7 +194,7 @@ public class VisitPlanDbController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
-        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "<?" ;
+        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "<?";
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
@@ -204,7 +207,6 @@ public class VisitPlanDbController {
 
         return fetchData(c);
     }
-
 
 
     public ArrayList<VisitPlan> getCurrentData(String visitDate) {
@@ -228,13 +230,13 @@ public class VisitPlanDbController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
-        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "=? AND "+ DbConstants.LEAD_STATUS+"=?";
+        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "=? AND " + DbConstants.LEAD_STATUS + "=?";
 
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{DateUtils.getDateFormateForSqlite(visitDate),AppConstant.STATUS_ACTIVITY_NEW},                            // The values for the WHERE clause
+                new String[]{DateUtils.getDateFormateForSqlite(visitDate), AppConstant.STATUS_ACTIVITY_NEW},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -243,7 +245,7 @@ public class VisitPlanDbController {
         return fetchData(c);
     }
 
-    public ArrayList<VisitPlan> getDateBetween(String currentData,String anotherDate) {
+    public ArrayList<VisitPlan> getDateBetween(String currentData, String anotherDate) {
 
         String[] projection = {
                 DbConstants._V_ID,
@@ -271,7 +273,7 @@ public class VisitPlanDbController {
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{currentData,anotherDate},                            // The values for the WHERE clause
+                new String[]{currentData, anotherDate},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -353,7 +355,7 @@ public class VisitPlanDbController {
     }
 
 
-    public ArrayList<VisitPlan> getPlanData(){
+    public ArrayList<VisitPlan> getPlanData() {
         String[] projection = {
                 DbConstants._V_ID,
                 DbConstants.VISIT_JOURNAL_ID,
@@ -387,7 +389,7 @@ public class VisitPlanDbController {
         return fetchData(c);
     }
 
-    public ArrayList<VisitPlan> getPlanDataUsingStatus(String status){
+    public ArrayList<VisitPlan> getPlanDataUsingStatus(String status) {
         String[] projection = {
                 DbConstants._V_ID,
                 DbConstants.VISIT_JOURNAL_ID,
@@ -422,9 +424,6 @@ public class VisitPlanDbController {
     }
 
 
-
-
-
     private ArrayList<VisitPlan> fetchData(Cursor c) {
         ArrayList<VisitPlan> favDataArray = new ArrayList<>();
 
@@ -446,7 +445,7 @@ public class VisitPlanDbController {
                     String status = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_STATUS));
                     String synStatus = c.getString(c.getColumnIndexOrThrow(DbConstants.SYNC_STATUS));
                     // wrap up data list and return
-                    favDataArray.add(new VisitPlan(id,jId, clientName, clientType, mobileNumber,policeStation, productType, city, purposeOfVisit, dateOfVisit, remarks,status,synStatus));
+                    favDataArray.add(new VisitPlan(id, jId, clientName, clientType, mobileNumber, policeStation, productType, city, purposeOfVisit, dateOfVisit, remarks, status, synStatus));
                 } while (c.moveToNext());
             }
             c.close();

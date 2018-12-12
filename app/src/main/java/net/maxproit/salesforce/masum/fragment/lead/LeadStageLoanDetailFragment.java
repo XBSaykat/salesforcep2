@@ -71,7 +71,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     private LocalSetting localSetting;
     public static int productTypeCode = 0, productSubCatCode = 0;
     public static AwesomeSpinner spinnerRef, spinnerProductType, spinnerSubCategory;
-    public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate;
+    public static EditText etLoanAmount, etFee, etInterest, etDisbursementDate,etRemark;
     public static int ref = 0;
     public static String productType = null;
     public static String subCategory = null;
@@ -208,7 +208,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
     private void initView(View rootView) {
 
-
+        etRemark = rootView.findViewById(R.id.input_remarks);
         etDisbursementDate = rootView.findViewById(R.id.et_disbursement_date);
         spinnerRef = rootView.findViewById(R.id.awe_spinner_lead_reference);
         spinnerProductType = rootView.findViewById(R.id.awe_spinner_lead_product_type);

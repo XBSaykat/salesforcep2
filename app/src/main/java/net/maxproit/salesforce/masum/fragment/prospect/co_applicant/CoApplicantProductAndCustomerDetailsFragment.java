@@ -89,7 +89,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
 
     private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
-            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhotoType;
+            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhotoType, spinnerPreCity, spinnerPrePoliceStation, spinnerPerCity, spinnerPerPoliceStation;
     private TextView tvPhotoIdNo;
     public static EditText etName, etDateOfBirth, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
@@ -101,7 +101,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
-            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto;
+            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
     private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec;
     private CoApplicantActivity coApplicantActivity;
 
@@ -202,7 +202,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         listRelationshipWithApplicant.addAll(spinnerDbController.getRelationshipWithApplicantData());
         listValidphoto.addAll(spinnerDbController.getValidPhotoData());
 
-
+        spinnerPreCity = view.findViewById(R.id.awe_spinner_visit_plan_city);
+        spinnerPrePoliceStation = view.findViewById(R.id.awe_spinner_visit_plan_police_station);
+        spinnerPerCity = view.findViewById(R.id.awe_spinner_visit_plan_city_per);
+        spinnerPerPoliceStation = view.findViewById(R.id.awe_spinner_visit_plan_police_station_per);
         spinnerDistOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
         spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
         spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
@@ -228,8 +231,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             permanentAddress = getArguments().getString(AppConstant.PERMANENT_ADDRESSS_KEY);
         }*/
 
-       presentAddress=coApplicantActivity.pr;
-       permanentAddress=coApplicantActivity.pe;
+        presentAddress = coApplicantActivity.pr;
+        permanentAddress = coApplicantActivity.pe;
 
         //  prosList.addAll(myLeadDbController.myNewLeadGetAllData(coApplicantActivity.getLeadId()));
         return view;
@@ -370,6 +373,38 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
             }
         });
+        spinnerPreCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                preCity = s;
+
+
+            }
+
+        });
+
+        spinnerPrePoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                prePoliceStation = s;
+            }
+        });
+        spinnerPerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                perCity = s;
+
+
+            }
+
+        });
+
+        spinnerPerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+                perPoliceStation = s;
+            }
+        });
 
 
         spinnerDistOfBirth.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
@@ -471,6 +506,17 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
 
     public void initAdapters() {
+        ArrayAdapter<String> perPolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getPseStringList());
+        spinnerPerPoliceStation.setAdapter(perPolishStationAdapter);
+
+        ArrayAdapter<String> perCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
+        spinnerPerCity.setAdapter(perCityAdapter);
+
+        ArrayAdapter<String> prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getPseStringList());
+        spinnerPrePoliceStation.setAdapter(perPolishStationAdapter);
+
+        ArrayAdapter<String> preCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
+        spinnerPreCity.setAdapter(perCityAdapter);
 
         ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerDistOfBirth.setAdapter(disBirthAdapter);
@@ -558,6 +604,36 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             if (!MasumCommonUtils.isNullStr(coApplicant.getRelationWithApplicant())) {
                 try {
                     spinnerRelationship.setSelection(realationAdapter.getPosition(coApplicant.getRelationWithApplicant()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+            //city android polish station
+
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressCity())) {
+                try {
+                    spinnerPreCity.setSelection(preCityAdapter.getPosition(coApplicant.getPresentAddressCity()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressPS())) {
+                try {
+                    spinnerPrePoliceStation.setSelection(prePolishStationAdapter.getPosition(coApplicant.getPresentAddressPS()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressCity())) {
+                try {
+                    spinnerPerCity.setSelection(perCityAdapter.getPosition(coApplicant.getPermanentAddressCity()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressPS())) {
+                try {
+                    spinnerPerPoliceStation.setSelection(perPolishStationAdapter.getPosition(coApplicant.getPermanentAddressPS()));
                 } catch (final IllegalStateException ignored) {
 
                 }

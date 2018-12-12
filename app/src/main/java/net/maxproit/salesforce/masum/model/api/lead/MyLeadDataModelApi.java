@@ -90,9 +90,10 @@ public class MyLeadDataModelApi {
     @Expose
     private String remark;
 
-    @SerializedName("preCity")
+    @SerializedName("city")
     @Expose
     private String city;
+
 
     @SerializedName("ps")
     @Expose

@@ -810,6 +810,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLines="1"
+                android:layout_marginBottom="@dimen/size_60dp"
                 android:maxLength="11"
                 android:text=""
                 android:textSize="@dimen/text_size_16sp" />
