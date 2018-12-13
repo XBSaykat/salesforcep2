@@ -13,10 +13,7 @@ import net.maxproit.salesforce.model.login.LocalLogin;
 
 import java.util.List;
 
-/**
- * Created by Rezwan Khan chowdhury on 6/29/18.
- * heyRezwan@gmail.com
- */
+
 public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.ViewFilesHolder> {
     private static final String TAG = "MyLeadAdapter";
     LocalLogin localLogin;

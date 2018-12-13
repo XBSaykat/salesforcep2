@@ -78,18 +78,35 @@ public class LocalSetting {
 
     }
 
-    public List<AddressType> getAddressType() {
+    public List<AssetType> getAssetType() {
         if (getLocalSetting() != null) {
-            return getLocalSetting().getData().getAddressTypes();
+            return getLocalSetting().getData().getAssetTypes();
         }
         return new ArrayList<>();
 
     }
 
-    public List<String> getAddressTypeStringList() {
+    public List<String> getAssetTypeStringList() {
         List<String> list = new ArrayList<>();
-        for (AddressType in : getAddressType()) {
-            list.add(in.getAddressType());
+        for (AssetType in : getAssetType()) {
+            list.add(in.getAssetType());
+        }
+        return list;
+
+    }
+
+    public List<ManufacturerName> getManufactureName() {
+        if (getLocalSetting() != null) {
+            return getLocalSetting().getData().getManufacturerNames();
+        }
+        return new ArrayList<>();
+
+    }
+
+    public List<String> getManufactureNameString() {
+        List<String> list = new ArrayList<>();
+        for (ManufacturerName in : getManufactureName()) {
+            list.add(in.getManufacturerName());
         }
         return list;
 
