@@ -366,7 +366,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + "client & " + sPurposeOfVisitStr);
 
             } else {
-                showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr+" client");
+                showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + " client");
             }
 
         });
@@ -858,8 +858,12 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             getApiService().getFollowUpHistory(visitPlanModel.getJournalId(), random).enqueue(new Callback<FollowUpHistoryApi>() {
                 @Override
                 public void onResponse(Call<FollowUpHistoryApi> call, Response<FollowUpHistoryApi> response) {
-                    followUpList.addAll(response.body().getData());
-                    adapter.notifyDataSetChanged();
+                    if (response.body().getCode().equals("200")) {
+                        followUpList.addAll(response.body().getData());
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        showAlertDialog("ERROR", response.body().getMessage());
+                    }
 
                 }
 
@@ -869,6 +873,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                 }
             });
+        } else {
+            showAlertDialog("Error", "please connect to the internet");
         }
 
 

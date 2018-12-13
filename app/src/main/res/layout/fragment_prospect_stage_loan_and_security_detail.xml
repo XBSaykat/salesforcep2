@@ -57,100 +57,6 @@
                 android:visibility="gone">
 
                 <LinearLayout
-                    android:id="@+id/brand_name_label"
-                    style="@style/LayoutQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextViewQuestion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Brand Name" />
-
-                    <!--<Spinner-->
-                    <!--android:id="@+id/spinner_brand_name"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/car_brands"-->
-                    <!--android:textSize="20sp" />-->
-
-                    <com.isapanah.awesomespinner.AwesomeSpinner
-                        android:id="@+id/awe_spinner_prospect_stage_brand_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:spinnerDirection="ltr"
-                        app:spinnerHint="Select Brand" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/manufacturing_year_label"
-                    style="@style/LayoutQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextViewQuestion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Manufacturing Year" />
-
-                    <!--<Spinner-->
-                    <!--android:id="@+id/spinner_manufacturing_year"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/years"-->
-                    <!--android:textSize="20sp" />-->
-
-
-                    <EditText
-                        android:id="@+id/awe_spinner_prospect_stage_manufacturing_year"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/manufacturing_country_label"
-                    style="@style/LayoutQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextViewQuestion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Manufacturing Country" />
-
-                    <!--<Spinner-->
-                    <!--android:id="@+id/spinner_manufacturing_country"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/countries"-->
-                    <!--android:textSize="20sp" />-->
-
-                    <EditText
-                        android:id="@+id/awe_spinner_prospect_stage_manufacturing_country"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
-
-                </LinearLayout>
-
-
-                <LinearLayout
                     android:id="@+id/vehicle_type_label"
                     style="@style/LayoutQuestion"
                     android:layout_width="match_parent"
@@ -177,8 +83,83 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:spinnerDirection="ltr"
-                        app:spinnerHint="Select Vehicle" />
+                        app:spinnerHint="Select Asset Type" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/brand_name_label"
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manufacturer Name" />
+
+                    <!--<Spinner-->
+                    <!--android:id="@+id/spinner_brand_name"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:drawSelectorOnTop="true"-->
+                    <!--android:entries="@array/car_brands"-->
+                    <!--android:textSize="20sp" />-->
+
+                    <com.isapanah.awesomespinner.AwesomeSpinner
+                        android:id="@+id/awe_spinner_prospect_stage_brand_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:spinnerDirection="ltr"
+                        app:spinnerHint="Select Manufacturer" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/manufacturing_year_label"
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manufacturing Year" />
+
+
+                    <EditText
+                        android:id="@+id/awe_spinner_prospect_stage_manufacturing_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/manufacturing_country_label"
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manufacturing Country" />
+
+                    <EditText
+                        android:id="@+id/awe_spinner_prospect_stage_manufacturing_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -290,7 +271,6 @@
                         android:inputType="numberDecimal"
                         android:maxLines="1"
                         android:text=""
-
                         android:textSize="@dimen/text_size_16sp" />
 
                     <TextView

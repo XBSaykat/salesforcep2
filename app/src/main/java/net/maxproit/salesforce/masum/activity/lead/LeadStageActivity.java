@@ -504,8 +504,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         getApiService().ActivityProceed(journalId, refNo).enqueue(new Callback<CompleteActivity>() {
             @Override
             public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
-
-
+                ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
             }
 
             @Override
@@ -514,7 +513,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             }
         });
-        finish();
+
     }
 
     private void alertDialogProceed(final MyNewLead myNewLead) {
