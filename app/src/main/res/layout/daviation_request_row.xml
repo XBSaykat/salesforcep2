@@ -24,7 +24,7 @@
             android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginStart="@dimen/size_8dp"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="DeviationAccount Head :"
+            android:text="Exception area :"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,8 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="@dimen/size_8dp"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="@{model.deviationAccountHead}"
+            android:maxLines="3"
+            android:text="@{model.deviationCategory}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/id"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,13 +48,14 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="ProposedValue :"
+            android:layout_marginBottom="8dp"
+            android:text="Exception parameter :"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/id"
-            app:layout_constraintTop_toBottomOf="@+id/id" />
+            app:layout_constraintTop_toBottomOf="@+id/id"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvName"
@@ -61,9 +63,57 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginStart="@dimen/size_8dp"
-            android:text="@{model.proposedValue}"
+            android:maxLines="3"
+            android:text="@{model.deviationAccountHead}"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/tvLoan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Loan amount :"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tvLoanAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{model.loanAmount}"
+            app:layout_constraintStart_toEndOf="@+id/tvLoan"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+        <TextView
+            android:id="@+id/tvLtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:text="LTV :"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvLoan"
+            app:layout_constraintTop_toBottomOf="@+id/tvLoan" />
+
+        <TextView
+            android:id="@+id/tvLtvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="28dp"
+            android:text="@{model.lTV}"
+            app:layout_constraintStart_toEndOf="@+id/tvLtv"
+            app:layout_constraintTop_toTopOf="@+id/tvLoanAmount" />
 
 
     </android.support.constraint.ConstraintLayout>

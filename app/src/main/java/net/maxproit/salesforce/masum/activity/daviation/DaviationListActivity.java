@@ -61,9 +61,21 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
 
 
         cibList = new ArrayList<>();
-        getCibData();
 
-        setupCifAdapter();
+
+//        setupCifAdapter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isNetworkAvailable()){
+
+            getCibData();
+        }else{
+            showAlertDialog("NETWORK ERROR!", "Internet Connection is turned off!");
+        }
+
     }
 
     private void getCibData() {

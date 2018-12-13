@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.network;
 
 
+import net.maxproit.salesforce.masum.model.api.cibcif.CibCifResponse;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationResponse;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationresponse.DeviationPostRespose;
 import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.PostDeviation;
@@ -261,6 +262,7 @@ public interface ApiService {
 
 
     // CIB Request--------------------------------
+
     @GET("CIB/RequestedCIB/{id}/{random}")
     Call<RequestedCIBData> cibRequestById(@Path("id") String id, @Path("random") String random);
 
@@ -314,7 +316,15 @@ public interface ApiService {
 // Deviation
 
 
+    // CIF & CIB Request
 
+    @POST("CdCIB/CIBRequest/{referenceNo}/{userName}")
+    Call<CibCifResponse> cibRequest(@Path("referenceNo") String referenceNo, @Path("userName") String userName);
+
+    @POST("CdCIF/CIFRequest/{referenceNo}/{userName}")
+    Call<CibCifResponse> cifRequest(@Path("referenceNo") String referenceNo, @Path("userName") String userName);
+
+    // CIF & CIB Request
 
 
 
@@ -342,6 +352,8 @@ public interface ApiService {
     /*
      Supervisor Api
     */
+
+
 
     // 1. Supervisor Lead
     @GET("SalesOfficer/DashboardInformation/{user}/{random}")
