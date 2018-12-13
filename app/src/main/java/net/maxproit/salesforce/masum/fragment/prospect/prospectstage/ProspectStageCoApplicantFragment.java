@@ -228,6 +228,10 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         coApplicant.setMobileNoId(coApplicantList.get(position).getMobileNoId());
         coApplicant.setPresentAddressId(coApplicantList.get(position).getPresentAddressId());
         coApplicant.setPermanentAddressId(coApplicantList.get(position).getPermanentAddressId());
+        coApplicant.setPresentAddressCity(coApplicantList.get(position).getPresentAddressCity());
+        coApplicant.setPermanentAddressCity(coApplicantList.get(position).getPermanentAddressCity());
+        coApplicant.setPresentAddressPS(coApplicantList.get(position).getPresentAddressPS());
+        coApplicant.setPermanentAddressPS(coApplicantList.get(position).getPermanentAddressPS());
 
         ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant, position);
 

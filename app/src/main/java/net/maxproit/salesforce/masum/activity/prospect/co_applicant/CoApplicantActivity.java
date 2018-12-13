@@ -97,7 +97,7 @@ public class CoApplicantActivity extends BaseActivity {
                 String name, segment, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
-                        presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,
+                        presentAddress, perCity, perPs, preCity, prePs, mobileNo, monthSalaryType, monthSalaryAmount,
                         monthBusinessIncomeAmount, monthWareHouseAmount, monthOfficeSpaceIncomeAmount,
                         monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
                         monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
@@ -124,6 +124,11 @@ public class CoApplicantActivity extends BaseActivity {
                 permanentAddress = CoApplicantProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
                 presentAddress = CoApplicantProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
                 mobileNo = CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
+                preCity = CoApplicantProductAndCustomerDetailsFragment.preCity;
+                prePs = CoApplicantProductAndCustomerDetailsFragment.prePoliceStation;
+                perCity = CoApplicantProductAndCustomerDetailsFragment.perCity;
+                perPs = CoApplicantProductAndCustomerDetailsFragment.perPoliceStation;
+
                 monthSalaryType = CoApplicantFinancialFragment.monthlyNetSalary;
                 monthSalaryAmount = CoApplicantFinancialFragment.etMonthlySalaryAmount.getText().toString();
                 monthBusinessIncomeAmount = CoApplicantFinancialFragment.etMonthlyBusinessIncome.getText().toString();
@@ -147,6 +152,12 @@ public class CoApplicantActivity extends BaseActivity {
                         monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
                         monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
                         emiOfOtherLoans);
+
+                coApplicant.setPresentAddressCity(preCity);
+                coApplicant.setPresentAddressPS(prePs);
+                coApplicant.setPermanentAddressCity(perCity);
+                coApplicant.setPermanentAddressPS(perPs);
+
 
                 int update = 0;
                 if (getDataFromApplicant() != null) {
