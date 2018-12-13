@@ -145,6 +145,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:text=""
+                    android:focusedByDefault="false"
                     android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>
 

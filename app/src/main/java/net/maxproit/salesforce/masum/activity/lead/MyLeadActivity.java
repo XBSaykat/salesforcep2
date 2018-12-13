@@ -109,8 +109,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     @Override
     protected void onResume() {
         super.onResume();
-        initLoader();
-        showLoader();
+        showProgressDialog();
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
@@ -179,15 +178,17 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                         if (response.body().getCode().equals("200")) {
                             leadListDataFromApi.addAll(response.body().getData());
                             myLeadAdapter.notifyDataSetChanged();
-                            hideLoader();
+                            hideProgressDialog();
 
                         } else {
+                            hideProgressDialog();
                             showEmptyView();
                             showAlertDialog("Error", response.body().getMessage());
                         }
 
 
                     } else {
+                        hideProgressDialog();
                         showEmptyView();
                         showAlertDialog("Error", response.message());
                     }
@@ -196,11 +197,13 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 @Override
                 public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
                     showEmptyView();
+                    hideProgressDialog();
                     showAlertDialog("Error", t.getMessage());
 
                 }
             });
         } else {
+            hideProgressDialog();
             showAlertDialog("Error", "Internet not Available,please connect to the internet");
 
         }
@@ -232,6 +235,9 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                                 myNewLead.setPs(data.getPs());
                                 myNewLead.setCity(data.getCity());
                                 ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
+                                if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.DONUT) {
+                                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                                }
                                 hideProgressDialog();
                             } else showEmptyView();
                         } else {

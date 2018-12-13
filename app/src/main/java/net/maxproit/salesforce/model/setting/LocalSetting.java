@@ -78,7 +78,7 @@ public class LocalSetting {
 
     }
 
-    public List<AssetType> getAssetType() {
+    public List<AssetType> getAsset() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getAssetTypes();
         }
@@ -88,12 +88,25 @@ public class LocalSetting {
 
     public List<String> getAssetTypeStringList() {
         List<String> list = new ArrayList<>();
-        for (AssetType in : getAssetType()) {
+        for (AssetType in : getAsset()) {
             list.add(in.getAssetType());
         }
         return list;
 
     }
+
+
+    public int getAssetCode(int position) {
+        int code = 0;
+        for (int i = 0; i < getAsset().size(); i++) {
+            if (i == position) {
+                code = getAsset().get(i).getAssetTypeCode();
+                break;
+            }
+        }
+        return code;
+    }
+
 
     public List<ManufacturerName> getManufactureName() {
         if (getLocalSetting() != null) {
@@ -111,6 +124,19 @@ public class LocalSetting {
         return list;
 
     }
+
+
+    public int getManuCode(int position) {
+        int code = 0;
+        for (int i = 0; i < getManufactureName().size(); i++) {
+            if (i == position) {
+                code = getManufactureName().get(i).getManufacturerNameId();
+                break;
+            }
+        }
+        return code;
+    }
+
 
     public List<RealStateType> getRealStateType() {
         if (getLocalSetting() != null) {
@@ -147,7 +173,6 @@ public class LocalSetting {
         return list;
 
     }
-
 
 
     public List<Segment> getSegment() {
@@ -227,7 +252,6 @@ public class LocalSetting {
     }
 
 
-
     public List<PhotoIdType> getPhotoIDType() {
         if (getLocalSetting() != null) {
             return getLocalSetting().getData().getPhotoIdType();
@@ -258,11 +282,11 @@ public class LocalSetting {
     }
 
     public String getPhotoIdTypeStrByCode(int position) {
-        String code =null;
+        String code = null;
 
         for (PhotoIdType in : getPhotoIDType()) {
-            if (in.getIdentityTypeCode() ==position){
-                code=in.getIdentityType();
+            if (in.getIdentityTypeCode() == position) {
+                code = in.getIdentityType();
                 break;
             }
 
@@ -324,8 +348,8 @@ public class LocalSetting {
         String code = null;
         for (Branch in : getBranch()) {
 
-            if (in.getBranch().equalsIgnoreCase(branchName)){
-                code=in.getBranchCode();
+            if (in.getBranch().equalsIgnoreCase(branchName)) {
+                code = in.getBranchCode();
                 break;
             }
         }
@@ -425,7 +449,6 @@ public class LocalSetting {
     }
 
 
-
     public List<String> getCityStringList() {
         List<String> list = new ArrayList<>();
         for (City in : getCity()) {
@@ -437,7 +460,7 @@ public class LocalSetting {
 
     public List<String> getpsListByCityCode(int position) {
         int code = 0;
-        List<String> list=new ArrayList<>();
+        List<String> list = new ArrayList<>();
         for (int i = 0; i < getCity().size(); i++) {
             if (i == position) {
                 code = getCity().get(i).getCityID();
@@ -470,7 +493,7 @@ public class LocalSetting {
     public List<String> getPseStringList() {
         List<String> list = new ArrayList<>();
         for (PSe in : getPse()) {
-                list.add(in.getPS());
+            list.add(in.getPS());
         }
         return list;
 
@@ -568,7 +591,6 @@ public class LocalSetting {
         }
         return code;
     }
-
 
 
 }

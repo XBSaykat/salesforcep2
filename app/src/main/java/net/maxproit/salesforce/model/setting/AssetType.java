@@ -6,10 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class AssetType {
 
-    @SerializedName("AssetType")
+
+    @SerializedName("assetType")
     @Expose
     private String assetType;
-    @SerializedName("AssetTypeCode")
+    @SerializedName("assetTypeCode")
     @Expose
     private Integer assetTypeCode;
 

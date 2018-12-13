@@ -76,5 +76,5 @@
             android:textSize="@dimen/size_18dp" />
 
     </LinearLayout>
-
+    <include layout="@layout/view_common_loader"/>
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package net.maxproit.salesforce.masum.activity.prospect;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
+import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
@@ -24,7 +26,7 @@ import net.maxproit.salesforce.masum.fragment.prospect.myprospect.FragmentProspe
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyProspectFragmentActivity extends BaseActivity {
+public class MyProspectFragmentActivity extends BaseActivity implements AdapterInfo {
 
 
     private android.support.v7.widget.Toolbar toolbar;
@@ -138,6 +140,36 @@ public class MyProspectFragmentActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void adShowProgressDialog() {
+
+    }
+
+    @Override
+    public void adHideProgressDialog() {
+
+    }
+
+    @Override
+    public void adSuccess(String message) {
+
+    }
+
+    @Override
+    public void adFailed(String message) {
+
+    }
+
+    @Override
+    public void startActivity(boolean self, Bundle bundle) {
+
+    }
+
+    @Override
+    public void startActivity(boolean self, Bundle bundle, int code) {
+
+    }
+
     //
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -176,7 +208,13 @@ public class MyProspectFragmentActivity extends BaseActivity {
         }
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.DONUT) {
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        }
+    }
 }
 
 

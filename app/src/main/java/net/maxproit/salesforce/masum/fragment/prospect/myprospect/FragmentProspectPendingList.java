@@ -107,6 +107,7 @@ public class FragmentProspectPendingList extends BaseFragment {
 
     private void callApiLoadList(int position) {
         if (isNetworkAvailable()) {
+            showLoader();
             String ref = dataFilterList.get(position).getReference();
             getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
                 @Override
@@ -116,6 +117,7 @@ public class FragmentProspectPendingList extends BaseFragment {
                             if (response.body().getData() != null) {
                                 OldProspect oldProspect = response.body();
                                 ActivityUtils.invokLeadDetailForProspectStage(getActivity(), oldProspect.getMyNewProspect());
+
                             } else {
                                 showAlertDialog("Error", "Server Error");
                             }

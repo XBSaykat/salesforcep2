@@ -73,11 +73,9 @@ public class OldProspect {
         myNewProspect.setBusinessIncomeAmount(MasumCommonUtils.isNotZero(data.getBusinessIncome()));
         myNewProspect.setOfficeSpaceINcome(MasumCommonUtils.isNotZero(data.getCommercialSpaceIncome()));
         myNewProspect.setApartmentAmount(MasumCommonUtils.isNotZero(data.getApartmentIncome()));
-        myNewProspect.setAssetType(data.getAssetType());
-        myNewProspect.setAssetTypeId(data.getAssetTypeId());
         myNewProspect.setApplicant(data.getRelationshipWithApplicant());
         myNewProspect.setUserName(data.getCustomerName());
-        myNewProspect.setBrandName(data.getBrandName());
+
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
         myNewProspect.setBranchCode(data.getBranchCode());
         myNewProspect.setBranchName(data.getBranchName());
@@ -107,10 +105,6 @@ public class OldProspect {
         myNewProspect.setLoanReq(MasumCommonUtils.isNotZero(data.getLoanRequired()));
         myNewProspect.setLoanTerm(MasumCommonUtils.isNotZero(data.getLoanTerm()));
         myNewProspect.setOpFee(MasumCommonUtils.isNotZero(data.getFee()));
-        myNewProspect.setManufacturingCountry(data.getManufacturingCountry());
-        myNewProspect.setManufacturingName(data.getManufacturerName());
-        myNewProspect.setManufacturingNameId(data.getManufacturerNameId());
-        myNewProspect.setManufacturingYear(data.getManufacturingYear());
         myNewProspect.setMobileId(data.getMobileNoId());
         myNewProspect.setNetSalary(data.getNetSalaryType());
         myNewProspect.setSalaryAmount(MasumCommonUtils.isNotZero(data.getNetSalary()));
@@ -138,7 +132,12 @@ public class OldProspect {
         myNewProspect.setRemitance(MasumCommonUtils.isNotZero(data.getRemittanceIncome()));
         myNewProspect.setSemipakaIncome(MasumCommonUtils.isNotZero(data.getSemipakaIncome()));
 
-
+        myNewProspect.setManufacturingName(data.getManufacturerName());
+        myNewProspect.setManufacturingNameId(data.getManufacturerNameId());
+        myNewProspect.setAssetType(data.getAssetType());
+        myNewProspect.setAssetTypeId(data.getAssetTypeId());
+        myNewProspect.setManufacturingYear(data.getManufacturingYear());
+        myNewProspect.setManufacturingCountry(data.getManufacturingCountry());
         List<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicantList = new ArrayList<>();
         if (!data.getCoApplicants().isEmpty()) {
 

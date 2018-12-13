@@ -40,6 +40,7 @@ import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
 import net.maxproit.salesforce.model.newprospect.mynewprosppect.NewProspectUpdate;
@@ -74,7 +75,7 @@ public class ProspectStageActivity extends BaseActivity {
             fee = null, dateOfBirth = null, photoIdType = null, presentCity = null, presentPs = null, permanentCity = null, permanentPs = null;
     String rmCode, monthlyNetSalaryType = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
             officeIncome = null, wireHouseIncome = null, apartmentIncome = null, agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
-            monthlyFamilyExpenditure = null, emiOfOtherLoans = null;
+            monthlyFamilyExpenditure = null, emiOfOtherLoans = null, validateString = null;
     ArrayList<CoApplicant> coApplicantArrayList;
     CoApplicantListAdapter coApplicantAdapter;
 
@@ -151,24 +152,6 @@ public class ProspectStageActivity extends BaseActivity {
 
     }
 
-    private void insertBrandData() {
-        CarLoan carLoan = new CarLoan(getDataFromProspect().getId(), brandName, year, country, vehicleType);
-        int insert = 0;
-        if (ProspectStageLoanAndSecurityDetailFragment.cardData > 0) {
-            insert = carLoanDbController.updateData(carLoan);
-
-        } else {
-            insert = carLoanDbController.insertData(carLoan);
-        }
-
-        if (insert > 0) {
-            Toast.makeText(this, "save " + insert, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "failed " + insert, Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
 
     private void getDataFromFragment() {
         if (ProspectStageFinancialFragment.monthlyNetSalaryType != null) {
@@ -184,18 +167,18 @@ public class ProspectStageActivity extends BaseActivity {
             agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
 
         }
-        agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
+
         practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
         remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
         interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
         monthlyFamilyExpenditure = ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
         emiOfOtherLoans = ProspectStageFinancialFragment.etEMIOfOtherLoans.getText().toString();
-        monthlyBusinessIncome = ProspectStageFinancialFragment.etMonthlyBusinessIncome.getText().toString();
+
         semiPakaIncome = ProspectStageFinancialFragment.etSemipakaIncome.getText().toString();
         apartmentIncome = ProspectStageFinancialFragment.etApartmentIncomeAmount.getText().toString();
         officeIncome = ProspectStageFinancialFragment.etOfficeSpaceIncome.getText().toString();
         wireHouseIncome = ProspectStageFinancialFragment.etWarehouseIncome.getText().toString();
-        agriculturalIncome = ProspectStageFinancialFragment.etAgriculturalIncome.getText().toString();
+
         practiceConsultancyTution = ProspectStageFinancialFragment.etPracticeConsultancyTuition.getText().toString();
         remittance = ProspectStageFinancialFragment.etRemittance.getText().toString();
         interestIncome = ProspectStageFinancialFragment.etInterestIncome.getText().toString();
@@ -233,8 +216,8 @@ public class ProspectStageActivity extends BaseActivity {
 
 
         brandName = ProspectStageLoanAndSecurityDetailFragment.brandName;
-        year = ProspectStageLoanAndSecurityDetailFragment.year;
-        country = ProspectStageLoanAndSecurityDetailFragment.country;
+        year = ProspectStageLoanAndSecurityDetailFragment.etYear.getText().toString();
+        country = ProspectStageLoanAndSecurityDetailFragment.etCountry.getText().toString();
         vehicleType = ProspectStageLoanAndSecurityDetailFragment.vehicleType;
 
         securityValue = ProspectStageLoanAndSecurityDetailFragment.etSecurityValue.getText().toString();
@@ -242,7 +225,6 @@ public class ProspectStageActivity extends BaseActivity {
         loanTerm = ProspectStageLoanAndSecurityDetailFragment.etLoanTerm.getText().toString();
         proposedInterest = ProspectStageLoanAndSecurityDetailFragment.etProposedInterest.getText().toString();
         fee = ProspectStageLoanAndSecurityDetailFragment.etFee.getText().toString();
-        NewProspectUpdate updateProspect = new NewProspectUpdate();
 
 
     }
@@ -296,6 +278,13 @@ public class ProspectStageActivity extends BaseActivity {
 
     private boolean isValid() {
         boolean validation = true;
+        if (!MasumCommonUtils.isNullStr(permanentAddress) || !MasumCommonUtils.isNullStr(presentAddress)) {
+            validation = true;
+        } else {
+            validateString = "Address cant not be empty";
+            validation = false;
+        }
+
         return validation;
     }
 
@@ -413,9 +402,14 @@ public class ProspectStageActivity extends BaseActivity {
                         securityValue, loanRequired, loanTerm, proposedInterest,
                         fee);
 
+                //set data for car loan
+                myNewProspect.setManufacturingCountry(country);
+                myNewProspect.setManufacturingYear(year);
+                myNewProspect.setAssetType(vehicleType);
+                myNewProspect.setAssetTypeId(ProspectStageLoanAndSecurityDetailFragment.assetId);
+                myNewProspect.setManufacturingName(brandName);
+                myNewProspect.setManufacturingNameId(ProspectStageLoanAndSecurityDetailFragment.manufactureNameID);
 
-//                myNewProspect.setAssetType(getDataFromProspect().getAssetType());
-//                myNewProspect.setAssetTypeId(getDataFromProspect().getAssetTypeId());
 
                 try {
                     if (ProspectStageProductAndCustomerDetailsFragment.branchCode != null)
@@ -430,7 +424,6 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setContactId(getDataFromProspect().getContactId());
                 myNewProspect.setCusId(getDataFromProspect().getCusId());
                 myNewProspect.setMobileId(getDataFromProspect().getMobileId());
-                myNewProspect.setAssetTypeId(getDataFromProspect().getAssetTypeId());
                 myNewProspect.setPresAddressId(getDataFromProspect().getPresAddressId());
                 myNewProspect.setPermAddressId(getDataFromProspect().getPermAddressId());
                 myNewProspect.setUserID(getDataFromProspect().getUserID());
@@ -440,7 +433,10 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setPermAddressCity(permanentCity);
                 myNewProspect.setPermAddressPs(permanentPs);
 
-
+                if (!isValid()) {
+                    showAlertDialog("Alert", validateString);
+                    return;
+                }
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
                 newProspectUpdate.getPRospectDAtaForPostAPi(myNewProspect);
                 String refNo = getDataFromProspect().getRefNumber();
@@ -614,22 +610,43 @@ public class ProspectStageActivity extends BaseActivity {
                         securityValue, loanRequired, loanTerm, proposedInterest,
                         fee);
 
+                myNewProspect.setManufacturingCountry(country);
+                myNewProspect.setManufacturingYear(year);
+                myNewProspect.setAssetType(vehicleType);
+                myNewProspect.setAssetTypeId(ProspectStageLoanAndSecurityDetailFragment.assetId);
+                myNewProspect.setManufacturingName(brandName);
+                myNewProspect.setManufacturingNameId(ProspectStageLoanAndSecurityDetailFragment.manufactureNameID);
+
+
                 try {
                     if (ProspectStageProductAndCustomerDetailsFragment.branchCode != null)
                         myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
                     myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 } catch (NullPointerException e) {
                     Log.d("prospectStageDebug", "alertDialogSave: " + e.getLocalizedMessage());
+                } catch (NumberFormatException e) {
+
                 }
                 myNewProspect.setRefNumber(getDataFromProspect().getRefNumber());
-                myNewProspect.setCusId(getDataFromProspect().getCusId());
                 myNewProspect.setContactId(getDataFromProspect().getContactId());
+                myNewProspect.setCusId(getDataFromProspect().getCusId());
                 myNewProspect.setMobileId(getDataFromProspect().getMobileId());
-                myNewProspect.setAddressId(getDataFromProspect().getAddressId());
+                myNewProspect.setAssetTypeId(getDataFromProspect().getAssetTypeId());
+                myNewProspect.setPresAddressId(getDataFromProspect().getPresAddressId());
+                myNewProspect.setPermAddressId(getDataFromProspect().getPermAddressId());
+                myNewProspect.setUserID(getDataFromProspect().getUserID());
+                myNewProspect.setSubCode(producSubCode);
+                myNewProspect.setPresAddressCity(presentCity);
+                myNewProspect.setPresAddressPs(presentPs);
+                myNewProspect.setPermAddressCity(permanentCity);
+                myNewProspect.setPermAddressPs(permanentPs);
 
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
                 newProspectUpdate.getPRospectDAtaForPostAPi(myNewProspect);
-
+                if (!isValid()) {
+                    showAlertDialog("Alert", validateString);
+                    return;
+                }
                 if (isNetworkAvailable()) {
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override
@@ -734,4 +751,6 @@ public class ProspectStageActivity extends BaseActivity {
             }
         });
     }
+
+
 }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +21,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 
+import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
@@ -46,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LeadStageActivity extends BaseActivity {
+public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -76,6 +78,9 @@ public class LeadStageActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
+        initLoader();
+        showLoader();
+        splashThread();
         myLeadDataModelApi = new MyLeadDataModelApi();
         initFragments();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -110,6 +115,17 @@ public class LeadStageActivity extends BaseActivity {
 
     }
 
+    private void splashThread() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoader();
+
+            }
+        }, 3000);
+    }
+
 
     private void initFragments() {
 
@@ -125,6 +141,36 @@ public class LeadStageActivity extends BaseActivity {
 
 
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void adShowProgressDialog() {
+
+    }
+
+    @Override
+    public void adHideProgressDialog() {
+
+    }
+
+    @Override
+    public void adSuccess(String message) {
+
+    }
+
+    @Override
+    public void adFailed(String message) {
+
+    }
+
+    @Override
+    public void startActivity(boolean self, Bundle bundle) {
+
+    }
+
+    @Override
+    public void startActivity(boolean self, Bundle bundle, int code) {
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

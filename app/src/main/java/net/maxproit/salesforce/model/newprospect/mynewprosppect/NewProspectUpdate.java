@@ -771,9 +771,9 @@ public class NewProspectUpdate {
                 coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
             } catch (NumberFormatException e) {
             }
-            try{
+            try {
                 coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
-            }catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
 
             }
 
@@ -937,8 +937,13 @@ public class NewProspectUpdate {
         } catch (NullPointerException e) {
 
         }
-        setAssetType("");
+        setAssetType(myNewProspect.getAssetType());
         setAssetTypeId(myNewProspect.getAssetTypeId());
+        setManufacturerName(myNewProspect.getManufacturingName());
+        setManufacturerNameId(myNewProspect.getManufacturingNameId());
+        setManufacturingCountry(myNewProspect.getManufacturingCountry());
+        setManufacturingYear(myNewProspect.getManufacturingYear());
+
         setBranchCode(myNewProspect.getBranchCode());
         setBranchName(myNewProspect.getBranchName());
 
@@ -954,10 +959,6 @@ public class NewProspectUpdate {
         setETin(myNewProspect.getEtin());
         setFatherName(myNewProspect.getfName());
         setLeadReferenceNo(myNewProspect.getRefNumber());
-        setManufacturerName(myNewProspect.getManufacturingName());
-        setManufacturerNameId(myNewProspect.getManufacturingNameId());
-        setManufacturingCountry(myNewProspect.getManufacturingCountry());
-        setManufacturingYear(myNewProspect.getManufacturingYear());
         setMobileNo(myNewProspect.getPhone());
         setMobileNoId(myNewProspect.getMobileId());
         setMotherName(myNewProspect.getmName());

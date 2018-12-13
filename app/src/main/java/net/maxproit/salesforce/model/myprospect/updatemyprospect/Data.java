@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
+
     @SerializedName("agriculturalIncome")
     @Expose
     private Integer agriculturalIncome;
@@ -28,9 +29,6 @@ public class Data {
     @SerializedName("branchName")
     @Expose
     private String branchName;
-    @SerializedName("brandName")
-    @Expose
-    private String brandName;
     @SerializedName("businessIncome")
     @Expose
     private Integer businessIncome;
@@ -206,7 +204,6 @@ public class Data {
     @Expose
     private String userName;
 
-
     public Integer getAgriculturalIncome() {
         return agriculturalIncome;
     }
@@ -223,6 +220,22 @@ public class Data {
         this.apartmentIncome = apartmentIncome;
     }
 
+    public String getAssetType() {
+        return assetType;
+    }
+
+    public void setAssetType(String assetType) {
+        this.assetType = assetType;
+    }
+
+    public Integer getAssetTypeId() {
+        return assetTypeId;
+    }
+
+    public void setAssetTypeId(Integer assetTypeId) {
+        this.assetTypeId = assetTypeId;
+    }
+
     public Integer getBranchCode() {
         return branchCode;
     }
@@ -237,14 +250,6 @@ public class Data {
 
     public void setBranchName(String branchName) {
         this.branchName = branchName;
-    }
-
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
     }
 
     public Integer getBusinessIncome() {
@@ -429,6 +434,22 @@ public class Data {
 
     public void setLoanTerm(Integer loanTerm) {
         this.loanTerm = loanTerm;
+    }
+
+    public String getManufacturerName() {
+        return manufacturerName;
+    }
+
+    public void setManufacturerName(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
+    }
+
+    public Integer getManufacturerNameId() {
+        return manufacturerNameId;
+    }
+
+    public void setManufacturerNameId(Integer manufacturerNameId) {
+        this.manufacturerNameId = manufacturerNameId;
     }
 
     public String getManufacturingCountry() {
@@ -693,45 +714,5 @@ public class Data {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getAssetType() {
-        return assetType;
-    }
-
-    public void setAssetType(String assetType) {
-        this.assetType = assetType;
-    }
-
-    public Integer getAssetTypeId() {
-        return assetTypeId;
-    }
-
-    public void setAssetTypeId(Integer assetTypeId) {
-        this.assetTypeId = assetTypeId;
-    }
-
-    public String geteTin() {
-        return eTin;
-    }
-
-    public void seteTin(String eTin) {
-        this.eTin = eTin;
-    }
-
-    public String getManufacturerName() {
-        return manufacturerName;
-    }
-
-    public void setManufacturerName(String manufacturerName) {
-        this.manufacturerName = manufacturerName;
-    }
-
-    public Integer getManufacturerNameId() {
-        return manufacturerNameId;
-    }
-
-    public void setManufacturerNameId(Integer manufacturerNameId) {
-        this.manufacturerNameId = manufacturerNameId;
     }
 }
