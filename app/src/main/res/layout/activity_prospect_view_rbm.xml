@@ -1152,6 +1152,25 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_1dp">
+
+                   <Button
+                       android:id="@+id/btn_rbm_prospect_cif_cib_request"
+                       android:layout_margin="@dimen/size_20dp"
+                       style="@style/ButtonStyle"
+                       android:layout_weight="1"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:text="CIF/CIB Request"
+                       android:background="@drawable/fab_label_background"
+                       />
+
+                </LinearLayout>
+
 
 
 
@@ -1224,6 +1243,7 @@
                         android:gravity="center"
                         android:text="Return to RM"
                         android:textColor="@color/white" />
+
 
 
                 </LinearLayout>
