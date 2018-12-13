@@ -38,6 +38,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="@dimen/size_8dp"
             android:layout_marginTop="@dimen/size_8dp"
+            android:maxLines="3"
             android:text="@{model.deviationCategory}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/id"
@@ -62,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginStart="@dimen/size_8dp"
+            android:maxLines="3"
             android:text="@{model.deviationAccountHead}"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="@+id/name" />
@@ -109,7 +111,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="28dp"
-            android:text="@{model.remark}"
+            android:text="@{model.lTV}"
             app:layout_constraintStart_toEndOf="@+id/tvLtv"
             app:layout_constraintTop_toTopOf="@+id/tvLoanAmount" />
 
