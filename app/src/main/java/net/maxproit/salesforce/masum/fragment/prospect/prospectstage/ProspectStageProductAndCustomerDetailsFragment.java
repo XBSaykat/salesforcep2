@@ -361,7 +361,6 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             public void onItemSelected(int i, String s) {
                 perCity = s;
 
-
             }
 
         });

@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class CoApplicant implements Serializable{
 
 
-    int id, contactId, customerId, permanentAddressCityId,presentAddressId,photoIdCode,mobileNoId ;
+    int id, contactId, customerId, permanentAddressId,presentAddressId,photoIdCode,mobileNoId ;
     String  name,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
             photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
             designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
@@ -272,12 +272,12 @@ public class CoApplicant implements Serializable{
         return monthTuitionIncomeAmount;
     }
 
-    public int getPermanentAddressCityId() {
-        return permanentAddressCityId;
+    public int getPermanentAddressId() {
+        return permanentAddressId;
     }
 
     public void setPermanentAddressId(int permanentAddressCityId) {
-        this.permanentAddressCityId = permanentAddressCityId;
+        this.permanentAddressId = permanentAddressCityId;
     }
 
     public int getPresentAddressId() {

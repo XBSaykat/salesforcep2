@@ -102,8 +102,10 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         btnCoApplicant = view.findViewById(R.id.btn_prospect_stage_co_applicant);
         rvCoapplicantList = view.findViewById(R.id.rv_prospect_stage_co_applicant);
         coApplicantDBController = new CoApplicantDBController(getActivity());
-
         MyNewProspect mylead = prospectStageActivity.getDataFromProspect();
+        if (prospectStageActivity.getDataFromProspect().getCoApplicantList() != null) {
+            AppConstant.coAppLicantStaticList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
+        }
         refId = prospectStageActivity.getDataFromProspect().getRefNumber();
         leadIdForCoApplicant = mylead.getId();
         coApplicantList = new ArrayList<>();
@@ -129,16 +131,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         if (!coApplicantList.isEmpty()) {
             coApplicantList.clear();
         }
-
-
-        if (prospectStageActivity.getDataFromProspect().getCoApplicantList() != null) {
-            coApplicantList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
-        }
         coApplicantList.addAll(AppConstant.coAppLicantStaticList);
-
-
-
-        //coApplicantList.addAll(coApplicantDBController.getAllData(prospectStageActivity.getDataFromProspect().getRefNumber()));
         viewListItems();
         if (coApplicantList.size() > 0) {
             Collections.reverse(coApplicantList);
@@ -170,7 +163,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         btnCoApplicant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle=new Bundle();
+                Bundle bundle = new Bundle();
                 Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
                 bundle.putString(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, refId);
                 bundle.putString(AppConstant.PRESENT_ADDRESSS_KEY, myNewLead.getAddress());
@@ -230,7 +223,13 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                 coApplicantList.get(position).getEmiOfOtherLoans()
         );
 
-        ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant,position);
+        coApplicant.setCustomerId(coApplicantList.get(position).getCustomerId());
+        coApplicant.setContactId(coApplicantList.get(position).getContactId());
+        coApplicant.setMobileNoId(coApplicantList.get(position).getMobileNoId());
+        coApplicant.setPresentAddressId(coApplicantList.get(position).getPresentAddressId());
+        coApplicant.setPermanentAddressId(coApplicantList.get(position).getPermanentAddressId());
+
+        ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant, position);
 
     }
 

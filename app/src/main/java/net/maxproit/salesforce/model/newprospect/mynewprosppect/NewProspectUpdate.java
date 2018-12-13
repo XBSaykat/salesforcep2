@@ -792,16 +792,18 @@ public class NewProspectUpdate {
             coApplicant.setMotherName(coApplicanLocalList.get(i).getmName());
             coApplicant.setNetSalaryType(coApplicanLocalList.get(i).getMonthSalaryType());
             coApplicant.setPermanentAddress(coApplicanLocalList.get(i).getPermanentAddress());
-            coApplicant.setPermanentAddressCity("");
-            coApplicant.setPermanentAddressId(22);
-            coApplicant.setPermanentAddressPS("");
+            coApplicant.setPermanentAddressCity(coApplicanLocalList.get(i).getPermanentAddressCity());
+            coApplicant.setPresentAddressCity(coApplicanLocalList.get(i).getPresentAddressCity());
+            coApplicant.setPresentAddressPS(coApplicanLocalList.get(i).getPresentAddressPS());
+            coApplicant.setPresentAddress(coApplicanLocalList.get(i).getPresentAddress());
+            coApplicant.setPresentAddressId(coApplicanLocalList.get(i).getPresentAddressId());
+            coApplicant.setPermanentAddressId(coApplicanLocalList.get(i).getPermanentAddressId());
+            coApplicant.setPermanentAddressPS(coApplicanLocalList.get(i).getPermanentAddressPS());
+
+
+            coApplicant.setPhotoIdTypeCode(coApplicanLocalList.get(i).getPhotoIdCode());
             coApplicant.setPhotoIdIssueDate(DateUtils.getDateFormateForSqlite(coApplicanLocalList.get(i).getPhotoIdIssueDate()));
             coApplicant.setPhotoIdNumber(coApplicanLocalList.get(i).getPhotoIdNo());
-            coApplicant.setPhotoIdTypeCode(coApplicanLocalList.get(i).getPhotoIdCode());
-            coApplicant.setPresentAddress(coApplicanLocalList.get(i).getPresentAddress());
-            coApplicant.setPresentAddressCity("Dhakax");
-            coApplicant.setPresentAddressId(coApplicanLocalList.get(i).getPresentAddressId());
-            coApplicant.setPresentAddressPS("Dhaka");
             if (!MasumCommonUtils.isNullStr(coApplicanLocalList.get(i).getProfession()))
                 coApplicant.setProfession(coApplicanLocalList.get(i).getProfession());
             else coApplicant.setProfession("");

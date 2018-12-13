@@ -37,6 +37,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -302,7 +303,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         myLeadApi.setUserName(userName);
         myLeadApi.setBranchName(branchName);
 
-        if (LeadStageBasicInformationFragment.branchCode != null)
+        if (!MasumCommonUtils.isNullStr(LeadStageBasicInformationFragment.branchCode))
             myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
 
 
@@ -407,15 +408,16 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                         @Override
                         public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
                             if (response.isSuccessful()) {
-                                if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                if (response.body().getCode().equals("200") &&
+                                        response.body().getStatus().equalsIgnoreCase("ok")) {
                                     Data data = response.body().getData();
                                     int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
                                             designation, phone, address, ref, productType, subCat,
                                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
-
                                     finish();
-
-
+                                } else {
+                                    showAlertDialog("Error", response.body().getMessage());
+                                    finish();
                                 }
                             } else {
                                 int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), myNewLead.getCusId(),
@@ -663,8 +665,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                     Toast.makeText(LeadStageActivity.this, "Lead Approved", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-
-                    showToast("Code: " + response.body().getCode() + " Message: " + response.body().getMessage());
+                    errorAlert(response.body().getCode(), " Message: " + response.body().getMessage());
+                    finish();
 
                 }
             }
@@ -674,5 +676,26 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 Toast.makeText(LeadStageActivity.this, "Lead approved failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    private void errorAlert(String title, String text) {
+
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(LeadStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(LeadStageActivity.this);
+        }
+        builder.setTitle(title);
+        builder.setMessage(text);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            finish();
+        });
+
+
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

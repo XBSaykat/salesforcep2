@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +57,7 @@ public class CoApplicantActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-
+        getDataFromApplicant();
         viewPager = (ViewPager) findViewById(R.id.vp_co_applicant_viewpager);
         setupViewPager(viewPager);
         viewPager.setOffscreenPageLimit(2);
@@ -149,15 +148,13 @@ public class CoApplicantActivity extends BaseActivity {
                         monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
                         emiOfOtherLoans);
 
-                Log.d("tag", "" + coApplicant.getLeadId());
-                Log.d("tag", "" + coApplicant.getName());
                 int update = 0;
                 if (getDataFromApplicant() != null) {
                     coApplicant.setContactId(getDataFromApplicant().getContactId());
                     coApplicant.setCustomerId(getDataFromApplicant().getCustomerId());
                     coApplicant.setMobileNoId(getDataFromApplicant().getMobileNoId());
                     coApplicant.setPresentAddressId(getDataFromApplicant().getPresentAddressId());
-                    coApplicant.setPermanentAddressId(getDataFromApplicant().getPermanentAddressCityId());
+                    coApplicant.setPermanentAddressId(getDataFromApplicant().getPermanentAddressId());
                     if (position >= 0) {
                         AppConstant.coAppLicantStaticList.set(position, coApplicant);
                     } else {

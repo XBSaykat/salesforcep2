@@ -51,16 +51,17 @@
                     android:layout_height="wrap_content"
                     android:clickable="false"
                     android:focusable="false"
+                    android:visibility="gone"
                     app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Product"
-                    android:visibility="gone"/>
+                    app:spinnerHint="Select Product" />
+
                 <EditText
                     android:id="@+id/et_product_cat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:focusable="false"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:focusable="false" />
 
             </LinearLayout>
 
@@ -141,11 +142,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
+                    android:focusedByDefault="false"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
                     android:text=""
-                    android:focusedByDefault="false"
                     android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>
 
@@ -332,7 +333,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp" />

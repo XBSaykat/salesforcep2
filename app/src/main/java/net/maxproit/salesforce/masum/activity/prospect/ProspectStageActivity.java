@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
-import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -33,13 +31,11 @@ import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectSta
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageLoanAndSecurityDetailFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageProductAndCustomerDetailsFragment;
-import net.maxproit.salesforce.masum.model.local.Attachment;
 import net.maxproit.salesforce.masum.model.local.CarLoan;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.masum.utility.ImageUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
@@ -353,8 +349,6 @@ public class ProspectStageActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
     private void alertDialogSave() {
@@ -416,7 +410,6 @@ public class ProspectStageActivity extends BaseActivity {
                         myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
                     myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 } catch (NullPointerException e) {
-                    Log.d("prospectStageDebug", "alertDialogSave: " + e.getLocalizedMessage());
                 } catch (NumberFormatException e) {
 
                 }
@@ -444,44 +437,37 @@ public class ProspectStageActivity extends BaseActivity {
                 ArrayList<CoApplicant> coApplicantList = AppConstant.coAppLicantStaticList;
                 newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
                 newProspectUpdate.setUserName(userName);
-//                NewProspectUpdate newProspectUpdate = convertToApiModel(myNewProspect);
-
                 if (isNetworkAvailable()) {
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
                             if (response.body().getCode().equals("200")) {
-                                showToast("Prospect Updated");
                                 if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                     coApplicantList.clear();
-                                    AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED, false);
-
+                                    AppConstant.coAppLicantStaticList.clear();
                                 }
-                                finish();
-                                Toast.makeText(getApplicationContext(), "save successfully", Toast.LENGTH_SHORT).show();
+                                errorAlert("Success", "save successfully");
+
                             } else {
-                                showToast("" + response.body().toString());
-                                Toast.makeText(getApplicationContext(), "save failed", Toast.LENGTH_SHORT).show();
+                                if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                    coApplicantList.clear();
+                                    AppConstant.coAppLicantStaticList.clear();
+                                }
+                                errorAlert(response.body().getCode(), response.body().getMessage());
 
                             }
-
                         }
 
                         @Override
                         public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
-                            showToast("" + t.getLocalizedMessage());
-                            Log.d("Prospect_stage", "onFailure: " + t.getLocalizedMessage());
+                            errorAlert("Error", t.getMessage());
+                            if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                coApplicantList.clear();
+                                AppConstant.coAppLicantStaticList.clear();
+                            }
                         }
                     });
                 }
-                int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
-                if (update > 0) {
-//                    if (brandName != null && year != null && country != null && vehicleType != null) {
-//                        insertBrandData();
-//                    }
-
-                }
-                insertAttachmentData(getDataFromProspect().getId(), myNewProspect);
             }
 
 
@@ -490,79 +476,6 @@ public class ProspectStageActivity extends BaseActivity {
         dialog.show();
     }
 
-/*
-    private NewProspectUpdate convertToApiModel(MyNewProspect myNewProspect) {
-        NewProspectUpdate updateModel = new NewProspectUpdate();
-
-        updateModel.setAgriculturalIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(agriculturalIncome)));
-
-        updateModel.setApartmentIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(apartmentIncome)));
-        updateModel.setAssetType(myNewProspect.getAssetType());
-        updateModel.setAssetTypeId(myNewProspect.getAssetTypeId());
-        updateModel.setBranchCode(myNewProspect.getBranchCode());
-        updateModel.setBranchName(myNewProspect.getBranchName());
-        updateModel.setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(businessIncome)));
-//        updateModel.setCoApplicantsFromProspect();
-        updateModel.setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(wireHouseIncome)));
-        updateModel.setCompany(companyName);
-        updateModel.setContactId(getDataFromProspect().getContactId());
-        updateModel.setCountryOfBirth(countOfBirth);
-        updateModel.setCurrentJobDuration(noYrsInCureentJob);
-        updateModel.setCustomerId(getDataFromProspect().getCusId());
-        updateModel.setCustomerName(name);
-        updateModel.setDateOfBirth(dateOfBirth);
-        updateModel.setDesignation(designation);
-        updateModel.setDistrictOfBirth(districtOfBirth);
-        updateModel.setETin(eTin);
-        updateModel.setEmiOfOtherLoan(Integer.valueOf(CommonUtil.emptyFieldToZero(emiOfOtherLoans)));
-        updateModel.setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(wireHouseIncome)));
-        updateModel.setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(monthlyFamilyExpenditure)));
-        updateModel.setFatherName(fatherName);
-        updateModel.setFee(Integer.valueOf(CommonUtil.emptyFieldToZero(fee)));
-        updateModel.setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(interestIncome)));
-        updateModel.setIntersetRate(Integer.valueOf(CommonUtil.emptyFieldToZero(proposedInterest)));
-        updateModel.setLeadReferenceNo(myNewProspect.getRefNumber());
-        updateModel.setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(loanRequired)));
-        updateModel.setLoanTerm(Integer.valueOf(CommonUtil.emptyFieldToZero(loanTerm)));
-        updateModel.setManufacturerName("");
-        updateModel.setManufacturerNameId(0);
-        updateModel.setManufacturingCountry("");
-        updateModel.setManufacturingYear("");
-        updateModel.setMobileNo(mobileNumber);
-        updateModel.setMobileNoId(myNewProspect.getMobileId());
-        updateModel.setMotherName(motherName);
-        updateModel.setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(monthlyNetSalaryType)));
-        updateModel.setNetSalaryType(monthlyNetSalaryType);
-        updateModel.setPermanentAddress("");
-        updateModel.setPermanentAddressCity("");
-        updateModel.setPermanentAddressId(myNewProspect.getPermAddressId());
-        updateModel.setPermanentAddressPS("");
-        updateModel.setPhotoIdIssueDate("/Date(1543919991642+0600)/");
-        updateModel.setPhotoIdNumber("2300");
-        updateModel.setPhotoIdTypeCode(0);
-        updateModel.setPresentAddress("");
-        updateModel.setPresentAddressCity("");
-        updateModel.setPresentAddressId(myNewProspect.getPresAddressId());
-        updateModel.setPresentAddressPS(myNewProspect.getPresAddressPs());
-        updateModel.setProduct(productCat);
-        updateModel.setProductId(8);
-        updateModel.setProductSubCategory(productSub);
-        updateModel.setProductSubCategoryId(0);
-        updateModel.setProfession(profession);
-        updateModel.setRelationshipWithApplicant(relationship);
-        updateModel.setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(remittance)));
-        updateModel.setRmCode(rmCode);
-        updateModel.setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(securityValue)));
-        updateModel.setSegment(segment);
-        updateModel.setSemipakaIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(semiPakaIncome)));
-        updateModel.setSpouseName(spouseName);
-        updateModel.setStatus(myNewProspect.getStatus());
-        updateModel.setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(practiceConsultancyTution)));
-        updateModel.setUserName(userName);
-
-        return updateModel;
-    }
-*/
 
     private void alertDialogProceed() {
         android.app.AlertDialog.Builder builder;
@@ -576,9 +489,6 @@ public class ProspectStageActivity extends BaseActivity {
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
             getDataFromFragment();
-//            if (propectStageAttachmentFragment.attachPp != null
-//                    && propectStageAttachmentFragment.attachIdcard != null
-//                    && propectStageAttachmentFragment.attachvCard != null) {
             if (getDataFromProspect() != null) {
                 String ref = getDataFromProspect().getRefNumber();
                 MyNewProspect myNewProspect = new MyNewProspect(
@@ -623,7 +533,6 @@ public class ProspectStageActivity extends BaseActivity {
                         myNewProspect.setBranchCode(Integer.valueOf(ProspectStageProductAndCustomerDetailsFragment.branchCode));
                     myNewProspect.setProductCode(ProspectStageProductAndCustomerDetailsFragment.productTypeCode);
                 } catch (NullPointerException e) {
-                    Log.d("prospectStageDebug", "alertDialogSave: " + e.getLocalizedMessage());
                 } catch (NumberFormatException e) {
 
                 }
@@ -643,6 +552,9 @@ public class ProspectStageActivity extends BaseActivity {
 
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
                 newProspectUpdate.getPRospectDAtaForPostAPi(myNewProspect);
+
+                ArrayList<CoApplicant> coApplicantList = AppConstant.coAppLicantStaticList;
+                newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
                 if (!isValid()) {
                     showAlertDialog("Alert", validateString);
                     return;
@@ -652,14 +564,19 @@ public class ProspectStageActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
                             if (response.body().getCode().equals("200")) {
-                                showToast("" + response.body().toString());
                                 net.maxproit.salesforce.masum.model.prospectmodel.Data data = response.body().getData();
                                 leadApprove(data, newProspectUpdate.getProductId());
-                                Toast.makeText(getApplicationContext(), "save successfully", Toast.LENGTH_SHORT).show();
+                                if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                    coApplicantList.clear();
+                                    AppConstant.coAppLicantStaticList.clear();
+                                }
 
                             } else {
-                                showToast("" + response.body().toString());
-                                Toast.makeText(getApplicationContext(), "save failed", Toast.LENGTH_SHORT).show();
+                                errorAlert(response.body().getCode(), response.body().getMessage());
+                                if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                    coApplicantList.clear();
+                                    AppConstant.coAppLicantStaticList.clear();
+                                }
 
                             }
 
@@ -667,60 +584,28 @@ public class ProspectStageActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
-                            showToast("" + t.getLocalizedMessage());
-                            Log.d("Prospect_stage", "onFailure: " + t.getLocalizedMessage());
+                            errorAlert("Error", t.getMessage());
+                            if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                coApplicantList.clear();
+                                AppConstant.coAppLicantStaticList.clear();
+                            }
                         }
                     });
                 }
 
 
                 int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
-                insertAttachmentData(getDataFromProspect().getId(), myNewProspect);
+
                 if (update > 0) {
-//                        if (brandName != null && year != null && country != null && vehicleType != null) {
-//                            insertBrandData();
-//                        }
+
                 }
             }
-//            }
+
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-    private void insertAttachmentData(int insert, final MyNewProspect myNewProspect) {
-        byte[] bytesAtachpp = null;
-        byte[] bytesAtachIdCard = null;
-        byte[] bytesAtachVCard = null;
-        if (propectStageAttachmentFragment.attachPp != null
-                && propectStageAttachmentFragment.attachIdcard != null
-                && propectStageAttachmentFragment.attachvCard != null) {
-
-            bytesAtachpp = ImageUtils.imagetoByte(PropectStageAttachmentFragment.attachPp);
-            bytesAtachIdCard = ImageUtils.imagetoByte(PropectStageAttachmentFragment.attachIdcard);
-            bytesAtachVCard = ImageUtils.imagetoByte(PropectStageAttachmentFragment.attachvCard);
-            int insertAttach = 0;
-            if (myNewProspect != null) {
-                if (attachmentDbController.getAllData(String.valueOf(myNewProspect.getId())).size() > 0) {
-                    Attachment attachment = new Attachment(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
-                    insertAttach = attachmentDbController.updateData(attachment);
-                } else {
-                    insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
-                }
-            } else {
-                insertAttach = attachmentDbController.insertData(insert, bytesAtachpp, bytesAtachIdCard, bytesAtachVCard);
-
-            }
-            if (insertAttach > 0) {
-                Toast.makeText(this, "Attach data save successfully", Toast.LENGTH_SHORT).show();
-                ActivityUtils.getInstance().invokeActivity(this, DashboardSalesOfficerActivity.class, true);
-
-            } else {
-                Toast.makeText(this, "upload failed", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
 
     private void leadApprove(net.maxproit.salesforce.masum.model.prospectmodel.Data data, int productId) {
         Approval myLeadApproval = new Approval(AppConstant.APPROVAL_PROSPECT,
@@ -729,28 +614,44 @@ public class ProspectStageActivity extends BaseActivity {
                 AppConstant.APPROVAL_CURRWENT_LEVEL_1,
                 AppConstant.APPROVAL_PROSPECT_STATUS_YES, "",
                 data.getUserName(), data.getBranchName(), productId);
-        Log.d("TAG", "leadApprove: " + myLeadApproval.toString());
         getApiService().myprospectApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
-                Log.d("tag", "onResponse: " + response.body().toString());
-
                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                    Toast.makeText(ProspectStageActivity.this, "Prospect Approved", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
+                    errorAlert("Success", "Prospect Approved");
 
-                    showToast("Code: " + response.body().getCode() + " Message: " + response.body().getMessage());
+                } else {
+                    errorAlert(response.body().getCode(), response.body().getMessage());
+
 
                 }
             }
 
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
-                Toast.makeText(ProspectStageActivity.this, "Prospect approval failed", Toast.LENGTH_SHORT).show();
+                errorAlert("Error", t.getMessage());
+
             }
         });
     }
 
+    private void errorAlert(String title, String text) {
 
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(ProspectStageActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(ProspectStageActivity.this);
+        }
+        builder.setTitle(title);
+        builder.setMessage(text);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            finish();
+        });
+
+
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }

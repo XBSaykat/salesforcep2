@@ -132,6 +132,10 @@ public interface ApiService {
     Call<MyLeadByRefApi> getLeadDataByRef(@Path("LeadReferenceNo") String ref, @Path("timestamp") String random);
 
 
+    @POST("CdLead/LeadPopulate/{LeadIndexID}/{timestamp}")
+    Call<MyLeadByRefApi> getLeadDataByLeadIndex(@Path("LeadIndexID") String ref, @Path("timestamp") String random);
+
+
     //rbm data
     @GET("CdProspect/ProspectsForAapproval/{userName}/{timestamp}")
     Call<GetRbmData> getRbmData(@Path("userName") String user, @Path("timestamp") String random);
@@ -279,9 +283,8 @@ public interface ApiService {
 //    Call<Daviationlist> daviationRequestById(@Path("id") String id, @Path("random") String random);
 //
 
-   @GET("Deviation/{id}/{random}")
+    @GET("Deviation/{id}/{random}")
     Call<DeviationResponse> daviationRequestById(@Path("id") String id, @Path("random") String random);
-
 
 
     // Deviation Request
@@ -304,8 +307,6 @@ public interface ApiService {
     Call<DeviationPostRespose> postDeviationData(@Body PostDeviation postDeviation);
 
 
-
-
     @GET("Deviation/QryApprovalTierForDeviation/{referenceNo}/{riskCategory}/{timestamp}")
     Call<QueryApprovalTier> queryforApprovalTier(@Path("referenceNo") String referenceNo,
                                                  @Path("riskCategory") String riskCategory,
@@ -324,6 +325,8 @@ public interface ApiService {
     @POST("CdCIF/CIFRequest/{referenceNo}/{userName}")
     Call<CibCifResponse> cifRequest(@Path("referenceNo") String referenceNo, @Path("userName") String userName);
 
+
+
     // CIF & CIB Request
 
 
@@ -334,6 +337,7 @@ public interface ApiService {
 
     // Cif Search
     @POST("CIF")
+
     Call<SearchList> searchUserInfo(@Body Search search);
 
     // Get Lead
@@ -352,7 +356,6 @@ public interface ApiService {
     /*
      Supervisor Api
     */
-
 
 
     // 1. Supervisor Lead
@@ -406,10 +409,9 @@ public interface ApiService {
     Call<String> getfileByid(@Path("user") String user);
 
 
-
     //Document
     @GET("Documentlist/{ReferenceNo}/{timestamp}")
-    Call<GetDocument> getDocumentList(@Path("ReferenceNo") String refNo,@Path("timestamp") String random);
+    Call<GetDocument> getDocumentList(@Path("ReferenceNo") String refNo, @Path("timestamp") String random);
 
 
 }
