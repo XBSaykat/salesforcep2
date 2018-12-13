@@ -163,7 +163,7 @@ public interface ApiService {
     Call<OldLead> getLeadById(@Path("id") String id, @Path("random") String random);
 
 
-    @POST("approval")
+    @POST("CdApproval/approval")
     Call<ApprovalResponce> supervisorApproval(@Body MyLeadApproval myLeadApproval);
 
 

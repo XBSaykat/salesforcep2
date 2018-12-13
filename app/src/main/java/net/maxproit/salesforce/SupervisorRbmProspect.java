@@ -142,12 +142,16 @@ public class SupervisorRbmProspect extends BaseActivity {
                 getApiService().getRbmData(userName, random).enqueue(new Callback<GetRbmData>() {
                     @Override
                     public void onResponse(Call<GetRbmData> call, Response<GetRbmData> response) {
-                        if (response.body().getCode().equals("200")) {
-                            MyProspect myProspect = new MyProspect();
-                            filterList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
-                            myAdapter.notifyDataSetChanged();
+                        if (isNetworkAvailable()){
+                            if (response.body().getCode().equals("200")) {
+                                MyProspect myProspect = new MyProspect();
+                                filterList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
+                                myAdapter.notifyDataSetChanged();
+                            } else {
+                                showAlertDialog("Error", response.body().getMessage());
+                            }
                         } else {
-                            showAlertDialog("Error", response.body().getMessage());
+                            showAlertDialog("Error", "Network isn't connected");
                         }
                     }
 
