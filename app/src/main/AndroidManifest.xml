@@ -72,6 +72,7 @@
         <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomancFollowUpCallsActivity" />
         <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceSanctionActivity" />
         <activity android:name=".feature.salesOfficer.myPerfomance.MyPerformanceVisitsActivity" />
+        <activity android:name=".masum.activity.CibCifRequestActivity" />
         <activity
             android:name=".masum.activity.DeviationActivity"
             android:label="Deviation Request"

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.maxproit.salesforce.feature.login.LoginActivity;
+import net.maxproit.salesforce.masum.activity.CibCifRequestActivity;
 import net.maxproit.salesforce.masum.activity.daviation.DaviationListActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -133,7 +134,9 @@ public class ProspectViewRbm extends AppCompatActivity {
         btnCifCibView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ProspectViewRbm.this, CibCifRequestActivity.class);
+                intent.putExtra(KEY_REFERRENCE_ID, getDataFromProspect().getRefNumber());
+                startActivity(intent);
             }
         });
 
