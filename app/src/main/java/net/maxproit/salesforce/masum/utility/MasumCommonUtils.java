@@ -5,13 +5,12 @@ import java.util.Calendar;
 public class MasumCommonUtils {
 
 
-    public static boolean isNullStr(String str){
-        boolean isnull=true;
-        if (str ==null || str.equals("")) {
+    public static boolean isNullStr(String str) {
+        boolean isnull = true;
+        if (str == null || str.equals("") || str.equals("0")) {
             isnull = true;
-        }
-        else {
-            isnull=false;
+        } else {
+            isnull = false;
         }
         return isnull;
     }
@@ -24,6 +23,7 @@ public class MasumCommonUtils {
 
         return data;
     }
+
     public static String isNotZero(float amount) {
         String data = null;
         if (amount > 0) {
