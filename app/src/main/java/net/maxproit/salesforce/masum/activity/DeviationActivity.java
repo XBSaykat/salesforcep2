@@ -43,6 +43,7 @@ public class DeviationActivity extends BaseActivity {
     String lTV ="";
     String justification = "";
     int justificationId = 0;
+    String approvalTier;
 
     UtilSpinner exceptionAreaAdapter;
     UtilSpinner exceptionParametersAdapter;
@@ -139,7 +140,7 @@ public class DeviationActivity extends BaseActivity {
                                                             dvHead = response.body().getData().get(position).getDevAccountHeadName();
                                                             riskCat = response.body().getData().get(position).getRiskCategory();
                                                             binding.etRiskCategory.setText(riskCat);
-
+                                                            callQueryApprovalTierForDeviation(riskCat);
                                                             callQueryDeviationPropertyApi();
                                                         }
                                                     }else{
@@ -201,12 +202,13 @@ public class DeviationActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getCode().equals("200")) {
                         hideProgressDialog();
-                        String loanAmount = response.body().getData().get(0).getLoanAmount();
-                        String lTV = response.body().getData().get(0).getLTV();
+                        loanAmount = response.body().getData().get(0).getLoanAmount();
+                        lTV = response.body().getData().get(0).getLTV();
                         binding.etLoanAmount.setText(loanAmount);
                         binding.etLtv.setText(lTV);
 
-                        callQueryApprovalTierForDeviation();
+
+                        loadJustificationSpinner();
 
                     }
                 }
@@ -219,7 +221,7 @@ public class DeviationActivity extends BaseActivity {
         });
     }
 
-    private void callQueryApprovalTierForDeviation() {
+    private void callQueryApprovalTierForDeviation(String riskCat) {
 
     getApiService().queryforApprovalTier(""+referrenceid, ""+riskCat, UUID.randomUUID().toString()).enqueue(new Callback<QueryApprovalTier>() {
         @Override
@@ -227,9 +229,9 @@ public class DeviationActivity extends BaseActivity {
             if (response.isSuccessful()){
                 if (response.body().getCode().equals("200")){
 
-                    String approvalTier = response.body().getData().get(0).getApprovalTier();
+                    approvalTier = response.body().getData().get(0).getApprovalTier();
                     binding.etApproverTier.setText(approvalTier);
-                    loadJustificationSpinner();
+
 
                 }
             }

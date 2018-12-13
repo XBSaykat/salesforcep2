@@ -45,7 +45,7 @@ public class ProspectViewRbm extends AppCompatActivity {
     private LinearLayout liBrandName, liManufacturingYear, liManufacturingCountry, liVehicleType;
 
     private ImageView backButton;
-    private Button btnCoapplicantsView, btnLogout;
+    private Button btnCoapplicantsView, btnCifCibView, btnLogout;
     private ArrayList<CoApplicant> coApplicantList = new ArrayList<>();
     private ArrayList<CarLoan> carLoanList = new ArrayList<>();
     private ArrayList<CoApplicant> filteredList = new ArrayList<>();
@@ -107,6 +107,7 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvOfficeCommercialSpace = (TextView) findViewById(R.id.tv_office_commercial_space_income);
         tvWarehouseFactoryIncome = (TextView) findViewById(R.id.tv_warehouse_factory_income);
         btnCoapplicantsView = findViewById(R.id.btn_rbm_prospect_view_coaplicant);
+        btnCifCibView = findViewById(R.id.btn_rbm_prospect_cif_cib_request);
 
         liBrandName = (LinearLayout) findViewById(R.id.li_brand_name);
         liManufacturingYear = (LinearLayout) findViewById(R.id.li_maufacturing_year);
@@ -126,6 +127,13 @@ public class ProspectViewRbm extends AppCompatActivity {
             public void onClick(View v) {
 
                 followUpAlert();
+            }
+        });
+
+        btnCifCibView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
