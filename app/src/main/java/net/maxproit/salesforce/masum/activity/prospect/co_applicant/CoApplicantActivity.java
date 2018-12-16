@@ -34,7 +34,7 @@ public class CoApplicantActivity extends BaseActivity {
     private TextView btnSave;
     private CoApplicantDBController coApplicantDBController;
     String leadId = null;
-    public static String pr, pe;
+    public static String pr, pe,perCity,perPs,preCity,prePs;
     CoApplicantProductAndCustomerDetailsFragment coApplicantProductAndCustomerDetailsFragment;
     CoApplicantFinancialFragment coApplicantFinancialFragment;
     private int position = -1;
@@ -73,6 +73,10 @@ public class CoApplicantActivity extends BaseActivity {
             pe = bundle.getString(AppConstant.PERMANENT_ADDRESSS_KEY);
             extraFromFragment.putString(AppConstant.PRESENT_ADDRESSS_KEY, pr);
             extraFromFragment.putString(AppConstant.PERMANENT_ADDRESSS_KEY, pe);
+            extraFromFragment.putString(AppConstant.PERMANENT_ADDRESSS_CITY_KEY, perCity);
+            extraFromFragment.putString(AppConstant.PERMANENT_ADDRESSS_PS_KEY, perPs);
+            extraFromFragment.putString(AppConstant.PRESENT_ADDRESSS_CITY_KEY, preCity);
+            extraFromFragment.putString(AppConstant.PRESENT_ADDRESSS_PS_KEY, prePs);
             coApplicantProductAndCustomerDetailsFragment.setArguments(extraFromFragment);
         }
         initListener();
@@ -108,7 +112,7 @@ public class CoApplicantActivity extends BaseActivity {
                 age = CoApplicantProductAndCustomerDetailsFragment.etAge.getText().toString();
                 districtOfBirth = CoApplicantProductAndCustomerDetailsFragment.districtOfBirth;
                 countryOfBirth = CoApplicantProductAndCustomerDetailsFragment.countOfBirth;
-                photoIdType = CoApplicantProductAndCustomerDetailsFragment.photoIdType;
+                photoIdType = String.valueOf(CoApplicantProductAndCustomerDetailsFragment.photoIdcode);
                 photoIdNo = CoApplicantProductAndCustomerDetailsFragment.etPhotoId.getText().toString();
                 photoIdIssueDate = CoApplicantProductAndCustomerDetailsFragment.etPhotoIdDate.getText().toString();
                 eTin = CoApplicantProductAndCustomerDetailsFragment.etETin.getText().toString();

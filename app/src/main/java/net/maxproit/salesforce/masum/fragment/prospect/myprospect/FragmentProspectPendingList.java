@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
@@ -107,6 +108,9 @@ public class FragmentProspectPendingList extends BaseFragment {
 
     private void callApiLoadList(int position) {
         if (isNetworkAvailable()) {
+            if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                AppConstant.coAppLicantStaticList.clear();
+            }
             showLoader();
             String ref = dataFilterList.get(position).getReference();
             getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
@@ -137,6 +141,9 @@ public class FragmentProspectPendingList extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+            AppConstant.coAppLicantStaticList.clear();
+        }
         callApi();
         Log.d("tag", "onResume: calling api from onResume");
 

@@ -584,10 +584,11 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 }
             if (!MasumCommonUtils.isNullStr(myNewLead.getpIDType())) {
                 String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(myNewLead.getpIDType()));
+                photoIdcode=Integer.parseInt(myNewLead.getpIDType());
 
                 try {
                     spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(pIdTypeStr));
-                    getphotoIdNumber(myNewLead.getpIDType());
+                    getphotoIdNumber(pIdTypeStr);
 
                 } catch (IllegalStateException er) {
 

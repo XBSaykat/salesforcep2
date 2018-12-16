@@ -167,7 +167,11 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                 Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
                 bundle.putString(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, refId);
                 bundle.putString(AppConstant.PRESENT_ADDRESSS_KEY, myNewLead.getAddress());
-                bundle.putString(AppConstant.PERMANENT_ADDRESSS_KEY, myNewLead.getPermAddressPs());
+                bundle.putString(AppConstant.PERMANENT_ADDRESSS_KEY, myNewLead.getpAddress());
+                bundle.putString(AppConstant.PRESENT_ADDRESSS_CITY_KEY, myNewLead.getPresAddressCity());
+                bundle.putString(AppConstant.PRESENT_ADDRESSS_PS_KEY, myNewLead.getPresAddressPs());
+                bundle.putString(AppConstant.PERMANENT_ADDRESSS_CITY_KEY, myNewLead.getPermAddressCity());
+                bundle.putString(AppConstant.PERMANENT_ADDRESSS_PS_KEY, myNewLead.getPermAddressPs());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
 

@@ -76,6 +76,10 @@ public class AppConstant {
     public static final String IS_NETWORK_AVAILABLE = "isNetworkAvailable";
     public static final String SYNC_STATUS_OK ="ok" ;
     public static final String SYNC_STATUS_WAIT ="wait" ;
+    public static final String PERMANENT_ADDRESSS_PS_KEY ="per_ps" ;
+    public static final String PERMANENT_ADDRESSS_CITY_KEY ="per_city" ;
+    public static final String PRESENT_ADDRESSS_PS_KEY ="pre_ps" ;
+    public static final String PRESENT_ADDRESSS_CITY_KEY ="ps_city" ;
 
     public static ArrayList<CoApplicant> coAppLicantStaticList=new ArrayList<>();
 

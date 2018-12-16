@@ -781,6 +781,7 @@ public class NewProspectUpdate {
             coApplicant.setContactId(coApplicanLocalList.get(i).getContactId());
             coApplicant.setCustomerId(coApplicanLocalList.get(i).getCustomerId());
             coApplicant.setMobile(coApplicanLocalList.get(i).getMobileNo());
+
             coApplicant.setCountryOfBirth(coApplicanLocalList.get(i).getCountryOfBirth());
             coApplicant.setCurrentJobDuration(coApplicanLocalList.get(i).getNoOfYrsInCurrentJob());
             coApplicant.setCustomerName(coApplicanLocalList.get(i).getName());

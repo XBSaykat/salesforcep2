@@ -63,18 +63,15 @@ public class ProspectStageActivity extends BaseActivity {
     public static int CO_APPLICANT_REQUEST_CODE = 1;
     private String userName = null;
     private PropectStageAttachmentFragment propectStageAttachmentFragment;
-    MyNewProspect prospect;
-    int producSubCode = 0;
-    String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
+    private MyNewProspect prospect;
+    private int producSubCode = 0;
+    private String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
             relationship = null, name = null, age = null, photoId = null, photoIdDate = null, eTin = null, fatherName = null, motherName = null, spouseName = null,
-            companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null;
-    String brandName = null, year = null, country = null, vehicleType = null, securityValue = null, loanRequired = null, loanTerm = null, proposedInterest = null,
-            fee = null, dateOfBirth = null, photoIdType = null, presentCity = null, presentPs = null, permanentCity = null, permanentPs = null;
-    String rmCode, monthlyNetSalaryType = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
+            companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null,brandName = null, year = null, country = null, vehicleType = null, securityValue = null, loanRequired = null, loanTerm = null, proposedInterest = null,
+            fee = null, dateOfBirth = null, photoIdType = null, presentCity = null, presentPs = null, permanentCity = null, permanentPs = null,rmCode, monthlyNetSalaryType = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
             officeIncome = null, wireHouseIncome = null, apartmentIncome = null, agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
             monthlyFamilyExpenditure = null, emiOfOtherLoans = null, validateString = null;
-    ArrayList<CoApplicant> coApplicantArrayList;
-    CoApplicantListAdapter coApplicantAdapter;
+
 
 
     private TextView buttonSave, btnProceed, btnReject;
@@ -117,6 +114,7 @@ public class ProspectStageActivity extends BaseActivity {
 
         mLayout = findViewById(R.id.btn_layout_lead);
         initListener();
+        splashThread();
     }
 
     @Override

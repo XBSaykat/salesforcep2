@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -30,6 +31,7 @@ import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantA
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.DateUtils;
@@ -103,6 +105,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
     private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec;
+    public static int photoIdcode;
     private CoApplicantActivity coApplicantActivity;
 
     private SharedViewModel model;
@@ -233,6 +236,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
         presentAddress = coApplicantActivity.pr;
         permanentAddress = coApplicantActivity.pe;
+        preCity = coApplicantActivity.preCity;
+        prePoliceStation = coApplicantActivity.prePs;
+        perCity = coApplicantActivity.perCity;
+        perPoliceStation = coApplicantActivity.perPs;
 
         //  prosList.addAll(myLeadDbController.myNewLeadGetAllData(coApplicantActivity.getLeadId()));
         return view;
@@ -320,23 +327,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 //                datePickerDialog(getContext(), etDateOfBirth);
 //            }
 //        });
-
-        cbAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (cbAddress.isChecked()) {
-                    if (presentAddress != null)
-                        etPresentAddress.setText(presentAddress);
-                    if (permanentAddress != null)
-                        etPermanentAddress.setText(permanentAddress);
-                } else {
-                    etPresentAddress.setText("");
-                    etPermanentAddress.setText("");
-                }
-
-            }
-        });
 
 
         etPhotoIdDate.setOnClickListener(new View.OnClickListener() {
@@ -441,21 +431,9 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 validPhoto = s;
-                if (i == 0) {
-                    getphotoIdNumber(s);
-
-                } else if (i == 1) {
-                    getphotoIdNumber(s);
-
-                } else if (i == 2) {
-                    getphotoIdNumber(s);
-
-                } else if (i == 3) {
-                    getphotoIdNumber(s);
-
-                } else {
-                    liPhotoIdNo.setVisibility(View.GONE);
-                }
+                LongOperationPhotoIDCode longOperationPhotoIDCode = new LongOperationPhotoIDCode();
+                longOperationPhotoIDCode.execute(i);
+                getphotoIdNumber(s);
             }
         });
 
@@ -534,6 +512,52 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhotoType.setAdapter(validPhotoIdAdapter);
 
+        cbAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (cbAddress.isChecked()) {
+                    if (presentAddress != null)
+                        etPresentAddress.setText(presentAddress);
+                    if (permanentAddress != null)
+                        etPermanentAddress.setText(permanentAddress);
+
+                    if (!MasumCommonUtils.isNullStr(preCity)) {
+                        try {
+                            spinnerPreCity.setSelection(preCityAdapter.getPosition(preCity));
+                        } catch (final IllegalStateException ignored) {
+
+                        }
+                    }
+                    if (!MasumCommonUtils.isNullStr(prePoliceStation)) {
+                        try {
+                            spinnerPrePoliceStation.setSelection(prePolishStationAdapter.getPosition(prePoliceStation));
+                        } catch (final IllegalStateException ignored) {
+
+                        }
+                    }
+                    if (!MasumCommonUtils.isNullStr(perCity)) {
+                        try {
+                            spinnerPerCity.setSelection(perCityAdapter.getPosition(perCity));
+                        } catch (final IllegalStateException ignored) {
+
+                        }
+                    }
+                    if (!MasumCommonUtils.isNullStr(perPoliceStation)) {
+                        try {
+                            spinnerPerPoliceStation.setSelection(perPolishStationAdapter.getPosition(perPoliceStation));
+                        } catch (final IllegalStateException ignored) {
+
+                        }
+                    }
+                } else {
+                    etPresentAddress.setText("");
+                    etPermanentAddress.setText("");
+                }
+
+            }
+        });
+
         if (coApplicantActivity.getDataFromApplicant() != null) {
             CoApplicant coApplicant = coApplicantActivity.getDataFromApplicant();
             etName.setText(coApplicant.getName());
@@ -550,7 +574,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             }
 
             etDesignation.setText(coApplicant.getDesignation());
-            etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
             etETin.setText(coApplicant.geteTin());
             etFatherName.setText(coApplicant.getfName());
             etMotherName.setText(coApplicant.getmName());
@@ -583,13 +606,17 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
             if (!MasumCommonUtils.isNullStr(coApplicant.getPhotoIdType())) {
-
+                String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(coApplicant.getPhotoIdType()));
+                photoIdcode = Integer.parseInt(coApplicant.getPhotoIdType());
                 try {
-                    spinnerValidPhotoType.setSelection(validPhotoIdAdapter.getPosition(coApplicant.getPhotoIdType()));
+                    spinnerValidPhotoType.setSelection(validPhotoIdAdapter.getPosition(pIdTypeStr));
+                    getphotoIdNumber(pIdTypeStr);
 
                 } catch (IllegalStateException er) {
 
                 }
+            } else {
+                liPhotoIdNo.setVisibility(View.GONE);
             }
 
             if (!MasumCommonUtils.isNullStr(coApplicant.getProfession())) {
@@ -675,6 +702,31 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 //
 //
 //    }
+
+
+    private class LongOperationPhotoIDCode extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            photoIdcode = localSetting.getPhotoIdCode(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
 
 
 }
