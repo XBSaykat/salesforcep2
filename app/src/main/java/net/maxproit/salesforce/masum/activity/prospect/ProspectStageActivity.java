@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -86,6 +87,8 @@ public class ProspectStageActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
+        initLoader();
+        showLoader();
         coApplicantDBController = new CoApplicantDBController(this);
         attachmentDbController = new AttachmentDbController(ProspectStageActivity.this);
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
@@ -147,7 +150,16 @@ public class ProspectStageActivity extends BaseActivity {
         });
 
     }
+    private void splashThread() {
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideLoader();
+
+            }
+        }, 3000);
+    }
 
     private void getDataFromFragment() {
         if (ProspectStageFinancialFragment.monthlyNetSalaryType != null) {
