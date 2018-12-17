@@ -14,7 +14,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -52,10 +54,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private List<String> listPerPs = null,listPrePs=null;
+    private List<String> listPerPs = null, listPrePs = null;
     private LocalSetting localSetting;
     private ArrayAdapter<String> productSubAdapter;
-    private ArrayAdapter<String> prePolishStationAdapter,perPolishStationAdapter;
+    private ArrayAdapter<String> prePolishStationAdapter, perPolishStationAdapter;
     Calendar myCalendar = Calendar.getInstance();
 
     private LinearLayout liNid, liPassport, liDrivingLicense, liBirthCertificate;
@@ -81,9 +83,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
 
     private AwesomeSpinner spinnerProductCat, spinnerSub, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
-            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto, spinnerPreCity, spinnerPrePoliceStation, spinnerPerCity, spinnerPerPoliceStation;
+            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto, spinnerPrePoliceStation, spinnerPerPoliceStation;
     private LinearLayout liPhotoIdNo;
     private TextView tvPhotoIdNo;
+    private AutoCompleteTextView spinnerPreCity, spinnerPerCity;
 
     public static EditText etName, etDob, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
@@ -129,8 +132,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
         prospectStageActivity = (ProspectStageActivity) getActivity();
-        listPerPs =new ArrayList<>();
-        listPrePs =new ArrayList<>();
+        listPerPs = new ArrayList<>();
+        listPrePs = new ArrayList<>();
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         localSetting = new LocalSetting(getActivity());
         spinnerPreCity = view.findViewById(R.id.awe_spinner_visit_plan_city);
@@ -342,17 +345,15 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     }
 
     public void initListener() {
-        spinnerPreCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+        spinnerPreCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(int i, String s) {
-                preCity = s;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                preCity = String.valueOf(spinnerPerCity.getAdapter().getItem(i));
                 if (!listPrePs.isEmpty())
                     listPrePs.clear();
-                listPrePs.addAll(localSetting.getpsListByCityCode(i));
+                listPrePs.addAll(localSetting.getpsListByCityCode(preCity));
                 prePolishStationAdapter.notifyDataSetChanged();
-
             }
-
         });
 
         spinnerPrePoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
@@ -362,17 +363,15 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
-        spinnerPerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+        spinnerPerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(int i, String s) {
-                perCity = s;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                perCity = String.valueOf(spinnerPerCity.getAdapter().getItem(i));
                 if (!listPerPs.isEmpty())
                     listPerPs.clear();
-                listPerPs.addAll(localSetting.getpsListByCityCode(i));
+                listPerPs.addAll(localSetting.getpsListByCityCode(perCity));
                 perPolishStationAdapter.notifyDataSetChanged();
-
             }
-
         });
 
         spinnerPerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
@@ -523,13 +522,12 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         ArrayAdapter<String> perCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerPerCity.setAdapter(perCityAdapter);
-
+        spinnerPerCity.setThreshold(1);
         prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPerPs);
         spinnerPrePoliceStation.setAdapter(prePolishStationAdapter);
-
         ArrayAdapter<String> preCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerPreCity.setAdapter(perCityAdapter);
-
+        spinnerPreCity.setThreshold(1);
         ArrayAdapter<String> productCat = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductCat.setAdapter(productCat);
 
@@ -594,7 +592,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 }
             if (!MasumCommonUtils.isNullStr(myNewLead.getpIDType())) {
                 String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(myNewLead.getpIDType()));
-                photoIdcode=Integer.parseInt(myNewLead.getpIDType());
+                photoIdcode = Integer.parseInt(myNewLead.getpIDType());
 
                 try {
                     spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(pIdTypeStr));
@@ -693,17 +691,11 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
 
             if (!MasumCommonUtils.isNullStr(myNewLead.getPresAddressCity())) {
-
-                try {
-                    spinnerPreCity.setSelection(preCityAdapter.getPosition(myNewLead.getPresAddressCity()));
-                } catch (final IllegalStateException ignored) {
-
-                }
-
-
+                preCity = myNewLead.getPresAddressCity();
+                spinnerPreCity.setText(myNewLead.getPresAddressCity());
                 if (!listPrePs.isEmpty())
                     listPrePs.clear();
-                listPrePs.addAll(localSetting.getpsListByCityCode(spinnerPreCity.getSelectedItemPosition()));
+                listPrePs.addAll(localSetting.getpsListByCityCode(myNewLead.getPresAddressCity()));
                 prePolishStationAdapter.notifyDataSetChanged();
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getPresAddressPs())) {
@@ -714,16 +706,11 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getPermAddressCity())) {
-                try {
-                    spinnerPerCity.setSelection(perCityAdapter.getPosition(myNewLead.getPermAddressCity()));
-                } catch (final IllegalStateException ignored) {
-
-                }
-
-
+                perCity = myNewLead.getPermAddressCity();
+                spinnerPerCity.setText(myNewLead.getPermAddressCity());
                 if (!listPerPs.isEmpty())
                     listPerPs.clear();
-                listPerPs.addAll(localSetting.getpsListByCityCode(spinnerPerCity.getSelectedItemPosition()));
+                listPerPs.addAll(localSetting.getpsListByCityCode(myNewLead.getPermAddressCity()));
                 perPolishStationAdapter.notifyDataSetChanged();
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getPermAddressPs())) {

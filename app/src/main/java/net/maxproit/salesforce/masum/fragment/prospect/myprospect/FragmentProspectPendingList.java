@@ -124,15 +124,24 @@ public class FragmentProspectPendingList extends BaseFragment {
 
                             } else {
                                 showAlertDialog("Error", "Server Error");
+                                hideLoader();
                             }
-                        } else showAlertDialog("Error", response.body().getMessage());
-                    } else showAlertDialog("Error", response.message());
+                        } else {
+                            showAlertDialog("Error", response.body().getMessage());
+                            hideLoader();
+                        }
+
+                    } else {
+                        showAlertDialog("Error", response.message());
+                        hideLoader();
+                    }
 
                 }
 
                 @Override
                 public void onFailure(Call<OldProspect> call, Throwable t) {
                     showAlertDialog("Error", t.getMessage());
+                    hideLoader();
                 }
             });
         } else showAlertDialog("Error", "No Internet,please connect to the internet");

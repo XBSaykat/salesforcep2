@@ -458,12 +458,24 @@ public class LocalSetting {
 
     }
 
-    public List<String> getpsListByCityCode(int position) {
+    public List<String> getpsListByCityCode(String position) {
         int code = 0;
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < getCity().size(); i++) {
-            if (i == position) {
-                code = getCity().get(i).getCityID();
+        for (City in : getCity()) {
+            if (in.getCity().equalsIgnoreCase(position)) {
+                code = in.getCityID();
+                list.addAll(getPseStringList(code));
+                break;
+            }
+        }
+        return list;
+    }
+   public List<String> getpsListByCityCode(int position) {
+        int code = 0;
+        List<String> list = new ArrayList<>();
+        for (City in : getCity()) {
+            if (code== position) {
+                code = in.getCityID();
                 list.addAll(getPseStringList(code));
                 break;
             }
