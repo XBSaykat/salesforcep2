@@ -727,9 +727,9 @@ public class NewProspectUpdate {
 
 
         ArrayList<CoApplicant> coApplicantsList = new ArrayList<>();
-        CoApplicant coApplicant = new CoApplicant();
 
         for (int i = 0; i < coApplicanLocalList.size(); i++) {
+            CoApplicant coApplicant = new CoApplicant();
 
             try {
 
