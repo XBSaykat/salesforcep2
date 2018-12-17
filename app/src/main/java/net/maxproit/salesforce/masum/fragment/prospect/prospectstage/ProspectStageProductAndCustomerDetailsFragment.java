@@ -52,9 +52,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private List<String> listPerPs = null,listPrePs=null;
     private LocalSetting localSetting;
     private ArrayAdapter<String> productSubAdapter;
-
+    private ArrayAdapter<String> prePolishStationAdapter,perPolishStationAdapter;
     Calendar myCalendar = Calendar.getInstance();
 
     private LinearLayout liNid, liPassport, liDrivingLicense, liBirthCertificate;
@@ -128,7 +129,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
         prospectStageActivity = (ProspectStageActivity) getActivity();
-
+        listPerPs =new ArrayList<>();
+        listPrePs =new ArrayList<>();
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         localSetting = new LocalSetting(getActivity());
         spinnerPreCity = view.findViewById(R.id.awe_spinner_visit_plan_city);
@@ -344,7 +346,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 preCity = s;
-
+                if (!listPrePs.isEmpty())
+                    listPrePs.clear();
+                listPrePs.addAll(localSetting.getpsListByCityCode(i));
+                prePolishStationAdapter.notifyDataSetChanged();
 
             }
 
@@ -356,10 +361,15 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 prePoliceStation = s;
             }
         });
+
         spinnerPerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 perCity = s;
+                if (!listPerPs.isEmpty())
+                    listPerPs.clear();
+                listPerPs.addAll(localSetting.getpsListByCityCode(i));
+                perPolishStationAdapter.notifyDataSetChanged();
 
             }
 
@@ -508,14 +518,14 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     }
 
     public void initAdapters() {
-        ArrayAdapter<String> perPolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getPseStringList());
+        perPolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPrePs);
         spinnerPerPoliceStation.setAdapter(perPolishStationAdapter);
 
         ArrayAdapter<String> perCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerPerCity.setAdapter(perCityAdapter);
 
-        ArrayAdapter<String> prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getPseStringList());
-        spinnerPrePoliceStation.setAdapter(perPolishStationAdapter);
+        prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPerPs);
+        spinnerPrePoliceStation.setAdapter(prePolishStationAdapter);
 
         ArrayAdapter<String> preCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerPreCity.setAdapter(perCityAdapter);
@@ -683,11 +693,18 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
 
             if (!MasumCommonUtils.isNullStr(myNewLead.getPresAddressCity())) {
+
                 try {
                     spinnerPreCity.setSelection(preCityAdapter.getPosition(myNewLead.getPresAddressCity()));
                 } catch (final IllegalStateException ignored) {
 
                 }
+
+
+                if (!listPrePs.isEmpty())
+                    listPrePs.clear();
+                listPrePs.addAll(localSetting.getpsListByCityCode(spinnerPreCity.getSelectedItemPosition()));
+                prePolishStationAdapter.notifyDataSetChanged();
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getPresAddressPs())) {
                 try {
@@ -702,6 +719,12 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 } catch (final IllegalStateException ignored) {
 
                 }
+
+
+                if (!listPerPs.isEmpty())
+                    listPerPs.clear();
+                listPerPs.addAll(localSetting.getpsListByCityCode(spinnerPerCity.getSelectedItemPosition()));
+                perPolishStationAdapter.notifyDataSetChanged();
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getPermAddressPs())) {
                 try {

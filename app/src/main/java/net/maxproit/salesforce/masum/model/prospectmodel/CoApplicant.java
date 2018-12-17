@@ -120,7 +120,17 @@ public class CoApplicant {
     @SerializedName("interestIncomeOfFDR")
     @Expose
     private Integer interestIncomeOfFDR;
+    @SerializedName("mobileNoId")
+    @Expose
+    private Integer mobileNoId;
 
+    public Integer getMobileNoId() {
+        return mobileNoId;
+    }
+
+    public void setMobileNoId(Integer mobileNoId) {
+        this.mobileNoId = mobileNoId;
+    }
     public String getCustomerName() {
         return customerName;
     }

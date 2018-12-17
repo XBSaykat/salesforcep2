@@ -71,12 +71,10 @@ public class CoApplicantActivity extends BaseActivity {
             Bundle extraFromFragment = new Bundle();
             pr = bundle.getString(AppConstant.PRESENT_ADDRESSS_KEY);
             pe = bundle.getString(AppConstant.PERMANENT_ADDRESSS_KEY);
-            extraFromFragment.putString(AppConstant.PRESENT_ADDRESSS_KEY, pr);
-            extraFromFragment.putString(AppConstant.PERMANENT_ADDRESSS_KEY, pe);
-            extraFromFragment.putString(AppConstant.PERMANENT_ADDRESSS_CITY_KEY, perCity);
-            extraFromFragment.putString(AppConstant.PERMANENT_ADDRESSS_PS_KEY, perPs);
-            extraFromFragment.putString(AppConstant.PRESENT_ADDRESSS_CITY_KEY, preCity);
-            extraFromFragment.putString(AppConstant.PRESENT_ADDRESSS_PS_KEY, prePs);
+            perCity=bundle.getString(AppConstant.PERMANENT_ADDRESSS_CITY_KEY );
+            perPs= bundle.getString(AppConstant.PERMANENT_ADDRESSS_PS_KEY );
+            preCity= bundle.getString(AppConstant.PRESENT_ADDRESSS_CITY_KEY );
+            prePs=bundle.getString(AppConstant.PRESENT_ADDRESSS_PS_KEY );
             coApplicantProductAndCustomerDetailsFragment.setArguments(extraFromFragment);
         }
         initListener();

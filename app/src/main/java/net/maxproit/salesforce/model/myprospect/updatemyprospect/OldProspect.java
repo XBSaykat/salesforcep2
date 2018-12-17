@@ -148,10 +148,11 @@ public class OldProspect {
                 coApplicant.setMonthBusinessIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getBusinessIncome()));
                 coApplicant.setMonthOfficeSpaceIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getCommercialSpaceIncome()));
                 coApplicant.setCompanyName(data.getCoApplicants().get(i).getCompany());
+                coApplicant.setMobileNoId(data.getCoApplicants().get(i).getMobileNoId());
+                coApplicant.setCustomerId(data.getCoApplicants().get(i).getCustomerId());
                 coApplicant.setContactId(data.getCoApplicants().get(i).getContactId());
                 coApplicant.setCountryOfBirth(data.getCoApplicants().get(i).getCountryOfBirth());
                 coApplicant.setNoOfYrsInCurrentJob(data.getCoApplicants().get(i).getCurrentJobDuration());
-                coApplicant.setCustomerId(data.getCoApplicants().get(i).getCustomerId());
                 coApplicant.setName(data.getCoApplicants().get(i).getCustomerName());
                 coApplicant.setDateOfBirth(data.getCoApplicants().get(i).getDateOfBirth());
                 coApplicant.setDesignation(data.getCoApplicants().get(i).getDesignation());

@@ -429,7 +429,6 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setMobileId(getDataFromProspect().getMobileId());
                 myNewProspect.setPresAddressId(getDataFromProspect().getPresAddressId());
                 myNewProspect.setPermAddressId(getDataFromProspect().getPermAddressId());
-                myNewProspect.setUserID(getDataFromProspect().getUserID());
                 myNewProspect.setSubCode(producSubCode);
                 myNewProspect.setPresAddressCity(presentCity);
                 myNewProspect.setPresAddressPs(presentPs);
@@ -464,7 +463,6 @@ public class ProspectStageActivity extends BaseActivity {
                                     AppConstant.coAppLicantStaticList.clear();
                                 }
                                 errorAlert(response.body().getCode(), response.body().getMessage());
-
                             }
                         }
 
