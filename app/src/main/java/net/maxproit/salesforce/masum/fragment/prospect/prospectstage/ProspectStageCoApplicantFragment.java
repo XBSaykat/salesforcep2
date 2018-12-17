@@ -153,8 +153,6 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         loadCoapplicants();
-
-
     }
 
     private void initListener(MyNewProspect myNewLead) {
