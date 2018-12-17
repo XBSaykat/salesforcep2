@@ -164,6 +164,7 @@ public class SupervisorRbmProspect extends BaseActivity {
     }
 
     private void sentDataToDetail(int position) {
+        Data prospectListData = filterList.get(position);
         String ref = filterList.get(position).getReference();
         if (isNetworkAvailable()) {
             getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
@@ -173,7 +174,7 @@ public class SupervisorRbmProspect extends BaseActivity {
                     if (response.body().getCode().equals("200")) {
                         OldProspect oldProspect = response.body();
                         MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
-                        ActivityUtils.invokProspectRbmViewStage(SupervisorRbmProspect.this, myNewProspect);
+                        ActivityUtils.invokProspectRbmViewStage(SupervisorRbmProspect.this, myNewProspect, prospectListData);
 
                     } else showAlertDialog("ERROR", response.body().getMessage());
 

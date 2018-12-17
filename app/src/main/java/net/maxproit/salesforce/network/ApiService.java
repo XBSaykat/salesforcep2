@@ -22,7 +22,7 @@ import net.maxproit.salesforce.masum.model.api.rbm.GetRbmData;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanGetApi;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
-import net.maxproit.salesforce.model.approval.Approval;
+import net.maxproit.salesforce.masum.model.api.approval.Approval;
 import net.maxproit.salesforce.model.cib.notRequestedCIB.NotRequestedCIBData;
 import net.maxproit.salesforce.model.cib.post.CibPost;
 import net.maxproit.salesforce.model.cib.postResponce.CibPostResponce;
@@ -32,8 +32,6 @@ import net.maxproit.salesforce.model.cif.post.CifPost;
 import net.maxproit.salesforce.model.cif.postResponce.CifPostResponce;
 import net.maxproit.salesforce.model.cif.requestedCIf.RequestedCIfData;
 import net.maxproit.salesforce.model.deviation.DeviationEntities;
-import net.maxproit.salesforce.model.deviation.getlist.Daviationlist;
-import net.maxproit.salesforce.model.deviation.postresponce.DaviationPostResponce;
 import net.maxproit.salesforce.model.folowup.FollowupList;
 import net.maxproit.salesforce.model.login.Login;
 import net.maxproit.salesforce.model.login.LoginResponse;
@@ -410,6 +408,13 @@ public interface ApiService {
     //Document
     @GET("Documentlist/{ReferenceNo}/{timestamp}")
     Call<GetDocument> getDocumentList(@Path("ReferenceNo") String refNo,@Path("timestamp") String random);
+
+
+    // RBM Approval
+
+    @POST("CdApproval/approval")
+    Call<ApprovalResponce> approve(@Body Approval approval);
+
 
 
 }
