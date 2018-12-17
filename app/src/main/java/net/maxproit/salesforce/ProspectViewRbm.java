@@ -1,6 +1,7 @@
 package net.maxproit.salesforce;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.activity.CibCifRequestActivity;
 import net.maxproit.salesforce.masum.activity.daviation.DaviationListActivity;
@@ -25,16 +27,23 @@ import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.api.approval.Approval;
 import net.maxproit.salesforce.masum.model.local.CarLoan;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
+import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
+import net.maxproit.salesforce.model.myprospect.Data;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 
-public class ProspectViewRbm extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ProspectViewRbm extends BaseActivity {
 
     private TextView tvApproval, tvReject, tvReturn, tvProdecutCategory, tvProductDetail, tvBranchName, tvUserName, tvSegment, tvAge,
             tvBirthDistrict, tvBirthCountry, tvValidPhotoId, tvPhotoIssudate, tvEtin, tvFatherName, tvMotherName, tvSpouseName,
@@ -53,14 +62,30 @@ public class ProspectViewRbm extends AppCompatActivity {
     private CoApplicantDBController coApplicantDBController;
     private CarLoanDbController carLoanDbController;
     MyLeadDbController myLeadDbController;
-
+    private Data prospectListData;
+    private final String APPROVED = "Y";
+    private final String RETURN_TO_RM = "R";
+    private final String REJECT = "C";
+    private final String ALERT_BUTTON_APPROVE = "APPROVE";
+    private final String TITLE_ALERT_APPROVE = "Approve Prospect?";
+    private final String MESSAGE_ALERT_APPROVE = "Do you want to approve this prospect?";
+    private final String ALERT_BUTTON_REJECT = "REJECT";
+    private final String TITLE_ALERT_REJECT = "Reject Prospect?";
+    private final String MESSAGE_ALERT_REJECT = "Do you want to reject this prospect?";
+    private final String ALERT_BUTTON_RETURN_TO_RBM = "RETURN";
+    private final String TITLE_ALERT_RETURN_TO_RBM = "Return Prospect?";
+    private final String MESSAGE_ALERT_RETURN_TO_RBM = "Do you want to return this prospect to RM?";
+    private final String APPROVAL_TYPE_PROSPECT = "Prospect";
     public static String KEY_REFERRENCE_ID = "KEY_REFERRENCE_ID";
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prospect_view_rbm);
+    protected int getLayoutResourceId() {
+        return R.layout.activity_prospect_view_rbm;
+    }
+
+    @Override
+    protected void initComponents() {
         myLeadDbController=new MyLeadDbController(this);
         tvProdecutCategory = (TextView) findViewById(R.id.tv_product_category);
         tvProductDetail = (TextView) findViewById(R.id.tv_product_detail);
@@ -136,6 +161,7 @@ public class ProspectViewRbm extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProspectViewRbm.this, CibCifRequestActivity.class);
                 intent.putExtra(KEY_REFERRENCE_ID, getDataFromProspect().getRefNumber());
+
                 startActivity(intent);
             }
         });
@@ -144,39 +170,25 @@ public class ProspectViewRbm extends AppCompatActivity {
         tvApproval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProspectViewRbm.this, "Prospect is approved", Toast.LENGTH_SHORT).show();
-                finish();
+//                Toast.makeText(ProspectViewRbm.this, "Prospect is approved", Toast.LENGTH_SHORT).show();
+                approvalConfirmationAlertDialog(TITLE_ALERT_APPROVE, MESSAGE_ALERT_APPROVE, APPROVED, ALERT_BUTTON_APPROVE);
+
             }
         });
 
         tvReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProspectViewRbm.this, "Prospect is rejected", Toast.LENGTH_SHORT).show();
-                finish();
+//                Toast.makeText(ProspectViewRbm.this, "Prospect is rejected", Toast.LENGTH_SHORT).show();
+                approvalConfirmationAlertDialog(TITLE_ALERT_REJECT, MESSAGE_ALERT_REJECT, REJECT, ALERT_BUTTON_REJECT);
+
             }
         });
 
         tvReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myLeadDbController.updateLeadDataStatus(getDataFromProspect().getId(),AppConstant.STATUS_RETURN_RBM);
-                android.app.AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-                } else {
-                    builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this);
-                }
-                builder.setTitle("Return prospect");
-                builder.setMessage("Do you want to return this prospect?");
-                builder.setIcon(R.drawable.lead);
-                builder.setNegativeButton("No", null);
-                builder.setPositiveButton("Yes", (dialog, which) -> {
-                    startActivity(new Intent(ProspectViewRbm.this, SupervisorRbmProspect.class));
-                });
-                android.app.AlertDialog dialog = builder.create();
-                dialog.show();
-//                finish();
+               approvalConfirmationAlertDialog(TITLE_ALERT_RETURN_TO_RBM, MESSAGE_ALERT_RETURN_TO_RBM, RETURN_TO_RM, ALERT_BUTTON_RETURN_TO_RBM);
             }
         });
 
@@ -221,6 +233,13 @@ public class ProspectViewRbm extends AppCompatActivity {
         setAllData();
 
     }
+
+    @Override
+    protected void getIntentData() {
+
+    }
+
+
 
     private ArrayList<CoApplicant> filteredList() {
 
@@ -388,9 +407,11 @@ public class ProspectViewRbm extends AppCompatActivity {
 
     public MyNewProspect getDataFromProspect() {
         MyNewProspect propect = null;
+
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
             propect = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+            prospectListData = (Data) extraDetail.getSerializable(AppConstant.PROSPECT_RBM_LIST_DATA_INTENT_KEY);
             if (!carLoanList.isEmpty()){
                 carLoanList.clear();
             }
@@ -426,5 +447,74 @@ public class ProspectViewRbm extends AppCompatActivity {
 
     public Activity getActivity() {
         return this;
+    }
+
+    private void approveProspect(String status){
+
+        Approval approval = new Approval();
+        approval.setApprovalType(APPROVAL_TYPE_PROSPECT);
+        approval.setReferenceNo(getDataFromProspect().getRefNumber());
+        approval.setApprovalSetID(Integer.valueOf(prospectListData.getApprovalSetID()));
+        approval.setCurrentLevel(Integer.valueOf(prospectListData.getCurrentLevel()));
+        approval.setStatus(status);
+        approval.setRemark("");
+        approval.setUser(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
+        approval.setBranch(getDataFromProspect().getBranchName());
+        approval.setProductId(Integer.valueOf(getDataFromProspect().getProductCode()));
+
+        if (isNetworkAvailable()){
+            getApiService().approve(approval).enqueue(new Callback<ApprovalResponce>() {
+                @Override
+                public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
+                    if (response.isSuccessful()){
+
+                        startActivityshowAlertDialog("Message:", ""+response.body().getMessage(), SupervisorRbmProspect.class, true);
+
+                        if (approval.getStatus().equals(RETURN_TO_RM) && response.body().getCode().equals("200")){
+                            myLeadDbController.updateLeadDataStatus(getDataFromProspect().getId(),AppConstant.STATUS_RETURN_RBM);
+                        }
+
+//                        startActivity(new Intent(ProspectViewRbm.this, SupervisorRbmProspect.class));
+//                        finish();
+                    }else {
+                        showAlertDialog(""+response.code(), "Message: "+response.message());
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ApprovalResponce> call, Throwable t) {
+                    showAlertDialog("Error", ""+t.getMessage());
+                }
+            });
+        }else {
+            showAlertDialog("Network Error", "Network not available" );
+        }
+
+    }
+
+    public void approvalConfirmationAlertDialog(String title, String message,String status, String positiveButton) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(getContext());
+        }
+        builder.setTitle(title)
+                .setMessage(message)
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        approveProspect(status);
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

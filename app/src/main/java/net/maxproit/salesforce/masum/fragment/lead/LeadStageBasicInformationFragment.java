@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -50,7 +52,8 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
     private MyLeadDbController myLeadDbController;
     private ArrayList<MyNewLead> myNewLeadArrayList;
-    private AwesomeSpinner spinnerBranchName, spinnerProfession, spinnerCity, spinnerPoliceStation;
+    private AwesomeSpinner spinnerBranchName, spinnerProfession, spinnerPoliceStation;
+    private AutoCompleteTextView spinnerCity;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
     public static String profession = "", branchName = "", branchCode = "", city = "", policeStation = "";
     private List<String> listPs = null;
@@ -149,17 +152,18 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             }
         });
 
-        spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+
+        spinnerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(int i, String s) {
-                city = s;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                city= String.valueOf(spinnerCity.getAdapter().getItem(i));
                 if (!listPs.isEmpty())
                     listPs.clear();
-                listPs.addAll(mLocalSettting.getpsListByCityCode(i));
+                listPs.addAll(mLocalSettting.getpsListByCityCode(city));
                 polishStationAdapter.notifyDataSetChanged();
             }
-
         });
+
 
         spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -256,6 +260,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getCityStringList());
         spinnerCity.setAdapter(cityAdapter);
+        spinnerCity.setThreshold(1);
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
@@ -274,7 +279,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
                         if (!listPs.isEmpty())
                             listPs.clear();
-                        listPs.addAll(mLocalSettting.getpsListByCityCode(spinnerCity.getSelectedItemPosition()));
+                        listPs.addAll(mLocalSettting.getpsListByCityCode(visitPlan.getCity()));
                         polishStationAdapter.notifyDataSetChanged();
                     }
 
@@ -309,14 +314,15 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
                     if (!MasumCommonUtils.isNullStr(myNewLead.getCity())) {
                         try {
-                            spinnerCity.setSelection(cityAdapter.getPosition(myNewLead.getCity()));
+                            city = myNewLead.getCity();
+                            spinnerCity.setText(myNewLead.getCity());
                         } catch (final IllegalStateException ignored) {
                         }
 
 
                         if (!listPs.isEmpty())
                             listPs.clear();
-                        listPs.addAll(mLocalSettting.getpsListByCityCode(spinnerCity.getSelectedItemPosition()));
+                        listPs.addAll(mLocalSettting.getpsListByCityCode(myNewLead.getCity()));
                         polishStationAdapter.notifyDataSetChanged();
                     }
 

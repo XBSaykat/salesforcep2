@@ -329,6 +329,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnTotalMonthlyIncome"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -353,11 +354,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnEmiOtherLoan"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <TextView
                     style="@style/TextViewQuestion"
                     android:layout_width="match_parent"

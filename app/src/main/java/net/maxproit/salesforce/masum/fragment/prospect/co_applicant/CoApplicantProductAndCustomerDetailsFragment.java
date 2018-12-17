@@ -104,7 +104,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
-    private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec;
+    private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec, lnEmiOtherLoan, lnTotalMonthlyIncome;
     public static int photoIdcode;
     private CoApplicantActivity coApplicantActivity;
 
@@ -169,6 +169,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etPresentAddress = view.findViewById(R.id.input_present_address);
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
+        lnEmiOtherLoan = view.findViewById(R.id.lnEmiOtherLoan);
+        lnTotalMonthlyIncome = view.findViewById(R.id.lnTotalMonthlyIncome);
+        lnEmiOtherLoan.setVisibility(View.GONE);
+        lnTotalMonthlyIncome.setVisibility(View.GONE);
         llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
         cbAddress = (CheckBox) view.findViewById(R.id.cb_address);
 

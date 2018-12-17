@@ -83,10 +83,12 @@ public class MyProspect {
 
         for (int i=0;i<rbmList.size();i++){
            Data data=new Data();
+           data.setApprovalSetID(rbmList.get(i).getApprovalSetID());
            data.setBranch(rbmList.get(i).getBranch());
            data.setName(rbmList.get(i).getName());
            data.setStatus(rbmList.get(i).getCurrentLevel());
            data.setReference(rbmList.get(i).getReference());
+           data.setCurrentLevel(rbmList.get(i).getCurrentLevel());
            dataList.add(data);
         }
 

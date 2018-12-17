@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.feature.login;
 
 import android.Manifest;
+import android.content.pm.ActivityInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -71,6 +72,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResourceId() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         return R.layout.activity_login;
     }
 

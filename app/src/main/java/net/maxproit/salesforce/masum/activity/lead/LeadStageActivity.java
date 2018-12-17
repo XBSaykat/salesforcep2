@@ -38,7 +38,7 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
-import net.maxproit.salesforce.model.approval.Approval;
+import net.maxproit.salesforce.masum.model.api.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 

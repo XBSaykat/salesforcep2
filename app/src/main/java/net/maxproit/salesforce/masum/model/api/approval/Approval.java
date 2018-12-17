@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.model.approval;
+package net.maxproit.salesforce.masum.model.api.approval;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

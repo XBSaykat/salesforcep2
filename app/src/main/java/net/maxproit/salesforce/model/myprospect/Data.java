@@ -4,7 +4,9 @@ package net.maxproit.salesforce.model.myprospect;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+import java.io.Serializable;
+
+public class Data implements Serializable {
 
     @SerializedName("Reference")
     @Expose

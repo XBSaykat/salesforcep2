@@ -727,9 +727,9 @@ public class NewProspectUpdate {
 
 
         ArrayList<CoApplicant> coApplicantsList = new ArrayList<>();
-        CoApplicant coApplicant = new CoApplicant();
 
         for (int i = 0; i < coApplicanLocalList.size(); i++) {
+            CoApplicant coApplicant = new CoApplicant();
 
             try {
 
@@ -780,6 +780,7 @@ public class NewProspectUpdate {
             coApplicant.setCompany(coApplicanLocalList.get(i).getCompanyName());
             coApplicant.setContactId(coApplicanLocalList.get(i).getContactId());
             coApplicant.setCustomerId(coApplicanLocalList.get(i).getCustomerId());
+            coApplicant.setMobileNoId(coApplicanLocalList.get(i).getMobileNoId());
             coApplicant.setMobile(coApplicanLocalList.get(i).getMobileNo());
 
             coApplicant.setCountryOfBirth(coApplicanLocalList.get(i).getCountryOfBirth());
@@ -801,8 +802,8 @@ public class NewProspectUpdate {
             coApplicant.setPermanentAddressId(coApplicanLocalList.get(i).getPermanentAddressId());
             coApplicant.setPermanentAddressPS(coApplicanLocalList.get(i).getPermanentAddressPS());
 
-
-            coApplicant.setPhotoIdTypeCode(coApplicanLocalList.get(i).getPhotoIdCode());
+            if (!MasumCommonUtils.isNullStr(coApplicanLocalList.get(i).getPhotoIdType()))
+                coApplicant.setPhotoIdTypeCode(Integer.valueOf(coApplicanLocalList.get(i).getPhotoIdType()));
             coApplicant.setPhotoIdIssueDate(DateUtils.getDateFormateForSqlite(coApplicanLocalList.get(i).getPhotoIdIssueDate()));
             coApplicant.setPhotoIdNumber(coApplicanLocalList.get(i).getPhotoIdNo());
             if (!MasumCommonUtils.isNullStr(coApplicanLocalList.get(i).getProfession()))

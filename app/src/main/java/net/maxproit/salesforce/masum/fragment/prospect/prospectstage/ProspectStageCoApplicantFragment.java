@@ -126,17 +126,12 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     }
 
     private void loadCoapplicants() {
-
-
         if (!coApplicantList.isEmpty()) {
             coApplicantList.clear();
         }
         coApplicantList.addAll(AppConstant.coAppLicantStaticList);
         viewListItems();
-        if (coApplicantList.size() > 0) {
-            Collections.reverse(coApplicantList);
 
-        }
         coApplicantAdapter.notifyDataSetChanged();
     }
 
