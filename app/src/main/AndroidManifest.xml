@@ -42,7 +42,7 @@
         <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
         <activity
             android:name=".feature.login.LoginActivity"
-            android:screenOrientation="portrait" />
+            />
         <activity android:name=".feature.upload.UploadActivity" />
         <activity android:name=".feature.dashboard.DashboardVirifierActivity" />
         <activity android:name=".feature.dashboard.supervisor.DashboardSupervisorActivity" />
@@ -88,7 +88,8 @@
             android:name=".feature.salesOfficer.parallelprocess.cif.CifDialog"
             android:label="Cif Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".feature.upload.UploadProspectActivity" />
+        <activity android:name=".feature.upload.UploadProspectActivity"
+           />
         <activity android:name=".masum.activity.daviation.DaviationListActivity" />
         <activity android:name=".feature.supervisor.prospectview.ProspectViewActivity" />
 
