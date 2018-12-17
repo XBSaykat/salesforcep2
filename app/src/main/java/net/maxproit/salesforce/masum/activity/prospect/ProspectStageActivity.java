@@ -38,7 +38,7 @@ import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
-import net.maxproit.salesforce.model.approval.Approval;
+import net.maxproit.salesforce.masum.model.api.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
 import net.maxproit.salesforce.model.newprospect.mynewprosppect.NewProspectUpdate;
 import net.maxproit.salesforce.util.CommonUtil;
