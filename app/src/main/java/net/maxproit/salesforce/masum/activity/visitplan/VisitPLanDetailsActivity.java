@@ -467,6 +467,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
     private void setUpdatedData() {
 
+        if (tvVisitDate.getText().toString().isEmpty()){
+            showAlertDialog("Alert", "Enter date of visit");
+            return;
+        }
+
         if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_NEW)) {
             upactivityData();
         } else if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_PROCESS)) {
