@@ -50,7 +50,7 @@ public class ProspectViewRbm extends BaseActivity {
             tvProfession, tvCompanyName, tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
             tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
-            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome, tvTakeApproval;
+            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome,tvCifInfo,tvRuleInfo, tvOfficeCommercialSpace, tvWarehouseFactoryIncome, tvTakeApproval;
 
     private LinearLayout liBrandName, liManufacturingYear, liManufacturingCountry, liVehicleType;
 
@@ -139,7 +139,8 @@ public class ProspectViewRbm extends BaseActivity {
         liManufacturingYear = (LinearLayout) findViewById(R.id.li_maufacturing_year);
         liManufacturingCountry = (LinearLayout) findViewById(R.id.li_maufacturing_country);
         liVehicleType = (LinearLayout) findViewById(R.id.li_vehicle_type);
-
+        tvCifInfo=findViewById(R.id.tv_cif_info);
+        tvRuleInfo=findViewById(R.id.tv_rule_info);
         tvApproval = (TextView) findViewById(R.id.tv_approval);
         tvReject = (TextView) findViewById(R.id.tv_reject);
         tvReturn = (TextView) findViewById(R.id.tv_return);
@@ -401,6 +402,8 @@ public class ProspectViewRbm extends BaseActivity {
         tvLoanTerm.setText(getDataFromProspect().getLoanTerm());
         tvInteresterRate.setText(getDataFromProspect().getOrInterest());
         tvFee.setText(getDataFromProspect().getProspectFee());
+        tvRuleInfo.setText(getDataFromProspect().getRuleEngineInformation());
+        tvCifInfo.setText(getDataFromProspect().getcIBInformation());
     }
 
 
