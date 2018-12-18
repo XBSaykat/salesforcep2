@@ -320,7 +320,8 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:textSize="@dimen/text_size_16sp"
+                    android:layout_marginBottom="@dimen/size_40dp"/>
 
 
             </LinearLayout>
