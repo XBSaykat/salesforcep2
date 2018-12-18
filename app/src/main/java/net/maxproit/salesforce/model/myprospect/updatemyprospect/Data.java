@@ -204,6 +204,28 @@ public class Data {
     @Expose
     private String userName;
 
+    @SerializedName("CIBInformation")
+    @Expose
+    private String cIBInformation;
+    @SerializedName("RuleEngineInformation")
+    @Expose
+    private String ruleEngineInformation;
+
+    public String getCIBInformation() {
+        return cIBInformation;
+    }
+
+    public void setCIBInformation(String cIBInformation) {
+        this.cIBInformation = cIBInformation;
+    }
+
+    public String getRuleEngineInformation() {
+        return ruleEngineInformation;
+    }
+
+    public void setRuleEngineInformation(String ruleEngineInformation) {
+        this.ruleEngineInformation = ruleEngineInformation;
+    }
     public Integer getAgriculturalIncome() {
         return agriculturalIncome;
     }

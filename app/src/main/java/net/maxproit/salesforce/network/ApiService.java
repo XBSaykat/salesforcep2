@@ -139,6 +139,10 @@ public interface ApiService {
     @GET("CdProspect/ProspectsForAapproval/{userName}/{timestamp}")
     Call<GetRbmData> getRbmData(@Path("userName") String user, @Path("timestamp") String random);
 
+    //rbm data
+    @GET("CdProspect/ProspectApprovalData/{ProspectReferenceNo}/{timestamp}")
+    Call<OldProspect> getRbmDataByRef(@Path("ProspectReferenceNo") String ref, @Path("timestamp") String random);
+
     /*
      Lead Api
     */

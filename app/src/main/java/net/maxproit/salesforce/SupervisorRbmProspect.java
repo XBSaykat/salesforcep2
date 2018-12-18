@@ -171,7 +171,7 @@ public class SupervisorRbmProspect extends BaseActivity {
         Data prospectListData = filterList.get(position);
         String ref = filterList.get(position).getReference();
         if (isNetworkAvailable()) {
-            getApiService().getNewProspect(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
+            getApiService().getRbmDataByRef(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
                 @Override
                 public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
 

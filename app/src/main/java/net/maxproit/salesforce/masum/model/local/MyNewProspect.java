@@ -12,8 +12,9 @@ public class MyNewProspect extends MyNewLead implements Serializable {
             pAddress,netSalary,salaryAmount,businessIncomeAmount, apartmentAmount,
             semipakaIncome,officeSpaceINcome,wireHouseINcome,
             ag_Income,tution,remitance,inFdr,fExpense,emiOther,sValue,loanReq,
-            loanTerm,piRate, prospectFee;
+            loanTerm,piRate, prospectFee,cIBInformation,ruleEngineInformation;
     private List<CoApplicant> coApplicantList;
+
 
 
     private int branchCode, assetTypeId,  manufacturingNameId,  contactId, permAddressId, presAddressId;
@@ -49,6 +50,26 @@ public class MyNewProspect extends MyNewLead implements Serializable {
     }
     public MyNewProspect(){
 
+    }
+
+    public void setpAddress(String pAddress) {
+        this.pAddress = pAddress;
+    }
+
+    public String getcIBInformation() {
+        return cIBInformation;
+    }
+
+    public void setcIBInformation(String cIBInformation) {
+        this.cIBInformation = cIBInformation;
+    }
+
+    public String getRuleEngineInformation() {
+        return ruleEngineInformation;
+    }
+
+    public void setRuleEngineInformation(String ruleEngineInformation) {
+        this.ruleEngineInformation = ruleEngineInformation;
     }
 
     public String getRmCode() {

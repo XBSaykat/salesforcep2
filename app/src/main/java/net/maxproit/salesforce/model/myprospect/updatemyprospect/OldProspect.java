@@ -76,6 +76,9 @@ public class OldProspect {
         myNewProspect.setApplicant(data.getRelationshipWithApplicant());
         myNewProspect.setUserName(data.getCustomerName());
 
+        myNewProspect.setRuleEngineInformation(data.getRuleEngineInformation());
+        myNewProspect.setcIBInformation(data.getCIBInformation());
+
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
         myNewProspect.setBranchCode(data.getBranchCode());
         myNewProspect.setBranchName(data.getBranchName());
