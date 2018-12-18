@@ -78,7 +78,7 @@ public class OldProspect {
 
         myNewProspect.setRuleEngineInformation(data.getRuleEngineInformation());
         myNewProspect.setcIBInformation(data.getCIBInformation());
-
+        myNewProspect.setExceptionList(data.getExceptionList());
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
         myNewProspect.setBranchCode(data.getBranchCode());
         myNewProspect.setBranchName(data.getBranchName());
