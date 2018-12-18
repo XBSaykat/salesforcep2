@@ -161,7 +161,6 @@ public class ProspectViewRbm extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProspectViewRbm.this, CibCifRequestActivity.class);
                 intent.putExtra(KEY_REFERRENCE_ID, getDataFromProspect().getRefNumber());
-
                 startActivity(intent);
             }
         });
