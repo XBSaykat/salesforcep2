@@ -17,7 +17,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -39,6 +41,7 @@ import net.maxproit.salesforce.masum.model.api.visitPlan.Data;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
@@ -76,13 +79,14 @@ public class VisitPlanActivity extends BaseActivity {
     private SpinnerDbController spinnerDbController;
     private VisitPlan visitPlanModel;
     private ArrayAdapter<String> adptrClientType, cityAdapter, adptrPurpose, productTypeAdapter;
-    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerCity, spinnerPoliceStation, spinnerPurposeOfVisit;
+    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerPoliceStation, spinnerPurposeOfVisit;
     TextView buttonSave;
+    private AutoCompleteTextView spinnerCity;
     LinearLayout secClientType, secMobileNo, secProductType, secArea, secPurpose, secVisitDT, secRemarks;
     View lineClientType, lineMobileNo, lineProductType, lineArea, linePurpose, lineVisitDT, lineRemarks;
     EditText txtClientName, txtMobileNo, tvVisitDT, txtRemarks;
     String clientName, clientType, mobileNo, productType, city, policeStation, purposeOfVisit, dateOfvisit, remarks;
-
+    private List<String> listPs = null;
     List<String> listClientType, listProductType, listArea, listPurpose, listCity, listDhakaSouth, listDhakaNorth, polishStationList;
     ImageView backButton;
 
@@ -100,7 +104,7 @@ public class VisitPlanActivity extends BaseActivity {
 
     @Override
     protected void initComponents() {
-
+        listPs = new ArrayList<>();
         backButton = findViewById(R.id.btn_back);
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
@@ -233,12 +237,12 @@ public class VisitPlanActivity extends BaseActivity {
 
         productTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getProductCategorystring());
         spinnerProductType.setAdapter(productTypeAdapter);
-        polishStationAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, polishStationList);
+        polishStationAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listPs);
         spinnerPoliceStation.setAdapter(polishStationAdapter);
 
         cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getCityStringList());
         spinnerCity.setAdapter(cityAdapter);
-
+        spinnerCity.setThreshold(1);
         adptrPurpose = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mLocalSetting.getVisitPurposeTypeStringList()
         );
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
@@ -385,7 +389,7 @@ public class VisitPlanActivity extends BaseActivity {
             }
         });
 
-        spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+    /*    spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 city = s;
@@ -393,6 +397,17 @@ public class VisitPlanActivity extends BaseActivity {
 
             }
 
+        });*/
+
+        spinnerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                city = String.valueOf(spinnerCity.getAdapter().getItem(i));
+                if (!listPs.isEmpty())
+                    listPs.clear();
+                listPs.addAll(mLocalSetting.getpsListByCityCode(city));
+                polishStationAdapter.notifyDataSetChanged();
+            }
         });
 
         spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
@@ -455,7 +470,7 @@ public class VisitPlanActivity extends BaseActivity {
             }
         }
 
-
+/*
         if (visitPlanModel.getCity() != null) {
             try {
                 spinnerCity.setSelection(cityAdapter.getPosition(visitPlanModel.getCity()));
@@ -474,7 +489,16 @@ public class VisitPlanActivity extends BaseActivity {
             }
 
 
+        }*/
+
+        if (!MasumCommonUtils.isNullStr(visitPlanModel.getCity())) {
+            spinnerCity.setText(visitPlanModel.getCity());
+            if (!listPs.isEmpty())
+                listPs.clear();
+            listPs.addAll(mLocalSetting.getpsListByCityCode(city));
+            polishStationAdapter.notifyDataSetChanged();
         }
+
 
         if (visitPlanModel.getProductType() != null) {
             try {
@@ -557,7 +581,7 @@ public class VisitPlanActivity extends BaseActivity {
                         public void onResponse(Call<MyVisitPlanApi> call, Response<MyVisitPlanApi> response) {
 
                             VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), visitPlanModel.getJournalId(), clientName, spinnerClientType.getSelectedItem(),
-                                    mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                                    mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                                     purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
                             dbController.updateData(visitPlan);
                             finish();
@@ -570,7 +594,7 @@ public class VisitPlanActivity extends BaseActivity {
                     });
                 } else {
                     VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), visitPlanModel.getJournalId(), clientName, spinnerClientType.getSelectedItem(),
-                            mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                            mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                             purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_WAIT);
                     dbController.updateData(visitPlan);
                     finish();
@@ -599,7 +623,7 @@ public class VisitPlanActivity extends BaseActivity {
                             if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                 Data data1 = response.body().getData();
                                 dbController.insertData(data1.getActivityJournalID(), clientName, spinnerClientType.getSelectedItem(),
-                                        mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                                        mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                                         spinnerPoliceStation.getSelectedItem(),
                                         purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
                                 Log.e("status", "save data into server and local" + response.body().getData().toString());
@@ -615,8 +639,8 @@ public class VisitPlanActivity extends BaseActivity {
                         }
                     });
                 } else {
-                  int insert1= dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
-                            mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getSelectedItem(),
+                    int insert1 = dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
+                            mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                             spinnerPoliceStation.getSelectedItem(),
                             purposeOfVisit, dateOfvisit, remarks, AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
                     Log.e("status", " no internet save data into local");

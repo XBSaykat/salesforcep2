@@ -16,7 +16,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -45,6 +47,7 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
@@ -69,15 +72,16 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
     public EditText tvClientType, tvVisitPurpose, tvClientName, tvMobileNumber, tvProductType, tvCity, tvPoliceStation,
             tvVisitDate, tvRemarks, etNewRemark, etNewFollowUpdate;
-    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerPurposeOfVisit, spinnerCity, spinnerPoliceStation;
+    private AwesomeSpinner spinnerClientType, spinnerProductType, spinnerPurposeOfVisit, spinnerPoliceStation;
     private SpinnerDbController spinnerDbController;
     private CardView tvProceedToLead, tvRejected, tvSave;
+    private AutoCompleteTextView spinnerCity;
     private Intent myActivityItemIntent;
     private LinearLayout secMobiile;
     private LocalSetting localSetting;
     private int itemPosition;
     private String isVAlidText = null;
-    private List<String> listClientType, listProductType, listPurpose, polishStationList;
+    private List<String> listClientType, listProductType, listPurpose, polishStationList, listPs;
     private ArrayAdapter<String> productTypeAdapter, cityAdapter;
     private LinearLayout mlayout, mLayoutCLientTypeField;
     private Button btnFollowUp;
@@ -126,6 +130,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         followUpDbController = new FollowUpDbController(getContext());
         listClientType = new ArrayList<String>();
         polishStationList = new ArrayList<String>();
+        listPs = new ArrayList<String>();
         listProductType = new ArrayList<String>();
         listPurpose = new ArrayList<String>();
         followUpList = new ArrayList<>();
@@ -258,8 +263,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         spinnerPurposeOfVisit.setAdapter(adptrPurpose);
         cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerCity.setAdapter(cityAdapter);
+        spinnerCity.setThreshold(1);
 
-        polishStationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, polishStationList);
+        polishStationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPs);
         spinnerPoliceStation.setAdapter(polishStationAdapter);
 
         spinnerProductType = findViewById(R.id.awe_spinner_visit_plan_product_type);
@@ -327,14 +333,25 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
             }
         });
-        spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+
+        spinnerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                citySpn = String.valueOf(spinnerCity.getAdapter().getItem(i));
+                if (!listPs.isEmpty())
+                    listPs.clear();
+                listPs.addAll(localSetting.getpsListByCityCode(citySpn));
+                polishStationAdapter.notifyDataSetChanged();
+            }
+        });
+      /*  spinnerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 citySpn = s;
 
             }
 
-        });
+        });*/
         spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
@@ -502,7 +519,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         else {
             data.setActivityStatus("");
         }
-        data.setCity(citySpn);
+        data.setCity(spinnerCity.getText().toString());
         data.setClientType(spinerClientTypeStr);
         data.setCustomerName(tvClientName.getText().toString());
         if (!etNewFollowUpdate.getText().toString().isEmpty()) {
@@ -538,12 +555,20 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
             sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
 
-            if (visitPlanModel.getCity() != null) {
+           /* if (visitPlanModel.getCity() != null) {
                 try {
                     spinnerCity.setSelection(cityAdapter.getPosition(visitPlanModel.getCity()));
                 } catch (final IllegalStateException e) {
                     e.getMessage();
                 }
+            }*/
+
+            if (!MasumCommonUtils.isNullStr(visitPlanModel.getCity())) {
+                spinnerCity.setText(visitPlanModel.getCity());
+                if (!listPs.isEmpty())
+                    listPs.clear();
+                listPs.addAll(localSetting.getpsListByCityCode(visitPlanModel.getCity()));
+                polishStationAdapter.notifyDataSetChanged();
             }
             if (visitPlanModel.getPoliceStation() != null) {
                 try {
