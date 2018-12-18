@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.network;
 
 
+import net.maxproit.salesforce.masum.model.api.GetLeadIndex;
 import net.maxproit.salesforce.masum.model.api.cibcif.CibCifResponse;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationResponse;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationresponse.DeviationPostRespose;
@@ -130,8 +131,8 @@ public interface ApiService {
     Call<MyLeadByRefApi> getLeadDataByRef(@Path("LeadReferenceNo") String ref, @Path("timestamp") String random);
 
 
-    @POST("CdLead/LeadPopulate/{LeadIndexID}/{timestamp}")
-    Call<MyLeadByRefApi> getLeadDataByLeadIndex(@Path("LeadIndexID") String ref, @Path("timestamp") String random);
+    @GET("CdLead/LeadPopulate/{LeadIndexID}/{timestamp}")
+    Call<GetLeadIndex> getLeadDataByLeadIndex(@Path("LeadIndexID") int LeadIndexID, @Path("timestamp") String random);
 
 
     //rbm data

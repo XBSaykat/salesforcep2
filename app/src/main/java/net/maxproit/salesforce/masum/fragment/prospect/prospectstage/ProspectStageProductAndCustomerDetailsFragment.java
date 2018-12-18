@@ -416,7 +416,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             public void onItemSelected(int i, String s) {
                 productSub = s;
                 LongOperationSubCategory longOperationSubCategory = new LongOperationSubCategory();
-                longOperationSubCategory.execute(i);
+                longOperationSubCategory.execute(s);
             }
         });
 
@@ -468,7 +468,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
-                liPhotoIdNo.setVisibility(View.GONE);
+
                 validPhoto = s;
                 LongOperationPhotoIDCode longOperationPhotoIDCode = new LongOperationPhotoIDCode();
                 longOperationPhotoIDCode.execute(i);
@@ -565,13 +565,13 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etMobileNumber.setText(myNewLead.getPhone());
             etCompanyName.setText(myNewLead.getOrganization());
             etNoYrsInCurrentJob.setText(myNewLead.getCurrentJob());
-            if (CommonUtil.jsonToDate(myNewLead.getDateOfBirth()).equals("1990-01-01")) {
+
+            if (myNewLead.getDateOfBirth().equalsIgnoreCase("1900-01-01")) {
                 etDob.setText("");
             } else {
-                etDob.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getDateOfBirth())));
-            }
-            if (myNewLead.getDateOfBirth() != null) {
-                long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(DateUtils.getDateFormateEt(myNewLead.getDateOfBirth()));
+                String dateOfBirth = DateUtils.getDateFormateEt(myNewLead.getDateOfBirth());
+                etDob.setText(dateOfBirth);
+                long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(dateOfBirth);
                 etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
             }
 
@@ -598,7 +598,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             if (!MasumCommonUtils.isNullStr(myNewLead.getpIDType())) {
                 String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(myNewLead.getpIDType()));
                 photoIdcode = Integer.parseInt(myNewLead.getpIDType());
-
+                etPhotoId.setText(myNewLead.getpIdNumber());
+                getphotoIdNumber(pIdTypeStr);
                 try {
                     spinnerValidPhoto.setSelection(validPhotoIdAdapter.getPosition(pIdTypeStr));
                     getphotoIdNumber(pIdTypeStr);
@@ -619,8 +620,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
 
-            getphotoIdNumber(myNewLead.getpIDType());
-            etPhotoId.setText(myNewLead.getpIdNumber());
+
             if (!MasumCommonUtils.isNullStr(myNewLead.getBranchName())) {
                 branchCode = localSetting.getBranchCodeByName(myNewLead.getBranchName());
                 try {
@@ -667,6 +667,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 if (!MasumCommonUtils.isNullStr(myNewLead.getProductSubcategory())) {
                     productSub = myNewLead.getProductSubcategory();
+                    productSubCatCode = myNewLead.getSubCode();
                     try {
                         spinnerSub.setSelection(productSubAdapter.getPosition(myNewLead.getProductSubcategory()));
                     } catch (IllegalStateException e) {
@@ -786,10 +787,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         }
     }
 
-    private class LongOperationSubCategory extends AsyncTask<Integer, Void, String> {
+    private class LongOperationSubCategory extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(Integer... params) {
+        protected String doInBackground(String... params) {
             productSubCatCode = localSetting.getSubCatCode(params[0]);
             return null;
         }

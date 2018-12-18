@@ -200,7 +200,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             public void onItemSelected(int i, String s) {
                 subCategory = s;
                 LongOperationSubCategory longOperationSubCategory = new LongOperationSubCategory();
-                longOperationSubCategory.execute(i);
+                longOperationSubCategory.execute(s);
             }
         });
 
@@ -446,10 +446,10 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
     }
 
 
-    private class LongOperationSubCategory extends AsyncTask<Integer, Void, String> {
+    private class LongOperationSubCategory extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(Integer... params) {
+        protected String doInBackground(String... params) {
             productSubCatCode = localSetting.getSubCatCode(params[0]);
             return null;
         }

@@ -429,12 +429,11 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setMobileId(getDataFromProspect().getMobileId());
                 myNewProspect.setPresAddressId(getDataFromProspect().getPresAddressId());
                 myNewProspect.setPermAddressId(getDataFromProspect().getPermAddressId());
-                myNewProspect.setSubCode(producSubCode);
                 myNewProspect.setPresAddressCity(presentCity);
                 myNewProspect.setPresAddressPs(presentPs);
                 myNewProspect.setPermAddressCity(permanentCity);
                 myNewProspect.setPermAddressPs(permanentPs);
-
+                myNewProspect.setSubCode(producSubCode);
                 if (!isValid()) {
                     showAlertDialog("Alert", validateString);
                     return;

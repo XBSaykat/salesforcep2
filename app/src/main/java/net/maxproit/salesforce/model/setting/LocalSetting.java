@@ -314,11 +314,11 @@ public class LocalSetting {
         return list;
     }
 
-    public int getSubCatCode(int position) {
+    public int getSubCatCode(String data) {
         int code = 0;
-        for (int i = 0; i < getProductSubCategory().size(); i++) {
-            if (i == position) {
-                code = getProductSubCategory().get(i).getLoanPurposeTypeCode();
+        for (ProductSubCategory in : getProductSubCategory()) {
+            if (in.getLoanPurposeType().equalsIgnoreCase(data)) {
+                code = in.getLoanPurposeTypeCode();
                 break;
             }
         }
@@ -470,11 +470,12 @@ public class LocalSetting {
         }
         return list;
     }
-   public List<String> getpsListByCityCode(int position) {
+
+    public List<String> getpsListByCityCode(int position) {
         int code = 0;
         List<String> list = new ArrayList<>();
         for (City in : getCity()) {
-            if (code== position) {
+            if (code == position) {
                 code = in.getCityID();
                 list.addAll(getPseStringList(code));
                 break;
