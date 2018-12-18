@@ -3,6 +3,7 @@ package net.maxproit.salesforce.masum.fragment.prospect.co_applicant;
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -28,6 +29,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
+import net.maxproit.salesforce.feature.search.SearchUserActivity;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
@@ -89,6 +91,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private List<String> listRelationshipWithApplicant = null;
     private List<String> listValidphoto = null;
     ArrayList<MyNewProspect> prosList;
+    public CheckBox cbExist;
+    public TextView etChif;
+    public LinearLayout liChif;
+    public static final int SERCH_CODE = 500;
 
 //    Spinner productCategory;
 //    Spinner productDetail;
@@ -176,6 +182,11 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etPresentAddress = view.findViewById(R.id.input_present_address);
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
+
+        cbExist = view.findViewById(R.id.cb_exist);
+        etChif = view.findViewById(R.id.etChif);
+        liChif = view.findViewById(R.id.liChif);
+
 
         llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
         cbAddress = (CheckBox) view.findViewById(R.id.cb_address);
@@ -469,6 +480,25 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 getphotoIdNumber(s);
             }
         });
+
+        cbExist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked()) {
+                    liChif.setVisibility(View.VISIBLE);
+                } else {
+                    liChif.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        etChif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getContext(), SearchUserActivity.class), SERCH_CODE);
+            }
+        });
+
 
 
     }
