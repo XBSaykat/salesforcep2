@@ -60,7 +60,7 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
         binding.btnAdd.setOnClickListener(v -> startActivity(NewDeviationActivity.class, false, bundle));
 
 
-        cibList = new ArrayList<>();
+
 
 
 //        setupCifAdapter();
@@ -80,6 +80,7 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
 
     private void getCibData() {
         showProgressDialog();
+        cibList = new ArrayList<>();
         String random = UUID.randomUUID().toString();
         Log.d(TAG, "getCibData: " + referrenceid);
         getApiService().daviationRequestById(referrenceid, random).enqueue(new Callback<DeviationResponse>() {
@@ -88,7 +89,8 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
                 hideProgressDialog();
                 if (response.isSuccessful()) {
                     Log.d(TAG, "onResponse: " + toJson(response.body()));
-                    cibList.clear();
+                    if (!cibList.isEmpty())
+                        cibList.clear();
                     cibList = response.body().getData();
                     setupCifAdapter();
                 } else {
