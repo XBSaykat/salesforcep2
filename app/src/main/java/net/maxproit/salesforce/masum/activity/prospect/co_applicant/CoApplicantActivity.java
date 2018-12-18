@@ -126,9 +126,9 @@ public class CoApplicantActivity extends BaseActivity {
                 permanentAddress = CoApplicantProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString();
                 presentAddress = CoApplicantProductAndCustomerDetailsFragment.etPresentAddress.getText().toString();
                 mobileNo = CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString();
-                preCity = CoApplicantProductAndCustomerDetailsFragment.preCity;
+                preCity = CoApplicantProductAndCustomerDetailsFragment.spinnerPreCity.getText().toString();
                 prePs = CoApplicantProductAndCustomerDetailsFragment.prePoliceStation;
-                perCity = CoApplicantProductAndCustomerDetailsFragment.perCity;
+                perCity = CoApplicantProductAndCustomerDetailsFragment.spinnerPerCity.getText().toString();
                 perPs = CoApplicantProductAndCustomerDetailsFragment.perPoliceStation;
 
                 monthSalaryType = CoApplicantFinancialFragment.monthlyNetSalary;

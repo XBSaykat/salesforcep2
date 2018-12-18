@@ -163,6 +163,7 @@ public class OldProspect {
                 coApplicant.setInterestFDRIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getInterestIncomeOfFDR()));
                 coApplicant.setMobileNo(data.getCoApplicants().get(i).getMobile());
                 coApplicant.setmName(data.getCoApplicants().get(i).getMotherName());
+                coApplicant.setMonthSalaryType(data.getCoApplicants().get(i).getNetSalaryType());
                 coApplicant.setMonthSalaryAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getNetSalary()));
                 coApplicant.setPermanentAddress(data.getCoApplicants().get(i).getPermanentAddress());
                 coApplicant.setPermanentAddressId(data.getCoApplicants().get(i).getPermanentAddressId());

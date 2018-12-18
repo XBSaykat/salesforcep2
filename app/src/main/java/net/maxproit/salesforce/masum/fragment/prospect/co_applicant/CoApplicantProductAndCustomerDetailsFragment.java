@@ -100,14 +100,15 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public static EditText etName, etDateOfBirth, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
-    private AutoCompleteTextView spinnerPreCity, spinnerPerCity;
+    public static AutoCompleteTextView spinnerPreCity, spinnerPerCity;
     private LinearLayout llAddress;
     private CheckBox cbAddress;
 
 
-    public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
+    public static String   prePoliceStation = "",perPoliceStation = "" ,productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
-            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
+            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto;
+    private String preCity = "",perCity = "";
     private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec;
     public static int photoIdcode;
     private CoApplicantActivity coApplicantActivity;

@@ -565,8 +565,11 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etMobileNumber.setText(myNewLead.getPhone());
             etCompanyName.setText(myNewLead.getOrganization());
             etNoYrsInCurrentJob.setText(myNewLead.getCurrentJob());
-
-            etDob.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getDateOfBirth())));
+            if (CommonUtil.jsonToDate(myNewLead.getDateOfBirth()).equals("1990-01-01")) {
+                etDob.setText("");
+            } else {
+                etDob.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(myNewLead.getDateOfBirth())));
+            }
             if (myNewLead.getDateOfBirth() != null) {
                 long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(DateUtils.getDateFormateEt(myNewLead.getDateOfBirth()));
                 etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
