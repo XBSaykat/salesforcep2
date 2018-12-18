@@ -449,7 +449,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                             branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                    finish();
+                    errorAlert("Success", "Internet not available,please connect to the internet ,Data save seccessfully in device");
+
                 }
 
 
