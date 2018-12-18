@@ -380,7 +380,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         !TextUtils.isEmpty(etNewRemark.getText())) {
                     alertDialogSave();
                 } else
-                    showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + "client & " + sPurposeOfVisitStr);
+                    showAlertDialog("Alert", "Follow up date is mandatory for " + spinerClientTypeStr + " client & " + sPurposeOfVisitStr);
 
             } else {
                 alertDialogSave();
@@ -918,11 +918,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
                 valid = true;
             } else {
-                isVAlidText = "proceed is not valid for " + sPurposeOfVisitStr;
+                isVAlidText = "Proceed is not valid for " + sPurposeOfVisitStr;
                 valid = false;
             }
         } else {
-            isVAlidText = "proceed is not valid for " + spinerClientTypeStr;
+            isVAlidText = "Proceed is not valid for " + spinerClientTypeStr;
             valid = false;
         }
 
