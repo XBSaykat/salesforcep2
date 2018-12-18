@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -59,6 +60,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     private ArrayAdapter<String> productSubAdapter;
     private ArrayAdapter<String> prePolishStationAdapter, perPolishStationAdapter;
     Calendar myCalendar = Calendar.getInstance();
+
+    public CheckBox cbExist;
 
     private LinearLayout liNid, liPassport, liDrivingLicense, liBirthCertificate;
     private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
@@ -158,6 +161,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etProductCat = view.findViewById(R.id.et_product_cat);
         tvPhotoIdNo = view.findViewById(R.id.tv_photo_id_no);
         llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
+
+        cbExist = view.findViewById(R.id.cb_exist);
+        cbExist.setVisibility(View.GONE);
 
 
         listCarloan = new ArrayList<String>();
