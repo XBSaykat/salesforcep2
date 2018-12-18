@@ -206,27 +206,27 @@
 
             </LinearLayout>
             <!--<LinearLayout-->
-                <!--style="@style/LayoutQuestion"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical">-->
+            <!--style="@style/LayoutQuestion"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
-                <!--<TextView-->
-                    <!--style="@style/TextViewQuestion"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Amount" />-->
+            <!--<TextView-->
+            <!--style="@style/TextViewQuestion"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Amount" />-->
 
-                <!--<EditText-->
-                    <!--android:id="@+id/input_monthly_rental_income_amount"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:focusable="true"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:inputType="number"-->
-                    <!--android:maxLines="1"-->
-                    <!--android:text=""-->
-                    <!--android:textSize="@dimen/text_size_16sp" />-->
+            <!--<EditText-->
+            <!--android:id="@+id/input_monthly_rental_income_amount"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:focusable="true"-->
+            <!--android:imeOptions="actionNext"-->
+            <!--android:inputType="number"-->
+            <!--android:maxLines="1"-->
+            <!--android:text=""-->
+            <!--android:textSize="@dimen/text_size_16sp" />-->
             <!--</LinearLayout>-->
 
 
@@ -359,6 +359,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     style="@style/TextViewQuestion"
                     android:layout_width="match_parent"

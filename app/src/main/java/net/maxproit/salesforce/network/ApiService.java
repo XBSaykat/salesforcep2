@@ -131,7 +131,7 @@ public interface ApiService {
     Call<MyLeadByRefApi> getLeadDataByRef(@Path("LeadReferenceNo") String ref, @Path("timestamp") String random);
 
 
-    @POST("CdLead/LeadPopulate/{LeadIndexID}/{timestamp}")
+    @GET("CdLead/LeadPopulate/{LeadIndexID}/{timestamp}")
     Call<GetLeadIndex> getLeadDataByLeadIndex(@Path("LeadIndexID") int LeadIndexID, @Path("timestamp") String random);
 
 
