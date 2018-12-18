@@ -366,7 +366,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + "client & " + sPurposeOfVisitStr);
 
             } else {
-                showAlertDialog("Alert", "Follow up date is mendatory for " + spinerClientTypeStr + " client");
+                alertDialogSave();
             }
 
         });
