@@ -410,14 +410,17 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                             if (response.isSuccessful()) {
                                 if (response.body().getCode().equals("200") &&
                                         response.body().getStatus().equalsIgnoreCase("ok")) {
-                                    Data data = response.body().getData();
-                                    int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
-                                            designation, phone, address, ref, productType, subCat,
-                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
-                                    finish();
+                                    if (response.body().getData() != null) {
+                                        Data data = response.body().getData();
+                                        int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
+                                                designation, phone, address, ref, productType, subCat,
+                                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
+                                        errorAlert(response.body().getStatus(), response.body().getMessage());
+                                    } else
+                                        errorAlert(response.body().getStatus(), response.body().getMessage());
                                 } else {
-                                    showAlertDialog("Error", response.body().getMessage());
-                                    finish();
+                                    errorAlert(response.body().getStatus(), response.body().getMessage());
+
                                 }
                             } else {
                                 int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), myNewLead.getCusId(),
@@ -425,7 +428,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                         designation, phone, address, ref, productType, subCat,
                                         loanAmount, interest, fee, disDate, visitDate, followUp, remark,
                                         AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                                finish();
+                                errorAlert(response.body().getStatus(), response.body().getMessage());
+
 
                             }
 
@@ -464,7 +468,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                     if (visitPlan != null) {
                                         callActivityApi(visitPlan.getJournalId(), data.getLeadReferenceNo());
                                     }
-                                    finish();
+                                    errorAlert(response.body().getStatus(), response.body().getMessage());
                                 }
                             } else {
                                 myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0,
@@ -474,7 +478,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                         branchName, name, profession, organization,
                                         designation, phone, address, ref, productType, subCat,
                                         loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                                finish();
+                                errorAlert(response.body().getStatus(), "Data save seccessfully in device");
 
 
                             }
@@ -483,6 +487,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                         @Override
                         public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
+                            errorAlert("Error", t.getMessage());
 
                         }
                     });
@@ -492,7 +497,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                             Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                    finish();
+                    errorAlert("Success", "Internet not available,please connect to the internet ,Data save seccessfully in device");
+
                 }
 
             }
@@ -506,7 +512,10 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         getApiService().ActivityProceed(journalId, refNo).enqueue(new Callback<CompleteActivity>() {
             @Override
             public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
-                ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                if (response.body().getCode().equals("200")) {
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                }
+
             }
 
             @Override
@@ -662,8 +671,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 Log.d("tag", "onResponse: " + response.body().toString());
 
                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                    Toast.makeText(LeadStageActivity.this, "Lead Approved", Toast.LENGTH_SHORT).show();
-                    finish();
+                    errorAlert(response.body().getStatus(), response.body().getMessage());
                 } else {
                     errorAlert(response.body().getCode(), " Message: " + response.body().getMessage());
                     finish();

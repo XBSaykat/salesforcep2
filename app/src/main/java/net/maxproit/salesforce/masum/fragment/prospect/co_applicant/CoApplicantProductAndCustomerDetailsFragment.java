@@ -14,7 +14,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -70,6 +72,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private LinearLayout liPhotoIdNo, liPassport, liDrivingLicense, liBirthCertificate;
     private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
     private RadioGroup rgExList;
+    private ArrayAdapter<String> perPolishStationAdapter, prePolishStationAdapter;
+    private List<String> listPerPs = null, listPrePs = null;
     private SpinnerDbController spinnerDbController;
     private MyLeadDbController myLeadDbController;
     private List<String> listProductCategory = null;
@@ -91,12 +95,12 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
 
     private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
-            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhotoType, spinnerPreCity, spinnerPrePoliceStation, spinnerPerCity, spinnerPerPoliceStation;
+            spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhotoType, spinnerPrePoliceStation, spinnerPerPoliceStation;
     private TextView tvPhotoIdNo;
     public static EditText etName, etDateOfBirth, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
-
+    private AutoCompleteTextView spinnerPreCity, spinnerPerCity;
     private LinearLayout llAddress;
     private CheckBox cbAddress;
 
@@ -104,7 +108,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public static String productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
-    private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec, lnEmiOtherLoan, lnTotalMonthlyIncome;
+    private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec;
     public static int photoIdcode;
     private CoApplicantActivity coApplicantActivity;
 
@@ -155,6 +159,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
         prosList = new ArrayList<>();
+        listPerPs = new ArrayList<>();
+        listPrePs = new ArrayList<>();
         etDateOfBirth = view.findViewById(R.id.input_date_of_birth);
 
         etPhotoId = view.findViewById(R.id.et_photo_id_no);
@@ -169,10 +175,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etPresentAddress = view.findViewById(R.id.input_present_address);
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
-        lnEmiOtherLoan = view.findViewById(R.id.lnEmiOtherLoan);
-        lnTotalMonthlyIncome = view.findViewById(R.id.lnTotalMonthlyIncome);
-        lnEmiOtherLoan.setVisibility(View.GONE);
-        lnTotalMonthlyIncome.setVisibility(View.GONE);
+
         llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
         cbAddress = (CheckBox) view.findViewById(R.id.cb_address);
 
@@ -367,7 +370,19 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
             }
         });
-        spinnerPreCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+
+        spinnerPerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                perCity = String.valueOf(spinnerPerCity.getAdapter().getItem(i));
+                if (!listPerPs.isEmpty())
+                    listPerPs.clear();
+                listPerPs.addAll(localSetting.getpsListByCityCode(perCity));
+                perPolishStationAdapter.notifyDataSetChanged();
+            }
+        });
+
+       /* spinnerPreCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 preCity = s;
@@ -375,7 +390,19 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
             }
 
+        });*/
+
+        spinnerPreCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                preCity = String.valueOf(spinnerPreCity.getAdapter().getItem(i));
+                if (!listPrePs.isEmpty())
+                    listPrePs.clear();
+                listPrePs.addAll(localSetting.getpsListByCityCode(preCity));
+                prePolishStationAdapter.notifyDataSetChanged();
+            }
         });
+
 
         spinnerPrePoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -383,7 +410,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 prePoliceStation = s;
             }
         });
-        spinnerPerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+      /*  spinnerPerCity.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 perCity = s;
@@ -391,7 +418,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
             }
 
-        });
+        });*/
+
 
         spinnerPerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -488,17 +516,18 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
 
     public void initAdapters() {
-        ArrayAdapter<String> perPolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getPseStringList());
-        spinnerPerPoliceStation.setAdapter(perPolishStationAdapter);
 
         ArrayAdapter<String> perCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerPerCity.setAdapter(perCityAdapter);
-
-        ArrayAdapter<String> prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getPseStringList());
-        spinnerPrePoliceStation.setAdapter(perPolishStationAdapter);
-
+        perPolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPerPs);
+        spinnerPerPoliceStation.setAdapter(perPolishStationAdapter);
         ArrayAdapter<String> preCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
-        spinnerPreCity.setAdapter(perCityAdapter);
+        spinnerPreCity.setAdapter(preCityAdapter);
+        spinnerPerCity.setThreshold(1);
+        spinnerPreCity.setThreshold(1);
+        prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPrePs);
+        spinnerPrePoliceStation.setAdapter(prePolishStationAdapter);
+
 
         ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerDistOfBirth.setAdapter(disBirthAdapter);
@@ -641,7 +670,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             }
             //city android polish station
 
-            if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressCity())) {
+       /*     if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressCity())) {
                 try {
                     spinnerPreCity.setSelection(preCityAdapter.getPosition(coApplicant.getPresentAddressCity()));
                 } catch (final IllegalStateException ignored) {
@@ -661,6 +690,36 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 } catch (final IllegalStateException ignored) {
 
                 }
+            }
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressPS())) {
+                try {
+                    spinnerPerPoliceStation.setSelection(perPolishStationAdapter.getPosition(coApplicant.getPermanentAddressPS()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }*/
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressCity())) {
+                preCity = coApplicant.getPresentAddressCity();
+                spinnerPreCity.setText(coApplicant.getPresentAddressCity());
+                if (!listPrePs.isEmpty())
+                    listPrePs.clear();
+                listPrePs.addAll(localSetting.getpsListByCityCode(coApplicant.getPresentAddressCity()));
+                prePolishStationAdapter.notifyDataSetChanged();
+            }
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressPS())) {
+                try {
+                    spinnerPrePoliceStation.setSelection(prePolishStationAdapter.getPosition(coApplicant.getPresentAddressPS()));
+                } catch (final IllegalStateException ignored) {
+
+                }
+            }
+            if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressCity())) {
+                perCity = coApplicant.getPermanentAddressCity();
+                spinnerPerCity.setText(coApplicant.getPermanentAddressCity());
+                if (!listPerPs.isEmpty())
+                    listPerPs.clear();
+                listPerPs.addAll(localSetting.getpsListByCityCode(coApplicant.getPermanentAddressCity()));
+                perPolishStationAdapter.notifyDataSetChanged();
             }
             if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressPS())) {
                 try {

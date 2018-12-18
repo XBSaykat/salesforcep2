@@ -156,7 +156,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
         spinnerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                city= String.valueOf(spinnerCity.getAdapter().getItem(i));
+                city = String.valueOf(spinnerCity.getAdapter().getItem(i));
                 if (!listPs.isEmpty())
                     listPs.clear();
                 listPs.addAll(mLocalSettting.getpsListByCityCode(city));
@@ -270,8 +270,9 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                     etUserName.setText(visitPlan.getClientName());
                     etPhone.setText(visitPlan.getMobileNumber());
                     if (!MasumCommonUtils.isNullStr(visitPlan.getCity())) {
+                        city = visitPlan.getCity();
                         try {
-                            spinnerCity.setSelection(cityAdapter.getPosition(visitPlan.getCity()));
+                            spinnerCity.setText(visitPlan.getCity());
                         } catch (IllegalStateException i) {
 
                         }

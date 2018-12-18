@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -62,6 +63,7 @@ public class CoApplicantFinancialFragment extends Fragment {
     private SharedViewModel model;
     private CoApplicantActivity coApplicantActivity;
     private OnFragmentInteractionListener mListener;
+    private LinearLayout lnEmiOtherLoan, lnTotalMonthlyIncome;
 
     public CoApplicantFinancialFragment() {
         // Required empty public constructor
@@ -110,7 +112,10 @@ public class CoApplicantFinancialFragment extends Fragment {
         listMonthlyRentalSalary.addAll(spinnerDbController.getMonthlyRentalIncomeData());
 
         // Inflate the layout for this fragment
-
+        lnEmiOtherLoan = view.findViewById(R.id.lnEmiOtherLoan);
+        lnTotalMonthlyIncome = view.findViewById(R.id.lnTotalMonthlyIncome);
+        lnEmiOtherLoan.setVisibility(View.GONE);
+        lnTotalMonthlyIncome.setVisibility(View.GONE);
 
         etMonthlySalaryAmount = view.findViewById(R.id.input_monthly_net_salary_amount);
         etMonthlyBusinessIncome = view.findViewById(R.id.input_monthly_business_income);

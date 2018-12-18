@@ -676,7 +676,7 @@
                     android:id="@+id/awe_spinner_visit_plan_city_per"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="select city" />
+                    android:hint="search city" />
 
 
             </LinearLayout>
@@ -745,7 +745,7 @@
                     android:id="@+id/awe_spinner_visit_plan_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="select city" />
+                    android:hint="search city" />
 
 
             </LinearLayout>

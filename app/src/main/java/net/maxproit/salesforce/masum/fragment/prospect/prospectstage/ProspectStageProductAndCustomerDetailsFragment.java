@@ -348,7 +348,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerPreCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                preCity = String.valueOf(spinnerPerCity.getAdapter().getItem(i));
+                preCity = String.valueOf(spinnerPreCity.getAdapter().getItem(i));
                 if (!listPrePs.isEmpty())
                     listPrePs.clear();
                 listPrePs.addAll(localSetting.getpsListByCityCode(preCity));
@@ -517,17 +517,19 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     }
 
     public void initAdapters() {
-        perPolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPrePs);
-        spinnerPerPoliceStation.setAdapter(perPolishStationAdapter);
 
         ArrayAdapter<String> perCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerPerCity.setAdapter(perCityAdapter);
         spinnerPerCity.setThreshold(1);
-        prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPerPs);
-        spinnerPrePoliceStation.setAdapter(prePolishStationAdapter);
+        perPolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPerPs);
+        spinnerPerPoliceStation.setAdapter(perPolishStationAdapter);
+
         ArrayAdapter<String> preCityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
-        spinnerPreCity.setAdapter(perCityAdapter);
+        spinnerPreCity.setAdapter(preCityAdapter);
+        prePolishStationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listPrePs);
+        spinnerPrePoliceStation.setAdapter(prePolishStationAdapter);
         spinnerPreCity.setThreshold(1);
+
         ArrayAdapter<String> productCat = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
         spinnerProductCat.setAdapter(productCat);
 
@@ -705,6 +707,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
                 }
             }
+
             if (!MasumCommonUtils.isNullStr(myNewLead.getPermAddressCity())) {
                 perCity = myNewLead.getPermAddressCity();
                 spinnerPerCity.setText(myNewLead.getPermAddressCity());
