@@ -96,6 +96,7 @@ public class CoApplicantActivity extends BaseActivity {
             public void onClick(View v) {
 
 
+
                 String name, segment, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
@@ -145,6 +146,15 @@ public class CoApplicantActivity extends BaseActivity {
                 monthFamilyExpenditure = CoApplicantFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
                 emiOfOtherLoans = CoApplicantFinancialFragment.etEMIOfOtherLoans.getText().toString();
 
+                if (dateOfBirth.isEmpty()){
+                    showAlertDialog("Error", "Enter date of birth");
+                    return;
+                }
+
+                if (photoIdIssueDate.isEmpty()){
+                    showAlertDialog("Error", "Enter photo issue date");
+                    return;
+                }
 
                 CoApplicant coApplicant = new CoApplicant(leadId, name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
