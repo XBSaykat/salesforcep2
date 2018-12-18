@@ -14,6 +14,7 @@ import net.maxproit.salesforce.common.base.Clicklistener;
 import net.maxproit.salesforce.databinding.ActivitySearchUserBinding;
 import net.maxproit.salesforce.feature.search.adapter.SearchAdapter;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
+import net.maxproit.salesforce.masum.model.api.GetLeadIndex;
 import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
@@ -108,12 +109,13 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
     @Override
     public void viewClick(int i) {
         String random = UUID.randomUUID().toString();
-        getApiService().getLeadDataByLeadIndex(list.get(i).getIndexID(), random).enqueue(new Callback<MyLeadByRefApi>() {
+        int id = Integer.parseInt(list.get(i).getIndexID());
+        getApiService().getLeadDataByLeadIndex(id, random).enqueue(new Callback<GetLeadIndex>() {
             @Override
-            public void onResponse(Call<MyLeadByRefApi> call, Response<MyLeadByRefApi> response) {
+            public void onResponse(Call<GetLeadIndex> call, Response<GetLeadIndex> response) {
                 if (response.body().getCode().equals("200")) {
                     if (response.body().getData() != null) {
-                        Data data = response.body().getData();
+                        net.maxproit.salesforce.masum.model.api.Data data = response.body().getData();
                         String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
                         String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
                         String loanAmount = MasumCommonUtils.isNotZero(data.getLoanAmount());
@@ -136,7 +138,7 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
             }
 
             @Override
-            public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
+            public void onFailure(Call<GetLeadIndex> call, Throwable t) {
 
             }
         });
