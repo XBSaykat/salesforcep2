@@ -116,7 +116,7 @@ public class UploadProspectActivity extends BaseActivity implements Documentinfo
         String fileName = fileType + "_" + prospectId + "_" + fileId + ".pdf";
         //File f= new File("/storage/emulated/0/PDFfilesIDLC_2018:07:06_15:15:27.pdf");
         File pdffile = new File(uploadFile);
-        showProgressDialog("File Unloaded");
+        showProgressDialog("File Uploading");
 
 
         getApiService().fileUpload(getFile(pdffile, "file", fileName)).enqueue(new Callback<FileUploadResponce>() {

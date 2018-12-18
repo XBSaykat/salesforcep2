@@ -568,6 +568,10 @@ public class CoApplicantFinancialFragment extends Fragment {
             }
         });
 
+        ViewGroup.LayoutParams marginEtInterestIncome = (LinearLayout.LayoutParams) etInterestIncome.getLayoutParams();
+        ((LinearLayout.LayoutParams) marginEtInterestIncome).setMargins(0,0,0,120);
+        etInterestIncome.setLayoutParams(marginEtInterestIncome);
+
         etMonthlyFamilyExpenditure.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
