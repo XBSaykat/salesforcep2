@@ -138,6 +138,7 @@
                     android:layout_margin="@dimen/size_8dp"
                     android:background="@drawable/dashboard_item"
                     android:elevation="@dimen/size_4dp"
+                    android:visibility="gone"
                     android:padding="@dimen/size_16dp">
 
                     <ImageView
