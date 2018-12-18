@@ -764,7 +764,7 @@ public class NewProspectUpdate {
             } catch (NumberFormatException e) {
             }
             try {
-                coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance()));
+                coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance().replace(",", "")));
             } catch (NumberFormatException e) {
             }
             try {

@@ -20,6 +20,7 @@ import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 
 import java.text.DecimalFormat;
@@ -173,7 +174,7 @@ public class CoApplicantFinancialFragment extends Fragment {
         if (coApplicantActivity.getDataFromApplicant() != null) {
 
             CoApplicant myNewLead = coApplicantActivity.getDataFromApplicant();
-            if (myNewLead.getMonthSalaryType() != null) {
+            if (!MasumCommonUtils.isNullStr(myNewLead.getMonthSalaryType())) {
                 try {
                     spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getMonthSalaryType()));
                 } catch (final IllegalStateException ignored) {

@@ -181,7 +181,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_valid_photo_id_type);
 
         liPhotoIdNo = view.findViewById(R.id.li_photo_id_no);
-
+        liPhotoIdNo.setVisibility(View.GONE);
         initAdapters();
         initListener();
 

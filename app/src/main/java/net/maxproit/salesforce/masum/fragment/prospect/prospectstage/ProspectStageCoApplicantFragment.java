@@ -189,7 +189,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                 coApplicantList.get(position).getAge(),
                 coApplicantList.get(position).getDistrictOfBirth(),
                 coApplicantList.get(position).getCountryOfBirth(),
-                coApplicantList.get(position).getPhotoIdType(),
+                String.valueOf(coApplicantList.get(position).getPhotoIdCode()),
                 coApplicantList.get(position).getPhotoIdNo(),
                 coApplicantList.get(position).getPhotoIdIssueDate(),
                 coApplicantList.get(position).geteTin(),
@@ -229,6 +229,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         coApplicant.setPermanentAddressCity(coApplicantList.get(position).getPermanentAddressCity());
         coApplicant.setPresentAddressPS(coApplicantList.get(position).getPresentAddressPS());
         coApplicant.setPermanentAddressPS(coApplicantList.get(position).getPermanentAddressPS());
+        coApplicant.setPhotoIdCode(coApplicantList.get(position).getPhotoIdCode());
 
         ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant, position);
 

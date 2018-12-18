@@ -556,11 +556,12 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                         etPermanentAddress.setText(permanentAddress);
 
                     if (!MasumCommonUtils.isNullStr(preCity)) {
-                        try {
-                            spinnerPreCity.setSelection(preCityAdapter.getPosition(preCity));
-                        } catch (final IllegalStateException ignored) {
+                        spinnerPreCity.setText(preCity);
+                        if (!listPrePs.isEmpty())
+                            listPrePs.clear();
+                        listPrePs.addAll(localSetting.getpsListByCityCode(preCity));
+                        prePolishStationAdapter.notifyDataSetChanged();
 
-                        }
                     }
                     if (!MasumCommonUtils.isNullStr(prePoliceStation)) {
                         try {
@@ -570,11 +571,13 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                         }
                     }
                     if (!MasumCommonUtils.isNullStr(perCity)) {
-                        try {
-                            spinnerPerCity.setSelection(perCityAdapter.getPosition(perCity));
-                        } catch (final IllegalStateException ignored) {
+                        spinnerPerCity.setText(perCity);
 
-                        }
+                        if (!listPerPs.isEmpty())
+                            listPerPs.clear();
+                        listPerPs.addAll(localSetting.getpsListByCityCode(perCity));
+                        perPolishStationAdapter.notifyDataSetChanged();
+
                     }
                     if (!MasumCommonUtils.isNullStr(perPoliceStation)) {
                         try {
@@ -707,6 +710,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 prePolishStationAdapter.notifyDataSetChanged();
             }
             if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressPS())) {
+                prePoliceStation = coApplicant.getPresentAddressPS();
                 try {
                     spinnerPrePoliceStation.setSelection(prePolishStationAdapter.getPosition(coApplicant.getPresentAddressPS()));
                 } catch (final IllegalStateException ignored) {
@@ -722,6 +726,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 perPolishStationAdapter.notifyDataSetChanged();
             }
             if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressPS())) {
+                perPoliceStation = coApplicant.getPermanentAddressPS();
                 try {
                     spinnerPerPoliceStation.setSelection(perPolishStationAdapter.getPosition(coApplicant.getPermanentAddressPS()));
                 } catch (final IllegalStateException ignored) {

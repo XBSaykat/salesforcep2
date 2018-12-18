@@ -44,8 +44,11 @@ public class NetworkMonitor extends BroadcastReceiver {
             myLeadDbController = new MyLeadDbController(context);
             visitPlanDbController = new VisitPlanDbController(context);
             myLeadList.addAll(myLeadDbController.getDataForSync());
-            visitPlanList.addAll(visitPlanDbController.getUnSyncData());
+            try {
+                visitPlanList.addAll(visitPlanDbController.getUnSyncData());
+            } catch (IllegalArgumentException e) {
 
+            }
             if (myLeadList.size() > 0) {
                 for (int i = 0; i < myLeadList.size(); i++) {
                     MyNewLead myNewLead = myLeadList.get(i);
