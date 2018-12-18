@@ -437,6 +437,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                         @Override
                         public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
+                            errorAlert("Error", t.getMessage());
 
                         }
                     });
