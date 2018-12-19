@@ -555,8 +555,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerPrePoliceStation.setAdapter(prePolishStationAdapter);
         spinnerPreCity.setThreshold(1);
 
-        ArrayAdapter<String> productCat = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
-        spinnerProductCat.setAdapter(productCat);
+        ArrayAdapter<String> productCatAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProductCategorystring());
+        spinnerProductCat.setAdapter(productCatAdapter);
 
         ArrayAdapter<String> branchNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getBranchString());
         spinnerBranchName.setAdapter(branchNameAdapter);
@@ -673,8 +673,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
+                productCat=myNewLead.getProductType();
                 try {
-                    spinnerProductCat.setSelection(productCat.getPosition(myNewLead.getProductType()));
+                    spinnerProductCat.setSelection(productCatAdapter.getPosition(myNewLead.getProductType()));
                 } catch (final IllegalStateException ignored) {
                 }
                 etProductCat.setText(myNewLead.getProductType());

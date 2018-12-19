@@ -116,6 +116,7 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Product SubCategory" />
 
                 <!--<Spinner android:id="@+id/spinner_product_detail"-->
@@ -173,8 +174,9 @@
 
                 <TextView
                     style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Name" />
 
                 <EditText
@@ -222,6 +224,7 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Date of Birth" />
 
                 <EditText
@@ -305,6 +308,7 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Country of Birth" />
 
                 <!--<Spinner android:id="@+id/spinner_country_of_birth"-->
@@ -333,6 +337,7 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Valid Photo ID Type" />
 
                 <!--<Spinner android:id="@+id/spinner_country_of_birth"-->
@@ -438,8 +443,9 @@
 
                 <TextView
                     style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Father's Name" />
 
                 <EditText
@@ -461,8 +467,9 @@
 
                 <TextView
                     style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Mother's Name" />
 
                 <EditText
@@ -683,8 +690,9 @@
 
                 <TextView
                     style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Permanent Address" />
 
                 <EditText
@@ -752,8 +760,9 @@
 
                 <TextView
                     style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Present Address" />
 
                 <EditText
@@ -828,8 +837,9 @@
 
                 <TextView
                     style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
                     android:text="Mobile No." />
 
                 <EditText
