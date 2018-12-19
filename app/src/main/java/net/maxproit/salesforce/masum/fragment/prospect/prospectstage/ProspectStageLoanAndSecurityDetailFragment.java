@@ -45,6 +45,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     private String mParam2;
     private LocalSetting localSetting;
 
+
     private OnFragmentInteractionListener mListener;
 
 
@@ -256,7 +257,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
                     Long longVal = Long.parseLong(originalTentativeLoanAmount);
 
                     DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
+                    formatter.applyPattern(AppConstant.numberPattern);
                     String formattedString = formatter.format(longVal);
 
                     etSecurityValue.setText(formattedString);
@@ -289,9 +290,8 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
                     Long longVal = Long.parseLong(originalTentativeLoanAmount);
 
                     DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
+                    formatter.applyPattern(AppConstant.numberPattern);
                     String formattedString = formatter.format(longVal);
-
                     etLoanRequired.setText(formattedString);
                     etLoanRequired.setSelection(etLoanRequired.getText().length());
                 } catch (NumberFormatException nfe) {
