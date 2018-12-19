@@ -651,14 +651,19 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 radioButtonYes.setChecked(true);
             }
 
-
             etDesignation.setText(coApplicant.getDesignation());
             etETin.setText(coApplicant.geteTin());
             etFatherName.setText(coApplicant.getfName());
             etMotherName.setText(coApplicant.getmName());
             etSpouseName.setText(coApplicant.getsName());
             if (coApplicant.getPhotoIdIssueDate() != null) {
-                etPhotoIdDate.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getPhotoIdIssueDate())));
+                String date = DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getPhotoIdIssueDate()));
+                if (date != null) {
+                    etPhotoIdDate.setText(date);
+                } else {
+                    etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
+
+                }
             }
             etCompanyName.setText(coApplicant.getCompanyName());
             etPermanentAddress.setText(coApplicant.getPermanentAddress());

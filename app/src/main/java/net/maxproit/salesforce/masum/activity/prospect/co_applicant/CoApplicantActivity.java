@@ -35,7 +35,7 @@ public class CoApplicantActivity extends BaseActivity {
     private TextView btnSave;
     private CoApplicantDBController coApplicantDBController;
     String leadId = null;
-    public static String pr, pe,perCity,perPs,preCity,prePs;
+    public static String pr, pe, perCity, perPs, preCity, prePs;
     CoApplicantProductAndCustomerDetailsFragment coApplicantProductAndCustomerDetailsFragment;
     CoApplicantFinancialFragment coApplicantFinancialFragment;
     private int position = -1;
@@ -72,10 +72,10 @@ public class CoApplicantActivity extends BaseActivity {
             Bundle extraFromFragment = new Bundle();
             pr = bundle.getString(AppConstant.PRESENT_ADDRESSS_KEY);
             pe = bundle.getString(AppConstant.PERMANENT_ADDRESSS_KEY);
-            perCity=bundle.getString(AppConstant.PERMANENT_ADDRESSS_CITY_KEY );
-            perPs= bundle.getString(AppConstant.PERMANENT_ADDRESSS_PS_KEY );
-            preCity= bundle.getString(AppConstant.PRESENT_ADDRESSS_CITY_KEY );
-            prePs=bundle.getString(AppConstant.PRESENT_ADDRESSS_PS_KEY );
+            perCity = bundle.getString(AppConstant.PERMANENT_ADDRESSS_CITY_KEY);
+            perPs = bundle.getString(AppConstant.PERMANENT_ADDRESSS_PS_KEY);
+            preCity = bundle.getString(AppConstant.PRESENT_ADDRESSS_CITY_KEY);
+            prePs = bundle.getString(AppConstant.PRESENT_ADDRESSS_PS_KEY);
             coApplicantProductAndCustomerDetailsFragment.setArguments(extraFromFragment);
         }
         initListener();
@@ -97,8 +97,7 @@ public class CoApplicantActivity extends BaseActivity {
             public void onClick(View v) {
 
 
-
-                 String name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
+                String name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
                         presentAddress, perCity, perPs, preCity, prePs, mobileNo, monthSalaryType, monthSalaryAmount,
@@ -181,6 +180,7 @@ public class CoApplicantActivity extends BaseActivity {
                 coApplicant.setPresentAddressPS(prePs);
                 coApplicant.setPermanentAddressCity(perCity);
                 coApplicant.setPermanentAddressPS(perPs);
+                coApplicant.setPhotoIdCode(CoApplicantProductAndCustomerDetailsFragment.photoIdcode);
 
 
                 int update = 0;

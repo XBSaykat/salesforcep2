@@ -32,6 +32,7 @@ import net.maxproit.salesforce.masum.model.local.CarLoan;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
 import net.maxproit.salesforce.model.myprospect.Data;
@@ -295,13 +296,15 @@ public class ProspectViewRbm extends BaseActivity {
         CoApplicant coApplicant = new CoApplicant(coApplicantList.get(position).getId(),
                 coApplicantList.get(position).getLeadId(),
                 coApplicantList.get(position).getName(),
-                coApplicantList.get(position).getDateOfBirth(),
+                DateUtils.getDateFormateEt(DateUtils.
+                        jsonToDate(coApplicantList.get(position).getDateOfBirth())),
                 coApplicantList.get(position).getAge(),
                 coApplicantList.get(position).getDistrictOfBirth(),
                 coApplicantList.get(position).getCountryOfBirth(),
                 coApplicantList.get(position).getPhotoIdType(),
                 coApplicantList.get(position).getPhotoIdNo(),
-                coApplicantList.get(position).getPhotoIdIssueDate(),
+                DateUtils.getDateFormateEt(DateUtils.
+                        jsonToDate(coApplicantList.get(position).getPhotoIdIssueDate())),
                 coApplicantList.get(position).geteTin(),
                 coApplicantList.get(position).getfName(),
                 coApplicantList.get(position).getmName(),
