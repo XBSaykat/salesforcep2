@@ -283,18 +283,17 @@ public class ProspectStageActivity extends BaseActivity {
 
     private boolean isValid() {
         boolean validation = true;
-        if (!MasumCommonUtils.isNullStr(permanentAddress) || !MasumCommonUtils.isNullStr(presentAddress) ||
-                !MasumCommonUtils.isNullStr(segment) || !MasumCommonUtils.isNullStr(productCat) || !MasumCommonUtils.isNullStr(productDetails)
-                || !MasumCommonUtils.isNullStr(mybranchName) || !MasumCommonUtils.isNullStr(name) || !MasumCommonUtils.isNullStr(segment)
-                || !MasumCommonUtils.isNullStr(dateOfBirth) || !MasumCommonUtils.isNullStr(districtOfBirth) || !MasumCommonUtils.isNullStr(countOfBirth)
-                || !MasumCommonUtils.isNullStr(photoIdType) || !MasumCommonUtils.isNullStr(photoId) || !MasumCommonUtils.isNullStr(photoIdDate)
-                || !MasumCommonUtils.isNullStr(fatherName) || !MasumCommonUtils.isNullStr(motherName) || !MasumCommonUtils.isNullStr(profession)
-                || !MasumCommonUtils.isNullStr(relationship) || !MasumCommonUtils.isNullStr(mobileNumber) || !MasumCommonUtils.isNullStr(permanentCity)
-                || !MasumCommonUtils.isNullStr(presentCity) || !MasumCommonUtils.isNullStr(permanentPs) || !MasumCommonUtils.isNullStr(presentPs)) {
-            validation = true;
-        } else {
-            validateString = "Enter required values";
+        if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) ||
+                MasumCommonUtils.isNullStr(segment) || MasumCommonUtils.isNullStr(productCat) || MasumCommonUtils.isNullStr(productDetails)
+                || MasumCommonUtils.isNullStr(mybranchName) || MasumCommonUtils.isNullStr(name) || MasumCommonUtils.isNullStr(segment)
+                || MasumCommonUtils.isNullStr(dateOfBirth) || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countOfBirth)
+                || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoId) || MasumCommonUtils.isNullStr(photoIdDate)
+                || MasumCommonUtils.isNullStr(fatherName) || MasumCommonUtils.isNullStr(motherName) || MasumCommonUtils.isNullStr(profession)
+                || MasumCommonUtils.isNullStr(relationship) || MasumCommonUtils.isNullStr(mobileNumber) || MasumCommonUtils.isNullStr(permanentCity)
+                || MasumCommonUtils.isNullStr(presentCity) || MasumCommonUtils.isNullStr(permanentPs) || MasumCommonUtils.isNullStr(presentPs)) {
             validation = false;
+        } else {
+            validation = true;
         }
 
         return validation;
@@ -442,7 +441,7 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setPermAddressPs(permanentPs);
                 myNewProspect.setSubCode(producSubCode);
                 if (!isValid()) {
-                    showAlertDialog("Alert", validateString);
+                    showAlertDialog("Alert", "Enter required values");
                     return;
                 }
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
@@ -570,7 +569,7 @@ public class ProspectStageActivity extends BaseActivity {
                 ArrayList<CoApplicant> coApplicantList = AppConstant.coAppLicantStaticList;
                 newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
                 if (!isValid()) {
-                    showAlertDialog("Alert", validateString);
+                    showAlertDialog("Alert", "Enter required values");
                     return;
                 }
                 if (isNetworkAvailable()) {
