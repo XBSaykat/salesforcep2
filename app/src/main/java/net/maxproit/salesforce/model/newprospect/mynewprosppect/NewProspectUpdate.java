@@ -210,6 +210,17 @@ public class NewProspectUpdate {
     @SerializedName("coApplicants")
     @Expose
     private List<CoApplicant> coApplicants = new ArrayList<>();
+    @SerializedName("exceptionList")
+    @Expose
+    private Integer exceptionList;
+
+    public Integer getExceptionList() {
+        return exceptionList;
+    }
+
+    public void setExceptionList(Integer exceptionList) {
+        this.exceptionList = exceptionList;
+    }
 
     public String getLeadReferenceNo() {
         return leadReferenceNo;
@@ -782,6 +793,7 @@ public class NewProspectUpdate {
             coApplicant.setCustomerId(coApplicanLocalList.get(i).getCustomerId());
             coApplicant.setMobileNoId(coApplicanLocalList.get(i).getMobileNoId());
             coApplicant.setMobile(coApplicanLocalList.get(i).getMobileNo());
+            coApplicant.setExceptionList(coApplicanLocalList.get(i).getExceptionList());
 
             coApplicant.setCountryOfBirth(coApplicanLocalList.get(i).getCountryOfBirth());
             coApplicant.setCurrentJobDuration(coApplicanLocalList.get(i).getNoOfYrsInCurrentJob());
@@ -950,7 +962,7 @@ public class NewProspectUpdate {
 
         setBranchCode(myNewProspect.getBranchCode());
         setBranchName(myNewProspect.getBranchName());
-
+        setExceptionList(myNewProspect.getExceptionList());
         setCompany(myNewProspect.getOrganization());
         setContactId(myNewProspect.getContactId());
         setCountryOfBirth(myNewProspect.getCob());
