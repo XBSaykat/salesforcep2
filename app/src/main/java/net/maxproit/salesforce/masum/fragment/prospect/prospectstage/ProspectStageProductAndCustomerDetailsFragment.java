@@ -578,7 +578,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
-
+        try {
+            spinnerCountOfBirth.setSelection(disCountryAdater.getPosition("Bangladesh"));
+        } catch (IllegalStateException er) {
+        }
         if (prospectStageActivity.getDataFromProspect() != null) {
 
             MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();

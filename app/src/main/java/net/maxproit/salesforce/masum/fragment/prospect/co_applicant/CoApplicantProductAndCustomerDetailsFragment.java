@@ -573,7 +573,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
         ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhotoType.setAdapter(validPhotoIdAdapter);
-
+        try {
+            spinnerCountOfBirth.setSelection(disCountryAdater.getPosition("Bangladesh"));
+        } catch (IllegalStateException er) {
+        }
         cbAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
