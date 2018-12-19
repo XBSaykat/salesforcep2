@@ -47,7 +47,7 @@ public class CoApplicantDBController {
         values.put(DbConstants.PROSPECT_MOTHER_NAME, coApplicant.getmName());
         values.put(DbConstants.PROSPECT_SPOUSE_NAME, coApplicant.getsName());
         values.put(DbConstants.LEAD_PROFESSION, coApplicant.getProfession());
-        values.put(DbConstants.PROSPECT_EXCEPTION_LIST, coApplicant.getExList());
+        values.put(DbConstants.PROSPECT_EXCEPTION_LIST, coApplicant.getExceptionList());
         values.put(DbConstants.LEAD_ORGANIZATION, coApplicant.getCompanyName());
         values.put(DbConstants.LEAD_DESIGNATION, coApplicant.getDesignation());
         values.put(DbConstants.PROSPECT_NOY_CURRENT_JOB, coApplicant.getNoOfYrsInCurrentJob());
@@ -95,7 +95,7 @@ public class CoApplicantDBController {
         values.put(DbConstants.PROSPECT_MOTHER_NAME, coApplicant.getmName());
         values.put(DbConstants.PROSPECT_SPOUSE_NAME, coApplicant.getsName());
         values.put(DbConstants.LEAD_PROFESSION, coApplicant.getProfession());
-        values.put(DbConstants.PROSPECT_EXCEPTION_LIST, coApplicant.getExList());
+        values.put(DbConstants.PROSPECT_EXCEPTION_LIST, coApplicant.getExceptionList());
         values.put(DbConstants.LEAD_ORGANIZATION, coApplicant.getCompanyName());
         values.put(DbConstants.LEAD_DESIGNATION, coApplicant.getDesignation());
         values.put(DbConstants.PROSPECT_NOY_CURRENT_JOB, coApplicant.getNoOfYrsInCurrentJob());
@@ -207,7 +207,7 @@ public class CoApplicantDBController {
                     String mName = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_MOTHER_NAME));
                     String sName = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_SPOUSE_NAME));
                     String profession = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_PROFESSION));
-                    String exList = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_EXCEPTION_LIST));
+                    int exList = c.getInt(c.getColumnIndexOrThrow(DbConstants.PROSPECT_EXCEPTION_LIST));
                     String organization = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_ORGANIZATION));
                     String designation = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_DESIGNATION));
                     String noYrsInCurJob = c.getString(c.getColumnIndexOrThrow(DbConstants.PROSPECT_NOY_CURRENT_JOB));

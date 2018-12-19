@@ -228,7 +228,7 @@ public class DbConstants {
                             PROSPECT_MOTHER_NAME + TEXT_TYPE + COMMA_SEP +
                             PROSPECT_SPOUSE_NAME + TEXT_TYPE + COMMA_SEP +
                             LEAD_PROFESSION + TEXT_TYPE + COMMA_SEP +
-                            PROSPECT_EXCEPTION_LIST + TEXT_TYPE + COMMA_SEP +
+                            PROSPECT_EXCEPTION_LIST + INTEGER_TYPE + COMMA_SEP +
                             LEAD_ORGANIZATION + TEXT_TYPE + COMMA_SEP +
                             LEAD_DESIGNATION + TEXT_TYPE + COMMA_SEP +
                             PROSPECT_NOY_CURRENT_JOB + TEXT_TYPE + COMMA_SEP +

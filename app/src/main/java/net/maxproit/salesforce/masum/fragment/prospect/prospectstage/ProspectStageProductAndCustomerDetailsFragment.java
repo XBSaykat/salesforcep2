@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -62,6 +63,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     Calendar myCalendar = Calendar.getInstance();
 
     public CheckBox cbExist;
+    public static int exception = 0;
+    private RadioButton radioButtonYes, radioButtonNO;
 
     private LinearLayout liNid, liPassport, liDrivingLicense, liBirthCertificate;
     private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
@@ -143,6 +146,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerPrePoliceStation = view.findViewById(R.id.awe_spinner_visit_plan_police_station);
         spinnerPerCity = view.findViewById(R.id.awe_spinner_visit_plan_city_per);
         spinnerPerPoliceStation = view.findViewById(R.id.awe_spinner_visit_plan_police_station_per);
+        rgExList = view.findViewById(R.id.rg_exlist);
+        radioButtonYes = view.findViewById(R.id.rb_yes);
+        radioButtonNO = view.findViewById(R.id.rb_no);
         etName = view.findViewById(R.id.input_name);
         etAge = view.findViewById(R.id.input_age);
         etPhotoId = view.findViewById(R.id.et_photo_id_no);
@@ -484,6 +490,19 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
+        rgExList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i == R.id.rb_yes) {
+                    exception = 1;
+
+                } else if (i == R.id.rb_no) {
+                    exception = 0;
+                }
+
+            }
+        });
+
         etMobileNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -571,6 +590,16 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etMobileNumber.setText(myNewLead.getPhone());
             etCompanyName.setText(myNewLead.getOrganization());
             etNoYrsInCurrentJob.setText(myNewLead.getCurrentJob());
+
+            if (myNewLead.getExceptionList() == 0) {
+                exception = 0;
+                radioButtonNO.setChecked(true);
+                radioButtonYes.setChecked(false);
+            } else {
+                exception = 1;
+                radioButtonNO.setChecked(false);
+                radioButtonYes.setChecked(true);
+            }
 
             if (myNewLead.getDateOfBirth().equalsIgnoreCase("1900-01-01")) {
                 etDob.setText("");
