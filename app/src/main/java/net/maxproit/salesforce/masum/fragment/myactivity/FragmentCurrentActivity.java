@@ -207,27 +207,32 @@ public class FragmentCurrentActivity extends BaseFragment {
             getApiService().getActivityByJournalId(journalId, random).enqueue(new Callback<MyActivityGetByJournalIdApi>() {
                 @Override
                 public void onResponse(Call<MyActivityGetByJournalIdApi> call, Response<MyActivityGetByJournalIdApi> response) {
-                    Log.e("", "");
-                    Data data = response.body().getData();
-                    String followupDate = null;
-                    String activityDate = null;
-                    if (data.getFollowupDate() != null) {
-                        followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
-                    }
-                    if (data.getActivityDate() != null) {
-                        activityDate = CommonUtil.jsonToDate(data.getActivityDate());
-                    }
-                    VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
-                            , data.getClientType(), data.getMobileNo(), data.getPs(),
-                            data.getProductType(), data.getCity(), data.getVisitPurposeType(),
-                            activityDate, data.getRemarks(), data.getActivityStatus(), activityDate, data.getFollowupRemarks());
-                    ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
-
+                    if (response.body().getCode().equals("200")) {
+                        if (response.body().getData() != null) {
+                            Data data = response.body().getData();
+                            String followupDate = null;
+                            String activityDate = null;
+                            if (data.getFollowupDate() != null) {
+                                followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
+                            }
+                            if (data.getActivityDate() != null) {
+                                activityDate = CommonUtil.jsonToDate(data.getActivityDate());
+                            }
+                            VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
+                                    , data.getClientType(), data.getMobileNo(), data.getPs(),
+                                    data.getProductType(), data.getCity(), data.getVisitPurposeType(),
+                                    activityDate, data.getRemarks(), data.getActivityStatus(), activityDate, data.getFollowupRemarks());
+                            ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+                        } else {
+                            showEmptyView();
+                        }
+                    } else showAlertDialog(response.body().getCode(), response.body().getMessage());
                 }
 
                 @Override
                 public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
-
+                    showEmptyView();
+                    showAlertDialog("Error", t.getMessage());
                 }
             });
         } else {
@@ -303,9 +308,9 @@ public class FragmentCurrentActivity extends BaseFragment {
             if (leadList.size() > 0) {
                 visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(leadList));
                 myLeadAdapter.notifyDataSetChanged();
-                //hideLoader();
+                hideLoader();
             } else {
-                // showEmptyView();
+                showEmptyView();
             }
         }
     }

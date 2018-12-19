@@ -44,6 +44,7 @@ public class FragmentProspectreturn extends BaseFragment {
     RecyclerView recyclerView;
     ArrayList<MyNewProspect> leadList;
     ArrayList<Data> dataList, dataFilterList;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class FragmentProspectreturn extends BaseFragment {
         dataFilterList = getFilterData(dataList, s);
         myProspectAdapter.setFilter(dataFilterList);
     }
+
     private void initListener() {
 
         myProspectAdapter.setItemClickListener(new OnItemClickListener() {
@@ -107,6 +109,7 @@ public class FragmentProspectreturn extends BaseFragment {
         });
 
     }
+
     private void callApiLoadList(int position) {
         if (isNetworkAvailable()) {
             if (!AppConstant.coAppLicantStaticList.isEmpty()) {
@@ -261,7 +264,7 @@ public class FragmentProspectreturn extends BaseFragment {
                                 hideLoader();
 
                                 for (int i = 0; i < response.body().getData().size(); i++) {
-                                    if (response.body().getData().get(i).getStatus().equals(AppConstant.PROSPPECT_STATUS_FILTER_RETURN)){
+                                    if (response.body().getData().get(i).getStatus().equalsIgnoreCase(AppConstant.PROSPPECT_STATUS_FILTER_RETURN)) {
                                         dataList.add(response.body().getData().get(i));
                                     }
                                 }
