@@ -57,7 +57,9 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
         int i = position + 1;
         holder.tvId.setText("" + coApplicantsList.get(position).getLeadReferenceNo());
         holder.tvName.setText("" + coApplicantsList.get(position).getDocCheckListItem());
-
+        if (!coApplicantsList.get(position).getURL().equals("")) {
+            holder.imgView.setImageResource(R.drawable.ic_approved);
+        }
     }
 
     @Override
@@ -84,10 +86,10 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
                 mListener.itemClickListener(view, getLayoutPosition());
             });
 
-           imgView.setOnClickListener(view->{
-               mListener.itemClickListener(view, getLayoutPosition());
+            imgView.setOnClickListener(view -> {
+                mListener.itemClickListener(view, getLayoutPosition());
 
-           });
+            });
 
         }
     }
