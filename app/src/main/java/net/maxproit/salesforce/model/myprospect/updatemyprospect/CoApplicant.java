@@ -129,6 +129,17 @@ public class CoApplicant {
     @SerializedName("mobileNoId")
     @Expose
     private Integer mobileNoId;
+    @SerializedName("exceptionList")
+    @Expose
+    private Integer exceptionList;
+
+    public Integer getExceptionList() {
+        return exceptionList;
+    }
+
+    public void setExceptionList(Integer exceptionList) {
+        this.exceptionList = exceptionList;
+    }
 
     public Integer getMobileNoId() {
         return mobileNoId;

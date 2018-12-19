@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -110,14 +111,15 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private LinearLayout llAddress;
     private CheckBox cbAddress;
 
-
-    public static String   prePoliceStation = "",perPoliceStation = "" ,productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
-            relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, exList, eTin, fatherName, motherName, spouseName,
+    public static int exList = 0;
+    public static String prePoliceStation = "", perPoliceStation = "", productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
+            relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto;
-    private String preCity = "",perCity = "";
+    private String preCity = "", perCity = "";
     private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec;
     public static int photoIdcode;
     private CoApplicantActivity coApplicantActivity;
+    private RadioButton radioButtonYes, radioButtonNO;
 
     private SharedViewModel model;
 
@@ -169,7 +171,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         listPerPs = new ArrayList<>();
         listPrePs = new ArrayList<>();
         etDateOfBirth = view.findViewById(R.id.input_date_of_birth);
-
+        radioButtonYes = view.findViewById(R.id.rb_yes);
+        radioButtonNO = view.findViewById(R.id.rb_no);
         etPhotoId = view.findViewById(R.id.et_photo_id_no);
         etPhotoIdDate = view.findViewById(R.id.input_valid_photo_id_issue_date);
         etETin = view.findViewById(R.id.input_etin);
@@ -247,7 +250,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
         initAdapters();
         initListener();
-        getExceptionlist();
        /* if (getArguments() != null) {
             presentAddress = getArguments().getString(AppConstant.PRESENT_ADDRESSS_KEY);
             permanentAddress = getArguments().getString(AppConstant.PERMANENT_ADDRESSS_KEY);
@@ -264,21 +266,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         return view;
     }
 
-
-    private void getExceptionlist() {
-        switch (rgExList.getCheckedRadioButtonId()) {
-
-            case R.id.rb_yes:
-                exList = "yes";
-                break;
-            case R.id.rb_no:
-                exList = "no";
-                break;
-            default:
-                exList = "no";
-                break;
-        }
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -357,6 +344,18 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
         etAge.setEnabled(false);
 
+        rgExList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i == R.id.rb_yes) {
+                    exList = 1;
+
+                } else if (i == R.id.rb_no) {
+                    exList = 0;
+                }
+
+            }
+        });
 
         etMobileNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -500,7 +499,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         });
 
 
-
     }
 
     private void getphotoIdNumber(String type) {
@@ -639,6 +637,17 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                     etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
                 }
             }
+
+            if (coApplicant.getExceptionList() == 0) {
+                exList = 0;
+                radioButtonNO.setChecked(true);
+                radioButtonYes.setChecked(false);
+            } else {
+                exList = 1;
+                radioButtonNO.setChecked(false);
+                radioButtonYes.setChecked(true);
+            }
+
 
             etDesignation.setText(coApplicant.getDesignation());
             etETin.setText(coApplicant.geteTin());

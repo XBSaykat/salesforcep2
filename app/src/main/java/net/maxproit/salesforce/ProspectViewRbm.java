@@ -50,7 +50,7 @@ public class ProspectViewRbm extends BaseActivity {
             tvProfession, tvCompanyName, tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
             tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
-            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvOfficeCommercialSpace, tvWarehouseFactoryIncome, tvTakeApproval;
+            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome,tvCifInfo,tvRuleInfo, tvOfficeCommercialSpace, tvWarehouseFactoryIncome, tvTakeApproval;
 
     private LinearLayout liBrandName, liManufacturingYear, liManufacturingCountry, liVehicleType;
 
@@ -139,7 +139,8 @@ public class ProspectViewRbm extends BaseActivity {
         liManufacturingYear = (LinearLayout) findViewById(R.id.li_maufacturing_year);
         liManufacturingCountry = (LinearLayout) findViewById(R.id.li_maufacturing_country);
         liVehicleType = (LinearLayout) findViewById(R.id.li_vehicle_type);
-
+        tvCifInfo=findViewById(R.id.tv_cif_info);
+        tvRuleInfo=findViewById(R.id.tv_rule_info);
         tvApproval = (TextView) findViewById(R.id.tv_approval);
         tvReject = (TextView) findViewById(R.id.tv_reject);
         tvReturn = (TextView) findViewById(R.id.tv_return);
@@ -161,7 +162,6 @@ public class ProspectViewRbm extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProspectViewRbm.this, CibCifRequestActivity.class);
                 intent.putExtra(KEY_REFERRENCE_ID, getDataFromProspect().getRefNumber());
-
                 startActivity(intent);
             }
         });
@@ -307,7 +307,7 @@ public class ProspectViewRbm extends BaseActivity {
                 coApplicantList.get(position).getmName(),
                 coApplicantList.get(position).getsName(),
                 coApplicantList.get(position).getProfession(),
-                coApplicantList.get(position).getExList(),
+                coApplicantList.get(position).getExceptionList(),
                 coApplicantList.get(position).getCompanyName(),
                 coApplicantList.get(position).getDesignation(),
                 coApplicantList.get(position).getNoOfYrsInCurrentJob(),
@@ -402,6 +402,8 @@ public class ProspectViewRbm extends BaseActivity {
         tvLoanTerm.setText(getDataFromProspect().getLoanTerm());
         tvInteresterRate.setText(getDataFromProspect().getOrInterest());
         tvFee.setText(getDataFromProspect().getProspectFee());
+        tvRuleInfo.setText(getDataFromProspect().getRuleEngineInformation());
+        tvCifInfo.setText(getDataFromProspect().getcIBInformation());
     }
 
 

@@ -97,14 +97,15 @@ public class CoApplicantActivity extends BaseActivity {
 
 
 
-                String name, segment, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
-                        photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
+                 String name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
+                        photoIdIssueDate, eTin, fName, mName, sName, profession, companyName,
                         designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
                         presentAddress, perCity, perPs, preCity, prePs, mobileNo, monthSalaryType, monthSalaryAmount,
                         monthBusinessIncomeAmount, monthWareHouseAmount, monthOfficeSpaceIncomeAmount,
                         monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
                         monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
                         emiOfOtherLoans;
+                int exList;
                 AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED, true);
                 name = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
                 dateOfBirth = CoApplicantProductAndCustomerDetailsFragment.etDateOfBirth.getText().toString();

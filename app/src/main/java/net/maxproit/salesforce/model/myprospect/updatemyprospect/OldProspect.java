@@ -75,10 +75,10 @@ public class OldProspect {
         myNewProspect.setApartmentAmount(MasumCommonUtils.isNotZero(data.getApartmentIncome()));
         myNewProspect.setApplicant(data.getRelationshipWithApplicant());
         myNewProspect.setUserName(data.getCustomerName());
+        myNewProspect.setExceptionList(data.getExceptionList());
 
         myNewProspect.setRuleEngineInformation(data.getRuleEngineInformation());
         myNewProspect.setcIBInformation(data.getCIBInformation());
-
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
         myNewProspect.setBranchCode(data.getBranchCode());
         myNewProspect.setBranchName(data.getBranchName());
@@ -157,6 +157,7 @@ public class OldProspect {
                 coApplicant.setCountryOfBirth(data.getCoApplicants().get(i).getCountryOfBirth());
                 coApplicant.setNoOfYrsInCurrentJob(data.getCoApplicants().get(i).getCurrentJobDuration());
                 coApplicant.setName(data.getCoApplicants().get(i).getCustomerName());
+                coApplicant.setExceptionList(data.getCoApplicants().get(i).getExceptionList());
                 coApplicant.setDateOfBirth(data.getCoApplicants().get(i).getDateOfBirth());
                 coApplicant.setDesignation(data.getCoApplicants().get(i).getDesignation());
                 coApplicant.setDistrictOfBirth(data.getCoApplicants().get(i).getDistrictOfBirth());

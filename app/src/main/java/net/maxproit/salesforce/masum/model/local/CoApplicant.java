@@ -3,27 +3,30 @@ package net.maxproit.salesforce.masum.model.local;
 
 import java.io.Serializable;
 
-public class CoApplicant implements Serializable{
+public class CoApplicant implements Serializable {
 
 
-    int id, contactId, customerId, permanentAddressId,presentAddressId,photoIdCode,mobileNoId ;
-    String  name,dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
-            photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
+    int id, contactId, customerId, permanentAddressId, presentAddressId, photoIdCode, mobileNoId;
+    String name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
+            photoIdIssueDate, eTin, fName, mName, sName, profession, companyName,
             designation, noOfYrsInCurrentJob, relationWithApplicant, permanentAddress,
-            presentAddress, mobileNo, monthSalaryType, monthSalaryAmount,leadId,
-            monthBusinessIncomeAmount, monthWareHouseAmount,monthOfficeSpaceIncomeAmount,
+            presentAddress, mobileNo, monthSalaryType, monthSalaryAmount, leadId,
+            monthBusinessIncomeAmount, monthWareHouseAmount, monthOfficeSpaceIncomeAmount,
             monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
             monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
-            emiOfOtherLoans, permanentAddressCity,  permanentAddressPS, presentAddressCity,presentAddressPS
-             ;
+            emiOfOtherLoans, permanentAddressCity, permanentAddressPS, presentAddressCity, presentAddressPS;
+    private int exceptionList;
 
-    public CoApplicant(){};
+    public CoApplicant() {
+    }
+
+    ;
 
     //            for retrieving from DB
     public CoApplicant(int id, String leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
-                       String mName, String sName, String profession, String exList,
+                       String mName, String sName, String profession, int exceptionList,
                        String companyName, String designation, String noOfYrsInCurrentJob,
                        String relationWithApplicant, String permanentAddress, String presentAddress,
                        String mobileNo, String monthSalaryType, String monthSalaryAmount,
@@ -48,7 +51,7 @@ public class CoApplicant implements Serializable{
         this.mName = mName;
         this.sName = sName;
         this.profession = profession;
-        this.exList = exList;
+        this.exceptionList = exceptionList;
         this.companyName = companyName;
         this.designation = designation;
         this.noOfYrsInCurrentJob = noOfYrsInCurrentJob;
@@ -70,11 +73,12 @@ public class CoApplicant implements Serializable{
         this.monthFamilyExpenditure = monthFamilyExpenditure;
         this.emiOfOtherLoans = emiOfOtherLoans;
     }
+
     //                for inserting in DB
     public CoApplicant(String leadId, String name, String dateOfBirth, String age,
                        String districtOfBirth, String countryOfBirth, String photoIdType,
                        String photoIdNo, String photoIdIssueDate, String eTin, String fName,
-                       String mName, String sName, String profession, String exList,
+                       String mName, String sName, String profession, int exceptionList,
                        String companyName, String designation, String noOfYrsInCurrentJob,
                        String relationWithApplicant, String permanentAddress, String presentAddress,
                        String mobileNo, String monthSalaryType, String monthSalaryAmount,
@@ -98,7 +102,7 @@ public class CoApplicant implements Serializable{
         this.mName = mName;
         this.sName = sName;
         this.profession = profession;
-        this.exList = exList;
+        this.exceptionList = exceptionList;
         this.companyName = companyName;
         this.designation = designation;
         this.noOfYrsInCurrentJob = noOfYrsInCurrentJob;
@@ -120,8 +124,17 @@ public class CoApplicant implements Serializable{
         this.monthFamilyExpenditure = monthFamilyExpenditure;
         this.emiOfOtherLoans = emiOfOtherLoans;
     }
+
     public int getPhotoIdCode() {
         return photoIdCode;
+    }
+
+    public int getExceptionList() {
+        return exceptionList;
+    }
+
+    public void setExceptionList(int exceptionList) {
+        this.exceptionList = exceptionList;
     }
 
     public void setPhotoIdCode(int photoIdCode) {
@@ -202,10 +215,6 @@ public class CoApplicant implements Serializable{
 
     public String getProfession() {
         return profession;
-    }
-
-    public String getExList() {
-        return exList;
     }
 
     public String getCompanyName() {
@@ -381,9 +390,6 @@ public class CoApplicant implements Serializable{
         this.profession = profession;
     }
 
-    public void setExList(String exList) {
-        this.exList = exList;
-    }
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;

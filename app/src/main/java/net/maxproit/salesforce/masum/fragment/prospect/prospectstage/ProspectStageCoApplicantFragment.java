@@ -197,7 +197,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                 coApplicantList.get(position).getmName(),
                 coApplicantList.get(position).getsName(),
                 coApplicantList.get(position).getProfession(),
-                coApplicantList.get(position).getExList(),
+                coApplicantList.get(position).getExceptionList(),
                 coApplicantList.get(position).getCompanyName(),
                 coApplicantList.get(position).getDesignation(),
                 coApplicantList.get(position).getNoOfYrsInCurrentJob(),
