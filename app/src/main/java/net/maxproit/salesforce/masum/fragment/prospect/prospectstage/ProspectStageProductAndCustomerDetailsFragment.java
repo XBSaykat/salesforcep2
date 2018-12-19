@@ -735,6 +735,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 }
             }
 
+
             if (!MasumCommonUtils.isNullStr(myNewLead.getPresAddressCity())) {
                 preCity = myNewLead.getPresAddressCity();
                 spinnerPreCity.setText(myNewLead.getPresAddressCity());
