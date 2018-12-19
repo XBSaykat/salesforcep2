@@ -50,7 +50,7 @@ public class ProspectViewRbm extends BaseActivity {
             tvProfession, tvCompanyName, tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
             tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
-            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome,tvCifInfo,tvRuleInfo, tvOfficeCommercialSpace, tvWarehouseFactoryIncome, tvTakeApproval;
+            tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvCifInfo, tvRuleInfo, tvOfficeCommercialSpace, tvWarehouseFactoryIncome, tvTakeApproval;
 
     private LinearLayout liBrandName, liManufacturingYear, liManufacturingCountry, liVehicleType;
 
@@ -86,7 +86,7 @@ public class ProspectViewRbm extends BaseActivity {
 
     @Override
     protected void initComponents() {
-        myLeadDbController=new MyLeadDbController(this);
+        myLeadDbController = new MyLeadDbController(this);
         tvProdecutCategory = (TextView) findViewById(R.id.tv_product_category);
         tvProductDetail = (TextView) findViewById(R.id.tv_product_detail);
         tvBranchName = (TextView) findViewById(R.id.tv_branch);
@@ -139,8 +139,8 @@ public class ProspectViewRbm extends BaseActivity {
         liManufacturingYear = (LinearLayout) findViewById(R.id.li_maufacturing_year);
         liManufacturingCountry = (LinearLayout) findViewById(R.id.li_maufacturing_country);
         liVehicleType = (LinearLayout) findViewById(R.id.li_vehicle_type);
-        tvCifInfo=findViewById(R.id.tv_cif_info);
-        tvRuleInfo=findViewById(R.id.tv_rule_info);
+        tvCifInfo = findViewById(R.id.tv_cif_info);
+        tvRuleInfo = findViewById(R.id.tv_rule_info);
         tvApproval = (TextView) findViewById(R.id.tv_approval);
         tvReject = (TextView) findViewById(R.id.tv_reject);
         tvReturn = (TextView) findViewById(R.id.tv_return);
@@ -148,7 +148,7 @@ public class ProspectViewRbm extends BaseActivity {
         tvTakeApproval = (TextView) findViewById(R.id.tv_take_approval);
         btnLogout = (Button) findViewById(R.id.btn_logout);
 
-        carLoanDbController=new CarLoanDbController(this);
+        carLoanDbController = new CarLoanDbController(this);
         btnCoapplicantsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,7 +188,7 @@ public class ProspectViewRbm extends BaseActivity {
         tvReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               approvalConfirmationAlertDialog(TITLE_ALERT_RETURN_TO_RBM, MESSAGE_ALERT_RETURN_TO_RBM, RETURN_TO_RM, ALERT_BUTTON_RETURN_TO_RBM);
+                approvalConfirmationAlertDialog(TITLE_ALERT_RETURN_TO_RBM, MESSAGE_ALERT_RETURN_TO_RBM, RETURN_TO_RM, ALERT_BUTTON_RETURN_TO_RBM);
             }
         });
 
@@ -240,7 +240,6 @@ public class ProspectViewRbm extends BaseActivity {
     }
 
 
-
     private ArrayList<CoApplicant> filteredList() {
 
         coApplicantDBController = new CoApplicantDBController(getApplicationContext());
@@ -249,7 +248,7 @@ public class ProspectViewRbm extends BaseActivity {
         }
 
 
-        coApplicantList.addAll(coApplicantDBController.getAllData(getDataFromProspect().getRefNumber()));
+        coApplicantList.addAll(getDataFromProspect().getCoApplicantList());
 
         return coApplicantList;
     }
@@ -259,8 +258,8 @@ public class ProspectViewRbm extends BaseActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = (View) inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, null);
-       LinearLayout liAddSection=dialogView.findViewById(R.id.li_add_co_applicant);
-       LinearLayout liAddSectionTopSpace=dialogView.findViewById(R.id.li_add_co_applicant_top_space);
+        LinearLayout liAddSection = dialogView.findViewById(R.id.li_add_co_applicant);
+        LinearLayout liAddSectionTopSpace = dialogView.findViewById(R.id.li_add_co_applicant_top_space);
         liAddSection.setVisibility(View.GONE);
         liAddSectionTopSpace.setVisibility(View.GONE);
 
@@ -285,6 +284,7 @@ public class ProspectViewRbm extends BaseActivity {
         dialog.setTitle("Co applicant List");
         dialog.show();
     }
+
     /*
             ,
             tvRentalIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
@@ -292,7 +292,7 @@ public class ProspectViewRbm extends BaseActivity {
             tvFee;*/
     private void sentDataToCoApplicant(int position) {
 
-        CoApplicant coApplicant=new CoApplicant(coApplicantList.get(position).getId(),
+        CoApplicant coApplicant = new CoApplicant(coApplicantList.get(position).getId(),
                 coApplicantList.get(position).getLeadId(),
                 coApplicantList.get(position).getName(),
                 coApplicantList.get(position).getDateOfBirth(),
@@ -330,36 +330,35 @@ public class ProspectViewRbm extends BaseActivity {
                 coApplicantList.get(position).getEmiOfOtherLoans()
         );
 
-        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this,CoApplicantRbmView.class,coApplicant,-1);
+        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this, CoApplicantRbmView.class, coApplicant, -1);
 
     }
 
     private void setAllData() {
         tvBranchName.setText(getDataFromProspect().getBranchName());
         tvProdecutCategory.setText(getDataFromProspect().getProductType());
-        if(getDataFromProspect().getProductType().equals(AppConstant.CAR_LOAN)){
-            if (carLoanList.size()>0){
-                if (carLoanList.get(0).getVehicleType() !=null){
+        if (getDataFromProspect().getProductType().equals(AppConstant.CAR_LOAN)) {
+            if (carLoanList.size() > 0) {
+                if (carLoanList.get(0).getVehicleType() != null) {
                     liVehicleType.setVisibility(View.VISIBLE);
                     tvVehicleType.setText(carLoanList.get(0).getVehicleType());
 
                 }
-                if (carLoanList.get(0).getMenuCountry() !=null) {
+                if (carLoanList.get(0).getMenuCountry() != null) {
                     liManufacturingYear.setVisibility(View.VISIBLE);
                     tvManufacturingCountry.setText(carLoanList.get(0).getMenuCountry());
                 }
-                if (carLoanList.get(0).getMenuYear() != null){
+                if (carLoanList.get(0).getMenuYear() != null) {
                     liManufacturingCountry.setVisibility(View.VISIBLE);
                     tvManufacturingYear.setText(carLoanList.get(0).getMenuYear());
                 }
-                if (carLoanList.get(0).getBrandName() != null){
+                if (carLoanList.get(0).getBrandName() != null) {
                     liBrandName.setVisibility(View.VISIBLE);
                     tvBrandName.setText(carLoanList.get(0).getBrandName());
                 }
             }
 
         }
-
 
 
         tvProductDetail.setText(getDataFromProspect().getProductSubcategory());
@@ -408,20 +407,20 @@ public class ProspectViewRbm extends BaseActivity {
 
 
     public MyNewProspect getDataFromProspect() {
-        MyNewProspect propect = null;
+        MyNewProspect prospect = null;
 
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
-            propect = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+            prospect = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
             prospectListData = (Data) extraDetail.getSerializable(AppConstant.PROSPECT_RBM_LIST_DATA_INTENT_KEY);
-            if (!carLoanList.isEmpty()){
+            if (!carLoanList.isEmpty()) {
                 carLoanList.clear();
             }
 
-            carLoanList.addAll(carLoanDbController.getData(String.valueOf(propect.getId())));
+            carLoanList.addAll(carLoanDbController.getData(String.valueOf(prospect.getId())));
         }
 
-        return propect;
+        return prospect;
     }
 
     private void logout() {
@@ -451,7 +450,7 @@ public class ProspectViewRbm extends BaseActivity {
         return this;
     }
 
-    private void approveProspect(String status){
+    private void approveProspect(String status) {
 
         Approval approval = new Approval();
         approval.setApprovalType(APPROVAL_TYPE_PROSPECT);
@@ -464,38 +463,38 @@ public class ProspectViewRbm extends BaseActivity {
         approval.setBranch(getDataFromProspect().getBranchName());
         approval.setProductId(Integer.valueOf(getDataFromProspect().getProductCode()));
 
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             getApiService().approve(approval).enqueue(new Callback<ApprovalResponce>() {
                 @Override
                 public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
 
-                        startActivityshowAlertDialog("Message:", ""+response.body().getMessage(), SupervisorRbmProspect.class, true);
+                        startActivityshowAlertDialog("Message:", "" + response.body().getMessage(), SupervisorRbmProspect.class, true);
 
-                        if (approval.getStatus().equals(RETURN_TO_RM) && response.body().getCode().equals("200")){
-                            myLeadDbController.updateLeadDataStatus(getDataFromProspect().getId(),AppConstant.STATUS_RETURN_RBM);
+                        if (approval.getStatus().equals(RETURN_TO_RM) && response.body().getCode().equals("200")) {
+                            myLeadDbController.updateLeadDataStatus(getDataFromProspect().getId(), AppConstant.STATUS_RETURN_RBM);
                         }
 
 //                        startActivity(new Intent(ProspectViewRbm.this, SupervisorRbmProspect.class));
 //                        finish();
-                    }else {
-                        showAlertDialog(""+response.code(), "Message: "+response.message());
+                    } else {
+                        showAlertDialog("" + response.code(), "Message: " + response.message());
 
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ApprovalResponce> call, Throwable t) {
-                    showAlertDialog("Error", ""+t.getMessage());
+                    showAlertDialog("Error", "" + t.getMessage());
                 }
             });
-        }else {
-            showAlertDialog("Network Error", "Network not available" );
+        } else {
+            showAlertDialog("Network Error", "Network not available");
         }
 
     }
 
-    public void approvalConfirmationAlertDialog(String title, String message,String status, String positiveButton) {
+    public void approvalConfirmationAlertDialog(String title, String message, String status, String positiveButton) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Light_Dialog_Alert);
