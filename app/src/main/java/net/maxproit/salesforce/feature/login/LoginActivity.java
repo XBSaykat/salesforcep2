@@ -149,13 +149,14 @@ public class LoginActivity extends BaseActivity {
 
 
                         } else
-                            showToast("Login Failed");
+                            showAlertDialog(""+response.body().getCode(), ""+response.body().getMessage());
                     }
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
                         hideProgressDialog();
                         showToast("Login Failed");
+                        showAlertDialog(""+t.getMessage(),""+t.getLocalizedMessage());
 
                     }
                 });
@@ -203,19 +204,25 @@ public class LoginActivity extends BaseActivity {
             public void onResponse(Call<GlobalSettings> call, Response<GlobalSettings> response) {
                 hideProgressDialog();
                 if (response.isSuccessful()) {
-                    String setting = toJson(response.body());
-                    localCash().put(SharedPreferencesEnum.Key.SETTING, setting);
-                    showToast("Setting Data Success");
+                    if (response.equals("200")){
+                        String setting = toJson(response.body());
+                        localCash().put(SharedPreferencesEnum.Key.SETTING, setting);
+                        showToast("Setting Data Success");
+                    }else {
+                        showAlertDialog("Code: "+response.body().getCode(), "Message: "+response.body().getMessage());
+                    }
+
 
                 } else
                     showToast("Setting Data Failed");
-
+                    showAlertDialog(""+response.body().getCode(), ""+response.body().getMessage() );
             }
 
             @Override
             public void onFailure(Call<GlobalSettings> call, Throwable t) {
                 hideProgressDialog();
                 showToast("Setting Data Failed");
+                showAlertDialog(""+t.getMessage(),t.getLocalizedMessage());
 
             }
         });

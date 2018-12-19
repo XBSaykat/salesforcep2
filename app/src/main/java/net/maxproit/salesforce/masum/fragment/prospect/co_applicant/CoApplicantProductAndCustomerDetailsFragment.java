@@ -187,6 +187,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
 
         cbExist = view.findViewById(R.id.cb_exist);
+        cbExist.setVisibility(View.GONE);
         etChif = view.findViewById(R.id.etChif);
         liChif = view.findViewById(R.id.liChif);
 
