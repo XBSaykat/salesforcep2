@@ -44,6 +44,7 @@ public class AppConstant {
     public static final int REQUEST_IMAGE_CHOOSE = 5;
 
     //activity status
+
     public static final String STATUS_ACTIVITY = "activity";
     public static final String STATUS_ACTIVITY_NEW = "New";
     public static final String STATUS_PREVIOUS_ACTIVITY = "Previous Activity";
@@ -51,6 +52,9 @@ public class AppConstant {
     public static final String STATUS_CURRENT_ACTIVITY = "Current Activity";
 
 
+    // my prospect filteration by status
+    public static final String PROSPPECT_STATUS_FILTER_RETURN = "Return";
+    public static final String PROSPPECT_STATUS_FILTER_PROCESS = "Process";
 
 
     public static final String PRE_DISBURSEMENT = "Pre- Disbursement";

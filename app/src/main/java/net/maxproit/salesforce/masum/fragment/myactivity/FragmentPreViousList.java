@@ -186,6 +186,9 @@ public class FragmentPreViousList extends BaseFragment {
         if (!visitPlanList.isEmpty()) {
             visitPlanList.clear();
         }
+        if (!visitPlanListApi.isEmpty()) {
+            visitPlanListApi.clear();
+        }
 
         if (isNetworkAvailable()) {
             String random = UUID.randomUUID().toString();

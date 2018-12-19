@@ -258,7 +258,12 @@ public class FragmentProspectPendingList extends BaseFragment {
                         if (response.body().getCode().equals("200")) {
                             if (response.body().getData() != null) {
                                 hideLoader();
-                                dataList.addAll(response.body().getData());
+
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+                                    if (response.body().getData().get(i).getStatus().equals(AppConstant.PROSPPECT_STATUS_FILTER_PROCESS)){
+                                        dataList.add(response.body().getData().get(i));
+                                    }
+                                }
                                 myProspectAdapter = new MyNewProspectAdapter(getActivity(), dataList);
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                                 recyclerView.setLayoutManager(mLayoutManager);
