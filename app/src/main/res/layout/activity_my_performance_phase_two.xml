@@ -59,10 +59,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_20dp"
+                    android:visibility="gone"
                     android:layout_marginRight="@dimen/size_20dp"
                     android:text="My Plan" />
 
-                <include layout="@layout/my_plan_performance" />
+                <include
+                    android:visibility="gone"
+                    layout="@layout/my_plan_performance" />
 
                 <Button
                     android:layout_width="match_parent"
@@ -70,9 +73,12 @@
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:layout_marginTop="@dimen/size_20dp"
                     android:layout_marginRight="@dimen/size_20dp"
-                    android:text="My Activity" />
+                    android:text="Activity" />
 
                 <include layout="@layout/my_activity_performance"/>
+
+
+
                 <!--1st-->
                 <Button
                     android:layout_width="match_parent"
