@@ -15,6 +15,7 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.masum.adapter.MyReturnProspectAdapter;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
+import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectReturnAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
@@ -36,7 +37,7 @@ import retrofit2.Response;
 public class FragmentProspectreturn extends BaseFragment {
 
     LocalLogin localLogin;
-    MyNewProspectAdapter myProspectAdapter;
+    MyNewProspectReturnAdapter myProspectAdapter;
     String userName;
     Bundle extras;
     MyLeadDbController myLeadDbController;
@@ -264,7 +265,7 @@ public class FragmentProspectreturn extends BaseFragment {
                                         dataList.add(response.body().getData().get(i));
                                     }
                                 }
-                                myProspectAdapter = new MyNewProspectAdapter(getActivity(), dataList);
+                                myProspectAdapter = new MyNewProspectReturnAdapter(getActivity(), dataList);
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                                 recyclerView.setLayoutManager(mLayoutManager);
                                 recyclerView.setAdapter(myProspectAdapter);

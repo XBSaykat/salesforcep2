@@ -242,14 +242,14 @@ public class FragmentProspectPendingList extends BaseFragment {
     }
 
     private void callApi() {
-        if (!dataList.isEmpty()) {
-            dataList.clear();
-        }
+
         initLoader();
         showLoader();
         Log.d("tag", "callApi: ");
         if (isNetworkAvailable()) {
-
+            if (!dataList.isEmpty()) {
+                dataList.clear();
+            }
             getApiService().getMyProspect(userName, UUID.randomUUID().toString()).enqueue(new Callback<MyProspect>() {
                 @Override
                 public void onResponse(Call<MyProspect> call, Response<MyProspect> response) {
@@ -260,7 +260,7 @@ public class FragmentProspectPendingList extends BaseFragment {
                                 hideLoader();
 
                                 for (int i = 0; i < response.body().getData().size(); i++) {
-                                    if (!response.body().getData().get(i).getStatus().equalsIgnoreCase(AppConstant.PROSPPECT_STATUS_FILTER_RETURN)){
+                                    if (!response.body().getData().get(i).getStatus().equalsIgnoreCase(AppConstant.PROSPPECT_STATUS_FILTER_RETURN)) {
                                         dataList.add(response.body().getData().get(i));
                                     }
                                 }
