@@ -22,6 +22,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,15 +148,25 @@ public class CoApplicantActivity extends BaseActivity {
                 monthFamilyExpenditure = CoApplicantFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
                 emiOfOtherLoans = CoApplicantFinancialFragment.etEMIOfOtherLoans.getText().toString();
 
-                if (dateOfBirth.isEmpty()){
-                    showAlertDialog("Error", "Enter date of birth");
+                if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) || MasumCommonUtils.isNullStr(name) ||
+                        MasumCommonUtils.isNullStr(dateOfBirth) || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countryOfBirth)
+                        || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoIdNo) || MasumCommonUtils.isNullStr(photoIdIssueDate)
+                        || MasumCommonUtils.isNullStr(fName) || MasumCommonUtils.isNullStr(mName) || MasumCommonUtils.isNullStr(profession)
+                        || MasumCommonUtils.isNullStr(relationWithApplicant) || MasumCommonUtils.isNullStr(mobileNo) || MasumCommonUtils.isNullStr(perCity)
+                        || MasumCommonUtils.isNullStr(preCity) || MasumCommonUtils.isNullStr(perPs) || MasumCommonUtils.isNullStr(prePs)) {
+                    showAlertDialog("Error", "Enter required values");
                     return;
                 }
 
-                if (photoIdIssueDate.isEmpty()){
-                    showAlertDialog("Error", "Enter photo issue date");
-                    return;
-                }
+//                if (dateOfBirth.isEmpty()){
+//                    showAlertDialog("Error", "Enter date of birth");
+//                    return;
+//                }
+//
+//                if (photoIdIssueDate.isEmpty()){
+//                    showAlertDialog("Error", "Enter photo issue date");
+//                    return;
+//                }
 
                 CoApplicant coApplicant = new CoApplicant(leadId, name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
