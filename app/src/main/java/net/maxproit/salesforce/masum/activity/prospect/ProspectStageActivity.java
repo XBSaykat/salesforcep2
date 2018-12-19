@@ -134,6 +134,8 @@ public class ProspectStageActivity extends BaseActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(isValid())
                 alertDialogSave();
             }
 

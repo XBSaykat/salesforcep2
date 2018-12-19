@@ -125,10 +125,16 @@ public class FragmentUpComingList extends BaseFragment {
 //        initView(rootView);
         initListener();
         // Inflate the layout for this fragment
-        getData();
+
         return rootView;
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
     }
 
     @Override
