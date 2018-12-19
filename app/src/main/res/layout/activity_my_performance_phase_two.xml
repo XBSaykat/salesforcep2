@@ -60,9 +60,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:layout_marginRight="@dimen/size_20dp"
-                    android:text="My Plan" />
+                    android:text="My Plan"
+                    android:visibility="gone"/>
 
-                <include layout="@layout/my_plan_performance" />
+                <include
+                    android:visibility="gone"
+                    layout="@layout/my_plan_performance" />
 
                 <Button
                     android:layout_width="match_parent"
