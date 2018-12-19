@@ -3,6 +3,7 @@ package net.maxproit.salesforce.feature.dashboard.supervisor;
 import android.app.AlertDialog;
 import android.os.Build;
 
+import net.maxproit.salesforce.MyPerformancePhaseTwo;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SupervisorRbmProspect;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -26,6 +27,7 @@ public class MainDashboardSupervisorActivity extends BaseActivity {
         binding.btnBack.setOnClickListener(v -> finish());
 //        binding.dashboard.setOnClickListener(v -> startActivity(DashboardSupervisorActivity.class, false));
         binding.prospect.setOnClickListener(v -> startActivity(SupervisorRbmProspect.class, false));
+        binding.dashboard.setOnClickListener(v -> startActivity(MyPerformancePhaseTwo.class, false));
 
     }
 
