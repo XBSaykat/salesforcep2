@@ -68,6 +68,9 @@ public class AppConstant {
     public static final String NARAYANGONJ = "Narayanganj";
     public static final String SELECT_IMAGE_TITLE = "title";
 
+    // number pattern for amounts
+    public static final String numberPattern = "#,###,###,###";
+
 
     //product type
     public static final String HOME_LOAN = "Home Loan";
