@@ -260,7 +260,7 @@ public class FragmentProspectPendingList extends BaseFragment {
                                 hideLoader();
 
                                 for (int i = 0; i < response.body().getData().size(); i++) {
-                                    if (response.body().getData().get(i).getStatus().equals(AppConstant.PROSPPECT_STATUS_FILTER_PROCESS)){
+                                    if (!response.body().getData().get(i).getStatus().equalsIgnoreCase(AppConstant.PROSPPECT_STATUS_FILTER_RETURN)){
                                         dataList.add(response.body().getData().get(i));
                                     }
                                 }

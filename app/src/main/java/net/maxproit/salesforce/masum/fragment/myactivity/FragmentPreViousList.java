@@ -31,6 +31,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
+import net.maxproit.salesforce.util.CommonUtil;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.text.ParseException;
@@ -229,7 +230,7 @@ public class FragmentPreViousList extends BaseFragment {
             if (!visitPlanList.isEmpty()) {
                 visitPlanListApi.addAll(myActivityGetDataApi.getVisitPlanList(visitPlanList));
                 myLeadAdapter.notifyDataSetChanged();
-              //  hideLoader();
+                //  hideLoader();
             } //else showEmptyView();
       /*      for (int i=0;i<leadList.size();i++){
 
@@ -330,18 +331,29 @@ public class FragmentPreViousList extends BaseFragment {
                 @Override
                 public void onResponse(Call<MyActivityGetByJournalIdApi> call, Response<MyActivityGetByJournalIdApi> response) {
                     Log.e("", "");
-                    Data data = response.body().getData();
-                    VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
-                            , data.getClientType(), data.getMobileNo(), data.getPs(),
-                            data.getProductType(), data.getCity(), data.getVisitPurposeType(),
-                            data.getActivityDate(), data.getRemarks(), data.getActivityStatus(), data.getFollowupDate(), data.getFollowupRemarks());
-                    ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+                    if (response.body().getCode().equals("200")) {
+                        Data data = response.body().getData();
 
+                        String followupDate = null;
+                        String activityDate = null;
+                        if (data.getFollowupDate() != null) {
+                            followupDate = CommonUtil.jsonToDate(data.getFollowupDate());
+                        }
+                        if (data.getActivityDate() != null) {
+                            activityDate = CommonUtil.jsonToDate(data.getActivityDate());
+                        }
+                        VisitPlan visitPlan = new VisitPlan(data.getActivityJournalID(), data.getCustomerName()
+                                , data.getClientType(), data.getMobileNo(), data.getPs(),
+                                data.getProductType(), data.getCity(), data.getVisitPurposeType(),
+                                activityDate, data.getRemarks(), data.getActivityStatus(), followupDate, data.getFollowupRemarks());
+                        ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
+
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
-                    showAlertDialog("ERROR",t.getMessage());
+                    showAlertDialog("ERROR", t.getMessage());
 
                 }
             });

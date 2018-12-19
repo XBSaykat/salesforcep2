@@ -132,7 +132,6 @@ public class ProspectStageActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                if(isValid())
                 alertDialogSave();
             }
 

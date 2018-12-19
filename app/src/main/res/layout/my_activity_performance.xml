@@ -199,7 +199,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:lines="2"
-                android:text="Individual"
+                android:text="Vendor"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size_15dp" />
 
