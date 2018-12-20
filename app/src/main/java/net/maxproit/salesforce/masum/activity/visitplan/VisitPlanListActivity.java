@@ -56,7 +56,7 @@ public class VisitPlanListActivity extends BaseActivity implements AdapterInfo {
     private ArrayList<Datum> visitPlanApiList, filterApiList;
     private VisitPlanDbController myDbController;
     private FollowUpDbController followUpDbController;
-    SearchView searchView;
+    private SearchView searchView;
     LocalSetting localSetting;
     public static int itemPosition = 0;
     String userName = null;

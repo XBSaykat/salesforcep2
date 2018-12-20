@@ -167,29 +167,24 @@ public class PropectStageAttachmentFragment extends BaseFragment {
                     case R.id.btn_view:
                         sentDataToDetail(position);
                         break;
+                    case R.id.btn_upload:
+                        ActivityUtils.invokDoc(getActivity(), UploadProspectActivity.class, getDoc(position));
+                        break;
+
                     default:
                         sentDataToDetail(position);
                         break;
                 }
-
-
             }
         });
     }
 
     private void sentDataToDetail(int position) {
-        Document document = new Document();
-        document.setDocCheckListID(docList.get(position).getDocCheckListID());
-        document.setLeadReferenceNo(docList.get(position).getLeadReferenceNo());
-        document.setDocCheckListItem(docList.get(position).getDocCheckListItem());
-        document.setFileName(docList.get(position).getFileName());
-        document.setURL(docList.get(position).getURL());
-        document.setDocCheckListItemID(docList.get(position).getDocCheckListItemID());
 
-        if (document.getURL() == null || document.getURL().equals("")) {
-            ActivityUtils.invokDoc(getActivity(), UploadProspectActivity.class, document);
+        if (getDoc(position).getURL() == null || getDoc(position).getURL().equals("")) {
+            ActivityUtils.invokDoc(getActivity(), UploadProspectActivity.class, getDoc(position));
         } else {
-            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(document.getURL()));
+            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(getDoc(position).getURL()));
             getContext().startActivity(intent);
         }
     }
@@ -205,6 +200,18 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     }
 
 
+    private Document getDoc(int position) {
+        Document document = new Document();
+        document.setDocCheckListID(docList.get(position).getDocCheckListID());
+        document.setLeadReferenceNo(docList.get(position).getLeadReferenceNo());
+        document.setDocCheckListItem(docList.get(position).getDocCheckListItem());
+        document.setFileName(docList.get(position).getFileName());
+        document.setURL(docList.get(position).getURL());
+        document.setDocCheckListItemID(docList.get(position).getDocCheckListItemID());
+        return document;
+    }
+
+
     private void callApi(MyNewLead myNewLead) {
         if (isNetworkAvailable()) {
             String refNo = myNewLead.getRefNumber();
@@ -214,7 +221,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
                 public void onResponse(Call<GetDocument> call, Response<GetDocument> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            if (response.body().getData()!=null) {
+                            if (response.body().getData() != null) {
                                 docList.addAll(response.body().getData());
                                 documentUploadAdapter.notifyDataSetChanged();
                             }
@@ -237,100 +244,6 @@ public class PropectStageAttachmentFragment extends BaseFragment {
 
                 }
             });
-        }
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppConstant.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
-            Bundle extras = data.getExtras();
-            attachPp = (Bitmap) extras.get("data");
-            imgAtach.setImageBitmap(attachPp);
-
-            imgAtach.setVisibility(View.VISIBLE);
-            tvPhoto.setVisibility(View.GONE);
-
-        } else if (requestCode == AppConstant.REQUEST_ID_CARD_CAPTURE && resultCode == RESULT_OK && data != null) {
-            Bundle extras = data.getExtras();
-            attachIdcard = (Bitmap) extras.get("data");
-            imgIdCard.setImageBitmap(attachIdcard);
-
-            imgIdCard.setVisibility(View.VISIBLE);
-            tvID.setVisibility(View.GONE);
-
-
-        } else if (requestCode == AppConstant.REQUEST_VCARD_CAPTURE && resultCode == RESULT_OK && data != null) {
-            Bundle extras = data.getExtras();
-            attachvCard = (Bitmap) extras.get("data");
-            imgVisitingCard.setImageBitmap(attachvCard);
-
-            imgVisitingCard.setVisibility(View.VISIBLE);
-            tvVCard.setVisibility(View.GONE);
-
-        } else if (requestCode == AppConstant.REQUEST_IMAGE_CHOOSE && resultCode ==
-                RESULT_OK && data != null && data.getData() != null) {
-            filePathUri = data.getData();
-
-            try {
-
-                // Getting selected image into Bitmap.
-                attachPp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
-                // Setting up bitmap selected image into ImageView.
-                Glide.with(getActivity()).load(filePathUri).into(imgAtach);
-                //imgAtach.setImageBitmap(bitmap);
-                if (data.getData() != null) {
-                    imgAtach.setVisibility(View.VISIBLE);
-                    tvPhoto.setVisibility(View.GONE);
-                }
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-        } else if (requestCode == AppConstant.REQUEST_ID_CARD_CHOOSE && resultCode ==
-                RESULT_OK && data != null && data.getData() != null) {
-            filePathUri = data.getData();
-
-            try {
-
-                // Getting selected image into Bitmap.
-                attachIdcard = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
-                // Setting up bitmap selected image into ImageView.
-                Glide.with(getActivity()).load(filePathUri).into(imgIdCard);
-
-                //imgIdCard.setImageBitmap(bitmap);
-                if (data.getData() != null) {
-                    imgIdCard.setVisibility(View.VISIBLE);
-                    tvID.setVisibility(View.GONE);
-                }
-
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-        } else if (requestCode == AppConstant.REQUEST_VCARD_CHOOSE && resultCode ==
-                RESULT_OK && data != null && data.getData() != null) {
-            filePathUri = data.getData();
-
-            try {
-
-                // Getting selected image into Bitmap.
-                attachvCard = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePathUri);
-                Glide.with(getActivity()).load(filePathUri).into(imgVisitingCard);
-                // Setting up bitmap selected image into ImageView.
-                //imgVisitingCard.setImageBitmap(bitmap);
-                if (data.getData() != null) {
-                    imgVisitingCard.setVisibility(View.VISIBLE);
-                    tvVCard.setVisibility(View.GONE);
-                }
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
         }
     }
 

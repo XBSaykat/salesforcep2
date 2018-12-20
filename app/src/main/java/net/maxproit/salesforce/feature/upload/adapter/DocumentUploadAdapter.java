@@ -58,7 +58,9 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
         holder.tvId.setText("" + coApplicantsList.get(position).getLeadReferenceNo());
         holder.tvName.setText("" + coApplicantsList.get(position).getDocCheckListItem());
         if (!coApplicantsList.get(position).getURL().equals("")) {
-            holder.imgView.setImageResource(R.drawable.ic_approved);
+            holder.imgView.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgView.setVisibility(View.GONE);
         }
     }
 
@@ -71,7 +73,7 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ArrayList<Document> coApplicantsList;
         TextView tvId, tvName;
-        ImageView imgView;
+        ImageView imgView, btnUpload;
         Context context;
 
 
@@ -82,6 +84,7 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
             tvName = itemView.findViewById(R.id.tvName);
             tvId = itemView.findViewById(R.id.tvId);
             imgView = itemView.findViewById(R.id.btn_view);
+            btnUpload = itemView.findViewById(R.id.btn_upload);
             itemView.setOnClickListener(view -> {
                 mListener.itemClickListener(view, getLayoutPosition());
             });
@@ -89,6 +92,13 @@ public class DocumentUploadAdapter extends RecyclerView.Adapter<DocumentUploadAd
             imgView.setOnClickListener(view -> {
                 mListener.itemClickListener(view, getLayoutPosition());
 
+            });
+
+            btnUpload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.itemClickListener(v, getLayoutPosition());
+                }
             });
 
         }
