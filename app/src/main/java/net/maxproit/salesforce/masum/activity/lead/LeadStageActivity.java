@@ -22,6 +22,7 @@ import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
@@ -29,6 +30,7 @@ import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.CompleteActivity;
+import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 
@@ -61,7 +63,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private VisitPlanDbController visitPlanDbController;
     private LeadStageBasicInformationFragment leadStageBasicInformationFragment;
 
-
+    private net.maxproit.salesforce.masum.model.api.myactivity.Data planeData = null;
     private LeadStageLoanDetailFragment leadStageLoanDetailFragment;
     private LinearLayout mLayout;
     private MyLeadDataModelApi myLeadDataModelApi = null;
@@ -214,6 +216,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
     private void getDataFromIntent() {
         visitPlan = null;
+        planeData = null;
         MyNewLead myNewLead = null;
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
@@ -230,6 +233,10 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
                 mLayout.setVisibility(View.VISIBLE);
 
+            } else if (status == 2) {
+                planeData = (net.maxproit.salesforce.masum.model.api.myactivity.Data) extraDetail.getSerializable(AppConstant.INTENT_KEY);
+                bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
+                bundle.putInt(AppConstant.STATUS_INTENT_KEY, 0);
             } else {
                 getSupportActionBar().setTitle("Create Lead");
             }
@@ -455,44 +462,26 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
 
             } else {
-
                 if (isNetworkAvailable()) {
-
-                    getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
+                    getApiService().createActivity(planeData).enqueue(new Callback<MyActivityApi>() {
                         @Override
-                        public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
-                            if (response.isSuccessful()) {
-                                if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                                    Data data = response.body().getData();
-                                    myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
-                                            designation, phone, address, ref, productType, subCat,
-                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
-                                    if (visitPlan != null) {
-                                        callActivityApi(visitPlan.getJournalId(), data.getLeadReferenceNo());
-                                    }
-                                    errorAlert(response.body().getStatus(), response.body().getMessage());
-                                }
-                            } else {
-                                myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0,
-                                        Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
-                                        Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode),
-                                        Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode),
-                                        branchName, name, profession, organization,
-                                        designation, phone, address, ref, productType, subCat,
-                                        loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                                errorAlert(response.body().getStatus(), "Data save seccessfully in device");
-
+                        public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
+                            if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                net.maxproit.salesforce.masum.model.api.myactivity.Data data1 = response.body().getData();
+                                saveActivityDatatoLead(data1.getActivityJournalID());
 
                             }
 
                         }
 
                         @Override
-                        public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-                            errorAlert("Error", t.getMessage());
+                        public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                            showAlertDialog("ERROR", t.getMessage());
 
                         }
                     });
+
+
                 } else {
                     myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0, Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
                             Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode),
@@ -508,6 +497,45 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+
+    private void saveActivityDatatoLead(int journalId) {
+        getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
+            @Override
+            public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                        Data data = response.body().getData();
+                        myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
+                                designation, phone, address, ref, productType, subCat,
+                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
+                        if (planeData != null) {
+                            callActivityApi(journalId, data.getLeadReferenceNo());
+                        }
+                    }
+                } else {
+                    myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0,
+                            Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
+                            Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode),
+                            Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode),
+                            branchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
+                    errorAlert(response.body().getStatus(), "Data save seccessfully in device");
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
+                errorAlert("Error", t.getMessage());
+
+            }
+        });
+
     }
 
     private void callActivityApi(int journalId, String refNo) {
@@ -530,7 +558,6 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     }
 
     private void alertDialogProceed(final MyNewLead myNewLead) {
-
 
         android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -586,45 +613,28 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                     }
 
                 } else {
-
                     if (isNetworkAvailable()) {
-
-                        getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
-                            @Override
-                            public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
-                                if (response.isSuccessful()) {
+                        if (planeData != null) {
+                            getApiService().createActivity(planeData).enqueue(new Callback<MyActivityApi>() {
+                                @Override
+                                public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
                                     if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                                        Data data = response.body().getData();
-                                        myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(),
-                                                data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
-                                                designation, phone, address, ref, productType, subCat,
-                                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_OK);
-                                        if (visitPlan != null) {
-                                            callActivityApi(visitPlan.getJournalId(), data.getLeadReferenceNo());
-                                            leadApprove(data, myLeadDataModelApi.getProductId());
-                                        } else {
-                                            leadApprove(data, myLeadDataModelApi.getProductId());
-                                        }
-                                        finish();
+                                        net.maxproit.salesforce.masum.model.api.myactivity.Data data1 = response.body().getData();
+                                        saveleadDataForProceed(data1.getActivityJournalID());
 
                                     }
-                                } else {
-                                    myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0, Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
-                                            Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
-                                            designation, phone, address, ref, productType, subCat,
-                                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
-
-                                    finish();
 
                                 }
 
-                            }
+                                @Override
+                                public void onFailure(Call<MyActivityApi> call, Throwable t) {
+                                    showAlertDialog("ERROR", t.getMessage());
 
-                            @Override
-                            public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
+                                }
+                            });
 
-                            }
-                        });
+
+                        }
                     } else {
                         insert = myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0, Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
                                 Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
@@ -659,6 +669,47 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         dialog.show();
     }
 
+
+    private void saveleadDataForProceed(int journalId) {
+        getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
+            @Override
+            public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                        Data data = response.body().getData();
+                        myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(),
+                                data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
+                                designation, phone, address, ref, productType, subCat,
+                                loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_OK);
+                        if (planeData != null) {
+                            callActivityApi(journalId, data.getLeadReferenceNo());
+                            leadApprove(data, myLeadDataModelApi.getProductId());
+                        } else {
+                            leadApprove(data, myLeadDataModelApi.getProductId());
+                        }
+                        finish();
+
+                    }
+                } else {
+                    myLeadDbController.insertLeadData(userName, "", 0, 0, 0, 0, Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
+                            Integer.valueOf(LeadStageLoanDetailFragment.productTypeCode), Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
+                            designation, phone, address, ref, productType, subCat,
+                            loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_WAIT);
+
+                    finish();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
+
+            }
+        });
+
+    }
+
     private void leadApprove(Data data, int productId) {
         Approval myLeadApproval = new Approval(AppConstant.APPROVAL_LEAD,
                 data.getLeadReferenceNo(),
@@ -666,12 +717,9 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 AppConstant.APPROVAL_CURRWENT_LEVEL_1,
                 AppConstant.APPROVAL_STATUS_YES, "",
                 data.getUserName(), data.getBranchName(), productId);
-        Log.d("TAG", "leadApprove: " + myLeadApproval.toString());
         getApiService().myleadApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
-                Log.d("tag", "onResponse: " + response.body().toString());
-
                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                     errorAlert(response.body().getStatus(), response.body().getMessage());
                 } else {

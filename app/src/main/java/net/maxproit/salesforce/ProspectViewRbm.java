@@ -333,7 +333,7 @@ public class ProspectViewRbm extends BaseActivity {
                 coApplicantList.get(position).getEmiOfOtherLoans()
         );
 
-        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this, CoApplicantRbmView.class, coApplicant, -1);
+        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this, CoApplicantRbmView.class, coApplicant, -1,null);
 
     }
 

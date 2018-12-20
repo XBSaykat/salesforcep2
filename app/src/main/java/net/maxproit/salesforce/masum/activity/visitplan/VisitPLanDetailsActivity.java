@@ -467,7 +467,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
     private void setUpdatedData() {
 
-        if (tvVisitDate.getText().toString().isEmpty()){
+        if (tvVisitDate.getText().toString().isEmpty()) {
             showAlertDialog("Alert", "Enter date of visit");
             return;
         }
@@ -1137,11 +1137,26 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         builder.setMessage("Do you want to proceed?");
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
-            processToLeadDetails();
+            //processToLeadDetails();
+            proceedToLeadDetail();
 
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void proceedToLeadDetail() {
+        if (isValidForProceed()) {
+            Data data = null;
+            if (visitPlanModel != null) {
+                data = getDataFromField(visitPlanModel.getJournalId());
+                ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, data);
+
+            } else {
+                data = getDataFromField(0);
+                ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, data);
+            }
+        }
     }
 
 //    private boolean isValid() {

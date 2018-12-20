@@ -105,6 +105,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         MyNewProspect mylead = prospectStageActivity.getDataFromProspect();
         if (prospectStageActivity.getDataFromProspect().getCoApplicantList() != null) {
             AppConstant.coAppLicantStaticList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
+
         }
         refId = prospectStageActivity.getDataFromProspect().getRefNumber();
         leadIdForCoApplicant = mylead.getId();
@@ -156,16 +157,9 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         btnCoApplicant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
                 Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
-                bundle.putString(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, refId);
-                bundle.putString(AppConstant.PRESENT_ADDRESSS_KEY, myNewLead.getAddress());
-                bundle.putString(AppConstant.PERMANENT_ADDRESSS_KEY, myNewLead.getpAddress());
-                bundle.putString(AppConstant.PRESENT_ADDRESSS_CITY_KEY, myNewLead.getPresAddressCity());
-                bundle.putString(AppConstant.PRESENT_ADDRESSS_PS_KEY, myNewLead.getPresAddressPs());
-                bundle.putString(AppConstant.PERMANENT_ADDRESSS_CITY_KEY, myNewLead.getPermAddressCity());
-                bundle.putString(AppConstant.PERMANENT_ADDRESSS_PS_KEY, myNewLead.getPermAddressPs());
-                intent.putExtras(bundle);
+
+                intent.putExtras(getAddress());
                 startActivityForResult(intent, 1);
 
             }
@@ -177,7 +171,23 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                 sentDataToCoApplicant(position);
 
             }
+
+
         });
+    }
+
+    private Bundle getAddress() {
+        Bundle bundle = new Bundle();
+
+        bundle.putString(AppConstant.LEAD_ID_FOR_CO_INTENT_KEY, refId);
+        bundle.putString(AppConstant.PRESENT_ADDRESSS_KEY, ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString());
+        bundle.putString(AppConstant.PERMANENT_ADDRESSS_KEY, ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString());
+        bundle.putString(AppConstant.PRESENT_ADDRESSS_CITY_KEY, ProspectStageProductAndCustomerDetailsFragment.preCity);
+        bundle.putString(AppConstant.PRESENT_ADDRESSS_PS_KEY, ProspectStageProductAndCustomerDetailsFragment.prePoliceStation);
+        bundle.putString(AppConstant.PERMANENT_ADDRESSS_CITY_KEY, ProspectStageProductAndCustomerDetailsFragment.perCity);
+        bundle.putString(AppConstant.PERMANENT_ADDRESSS_PS_KEY, ProspectStageProductAndCustomerDetailsFragment.perPoliceStation);
+        return bundle;
+
     }
 
     private void sentDataToCoApplicant(int position) {
@@ -231,7 +241,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         coApplicant.setPermanentAddressPS(coApplicantList.get(position).getPermanentAddressPS());
         coApplicant.setPhotoIdCode(coApplicantList.get(position).getPhotoIdCode());
 
-        ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant, position);
+        ActivityUtils.invokCoApplicantViewStage(getActivity(), CoApplicantActivity.class, coApplicant, position, getAddress());
 
     }
 

@@ -622,6 +622,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
                 } else {
                     etPresentAddress.setText("");
                     etPermanentAddress.setText("");
+                    spinnerPerCity.setText("");
+
                 }
 
             }
@@ -631,15 +633,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             CoApplicant coApplicant = coApplicantActivity.getDataFromApplicant();
             etName.setText(coApplicant.getName());
             if (!MasumCommonUtils.isNullStr(coApplicant.getDateOfBirth())) {
-                if (!DateUtils.isValidFormat(coApplicant.getDateOfBirth())) {
-                    etDateOfBirth.setText(DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getDateOfBirth())));
-                    long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(etDateOfBirth.getText().toString());
-                    etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
-                } else {
-                    etDateOfBirth.setText(coApplicant.getDateOfBirth());
-                    long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(coApplicant.getDateOfBirth());
-                    etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
-                }
+
+                etDateOfBirth.setText(coApplicant.getDateOfBirth());
+                long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(coApplicant.getDateOfBirth());
+                etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
             }
 
             if (coApplicant.getExceptionList() == 0) {
@@ -658,13 +655,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             etMotherName.setText(coApplicant.getmName());
             etSpouseName.setText(coApplicant.getsName());
             if (coApplicant.getPhotoIdIssueDate() != null) {
-                String date = DateUtils.getDateFormateEt(CommonUtil.jsonToDate(coApplicant.getPhotoIdIssueDate()));
-                if (date != null) {
-                    etPhotoIdDate.setText(date);
-                } else {
-                    etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
-
-                }
+                etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
             }
             etCompanyName.setText(coApplicant.getCompanyName());
             etPermanentAddress.setText(coApplicant.getPermanentAddress());

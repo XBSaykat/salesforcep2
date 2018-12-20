@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.util.CommonUtil;
 
@@ -158,7 +159,7 @@ public class OldProspect {
                 coApplicant.setNoOfYrsInCurrentJob(data.getCoApplicants().get(i).getCurrentJobDuration());
                 coApplicant.setName(data.getCoApplicants().get(i).getCustomerName());
                 coApplicant.setExceptionList(data.getCoApplicants().get(i).getExceptionList());
-                coApplicant.setDateOfBirth(data.getCoApplicants().get(i).getDateOfBirth());
+                coApplicant.setDateOfBirth(DateUtils.getDateFormateEt(DateUtils.jsonToDate(data.getCoApplicants().get(i).getDateOfBirth())));
                 coApplicant.setDesignation(data.getCoApplicants().get(i).getDesignation());
                 coApplicant.setDistrictOfBirth(data.getCoApplicants().get(i).getDistrictOfBirth());
                 coApplicant.seteTin(data.getCoApplicants().get(i).getETin());
@@ -177,7 +178,7 @@ public class OldProspect {
                 coApplicant.setPermanentAddressPS(data.getCoApplicants().get(i).getPermanentAddressPS());
                 coApplicant.setPresentAddressCity(data.getCoApplicants().get(i).getPresentAddressCity());
                 coApplicant.setPresentAddressPS(data.getCoApplicants().get(i).getPresentAddressPS());
-                coApplicant.setPhotoIdIssueDate(data.getCoApplicants().get(i).getPhotoIdIssueDate());
+                coApplicant.setPhotoIdIssueDate(DateUtils.getDateFormateEt(DateUtils.jsonToDate(data.getCoApplicants().get(i).getPhotoIdIssueDate())));
                 coApplicant.setPhotoIdNo(data.getCoApplicants().get(i).getPhotoIdNumber());
                 coApplicant.setPhotoIdCode(data.getCoApplicants().get(i).getPhotoIdTypeCode());
                 coApplicant.setProfession(data.getCoApplicants().get(i).getProfession());

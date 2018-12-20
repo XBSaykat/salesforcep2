@@ -36,7 +36,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-
 public class LoginActivity extends BaseActivity {
     ActivityLoginBinding binding;
     private static final String TAG = "LoginActivity";
@@ -92,22 +91,17 @@ public class LoginActivity extends BaseActivity {
         binding = (ActivityLoginBinding) getBinding();
         binding.setModel(new Login());
 
-
-
-        String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
-        if (st.isEmpty()) {
+//
+//        String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
+//        if (st.isEmpty()) {
         if (isNetworkAvailable())
             callSetting();
 
-        } else {
-            String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
-            if (!roll.isEmpty()) {
-                gotoBoard(roll);
-            }
-
-        }
-
-
+//        } else {
+//            String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
+//            if (!roll.isEmpty()) {
+//                gotoBoard(roll);
+//            }
 
 
         binding.btnLogin.setOnClickListener(v -> {
@@ -149,14 +143,14 @@ public class LoginActivity extends BaseActivity {
 
 
                         } else
-                            showAlertDialog(""+response.body().getCode(), ""+response.body().getMessage());
+                            showAlertDialog("" + response.body().getCode(), "" + response.body().getMessage());
                     }
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
                         hideProgressDialog();
                         showToast("Login Failed");
-                        showAlertDialog(""+t.getMessage(),""+t.getLocalizedMessage());
+                        showAlertDialog("" + t.getMessage(), "" + t.getLocalizedMessage());
 
                     }
                 });
@@ -204,25 +198,20 @@ public class LoginActivity extends BaseActivity {
             public void onResponse(Call<GlobalSettings> call, Response<GlobalSettings> response) {
                 hideProgressDialog();
                 if (response.isSuccessful()) {
-                    if (response.equals("200")){
+                    if (response.body().getCode().equals("200")) {
                         String setting = toJson(response.body());
                         localCash().put(SharedPreferencesEnum.Key.SETTING, setting);
                         showToast("Setting Data Success");
-                    }else {
-                        showAlertDialog("Code: "+response.body().getCode(), "Message: "+response.body().getMessage());
                     }
-
-
                 } else
                     showToast("Setting Data Failed");
-                    showAlertDialog(""+response.body().getCode(), ""+response.body().getMessage() );
             }
 
             @Override
             public void onFailure(Call<GlobalSettings> call, Throwable t) {
                 hideProgressDialog();
                 showToast("Setting Data Failed");
-                showAlertDialog(""+t.getMessage(),t.getLocalizedMessage());
+                showAlertDialog("" + t.getMessage(), t.getLocalizedMessage());
 
             }
         });
@@ -249,7 +238,6 @@ public class LoginActivity extends BaseActivity {
         }
 
     }
-
 
 
     @Override

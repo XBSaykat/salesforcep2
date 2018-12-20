@@ -28,6 +28,7 @@ public class ActivityUtils {
         }
         return sActivityUtils;
     }
+
     public void invokeActivity(Activity activity, Class<?> tClass, boolean shouldFinish) {
         Intent intent = new Intent(activity, tClass);
         activity.startActivity(intent);
@@ -37,7 +38,7 @@ public class ActivityUtils {
     }
 
 
-    public static void invokDoc(Activity activity, Class<?> tClass, Document document){
+    public static void invokDoc(Activity activity, Class<?> tClass, Document document) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, document);
         Intent intent = new Intent(activity, tClass);
@@ -45,7 +46,7 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public void invokFromPerformance(Activity activity, Class<?> tClass,int status){
+    public void invokFromPerformance(Activity activity, Class<?> tClass, int status) {
         Bundle bundle = new Bundle();
         Intent intent = new Intent(activity, tClass);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, status);
@@ -53,7 +54,7 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void invokRefNumber(Activity activity, Class<?> tClass,String ref){
+    public static void invokRefNumber(Activity activity, Class<?> tClass, String ref) {
         Bundle bundle = new Bundle();
         Intent intent = new Intent(activity, tClass);
         bundle.putString(AppConstant.INTENT_KEY, ref);
@@ -62,7 +63,7 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void invokLeadDetailForProspectStage(Activity activity, MyNewProspect myNewLead){
+    public static void invokLeadDetailForProspectStage(Activity activity, MyNewProspect myNewLead) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
@@ -71,7 +72,7 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void invokLeadDetailForLeadStage(Activity activity, MyNewLead myNewLead){
+    public static void invokLeadDetailForLeadStage(Activity activity, MyNewLead myNewLead) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
@@ -81,27 +82,28 @@ public class ActivityUtils {
     }
 
 
-    public static void invokProspectRbmViewStage(Activity activity, MyNewProspect myNewLead, Data prospectListData){
+    public static void invokProspectRbmViewStage(Activity activity, MyNewProspect myNewLead, Data prospectListData) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putSerializable(AppConstant.PROSPECT_RBM_LIST_DATA_INTENT_KEY, prospectListData);
 
-        Intent intent = new Intent(activity,ProspectViewRbm.class);
+        Intent intent = new Intent(activity, ProspectViewRbm.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }
 
-    public static void invokCoApplicantViewStage(Activity activity,Class<?> tClass, CoApplicant coApplicant,int position){
+    public static void invokCoApplicantViewStage(Activity activity, Class<?> tClass, CoApplicant coApplicant, int position, Bundle addressBundle) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, coApplicant);
-        bundle.putInt(AppConstant.STATUS_INTENT_KEY,position);
-        Intent intent = new Intent(activity,tClass);
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY, position);
+        Intent intent = new Intent(activity, tClass);
         intent.putExtras(bundle);
+        intent.putExtras(addressBundle);
         activity.startActivity(intent);
     }
 
 
-    public static void invokVisitPlanDetail(Activity activity,Class<?> tClass, VisitPlan visitPlan){
+    public static void invokVisitPlanDetail(Activity activity, Class<?> tClass, VisitPlan visitPlan) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, 0);
@@ -110,7 +112,16 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void toaster(Context context, String text){
+    public static void invokVisitPlanDetail(Activity activity, Class<?> tClass, net.maxproit.salesforce.masum.model.api.myactivity.Data visitPlan) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, visitPlan);
+        bundle.putInt(AppConstant.STATUS_INTENT_KEY, 2);
+        Intent intent = new Intent(activity, tClass);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+    public static void toaster(Context context, String text) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 }
