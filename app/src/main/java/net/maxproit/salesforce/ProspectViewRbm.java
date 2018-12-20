@@ -384,11 +384,13 @@ public class ProspectViewRbm extends BaseActivity {
         tvPermanentAddress.setText(getDataFromProspect().getpAddress());
         tvPresentAddress.setText(getDataFromProspect().getAddress());
         tvMobileNumber.setText(getDataFromProspect().getPhone());
-        String dateob=DateUtils.getDateFormateEt(getDataFromProspect().getDateOfBirth());
-        tvDateOfBorth.setText(dateob);
+        if (getDataFromProspect().getDateOfBirth()!=null) {
+            String dateob = DateUtils.getDateFormateEt(getDataFromProspect().getDateOfBirth());
+            tvDateOfBorth.setText(dateob);
 
-        long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(dateob);
-        tvAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+            long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(dateob);
+            tvAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+        }
 
 //        tvAge.setText(getDataFromProspect().getAge());
 
