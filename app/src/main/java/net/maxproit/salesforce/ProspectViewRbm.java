@@ -248,8 +248,9 @@ public class ProspectViewRbm extends BaseActivity {
             coApplicantList.clear();
         }
 
-
-        coApplicantList.addAll(getDataFromProspect().getCoApplicantList());
+        if (getDataFromProspect().getCoApplicantList()!=null){
+            coApplicantList.addAll(getDataFromProspect().getCoApplicantList());
+        }
 
         return coApplicantList;
     }
@@ -296,15 +297,13 @@ public class ProspectViewRbm extends BaseActivity {
         CoApplicant coApplicant = new CoApplicant(coApplicantList.get(position).getId(),
                 coApplicantList.get(position).getLeadId(),
                 coApplicantList.get(position).getName(),
-                DateUtils.getDateFormateEt(DateUtils.
-                        jsonToDate(coApplicantList.get(position).getDateOfBirth())),
+               coApplicantList.get(position).getDateOfBirth(),
                 coApplicantList.get(position).getAge(),
                 coApplicantList.get(position).getDistrictOfBirth(),
                 coApplicantList.get(position).getCountryOfBirth(),
                 coApplicantList.get(position).getPhotoIdType(),
                 coApplicantList.get(position).getPhotoIdNo(),
-                DateUtils.getDateFormateEt(DateUtils.
-                        jsonToDate(coApplicantList.get(position).getPhotoIdIssueDate())),
+                coApplicantList.get(position).getPhotoIdIssueDate(),
                 coApplicantList.get(position).geteTin(),
                 coApplicantList.get(position).getfName(),
                 coApplicantList.get(position).getmName(),
