@@ -385,6 +385,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -623,7 +624,7 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No. of Yrs. In Current job" />
+                    android:text="No. of months In Current job" />
 
                 <EditText
                     android:id="@+id/input_current_job_years"
@@ -639,6 +640,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

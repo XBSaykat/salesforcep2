@@ -34,6 +34,7 @@ import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
 import net.maxproit.salesforce.model.myprospect.Data;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -248,8 +249,9 @@ public class ProspectViewRbm extends BaseActivity {
             coApplicantList.clear();
         }
 
-
-        coApplicantList.addAll(getDataFromProspect().getCoApplicantList());
+        if (getDataFromProspect().getCoApplicantList()!=null){
+            coApplicantList.addAll(getDataFromProspect().getCoApplicantList());
+        }
 
         return coApplicantList;
     }
@@ -296,15 +298,13 @@ public class ProspectViewRbm extends BaseActivity {
         CoApplicant coApplicant = new CoApplicant(coApplicantList.get(position).getId(),
                 coApplicantList.get(position).getLeadId(),
                 coApplicantList.get(position).getName(),
-                DateUtils.getDateFormateEt(DateUtils.
-                        jsonToDate(coApplicantList.get(position).getDateOfBirth())),
+               coApplicantList.get(position).getDateOfBirth(),
                 coApplicantList.get(position).getAge(),
                 coApplicantList.get(position).getDistrictOfBirth(),
                 coApplicantList.get(position).getCountryOfBirth(),
                 coApplicantList.get(position).getPhotoIdType(),
                 coApplicantList.get(position).getPhotoIdNo(),
-                DateUtils.getDateFormateEt(DateUtils.
-                        jsonToDate(coApplicantList.get(position).getPhotoIdIssueDate())),
+                coApplicantList.get(position).getPhotoIdIssueDate(),
                 coApplicantList.get(position).geteTin(),
                 coApplicantList.get(position).getfName(),
                 coApplicantList.get(position).getmName(),
@@ -367,7 +367,7 @@ public class ProspectViewRbm extends BaseActivity {
         tvProductDetail.setText(getDataFromProspect().getProductSubcategory());
         tvUserName.setText(getDataFromProspect().getUserName());
         tvSegment.setText(getDataFromProspect().getSegment());
-        tvAge.setText(getDataFromProspect().getAge());
+
         tvBirthDistrict.setText(getDataFromProspect().getDob());
         tvBirthCountry.setText(getDataFromProspect().getCob());
         tvValidPhotoId.setText(getDataFromProspect().getpIdNumber());
@@ -384,7 +384,15 @@ public class ProspectViewRbm extends BaseActivity {
         tvPermanentAddress.setText(getDataFromProspect().getpAddress());
         tvPresentAddress.setText(getDataFromProspect().getAddress());
         tvMobileNumber.setText(getDataFromProspect().getPhone());
-        tvDateOfBorth.setText(getDataFromProspect().getDateOfBirth());
+        if (getDataFromProspect().getDateOfBirth()!=null) {
+            String dateob = DateUtils.getDateFormateEt(getDataFromProspect().getDateOfBirth());
+            tvDateOfBorth.setText(dateob);
+
+            long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(dateob);
+            tvAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+        }
+
+//        tvAge.setText(getDataFromProspect().getAge());
 
         tvMonthlySalary.setText(getDataFromProspect().getNetSalary());
         tvSalaryAmount.setText(getDataFromProspect().getSalaryAmount());

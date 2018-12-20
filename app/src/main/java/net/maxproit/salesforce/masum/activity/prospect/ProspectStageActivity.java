@@ -288,9 +288,9 @@ public class ProspectStageActivity extends BaseActivity {
                 MasumCommonUtils.isNullStr(segment) || MasumCommonUtils.isNullStr(productCat) || MasumCommonUtils.isNullStr(productDetails)
                 || MasumCommonUtils.isNullStr(mybranchName) || MasumCommonUtils.isNullStr(name) || MasumCommonUtils.isNullStr(dateOfBirth)
                 || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countOfBirth)
-                || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoId) || MasumCommonUtils.isNullStr(photoIdDate)
+                || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoId)
                 || MasumCommonUtils.isNullStr(fatherName) || MasumCommonUtils.isNullStr(motherName) || MasumCommonUtils.isNullStr(profession)
-                || MasumCommonUtils.isNullStr(relationship) || MasumCommonUtils.isNullStr(mobileNumber) || MasumCommonUtils.isNullStr(permanentCity)
+                || MasumCommonUtils.isNullStr(mobileNumber) || MasumCommonUtils.isNullStr(permanentCity)
                 || MasumCommonUtils.isNullStr(presentCity) || MasumCommonUtils.isNullStr(permanentPs) || MasumCommonUtils.isNullStr(presentPs)) {
             validation = false;
         } else {

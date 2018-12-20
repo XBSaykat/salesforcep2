@@ -98,6 +98,7 @@ public class ActivityUtils {
         bundle.putInt(AppConstant.STATUS_INTENT_KEY, position);
         Intent intent = new Intent(activity, tClass);
         intent.putExtras(bundle);
+        if (addressBundle!=null)
         intent.putExtras(addressBundle);
         activity.startActivity(intent);
     }
