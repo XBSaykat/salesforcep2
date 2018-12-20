@@ -574,6 +574,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             try {
                 if (!myLeadDataModelApi.getLeadReferenceNo().equals("")) { // old lead
                     if (isNetworkAvailable()) {
+                        showProgressDialog();
                         getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
                             @Override
                             public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
@@ -594,13 +595,14 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                             designation, phone, address, ref, productType, subCat,
                                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
                                     finish();
+                                    hideProgressDialog();
                                 }
 
                             }
 
                             @Override
                             public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-
+                                hideProgressDialog();
                             }
                         });
                     } else {
@@ -614,6 +616,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                 } else {
                     if (isNetworkAvailable()) {
+                        showProgressDialog();
                         if (planeData != null) {
                             getApiService().createActivity(planeData).enqueue(new Callback<MyActivityApi>() {
                                 @Override
@@ -722,7 +725,9 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                     errorAlert(response.body().getStatus(), response.body().getMessage());
+                    hideProgressDialog();
                 } else {
+                    hideProgressDialog();
                     errorAlert(response.body().getCode(), " Message: " + response.body().getMessage());
                     finish();
 
@@ -731,6 +736,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
+                hideProgressDialog();
                 Toast.makeText(LeadStageActivity.this, "Lead approved failed", Toast.LENGTH_SHORT).show();
             }
         });

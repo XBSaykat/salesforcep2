@@ -466,9 +466,10 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     }
 
     private void setUpdatedData() {
-
+        showProgressDialog();
         if (tvVisitDate.getText().toString().isEmpty()) {
             showAlertDialog("Alert", "Enter date of visit");
+            hideProgressDialog();
             return;
         }
 
@@ -490,6 +491,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                     citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
                                     tvRemarks.getText().toString(), data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK);
                             Log.e("status", "save data into server and local" + response.body().getData().toString());
+                            hideProgressDialog();
                             finish();
                         }
 
@@ -498,6 +500,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     @Override
                     public void onFailure(Call<MyActivityApi> call, Throwable t) {
                         getAlertDialog("ERROR", t.getMessage());
+                        hideProgressDialog();
 
                     }
                 });
@@ -507,12 +510,13 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
                         tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
                 Log.e("status", " no internet save data into local");
-
+                hideProgressDialog();
                 finish();
             }
 
 
         }
+
     }
 
     private Data getDataFromField(int journalId) {
@@ -618,6 +622,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
                         if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                             Data data1 = response.body().getData();
+                            hideProgressDialog();
                             visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                                     data.getCustomerName(),
                                     data.getClientType(),
@@ -644,7 +649,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                     data.getFollowupDate(),
                                     data.getFollowupRemarks(),
                                     AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-
+                            hideProgressDialog();
                             Log.e("status", "save data into local" + response.body().getData().toString());
                             finish();
                         }
@@ -654,6 +659,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     @Override
                     public void onFailure(Call<MyActivityApi> call, Throwable t) {
                         getAlertDialog("ERROR", t.getMessage());
+                        hideProgressDialog();
 
                     }
                 });
@@ -669,7 +675,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         data.getFollowupDate(),
                         data.getFollowupRemarks(),
                         AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-
+                hideProgressDialog();
                 Log.e("status", " no internet save data into local");
                 finish();
             }
@@ -1147,13 +1153,16 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
     private void proceedToLeadDetail() {
         if (isValidForProceed()) {
+            showProgressDialog();
             Data data = null;
             if (visitPlanModel != null) {
                 data = getDataFromField(visitPlanModel.getJournalId());
+                hideProgressDialog();
                 ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, data);
 
             } else {
                 data = getDataFromField(0);
+                hideProgressDialog();
                 ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, data);
             }
         }
