@@ -33,32 +33,32 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Existing Client"/>
+                    android:text="Existing Client" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/liChif"
                 style="@style/LayoutQuestion"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/etChif"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:drawableRight="@drawable/ic_search"
                     android:focusable="false"
+                    android:hint="Search CIF"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:maxLines="1"
-                    android:textColorHint="@color/white"
-                    android:hint="Search CIF"
                     android:padding="@dimen/size_4dp"
                     android:textColor="@color/white"
-                    android:background="@color/colorPrimary"
-                    android:drawableRight="@drawable/ic_search"
+                    android:textColorHint="@color/white"
                     android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>
 
@@ -290,12 +290,11 @@
                 <!--android:textSize="20sp"/>-->
 
 
-                <com.isapanah.awesomespinner.AwesomeSpinner
+                <AutoCompleteTextView
                     android:id="@+id/awe_spinner_prospect_stage_district_of_birth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    app:spinnerHint="Select District" />
+                    android:hint="search district" />
             </LinearLayout>
 
             <LinearLayout
@@ -323,8 +322,7 @@
                     android:id="@+id/awe_spinner_prospect_stage_country_of_birth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    />
+                    app:spinnerDirection="ltr" />
             </LinearLayout>
 
             <LinearLayout
@@ -385,11 +383,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/TextViewQuestion"

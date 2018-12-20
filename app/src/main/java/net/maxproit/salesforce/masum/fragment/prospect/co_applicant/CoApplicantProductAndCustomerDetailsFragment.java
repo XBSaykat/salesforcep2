@@ -101,13 +101,13 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 //    Spinner productDetail;
 
 
-    private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
+    private AwesomeSpinner spinnerProductCat, spinnerProductDetail, spinnerBranchName, spinnerSegment,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhotoType, spinnerPrePoliceStation, spinnerPerPoliceStation;
     private TextView tvPhotoIdNo;
     public static EditText etName, etDateOfBirth, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
-    public static AutoCompleteTextView spinnerPreCity, spinnerPerCity;
+    public static AutoCompleteTextView spinnerPreCity, spinnerPerCity, spinnerDistOfBirth;
     private LinearLayout llAddress;
     private CheckBox cbAddress;
 
@@ -232,7 +232,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         spinnerPrePoliceStation = view.findViewById(R.id.awe_spinner_visit_plan_police_station);
         spinnerPerCity = view.findViewById(R.id.awe_spinner_visit_plan_city_per);
         spinnerPerPoliceStation = view.findViewById(R.id.awe_spinner_visit_plan_police_station_per);
-        spinnerDistOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
+        spinnerDistOfBirth = view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
         spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
         spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
         spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_relation_with_applicant);
@@ -440,14 +440,20 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
-
+/*
         spinnerDistOfBirth.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 districtOfBirth = s;
             }
-        });
+        });*/
 
+        spinnerDistOfBirth.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                districtOfBirth = String.valueOf(spinnerPerCity.getAdapter().getItem(i));
+            }
+        });
         spinnerCountOfBirth.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
@@ -664,14 +670,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             etMobileNumber.setText(coApplicant.getMobileNo());
             getphotoIdNumber(coApplicant.getPhotoIdType());
             etPhotoId.setText(coApplicant.getPhotoIdNo());
+
             if (!MasumCommonUtils.isNullStr(coApplicant.getDistrictOfBirth())) {
-
-                try {
-                    spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(coApplicant.getDistrictOfBirth()));
-
-                } catch (final IllegalStateException e) {
-
-                }
+                spinnerDistOfBirth.setText(coApplicant.getDistrictOfBirth());
+                districtOfBirth = coApplicant.getDistrictOfBirth();
             }
             if (!MasumCommonUtils.isNullStr(coApplicant.getCountryOfBirth())) {
                 try {

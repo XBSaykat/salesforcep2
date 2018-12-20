@@ -88,11 +88,11 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 //    Spinner productDetail;
 
 
-    private AwesomeSpinner spinnerProductCat, spinnerSub, spinnerBranchName, spinnerSegment, spinnerDistOfBirth,
+    private AwesomeSpinner spinnerProductCat, spinnerSub, spinnerBranchName, spinnerSegment,
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto, spinnerPrePoliceStation, spinnerPerPoliceStation;
     private LinearLayout liPhotoIdNo;
     private TextView tvPhotoIdNo;
-    private AutoCompleteTextView spinnerPreCity, spinnerPerCity;
+    private AutoCompleteTextView spinnerPreCity, spinnerPerCity, spinnerDistOfBirth;
 
     public static EditText etName, etDob, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
@@ -189,7 +189,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerSub = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_detail);
         spinnerBranchName = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_branch);
         spinnerSegment = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_segment);
-        spinnerDistOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
+        spinnerDistOfBirth =view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
         spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
         spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
         spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_relation_with_applicant);
@@ -451,10 +451,17 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
-        spinnerDistOfBirth.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+    /*    spinnerDistOfBirth.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 districtOfBirth = s;
+            }
+        });
+        */
+        spinnerDistOfBirth.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                districtOfBirth = String.valueOf(spinnerPerCity.getAdapter().getItem(i));
             }
         });
 
@@ -622,12 +629,8 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etSpouseName.setText(myNewLead.getsName());
             etPhotoIdDate.setText(DateUtils.getDateFormateEt(myNewLead.getpIssueDate()));
             if (!MasumCommonUtils.isNullStr(myNewLead.getDob())) {
-                try {
-                    spinnerDistOfBirth.setSelection(disBirthAdapter.getPosition(myNewLead.getDob()));
-
-                } catch (final IllegalStateException e) {
-
-                }
+                districtOfBirth=myNewLead.getDob();
+                spinnerDistOfBirth.setText(myNewLead.getDob());
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getCob()))
                 try {
@@ -676,7 +679,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getProductType())) {
-                productCat=myNewLead.getProductType();
+                productCat = myNewLead.getProductType();
                 try {
                     spinnerProductCat.setSelection(productCatAdapter.getPosition(myNewLead.getProductType()));
                 } catch (final IllegalStateException ignored) {
