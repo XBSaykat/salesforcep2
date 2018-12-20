@@ -13,6 +13,8 @@ import android.widget.TextView;
 import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
+import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 public class CoApplicantRbmView extends AppCompatActivity {
@@ -76,7 +78,11 @@ public class CoApplicantRbmView extends AppCompatActivity {
     private void setAllData() {
         tvCoapplicantUserName.setText(getDataFromApplicant().getName());
         tvCoapplicantDob.setText(getDataFromApplicant().getDateOfBirth());
-        tvCoapplicantAge.setText(getDataFromApplicant().getAge());
+
+        long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(getDataFromApplicant().getDateOfBirth());
+        tvCoapplicantAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+
+//        tvCoapplicantAge.setText(getDataFromApplicant().getAge());
         tvCoapplicantBirthDistrict.setText(getDataFromApplicant().getDistrictOfBirth());
         tvCoapplicantBirthCountry.setText(getDataFromApplicant().getCountryOfBirth());
         tvCoapplicantValidPhotoId.setText(getDataFromApplicant().getPhotoIdNo());
