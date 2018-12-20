@@ -149,7 +149,7 @@ public class CoApplicantActivity extends BaseActivity {
 
                 if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) || MasumCommonUtils.isNullStr(name) ||
                         MasumCommonUtils.isNullStr(dateOfBirth) || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countryOfBirth)
-                        || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoIdNo) || MasumCommonUtils.isNullStr(photoIdIssueDate)
+                        || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoIdNo)
                         || MasumCommonUtils.isNullStr(fName) || MasumCommonUtils.isNullStr(mName) || MasumCommonUtils.isNullStr(profession)
                         || MasumCommonUtils.isNullStr(relationWithApplicant) || MasumCommonUtils.isNullStr(mobileNo) || MasumCommonUtils.isNullStr(perCity)
                         || MasumCommonUtils.isNullStr(preCity) || MasumCommonUtils.isNullStr(perPs) || MasumCommonUtils.isNullStr(prePs)) {

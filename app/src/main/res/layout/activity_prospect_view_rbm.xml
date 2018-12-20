@@ -488,7 +488,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="NO. of years in current job: "
+                        android:text="NO. of months in current job: "
                         android:textStyle="bold" />
 
                     <TextView
