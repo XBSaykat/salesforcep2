@@ -29,6 +29,7 @@ import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
+import net.maxproit.salesforce.masum.model.api.myactivity.Data;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
@@ -333,6 +334,18 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
 
             if (status == 0) {
                 VisitPlan visitPlan = (VisitPlan) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (visitPlan != null) {
+                    if (visitPlan.getProductType() != null) {
+                        try {
+                            spinnerProductType.setSelection(productTypeAdapter.getPosition(visitPlan.getProductType()));
+                        } catch (final IllegalStateException e) {
+
+                        }
+                    }
+
+                }
+            } else if (status == 2) {
+                Data visitPlan = (Data) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (visitPlan != null) {
                     if (visitPlan.getProductType() != null) {
                         try {

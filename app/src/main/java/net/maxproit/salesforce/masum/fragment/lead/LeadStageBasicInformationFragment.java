@@ -25,6 +25,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseFragment;
 import net.maxproit.salesforce.feature.search.SearchUserActivity;
+import net.maxproit.salesforce.masum.model.api.myactivity.Data;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
@@ -290,7 +291,36 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
                     }
                 }
-            } else {
+            }
+            else if(status==2){
+                Data visitPlan = (Data) getArguments().getSerializable(AppConstant.INTENT_KEY);
+                if (visitPlan != null) {
+                    etUserName.setText(visitPlan.getCustomerName());
+                    etPhone.setText(visitPlan.getMobileNo());
+                    if (!MasumCommonUtils.isNullStr(visitPlan.getCity())) {
+                        city = visitPlan.getCity();
+                        try {
+                            spinnerCity.setText(visitPlan.getCity());
+                        } catch (IllegalStateException i) {
+
+                        }
+
+
+                        if (!listPs.isEmpty())
+                            listPs.clear();
+                        listPs.addAll(mLocalSettting.getpsListByCityCode(visitPlan.getCity()));
+                        polishStationAdapter.notifyDataSetChanged();
+                    }
+
+                    try {
+                        spinnerPoliceStation.setSelection(polishStationAdapter.getPosition(visitPlan.getPs()));
+                    } catch (IllegalStateException i) {
+
+                    }
+                }
+            }
+
+            else {
                 initLoader();
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
