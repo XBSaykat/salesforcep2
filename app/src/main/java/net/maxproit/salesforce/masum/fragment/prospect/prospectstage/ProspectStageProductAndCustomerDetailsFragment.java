@@ -103,7 +103,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
 
     public static int productTypeCode = 0, photoIdcode = 0, productSubCatCode = 0;
-    private LinearLayout llAddress;
+    private LinearLayout llAddress, llRelationship;
 
     private RadioGroup rgExList;
     private SharedViewModel model;
@@ -167,6 +167,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etProductCat = view.findViewById(R.id.et_product_cat);
         tvPhotoIdNo = view.findViewById(R.id.tv_photo_id_no);
         llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
+        llRelationship = (LinearLayout) view.findViewById(R.id.ll_relationship);
+
+        llRelationship.setVisibility(View.GONE);
 
         cbExist = view.findViewById(R.id.cb_exist);
         cbExist.setVisibility(View.GONE);
