@@ -544,6 +544,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
                 if (response.body().getCode().equals("200")) {
+                    Toast.makeText(LeadStageActivity.this, "Activity proceed successfully", Toast.LENGTH_SHORT).show();
                 }
 
             }
