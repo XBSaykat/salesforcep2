@@ -60,6 +60,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     private AwesomeSpinner spinnerBrand, spinnerVehicleType;
     public static String brandName, year, country, vehicleType;
     private ProspectStageActivity prospectStageActivity;
+    private ArrayList<String> manufactureList;
 
 
     public ProspectStageLoanAndSecurityDetailFragment() {
@@ -126,6 +127,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         listManufacturingYear = new ArrayList<String>();
         listManufacturingCountry = new ArrayList<String>();
         listvehicleType = new ArrayList<String>();
+        manufactureList=new ArrayList<>();
         carLoanTypelist = new ArrayList<>();
         final SharedViewModel model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         prospectStageActivity = (ProspectStageActivity) getActivity();
@@ -140,12 +142,12 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
     private void initAdapters() {
 
-        ArrayAdapter<String> brandAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getManufactureNameString());
+        ArrayAdapter<String> brandAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, manufactureList);
         spinnerBrand.setAdapter(brandAdapter);
 
         ArrayAdapter<String> vehicleTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAssetTypeStringList());
         spinnerVehicleType.setAdapter(vehicleTypeAdapter);
-        initListener();
+        initListener(brandAdapter);
         if (prospectStageActivity.getDataFromProspect() != null) {
 
             MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
@@ -158,16 +160,6 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
             if (myNewLead.getProductType().equalsIgnoreCase(AppConstant.CAR_LOAN)) {
                 liSecCarLoan.setVisibility(View.VISIBLE);
-                if (!MasumCommonUtils.isNullStr(myNewLead.getManufacturingName())) {
-                    try {
-                        spinnerBrand.setSelection(brandAdapter.getPosition(myNewLead.getManufacturingName()));
-
-                    } catch (final IllegalStateException ignored) {
-                    }
-
-                    LongOperationManuId longOperationManuId = new LongOperationManuId();
-                    longOperationManuId.execute(spinnerBrand.getSelectedItemPosition());
-                }
 
 
                 if (!MasumCommonUtils.isNullStr(myNewLead.getAssetType())) {
@@ -176,9 +168,26 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
                     } catch (final IllegalStateException ignored) {
                     }
+                    if (!manufactureList.isEmpty()){
+                        manufactureList.clear();
+                    }
 
-                    LongOperationAssetID longOperationAssetID = new LongOperationAssetID();
-                    longOperationAssetID.execute(spinnerVehicleType.getSelectedItemPosition());
+                    assetId = localSetting.getAssetCode(spinnerVehicleType.getSelectedItemPosition());
+                    manufactureList.addAll(localSetting.getManufactureNameString(assetId)) ;
+                    brandAdapter.notifyDataSetChanged();
+
+
+                    if (!MasumCommonUtils.isNullStr(myNewLead.getManufacturingName())) {
+                        try {
+                            spinnerBrand.setSelection(brandAdapter.getPosition(myNewLead.getManufacturingName()));
+
+                        } catch (final IllegalStateException ignored) {
+                        }
+
+                        LongOperationManuId longOperationManuId = new LongOperationManuId();
+                        longOperationManuId.execute(myNewLead.getManufacturingName());
+                    }
+
                 }
                 etCountry.setText(myNewLead.getManufacturingCountry());
                 etYear.setText(myNewLead.getManufacturingYear());
@@ -188,14 +197,14 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
     }
 
-    private void initListener() {
+    private void initListener(ArrayAdapter<String> brandAdapter) {
 
         spinnerBrand.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
             public void onItemSelected(int i, String s) {
                 brandName = s;
                 LongOperationManuId longOperationManuId = new LongOperationManuId();
-                longOperationManuId.execute(i);
+                longOperationManuId.execute(s);
             }
         });
 
@@ -204,8 +213,17 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 vehicleType = s;
-                LongOperationAssetID longOperationAssetID = new LongOperationAssetID();
-                longOperationAssetID.execute(i);
+                if (!manufactureList.isEmpty()){
+                    manufactureList.clear();
+                }
+                assetId = localSetting.getAssetCode(i);
+                manufactureList.addAll(localSetting.getManufactureNameString(assetId));
+
+                brandAdapter.notifyDataSetChanged();
+
+
+              /*  LongOperationAssetID longOperationAssetID = new LongOperationAssetID();
+                longOperationAssetID.execute(i);*/
             }
         });
     }
@@ -305,10 +323,9 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
     }
 
     private class LongOperationAssetID extends AsyncTask<Integer, Void, String> {
-
         @Override
         protected String doInBackground(Integer... params) {
-            assetId = localSetting.getAssetCode(params[0]);
+
             return null;
         }
 
@@ -328,10 +345,10 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         }
     }
 
-    private class LongOperationManuId extends AsyncTask<Integer, Void, String> {
+    private class LongOperationManuId extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(Integer... params) {
+        protected String doInBackground(String... params) {
             manufactureNameID = localSetting.getManuCode(params[0]);
             return null;
         }
@@ -350,5 +367,10 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         @Override
         protected void onProgressUpdate(Void... values) {
         }
+    }
+
+
+    private interface isDataReturn{
+
     }
 }

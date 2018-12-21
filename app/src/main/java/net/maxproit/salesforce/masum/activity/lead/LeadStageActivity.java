@@ -545,6 +545,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
                 if (response.body().getCode().equals("200")) {
                     Toast.makeText(LeadStageActivity.this, "Activity proceed successfully", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
             }
@@ -585,7 +586,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                                 designation, phone, address, ref, productType, subCat,
                                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
 
-                                        leadApprove(data);
+                                        leadApprove(data, 0);
                                     } else {
                                         showAlertDialog("ERROR", response.body().getMessage());
                                     }
@@ -685,12 +686,11 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                 designation, phone, address, ref, productType, subCat,
                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.STATUS_NEW_PROSPECT, AppConstant.SYNC_STATUS_OK);
                         if (planeData != null) {
-                            callActivityApi(journalId, data.getLeadReferenceNo());
-                            leadApprove(data);
+                            leadApprove(data, journalId);
                         } else {
-                            leadApprove(data);
+                            leadApprove(data, 0);
                         }
-                        finish();
+
 
                     }
                 } else {
@@ -713,7 +713,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
     }
 
-    private void leadApprove(Data data) {
+    private void leadApprove(Data data, int journalId) {
         Approval myLeadApproval = new Approval(AppConstant.APPROVAL_LEAD,
                 data.getLeadReferenceNo(),
                 AppConstant.APPROVAL_SET_ID_0,
@@ -724,12 +724,16 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                    errorAlert(response.body().getStatus(), response.body().getMessage());
-                    hideProgressDialog();
+                    if (journalId > 0) {
+                        callActivityApi(journalId, data.getLeadReferenceNo());
+                    } else
+                        hideProgressDialog();
+                    errorAlert(response.body().getCode(), " Message: " + response.body().getMessage());
+
+
                 } else {
                     hideProgressDialog();
                     errorAlert(response.body().getCode(), " Message: " + response.body().getMessage());
-                    finish();
 
                 }
             }
@@ -757,7 +761,6 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         builder.setPositiveButton("OK", (dialog, which) -> {
             finish();
         });
-
 
         android.app.AlertDialog dialog = builder.create();
         dialog.show();

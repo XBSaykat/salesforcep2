@@ -461,7 +461,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerDistOfBirth.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                districtOfBirth = String.valueOf(spinnerPerCity.getAdapter().getItem(i));
+                districtOfBirth = String.valueOf(spinnerDistOfBirth.getAdapter().getItem(i));
             }
         });
 
@@ -576,6 +576,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
 
         ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerDistOfBirth.setAdapter(disBirthAdapter);
+        spinnerDistOfBirth.setThreshold(1);
 
         ArrayAdapter<String> disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCountryString());
         spinnerCountOfBirth.setAdapter(disCountryAdater);
@@ -590,6 +591,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
         try {
             spinnerCountOfBirth.setSelection(disCountryAdater.getPosition("Bangladesh"));
+            countOfBirth="Bangladesh";
         } catch (IllegalStateException er) {
         }
         if (prospectStageActivity.getDataFromProspect() != null) {

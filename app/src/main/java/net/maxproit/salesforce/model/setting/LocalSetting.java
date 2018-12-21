@@ -125,14 +125,27 @@ public class LocalSetting {
 
     }
 
+    public List<String> getManufactureNameString(int assetCode) {
+        List<String> list = new ArrayList<>();
+        for (ManufacturerName in : getManufactureName()) {
+            if (in.getAssetTypeCode()==assetCode) {
+                list.add(in.getManufacturerName());
+            }
+        }
+        return list;
 
-    public int getManuCode(int position) {
+    }
+
+
+    public int getManuCode(String name) {
         int code = 0;
-        for (int i = 0; i < getManufactureName().size(); i++) {
-            if (i == position) {
-                code = getManufactureName().get(i).getManufacturerNameId();
+        for (ManufacturerName in : getManufactureName()) {
+            if (in.getManufacturerName().equalsIgnoreCase(name)) {
+                code = in.getManufacturerNameId();
                 break;
             }
+
+
         }
         return code;
     }
