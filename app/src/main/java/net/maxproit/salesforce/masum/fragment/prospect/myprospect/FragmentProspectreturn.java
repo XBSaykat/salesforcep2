@@ -158,7 +158,6 @@ public class FragmentProspectreturn extends BaseFragment {
             AppConstant.coAppLicantStaticList.clear();
         }
         callApi();
-        Log.d("tag", "onResume: calling api from onResume");
 
 
     }
@@ -251,7 +250,6 @@ public class FragmentProspectreturn extends BaseFragment {
         }
         initLoader();
         showLoader();
-        Log.d("tag", "callApi: ");
         if (isNetworkAvailable()) {
 
             getApiService().getMyProspect(userName, UUID.randomUUID().toString()).enqueue(new Callback<MyProspect>() {

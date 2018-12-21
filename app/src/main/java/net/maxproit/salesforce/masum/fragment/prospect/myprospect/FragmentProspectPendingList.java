@@ -154,7 +154,6 @@ public class FragmentProspectPendingList extends BaseFragment {
             AppConstant.coAppLicantStaticList.clear();
         }
         callApi();
-        Log.d("tag", "onResume: calling api from onResume");
 
 
     }
