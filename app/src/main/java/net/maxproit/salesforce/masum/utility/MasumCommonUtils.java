@@ -1,8 +1,18 @@
 package net.maxproit.salesforce.masum.utility;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.TypedValue;
+
 import java.util.Calendar;
 
 public class MasumCommonUtils {
+
+
+    public static int dpToPx(int dp,Context mContext) {
+        Resources r = mContext.getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
 
 
     public static boolean isNullStr(String str) {

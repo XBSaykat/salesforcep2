@@ -116,14 +116,14 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
-        <include
-            layout="@layout/layout_performance_details"
+        <android.support.v7.widget.RecyclerView
+           android:id="@+id/recycleView_individual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".5" />
 
-        <include
-            layout="@layout/layout_performance_details"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView_Corporate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_10dp"
@@ -233,14 +233,14 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
-        <include
-            layout="@layout/layout_performance_details"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView_developer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".5" />
 
-        <include
-            layout="@layout/layout_performance_details"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView_vendor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_10dp"

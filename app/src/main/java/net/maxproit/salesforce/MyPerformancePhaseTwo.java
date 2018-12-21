@@ -1,53 +1,54 @@
 package net.maxproit.salesforce;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
-import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanListActivity;
-import net.maxproit.salesforce.masum.appdata.AppConstant;
-import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
-import net.maxproit.salesforce.masum.fragment.myactivity.FragmentPreViousList;
-import net.maxproit.salesforce.masum.model.local.MyNewProspect;
-import net.maxproit.salesforce.masum.model.local.VisitPlan;
-import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.common.base.BaseActivity;
+import net.maxproit.salesforce.databinding.ActivityMyPerformancePhaseTwoBinding;
+import net.maxproit.salesforce.masum.adapter.myperformacecountadapter.MyPerformanceItemAdapter;
+import net.maxproit.salesforce.masum.model.api.performance.Datum;
+import net.maxproit.salesforce.masum.model.api.performance.Getperformance;
+import net.maxproit.salesforce.masum.model.local.MyPerformanceModel;
+import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
-import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    LinearLayout btnUnexPlan, btnUpComingPlan, btnFreshCall, btnDevVisit, btnPendLead, btnProspectLead, btnCloesdLead, btnPendingPros, btnProcedPros, btnCrm;
-    ImageView backBtn;
-    TextView tvPendingPLan, tvUpcomingPLan, tvFreshActivity, tvVisitActivity, tvPandingLead, tvPropectLead, tvClosed, tvPendingPros, tvProcedPros, tvProsCRM;
-    VisitPlanDbController planDbController;
-    MyLeadDbController leadDbController;
-    VisitPlanDbController visitPlanDbController;
-    ArrayList<VisitPlan> allVisitPlanList, upComingPLanList;
-    ArrayList<MyNewProspect> leadList;
+public class MyPerformancePhaseTwo extends BaseActivity implements View.OnClickListener {
+
+    private ActivityMyPerformancePhaseTwoBinding mBinding;
+
+    MyPerformanceItemAdapter myActivityAdapter, myLeadAdapter, myProspectAdapter;
+    private ArrayList<MyPerformanceModel> activity;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getLayoutResourceId() {
+        return R.layout.activity_my_performance_phase_two;
+    }
+
+    @Override
+    protected void initComponents() {
         initVariable();
-        initView();
+        //initView();
         initListener();
-        setAllData();
+        //setAllData();
+    }
+
+    @Override
+    protected void getIntentData() {
 
     }
 
     private void initView() {
-        setContentView(R.layout.activity_my_performance_phase_two);
+/*
         planDbController = new VisitPlanDbController(this);
         leadDbController = new MyLeadDbController(this);
         tvPendingPLan = findViewById(R.id.tv_unex_plan);
@@ -83,36 +84,77 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
         btnCloesdLead.setOnClickListener(this);
         btnPendingPros.setOnClickListener(this);
         btnProcedPros.setOnClickListener(this);
-        btnCrm.setOnClickListener(this);
+        btnCrm.setOnClickListener(this);*/
 
 
     }
 
     private void initVariable() {
-        leadDbController = new MyLeadDbController(this);
+        mBinding = (ActivityMyPerformancePhaseTwoBinding) getBinding();
+        activity = new ArrayList<>();
+     /*   leadDbController = new MyLeadDbController(this);
         visitPlanDbController = new VisitPlanDbController(this);
         allVisitPlanList = new ArrayList<>();
         upComingPLanList = new ArrayList<>();
         Log.e("after date", DateUtils.afterAMonth());
         Log.e("before date", DateUtils.beforeAMonth());
-        visitPlanDbController.getDateBetween(DateUtils.beforeAMonth(), DateUtils.afterAMonth());
+        visitPlanDbController.getDateBetween(DateUtils.beforeAMonth(), DateUtils.afterAMonth());*/
+
+
+        callApi();
 
     }
 
+    private void callApi() {
+
+        if (isNetworkAvailable()) {
+            String username = SharedPreferencesEnum.getInstance(getApplicationContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
+            String random = UUID.randomUUID().toString();
+            showProgressDialog();
+            getApiService().getPerformaceCountData(username, random).enqueue(new Callback<Getperformance>() {
+                @Override
+                public void onResponse(Call<Getperformance> call, Response<Getperformance> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("200")) {
+                            myLeadAdapter = new MyPerformanceItemAdapter(MyPerformancePhaseTwo.this, (ArrayList<Datum>) response.body().getData());
+                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                            mBinding.recycleViewMyPerformace.setLayoutManager(mLayoutManager);
+                            mBinding.recycleViewMyPerformace.setAdapter(myLeadAdapter);
+                            myLeadAdapter.notifyDataSetChanged();
+                            hideProgressDialog();
+                        } else {
+                            showAlertDialog(response.body().getStatus(), response.body().getMessage());
+                            hideProgressDialog();
+                        }
+                    }
+                    else{
+                        showAlertDialog("Error", response.errorBody().toString());
+                        hideProgressDialog();
+
+                    }
+                }
+
+
+                @Override
+                public void onFailure(Call<Getperformance> call, Throwable t) {
+                    showAlertDialog("Error",t.getMessage());
+                    hideProgressDialog();
+                }
+            });
+        }
+    }
+
     private void initListener() {
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyPerformancePhaseTwo.super.onBackPressed();
-                finish();
-            }
+        mBinding.btnBack.setOnClickListener(view -> {
+            MyPerformancePhaseTwo.super.onBackPressed();
+            finish();
         });
 
 
     }
 
     private void setAllData() {
-        if (!allVisitPlanList.isEmpty()) {
+  /*      if (!allVisitPlanList.isEmpty()) {
             allVisitPlanList.clear();
         }
 
@@ -158,7 +200,7 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
                 Intent intent = new Intent(MyPerformancePhaseTwo.this, FragmentPreViousList.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 
@@ -167,7 +209,7 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
         Intent intent = null;
         switch (view.getId()) {
 
-            case R.id.btn_unx_plan:
+      /*      case R.id.btn_unx_plan:
                 ActivityUtils.getInstance().invokFromPerformance(this, VisitPlanListActivity.class, 1);
 
                 break;
@@ -199,7 +241,7 @@ public class MyPerformancePhaseTwo extends AppCompatActivity implements View.OnC
                 //intent=new Intent(this,"");
                 break;
             default:
-                break;
+                break;*/
         }
 
     }

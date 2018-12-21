@@ -14,12 +14,11 @@ import net.maxproit.salesforce.masum.model.api.lead.LeadLeastDataFromApi;
 
 import java.util.ArrayList;
 
-public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomViewHolder>  {
+public class MyLeadAdapter extends RecyclerView.Adapter<MyLeadAdapter.CustomViewHolder> {
     private Context context;
     public ArrayList<LeadLeastDataFromApi> leadList;
     public static OnItemClickListener mListener;
-    private boolean isChange=false;
-
+    private boolean isChange = false;
 
 
     public MyLeadAdapter(Context context, ArrayList<LeadLeastDataFromApi> leadList) {
@@ -32,7 +31,7 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
 
         Context context;
         ArrayList<LeadLeastDataFromApi> leadList;
-        private TextView tvId,tvName,tvBranch,tvStatus;
+        private TextView tvId, tvName, tvBranch, tvStatus;
         private ConstraintLayout constraintLayoutLeadItem;
 
 
@@ -40,21 +39,19 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
             super(itemView);
             this.context = context;
             this.leadList = leadList;
-            tvId=itemView.findViewById(R.id.tvId);
-            tvName=itemView.findViewById(R.id.tvName);
-            tvBranch=itemView.findViewById(R.id.tvBranch);
-            tvStatus=itemView.findViewById(R.id.tvStatus);
+            tvId = itemView.findViewById(R.id.tvId);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvBranch = itemView.findViewById(R.id.tvBranch);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
             constraintLayoutLeadItem = itemView.findViewById(R.id.clLeadItem);
 
 
             constraintLayoutLeadItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.itemClickListener(v,getLayoutPosition());
+                    mListener.itemClickListener(v, getLayoutPosition());
                 }
             });
-
-
         }
 
     }
@@ -72,7 +69,7 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, final int position) {
-        holder.tvId.setText(""+leadList.get(position).getReference());
+        holder.tvId.setText("" + leadList.get(position).getReference());
         holder.tvName.setText(leadList.get(position).getName());
         holder.tvBranch.setText(leadList.get(position).getBranch());
         holder.tvStatus.setText(leadList.get(position).getStatus());
@@ -81,7 +78,7 @@ public class MyLeadAdapter  extends RecyclerView.Adapter<MyLeadAdapter.CustomVie
     }
 
     public void setFilter(ArrayList<LeadLeastDataFromApi> newDataList) {
-        leadList =new ArrayList<>();
+        leadList = new ArrayList<>();
         leadList.addAll(newDataList);
         notifyDataSetChanged();
     }

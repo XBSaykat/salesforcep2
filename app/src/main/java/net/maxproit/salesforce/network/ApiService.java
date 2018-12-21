@@ -19,6 +19,7 @@ import net.maxproit.salesforce.masum.model.api.myactivity.Data;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetByJournalIdApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
+import net.maxproit.salesforce.masum.model.api.performance.Getperformance;
 import net.maxproit.salesforce.masum.model.api.rbm.GetRbmData;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanGetApi;
@@ -142,6 +143,11 @@ public interface ApiService {
     //rbm data
     @GET("CdProspect/ProspectApprovalData/{ProspectReferenceNo}/{timestamp}")
     Call<OldProspect> getRbmDataByRef(@Path("ProspectReferenceNo") String ref, @Path("timestamp") String random);
+
+    //performace api
+
+    @GET("DashBoard/{userName}/{timestamp}")
+    Call<Getperformance> getPerformaceCountData(@Path("userName") String userName, @Path("timestamp") String random);
 
     /*
      Lead Api
