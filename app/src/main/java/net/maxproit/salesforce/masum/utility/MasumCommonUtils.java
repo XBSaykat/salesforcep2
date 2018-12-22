@@ -1,8 +1,12 @@
 package net.maxproit.salesforce.masum.utility;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Build;
 import android.util.TypedValue;
+
+import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 
 import java.util.Calendar;
 
@@ -14,6 +18,25 @@ public class MasumCommonUtils {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+
+    public static void statusAlert(String title, String text, Activity activity) {
+
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(activity, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(activity);
+        }
+        builder.setTitle(title);
+        builder.setMessage(text);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            activity.finish();
+        });
+
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
     public static boolean isNullStr(String str) {
         boolean isnull = true;

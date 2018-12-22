@@ -88,6 +88,7 @@ public class AppConstant {
     public static final String PERMANENT_ADDRESSS_CITY_KEY ="per_city" ;
     public static final String PRESENT_ADDRESSS_PS_KEY ="pre_ps" ;
     public static final String PRESENT_ADDRESSS_CITY_KEY ="ps_city" ;
+    public static final String STATUS_ACTIVITY_FOLLOWED ="" ;
 
     public static ArrayList<CoApplicant> coAppLicantStaticList=new ArrayList<>();
 

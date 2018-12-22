@@ -453,6 +453,7 @@ public class ProspectStageActivity extends BaseActivity {
                 newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
                 newProspectUpdate.setUserName(userName);
                 if (isNetworkAvailable()) {
+                    showProgressDialog();
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
@@ -461,6 +462,7 @@ public class ProspectStageActivity extends BaseActivity {
                                     coApplicantList.clear();
                                     AppConstant.coAppLicantStaticList.clear();
                                 }
+                                hideProgressDialog();
                                 errorAlert("Success", "save successfully");
 
                             } else {
@@ -468,6 +470,7 @@ public class ProspectStageActivity extends BaseActivity {
                                     coApplicantList.clear();
                                     AppConstant.coAppLicantStaticList.clear();
                                 }
+                                hideProgressDialog();
                                 errorAlert(response.body().getCode(), response.body().getMessage());
                             }
                         }
@@ -475,6 +478,7 @@ public class ProspectStageActivity extends BaseActivity {
                         @Override
                         public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
                             errorAlert("Error", t.getMessage());
+                            hideProgressDialog();
                             if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                 coApplicantList.clear();
                                 AppConstant.coAppLicantStaticList.clear();
@@ -574,6 +578,7 @@ public class ProspectStageActivity extends BaseActivity {
                     return;
                 }
                 if (isNetworkAvailable()) {
+                    showProgressDialog();
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
@@ -585,12 +590,14 @@ public class ProspectStageActivity extends BaseActivity {
                                     AppConstant.coAppLicantStaticList.clear();
                                 }
 
+
                             } else {
                                 errorAlert(response.body().getCode(), response.body().getMessage());
                                 if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                     coApplicantList.clear();
                                     AppConstant.coAppLicantStaticList.clear();
                                 }
+                                hideProgressDialog();
 
                             }
 
@@ -599,6 +606,7 @@ public class ProspectStageActivity extends BaseActivity {
                         @Override
                         public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
                             errorAlert("Error", t.getMessage());
+                            hideProgressDialog();
                             if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                 coApplicantList.clear();
                                 AppConstant.coAppLicantStaticList.clear();
@@ -632,9 +640,11 @@ public class ProspectStageActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                    hideProgressDialog();
                     errorAlert("Success", "Prospect Approved");
 
                 } else {
+                    hideProgressDialog();
                     errorAlert(response.body().getCode(), response.body().getMessage());
 
 
@@ -643,6 +653,7 @@ public class ProspectStageActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
+                hideProgressDialog();
                 errorAlert("Error", t.getMessage());
 
             }

@@ -262,6 +262,21 @@
     <string name="reject_plan">Are you sure,want to reject this visit plan?</string>
     <string name="my_activity">My Activity</string>
     <string name="date_of_birth">Date of birth :</string>
+    <string name="Proceed_is_not_available">Proceed is not available without internet,PLease connect to the internet</string>
+    <string name="error_txt">Error</string>
+    <string name="create_lead">Create Lead</string>
+    <string name="save_alert">Do you want to save details?</string>
+    <string name="save_txt">Save</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="success_code">200</string>
+    <string name="success_status">ok</string>
+    <string name="internet_not_available_local_save">Internet not available,please connect to the internet ,Data save seccessfully in device</string>
+    <string name="succes_txt">Success</string>
+    <string name="approved_falied">Approved Failed</string>
+    <string name="proceed_succesfull">Proceed Successfully</string>
+
+
 </resources>
 
 

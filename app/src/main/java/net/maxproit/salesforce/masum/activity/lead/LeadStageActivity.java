@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
-import net.maxproit.salesforce.masum.activity.visitplan.VisitPLanDetailsActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
@@ -31,7 +29,6 @@ import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyOldLeadApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.CompleteActivity;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
-import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 
@@ -239,7 +236,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 bundle.putSerializable(AppConstant.INTENT_KEY, planeData);
                 bundle.putInt(AppConstant.STATUS_INTENT_KEY, 2);
             } else {
-                getSupportActionBar().setTitle("Create Lead");
+                getSupportActionBar().setTitle(getResources().getString(R.string.create_lead));
             }
 
             leadStageBasicInformationFragment.setArguments(bundle);
@@ -256,7 +253,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 if (isNetworkAvailable())
                     alertDialogProceed(finalMyNewLead);
                 else
-                    showAlertDialog("Error", "Proceed is not available without internet,PLease connect to the internet");
+                    showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.Proceed_is_not_available));
 
             }
         });
@@ -387,8 +384,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         }
         builder.setTitle(getString(R.string.Reject));
         builder.setMessage(getString(R.string.reject_item));
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setNegativeButton(getResources().getString(R.string.no), null);
+        builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
             ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
         });
@@ -403,21 +400,22 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         } else {
             builder = new android.app.AlertDialog.Builder(LeadStageActivity.this);
         }
-        builder.setTitle("Save");
-        builder.setMessage("Do you want to save details?");
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setTitle(getResources().getString(R.string.save_txt));
+        builder.setMessage(getResources().getString(R.string.save_alert));
+        builder.setNegativeButton(getResources().getString(R.string.no), null);
+        builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             MyLeadDataModelApi myLeadDataModelApi = getDataFromFragment(myNewLead);
 
             if (myNewLead != null) {
                 if (isNetworkAvailable()) {
                     //api call
+                    //showProgressDialog();
                     getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
                         @Override
                         public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
                             if (response.isSuccessful()) {
-                                if (response.body().getCode().equals("200") &&
-                                        response.body().getStatus().equalsIgnoreCase("ok")) {
+                                if (response.body().getCode().equals(getResources().getString(R.string.success_code)) &&
+                                        response.body().getStatus().equalsIgnoreCase(getResources().getString(R.string.success_status))) {
                                     if (response.body().getData() != null) {
                                         Data data = response.body().getData();
                                         int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
@@ -457,7 +455,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                             branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                    errorAlert("Success", "Internet not available,please connect to the internet ,Data save seccessfully in device");
+                    errorAlert(getResources().getString(R.string.succes_txt), getResources().getString(R.string.internet_not_available_local_save));
 
                 }
 
@@ -467,7 +465,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                     getApiService().createActivity(planeData).enqueue(new Callback<MyActivityApi>() {
                         @Override
                         public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
-                            if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                            if (response.body().getCode().equals(getResources().getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase(getResources().getString(R.string.success_status))) {
                                 net.maxproit.salesforce.masum.model.api.myactivity.Data data1 = response.body().getData();
                                 saveActivityDatatoLead(data1.getActivityJournalID(), myLeadDataModelApi);
 
@@ -489,7 +487,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                             Integer.valueOf(LeadStageLoanDetailFragment.productSubCatCode), branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                    errorAlert("Success", "Internet not available,please connect to the internet ,Data save seccessfully in device");
+                    errorAlert(getResources().getString(R.string.succes_txt), getResources().getString(R.string.internet_not_available_local_save));
 
                 }
 
@@ -506,7 +504,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {
                 if (response.isSuccessful()) {
-                    if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                    if (response.body().getCode().equals(getResources().getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase(getResources().getString(R.string.success_status))) {
                         Data data = response.body().getData();
                         myLeadDbController.insertLeadData(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
                                 designation, phone, address, ref, productType, subCat,
@@ -532,7 +530,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             @Override
             public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-                errorAlert("Error", t.getMessage());
+                errorAlert(getResources().getString(R.string.error_txt), t.getMessage());
 
             }
         });
@@ -544,15 +542,17 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
                 if (response.body().getCode().equals("200")) {
-                    Toast.makeText(LeadStageActivity.this, "Activity proceed successfully", Toast.LENGTH_SHORT).show();
-                    finish();
+                    hideProgressDialog();
+                    Toast.makeText(LeadStageActivity.this, getResources().getString(R.string.proceed_succesfull), Toast.LENGTH_SHORT).show();
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,MyLeadActivity.class,true);
                 }
 
             }
 
             @Override
             public void onFailure(Call<CompleteActivity> call, Throwable t) {
-                showAlertDialog("ERROR", t.getMessage());
+                showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                hideProgressDialog();
             }
         });
 
@@ -567,9 +567,9 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             builder = new android.app.AlertDialog.Builder(LeadStageActivity.this);
         }
         builder.setTitle("Proceed");
-        builder.setMessage("Do you want to proceed?");
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setMessage(getResources().getString(R.string.save_alert));
+        builder.setNegativeButton(getResources().getString(R.string.no), null);
+        builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             MyLeadDataModelApi myLeadDataModelApi = getDataFromFragment(myNewLead);
             int insert = 0;
             try {
@@ -588,6 +588,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                                         leadApprove(data, 0);
                                     } else {
+                                        hideProgressDialog();
                                         showAlertDialog("ERROR", response.body().getMessage());
                                     }
                                 } else { // old lead update offline
@@ -632,7 +633,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                                 @Override
                                 public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                                    showAlertDialog("ERROR", t.getMessage());
+                                    showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
 
                                 }
                             });
@@ -726,11 +727,10 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                     if (journalId > 0) {
                         callActivityApi(journalId, data.getLeadReferenceNo());
-                    } else
+                    } else {
                         hideProgressDialog();
-                    errorAlert(response.body().getCode(), " Message: " + response.body().getMessage());
-
-
+                        errorAlert(response.body().getCode(), " Message: " + response.body().getMessage());
+                    }
                 } else {
                     hideProgressDialog();
                     errorAlert(response.body().getCode(), " Message: " + response.body().getMessage());
@@ -741,7 +741,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
                 hideProgressDialog();
-                Toast.makeText(LeadStageActivity.this, "Lead approved failed", Toast.LENGTH_SHORT).show();
+                errorAlert(getResources().getString(R.string.error_txt),getResources().getString(R.string.approved_falied));
+
             }
         });
     }

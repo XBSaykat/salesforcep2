@@ -41,8 +41,6 @@ import net.maxproit.salesforce.masum.model.api.followup.FollowUpHistoryApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.CompleteActivity;
 import net.maxproit.salesforce.masum.model.api.myactivity.Data;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityApi;
-import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetByJournalIdApi;
-import net.maxproit.salesforce.masum.model.local.FollowUpActivity;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
@@ -370,7 +368,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
 
         tvRejected.setOnClickListener(view -> {
-            alertDialog();
+            alertDialogReject();
 
         });
 
@@ -415,6 +413,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         });
 
         btnFollowUp.setOnClickListener(view -> {
+            if (!followUpList.isEmpty()) {
+                followUpList.clear();
+            }
             if (isNetworkAvailable())
                 followUpAlert();
             else
@@ -427,7 +428,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     }
 
 
-    private void alertDialog() {
+    private void alertDialogReject() {
         android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
@@ -439,22 +440,34 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
             if (isNetworkAvailable()) {
+                showProgressDialog();
                 getApiService().actionCompleteActivity(visitPlanModel.getJournalId()).enqueue(new Callback<CompleteActivity>() {
                     @Override
                     public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
-                        Log.e("", "");
-                        visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(), AppConstant.REJECTED);
-                        startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivity.class));
-                        finish();
+                        if (response.isSuccessful()) {
+                            if (response.body().getCode().equals("200")) {
+                                visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(), AppConstant.REJECTED);
+                                hideProgressDialog();
+                                MasumCommonUtils.statusAlert(response.body().getStatus(),response.body().getMessage(),VisitPLanDetailsActivity.this);
+                            }
+                            else {
+                                showAlertDialog(response.body().getStatus(),response.body().getMessage());
+                                hideProgressDialog();
+                            }
+                        } else {
+                            showAlertDialog("Error",response.message());
+                            hideProgressDialog();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<CompleteActivity> call, Throwable t) {
-
+                        showAlertDialog("Error",t.getMessage());
+                        hideProgressDialog();
                     }
                 });
             } else {
-                Log.e("", "");
+
                 visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(), AppConstant.REJECTED);
                 startActivity(new Intent(VisitPLanDetailsActivity.this, MyActivitiesActivity.class));
                 finish();
@@ -473,9 +486,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             return;
         }
 
-        if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_NEW)) {
-            upactivityData();
-        } else if (visitPlanModel != null && visitPlanModel.getStatus().equalsIgnoreCase(AppConstant.STATUS_ACTIVITY_PROCESS)) {
+        if (visitPlanModel != null) {
             upactivityData();
         } else {
             Data data = getDataFromField(0);
@@ -490,9 +501,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                     tvMobileNumber.getText().toString(), sProductTypeString,
                                     citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
                                     tvRemarks.getText().toString(), data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK);
-                            Log.e("status", "save data into server and local" + response.body().getData().toString());
                             hideProgressDialog();
-                            finish();
+                            MasumCommonUtils.statusAlert(response.body().getStatus(),response.body().getMessage(),VisitPLanDetailsActivity.this);
                         }
 
                     }
@@ -509,7 +519,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         tvMobileNumber.getText().toString(), sProductTypeString,
                         citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
                         tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
-                Log.e("status", " no internet save data into local");
                 hideProgressDialog();
                 finish();
             }
@@ -634,9 +643,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                     data.getFollowupDate(),
                                     data.getFollowupRemarks(),
                                     data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
+                            MasumCommonUtils.statusAlert(response.body().getStatus(),response.body().getMessage(),VisitPLanDetailsActivity.this);
 
-                            Log.e("status", "save data into server and local" + response.body().getData().toString());
-                            finish();
                         } else {
                             visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                                     data.getCustomerName(),
@@ -650,7 +658,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                     data.getFollowupRemarks(),
                                     AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
                             hideProgressDialog();
-                            Log.e("status", "save data into local" + response.body().getData().toString());
                             finish();
                         }
 
@@ -676,7 +683,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         data.getFollowupRemarks(),
                         AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
                 hideProgressDialog();
-                Log.e("status", " no internet save data into local");
                 finish();
             }
 
@@ -701,22 +707,27 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                 getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
                     @Override
                     public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
-                        if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                            Data data1 = response.body().getData();
-                            visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
-                                    data.getCustomerName(),
-                                    data.getClientType(),
-                                    data.getMobileNo(),
-                                    data.getPs(),
-                                    data.getProductType(),
-                                    data.getCity(),
-                                    data.getVisitPurposeType(),
-                                    data.getFollowupDate(),
-                                    data.getFollowupRemarks(),
-                                    data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
+                        if (response.isSuccessful()) {
+                            if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                Data data1 = response.body().getData();
+                                visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
+                                        data.getCustomerName(),
+                                        data.getClientType(),
+                                        data.getMobileNo(),
+                                        data.getPs(),
+                                        data.getProductType(),
+                                        data.getCity(),
+                                        data.getVisitPurposeType(),
+                                        data.getFollowupDate(),
+                                        data.getFollowupRemarks(),
+                                        data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
+                                MasumCommonUtils.statusAlert(response.body().getStatus(),response.body().getMessage(),VisitPLanDetailsActivity.this);
+                                finish();
+                            } else {
+                                showAlertDialog(response.body().getStatus(), response.body().getMessage());
 
-                            Log.e("status", "save data into server and local" + response.body().getData().toString());
-                            finish();
+                            }
+
                         } else {
                             visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
                                     data.getCustomerName(),
@@ -729,8 +740,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                     data.getFollowupDate(),
                                     data.getFollowupRemarks(),
                                     AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-
-                            Log.e("status", "save data into local" + response.body().getData().toString());
                             finish();
                         }
 
@@ -738,7 +747,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                        getAlertDialog("ERROR", t.getMessage());
+                        showAlertDialog("ERROR", t.getMessage());
 
                     }
                 });
@@ -763,7 +772,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     }
 
 
-    private void updatePlanData() {
+   /* private void updatePlanData() {
         if (!isValidFollowUp()) {
             return;
 
@@ -828,7 +837,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                 Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
 
     private boolean isValidFollowUp() {
         boolean valid = true;
@@ -894,12 +903,14 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             getApiService().getFollowUpHistory(visitPlanModel.getJournalId(), random).enqueue(new Callback<FollowUpHistoryApi>() {
                 @Override
                 public void onResponse(Call<FollowUpHistoryApi> call, Response<FollowUpHistoryApi> response) {
-                    if (response.body().getCode().equals("200")) {
-                        followUpList.addAll(response.body().getData());
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        showAlertDialog("ERROR", response.body().getMessage());
-                    }
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("200")) {
+                            followUpList.addAll(response.body().getData());
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            showAlertDialog(response.body().getCode(), response.body().getMessage());
+                        }
+                    } else showAlertDialog("Error", response.message());
 
                 }
 
@@ -959,7 +970,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                         data.getFollowupDate(),
                                         data.getFollowupRemarks(),
                                         data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
-                                Log.e("status", "save data into server and local" + response.body().getData().toString());
                                 finish();
                             } else {
                                 visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
@@ -973,8 +983,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                         data.getFollowupDate(),
                                         data.getFollowupRemarks(),
                                         AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-
-                                Log.e("status", "save data into local" + response.body().getData().toString());
                                 finish();
                             }
 
@@ -999,7 +1007,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                             data.getFollowupRemarks(),
                             AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
 
-                    Log.e("status", " no internet save data into local");
                 }
 
                 VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), data.getActivityJournalID(),
@@ -1039,7 +1046,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                         data1.getFollowupRemarks(),
                                         AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_OK);
                                 ActivityUtils.invokVisitPlanDetail(VisitPLanDetailsActivity.this, LeadStageActivity.class, visitPlan);
-                                Log.e("status", "save data into server and local" + response.body().getData().toString());
 
                             }
 
@@ -1056,8 +1062,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                             tvMobileNumber.getText().toString(), sProductTypeString,
                             citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
                             tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
-                    Log.e("status", " no internet save data into local");
-
 
                     VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), data1.getActivityJournalID(),
                             data1.getCustomerName(),
