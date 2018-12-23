@@ -65,13 +65,13 @@ public class MyLeadDataModelApi {
     private String productSubCategory;
     @SerializedName("loanAmount")
     @Expose
-    private Integer loanAmount;
+    private Double loanAmount;
     @SerializedName("offeredInterestRate")
     @Expose
-    private Float offeredInterestRate;
+    private Double offeredInterestRate;
     @SerializedName("offeredProcessFee")
     @Expose
-    private Float offeredProcessFee;
+    private Double offeredProcessFee;
     @SerializedName("disbursementDate")
     @Expose
     private String disbursementDate;
@@ -269,27 +269,27 @@ public class MyLeadDataModelApi {
         this.productSubCategory = productSubCategory;
     }
 
-    public Integer getLoanAmount() {
+    public Double getLoanAmount() {
         return loanAmount;
     }
 
-    public void setLoanAmount(Integer loanAmount) {
+    public void setLoanAmount(Double loanAmount) {
         this.loanAmount = loanAmount;
     }
 
-    public Float getOfferedInterestRate() {
+    public Double getOfferedInterestRate() {
         return offeredInterestRate;
     }
 
-    public void setOfferedInterestRate(Float offeredInterestRate) {
+    public void setOfferedInterestRate(Double offeredInterestRate) {
         this.offeredInterestRate = offeredInterestRate;
     }
 
-    public Float getOfferedProcessFee() {
+    public Double getOfferedProcessFee() {
         return offeredProcessFee;
     }
 
-    public void setOfferedProcessFee(Float offeredProcessFee) {
+    public void setOfferedProcessFee(Double offeredProcessFee) {
         this.offeredProcessFee = offeredProcessFee;
     }
 
@@ -335,7 +335,7 @@ public class MyLeadDataModelApi {
 
     public MyLeadDataModelApi myLeadDataModelApi(MyNewLead myNewLead) {
         MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
-        myLeadApi.setRmCode("336132");
+        myLeadApi.setRmCode(myNewLead.getUserCode());
         myLeadApi.setUserName(myNewLead.getUserID());
         myLeadApi.setBranchName(myNewLead.getBranchName());
         myLeadApi.setBranchCode(myNewLead.getBranchCode());
@@ -353,9 +353,9 @@ public class MyLeadDataModelApi {
         myLeadApi.setProduct(myNewLead.getProductType());
         myLeadApi.setProductSubCategoryId(myNewLead.getSubCode());
         myLeadApi.setProductSubCategory(myNewLead.getProductSubcategory());
-        myLeadApi.setLoanAmount(Integer.valueOf(myNewLead.getLoanAmount().replace(",", "")));
-        myLeadApi.setOfferedInterestRate((float) Float.valueOf(myNewLead.getOrInterest()));
-        myLeadApi.setOfferedProcessFee((float) Float.valueOf(myNewLead.getOpFee()));
+        myLeadApi.setLoanAmount(Double.valueOf(myNewLead.getLoanAmount().replace(",", "")));
+        myLeadApi.setOfferedInterestRate(Double.valueOf(myNewLead.getOrInterest()));
+        myLeadApi.setOfferedProcessFee(Double.valueOf(myNewLead.getOpFee()));
         myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(myNewLead.getDisDate()));
         myLeadApi.setVisitId(myNewLead.getVisitId());
         myLeadApi.setFollowUp(myNewLead.getFollowUp());

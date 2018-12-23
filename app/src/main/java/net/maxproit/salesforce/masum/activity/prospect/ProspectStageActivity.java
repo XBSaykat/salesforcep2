@@ -58,7 +58,7 @@ public class ProspectStageActivity extends BaseActivity {
     private AttachmentDbController attachmentDbController;
     private CoApplicantDBController coApplicantDBController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
-    private String userName = null;
+    private String userName = null,userCode=null;
     private int exceptionListValue = 0;
     private PropectStageAttachmentFragment propectStageAttachmentFragment;
     private MyNewProspect prospect;
@@ -93,7 +93,7 @@ public class ProspectStageActivity extends BaseActivity {
         myLeadDbController = new MyLeadDbController(ProspectStageActivity.this);
         carLoanDbController = new CarLoanDbController(ProspectStageActivity.this);
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
-        rmCode = "336132";
+        userCode = localCash().getString(SharedPreferencesEnum.Key.USER_CODE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -554,6 +554,7 @@ public class ProspectStageActivity extends BaseActivity {
                 } catch (NumberFormatException e) {
 
                 }
+                myNewProspect.setUserCode(userCode);
                 myNewProspect.setRefNumber(getDataFromProspect().getRefNumber());
                 myNewProspect.setContactId(getDataFromProspect().getContactId());
                 myNewProspect.setCusId(getDataFromProspect().getCusId());
@@ -605,7 +606,7 @@ public class ProspectStageActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
-                            errorAlert("Error", t.getMessage());
+                            errorAlert(getResources().getString(R.string.error_txt), t.getMessage());
                             hideProgressDialog();
                             if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                 coApplicantList.clear();

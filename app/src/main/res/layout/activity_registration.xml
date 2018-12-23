@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.login.RegistrationActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/size_22dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="@dimen/size_35dp"
+                        android:src="@drawable/idlc" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="First Time Login"
+                        android:layout_gravity="center"
+                        android:textColor="@color/black_overlay"
+                        android:layout_marginBottom="40dp"
+                        android:textSize="@dimen/size_25dp"/>
+
+                    <android.support.design.widget.TextInputLayout
+                        fontPath="fonts/Roboto-Bold.ttf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Username">
+
+                        <EditText
+                            android:id="@+id/etUsername"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                             />
+
+                    </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:id="@+id/tv_generate_otp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Generate OTP"
+                        android:background="@drawable/ripple"
+                        android:layout_gravity="end"
+                        android:textColor="@color/blue"
+                        android:padding="@dimen/size_10dp"
+                        android:textSize="@dimen/size_10dp"/>
+
+                    <android.support.design.widget.TextInputLayout
+                        fontPath="fonts/Roboto-Bold.ttf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Generated OTP"
+                       >
+
+                        <EditText
+                            android:id="@+id/et_otp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnLogin"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_25dp"
+                            android:layout_marginBottom="@dimen/size_12dp"
+                            android:layout_weight="1"
+                            android:elevation="@dimen/size_4dp"
+                            android:text="NEXT" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -21,6 +21,8 @@ import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetByJournal
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetDataApi;
 import net.maxproit.salesforce.masum.model.api.performance.Getperformance;
 import net.maxproit.salesforce.masum.model.api.rbm.GetRbmData;
+import net.maxproit.salesforce.masum.model.api.useractivity.GenerateOtp;
+import net.maxproit.salesforce.masum.model.api.useractivity.UserRegistration;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanGetApi;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
@@ -70,6 +72,7 @@ import net.maxproit.salesforce.model.uploads.file.FileUploadResponce;
 import net.maxproit.salesforce.model.virifier.virifierlist.Virifier;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -86,6 +89,12 @@ public interface ApiService {
 
     @POST("Authenticate")
     Call<LoginResponse> login(@Body Login login);
+
+    @POST("register")
+    Call<String>  userRegistration(@Body UserRegistration data);
+
+    @POST("otpsend")
+    Call<String> generateOtp(@Body UserRegistration otp);
 
 
     @GET("GlobalSettings/AppData/0")

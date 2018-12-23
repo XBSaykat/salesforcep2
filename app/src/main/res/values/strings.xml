@@ -275,6 +275,8 @@
     <string name="succes_txt">Success</string>
     <string name="approved_falied">Approved Failed</string>
     <string name="proceed_succesfull">Proceed Successfully</string>
+    <string name="internet_not_available">Internet not available please connect to the internet</string>
+    <string name="otp_success"><![CDATA[otp code sent successfully,please check your phone for otp code & enter the code]]></string>
 
 
 </resources>

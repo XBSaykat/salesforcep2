@@ -66,7 +66,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private LinearLayout mLayout;
     private MyLeadDataModelApi myLeadDataModelApi = null;
     private String branchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null, city = null, polishStationl = null;
-    private String userName = null;
+    private String userName = null,userCode=null;
     private int activityPosition;
     public static int myLeadPosition = -1;
     private VisitPlan visitPlan = null;
@@ -88,6 +88,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         setSupportActionBar(toolbar);
 
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
+        userCode = localCash().getString(SharedPreferencesEnum.Key.USER_CODE);
         localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -304,7 +305,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         //api integate
         MyLeadDataModelApi myLeadApi = new MyLeadDataModelApi();
         //api for proceed lead first time
-        myLeadApi.setRmCode("336132");
+        myLeadApi.setRmCode(userCode);
         myLeadApi.setUserName(userName);
         myLeadApi.setBranchName(branchName);
 
@@ -338,28 +339,28 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         myLeadApi.setProductSubCategory(subCat);
         if (loanAmount != null)
             try {
-                myLeadApi.setLoanAmount(Integer.valueOf(loanAmount.replace(",", "")));
+                myLeadApi.setLoanAmount(Double.valueOf(loanAmount.replace(",", "")));
             } catch (NumberFormatException e) {
 
             }
         else
-            myLeadApi.setLoanAmount(0);
+            myLeadApi.setLoanAmount(0.0);
         if (interest != null)
             try {
-                myLeadApi.setOfferedInterestRate((float) Float.valueOf(interest));
+                myLeadApi.setOfferedInterestRate((Double) Double.valueOf(interest));
             } catch (NumberFormatException e) {
 
             }
         else
-            myLeadApi.setOfferedInterestRate((float) 0);
+            myLeadApi.setOfferedInterestRate(0.0);
         if (fee != null)
             try {
-                myLeadApi.setOfferedProcessFee((float) Float.valueOf(fee));
+                myLeadApi.setOfferedProcessFee((Double) Double.valueOf(fee));
             } catch (NumberFormatException e) {
 
             }
         else
-            myLeadApi.setOfferedProcessFee((float) 0);
+            myLeadApi.setOfferedProcessFee(0.0);
         myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(disDate));
 
         myLeadApi.setFollowUp(followUp);
@@ -443,7 +444,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                         @Override
                         public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-                            errorAlert("Error", t.getMessage());
+                            errorAlert(getResources().getString(R.string.error_txt), t.getMessage());
 
                         }
                     });
@@ -475,8 +476,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                         @Override
                         public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                            showAlertDialog("ERROR", t.getMessage());
-
+                            showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
                         }
                     });
 
@@ -589,7 +589,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                         leadApprove(data, 0);
                                     } else {
                                         hideProgressDialog();
-                                        showAlertDialog("ERROR", response.body().getMessage());
+                                        showAlertDialog(getResources().getString(R.string.error_txt), response.body().getMessage());
                                     }
                                 } else { // old lead update offline
                                     int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
@@ -634,6 +634,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                 @Override
                                 public void onFailure(Call<MyActivityApi> call, Throwable t) {
                                     showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                                    hideProgressDialog();
 
                                 }
                             });
@@ -708,7 +709,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             @Override
             public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-
+                showAlertDialog(getResources().getString(R.string.error_txt),t.getMessage());
+                hideProgressDialog();
             }
         });
 
