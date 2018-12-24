@@ -1,8 +1,5 @@
 package net.maxproit.salesforce.feature.login;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -10,8 +7,6 @@ import net.maxproit.salesforce.databinding.ActivityPasswordBinding;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.api.useractivity.UserRegistration;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
