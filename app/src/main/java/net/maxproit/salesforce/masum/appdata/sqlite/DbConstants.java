@@ -265,6 +265,8 @@ public class DbConstants {
                     VISIT_PLAN_DATE_OF_VISIT + TEXT_TYPE + COMMA_SEP +
                     VISIT_PLAN_REMARKS + TEXT_TYPE + COMMA_SEP +
                     VISIT_JOURNAL_ID + INTEGER_TYPE + COMMA_SEP +
+                    FOLLOW_UP_HIS_DATE + TEXT_TYPE + COMMA_SEP +
+                    FOLLOW_UP_HIS_REMARK + TEXT_TYPE + COMMA_SEP +
                     SYNC_STATUS + TEXT_TYPE + COMMA_SEP +
                     LEAD_STATUS + TEXT_TYPE + " )";
 

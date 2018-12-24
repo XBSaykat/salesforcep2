@@ -64,7 +64,7 @@
                         android:layout_gravity="end"
                         android:textColor="@color/blue"
                         android:padding="@dimen/size_10dp"
-                        android:textSize="@dimen/size_10dp"/>
+                        android:textSize="@dimen/size_12dp"/>
 
                     <android.support.design.widget.TextInputLayout
                         fontPath="fonts/Roboto-Bold.ttf"

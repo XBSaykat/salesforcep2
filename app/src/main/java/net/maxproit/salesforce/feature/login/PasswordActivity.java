@@ -67,6 +67,7 @@ public class PasswordActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
+                    showAlertDialog("Error", t.getMessage());
 
                 }
             });

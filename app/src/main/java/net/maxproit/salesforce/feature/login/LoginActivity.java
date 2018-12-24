@@ -114,7 +114,7 @@ public class LoginActivity extends BaseActivity {
 
 
         binding.tvForgotPass.setOnClickListener(v -> {
-            ActivityUtils.getInstance().invokeActivity(LoginActivity.this, PasswordActivity.class, false);
+            ActivityUtils.getInstance().invokeActivity(LoginActivity.this, RegistrationActivity.class, false);
 
                 }
         );

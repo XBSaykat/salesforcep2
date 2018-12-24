@@ -91,6 +91,7 @@ public class AppConstant {
     public static final String STATUS_ACTIVITY_FOLLOWED ="" ;
     public static final String INTENT_DATA1 = "data1";
     public static final String INTENT_DATA2= "data2";
+    public static final String STATUS_ACTIVITY_EMPTY ="" ;
 
     public static ArrayList<CoApplicant> coAppLicantStaticList=new ArrayList<>();
 

@@ -91,7 +91,7 @@ public class RegistrationActivity extends BaseActivity {
                         ActivityUtils.getInstance().invokeActivity(RegistrationActivity.this, PasswordActivity.class, true, uName, otp);
                         showAlertDialog(getResources().getString(R.string.success_status), getResources().getString(R.string.otp_success));
                     } else {
-                        showAlertDialog("Invalid OTP,Please Try Again", response.toString());
+                        showAlertDialog("Error","Invalid OTP,Please Try Again");
                     }
                 }
 

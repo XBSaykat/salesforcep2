@@ -299,7 +299,6 @@ public class FragmentCurrentActivity extends BaseFragment {
                 public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
                     showAlertDialog("ERROR", t.getMessage());
                     showEmptyView();
-
                 }
             });
         } else {
