@@ -36,7 +36,7 @@ public class PasswordActivity extends BaseActivity {
             String retypePass = mBinding.etPassword.getText().toString();
             if (!isValid(pass, retypePass)) {
                 if (!MasumCommonUtils.isNullStr(validationStatus)) {
-                    showAlertDialog("", validationStatus);
+                    showAlertDialog("Alert", validationStatus);
                 }
             } else {
                 callApi(pass);
@@ -86,9 +86,9 @@ public class PasswordActivity extends BaseActivity {
 
         if (MasumCommonUtils.isNullStr(pass) && MasumCommonUtils.isNullStr(retypePass)) {
             mBinding.etUsername.setError("Password can't be empty");
-
             isValid = false;
         } else if (MasumCommonUtils.isNullStr(retypePass)) {
+            mBinding.etPassword.setError("Retype Password can't be empty");
             isValid = false;
         } else if (MasumCommonUtils.isNullStr(pass)) {
             isValid = false;
