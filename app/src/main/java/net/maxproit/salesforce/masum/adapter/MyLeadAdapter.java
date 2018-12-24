@@ -95,6 +95,4 @@ public class MyLeadAdapter extends RecyclerView.Adapter<MyLeadAdapter.CustomView
     public void setItemClickListener(OnItemClickListener mListener) {
         this.mListener = mListener;
     }
-
-
 }

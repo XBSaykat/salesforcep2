@@ -418,14 +418,14 @@ public interface ApiService {
     Call<Virifier> getvirifierList(@Path("user") String user);
 
 
-    @Multipart
-    @POST("uploadfile")
-    Call<FileUploadResponce> fileUpload(@Part MultipartBody.Part file1);
-
 
     @GET("LeadDocumentlist/{user}")
     Call<String> getfileByid(@Path("user") String user);
 
+
+    @Multipart
+    @POST("uploadfile")
+    Call<FileUploadResponce> fileUpload(@Part MultipartBody.Part file1);
 
     //Document
     @GET("Documentlist/{ReferenceNo}/{timestamp}")

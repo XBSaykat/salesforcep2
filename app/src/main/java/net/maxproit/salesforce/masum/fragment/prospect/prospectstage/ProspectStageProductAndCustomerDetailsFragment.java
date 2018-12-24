@@ -52,7 +52,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static ProspectStageActivity prospectStageActivity;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -137,7 +137,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_prospect_stage_product_and_customer_details, container, false);
-        prospectStageActivity = (ProspectStageActivity) getActivity();
+
         listPerPs = new ArrayList<>();
         listPrePs = new ArrayList<>();
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
@@ -594,9 +594,9 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             countOfBirth="Bangladesh";
         } catch (IllegalStateException er) {
         }
-        if (prospectStageActivity.getDataFromProspect() != null) {
+        if (getArguments() != null) {
 
-            MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
+            MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
 
             etName.setText(myNewLead.getUserName());
             etPresentAddress.setText(myNewLead.getAddress());

@@ -61,6 +61,10 @@ public class ProspectStageActivity extends BaseActivity {
     private String userName = null,userCode=null;
     private int exceptionListValue = 0;
     private PropectStageAttachmentFragment propectStageAttachmentFragment;
+    private ProspectStageProductAndCustomerDetailsFragment prospectStageProductAndCustomerDetailsFragment;
+    private ProspectStageLoanAndSecurityDetailFragment prospectStageLoanAndSecurityDetailFragment;
+    private ProspectStageFinancialFragment prospectStageFinancialFragment;
+    private ProspectStageCoApplicantFragment prospectStageCoApplicantFragment;
     private MyNewProspect prospect;
     private int producSubCode = 0;
     private String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
@@ -83,6 +87,7 @@ public class ProspectStageActivity extends BaseActivity {
     protected void initComponents() {
         initLoader();
         showLoader();
+        initFragment();
         coApplicantDBController = new CoApplicantDBController(this);
         attachmentDbController = new AttachmentDbController(ProspectStageActivity.this);
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
@@ -112,6 +117,29 @@ public class ProspectStageActivity extends BaseActivity {
         mLayout = findViewById(R.id.btn_layout_lead);
         initListener();
         splashThread();
+
+        setArgumentForFragment();
+
+
+
+    }
+
+    private void setArgumentForFragment() {
+        Bundle bundle=new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY,getDataFromProspect());
+        propectStageAttachmentFragment.setArguments(bundle);
+        prospectStageProductAndCustomerDetailsFragment.setArguments(bundle);
+        prospectStageLoanAndSecurityDetailFragment.setArguments(bundle);
+        prospectStageFinancialFragment.setArguments(bundle);
+        prospectStageCoApplicantFragment.setArguments(bundle);
+    }
+
+    private void initFragment() {
+        propectStageAttachmentFragment=new PropectStageAttachmentFragment();
+        prospectStageProductAndCustomerDetailsFragment=new ProspectStageProductAndCustomerDetailsFragment();
+        prospectStageLoanAndSecurityDetailFragment=new ProspectStageLoanAndSecurityDetailFragment();
+        prospectStageFinancialFragment=new ProspectStageFinancialFragment();
+        prospectStageCoApplicantFragment=new ProspectStageCoApplicantFragment();
     }
 
     @Override
@@ -303,11 +331,11 @@ public class ProspectStageActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ProspectStageActivity.ViewPagerAdapter adapter = new ProspectStageActivity.ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ProspectStageProductAndCustomerDetailsFragment(), "Product & Customer Details");
-        adapter.addFragment(new ProspectStageFinancialFragment(), "Financials");
-        adapter.addFragment(new ProspectStageLoanAndSecurityDetailFragment(), "Loan & Security Detail");
-        adapter.addFragment(new PropectStageAttachmentFragment(), "Attachment");
-        adapter.addFragment(new ProspectStageCoApplicantFragment(), "Co-Applicant");
+        adapter.addFragment(prospectStageProductAndCustomerDetailsFragment, "Product & Customer Details");
+        adapter.addFragment(prospectStageFinancialFragment, "Financials");
+        adapter.addFragment(prospectStageLoanAndSecurityDetailFragment, "Loan & Security Detail");
+        adapter.addFragment(propectStageAttachmentFragment, "Attachment");
+        adapter.addFragment(prospectStageCoApplicantFragment, "Co-Applicant");
         viewPager.setAdapter(adapter);
     }
 
