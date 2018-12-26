@@ -1,6 +1,10 @@
 package net.maxproit.salesforce.feature.login;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityPasswordBinding;
@@ -52,7 +56,7 @@ public class PasswordActivity extends BaseActivity {
             showProgressDialog();
             String userName = getIntent().getStringExtra(AppConstant.INTENT_DATA1);
             String otp = getIntent().getStringExtra(AppConstant.INTENT_DATA2);
-            UserRegistration registration = new UserRegistration(userName, pass, "", otp);
+            UserRegistration registration = new UserRegistration(userName, pass, getImei(), otp);
             getApiService().userRegistration(registration).enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
@@ -97,6 +101,21 @@ public class PasswordActivity extends BaseActivity {
         return isValid;
 
 
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private String getImei(){
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String imei="";
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            imei=telephonyManager.getImei();
+        }
+        else
+        {
+            imei=telephonyManager.getDeviceId();
+        }
+        return imei;
     }
 
 
