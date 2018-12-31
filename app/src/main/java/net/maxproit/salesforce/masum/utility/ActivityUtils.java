@@ -38,6 +38,17 @@ public class ActivityUtils {
     }
 
 
+    public void invokeActivity(Activity activity, Class<?> tClass, boolean shouldFinish,String data1,String data2) {
+        Intent intent = new Intent(activity, tClass);
+        intent.putExtra(AppConstant.INTENT_DATA1,data1);
+        intent.putExtra(AppConstant.INTENT_DATA2,data2);
+        activity.startActivity(intent);
+        if (shouldFinish) {
+            activity.finish();
+        }
+    }
+
+
     public static void invokDoc(Activity activity, Class<?> tClass, Document document) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, document);

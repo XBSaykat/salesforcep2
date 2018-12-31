@@ -58,9 +58,13 @@ public class ProspectStageActivity extends BaseActivity {
     private AttachmentDbController attachmentDbController;
     private CoApplicantDBController coApplicantDBController;
     public static int CO_APPLICANT_REQUEST_CODE = 1;
-    private String userName = null;
+    private String userName = null,userCode=null;
     private int exceptionListValue = 0;
     private PropectStageAttachmentFragment propectStageAttachmentFragment;
+    private ProspectStageProductAndCustomerDetailsFragment prospectStageProductAndCustomerDetailsFragment;
+    private ProspectStageLoanAndSecurityDetailFragment prospectStageLoanAndSecurityDetailFragment;
+    private ProspectStageFinancialFragment prospectStageFinancialFragment;
+    private ProspectStageCoApplicantFragment prospectStageCoApplicantFragment;
     private MyNewProspect prospect;
     private int producSubCode = 0;
     private String productCat = null, productDetails = null, mybranchName = null, segment = null, countOfBirth = null, districtOfBirth = null, profession = null,
@@ -83,6 +87,7 @@ public class ProspectStageActivity extends BaseActivity {
     protected void initComponents() {
         initLoader();
         showLoader();
+        initFragment();
         coApplicantDBController = new CoApplicantDBController(this);
         attachmentDbController = new AttachmentDbController(ProspectStageActivity.this);
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
@@ -93,7 +98,7 @@ public class ProspectStageActivity extends BaseActivity {
         myLeadDbController = new MyLeadDbController(ProspectStageActivity.this);
         carLoanDbController = new CarLoanDbController(ProspectStageActivity.this);
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
-        rmCode = "336132";
+        userCode = localCash().getString(SharedPreferencesEnum.Key.USER_CODE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +117,29 @@ public class ProspectStageActivity extends BaseActivity {
         mLayout = findViewById(R.id.btn_layout_lead);
         initListener();
         splashThread();
+
+        setArgumentForFragment();
+
+
+
+    }
+
+    private void setArgumentForFragment() {
+        Bundle bundle=new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY,getDataFromProspect());
+        propectStageAttachmentFragment.setArguments(bundle);
+        prospectStageProductAndCustomerDetailsFragment.setArguments(bundle);
+        prospectStageLoanAndSecurityDetailFragment.setArguments(bundle);
+        prospectStageFinancialFragment.setArguments(bundle);
+        prospectStageCoApplicantFragment.setArguments(bundle);
+    }
+
+    private void initFragment() {
+        propectStageAttachmentFragment=new PropectStageAttachmentFragment();
+        prospectStageProductAndCustomerDetailsFragment=new ProspectStageProductAndCustomerDetailsFragment();
+        prospectStageLoanAndSecurityDetailFragment=new ProspectStageLoanAndSecurityDetailFragment();
+        prospectStageFinancialFragment=new ProspectStageFinancialFragment();
+        prospectStageCoApplicantFragment=new ProspectStageCoApplicantFragment();
     }
 
     @Override
@@ -303,11 +331,11 @@ public class ProspectStageActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ProspectStageActivity.ViewPagerAdapter adapter = new ProspectStageActivity.ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ProspectStageProductAndCustomerDetailsFragment(), "Product & Customer Details");
-        adapter.addFragment(new ProspectStageFinancialFragment(), "Financials");
-        adapter.addFragment(new ProspectStageLoanAndSecurityDetailFragment(), "Loan & Security Detail");
-        adapter.addFragment(new PropectStageAttachmentFragment(), "Attachment");
-        adapter.addFragment(new ProspectStageCoApplicantFragment(), "Co-Applicant");
+        adapter.addFragment(prospectStageProductAndCustomerDetailsFragment, "Product & Customer Details");
+        adapter.addFragment(prospectStageFinancialFragment, "Financials");
+        adapter.addFragment(prospectStageLoanAndSecurityDetailFragment, "Loan & Security Detail");
+        adapter.addFragment(propectStageAttachmentFragment, "Attachment");
+        adapter.addFragment(prospectStageCoApplicantFragment, "Co-Applicant");
         viewPager.setAdapter(adapter);
     }
 
@@ -554,6 +582,7 @@ public class ProspectStageActivity extends BaseActivity {
                 } catch (NumberFormatException e) {
 
                 }
+                myNewProspect.setUserCode(userCode);
                 myNewProspect.setRefNumber(getDataFromProspect().getRefNumber());
                 myNewProspect.setContactId(getDataFromProspect().getContactId());
                 myNewProspect.setCusId(getDataFromProspect().getCusId());
@@ -605,7 +634,7 @@ public class ProspectStageActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
-                            errorAlert("Error", t.getMessage());
+                            errorAlert(getResources().getString(R.string.error_txt), t.getMessage());
                             hideProgressDialog();
                             if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                 coApplicantList.clear();

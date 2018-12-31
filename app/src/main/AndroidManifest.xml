@@ -8,8 +8,8 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
 
     <application
         android:name=".App"
@@ -40,9 +41,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
-        <activity
-            android:name=".feature.login.LoginActivity"
-            />
+        <activity android:name=".feature.login.LoginActivity" />
         <activity android:name=".feature.upload.UploadActivity" />
         <activity android:name=".feature.dashboard.DashboardVirifierActivity" />
         <activity android:name=".feature.dashboard.supervisor.DashboardSupervisorActivity" />
@@ -88,11 +87,9 @@
             android:name=".feature.salesOfficer.parallelprocess.cif.CifDialog"
             android:label="Cif Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".feature.upload.UploadProspectActivity"
-           />
+        <activity android:name=".feature.upload.UploadProspectActivity" />
         <activity android:name=".masum.activity.daviation.DaviationListActivity" />
         <activity android:name=".feature.supervisor.prospectview.ProspectViewActivity" />
-
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -123,15 +120,19 @@
         <activity android:name=".masum.activity.visitplan.VisitPlanListActivity" />
         <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity" />
         <activity android:name=".CoApplicantRbmView" />
-        <activity android:name=".masum.activity.prospect.MyProspectFragmentActivity"></activity>
+        <activity android:name=".masum.activity.prospect.MyProspectFragmentActivity" />
 
-        <receiver android:name=".masum.reciever.NetworkMonitor"
+        <receiver
+            android:name=".masum.reciever.NetworkMonitor"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".feature.login.RegistrationActivity" />
+        <activity android:name=".feature.login.PasswordActivity"></activity>
     </application>
 
 </manifest>

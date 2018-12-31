@@ -57,7 +57,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     //    private MyNewLead mylead;
     String refId = null;
     int size = 0;
-    private static ProspectStageActivity prospectStageActivity;
+
     int leadIdForCoApplicant;
 
     private OnFragmentInteractionListener mListener;
@@ -98,21 +98,26 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prospect_stage_co_applicent, container, false);
-        prospectStageActivity = (ProspectStageActivity) getActivity();
+
         btnCoApplicant = view.findViewById(R.id.btn_prospect_stage_co_applicant);
         rvCoapplicantList = view.findViewById(R.id.rv_prospect_stage_co_applicant);
         coApplicantDBController = new CoApplicantDBController(getActivity());
-        MyNewProspect mylead = prospectStageActivity.getDataFromProspect();
-        if (prospectStageActivity.getDataFromProspect().getCoApplicantList() != null) {
-            AppConstant.coAppLicantStaticList.addAll(prospectStageActivity.getDataFromProspect().getCoApplicantList());
+        if (getArguments() !=null){
+            MyNewProspect mylead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
+            if (mylead.getCoApplicantList() != null) {
+                AppConstant.coAppLicantStaticList.addAll(mylead.getCoApplicantList());
 
+            }
+            refId =mylead.getRefNumber();
+            leadIdForCoApplicant = mylead.getId();
+            coApplicantList = new ArrayList<>();
+            filteredList = new ArrayList<>();
+            coApplicantAdapter = new CoApplicantListAdapter(getContext(), coApplicantList);
+            initListener(mylead);
         }
-        refId = prospectStageActivity.getDataFromProspect().getRefNumber();
-        leadIdForCoApplicant = mylead.getId();
-        coApplicantList = new ArrayList<>();
-        filteredList = new ArrayList<>();
-        coApplicantAdapter = new CoApplicantListAdapter(getContext(), coApplicantList);
-        initListener(mylead);
+
+
+
         return view;
     }
 

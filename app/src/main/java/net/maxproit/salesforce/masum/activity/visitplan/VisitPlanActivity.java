@@ -622,11 +622,11 @@ public class VisitPlanActivity extends BaseActivity {
                         public void onResponse(Call<MyVisitPlanApi> call, Response<MyVisitPlanApi> response) {
                             if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                 Data data1 = response.body().getData();
-                                dbController.insertData(data1.getActivityJournalID(), clientName, spinnerClientType.getSelectedItem(),
+                              /*  dbController.insertData(data1.getActivityJournalID(), clientName, spinnerClientType.getSelectedItem(),
                                         mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                                         spinnerPoliceStation.getSelectedItem(),
                                         purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
-                                Log.e("status", "save data into server and local" + response.body().getData().toString());
+                           */     Log.e("status", "save data into server and local" + response.body().getData().toString());
                                 finish();
                             }
 
@@ -639,10 +639,10 @@ public class VisitPlanActivity extends BaseActivity {
                         }
                     });
                 } else {
-                    int insert1 = dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
+                /*    int insert1 = dbController.insertData(0, clientName, spinnerClientType.getSelectedItem(),
                             mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                             spinnerPoliceStation.getSelectedItem(),
-                            purposeOfVisit, dateOfvisit, remarks, AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
+                            purposeOfVisit, dateOfvisit, remarks, AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);*/
                     Log.e("status", " no internet save data into local");
                     finish();
                 }

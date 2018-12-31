@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class MyNewLead implements Serializable {
 
-    private String userID;
+    private String userID,userCode;
     private String refNumber;
     private String syncStatus;
     private String branchName;
@@ -120,6 +120,14 @@ public MyNewLead(){
         this.remark = remark;
         this.status = status;
         this.syncStatus = syncStatus;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     public String getPs() {

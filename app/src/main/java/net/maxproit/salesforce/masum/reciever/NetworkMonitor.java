@@ -87,6 +87,7 @@ public class NetworkMonitor extends BroadcastReceiver {
                             if (response.body().getCode().equals("200")) {
                                 visitPlanDbController.updateSyncDataStatus(visitPlan.getId(),
                                         AppConstant.SYNC_STATUS_OK, response.body().getData().getActivityJournalID());
+                                Log.e("status", "save activity data");
                             }
                         }
 

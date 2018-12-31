@@ -68,7 +68,6 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
     private TextView btnDoc;
-    private ProspectStageActivity prospectStageActivity;
     private ArrayList<Document> docList;
     public static ImageView imgAtach, imgIdCard, imgVisitingCard;
     private Button btnImgCap, btnIDCardCap, btnVCardCap, btnChoosePP, btnChooseId, btnChooseVCard;
@@ -116,7 +115,6 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        prospectStageActivity = (ProspectStageActivity) getActivity();
         context = getContext();
         Log.e("crash", "attach");
         View rootView = inflater.inflate(R.layout.fragment_lead_stage_attachment, container, false);
@@ -190,8 +188,8 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     }
 
     private void initIntentData() {
-        if (prospectStageActivity.getDataFromProspect() != null) {
-            MyNewLead myNewLead = prospectStageActivity.getDataFromProspect();
+        if (getArguments() != null) {
+            MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
             if (!docList.isEmpty())
                 docList.clear();
             callApi(myNewLead);

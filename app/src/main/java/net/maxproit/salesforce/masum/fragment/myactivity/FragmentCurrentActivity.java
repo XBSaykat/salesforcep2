@@ -178,18 +178,15 @@ public class FragmentCurrentActivity extends BaseFragment {
     private void initListener() {
 
 
-        myLeadAdapter.setItemClickListener(new OnItemClickListener() {
-            @Override
-            public void itemClickListener(View view, int position) {
-                loadFilterData();
-                switch (view.getId()) {
-                    case R.id.cl_visit_plan_item:
-                        sentDataToDetail(position);
-                        break;
-
+        myLeadAdapter.setItemClickListener((view, position) -> {
+                    loadFilterData();
+                    switch (view.getId()) {
+                        case R.id.cl_visit_plan_item:
+                            sentDataToDetail(position);
+                            break;
+                    }
                 }
-            }
-        });
+        );
 
 
     }
@@ -299,7 +296,6 @@ public class FragmentCurrentActivity extends BaseFragment {
                 public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
                     showAlertDialog("ERROR", t.getMessage());
                     showEmptyView();
-
                 }
             });
         } else {

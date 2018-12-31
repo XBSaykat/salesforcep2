@@ -77,7 +77,7 @@ public class OldProspect {
         myNewProspect.setApplicant(data.getRelationshipWithApplicant());
         myNewProspect.setUserName(data.getCustomerName());
         myNewProspect.setExceptionList(data.getExceptionList());
-
+        myNewProspect.setUserCode(data.getRmCode());
         myNewProspect.setRuleEngineInformation(data.getRuleEngineInformation());
         myNewProspect.setcIBInformation(data.getCIBInformation());
         myNewProspect.setRefNumber(data.getLeadReferenceNo());
@@ -93,7 +93,6 @@ public class OldProspect {
         myNewProspect.setmName(data.getMotherName());
         myNewProspect.setsName(data.getSpouseName());
         myNewProspect.setProspectFee(MasumCommonUtils.isNotZero(data.getFee()));
-        myNewProspect.setRmCode(data.getRmCode());
         myNewProspect.setStatus(data.getStatus());
         myNewProspect.setSegment(data.getSegment());
         myNewProspect.setMobileId(data.getMobileNoId());

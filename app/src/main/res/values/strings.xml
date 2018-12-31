@@ -266,6 +266,7 @@
     <string name="error_txt">Error</string>
     <string name="create_lead">Create Lead</string>
     <string name="save_alert">Do you want to save details?</string>
+    <string name="alert">Alert</string>
     <string name="save_txt">Save</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
@@ -278,6 +279,10 @@
     <string name="error_txt">Error</string>
     <string name="response_code_200">200</string>
     <string name="error_text">Error</string>
+    <string name="internet_not_available">Internet not available please connect to the internet</string>
+    <string name="otp_success"><![CDATA[otp code sent successfully,please check your phone for otp code & enter the code]]></string>
+    <string name="proceed_unavailable">Proceed is not available without internet,PLease connect to the internet</string>
+    <string name="proceed_not_valid">Proceed is not valid for</string>
 
 
 </resources>

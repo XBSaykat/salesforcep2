@@ -18,6 +18,7 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.SharedViewModel;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
@@ -35,7 +36,7 @@ public class ProspectStageFinancialFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static ProspectStageActivity prospectStageActivity;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -101,7 +102,7 @@ public class ProspectStageFinancialFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prospect_stage_financial, container, false);
-        prospectStageActivity = (ProspectStageActivity) getActivity();
+
 
         etMonthlySalaryAmount = view.findViewById(R.id.input_monthly_net_salary_amount);
         etMonthlyBusinessIncome = view.findViewById(R.id.input_monthly_business_income);
@@ -158,9 +159,9 @@ public class ProspectStageFinancialFragment extends Fragment {
         spinnerMonthlyNetSalary.setAdapter(monthlySalaryAdapter);
         initListener();
 
-        if (prospectStageActivity.getDataFromProspect() != null) {
+        if (getArguments() != null) {
 
-            MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
+            MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
             if (!MasumCommonUtils.isNullStr(myNewLead.getNetSalary())) {
                 try {
                     spinnerMonthlyNetSalary.setSelection(monthlySalaryAdapter.getPosition(myNewLead.getNetSalary()));

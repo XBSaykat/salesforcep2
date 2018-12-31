@@ -23,6 +23,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.model.login.Login;
 import net.maxproit.salesforce.model.login.LoginResponse;
@@ -94,17 +95,33 @@ public class LoginActivity extends BaseActivity {
 //
 //        String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
 //        if (st.isEmpty()) {
-        if (isNetworkAvailable())
+        if (isNetworkAvailable()) {
             callSetting();
+        } else {
+            String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
+            if (!roll.isEmpty()) {
+                gotoBoard(roll);
+            }
+        }
 
 //        } else {
-//            String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
-//            if (!roll.isEmpty()) {
-//                gotoBoard(roll);
+          /*  String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
+            if (!roll.isEmpty()) {
+                gotoBoard(roll);
+            }*/
+
 //            }
 
 
-        binding.btnLogin.setOnClickListener(v -> {
+        binding.tvForgotPass.setOnClickListener(v -> {
+            ActivityUtils.getInstance().invokeActivity(LoginActivity.this, RegistrationActivity.class, false);
+
+                }
+        );
+
+
+        binding.tvNewUser.setOnClickListener(v -> {
+                    ActivityUtils.getInstance().invokeActivity(LoginActivity.this, RegistrationActivity.class, false);
 
                 }
         );
@@ -118,9 +135,7 @@ public class LoginActivity extends BaseActivity {
                 showToast("Ener your Password");
 
             } else {
-
                 showProgressDialog();
-
                 getApiService().login(binding.getModel()).enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -137,10 +152,9 @@ public class LoginActivity extends BaseActivity {
                                 String lg = toJson(response.body());
                                 localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);
                                 localCash().put(SharedPreferencesEnum.Key.USER_NAME, binding.etUsername.getText().toString());
-
+                                localCash().put(SharedPreferencesEnum.Key.USER_CODE, response.body().getData().getUserCode());
 
                             }
-
 
                         } else
                             showAlertDialog("" + response.body().getCode(), "" + response.body().getMessage());
@@ -201,6 +215,10 @@ public class LoginActivity extends BaseActivity {
                     if (response.body().getCode().equals("200")) {
                         String setting = toJson(response.body());
                         localCash().put(SharedPreferencesEnum.Key.SETTING, setting);
+                        String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
+                        if (!roll.isEmpty()) {
+                            gotoBoard(roll);
+                        }
                         showToast("Setting Data Success");
                     }
                 } else

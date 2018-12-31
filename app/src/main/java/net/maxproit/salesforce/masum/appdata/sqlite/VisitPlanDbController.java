@@ -34,18 +34,26 @@ public class VisitPlanDbController {
 
     //                           clientName, clientType, mobileNo, productType, preCity, prePoliceStation, purposeOfVisit, dateOfvisit,remarks
     public int insertData(int jId, String clientName, String clientType, String mobileNumber, String productType, String city, String policeStation, String purposeOfVisit,
-                          String dateOfVisit, String remarks, String status, String SyncStatus) {
+                          String dateOfVisit, String remarks, String status, String SyncStatus, String followUpDate, String followUpRemarks) {
 
         ContentValues values = new ContentValues();
         values.put(DbConstants.VISIT_PLAN_CLIENT_NAME, clientName);
         values.put(DbConstants.VISIT_JOURNAL_ID, jId);
+        if (followUpDate == null) {
+            values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, dateOfVisit);
+        } else
+            values.put(DbConstants.FOLLOW_UP_HIS_DATE, followUpDate);
+
+        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, dateOfVisit);
+
+        values.put(DbConstants.FOLLOW_UP_HIS_REMARK, followUpRemarks);
         values.put(DbConstants.VISIT_PLAN_CLIENT_TYPE, clientType);
         values.put(DbConstants.VISIT_PLAN_MOBILE_NUMBER, mobileNumber);
         values.put(DbConstants.VISIT_PLAN_PRODUCT_TYPE, productType);
         values.put(DbConstants.VISIT_PLAN_CITY, city);
         values.put(DbConstants.VISIT_PLAN_POLICE_STATION, policeStation);
         values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT, purposeOfVisit);
-        values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, DateUtils.getDateFormateForSqlite(dateOfVisit));
+
         values.put(DbConstants.VISIT_PLAN_REMARKS, remarks);
         values.put(DbConstants.LEAD_STATUS, status);
         values.put(DbConstants.SYNC_STATUS, SyncStatus);
@@ -70,13 +78,18 @@ public class VisitPlanDbController {
         values.put(DbConstants.VISIT_PLAN_POLICE_STATION, visitPlan.getPoliceStation());
         values.put(DbConstants.VISIT_PLAN_PURPOSE_OF_VISIT, visitPlan.getPurposeOfVisit());
         if (visitPlan.getDateOfVisit() != null)
-            values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, DateUtils.getDateFormateForSqlite(visitPlan.getDateOfVisit()));
+            values.put(DbConstants.VISIT_PLAN_DATE_OF_VISIT, visitPlan.getDateOfVisit());
+
+        if (visitPlan.getFollowUpDate() != null)
+            values.put(DbConstants.FOLLOW_UP_HIS_DATE, visitPlan.getFollowUpDate());
+        values.put(DbConstants.FOLLOW_UP_HIS_REMARK, visitPlan.getFollowUpRemark());
+
         values.put(DbConstants.VISIT_PLAN_REMARKS, visitPlan.getRemarks());
         values.put(DbConstants.LEAD_STATUS, visitPlan.getStatus());
         values.put(DbConstants.SYNC_STATUS, visitPlan.getSynStatus());
         // Insert the new row, returning the primary key value of the new row
         open();
-        int update = db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants.VISIT_JOURNAL_ID + "=" + visitPlan.getJournalId(), null);
+        int update = db.update(DbConstants.TABLE_VISIT_PLAN, values, DbConstants._V_ID + "=" + visitPlan.getId(), null);
 
         close();
         return update;
@@ -109,6 +122,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
@@ -154,6 +169,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
@@ -189,6 +206,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
@@ -225,18 +244,20 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder = DbConstants._V_ID + " DESC";
-        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "=? AND " + DbConstants.LEAD_STATUS + "=?";
+        String WHERE = DbConstants.VISIT_PLAN_DATE_OF_VISIT + "=? AND " + DbConstants.LEAD_STATUS + "=? OR " + DbConstants.LEAD_STATUS + "=?";
 
         Cursor c = db.query(
                 DbConstants.TABLE_VISIT_PLAN,  // The table name to query
                 projection,                               // The columns to return
                 WHERE,                                // The columns for the WHERE clause
-                new String[]{DateUtils.getDateFormateForSqlite(visitDate), AppConstant.STATUS_ACTIVITY_NEW},                            // The values for the WHERE clause
+                new String[]{DateUtils.getDateFormateForSqlite(visitDate), AppConstant.STATUS_ACTIVITY_NEW, AppConstant.STATUS_ACTIVITY_EMPTY},                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 sortOrder                                 // The sort order
@@ -262,6 +283,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
@@ -299,6 +322,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
@@ -335,6 +360,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
@@ -370,6 +397,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
@@ -404,6 +433,8 @@ public class VisitPlanDbController {
                 DbConstants.VISIT_PLAN_DATE_OF_VISIT,
                 DbConstants.VISIT_PLAN_REMARKS,
                 DbConstants.LEAD_STATUS,
+                DbConstants.FOLLOW_UP_HIS_REMARK,
+                DbConstants.FOLLOW_UP_HIS_DATE,
 
         };
 
@@ -444,8 +475,13 @@ public class VisitPlanDbController {
                     String remarks = c.getString(c.getColumnIndexOrThrow(DbConstants.VISIT_PLAN_REMARKS));
                     String status = c.getString(c.getColumnIndexOrThrow(DbConstants.LEAD_STATUS));
                     String synStatus = c.getString(c.getColumnIndexOrThrow(DbConstants.SYNC_STATUS));
+                    String followUpDate = c.getString(c.getColumnIndexOrThrow(DbConstants.FOLLOW_UP_HIS_DATE));
+                    String followUpRemarks = c.getString(c.getColumnIndexOrThrow(DbConstants.FOLLOW_UP_HIS_REMARK));
                     // wrap up data list and return
-                    favDataArray.add(new VisitPlan(id, jId, clientName, clientType, mobileNumber, policeStation, productType, city, purposeOfVisit, dateOfVisit, remarks, status, synStatus));
+                    VisitPlan visitPlan = new VisitPlan(id, jId, clientName, clientType, mobileNumber, policeStation, productType, city, purposeOfVisit, dateOfVisit, remarks, status, synStatus);
+                    visitPlan.setFollowUpDate(followUpDate);
+                    visitPlan.setFollowUpRemark(followUpRemarks);
+                    favDataArray.add(visitPlan);
                 } while (c.moveToNext());
             }
             c.close();

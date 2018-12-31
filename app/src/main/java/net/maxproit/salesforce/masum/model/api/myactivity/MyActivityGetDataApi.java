@@ -60,7 +60,7 @@ public class MyActivityGetDataApi {
         for (int i = 0; i < visitPlanList.size(); i++) {
             Datum datum = new Datum();
             datum.setId(visitPlanList.get(i).getId());
-            datum.setActivityJournalID(String.valueOf(visitPlanList.get(i).getDateOfVisit()));
+            datum.setMakerName(String.valueOf(visitPlanList.get(i).getDateOfVisit()));
             datum.setClientType(visitPlanList.get(i).getMobileNumber());
             datum.setClientName(visitPlanList.get(i).getClientName());
             datum.setActivityStatus(visitPlanList.get(i).getStatus());

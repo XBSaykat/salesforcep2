@@ -16,11 +16,11 @@ public class VisitPlan implements Serializable {
     private String remarks;
     private String status;
     private String synStatus;
-    private int id,journalId;
-    String followUpDate,followUpRemark;
+    private int id, journalId;
+    private String followUpDate, followUpRemark;
     private String MakerName;
 
-    public VisitPlan(int id,int journalId, String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status,String synStatus ) {
+    public VisitPlan(int id, int journalId, String clientName, String clientType, String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status, String synStatus) {
 
         this.clientName = clientName;
         this.policeStation = policeStation;
@@ -37,7 +37,7 @@ public class VisitPlan implements Serializable {
         this.synStatus = synStatus;
     }
 
-    public VisitPlan(int id,String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
+    public VisitPlan(int id, String clientName, String clientType, String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
 
         this.clientName = clientName;
         this.policeStation = policeStation;
@@ -53,7 +53,7 @@ public class VisitPlan implements Serializable {
         this.synStatus = synStatus;
     }
 
-    public VisitPlan(int journalId,String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status,String followUpDate,String followUpRemark) {
+    public VisitPlan(int journalId, String clientName, String clientType, String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status, String followUpDate, String followUpRemark) {
 
         this.clientName = clientName;
         this.policeStation = policeStation;
@@ -71,7 +71,7 @@ public class VisitPlan implements Serializable {
 
     }
 
-    public VisitPlan(String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
+    public VisitPlan(String clientName, String clientType, String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status) {
 
         this.clientName = clientName;
         this.policeStation = policeStation;
@@ -88,7 +88,7 @@ public class VisitPlan implements Serializable {
         this.synStatus = synStatus;
     }
 
-    public VisitPlan(int journalId, String clientName, String clientType,  String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status ,String synStatus) {
+    public VisitPlan(int journalId, String clientName, String clientType, String mobileNumber, String policeStation, String productType, String city, String purposeOfVisit, String dateOfVisit, String remarks, String status, String synStatus) {
 
         this.clientName = clientName;
         this.journalId = journalId;
@@ -133,7 +133,8 @@ public class VisitPlan implements Serializable {
     }
 
     public String getClientName() {
-        return clientName; }
+        return clientName;
+    }
 
 
     public String getStatus() {
@@ -159,6 +160,7 @@ public class VisitPlan implements Serializable {
     public String getCity() {
         return city;
     }
+
     public String getPoliceStation() {
         return policeStation;
     }

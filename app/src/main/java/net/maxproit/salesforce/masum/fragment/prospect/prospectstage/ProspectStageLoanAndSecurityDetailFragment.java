@@ -148,9 +148,9 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
         ArrayAdapter<String> vehicleTypeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAssetTypeStringList());
         spinnerVehicleType.setAdapter(vehicleTypeAdapter);
         initListener(brandAdapter);
-        if (prospectStageActivity.getDataFromProspect() != null) {
+        if (getArguments() != null) {
 
-            MyNewProspect myNewLead = prospectStageActivity.getDataFromProspect();
+            MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
 
             etSecurityValue.setText(myNewLead.getsValue());
             etLoanRequired.setText(myNewLead.getLoanReq());

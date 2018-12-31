@@ -140,43 +140,43 @@ public class NewProspectUpdate {
     private String netSalaryType;
     @SerializedName("netSalary")
     @Expose
-    private Integer netSalary;
+    private Double netSalary;
     @SerializedName("businessIncome")
     @Expose
-    private Integer businessIncome;
+    private Double businessIncome;
     @SerializedName("apartmentIncome")
     @Expose
-    private Integer apartmentIncome;
+    private Double apartmentIncome;
     @SerializedName("semipakaIncome")
     @Expose
-    private Integer semipakaIncome;
+    private Double semipakaIncome;
     @SerializedName("commercialSpaceIncome")
     @Expose
-    private Integer commercialSpaceIncome;
+    private Double commercialSpaceIncome;
     @SerializedName("factoryIncome")
     @Expose
-    private Integer factoryIncome;
+    private Double factoryIncome;
     @SerializedName("agriculturalIncome")
     @Expose
-    private Integer agriculturalIncome;
+    private Double agriculturalIncome;
     @SerializedName("tutionIncome")
     @Expose
-    private Integer tutionIncome;
+    private Double tutionIncome;
     @SerializedName("remittanceIncome")
     @Expose
-    private Integer remittanceIncome;
+    private Double remittanceIncome;
     @SerializedName("interestIncomeOfFDR")
     @Expose
-    private Integer interestIncomeOfFDR;
+    private Double interestIncomeOfFDR;
     @SerializedName("familyExpenditure")
     @Expose
-    private Integer familyExpenditure;
+    private Double familyExpenditure;
     @SerializedName("emiOfOtherLoan")
     @Expose
-    private Integer emiOfOtherLoan;
+    private Double emiOfOtherLoan;
     @SerializedName("securityValue")
     @Expose
-    private Integer securityValue;
+    private Double securityValue;
     @SerializedName("assetTypeId")
     @Expose
     private Integer assetTypeId;
@@ -197,16 +197,16 @@ public class NewProspectUpdate {
     private String manufacturingCountry;
     @SerializedName("loanRequired")
     @Expose
-    private Integer loanRequired;
+    private Double loanRequired;
     @SerializedName("loanTerm")
     @Expose
     private Integer loanTerm;
     @SerializedName("intersetRate")
     @Expose
-    private Float intersetRate;
+    private Double intersetRate;
     @SerializedName("fee")
     @Expose
-    private Float fee;
+    private Double fee;
     @SerializedName("coApplicants")
     @Expose
     private List<CoApplicant> coApplicants = new ArrayList<>();
@@ -542,107 +542,107 @@ public class NewProspectUpdate {
         this.netSalaryType = netSalaryType;
     }
 
-    public Integer getNetSalary() {
+    public Double getNetSalary() {
         return netSalary;
     }
 
-    public void setNetSalary(Integer netSalary) {
+    public void setNetSalary(Double netSalary) {
         this.netSalary = netSalary;
     }
 
-    public Integer getBusinessIncome() {
+    public Double getBusinessIncome() {
         return businessIncome;
     }
 
-    public void setBusinessIncome(Integer businessIncome) {
+    public void setBusinessIncome(Double businessIncome) {
         this.businessIncome = businessIncome;
     }
 
-    public Integer getApartmentIncome() {
+    public Double getApartmentIncome() {
         return apartmentIncome;
     }
 
-    public void setApartmentIncome(Integer apartmentIncome) {
+    public void setApartmentIncome(Double apartmentIncome) {
         this.apartmentIncome = apartmentIncome;
     }
 
-    public Integer getSemipakaIncome() {
+    public Double getSemipakaIncome() {
         return semipakaIncome;
     }
 
-    public void setSemipakaIncome(Integer semipakaIncome) {
+    public void setSemipakaIncome(Double semipakaIncome) {
         this.semipakaIncome = semipakaIncome;
     }
 
-    public Integer getCommercialSpaceIncome() {
+    public Double getCommercialSpaceIncome() {
         return commercialSpaceIncome;
     }
 
-    public void setCommercialSpaceIncome(Integer commercialSpaceIncome) {
+    public void setCommercialSpaceIncome(Double commercialSpaceIncome) {
         this.commercialSpaceIncome = commercialSpaceIncome;
     }
 
-    public Integer getFactoryIncome() {
+    public Double getFactoryIncome() {
         return factoryIncome;
     }
 
-    public void setFactoryIncome(Integer factoryIncome) {
+    public void setFactoryIncome(Double factoryIncome) {
         this.factoryIncome = factoryIncome;
     }
 
-    public Integer getAgriculturalIncome() {
+    public Double getAgriculturalIncome() {
         return agriculturalIncome;
     }
 
-    public void setAgriculturalIncome(Integer agriculturalIncome) {
+    public void setAgriculturalIncome(Double agriculturalIncome) {
         this.agriculturalIncome = agriculturalIncome;
     }
 
-    public Integer getTutionIncome() {
+    public Double getTutionIncome() {
         return tutionIncome;
     }
 
-    public void setTutionIncome(Integer tutionIncome) {
+    public void setTutionIncome(Double tutionIncome) {
         this.tutionIncome = tutionIncome;
     }
 
-    public Integer getRemittanceIncome() {
+    public Double getRemittanceIncome() {
         return remittanceIncome;
     }
 
-    public void setRemittanceIncome(Integer remittanceIncome) {
+    public void setRemittanceIncome(Double remittanceIncome) {
         this.remittanceIncome = remittanceIncome;
     }
 
-    public Integer getInterestIncomeOfFDR() {
+    public Double getInterestIncomeOfFDR() {
         return interestIncomeOfFDR;
     }
 
-    public void setInterestIncomeOfFDR(Integer interestIncomeOfFDR) {
+    public void setInterestIncomeOfFDR(Double interestIncomeOfFDR) {
         this.interestIncomeOfFDR = interestIncomeOfFDR;
     }
 
-    public Integer getFamilyExpenditure() {
+    public Double getFamilyExpenditure() {
         return familyExpenditure;
     }
 
-    public void setFamilyExpenditure(Integer familyExpenditure) {
+    public void setFamilyExpenditure(Double familyExpenditure) {
         this.familyExpenditure = familyExpenditure;
     }
 
-    public Integer getEmiOfOtherLoan() {
+    public Double getEmiOfOtherLoan() {
         return emiOfOtherLoan;
     }
 
-    public void setEmiOfOtherLoan(Integer emiOfOtherLoan) {
+    public void setEmiOfOtherLoan(Double emiOfOtherLoan) {
         this.emiOfOtherLoan = emiOfOtherLoan;
     }
 
-    public Integer getSecurityValue() {
+    public Double getSecurityValue() {
         return securityValue;
     }
 
-    public void setSecurityValue(Integer securityValue) {
+    public void setSecurityValue(Double securityValue) {
         this.securityValue = securityValue;
     }
 
@@ -694,11 +694,11 @@ public class NewProspectUpdate {
         this.manufacturingCountry = manufacturingCountry;
     }
 
-    public Integer getLoanRequired() {
+    public Double getLoanRequired() {
         return loanRequired;
     }
 
-    public void setLoanRequired(Integer loanRequired) {
+    public void setLoanRequired(Double loanRequired) {
         this.loanRequired = loanRequired;
     }
 
@@ -710,19 +710,19 @@ public class NewProspectUpdate {
         this.loanTerm = loanTerm;
     }
 
-    public Float getIntersetRate() {
+    public Double getIntersetRate() {
         return intersetRate;
     }
 
-    public void setIntersetRate(Float intersetRate) {
+    public void setIntersetRate(Double intersetRate) {
         this.intersetRate = intersetRate;
     }
 
-    public Float getFee() {
+    public Double getFee() {
         return fee;
     }
 
-    public void setFee(Float fee) {
+    public void setFee(Double fee) {
         this.fee = fee;
     }
 
@@ -794,7 +794,6 @@ public class NewProspectUpdate {
             coApplicant.setMobileNoId(coApplicanLocalList.get(i).getMobileNoId());
             coApplicant.setMobile(coApplicanLocalList.get(i).getMobileNo());
             coApplicant.setExceptionList(coApplicanLocalList.get(i).getExceptionList());
-
             coApplicant.setCountryOfBirth(coApplicanLocalList.get(i).getCountryOfBirth());
             coApplicant.setCurrentJobDuration(coApplicanLocalList.get(i).getNoOfYrsInCurrentJob());
             coApplicant.setCustomerName(coApplicanLocalList.get(i).getName());
@@ -834,77 +833,77 @@ public class NewProspectUpdate {
     public void getPRospectDAtaForPostAPi(MyNewProspect myNewProspect) {
 
         try {
-            setAgriculturalIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getAg_Income().replace(",", ""))));
+            setAgriculturalIncome(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getAg_Income().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setApartmentIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getApartmentAmount().replace(",", ""))));
+            setApartmentIncome(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getApartmentAmount().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setBusinessIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getBusinessIncomeAmount().replace(",", ""))));
+            setBusinessIncome(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getBusinessIncomeAmount().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setCommercialSpaceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOfficeSpaceINcome().replace(",", ""))));
+            setCommercialSpaceIncome(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getOfficeSpaceINcome().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setEmiOfOtherLoan(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getEmiOther().replace(",", ""))));
+            setEmiOfOtherLoan(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getEmiOther().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setFactoryIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getWireHouseINcome().replace(",", ""))));
+            setFactoryIncome(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getWireHouseINcome().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setFamilyExpenditure(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
+            setFamilyExpenditure(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getfExpense().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setFee(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
+            setFee(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getProspectFee().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setInterestIncomeOfFDR(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
+            setInterestIncomeOfFDR(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getInFdr().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setIntersetRate(Float.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getPiRate().replace(",", ""))));
+            setIntersetRate(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getPiRate().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setLoanRequired(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
+            setLoanRequired(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getLoanReq().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
@@ -918,35 +917,35 @@ public class NewProspectUpdate {
 
         }
         try {
-            setNetSalary(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
+            setNetSalary(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSalaryAmount().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setRemittanceIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
+            setRemittanceIncome(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getRemitance().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setSecurityValue(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
+            setSecurityValue(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getsValue().replace(",", ""))));
         } catch (NumberFormatException e) {
 
         } catch (NullPointerException e) {
 
         }
         try {
-            setSemipakaIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSemipakaIncome()).replace(",", "")));
+            setSemipakaIncome(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getSemipakaIncome()).replace(",", "")));
         } catch (NumberFormatException n) {
 
         } catch (NullPointerException n) {
 
         }
         try {
-            setTutionIncome(Integer.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
+            setTutionIncome(Double.valueOf(CommonUtil.emptyFieldToZero(myNewProspect.getTution().replace(",", ""))));
 
         } catch (NumberFormatException e) {
 
@@ -959,7 +958,7 @@ public class NewProspectUpdate {
         setManufacturerNameId(myNewProspect.getManufacturingNameId());
         setManufacturingCountry(myNewProspect.getManufacturingCountry());
         setManufacturingYear(myNewProspect.getManufacturingYear());
-
+        setRmCode(myNewProspect.getUserCode());
         setBranchCode(myNewProspect.getBranchCode());
         setBranchName(myNewProspect.getBranchName());
         setExceptionList(myNewProspect.getExceptionList());
@@ -997,7 +996,7 @@ public class NewProspectUpdate {
         setProductSubCategoryId(myNewProspect.getSubCode());
         setProfession(myNewProspect.getProfession());
         setRelationshipWithApplicant(myNewProspect.getApplicant());
-        setRmCode("336132");
+
         setSpouseName(myNewProspect.getsName());
         setUserName(myNewProspect.getUserID());
         setStatus(myNewProspect.getStatus());

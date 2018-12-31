@@ -362,7 +362,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             if (isNetworkAvailable()) {
                 alertDialogProceed();
             } else
-                showAlertDialog("Error", "Proceed is not available without internet,PLease connect to the internet");
+                showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.proceed_unavailable));
 
         });
 
@@ -378,7 +378,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         !TextUtils.isEmpty(etNewRemark.getText())) {
                     alertDialogSave();
                 } else
-                    showAlertDialog("Alert", "Follow up date is mandatory for " + spinerClientTypeStr + " client & " + sPurposeOfVisitStr);
+                    showAlertDialog(getResources().getString(R.string.alert), "Follow up date is mandatory for " + spinerClientTypeStr + " client & " + sPurposeOfVisitStr);
 
             } else {
                 alertDialogSave();
@@ -388,7 +388,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
 
         backButton.setOnClickListener(view -> {
-
             onBackPressed();
 
         });
@@ -419,7 +418,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             if (isNetworkAvailable())
                 followUpAlert();
             else
-                showAlertDialog("ERROR", "internet is not connected,please connect to the internet");
+                showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.internet_not_available));
 
 
         });
@@ -437,8 +436,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         }
         builder.setTitle(getString(R.string.remove));
         builder.setMessage(getString(R.string.reject_item));
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             if (isNetworkAvailable()) {
                 showProgressDialog();
                 getApiService().actionCompleteActivity(visitPlanModel.getJournalId()).enqueue(new Callback<CompleteActivity>() {
@@ -448,21 +447,20 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                             if (response.body().getCode().equals("200")) {
                                 visitPlanDbController.updateVisitPlanDataStatus(visitPlanModel.getId(), AppConstant.REJECTED);
                                 hideProgressDialog();
-                                MasumCommonUtils.statusAlert(response.body().getStatus(),response.body().getMessage(),VisitPLanDetailsActivity.this);
-                            }
-                            else {
-                                showAlertDialog(response.body().getStatus(),response.body().getMessage());
+                                MasumCommonUtils.statusAlert(response.body().getStatus(), response.body().getMessage(), VisitPLanDetailsActivity.this);
+                            } else {
+                                showAlertDialog(response.body().getStatus(), response.body().getMessage());
                                 hideProgressDialog();
                             }
                         } else {
-                            showAlertDialog("Error",response.message());
+                            showAlertDialog(getResources().getString(R.string.error_txt), response.message());
                             hideProgressDialog();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<CompleteActivity> call, Throwable t) {
-                        showAlertDialog("Error",t.getMessage());
+                        showAlertDialog(getString(R.string.error_txt), t.getMessage());
                         hideProgressDialog();
                     }
                 });
@@ -481,7 +479,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     private void setUpdatedData() {
         showProgressDialog();
         if (tvVisitDate.getText().toString().isEmpty()) {
-            showAlertDialog("Alert", "Enter date of visit");
+            showAlertDialog(getString(R.string.alert), "Enter date of visit");
             hideProgressDialog();
             return;
         }
@@ -497,35 +495,41 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
                         if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                             Data data1 = response.body().getData();
-                            visitPlanDbController.insertData(data1.getActivityJournalID(), tvClientName.getText().toString(), spinerClientTypeStr,
-                                    tvMobileNumber.getText().toString(), sProductTypeString,
-                                    citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
-                                    tvRemarks.getText().toString(), data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK);
+                            insertActivityData(data1);
                             hideProgressDialog();
-                            MasumCommonUtils.statusAlert(response.body().getStatus(),response.body().getMessage(),VisitPLanDetailsActivity.this);
+                            MasumCommonUtils.statusAlert(response.body().getStatus(), response.body().getMessage(), VisitPLanDetailsActivity.this);
                         }
 
                     }
 
                     @Override
                     public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                        getAlertDialog("ERROR", t.getMessage());
+                        getAlertDialog(getString(R.string.error_txt), t.getMessage());
                         hideProgressDialog();
 
                     }
                 });
             } else {
-                visitPlanDbController.insertData(0, tvClientName.getText().toString(), spinerClientTypeStr,
-                        tvMobileNumber.getText().toString(), sProductTypeString,
-                        citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
-                        tvRemarks.getText().toString(), AppConstant.STATUS_ACTIVITY_NEW, AppConstant.SYNC_STATUS_WAIT);
+                insertActivityData(data);
                 hideProgressDialog();
                 finish();
             }
-
-
         }
 
+    }
+
+    private void insertActivityData(Data data1) {
+        String syncStatus = null;
+        if (data1.getActivityJournalID() == 0) {
+            syncStatus = AppConstant.SYNC_STATUS_WAIT;
+        } else {
+            syncStatus = AppConstant.SYNC_STATUS_OK;
+        }
+
+        visitPlanDbController.insertData(data1.getActivityJournalID(), tvClientName.getText().toString(), spinerClientTypeStr,
+                tvMobileNumber.getText().toString(), sProductTypeString,
+                citySpn, polisStattionSpn, sPurposeOfVisitStr, tvVisitDate.getText().toString(),
+                tvRemarks.getText().toString(), data1.getActivityStatus(), syncStatus, data1.getFollowupDate(), data1.getFollowupRemarks());
     }
 
     private Data getDataFromField(int journalId) {
@@ -572,14 +576,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             }
 
             sPurposeOfVisitStr = visitPlanModel.getPurposeOfVisit();
-
-           /* if (visitPlanModel.getCity() != null) {
-                try {
-                    spinnerCity.setSelection(cityAdapter.getPosition(visitPlanModel.getCity()));
-                } catch (final IllegalStateException e) {
-                    e.getMessage();
-                }
-            }*/
 
             if (!MasumCommonUtils.isNullStr(visitPlanModel.getCity())) {
                 spinnerCity.setText(visitPlanModel.getCity());
@@ -632,76 +628,29 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                             Data data1 = response.body().getData();
                             hideProgressDialog();
-                            visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
-                                    data.getCustomerName(),
-                                    data.getClientType(),
-                                    data.getMobileNo(),
-                                    data.getPs(),
-                                    data.getProductType(),
-                                    data.getCity(),
-                                    data.getVisitPurposeType(),
-                                    data.getFollowupDate(),
-                                    data.getFollowupRemarks(),
-                                    data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
-                            MasumCommonUtils.statusAlert(response.body().getStatus(),response.body().getMessage(),VisitPLanDetailsActivity.this);
+                            updateDataACtivity(data1);
+                            MasumCommonUtils.statusAlert(response.body().getStatus(), response.body().getMessage(), VisitPLanDetailsActivity.this);
 
                         } else {
-                            visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
-                                    data.getCustomerName(),
-                                    data.getClientType(),
-                                    data.getMobileNo(),
-                                    data.getPs(),
-                                    data.getProductType(),
-                                    data.getCity(),
-                                    data.getVisitPurposeType(),
-                                    data.getFollowupDate(),
-                                    data.getFollowupRemarks(),
-                                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
+                            updateDataACtivity(data);
                             hideProgressDialog();
-                            finish();
+
                         }
 
                     }
 
                     @Override
                     public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                        getAlertDialog("ERROR", t.getMessage());
+                        getAlertDialog(getString(R.string.error_txt), t.getMessage());
                         hideProgressDialog();
 
                     }
                 });
             } else {
-                visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
-                        data.getCustomerName(),
-                        data.getClientType(),
-                        data.getMobileNo(),
-                        data.getPs(),
-                        data.getProductType(),
-                        data.getCity(),
-                        data.getVisitPurposeType(),
-                        data.getFollowupDate(),
-                        data.getFollowupRemarks(),
-                        AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
+                updateDataACtivity(data);
                 hideProgressDialog();
-                finish();
             }
 
-            int dataAvailable = followUpDbController.getAllData(visitPlanModel.getId()).size();
-            if (dataAvailable == 0) {
-                int insert = followUpDbController.insertData(visitPlanModel.getId(),
-                        tvVisitDate.getText().toString(), tvRemarks.getText().toString());
-                if (insert > 0) {
-                    Toast.makeText(this, "save date", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-            int insert = followUpDbController.insertData(visitPlanModel.getId(),
-                    etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
-            if (insert > 0) {
-                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
-
-                Toast.makeText(this, "update date", Toast.LENGTH_SHORT).show();
-            }
         } else {
             if (isNetworkAvailable()) {
                 getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
@@ -710,37 +659,17 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         if (response.isSuccessful()) {
                             if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                 Data data1 = response.body().getData();
-                                visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
-                                        data.getCustomerName(),
-                                        data.getClientType(),
-                                        data.getMobileNo(),
-                                        data.getPs(),
-                                        data.getProductType(),
-                                        data.getCity(),
-                                        data.getVisitPurposeType(),
-                                        data.getFollowupDate(),
-                                        data.getFollowupRemarks(),
-                                        data1.getActivityStatus(), AppConstant.SYNC_STATUS_OK));
-                                MasumCommonUtils.statusAlert(response.body().getStatus(),response.body().getMessage(),VisitPLanDetailsActivity.this);
-                                finish();
+                                updateDataACtivity(data1);
+                                MasumCommonUtils.statusAlert(response.body().getStatus(), response.body().getMessage(), VisitPLanDetailsActivity.this);
+
                             } else {
                                 showAlertDialog(response.body().getStatus(), response.body().getMessage());
 
                             }
 
                         } else {
-                            visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getId(), data.getActivityJournalID(),
-                                    data.getCustomerName(),
-                                    data.getClientType(),
-                                    data.getMobileNo(),
-                                    data.getPs(),
-                                    data.getProductType(),
-                                    data.getCity(),
-                                    data.getVisitPurposeType(),
-                                    data.getFollowupDate(),
-                                    data.getFollowupRemarks(),
-                                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-                            finish();
+                            updateDataACtivity(data);
+
                         }
 
                     }
@@ -752,92 +681,38 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                     }
                 });
             } else {
-                int update = visitPlanDbController.updateData(getPLanDataModel(
-                        visitPlanModel.getId(),
-                        data.getActivityJournalID(),
-                        data.getCustomerName(),
-                        data.getClientType(),
-                        data.getMobileNo(),
-                        data.getPs(),
-                        data.getProductType(),
-                        data.getCity(),
-                        data.getVisitPurposeType(),
-                        data.getFollowupDate(),
-                        data.getFollowupRemarks(),
-                        AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-                finish();
+                updateDataACtivity(data);
+
             }
 
         }
     }
 
-
-   /* private void updatePlanData() {
-        if (!isValidFollowUp()) {
-            return;
-
-        }
-        Data data = getDataFromField(visitPlanModel.getJournalId());
-        if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
-                !TextUtils.isEmpty(etNewRemark.getText())) {
-
-
-            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getJournalId(), visitPlanModel.getId(),
-                    tvClientName.getText().toString(),
-                    spinerClientTypeStr,
-                    tvMobileNumber.getText().toString(),
-                    tvPoliceStation.getText().toString(),
-                    sProductTypeString,
-                    tvCity.getText().toString(),
-                    sPurposeOfVisitStr,
-                    etNewFollowUpdate.getText().toString(),
-                    etNewRemark.getText().toString(),
-                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-            if (update > 0) {
-                Toast.makeText(VisitPLanDetailsActivity.this, "update data", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(VisitPLanDetailsActivity.this, "failed update", Toast.LENGTH_SHORT).show();
-
-            }
-
-            int dataAvailable = followUpDbController.getAllData(visitPlanModel.getId()).size();
-            if (dataAvailable == 0) {
-                int insert = followUpDbController.insertData(visitPlanModel.getId(),
-                        tvVisitDate.getText().toString(), tvRemarks.getText().toString());
-                if (insert > 0) {
-                    Toast.makeText(this, "save date", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-            int insert = followUpDbController.insertData(visitPlanModel.getId(),
-                    etNewFollowUpdate.getText().toString(), etNewRemark.getText().toString());
-
-
-            if (insert > 0) {
-                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
-
-                Toast.makeText(this, "update date", Toast.LENGTH_SHORT).show();
-            }
+    private void updateDataACtivity(Data data) {
+        String syncStatus = null;
+        if (isNetworkAvailable()) {
+            syncStatus = AppConstant.SYNC_STATUS_OK;
         } else {
-
-            int update = visitPlanDbController.updateData(getPLanDataModel(visitPlanModel.getJournalId(), visitPlanModel.getId(),
-                    tvClientName.getText().toString(),
-                    spinerClientTypeStr,
-                    tvMobileNumber.getText().toString(),
-                    tvPoliceStation.getText().toString(),
-                    sProductTypeString,
-                    tvCity.getText().toString(),
-                    sPurposeOfVisitStr,
-                    tvVisitDate.getText().toString(),
-                    tvRemarks.getText().toString(),
-                    AppConstant.STATUS_ACTIVITY, AppConstant.SYNC_STATUS_WAIT));
-            if (update > 0) {
-                ActivityUtils.getInstance().invokeActivity(VisitPLanDetailsActivity.this, MyActivitiesActivity.class, true);
-
-                Toast.makeText(VisitPLanDetailsActivity.this, "updated", Toast.LENGTH_SHORT).show();
-            }
+            syncStatus = AppConstant.SYNC_STATUS_WAIT;
         }
-    }*/
+        VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), data.getActivityJournalID(),
+                data.getCustomerName(),
+                data.getClientType(),
+                data.getMobileNo(),
+                data.getPs(),
+                data.getProductType(),
+                data.getCity(),
+                data.getVisitPurposeType(),
+                data.getActivityDate(),
+                data.getRemarks(),
+                data.getActivityStatus(), syncStatus);
+        visitPlan.setFollowUpDate(data.getFollowupDate());
+        visitPlan.setFollowUpRemark(data.getFollowupRemarks());
+
+        visitPlanDbController.updateData(visitPlan);
+        MasumCommonUtils.statusAlert("Success", getString(R.string.internet_not_available_local_save), VisitPLanDetailsActivity.this);
+    }
+
 
     private boolean isValidFollowUp() {
         boolean valid = true;
@@ -847,15 +722,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             valid = false;
         }
         return valid;
-    }
-
-
-    private VisitPlan getPLanDataModel(int id, int journalId, String clientName, String clientType,
-                                       String phone, String station, String pType, String
-                                               city, String pov, String dov, String re, String status, String synStatus) {
-        VisitPlan visitPlan = new VisitPlan(id, journalId, clientName, clientType, phone,
-                station, pType, city, pov, dov, re, status, synStatus);
-        return visitPlan;
     }
 
 
@@ -910,18 +776,18 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         } else {
                             showAlertDialog(response.body().getCode(), response.body().getMessage());
                         }
-                    } else showAlertDialog("Error", response.message());
+                    } else showAlertDialog(getString(R.string.error_txt), response.message());
 
                 }
 
                 @Override
                 public void onFailure(Call<FollowUpHistoryApi> call, Throwable t) {
-                    showAlertDialog("Error", t.getMessage());
+                    showAlertDialog(getString(R.string.error_txt), t.getMessage());
 
                 }
             });
         } else {
-            showAlertDialog("Error", "please connect to the internet");
+            showAlertDialog(getString(R.string.error_txt), getString(R.string.internet_not_available));
         }
 
 
@@ -935,11 +801,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
                 valid = true;
             } else {
-                isVAlidText = "Proceed is not valid for " + sPurposeOfVisitStr;
+                isVAlidText = getResources().getString(R.string.proceed_not_valid) + sPurposeOfVisitStr;
                 valid = false;
             }
         } else {
-            isVAlidText = "Proceed is not valid for " + spinerClientTypeStr;
+            isVAlidText = getString(R.string.proceed_not_valid) + spinerClientTypeStr;
             valid = false;
         }
 
@@ -947,7 +813,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     }
 
 
-    private void processToLeadDetails() {
+/*    private void processToLeadDetails() {
         if (isValidForProceed()) {
 
             if (visitPlanModel != null) {
@@ -1085,7 +951,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             showAlertDialog("Alert", isVAlidText);
         }
 
-    }
+    }*/
 
     private void throwAlertDialogForCIF() {
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
@@ -1125,10 +991,10 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         } else {
             builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
         }
-        builder.setTitle("Save");
-        builder.setMessage("Do you want to save details?");
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setTitle(getResources().getString(R.string.save_txt));
+        builder.setMessage(getResources().getString(R.string.save_alert));
+        builder.setNegativeButton(getResources().getString(R.string.no), null);
+        builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             setUpdatedData();
 
         });

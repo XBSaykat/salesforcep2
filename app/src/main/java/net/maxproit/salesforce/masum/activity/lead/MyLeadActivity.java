@@ -123,22 +123,27 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 binding.searchView.setQueryHint("search pending lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_NEW));
                 binding.rvMyLead.setClickable(false);
+                hideProgressDialog();
             } else if (status == 2) {
                 binding.searchView.setQueryHint("search proceeded lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
                 binding.rvMyLead.setClickable(false);
+                hideProgressDialog();
             } else if (status == 3) {
                 binding.searchView.setQueryHint("search closed lead");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_REJECT));
                 binding.rvMyLead.setClickable(false);
+                hideProgressDialog();
             } else if (status == 4) {
                 binding.searchView.setQueryHint("search Prospect ");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
                 binding.rvMyLead.setClickable(false);
+                hideProgressDialog();
             } else if (status == 5) {
                 binding.searchView.setQueryHint("search Proceeded Prospect");
                 leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_RBM));
                 binding.rvMyLead.setClickable(false);
+                hideProgressDialog();
             } else {
 
                 if (isNetworkAvailable()) {
@@ -148,8 +153,13 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                     leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
                     myLeadAdapter.notifyDataSetChanged();
                     if (leadListDataFromApi.isEmpty()) {
+                        hideProgressDialog();
                         showEmptyView();
-                    } else hideLoader();
+                    } else {
+                        hideLoader();
+                        hideProgressDialog();
+                    }
+
                 }
             }
         } else {
@@ -160,8 +170,12 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
             myLeadAdapter.notifyDataSetChanged();
             if (leadListDataFromApi.isEmpty()) {
+                hideProgressDialog();
                 showEmptyView();
-            } else hideLoader();
+            } else {
+                hideLoader();
+                hideProgressDialog();
+            }
 
         }
 
@@ -183,14 +197,14 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                         } else {
                             hideProgressDialog();
                             showEmptyView();
-                            showAlertDialog("Error", response.body().getMessage());
+                            showAlertDialog(getResources().getString(R.string.error_txt), response.body().getMessage());
                         }
 
 
                     } else {
                         hideProgressDialog();
                         showEmptyView();
-                        showAlertDialog("Error", response.message());
+                        showAlertDialog(getResources().getString(R.string.error_txt), response.message());
                     }
                 }
 
@@ -198,13 +212,13 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
                     showEmptyView();
                     hideProgressDialog();
-                    showAlertDialog("Error", t.getMessage());
+                    showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
 
                 }
             });
         } else {
             hideProgressDialog();
-            showAlertDialog("Error", "Internet not Available,please connect to the internet");
+            showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.internet_not_available));
 
         }
 
@@ -232,6 +246,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                                         data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
                                         data.getProductSubCategory(), loanAmount, interestRate, opfee, disDate,
                                         followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
+                                myNewLead.setUserCode(data.getRmCode());
                                 myNewLead.setPs(data.getPs());
                                 myNewLead.setCity(data.getCity());
                                 ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
@@ -241,17 +256,17 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                                 hideProgressDialog();
                             } else showEmptyView();
                         } else {
-                            showAlertDialog("Error", response.body().getMessage());
-
+                            showAlertDialog(getResources().getString(R.string.error_txt), response.body().getMessage());
                         }
-                    } else showAlertDialog("Error", response.message());
+                    } else
+                        showAlertDialog(getResources().getString(R.string.error_txt), response.message());
 
                 }
 
                 @Override
                 public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
 
-                    showAlertDialog("ERROR", t.getMessage());
+                    showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
 
                 }
             });
@@ -259,7 +274,6 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         } else {
             MyNewLead myNewLead = myLeadDbController.getDataById(filterList.get(position).getId()).get(0);
             ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
-
         }
 
     }

@@ -18,7 +18,7 @@ public class MyNewProspect extends MyNewLead implements Serializable {
 
     private int branchCode, assetTypeId, manufacturingNameId, contactId, permAddressId, presAddressId;
     private String manufacturingName, manufacturingCountry,
-            manufacturingYear, assetType, rmCode, PermAddressCity, PermAddressPs,
+            manufacturingYear, assetType, PermAddressCity, PermAddressPs,
             PresAddressCity, PresAddressPs, brandName;
 
     public List<CoApplicant> getCoApplicantList() {
@@ -78,14 +78,6 @@ public class MyNewProspect extends MyNewLead implements Serializable {
 
     public void setRuleEngineInformation(String ruleEngineInformation) {
         this.ruleEngineInformation = ruleEngineInformation;
-    }
-
-    public String getRmCode() {
-        return rmCode;
-    }
-
-    public void setRmCode(String rmCode) {
-        this.rmCode = rmCode;
     }
 
     public int getPermAddressId() {
