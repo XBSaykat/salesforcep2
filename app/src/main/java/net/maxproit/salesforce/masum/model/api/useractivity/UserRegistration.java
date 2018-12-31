@@ -27,6 +27,12 @@ public class UserRegistration {
         this.lastUserOTP = lastUserOTP;
     }
 
+    public UserRegistration(String userLogin, String password, String lastUserOTP) {
+        this.userLogin = userLogin;
+        this.password = password;
+        this.lastUserOTP = lastUserOTP;
+    }
+
     public String getUserLogin() {
         return userLogin;
     }

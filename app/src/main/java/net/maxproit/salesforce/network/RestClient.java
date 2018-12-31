@@ -50,7 +50,7 @@ public class RestClient {
      */
     @NonNull
     private static String getBaseURL() {
-        return "http://service.idlc.com:8080/SalesforceApiConsumer/api/";
+        return "http://service.idlc.com/SalesforceApiConsumer/api/";
     }
 
     /**
