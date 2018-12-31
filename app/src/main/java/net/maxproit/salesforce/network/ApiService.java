@@ -439,7 +439,7 @@ public interface ApiService {
     Call<ApprovalResponce> approve(@Body Approval approval);
 
 //App version Check
-    @GET("AppVersionDetail/{timestamp}")
+    @GET("GlobalSettings/api/AppVersionDetail/{timestamp}")
     Call<AppVersionResponse> getAppUpdate(@Path("timestamp") String timestamp);
 }
 

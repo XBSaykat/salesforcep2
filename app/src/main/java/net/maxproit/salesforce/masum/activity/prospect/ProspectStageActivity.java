@@ -634,7 +634,7 @@ public class ProspectStageActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
-                            errorAlert(getResources().getString(R.string.error_txt), t.getMessage());
+                            errorAlert(getResources().getString(R.string.error_text), t.getMessage());
                             hideProgressDialog();
                             if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                 coApplicantList.clear();

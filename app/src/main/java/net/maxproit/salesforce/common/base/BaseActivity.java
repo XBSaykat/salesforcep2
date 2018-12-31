@@ -400,7 +400,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 }
 
                             }catch (Exception e){
-                                showAlertDialog(getStringFromResource(R.string.error_text), e.getLocalizedMessage());
+                            initSplash(activity, cls);
+                                showAlertDialog(getStringFromResource(R.string.error_text), "error");
+
                             }
 
 
@@ -462,7 +464,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             try {
                 manager.enqueue(request);
             } catch (NullPointerException e) {
-                showAlertDialog(getStringFromResource(R.string.error_txt), e.getLocalizedMessage());
+                showAlertDialog(getStringFromResource(R.string.error_text), e.getLocalizedMessage());
             }
 
         }

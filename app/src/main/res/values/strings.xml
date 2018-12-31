@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IDLC Salesforce</string>
+    <string name="app_name">IDLC Salesforce: CD</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Sells Officer</string>
@@ -263,7 +263,6 @@
     <string name="my_activity">My Activity</string>
     <string name="date_of_birth">Date of birth :</string>
     <string name="Proceed_is_not_available">Proceed is not available without internet,PLease connect to the internet</string>
-    <string name="error_txt">Error</string>
     <string name="create_lead">Create Lead</string>
     <string name="save_alert">Do you want to save details?</string>
     <string name="alert">Alert</string>
@@ -276,7 +275,6 @@
     <string name="succes_txt">Success</string>
     <string name="approved_falied">Approved Failed</string>
     <string name="proceed_succesfull">Proceed Successfully</string>
-    <string name="error_txt">Error</string>
     <string name="response_code_200">200</string>
     <string name="error_text">Error</string>
     <string name="internet_not_available">Internet not available please connect to the internet</string>

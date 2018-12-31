@@ -21,14 +21,15 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initComponents() {
         binding = (ActivitySplashBinding) getBinding();
-
-        binding = (ActivitySplashBinding) getBinding();
         if (isNetworkAvailable()) {
             boolean isFromSplashScreen = true;
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                     (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                 checkAppVersion(isFromSplashScreen, SplashActivity.this, LoginActivity.class);
+            }else {
+                initSplash(SplashActivity.this, LoginActivity.class);
             }
+
         }
         else {
             initSplash(SplashActivity.this, LoginActivity.class);

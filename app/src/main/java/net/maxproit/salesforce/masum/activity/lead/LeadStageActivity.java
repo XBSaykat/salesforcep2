@@ -254,7 +254,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 if (isNetworkAvailable())
                     alertDialogProceed(finalMyNewLead);
                 else
-                    showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.Proceed_is_not_available));
+                    showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.Proceed_is_not_available));
 
             }
         });
@@ -444,7 +444,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                         @Override
                         public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-                            errorAlert(getResources().getString(R.string.error_txt), t.getMessage());
+                            errorAlert(getResources().getString(R.string.error_text), t.getMessage());
 
                         }
                     });
@@ -476,7 +476,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                         @Override
                         public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                            showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                            showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
                         }
                     });
 
@@ -530,7 +530,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             @Override
             public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-                errorAlert(getResources().getString(R.string.error_txt), t.getMessage());
+                errorAlert(getResources().getString(R.string.error_text), t.getMessage());
 
             }
         });
@@ -551,7 +551,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             @Override
             public void onFailure(Call<CompleteActivity> call, Throwable t) {
-                showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
                 hideProgressDialog();
             }
         });
@@ -589,7 +589,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                         leadApprove(data, 0);
                                     } else {
                                         hideProgressDialog();
-                                        showAlertDialog(getResources().getString(R.string.error_txt), response.body().getMessage());
+                                        showAlertDialog(getResources().getString(R.string.error_text), response.body().getMessage());
                                     }
                                 } else { // old lead update offline
                                     int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), myNewLead.getCusId(), myNewLead.getMobileId(), myNewLead.getVisitId(), myNewLead.getAddressId(), Integer.valueOf(LeadStageBasicInformationFragment.branchCode),
@@ -633,7 +633,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                                 @Override
                                 public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                                    showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                                    showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
                                     hideProgressDialog();
 
                                 }
@@ -709,7 +709,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             @Override
             public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-                showAlertDialog(getResources().getString(R.string.error_txt),t.getMessage());
+                showAlertDialog(getResources().getString(R.string.error_text),t.getMessage());
                 hideProgressDialog();
             }
         });
@@ -743,7 +743,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
                 hideProgressDialog();
-                errorAlert(getResources().getString(R.string.error_txt),getResources().getString(R.string.approved_falied));
+                errorAlert(getResources().getString(R.string.error_text),getResources().getString(R.string.approved_falied));
 
             }
         });

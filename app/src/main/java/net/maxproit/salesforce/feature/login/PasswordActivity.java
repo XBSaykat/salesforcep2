@@ -76,7 +76,7 @@ public class PasswordActivity extends BaseActivity {
                 }
             });
         } else {
-            showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.internet_not_available));
+            showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.internet_not_available));
         }
     }
 
