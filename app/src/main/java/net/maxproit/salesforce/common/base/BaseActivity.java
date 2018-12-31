@@ -377,45 +377,56 @@ public abstract class BaseActivity extends AppCompatActivity {
             getApiService().getAppUpdate(UUID.randomUUID().toString()).enqueue(new Callback<AppVersionResponse>() {
                 @Override
                 public void onResponse(Call<AppVersionResponse> call, Response<AppVersionResponse> response) {
+                    int verNameUpdate = 4, verCodeUpdate = 5;
+
                     if (response.isSuccessful()){
-                        int versionNameUpdate, versionCodeUpdate;
-
                         if (response.body().getCode().equalsIgnoreCase(getString(R.string.response_code_200))){
-                            try{
-                                versionNameUpdate = Integer.parseInt(response.body().getData().getVersionName().replace(".",""));
-                                versionCodeUpdate = response.body().getData().getVersionCode();
+//                                verNameUpdate = Integer.parseInt(response.body().getData().getVersionName().replace(".",""));
 
+                                verCodeUpdate = response.body().getData().getVersionCode();
                                 showToast(
-                                        "CURRENT App v."+versionName+"\nServer App v."+versionNameUpdate);
-                                if (versionNameUpdate > versionName || versionCodeUpdate > versionCode){
-
+                                        "CURRENT App v."+versionName+"\nServer App v."+verNameUpdate);
+                                if (verNameUpdate > versionName || verCodeUpdate > versionCode){
                                     appUpdateAlertDialog(response.body().getData().getUrl());
-
                                 }
                                 else {
                                     if (isFromSplashScreen){
-
                                         initSplash(activity, cls);
                                     }
                                 }
 
-                            }catch (Exception e){
-                            initSplash(activity, cls);
-                                showAlertDialog(getStringFromResource(R.string.error_text), "error");
 
-                            }
+//                            if (isFromSplashScreen){
+//
+//                                initSplash(activity, cls);
+//                            }
+//                                showAlertDialog(getStringFromResource(R.string.error_text), "error");
+
+
 
 
                         }else {
+                            if (isFromSplashScreen){
+
+                                initSplash(activity, cls);
+                            }
                             showAlertDialog(response.body().getCode(), response.message());
                         }
                     }else {
+                        if (isFromSplashScreen){
+
+                            initSplash(activity, cls);
+                        }
                         showAlertDialog(getStringFromResource(R.string.error_text), response.message());
                     }
                 }
 
                 @Override
                 public void onFailure(Call<AppVersionResponse> call, Throwable t) {
+                    if (isFromSplashScreen){
+
+                        initSplash(activity, cls);
+                    }
                     showAlertDialog(getStringFromResource(R.string.error_text), t.getLocalizedMessage());
                 }
             });
@@ -446,7 +457,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         String fileName;
         if (url != null) {
-            fileName = url.substring(url.lastIndexOf('/') + 1, url.length());
+            fileName = url.substring(url.lastIndexOf('/') + 1, url.length()).trim();
 
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setDescription("Downloading latest version of the App");
