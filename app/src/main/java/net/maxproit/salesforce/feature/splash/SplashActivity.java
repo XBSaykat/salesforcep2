@@ -1,6 +1,9 @@
 package net.maxproit.salesforce.feature.splash;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -19,16 +22,18 @@ public class SplashActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivitySplashBinding) getBinding();
 
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-
-
-                startActivity(LoginActivity.class, true);
-                SplashActivity.this.finish();
+        binding = (ActivitySplashBinding) getBinding();
+        if (isNetworkAvailable()) {
+            boolean isFromSplashScreen = true;
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                    (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+                checkAppVersion(isFromSplashScreen, SplashActivity.this, LoginActivity.class);
             }
-        }, 1500);
+        }
+        else {
+            initSplash(SplashActivity.this, LoginActivity.class);
+        }
+
     }
 
     @Override

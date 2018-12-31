@@ -275,6 +275,9 @@
     <string name="succes_txt">Success</string>
     <string name="approved_falied">Approved Failed</string>
     <string name="proceed_succesfull">Proceed Successfully</string>
+    <string name="error_txt">Error</string>
+    <string name="response_code_200">200</string>
+    <string name="error_text">Error</string>
 
 
 </resources>
