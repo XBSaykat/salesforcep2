@@ -9,7 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import net.maxproit.salesforce.masum.adapter.MyPerformanceDetailsDataAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.model.api.dashboarddetail.DashBoardDetailModel;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -35,12 +37,12 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 
     ActivityMyProspectBinding binding;
     LocalLogin localLogin;
-    MyNewProspectAdapter myProspectAdapter;
+    MyPerformanceDetailsDataAdapter myProspectAdapter;
     String userName;
     Bundle extras;
     MyLeadDbController myLeadDbController;
 
-    ArrayList<MyNewProspect> leadList, filterList;
+    ArrayList<DashBoardDetailModel> leadList, filterList;
     Button btnAddProspect;
 
 
@@ -63,11 +65,11 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
             leadList.clear();
         }
 
-        leadList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_NEW_PROSPECT));
+       // leadList.addAll();
 
         localLogin = new LocalLogin(getApplicationContext());
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
-      //  myProspectAdapter = new MyNewProspectAdapter(MyProspectActivity.this, leadList);
+        myProspectAdapter = new MyPerformanceDetailsDataAdapter(MyProspectActivity.this, leadList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.rvMyProspect.setLayoutManager(mLayoutManager);
         binding.rvMyProspect.setAdapter(myProspectAdapter);
@@ -102,7 +104,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 loadFilterData();
                 switch (view.getId()){
                     default:
-                        sentDataToDetail(position);
+                       // sentDataToDetail(position);
                         break;
                 }
             }
@@ -111,30 +113,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
     }
 
 
-    private void removeItemFromList(int position,String status) {
-        for (int i = 0; i < leadList.size(); i++) {
-            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.get(i).setStatus(status);
-                leadList.remove(i);
-                myProspectAdapter.notifyItemRemoved(position);
-                break;
-
-            }
-        }
-    }
-
-    private void changeItemStatus(int position,String status) {
-        for (int i = 0; i < leadList.size(); i++) {
-            if (leadList.get(i).getId() == filterList.get(position).getId()) {
-                leadList.get(i).setStatus(status);
-                myProspectAdapter.notifyDataSetChanged();
-                break;
-
-            }
-        }
-    }
-
-
+/*
     private void sentDataToDetail(int position) {
         MyNewProspect myNewLead=new MyNewProspect(filterList.get(position).getId(),
                 filterList.get(position).getBranchName(),
@@ -191,16 +170,16 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
                 filterList.get(position).getProspectFee()
                 );
         ActivityUtils.invokLeadDetailForProspectStage(this,myNewLead);
-    }
+    }*/
 
     //filter  data
-    private ArrayList<MyNewProspect> getFilterData(ArrayList<MyNewProspect> models, CharSequence searchKey) {
+    private ArrayList<DashBoardDetailModel> getFilterData(ArrayList<DashBoardDetailModel> models, CharSequence searchKey) {
         searchKey = searchKey.toString().toLowerCase();
 
-        final ArrayList<MyNewProspect> filteredModelList = new ArrayList<>();
-        for (MyNewProspect model : models) {
-            final String uName = model.getUserName().toLowerCase();
-            final String phone = model.getPhone().toLowerCase();
+        final ArrayList<DashBoardDetailModel> filteredModelList = new ArrayList<>();
+        for (DashBoardDetailModel model : models) {
+            final String uName = model.getClientName().toLowerCase();
+            final String phone = model.getID().toLowerCase();
 
             if (uName.contains(searchKey) || phone.contains(searchKey)) {
                 filteredModelList.add(model);
