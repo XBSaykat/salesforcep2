@@ -162,10 +162,10 @@ public class MyPerformanceAllDetailActivity extends BaseActivity {
         myPerformanceDataModelList.add(new MyPerformanceModel("city", data.getCity()));
         myPerformanceDataModelList.add(new MyPerformanceModel("product", data.getProductType()));
         myPerformanceDataModelList.add(new MyPerformanceModel("ps", data.getPs()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("activityDate", data.getActivityDate()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("activityDate", DateUtils.jsonToDate(data.getActivityDate())));
         myPerformanceDataModelList.add(new MyPerformanceModel("remark", data.getRemarks()));
         myPerformanceDataModelList.add(new MyPerformanceModel("follow up remark", data.getFollowupRemarks()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("followUpDate", data.getFollowupDate()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("followUpDate", DateUtils.jsonToDate(data.getFollowupDate())));
         myPerformanceDataModelList.add(new MyPerformanceModel("status", data.getActivityStatus()));
         myPerformanceDataModelList.add(new MyPerformanceModel("userName", data.getMaker()));
         myPerformanceDataModelList.add(new MyPerformanceModel("mobileNo", data.getMobileNo()));

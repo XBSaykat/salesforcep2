@@ -44,12 +44,6 @@ public class MyPerformanceAllDetailsAdapter extends RecyclerView.Adapter<MyPerfo
             tvStatus=itemView.findViewById(R.id.tvStatus);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mListener.itemClickListener(view,getLayoutPosition());
-                }
-            });
         }
 
     }
