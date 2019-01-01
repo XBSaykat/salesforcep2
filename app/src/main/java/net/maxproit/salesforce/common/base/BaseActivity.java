@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.common.base;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,8 +10,11 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +28,9 @@ import android.widget.Toast;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonNull;
 
+import net.maxproit.salesforce.BuildConfig;
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.model.appversion.AppVersionResponse;
 import net.maxproit.salesforce.network.ApiService;
 import net.maxproit.salesforce.network.RestClient;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -35,6 +41,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -338,5 +349,151 @@ public abstract class BaseActivity extends AppCompatActivity {
         return isTrue;
     }
 
+    public String getStringFromResource(int stringID){
+        return getResources().getString(stringID);
+    }
+
+    public void checkAppVersion(boolean isFromSplashScreen, Activity activity, Class<?> cls) {
+
+//        try {
+//            PackageInfo pInfo = getContext().getPackageManager().getPackageInfo(getPackageName(), 0);
+//            versionName = pInfo.versionName;
+//            versionCode = pInfo.versionCode;
+//            showToast("version name:"+versionName + "version code: "+versionCode);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//
+//        }
+//        if(versionName.isEmpty()){
+//        int versionName, versionCode;
+
+        final int versionName = Integer.valueOf(BuildConfig.VERSION_NAME.replace(".",""));
+        final int versionCode = BuildConfig.VERSION_CODE;
+
+
+//        }
+
+        if (isNetworkAvailable()){
+            getApiService().getAppUpdate(UUID.randomUUID().toString()).enqueue(new Callback<AppVersionResponse>() {
+                @Override
+                public void onResponse(Call<AppVersionResponse> call, Response<AppVersionResponse> response) {
+                    int verNameUpdate = 4, verCodeUpdate = 5;
+
+                    if (response.isSuccessful()){
+                        if (response.body().getCode().equalsIgnoreCase(getString(R.string.response_code_200))){
+//                                verNameUpdate = Integer.parseInt(response.body().getData().getVersionName().replace(".",""));
+
+                                verCodeUpdate = response.body().getData().getVersionCode();
+                                showToast(
+                                        "CURRENT App v."+versionName+"\nServer App v."+verNameUpdate);
+                                if (verNameUpdate > versionName || verCodeUpdate > versionCode){
+                                    appUpdateAlertDialog(response.body().getData().getUrl());
+                                }
+                                else {
+                                    if (isFromSplashScreen){
+                                        initSplash(activity, cls);
+                                    }
+                                }
+
+
+//                            if (isFromSplashScreen){
+//
+//                                initSplash(activity, cls);
+//                            }
+//                                showAlertDialog(getStringFromResource(R.string.error_text), "error");
+
+
+
+
+                        }else {
+                            if (isFromSplashScreen){
+
+                                initSplash(activity, cls);
+                            }
+                            showAlertDialog(response.body().getCode(), response.message());
+                        }
+                    }else {
+                        if (isFromSplashScreen){
+
+                            initSplash(activity, cls);
+                        }
+                        showAlertDialog(getStringFromResource(R.string.error_text), response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<AppVersionResponse> call, Throwable t) {
+                    if (isFromSplashScreen){
+
+                        initSplash(activity, cls);
+                    }
+                    showAlertDialog(getStringFromResource(R.string.error_text), t.getLocalizedMessage());
+                }
+            });
+        }
+
+
+
+    }
+    private void appUpdateAlertDialog(String url) {
+
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(getContext());
+        }
+        builder.setTitle("Update Available");
+        builder.setMessage("New Update Available for download. Please Download the latest version of the app.");
+        builder.setIcon(R.drawable.ic_download);
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", (dialog, which) -> downloadApp(url));
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+    }
+    private void downloadApp(String url) {
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        String fileName;
+        if (url != null) {
+            fileName = url.substring(url.lastIndexOf('/') + 1, url.length()).trim();
+
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+            request.setDescription("Downloading latest version of the App");
+            request.setTitle(getStringFromResource(R.string.app_name));
+// in order for this if to run, you must use the android 3.2 to compile your app
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                request.allowScanningByMediaScanner();
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+            }
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+
+
+// get download service and enqueue file
+            try {
+                manager.enqueue(request);
+            } catch (NullPointerException e) {
+                showAlertDialog(getStringFromResource(R.string.error_text), e.getLocalizedMessage());
+            }
+
+        }
+        else {
+            showToast("download url not found in the api");
+
+        }
+    }
+
+    public void initSplash(Activity activity, Class<?> cls){
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                startActivity(cls, true);
+                activity.finish();
+            }
+        }, 1500);
+    }
 
 }

@@ -7,7 +7,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
-        versionName "0.1"
+        versionName "0.0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -19,12 +19,12 @@ android {
 
         android.applicationVariants.all { variant ->
             variant.outputs.all {
-                project.ext { appName = 'salesforce' }
+                project.ext { appName = 'salesforce_cd' }
                 outputFileName = "$project.ext.appName-" + android.defaultConfig.versionName
                 if (variant.buildType.name == "release") {
                     outputFileName += ".apk"
                 } else {
-                    outputFileName += "-DEBUG.apk"
+                    outputFileName += ".apk"
                 }
             }
         }

@@ -362,7 +362,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             if (isNetworkAvailable()) {
                 alertDialogProceed();
             } else
-                showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.proceed_unavailable));
+                showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.proceed_unavailable));
 
         });
 
@@ -418,7 +418,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             if (isNetworkAvailable())
                 followUpAlert();
             else
-                showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.internet_not_available));
+                showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.internet_not_available));
 
 
         });
@@ -453,14 +453,14 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                 hideProgressDialog();
                             }
                         } else {
-                            showAlertDialog(getResources().getString(R.string.error_txt), response.message());
+                            showAlertDialog(getResources().getString(R.string.error_text), response.message());
                             hideProgressDialog();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<CompleteActivity> call, Throwable t) {
-                        showAlertDialog(getString(R.string.error_txt), t.getMessage());
+                        showAlertDialog(getString(R.string.error_text), t.getMessage());
                         hideProgressDialog();
                     }
                 });
@@ -504,7 +504,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                        getAlertDialog(getString(R.string.error_txt), t.getMessage());
+                        getAlertDialog(getString(R.string.error_text), t.getMessage());
                         hideProgressDialog();
 
                     }
@@ -641,7 +641,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<MyActivityApi> call, Throwable t) {
-                        getAlertDialog(getString(R.string.error_txt), t.getMessage());
+                        getAlertDialog(getString(R.string.error_text), t.getMessage());
                         hideProgressDialog();
 
                     }
@@ -776,18 +776,18 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         } else {
                             showAlertDialog(response.body().getCode(), response.body().getMessage());
                         }
-                    } else showAlertDialog(getString(R.string.error_txt), response.message());
+                    } else showAlertDialog(getString(R.string.error_text), response.message());
 
                 }
 
                 @Override
                 public void onFailure(Call<FollowUpHistoryApi> call, Throwable t) {
-                    showAlertDialog(getString(R.string.error_txt), t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
 
                 }
             });
         } else {
-            showAlertDialog(getString(R.string.error_txt), getString(R.string.internet_not_available));
+            showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
         }
 
 

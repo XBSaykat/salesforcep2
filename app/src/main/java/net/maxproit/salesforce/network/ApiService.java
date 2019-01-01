@@ -27,6 +27,7 @@ import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanGetApi;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.masum.model.api.approval.Approval;
+import net.maxproit.salesforce.model.appversion.AppVersionResponse;
 import net.maxproit.salesforce.model.cib.notRequestedCIB.NotRequestedCIBData;
 import net.maxproit.salesforce.model.cib.post.CibPost;
 import net.maxproit.salesforce.model.cib.postResponce.CibPostResponce;
@@ -437,8 +438,9 @@ public interface ApiService {
     @POST("CdApproval/approval")
     Call<ApprovalResponce> approve(@Body Approval approval);
 
-
-
+//App version Check
+    @GET("GlobalSettings/api/AppVersionDetail/{timestamp}")
+    Call<AppVersionResponse> getAppUpdate(@Path("timestamp") String timestamp);
 }
 
 

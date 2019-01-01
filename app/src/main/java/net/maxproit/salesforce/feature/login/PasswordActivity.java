@@ -56,7 +56,7 @@ public class PasswordActivity extends BaseActivity {
             showProgressDialog();
             String userName = getIntent().getStringExtra(AppConstant.INTENT_DATA1);
             String otp = getIntent().getStringExtra(AppConstant.INTENT_DATA2);
-            UserRegistration registration = new UserRegistration(userName, pass, getImei(), otp);
+            UserRegistration registration = new UserRegistration(userName, pass, otp);
             getApiService().userRegistration(registration).enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
@@ -76,7 +76,7 @@ public class PasswordActivity extends BaseActivity {
                 }
             });
         } else {
-            showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.internet_not_available));
+            showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.internet_not_available));
         }
     }
 

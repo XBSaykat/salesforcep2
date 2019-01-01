@@ -197,14 +197,14 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                         } else {
                             hideProgressDialog();
                             showEmptyView();
-                            showAlertDialog(getResources().getString(R.string.error_txt), response.body().getMessage());
+                            showAlertDialog(getResources().getString(R.string.error_text), response.body().getMessage());
                         }
 
 
                     } else {
                         hideProgressDialog();
                         showEmptyView();
-                        showAlertDialog(getResources().getString(R.string.error_txt), response.message());
+                        showAlertDialog(getResources().getString(R.string.error_text), response.message());
                     }
                 }
 
@@ -212,13 +212,13 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 public void onFailure(Call<MyGetLeadApi> call, Throwable t) {
                     showEmptyView();
                     hideProgressDialog();
-                    showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                    showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
 
                 }
             });
         } else {
             hideProgressDialog();
-            showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.internet_not_available));
+            showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.internet_not_available));
 
         }
 
@@ -256,17 +256,17 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                                 hideProgressDialog();
                             } else showEmptyView();
                         } else {
-                            showAlertDialog(getResources().getString(R.string.error_txt), response.body().getMessage());
+                            showAlertDialog(getResources().getString(R.string.error_text), response.body().getMessage());
                         }
                     } else
-                        showAlertDialog(getResources().getString(R.string.error_txt), response.message());
+                        showAlertDialog(getResources().getString(R.string.error_text), response.message());
 
                 }
 
                 @Override
                 public void onFailure(Call<MyLeadByRefApi> call, Throwable t) {
 
-                    showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                    showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
 
                 }
             });

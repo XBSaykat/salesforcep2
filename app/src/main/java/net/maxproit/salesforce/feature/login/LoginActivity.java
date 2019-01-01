@@ -1,7 +1,12 @@
 package net.maxproit.salesforce.feature.login;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -68,6 +73,7 @@ public class LoginActivity extends BaseActivity {
     String manufacturingCountry[] = null;
     String vehicleType[] = null;
     String validPhoto[] = null;
+    String phoneIMEINumber;
     private MyLeadDbController myLeadDbController;
 
     @Override
@@ -180,6 +186,7 @@ public class LoginActivity extends BaseActivity {
                 .withPermissions(
                         Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
@@ -187,6 +194,7 @@ public class LoginActivity extends BaseActivity {
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
                             // do you work now
+                            getPhoneIMEINo();
                         }
 
                         // check for permanent denial of any permission
@@ -202,6 +210,38 @@ public class LoginActivity extends BaseActivity {
                 })
                 .onSameThread()
                 .check();
+    }
+
+    private void getPhoneIMEINo() {
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            showToast("Permission granted");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                try {
+                    phoneIMEINumber = tm.getImei();
+                    showToast("Api Level: "+Build.VERSION.SDK_INT+": "+ phoneIMEINumber);
+                }catch (NullPointerException e){
+                    showToast("Oreo and above NPE: "+e.getLocalizedMessage());
+                }
+            }else {
+                try {
+                    phoneIMEINumber = tm.getDeviceId();
+                    showToast("Api Level: "+Build.VERSION.SDK_INT+": "+ phoneIMEINumber);
+                }catch (NullPointerException e){
+                    showToast("Below oreo NPE: "+e.getLocalizedMessage());
+                }
+            }
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+        }
+
+
     }
 
 

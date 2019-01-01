@@ -32,7 +32,7 @@ public class RegistrationActivity extends BaseActivity {
             if (!MasumCommonUtils.isNullStr(userName)) {
                 callApi(userName);
             } else {
-                showAlertDialog(getResources().getString(R.string.error_txt), "Username field can't be empty for generate OTP");
+                showAlertDialog(getResources().getString(R.string.error_text), "Username field can't be empty for generate OTP");
             }
 
         });
@@ -44,7 +44,7 @@ public class RegistrationActivity extends BaseActivity {
             if (!MasumCommonUtils.isNullStr(userName) && !MasumCommonUtils.isNullStr(otp)) {
                 callApi(userName, otp);
             } else {
-                showAlertDialog(getResources().getString(R.string.error_txt), "Username or OTP field can't be empty");
+                showAlertDialog(getResources().getString(R.string.error_text), "Username or OTP field can't be empty");
 
             }
 
@@ -69,11 +69,11 @@ public class RegistrationActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                    showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
                 }
             });
         } else {
-            showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.internet_not_available));
+            showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.internet_not_available));
         }
 
     }
@@ -97,11 +97,11 @@ public class RegistrationActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    showAlertDialog(getResources().getString(R.string.error_txt), t.getMessage());
+                    showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
                 }
             });
         } else {
-            showAlertDialog(getResources().getString(R.string.error_txt), getResources().getString(R.string.internet_not_available));
+            showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.internet_not_available));
         }
 
     }
