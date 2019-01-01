@@ -20,7 +20,6 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
-
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -53,7 +52,7 @@
             android:name=".masum.activity.lead.MyLeadActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".masum.activity.prospect.MyProspectActivity"
+            android:name=".masum.activity.myperformance.MyPerformanceAllListActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity" />
         <activity android:name=".feature.supervisor.SupervisorVisitsActivity" />
@@ -132,7 +131,8 @@
         </receiver>
 
         <activity android:name=".feature.login.RegistrationActivity" />
-        <activity android:name=".feature.login.PasswordActivity"></activity>
+        <activity android:name=".feature.login.PasswordActivity" />
+        <activity android:name=".masum.activity.myperformance.MyPerformanceAllDetailActivity"></activity>
     </application>
 
 </manifest>

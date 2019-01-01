@@ -1,6 +1,8 @@
 package net.maxproit.salesforce.masum.model.local;
 
-public class MyPerformanceModel {
+import java.io.Serializable;
+
+public class MyPerformanceModel implements Serializable {
 
     private String title,value;
 

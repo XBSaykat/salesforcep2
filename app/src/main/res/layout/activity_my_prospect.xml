@@ -10,9 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".masum.activity.prospect.MyProspectActivity">
-
-
+        tools:context=".masum.activity.myperformance.MyPerformanceAllListActivity">
         <LinearLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -35,11 +33,10 @@
                 app:divider="@color/green"
                 app:iconifiedByDefault="false"
                 app:queryHint="Search Prospect"
-                app:searchIcon="@null">
-
+                android:shadowColor="@color/white"
+                app:searchIcon="@null"
+                android:theme="@style/WallSearchView">
             </android.support.v7.widget.SearchView>
-
-
 
         </LinearLayout>
 

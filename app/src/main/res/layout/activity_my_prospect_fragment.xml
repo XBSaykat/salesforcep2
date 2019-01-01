@@ -10,8 +10,6 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
-
         <LinearLayout
             android:id="@+id/linear_layout_my_activity_toolbar"
             android:layout_width="match_parent"

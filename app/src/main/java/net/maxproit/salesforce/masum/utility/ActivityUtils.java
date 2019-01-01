@@ -12,6 +12,7 @@ import net.maxproit.salesforce.masum.model.api.file.Document;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.local.MyPerformanceModel;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
@@ -47,6 +48,16 @@ public class ActivityUtils {
             activity.finish();
         }
     }
+
+    public void invokeActivity(Context activity, Class<?> tClass,String data1,String data2) {
+        Intent intent = new Intent(activity, tClass);
+        intent.putExtra(AppConstant.INTENT_DATA1,data1);
+        intent.putExtra(AppConstant.INTENT_DATA2,data2);
+        activity.startActivity(intent);
+
+    }
+
+
 
 
     public static void invokDoc(Activity activity, Class<?> tClass, Document document) {

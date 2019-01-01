@@ -3,6 +3,7 @@ package net.maxproit.salesforce.network;
 
 import net.maxproit.salesforce.masum.model.api.GetLeadIndex;
 import net.maxproit.salesforce.masum.model.api.cibcif.CibCifResponse;
+import net.maxproit.salesforce.masum.model.api.dashboarddetail.GetdashboardDetailData;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationResponse;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationresponse.DeviationPostRespose;
 import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.PostDeviation;
@@ -159,6 +160,8 @@ public interface ApiService {
     @GET("DashBoard/{userName}/{timestamp}")
     Call<Getperformance> getPerformaceCountData(@Path("userName") String userName, @Path("timestamp") String random);
 
+    @GET("MyDashBoardDetail/{ItemType}/{SupItemType}/{userName}/{timestamp}")
+    Call<GetdashboardDetailData> getDashboardDetailDataList(@Path("ItemType") String itemType,@Path("SupItemType") String subItem,@Path("userName") String userName,@Path("timestamp") String random);
     /*
      Lead Api
     */

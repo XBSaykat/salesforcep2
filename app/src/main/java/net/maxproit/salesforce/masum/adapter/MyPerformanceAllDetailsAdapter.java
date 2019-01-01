@@ -6,20 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
 import net.maxproit.salesforce.masum.model.api.dashboarddetail.DashBoardDetailModel;
+import net.maxproit.salesforce.masum.model.local.MyPerformanceModel;
 
 import java.util.ArrayList;
 
-public class MyPerformanceDetailsDataAdapter extends RecyclerView.Adapter<MyPerformanceDetailsDataAdapter.CustomViewHolder>  {
+public class MyPerformanceAllDetailsAdapter extends RecyclerView.Adapter<MyPerformanceAllDetailsAdapter.CustomViewHolder>  {
     private Context context;
-    public ArrayList<DashBoardDetailModel> leadList;
+    public ArrayList<MyPerformanceModel> leadList;
     public static OnItemClickListener mListener;
 
 
 
-    public MyPerformanceDetailsDataAdapter(Context context, ArrayList<DashBoardDetailModel> leadList) {
+    public MyPerformanceAllDetailsAdapter(Context context, ArrayList<MyPerformanceModel> leadList) {
         this.context = context;
         this.leadList = leadList;
     }
@@ -28,11 +30,11 @@ public class MyPerformanceDetailsDataAdapter extends RecyclerView.Adapter<MyPerf
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         Context context;
-        ArrayList<DashBoardDetailModel> leadList;
+        ArrayList<MyPerformanceModel> leadList;
         private TextView tvId,tvName,tvBranch,tvStatus;
 
 
-        public CustomViewHolder(View itemView, Context context, ArrayList<DashBoardDetailModel> leadList) {
+        public CustomViewHolder(View itemView, Context context, ArrayList<MyPerformanceModel> leadList) {
             super(itemView);
             this.context = context;
             this.leadList = leadList;
@@ -54,30 +56,30 @@ public class MyPerformanceDetailsDataAdapter extends RecyclerView.Adapter<MyPerf
 
 
     @Override
-    public MyPerformanceDetailsDataAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyPerformanceAllDetailsAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_performance_details_list, null);
-        MyPerformanceDetailsDataAdapter.CustomViewHolder viewHolder = new MyPerformanceDetailsDataAdapter.CustomViewHolder(view, context, leadList);
+        View view = inflater.inflate(R.layout.item_performance_all_details_list, null);
+        MyPerformanceAllDetailsAdapter.CustomViewHolder viewHolder = new MyPerformanceAllDetailsAdapter.CustomViewHolder(view, context, leadList);
         return viewHolder;
     }
 
 
     @Override
-    public void onBindViewHolder(MyPerformanceDetailsDataAdapter.CustomViewHolder holder, final int position) {
-        holder.tvId.setText(""+leadList.get(position).getID());
-        holder.tvName.setText(leadList.get(position).getClientName());
+    public void onBindViewHolder(MyPerformanceAllDetailsAdapter.CustomViewHolder holder, final int position) {
+        holder.tvId.setText(""+leadList.get(position).getTitle()+" : ");
+        holder.tvName.setText(leadList.get(position).getValue());
 /*        holder.tvBranch.setText(leadList.get(position).getBranch());
         holder.tvStatus.setText(leadList.get(position).getStatus());*/
 
     }
-    public void setFilter(ArrayList<DashBoardDetailModel> newDataList) {
+    public void setFilter(ArrayList<MyPerformanceModel> newDataList) {
         leadList =new ArrayList<>();
         leadList.addAll(newDataList);
         notifyDataSetChanged();
     }
 
-    public ArrayList<DashBoardDetailModel> getDataList() {
+    public ArrayList<MyPerformanceModel> getDataList() {
         return leadList;
     }
 

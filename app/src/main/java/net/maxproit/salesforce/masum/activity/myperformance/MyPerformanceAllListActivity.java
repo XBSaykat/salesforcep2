@@ -1,4 +1,4 @@
-package net.maxproit.salesforce.masum.activity.prospect;
+package net.maxproit.salesforce.masum.activity.myperformance;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,33 +6,30 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 
 import net.maxproit.salesforce.masum.adapter.MyPerformanceDetailsDataAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.api.dashboarddetail.DashBoardDetailModel;
-import net.maxproit.salesforce.masum.model.local.MyNewProspect;
+import net.maxproit.salesforce.masum.model.api.dashboarddetail.GetdashboardDetailData;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyProspectBinding;
-import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
-import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.model.login.LocalLogin;
-import net.maxproit.salesforce.model.myprospect.MyProspect;
-import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.model.login.LocalLogin;
+import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
 import java.util.UUID;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyProspectActivity extends BaseActivity implements AdapterInfo {
-    private static final String TAG = "MyProspectActivity";
+public class MyPerformanceAllListActivity extends BaseActivity implements AdapterInfo {
+    private static final String TAG = "MyPerformanceAllListActivity";
 
 
     ActivityMyProspectBinding binding;
@@ -65,14 +62,16 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
             leadList.clear();
         }
 
-       // leadList.addAll();
+
+        // leadList.addAll();
 
         localLogin = new LocalLogin(getApplicationContext());
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
-        myProspectAdapter = new MyPerformanceDetailsDataAdapter(MyProspectActivity.this, leadList);
+        myProspectAdapter = new MyPerformanceDetailsDataAdapter(MyPerformanceAllListActivity.this, leadList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.rvMyProspect.setLayoutManager(mLayoutManager);
         binding.rvMyProspect.setAdapter(myProspectAdapter);
+
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -85,7 +84,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterList = getFilterData(leadList, newText);
-               // myProspectAdapter.setFilter(filterList);
+                // myProspectAdapter.setFilter(filterList);
                 return true;
             }
         });
@@ -95,22 +94,33 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        callApi();
+    }
+
     private void initListener() {
 
-        myProspectAdapter.setItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void itemClickListener(View view, int position) {
-                loadFilterData();
-                switch (view.getId()){
-                    default:
-                       // sentDataToDetail(position);
-                        break;
-                }
+        myProspectAdapter.setItemClickListener((view, position) -> {
+            loadFilterData();
+            switch (view.getId()) {
+                default:
+                    sentDataToDetail(position);
+                    break;
             }
         });
 
     }
+
+    private void sentDataToDetail(int position) {
+        String id=leadList.get(position).getID();
+        String head = getIntent().getStringExtra(AppConstant.INTENT_DATA1);
+        ActivityUtils.getInstance().invokeActivity(MyPerformanceAllListActivity.this,MyPerformanceAllDetailActivity.class,false,head,id);
+
+
+    }
+
 
 
 /*
@@ -192,37 +202,49 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
         if (!filterList.isEmpty()) {
             filterList.clear();
         }
-      //  filterList.addAll(myProspectAdapter.getDataList());
+        //  filterList.addAll(myProspectAdapter.getDataList());
     }
-
 
 
     private void callApi() {
+        String head = getIntent().getStringExtra(AppConstant.INTENT_DATA1);
+        String subTitle = getIntent().getStringExtra(AppConstant.INTENT_DATA2);
+        String userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
+        String random = UUID.randomUUID().toString();
+        binding.searchView.setQueryHint("search "+subTitle+" "+head);
         if (isNetworkAvailable()) {
+            if (!leadList.isEmpty()) {
+                leadList.clear();
+            }
             showProgressDialog();
-            getApiService().getMyProspect(userName, UUID.randomUUID().toString()).enqueue(new Callback<MyProspect>() {
+            getApiService().getDashboardDetailDataList(head, subTitle, userName, random).enqueue(new Callback<GetdashboardDetailData>() {
                 @Override
-                public void onResponse(Call<MyProspect> call, Response<MyProspect> response) {
-                    hideProgressDialog();
+                public void onResponse(Call<GetdashboardDetailData> call, Response<GetdashboardDetailData> response) {
                     if (response.isSuccessful()) {
-                        if (response.body().getCode().equals("200")) {
+                        if (response.body().getCode().equals(getString(R.string.success_code))) {
+                            leadList.addAll(response.body().getData());
+                            myProspectAdapter.notifyDataSetChanged();
+                            hideProgressDialog();
+                        }
 
-                        } else showAlertDialog("Error", response.body().getMessage());
-
-                    } else showAlertDialog("Error", response.message());
+                    } else {
+                        hideProgressDialog();
+                        showAlertDialog(getString(R.string.error_text), response.errorBody().toString());
+                    }
 
                 }
 
                 @Override
-                public void onFailure(Call<MyProspect> call, Throwable t) {
+                public void onFailure(Call<GetdashboardDetailData> call, Throwable t) {
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
                     hideProgressDialog();
-                    showAlertDialog("Error", t.getMessage());
-
 
                 }
             });
-        } else showAlertDialog("Error", "Network is not available");
+        } else
+            showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
     }
+
 
     @Override
     protected void getIntentData() {
@@ -259,7 +281,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
     @Override
     public void adSuccess(String message) {
         //recreate();
-        startActivity(MyProspectActivity.class, true);
+        startActivity(MyPerformanceAllListActivity.class, true);
 
     }
 
@@ -284,7 +306,7 @@ public class MyProspectActivity extends BaseActivity implements AdapterInfo {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // When an Image is picked
         if (requestCode == 200 && resultCode == RESULT_OK && null != data) {
-            // startActivity(MyProspectActivity.class,true);
+            // startActivity(MyPerformanceAllListActivity.class,true);
             recreate();
 
         }

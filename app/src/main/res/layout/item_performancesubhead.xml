@@ -14,6 +14,11 @@
         android:elevation="@dimen/size_4dp"
         android:orientation="vertical"
         android:padding="@dimen/size_4dp">
+        <TextView
+            android:id="@+id/tv_head_item_for_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
 
         <net.maxproit.salesforce.custom.textView.RobotoRegularTextView

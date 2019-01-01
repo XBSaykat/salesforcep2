@@ -2,35 +2,35 @@ package net.maxproit.salesforce.masum.adapter.myperformacecountadapter;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.masum.activity.myperformance.MyPerformanceAllListActivity;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.api.performance.Datum;
 import net.maxproit.salesforce.masum.model.api.performance.SubItemDetail;
 import net.maxproit.salesforce.masum.model.api.performance.SubItemType;
-import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
+import net.maxproit.salesforce.masum.utility.ActivityUtils;
 
 import java.util.ArrayList;
 
-import gun0912.tedbottompicker.GridSpacingItemDecoration;
-
-public class MyPerformaceSubAdapter extends  RecyclerView.Adapter<MyPerformaceSubAdapter.CustomViewHolder> {
+public class MyPerformaceSubAdapter extends RecyclerView.Adapter<MyPerformaceSubAdapter.CustomViewHolder> {
     private Context context;
     public ArrayList<SubItemType> leadList;
     public static OnItemClickListener mListener;
     private boolean isChange = false;
+    private String itemType = null;
 
 
-    public MyPerformaceSubAdapter(Context context, ArrayList<SubItemType> leadList) {
+    public MyPerformaceSubAdapter(Context context, ArrayList<SubItemType> leadList, String itemType) {
         this.context = context;
         this.leadList = leadList;
+        this.itemType = itemType;
     }
 
 
@@ -38,7 +38,7 @@ public class MyPerformaceSubAdapter extends  RecyclerView.Adapter<MyPerformaceSu
 
         Context context;
         ArrayList<SubItemType> leadList;
-        private TextView tvId, tvName, tvBranch, tvStatus;
+        private TextView tvId, tvName, tvHead, tvStatus;
         private ConstraintLayout constraintLayoutLeadItem;
         private RecyclerView recyclerView;
 
@@ -49,7 +49,13 @@ public class MyPerformaceSubAdapter extends  RecyclerView.Adapter<MyPerformaceSu
             this.leadList = leadList;
             tvId = itemView.findViewById(R.id.sub_head_title);
             tvName = itemView.findViewById(R.id.tv_subhead_value);
+            tvHead = itemView.findViewById(R.id.tv_head_item_for_sub);
             recyclerView = itemView.findViewById(R.id.recycler_detail);
+            itemView.setOnClickListener(view -> {
+                Toast.makeText(context, tvHead.getText().toString()+" "+tvId.getText().toString(), Toast.LENGTH_SHORT).show();
+                ActivityUtils.getInstance().invokeActivity(context,MyPerformanceAllListActivity.class,tvHead.getText().toString(),tvId.getText().toString());
+            });
+
 
         }
 
@@ -71,14 +77,15 @@ public class MyPerformaceSubAdapter extends  RecyclerView.Adapter<MyPerformaceSu
         holder.tvId.setText("" + leadList.get(position).getSubItemType());
         holder.tvName.setText("" + leadList.get(position).getSubItemTypeCount());
 
-        MyPerformaceItemDetailAdapter myPerformaceItemDetailAdapter=new MyPerformaceItemDetailAdapter(context, (ArrayList<SubItemDetail>) leadList.get(position).getSubItemDetails());
+        holder.tvHead.setText("" + itemType);
+
+        MyPerformaceItemDetailAdapter myPerformaceItemDetailAdapter = new MyPerformaceItemDetailAdapter(context, (ArrayList<SubItemDetail>) leadList.get(position).getSubItemDetails());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         holder.recyclerView.setLayoutManager(mLayoutManager);
         holder.recyclerView.setAdapter(myPerformaceItemDetailAdapter);
         myPerformaceItemDetailAdapter.notifyDataSetChanged();
 
     }
-
 
 
     @Override

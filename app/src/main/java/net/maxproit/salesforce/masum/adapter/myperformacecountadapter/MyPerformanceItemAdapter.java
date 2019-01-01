@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.databinding.MyPerfomanceDesRowBinding;
@@ -75,16 +76,14 @@ class CustomViewHolder extends RecyclerView.ViewHolder {
     @Override
     public void onBindViewHolder(MyPerformanceItemAdapter.CustomViewHolder holder, final int position) {
         holder.tvId.setText("" + leadList.get(position).getItemType());
-        MyPerformaceSubAdapter myPerformaceSubAdapter=new MyPerformaceSubAdapter(context, (ArrayList<SubItemType>) leadList.get(position).getSubItemTypes());
+        MyPerformaceSubAdapter myPerformaceSubAdapter=new MyPerformaceSubAdapter(context, (ArrayList<SubItemType>) leadList.get(position).getSubItemTypes(),leadList.get(position).getItemType());
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context,2);
         holder.recyclerView.setLayoutManager(mLayoutManager);
         holder.recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, MasumCommonUtils.dpToPx(10, context), true));
         holder.recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         holder.recyclerView.setAdapter(myPerformaceSubAdapter);
         myPerformaceSubAdapter.notifyDataSetChanged();
-
 
     }
 
