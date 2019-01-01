@@ -234,7 +234,6 @@ public class CoApplicantActivity extends BaseActivity {
         if (extraDetail != null) {
             position = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
             coApplicant = (CoApplicant) extraDetail.getSerializable(AppConstant.INTENT_KEY);
-
         }
 
         return coApplicant;

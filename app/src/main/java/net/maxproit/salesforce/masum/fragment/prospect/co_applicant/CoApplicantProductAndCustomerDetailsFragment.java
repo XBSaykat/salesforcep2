@@ -187,7 +187,6 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
 
         cbExist = view.findViewById(R.id.cb_exist);
-        cbExist.setVisibility(View.GONE);
         etChif = view.findViewById(R.id.etChif);
         liChif = view.findViewById(R.id.liChif);
 
@@ -640,8 +639,8 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         if (coApplicantActivity.getDataFromApplicant() != null) {
             CoApplicant coApplicant = coApplicantActivity.getDataFromApplicant();
             etName.setText(coApplicant.getName());
+            cbExist.setVisibility(View.GONE);
             if (!MasumCommonUtils.isNullStr(coApplicant.getDateOfBirth())) {
-
                 etDateOfBirth.setText(coApplicant.getDateOfBirth());
                 long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(coApplicant.getDateOfBirth());
                 etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
