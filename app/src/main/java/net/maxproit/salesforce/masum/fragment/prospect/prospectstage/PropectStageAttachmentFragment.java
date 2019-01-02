@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -182,8 +183,19 @@ public class PropectStageAttachmentFragment extends BaseFragment {
         if (getDoc(position).getURL() == null || getDoc(position).getURL().equals("")) {
             ActivityUtils.invokDoc(getActivity(), UploadProspectActivity.class, getDoc(position));
         } else {
-            Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(getDoc(position).getURL()));
-            getContext().startActivity(intent);
+           /* Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(getDoc(position).getURL()));
+            getContext().startActivity(intent);*/
+
+            Intent target = new Intent(Intent.ACTION_VIEW);
+            target.setDataAndType(Uri.parse(getDoc(position).getURL()),"application/pdf");
+            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+            Intent intent = Intent.createChooser(target, "Open File");
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                // Instruct the user to install a PDF reader here, or something
+            }
         }
     }
 

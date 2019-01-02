@@ -32,15 +32,11 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
     private static final String TAG = "MyPerformanceAllListActivity";
 
 
-    ActivityMyProspectBinding binding;
-    LocalLogin localLogin;
-    MyPerformanceDetailsDataAdapter myProspectAdapter;
-    String userName;
-    Bundle extras;
-    MyLeadDbController myLeadDbController;
+    private ActivityMyProspectBinding binding;
+    private MyPerformanceDetailsDataAdapter myProspectAdapter;
+    private MyLeadDbController myLeadDbController;
+    private ArrayList<DashBoardDetailModel> leadList, filterList;
 
-    ArrayList<DashBoardDetailModel> leadList, filterList;
-    Button btnAddProspect;
 
 
     @Override
@@ -64,9 +60,6 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
 
 
         // leadList.addAll();
-
-        localLogin = new LocalLogin(getApplicationContext());
-        userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         myProspectAdapter = new MyPerformanceDetailsDataAdapter(MyPerformanceAllListActivity.this, leadList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.rvMyProspect.setLayoutManager(mLayoutManager);
@@ -90,7 +83,6 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
         });
 
         initListener();
-
         callApi();
     }
 

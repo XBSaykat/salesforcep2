@@ -272,12 +272,12 @@ public class FragmentProspectPendingList extends BaseFragment {
                             } else showEmptyView();
                         } else {
                             showEmptyView();
-                            showAlertDialog("Error", response.body().getMessage());
+                            showAlertDialog(getString(R.string.error_text), response.body().getMessage());
                         }
 
                     } else {
                         showEmptyView();
-                        showAlertDialog("Error", response.message());
+                        showAlertDialog(getString(R.string.error_text), response.message());
                     }
 
                 }
@@ -285,14 +285,14 @@ public class FragmentProspectPendingList extends BaseFragment {
                 @Override
                 public void onFailure(Call<MyProspect> call, Throwable t) {
                     showEmptyView();
-                    showAlertDialog("Error", t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
 
 
                 }
             });
         } else {
             showEmptyView();
-            showAlertDialog("Error", "Network is not available");
+            showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
         }
     }
 

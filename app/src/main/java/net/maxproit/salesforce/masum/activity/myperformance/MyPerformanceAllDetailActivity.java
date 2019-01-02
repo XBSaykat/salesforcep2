@@ -185,7 +185,7 @@ public class MyPerformanceAllDetailActivity extends BaseActivity {
 
                             OldProspect oldProspect = response.body();
                             MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
-                            ActivityUtils.invokProspectRbmViewStage(MyPerformanceAllDetailActivity.this, myNewProspect);
+                            ActivityUtils.invokProspectRbmViewStage(MyPerformanceAllDetailActivity.this, myNewProspect,null);
 
                             //sentProspectData(oldProspect);
                            //  ActivityUtils.invokLeadDetailForProspectStage(getActivity(), oldProspect.getMyNewProspect());

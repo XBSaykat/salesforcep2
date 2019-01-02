@@ -5,10 +5,14 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.util.TypedValue;
+import android.widget.EditText;
 
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class MasumCommonUtils {
 
@@ -84,6 +88,25 @@ public class MasumCommonUtils {
         String ages = ageInt.toString();
 
         return ages;
+    }
+
+
+    public static void commaSeperator(EditText et,String number){
+        try {
+
+
+            number = number.contains(",") ? number.replaceAll(",", "") : number;
+            Long longVal = Long.parseLong(number);
+
+            DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
+            formatter.applyPattern("#,###,###,###");
+            String formattedString = formatter.format(longVal);
+
+            et.setText(formattedString);
+            et.setSelection(et.getText().length());
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
     }
 
 }

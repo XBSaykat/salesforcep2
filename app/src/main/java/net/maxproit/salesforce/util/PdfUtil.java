@@ -131,7 +131,6 @@ public class PdfUtil {
 
                 document.close();
 
-                Log.v(TAG, "Document Closed" + path);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -148,6 +147,8 @@ public class PdfUtil {
             CommonUtil.hideProgressDialog();
 
             documentinfo.getpdf(s);
+            Toast.makeText(context, "pdf created successfully", Toast.LENGTH_SHORT).show();
+
 
 
         }
