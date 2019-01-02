@@ -16,9 +16,11 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyProspectBinding;
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.model.login.LocalLogin;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
+import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
@@ -36,7 +38,6 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
     private MyPerformanceDetailsDataAdapter myProspectAdapter;
     private MyLeadDbController myLeadDbController;
     private ArrayList<DashBoardDetailModel> leadList, filterList;
-
 
 
     @Override
@@ -87,7 +88,6 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
     }
 
 
-
     private void initListener() {
 
         myProspectAdapter.setItemClickListener((view, position) -> {
@@ -102,12 +102,58 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
     }
 
     private void sentDataToDetail(int position) {
-        String id=leadList.get(position).getID();
+        String id = leadList.get(position).getID();
         String head = getIntent().getStringExtra(AppConstant.INTENT_DATA1);
-        ActivityUtils.getInstance().invokeActivity(MyPerformanceAllListActivity.this,MyPerformanceAllDetailActivity.class,false,head,id);
+        if (head.equalsIgnoreCase("Prospect")) {
+            callProspectData(id,head);
+        } else {
+            ActivityUtils.getInstance().invokeActivity(MyPerformanceAllListActivity.this, MyPerformanceAllDetailActivity.class, false, head, id);
+        }
+    }
 
+
+    private void callProspectData(String id, String random) {
+        showProgressDialog();
+        getApiService().getNewProspect(id, random).enqueue(new Callback<OldProspect>() {
+            @Override
+            public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getCode().equals("200")) {
+                        if (response.body().getData() != null) {
+                            hideProgressDialog();
+
+                            OldProspect oldProspect = response.body();
+                            MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
+                            ActivityUtils.invokProspectRbmViewStage(MyPerformanceAllListActivity.this, myNewProspect,null);
+                        } else {
+                            showAlertDialog("Error", "Server Error");
+                            hideProgressDialog();
+
+                        }
+                    } else {
+                        showAlertDialog("Error", response.body().getMessage());
+                        hideProgressDialog();
+
+                    }
+
+                } else {
+                    showAlertDialog("Error", response.message());
+                    hideProgressDialog();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<OldProspect> call, Throwable t) {
+                showAlertDialog("Error", t.getMessage());
+                hideProgressDialog();
+
+            }
+        });
 
     }
+
 
 
 
@@ -199,7 +245,7 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
         String subTitle = getIntent().getStringExtra(AppConstant.INTENT_DATA2);
         String userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         String random = UUID.randomUUID().toString();
-        binding.searchView.setQueryHint("search "+subTitle+" "+head);
+        binding.searchView.setQueryHint("search " + subTitle + " " + head);
         if (isNetworkAvailable()) {
             if (!leadList.isEmpty()) {
                 leadList.clear();

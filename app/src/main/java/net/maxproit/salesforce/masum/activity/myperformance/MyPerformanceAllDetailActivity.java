@@ -73,8 +73,6 @@ public class MyPerformanceAllDetailActivity extends BaseActivity {
             } else if (head.equalsIgnoreCase("Activity")) {
                 callActivityData(id, random);
 
-            } else if (head.equalsIgnoreCase("Prospect")) {
-                callProspectData(id, random);
             }
         }
 
@@ -110,28 +108,28 @@ public class MyPerformanceAllDetailActivity extends BaseActivity {
 
     private void setLeadData(Data data) {
         myPerformanceDataModelList.add(new MyPerformanceModel("address", data.getAddress()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("branchName", data.getBranchName()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("branch Name", data.getBranchName()));
         myPerformanceDataModelList.add(new MyPerformanceModel("city", data.getCity()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("customerName", data.getCustomerName()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("customer Name", data.getCustomerName()));
         myPerformanceDataModelList.add(new MyPerformanceModel("designation", data.getDesignation()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("disbursementDate", DateUtils.jsonToDate(data.getDisbursementDate())));
-        myPerformanceDataModelList.add(new MyPerformanceModel("followUp", data.getFollowUp()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("followUpDate", DateUtils.jsonToDate(data.getFollowUpDate())));
-        myPerformanceDataModelList.add(new MyPerformanceModel("leadReferenceNo", data.getLeadReferenceNo()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("loanAmount", "" + data.getLoanAmount()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("mobileNumber", data.getMobileNumber()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("offeredInterestRate", "" + data.getOfferedInterestRate()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("offeredProcessFee", "" + data.getOfferedProcessFee()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("disbursement Date", DateUtils.jsonToDate(data.getDisbursementDate())));
+        myPerformanceDataModelList.add(new MyPerformanceModel("follow Up", data.getFollowUp()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("followUp Date", DateUtils.jsonToDate(data.getFollowUpDate())));
+        myPerformanceDataModelList.add(new MyPerformanceModel("lead Reference No", data.getLeadReferenceNo()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("loan Amount", "" + data.getLoanAmount()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("mobile Number", data.getMobileNumber()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("offered Interest Rate", "" + data.getOfferedInterestRate()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("offered Process Fee", "" + data.getOfferedProcessFee()));
         myPerformanceDataModelList.add(new MyPerformanceModel("organization", data.getOrganization()));
         myPerformanceDataModelList.add(new MyPerformanceModel("product", data.getProduct()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("productSubCategory", data.getProductSubCategory()));
+        myPerformanceDataModelList.add(new MyPerformanceModel ("product Sub Category", data.getProductSubCategory()));
         myPerformanceDataModelList.add(new MyPerformanceModel("profession", data.getProfession()));
         myPerformanceDataModelList.add(new MyPerformanceModel("ps", data.getPs()));
         myPerformanceDataModelList.add(new MyPerformanceModel("remark", data.getRemark()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("rmCode", data.getRmCode()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("sourceOfReference", data.getSourceOfReference()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("rm Code", data.getRmCode()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("source Of Reference", data.getSourceOfReference()));
         myPerformanceDataModelList.add(new MyPerformanceModel("status", data.getStatus()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("userName", data.getUserName()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("user Name", data.getUserName()));
         myPerformanceAllDetailsAdapter.notifyDataSetChanged();
     }
 
@@ -159,64 +157,21 @@ public class MyPerformanceAllDetailActivity extends BaseActivity {
     }
 
     private void sentActivityData(net.maxproit.salesforce.masum.model.api.myactivity.Data data) {
-        myPerformanceDataModelList.add(new MyPerformanceModel("clientType", data.getClientType()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("customerName", data.getCustomerName()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("client Type", data.getClientType()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("customer Name", data.getCustomerName()));
         myPerformanceDataModelList.add(new MyPerformanceModel("city", data.getCity()));
         myPerformanceDataModelList.add(new MyPerformanceModel("product", data.getProductType()));
         myPerformanceDataModelList.add(new MyPerformanceModel("ps", data.getPs()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("activityDate", DateUtils.jsonToDate(data.getActivityDate())));
+        myPerformanceDataModelList.add(new MyPerformanceModel("activity Date", DateUtils.jsonToDate(data.getActivityDate())));
         myPerformanceDataModelList.add(new MyPerformanceModel("remark", data.getRemarks()));
         myPerformanceDataModelList.add(new MyPerformanceModel("follow up remark", data.getFollowupRemarks()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("followUpDate", DateUtils.jsonToDate(data.getFollowupDate())));
+        myPerformanceDataModelList.add(new MyPerformanceModel("follow Up Date", DateUtils.jsonToDate(data.getFollowupDate())));
         myPerformanceDataModelList.add(new MyPerformanceModel("status", data.getActivityStatus()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("userName", data.getMaker()));
-        myPerformanceDataModelList.add(new MyPerformanceModel("mobileNo", data.getMobileNo()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("user Name", data.getMaker()));
+        myPerformanceDataModelList.add(new MyPerformanceModel("mobile No", data.getMobileNo()));
         myPerformanceAllDetailsAdapter.notifyDataSetChanged();
     }
 
-    private void callProspectData(String id, String random) {
-        getApiService().getNewProspect(id, random).enqueue(new Callback<OldProspect>() {
-            @Override
-            public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
-                if (response.isSuccessful()) {
-                    if (response.body().getCode().equals("200")) {
-                        if (response.body().getData() != null) {
-                            hideProgressDialog();
-
-                            OldProspect oldProspect = response.body();
-                            MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
-                            ActivityUtils.invokProspectRbmViewStage(MyPerformanceAllDetailActivity.this, myNewProspect,null);
-
-                            //sentProspectData(oldProspect);
-                           //  ActivityUtils.invokLeadDetailForProspectStage(getActivity(), oldProspect.getMyNewProspect());
-                        } else {
-                            showAlertDialog("Error", "Server Error");
-                            hideProgressDialog();
-
-                        }
-                    } else {
-                        showAlertDialog("Error", response.body().getMessage());
-                        hideProgressDialog();
-
-                    }
-
-                } else {
-                    showAlertDialog("Error", response.message());
-                    hideProgressDialog();
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<OldProspect> call, Throwable t) {
-                showAlertDialog("Error", t.getMessage());
-                hideProgressDialog();
-
-            }
-        });
-
-    }
 
   /*  private void sentProspectData(OldProspect data) {
         myPerformanceDataModelList.add(new MyPerformanceModel("permanent Address",data.getData().getPermanentAddress()));

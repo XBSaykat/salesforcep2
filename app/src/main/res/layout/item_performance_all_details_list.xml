@@ -32,7 +32,6 @@
             android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginStart="@dimen/size_8dp"
             android:layout_marginTop="@dimen/size_8dp"
-            android:text="@{model.reference}"
             app:layout_constraintStart_toEndOf="@+id/tvId"
             app:layout_constraintTop_toTopOf="parent" />
 

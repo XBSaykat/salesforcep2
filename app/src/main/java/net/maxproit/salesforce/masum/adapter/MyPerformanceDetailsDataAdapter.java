@@ -67,9 +67,6 @@ public class MyPerformanceDetailsDataAdapter extends RecyclerView.Adapter<MyPerf
     public void onBindViewHolder(MyPerformanceDetailsDataAdapter.CustomViewHolder holder, final int position) {
         holder.tvId.setText(""+leadList.get(position).getID());
         holder.tvName.setText(leadList.get(position).getClientName());
-/*        holder.tvBranch.setText(leadList.get(position).getBranch());
-        holder.tvStatus.setText(leadList.get(position).getStatus());*/
-
     }
     public void setFilter(ArrayList<DashBoardDetailModel> newDataList) {
         leadList =new ArrayList<>();
