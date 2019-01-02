@@ -359,7 +359,6 @@ public interface ApiService {
 
     // Cif Search
     @POST("CIF")
-
     Call<SearchList> searchUserInfo(@Body Search search);
 
     // Get Lead

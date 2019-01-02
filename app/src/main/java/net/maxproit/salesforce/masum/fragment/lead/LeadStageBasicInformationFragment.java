@@ -66,7 +66,6 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     private LocalSetting mLocalSettting;
     private ArrayAdapter<String> polishStationAdapter;
 
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -134,6 +133,36 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
     }
 
+
+    public void setDataFromSearch(Bundle bundle) {
+
+       MyNewLead myNewLead= (MyNewLead) bundle.getSerializable(AppConstant.INTENT_KEY);
+
+        if (myNewLead != null) {
+            etUserName.setText(myNewLead.getUserName());
+            if (!MasumCommonUtils.isNullStr(myNewLead.getCity())) {
+                try {
+                    city = myNewLead.getCity();
+                    spinnerCity.setText(myNewLead.getCity());
+                } catch (final IllegalStateException ignored) {
+                }
+
+
+                if (!listPs.isEmpty())
+                    listPs.clear();
+                listPs.addAll(mLocalSettting.getpsListByCityCode(myNewLead.getCity()));
+                polishStationAdapter.notifyDataSetChanged();
+            }
+
+            if (!MasumCommonUtils.isNullStr(myNewLead.getPs())) {
+                try {
+                    spinnerPoliceStation.setSelection(polishStationAdapter.getPosition(myNewLead.getPs()));
+                } catch (final IllegalStateException ignored) {
+                }
+            }
+
+        }
+    }
 
     private void initListener() {
 
@@ -291,8 +320,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
                     }
                 }
-            }
-            else if(status==2){
+            } else if (status == 2) {
                 Data visitPlan = (Data) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (visitPlan != null) {
                     etUserName.setText(visitPlan.getCustomerName());
@@ -318,9 +346,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
                     }
                 }
-            }
-
-            else {
+            } else {
                 initLoader();
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {

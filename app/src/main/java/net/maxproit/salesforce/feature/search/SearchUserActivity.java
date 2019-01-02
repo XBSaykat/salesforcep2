@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.GsonBuilder;
@@ -65,7 +66,7 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
                     showProgressDialog();
                     String source = localCash().getString(SharedPreferencesEnum.Key.SEARCH_TYPE);
                     Search search = binding.getModel();
-                    search.setSource(source);
+                    search.setSource("Lead");
 
                     getApiService().searchUserInfo(search).enqueue(new Callback<SearchList>() {
                         @Override
@@ -136,6 +137,8 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
                         Intent returnIntent = new Intent();
                         returnIntent.putExtras(bundle);
                         setResult(RESULT_OK,returnIntent);
+                        Log.e("activity_data","search:"+myNewLead.getUserName());
+
                         finish();
                         hideProgressDialog();
                     }

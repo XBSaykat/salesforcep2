@@ -67,7 +67,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private LinearLayout mLayout;
     private MyLeadDataModelApi myLeadDataModelApi = null;
     private String branchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null, city = null, polishStationl = null;
-    private String userName = null,userCode=null;
+    private String userName = null, userCode = null;
     private int activityPosition;
     public static int myLeadPosition = -1;
     private VisitPlan visitPlan = null;
@@ -243,8 +243,6 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             leadStageBasicInformationFragment.setArguments(bundle);
             leadStageLoanDetailFragment.setArguments(bundle);
-
-
         }
 
 
@@ -545,7 +543,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 if (response.body().getCode().equals("200")) {
                     hideProgressDialog();
                     Toast.makeText(LeadStageActivity.this, getResources().getString(R.string.proceed_succesfull), Toast.LENGTH_SHORT).show();
-                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,MyLeadActivity.class,true);
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                 }
 
             }
@@ -710,7 +708,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             @Override
             public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-                showAlertDialog(getResources().getString(R.string.error_text),t.getMessage());
+                showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
                 hideProgressDialog();
             }
         });
@@ -744,7 +742,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
                 hideProgressDialog();
-                errorAlert(getResources().getString(R.string.error_text),getResources().getString(R.string.approved_falied));
+                errorAlert(getResources().getString(R.string.error_text), getResources().getString(R.string.approved_falied));
 
             }
         });
@@ -772,15 +770,25 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("activity_data", "result:" + data);
+        if (data != null) {
+            MyNewLead myNewLead = (MyNewLead) data.getSerializableExtra(AppConstant.INTENT_KEY);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+            leadStageBasicInformationFragment.setDataFromSearch(bundle);
 
-        if (requestCode==AppConstant.SERCH_REQ_CODE){
+        }
+
+   /*     if (requestCode==AppConstant.SERCH_REQ_CODE){
             Bundle bundle=new Bundle();
             MyNewLead myNewLead= (MyNewLead) data.getSerializableExtra(AppConstant.INTENT_KEY);
             bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
             bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
-            Log.e("activity_data",""+myNewLead.getUserName());
+            Log.e("activity_data","result:"+myNewLead.getUserName());
             leadStageBasicInformationFragment.setArguments(bundle);
 
-        }
+        }*/
     }
+
+
 }
