@@ -1,7 +1,8 @@
 package net.maxproit.salesforce.feature.search;
 
-import android.app.Activity;
+
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +15,7 @@ import net.maxproit.salesforce.common.base.Clicklistener;
 import net.maxproit.salesforce.databinding.ActivitySearchUserBinding;
 import net.maxproit.salesforce.feature.search.adapter.SearchAdapter;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.api.GetLeadIndex;
 import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
@@ -128,10 +130,13 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
                                 followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
                         myNewLead.setPs(data.getPs());
                         myNewLead.setCity(data.getCity());
-                        ActivityUtils.invokLeadDetailForLeadStage(SearchUserActivity.this, myNewLead);
-                        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.DONUT) {
-                            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                        }
+
+                        Bundle bundle=new Bundle();
+                        bundle.putSerializable(AppConstant.INTENT_KEY,myNewLead);
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtras(bundle);
+                        setResult(RESULT_OK,returnIntent);
+                        finish();
                         hideProgressDialog();
                     }
                 }

@@ -65,7 +65,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     public LinearLayout liChif;
     private LocalSetting mLocalSettting;
     private ArrayAdapter<String> polishStationAdapter;
-    public static final int SERCH_CODE = 500;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -206,7 +206,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
         etChif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), SearchUserActivity.class), SERCH_CODE);
+                startActivityForResult(new Intent(getContext(), SearchUserActivity.class), AppConstant.SERCH_REQ_CODE);
             }
         });
 
@@ -324,6 +324,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                 initLoader();
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
+                    cbExist.setVisibility(View.GONE);
                     etUserName.setText(myNewLead.getUserName());
                     etPhone.setText(myNewLead.getPhone());
                     etAddress.setText(myNewLead.getAddress());

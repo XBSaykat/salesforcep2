@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -767,5 +768,19 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode==AppConstant.SERCH_REQ_CODE){
+            Bundle bundle=new Bundle();
+            MyNewLead myNewLead= (MyNewLead) data.getSerializableExtra(AppConstant.INTENT_KEY);
+            bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+            bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
+            Log.e("activity_data",""+myNewLead.getUserName());
+            leadStageBasicInformationFragment.setArguments(bundle);
+
+        }
     }
 }
