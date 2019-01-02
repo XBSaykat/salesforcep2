@@ -30,17 +30,15 @@ import com.google.gson.JsonNull;
 
 import net.maxproit.salesforce.BuildConfig;
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.model.appversion.AppVersionResponse;
 import net.maxproit.salesforce.network.ApiService;
 import net.maxproit.salesforce.network.RestClient;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -58,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private ViewDataBinding binding;
     private LinearLayout loadingView, noDataView;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +132,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Shows a Alert Dialog with title and message and a OK button
      *
-     * @param title   Title of the Alert Dialog
+     * @param title Title of the Alert Dialog
      * @param message Message of Alert Dialog
      */
     public void showAlertDialog(String title, String message) {
@@ -153,7 +152,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-
 
 
     public void startActivityshowAlertDialog(String title, String message, Class<?> cls, boolean finishSelf) {
@@ -349,11 +347,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         return isTrue;
     }
 
-    public String getStringFromResource(int stringID){
+    public String getStringFromResource(int stringID) {
         return getResources().getString(stringID);
     }
 
-    public void checkAppVersion(boolean isFromSplashScreen, Activity activity, Class<?> cls) {
+    public void checkAppVersion(Activity activity) {
 
 //        try {
 //            PackageInfo pInfo = getContext().getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -367,74 +365,50 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        if(versionName.isEmpty()){
 //        int versionName, versionCode;
 
-        final int versionName = Integer.valueOf(BuildConfig.VERSION_NAME.replace(".",""));
+        final int versionName = Integer.valueOf(BuildConfig.VERSION_NAME.replace(".", ""));
         final int versionCode = BuildConfig.VERSION_CODE;
 
 
 //        }
 
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             getApiService().getAppUpdate(UUID.randomUUID().toString()).enqueue(new Callback<AppVersionResponse>() {
                 @Override
                 public void onResponse(Call<AppVersionResponse> call, Response<AppVersionResponse> response) {
-                    int verNameUpdate = 4, verCodeUpdate = 5;
+                    int verNameUpdate, verCodeUpdate;
 
-                    if (response.isSuccessful()){
-                        if (response.body().getCode().equalsIgnoreCase(getString(R.string.response_code_200))){
-//                                verNameUpdate = Integer.parseInt(response.body().getData().getVersionName().replace(".",""));
-
-                                verCodeUpdate = response.body().getData().getVersionCode();
-                                showToast(
-                                        "CURRENT App v."+versionName+"\nServer App v."+verNameUpdate);
-                                if (verNameUpdate > versionName || verCodeUpdate > versionCode){
-                                    appUpdateAlertDialog(response.body().getData().getUrl());
-                                }
-                                else {
-                                    if (isFromSplashScreen){
-                                        initSplash(activity, cls);
-                                    }
-                                }
-
-
-//                            if (isFromSplashScreen){
-//
-//                                initSplash(activity, cls);
-//                            }
-//                                showAlertDialog(getStringFromResource(R.string.error_text), "error");
-
-
-
-
-                        }else {
-                            if (isFromSplashScreen){
-
-                                initSplash(activity, cls);
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equalsIgnoreCase(getString(R.string.response_code_200))) {
+                            verNameUpdate = Integer.parseInt(response.body().getData().getVersionName().replace(".", ""));
+                            verCodeUpdate = response.body().getData().getVersionCode();
+                            showToast(
+                                    "CURRENT App v." + versionName + "\nServer App v." + verNameUpdate);
+                            if (verNameUpdate > versionName || verCodeUpdate > versionCode) {
+                                appUpdateAlertDialog(response.body().getData().getUrl());
+                            } else {
+                                initSplash(activity);
                             }
-                            showAlertDialog(response.body().getCode(), response.message());
+                        } else {
+                            showAlertDialog(getStringFromResource(R.string.error_text) + "" + response.body().getCode(), response.body().getMessage());
+                            initSplash(activity);
                         }
-                    }else {
-                        if (isFromSplashScreen){
-
-                            initSplash(activity, cls);
-                        }
-                        showAlertDialog(getStringFromResource(R.string.error_text), response.message());
+                    } else {
+                        showAlertDialog(getStringFromResource(R.string.error_text) + "" + response.body().getCode(), response.body().getMessage());
+                        initSplash(activity);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<AppVersionResponse> call, Throwable t) {
-                    if (isFromSplashScreen){
-
-                        initSplash(activity, cls);
-                    }
-                    showAlertDialog(getStringFromResource(R.string.error_text), t.getLocalizedMessage());
+                    initSplash(activity);
+                    showAlertDialog(t.getMessage(), t.getLocalizedMessage());
                 }
             });
         }
 
 
-
     }
+
     private void appUpdateAlertDialog(String url) {
 
         android.app.AlertDialog.Builder builder;
@@ -453,9 +427,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     }
+
     private void downloadApp(String url) {
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         String fileName;
+        url = url.replace(" ", "%20");
         if (url != null) {
             fileName = url.substring(url.lastIndexOf('/') + 1, url.length()).trim();
 
@@ -478,19 +454,18 @@ public abstract class BaseActivity extends AppCompatActivity {
                 showAlertDialog(getStringFromResource(R.string.error_text), e.getLocalizedMessage());
             }
 
-        }
-        else {
+        } else {
             showToast("download url not found in the api");
 
         }
     }
 
-    public void initSplash(Activity activity, Class<?> cls){
+    public void initSplash(Activity activity) {
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                startActivity(cls, true);
+                startActivity(LoginActivity.class, true);
                 activity.finish();
             }
         }, 1500);
