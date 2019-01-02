@@ -22,6 +22,7 @@ import net.maxproit.salesforce.databinding.ActivityLoginBinding;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardVirifierActivity;
 import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervisorActivity;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
@@ -97,17 +98,13 @@ public class LoginActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivityLoginBinding) getBinding();
         binding.setModel(new Login());
+        AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN,false);
 
 //
 //        String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
 //        if (st.isEmpty()) {
         if (isNetworkAvailable()) {
             callSetting();
-        } else {
-            String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
-            if (!roll.isEmpty()) {
-                gotoBoard(roll);
-            }
         }
 
 //        } else {
@@ -153,7 +150,7 @@ public class LoginActivity extends BaseActivity {
                             if (lr.getCode().equals("401")) {
                                 showToast("Invalid UserId or Password");
                             } else {
-
+                                AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN,true);
                                 gotoBoard(lr.getData().getUserTypeId());
                                 String lg = toJson(response.body());
                                 localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);
