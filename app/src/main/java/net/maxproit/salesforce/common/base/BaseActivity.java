@@ -30,7 +30,13 @@ import com.google.gson.JsonNull;
 
 import net.maxproit.salesforce.BuildConfig;
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
+import net.maxproit.salesforce.feature.dashboard.DashboardVirifierActivity;
+import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervisorActivity;
 import net.maxproit.salesforce.feature.login.LoginActivity;
+import net.maxproit.salesforce.feature.splash.SplashActivity;
+import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
+import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.model.appversion.AppVersionResponse;
 import net.maxproit.salesforce.network.ApiService;
 import net.maxproit.salesforce.network.RestClient;
@@ -409,6 +415,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+
+    private void gotoActivity(Activity activity){
+        if (!AppPreference.getInstance(BaseActivity.this).getBoolean(PrefKey.IS_LOGIN)) {
+            initSplash(activity);
+        }
+        else {
+            String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
+            if (!roll.isEmpty()) {
+                gotoBoard(roll);
+            }
+        }
+
+    }
     private void appUpdateAlertDialog(String url) {
 
         android.app.AlertDialog.Builder builder;
@@ -465,10 +484,36 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                startActivity(LoginActivity.class, true);
-                activity.finish();
+                if (!AppPreference.getInstance(activity).getBoolean(PrefKey.IS_LOGIN)) {
+                    startActivity(LoginActivity.class, true);
+                    activity.finish();
+                } else {
+                    String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
+                    if (!roll.isEmpty()) {
+                        gotoBoard(roll);
+                    }
+                }
+
             }
         }, 1500);
+    }
+
+
+    private void gotoBoard(String uT) {
+
+        if (uT.equals("1")) {
+            localCash().put(SharedPreferencesEnum.Key.ROLLUSER, uT);
+            startActivity(DashboardSalesOfficerActivity.class, true);
+            // startActivity(LocationTestActivity.class, true);
+        } else if (uT.equals("2")) {
+            localCash().put(SharedPreferencesEnum.Key.ROLLUSER, uT);
+            startActivity(MainDashboardSupervisorActivity.class, true);
+        } else if (uT.equals("3")) {
+            localCash().put(SharedPreferencesEnum.Key.ROLLUSER, uT);
+            startActivity(DashboardVirifierActivity.class, true);
+
+        }
+
     }
 
 }
