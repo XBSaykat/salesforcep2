@@ -280,4 +280,12 @@ public class CoApplicantActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data !=null){
+            CoApplicant coApplicant = null;
+            coApplicantProductAndCustomerDetailsFragment.setDataFromSearch(coApplicant);
+
+        }
+    }
 }

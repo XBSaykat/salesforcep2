@@ -88,6 +88,7 @@ public class ProspectStageActivity extends BaseActivity {
         initLoader();
         showLoader();
         initFragment();
+        localCash().put(SharedPreferencesEnum.Key.SEARCH_TYPE,"Prospect");
         coApplicantDBController = new CoApplicantDBController(this);
         attachmentDbController = new AttachmentDbController(ProspectStageActivity.this);
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);

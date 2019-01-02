@@ -66,7 +66,7 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
                     showProgressDialog();
                     String source = localCash().getString(SharedPreferencesEnum.Key.SEARCH_TYPE);
                     Search search = binding.getModel();
-                    search.setSource("Lead");
+                    search.setSource(source);
 
                     getApiService().searchUserInfo(search).enqueue(new Callback<SearchList>() {
                         @Override
@@ -113,43 +113,47 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
     public void viewClick(int i) {
         String random = UUID.randomUUID().toString();
         int id = Integer.parseInt(list.get(i).getIndexID());
-        getApiService().getLeadDataByLeadIndex(id, random).enqueue(new Callback<GetLeadIndex>() {
-            @Override
-            public void onResponse(Call<GetLeadIndex> call, Response<GetLeadIndex> response) {
-                if (response.body().getCode().equals("200")) {
-                    if (response.body().getData() != null) {
-                        net.maxproit.salesforce.masum.model.api.Data data = response.body().getData();
-                        String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
-                        String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
-                        String loanAmount = MasumCommonUtils.isNotZero(data.getLoanAmount());
-                        String interestRate = MasumCommonUtils.isNotZero(data.getOfferedInterestRate());
-                        String opfee = MasumCommonUtils.isNotZero(data.getOfferedProcessFee());
-                        MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
-                                data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
-                                data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
-                                data.getProductSubCategory(), loanAmount, interestRate, opfee, disDate,
-                                followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
-                        myNewLead.setPs(data.getPs());
-                        myNewLead.setCity(data.getCity());
+        if (localCash().getString(SharedPreferencesEnum.Key.SEARCH_TYPE).equalsIgnoreCase("lead")) {
+            getApiService().getLeadDataByLeadIndex(id, random).enqueue(new Callback<GetLeadIndex>() {
+                @Override
+                public void onResponse(Call<GetLeadIndex> call, Response<GetLeadIndex> response) {
+                    if (response.body().getCode().equals("200")) {
+                        if (response.body().getData() != null) {
+                            net.maxproit.salesforce.masum.model.api.Data data = response.body().getData();
+                            String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
+                            String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
+                            String loanAmount = MasumCommonUtils.isNotZero(data.getLoanAmount());
+                            String interestRate = MasumCommonUtils.isNotZero(data.getOfferedInterestRate());
+                            String opfee = MasumCommonUtils.isNotZero(data.getOfferedProcessFee());
+                            MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
+                                    data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
+                                    data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
+                                    data.getProductSubCategory(), loanAmount, interestRate, opfee, disDate,
+                                    followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
+                            myNewLead.setPs(data.getPs());
+                            myNewLead.setCity(data.getCity());
 
-                        Bundle bundle=new Bundle();
-                        bundle.putSerializable(AppConstant.INTENT_KEY,myNewLead);
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtras(bundle);
-                        setResult(RESULT_OK,returnIntent);
-                        Log.e("activity_data","search:"+myNewLead.getUserName());
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtras(bundle);
+                            setResult(RESULT_OK, returnIntent);
+                            Log.e("activity_data", "search:" + myNewLead.getUserName());
 
-                        finish();
-                        hideProgressDialog();
+                            finish();
+                            hideProgressDialog();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<GetLeadIndex> call, Throwable t) {
+                @Override
+                public void onFailure(Call<GetLeadIndex> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }else {
+
+        }
 /*        Intent intent = new Intent();
         intent.putExtra(LEAD_INDEX_ID, list.get(i).getIndexID());
         intent.putExtra(CIF_ID, list.get(i).getCIF());

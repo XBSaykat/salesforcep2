@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="net.maxproit.salesforce.model.search.Search" />
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/basicInfoLead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:padding="@dimen/size_8dp"
+                android:text="Search Existing User" />
+
+            <LinearLayout
+                android:id="@+id/mainSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Client Name" />
+
+                    <EditText
+                        android:id="@+id/etClientName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:text="@={model.clientName}"
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="National ID" />
+
+                    <EditText
+                        android:id="@+id/etNationalID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={model.nationalID}"
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mobile" />
+
+                    <EditText
+                        android:id="@+id/etMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={model.mobile}"
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CIF Number" />
+
+                    <EditText
+                        android:id="@+id/etCif"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={model.cif}"
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btnSearch"
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/size_8dp"
+                    android:layout_margin="@dimen/size_8dp"
+                    android:text="SEARCH" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/listSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/emtyHeader"
+                    android:layout_alignParentLeft="true" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

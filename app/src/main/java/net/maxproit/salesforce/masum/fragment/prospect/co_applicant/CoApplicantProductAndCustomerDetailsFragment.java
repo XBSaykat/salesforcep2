@@ -95,7 +95,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public CheckBox cbExist;
     public TextView etChif;
     public LinearLayout liChif;
-    public static final int SERCH_CODE = 500;
+
 
 //    Spinner productCategory;
 //    Spinner productDetail;
@@ -500,7 +500,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etChif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), SearchUserActivity.class), SERCH_CODE);
+                startActivityForResult(new Intent(getContext(), SearchUserActivity.class), AppConstant.SERCH_REQ_CODE);
             }
         });
 
@@ -779,6 +779,14 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
 
         }
+    }
+
+
+    public void setDataFromSearch(CoApplicant coApplicant){
+        if (coApplicant!=null){
+
+        }
+
     }
 
     public void datePickerDialog(Context context, EditText et) {

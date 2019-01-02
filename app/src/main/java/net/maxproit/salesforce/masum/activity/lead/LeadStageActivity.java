@@ -80,6 +80,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
     @Override
     protected void initComponents() {
+        localCash().put(SharedPreferencesEnum.Key.SEARCH_TYPE,"Lead");
         initLoader();
         showLoader();
         splashThread();
