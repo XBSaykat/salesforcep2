@@ -104,11 +104,18 @@ public class ActivityUtils {
     }
 
 
+    public static void invokProspectRbmViewStage(Activity activity, MyNewProspect myNewLead) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+        Intent intent = new Intent(activity, ProspectViewRbm.class);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
     public static void invokProspectRbmViewStage(Activity activity, MyNewProspect myNewLead, Data prospectListData) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
         bundle.putSerializable(AppConstant.PROSPECT_RBM_LIST_DATA_INTENT_KEY, prospectListData);
-
         Intent intent = new Intent(activity, ProspectViewRbm.class);
         intent.putExtras(bundle);
         activity.startActivity(intent);

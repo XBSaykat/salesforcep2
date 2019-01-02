@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import net.maxproit.salesforce.R;
+import net.maxproit.salesforce.SupervisorRbmProspect;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyPerformanceAllDetailBinding;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
@@ -17,6 +18,7 @@ import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.api.myactivity.MyActivityGetByJournalIdApi;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
+import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.local.MyPerformanceModel;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
@@ -179,22 +181,29 @@ public class MyPerformanceAllDetailActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getCode().equals("200")) {
                         if (response.body().getData() != null) {
-                            OldProspect oldProspect = response.body();
-                            // sentProspectData(oldProspect);
-                            // ActivityUtils.invokLeadDetailForProspectStage(getActivity(), oldProspect.getMyNewProspect());
+                            hideProgressDialog();
 
+                            OldProspect oldProspect = response.body();
+                            MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
+                            ActivityUtils.invokProspectRbmViewStage(MyPerformanceAllDetailActivity.this, myNewProspect);
+
+                            //sentProspectData(oldProspect);
+                           //  ActivityUtils.invokLeadDetailForProspectStage(getActivity(), oldProspect.getMyNewProspect());
                         } else {
                             showAlertDialog("Error", "Server Error");
-                            hideLoader();
+                            hideProgressDialog();
+
                         }
                     } else {
                         showAlertDialog("Error", response.body().getMessage());
-                        hideLoader();
+                        hideProgressDialog();
+
                     }
 
                 } else {
                     showAlertDialog("Error", response.message());
-                    hideLoader();
+                    hideProgressDialog();
+
                 }
 
             }
@@ -202,7 +211,8 @@ public class MyPerformanceAllDetailActivity extends BaseActivity {
             @Override
             public void onFailure(Call<OldProspect> call, Throwable t) {
                 showAlertDialog("Error", t.getMessage());
-                hideLoader();
+                hideProgressDialog();
+
             }
         });
 

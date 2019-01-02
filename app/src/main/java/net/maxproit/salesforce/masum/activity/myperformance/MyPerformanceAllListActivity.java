@@ -91,14 +91,10 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
 
         initListener();
 
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         callApi();
     }
+
+
 
     private void initListener() {
 
