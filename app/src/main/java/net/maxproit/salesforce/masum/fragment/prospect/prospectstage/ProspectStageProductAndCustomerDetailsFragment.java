@@ -616,13 +616,18 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                 radioButtonYes.setChecked(true);
             }
 
-            if (myNewLead.getDateOfBirth().equalsIgnoreCase("1900-01-01")) {
-                etDob.setText("");
-            } else {
-                String dateOfBirth = DateUtils.getDateFormateEt(myNewLead.getDateOfBirth());
-                etDob.setText(dateOfBirth);
-                long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(dateOfBirth);
-                etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+            try {
+                if (myNewLead.getDateOfBirth().equalsIgnoreCase("1900-01-01")) {
+                    etDob.setText("");
+                } else {
+                    String dateOfBirth = DateUtils.getDateFormateEt(myNewLead.getDateOfBirth());
+                    etDob.setText(dateOfBirth);
+                    long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(dateOfBirth);
+                    etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+                }
+            }
+            catch (NullPointerException e){
+
             }
 
             etETin.setText(myNewLead.getEtin());

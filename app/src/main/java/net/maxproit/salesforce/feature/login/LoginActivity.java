@@ -150,13 +150,17 @@ public class LoginActivity extends BaseActivity {
                             if (lr.getCode().equals("401")) {
                                 showToast("Invalid UserId or Password");
                             } else {
-                                AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN,true);
-                                gotoBoard(lr.getData().getUserTypeId());
-                                String lg = toJson(response.body());
-                                localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);
-                                localCash().put(SharedPreferencesEnum.Key.USER_NAME, binding.etUsername.getText().toString());
-                                localCash().put(SharedPreferencesEnum.Key.USER_CODE, response.body().getData().getUserCode());
-
+                                if(lr.getData() !=null) {
+                                    AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN, true);
+                                    gotoBoard(lr.getData().getUserTypeId());
+                                    String lg = toJson(response.body());
+                                    localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);
+                                    localCash().put(SharedPreferencesEnum.Key.USER_NAME, binding.etUsername.getText().toString());
+                                    localCash().put(SharedPreferencesEnum.Key.USER_CODE, response.body().getData().getUserCode());
+                                }
+                                else{
+                                    showToast("Invalid UserId or Password");
+                                }
                             }
 
                         } else

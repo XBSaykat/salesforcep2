@@ -107,6 +107,9 @@ public class MasumCommonUtils {
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
         }
+        catch (NullPointerException n){
+
+        }
     }
 
 }

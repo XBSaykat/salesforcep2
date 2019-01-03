@@ -191,8 +191,7 @@ public class CoApplicantFinancialFragment extends Fragment {
             MasumCommonUtils.commaSeperator(etPracticeConsultancyTuition, myNewLead.getMonthTuitionIncomeAmount());
             MasumCommonUtils.commaSeperator(etRemittance, myNewLead.getRemittance());
             MasumCommonUtils.commaSeperator(etInterestIncome, myNewLead.getInterestFDRIncomeAmount());
-            MasumCommonUtils.commaSeperator(etMonthlyFamilyExpenditure, myNewLead.getMonthFamilyExpenditure());
-            MasumCommonUtils.commaSeperator(etEMIOfOtherLoans, myNewLead.getEmiOfOtherLoans());
+
         }
 
 
