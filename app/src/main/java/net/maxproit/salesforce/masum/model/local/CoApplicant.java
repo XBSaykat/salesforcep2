@@ -502,7 +502,7 @@ public class CoApplicant implements Serializable {
 
     public void setcoApplicantDatafromServer(net.maxproit.salesforce.model.myprospect.updatemyprospect.CoApplicant coApplicantServer){
 
-        
+
 
     }
 
