@@ -386,6 +386,9 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                                     getPosition(myNewLead.getProductSubcategory()));
                         } catch (IllegalStateException ignored) {
                         }
+                        catch (NullPointerException e){
+
+                        }
 
 
                     }

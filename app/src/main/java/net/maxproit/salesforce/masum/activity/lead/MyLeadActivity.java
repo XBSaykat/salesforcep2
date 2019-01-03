@@ -164,11 +164,12 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
             }
         } else {
 
-            if (isNetworkAvailable())
+            if (isNetworkAvailable()) {
                 getDataFromServer();
-            else
+            } else {
                 leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
-            myLeadAdapter.notifyDataSetChanged();
+                myLeadAdapter.notifyDataSetChanged();
+            }
             if (leadListDataFromApi.isEmpty()) {
                 hideProgressDialog();
                 showEmptyView();
@@ -190,16 +191,15 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            if (response.body().getData() !=null) {
-                                leadListDataFromApi.addAll(response.body().getData());
-                                myLeadAdapter.notifyDataSetChanged();
-                                hideProgressDialog();
-                            }
-                            else {
-                                hideProgressDialog();
-                                showEmptyView();
-                            }
+                            hideProgressDialog();
+                            leadListDataFromApi.addAll(response.body().getData());
+                            myLeadAdapter.notifyDataSetChanged();
 
+
+                        } else if (response.body().getCode().equals("404")) {
+                            initLoader();
+                            showEmptyView();
+                            hideProgressDialog();
                         } else {
                             hideProgressDialog();
                             showEmptyView();

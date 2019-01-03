@@ -270,17 +270,10 @@ public class FragmentProspectreturn extends BaseFragment {
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                                 recyclerView.setLayoutManager(mLayoutManager);
                                 recyclerView.setAdapter(myProspectAdapter);
-                                if (dataList.isEmpty()){
-                                    showEmptyView();
-                                }
                                 initListener();
 
                             } else showEmptyView();
-                        }
-                        else if (response.body().getCode().equals("404")){
-                            showEmptyView();
-                        }
-                        else {
+                        } else {
                             showEmptyView();
                             showAlertDialog("Error", response.body().getMessage());
                         }

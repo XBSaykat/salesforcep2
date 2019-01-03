@@ -125,9 +125,12 @@ public class FragmentProspectPendingList extends BaseFragment {
                             } else {
                                 showAlertDialog("Error", "Server Error");
                                 hideLoader();
-                                showEmptyView();
                             }
-                        } else {
+                        }
+                        else if(response.body().getCode().equals("404")){
+                            showEmptyView();
+                        }
+                        else {
                             showAlertDialog("Error", response.body().getMessage());
                             hideLoader();
                         }
@@ -271,8 +274,6 @@ public class FragmentProspectPendingList extends BaseFragment {
                                 initListener();
 
                             } else showEmptyView();
-                        } else if (response.body().getCode().equals("404")) {
-                            showEmptyView();
                         } else {
                             showEmptyView();
                             showAlertDialog(getString(R.string.error_text), response.body().getMessage());

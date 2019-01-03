@@ -138,7 +138,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Shows a Alert Dialog with title and message and a OK button
      *
-     * @param title Title of the Alert Dialog
+     * @param title   Title of the Alert Dialog
      * @param message Message of Alert Dialog
      */
     public void showAlertDialog(String title, String message) {
@@ -384,15 +384,18 @@ public abstract class BaseActivity extends AppCompatActivity {
                     int verNameUpdate, verCodeUpdate;
 
                     if (response.isSuccessful()) {
-                        if (response.body().getCode().equalsIgnoreCase(getString(R.string.response_code_200))) {
-                            verNameUpdate = Integer.parseInt(response.body().getData().getVersionName().replace(".", ""));
-                            verCodeUpdate = response.body().getData().getVersionCode();
-                            showToast(
-                                    "CURRENT App v." + versionName + "\nServer App v." + verNameUpdate);
-                            if (verNameUpdate > versionName || verCodeUpdate > versionCode) {
-                                appUpdateAlertDialog(response.body().getData().getUrl());
-                            } else {
-                                initSplash(activity);
+
+                            if (response.body().getCode().equalsIgnoreCase(getString(R.string.response_code_200))) {
+                                if (response.body().getData() != null) {
+                                verNameUpdate = Integer.parseInt(response.body().getData().getVersionName().replace(".", ""));
+                                verCodeUpdate = response.body().getData().getVersionCode();
+                                showToast(
+                                        "CURRENT App v." + versionName + "\nServer App v." + verNameUpdate);
+                                if (verNameUpdate > versionName || verCodeUpdate > versionCode) {
+                                    appUpdateAlertDialog(response.body().getData().getUrl());
+                                } else {
+                                    initSplash(activity);
+                                }
                             }
                         } else {
                             showAlertDialog(getStringFromResource(R.string.error_text) + "" + response.body().getCode(), response.body().getMessage());
@@ -416,11 +419,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    private void gotoActivity(Activity activity){
+    private void gotoActivity(Activity activity) {
         if (!AppPreference.getInstance(BaseActivity.this).getBoolean(PrefKey.IS_LOGIN)) {
             initSplash(activity);
-        }
-        else {
+        } else {
             String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
             if (!roll.isEmpty()) {
                 gotoBoard(roll);
@@ -428,6 +430,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
     }
+
     private void appUpdateAlertDialog(String url) {
 
         android.app.AlertDialog.Builder builder;
