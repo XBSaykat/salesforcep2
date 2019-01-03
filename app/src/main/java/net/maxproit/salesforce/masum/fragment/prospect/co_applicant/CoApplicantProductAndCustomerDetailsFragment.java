@@ -75,7 +75,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private LinearLayout liPhotoIdNo, liPassport, liDrivingLicense, liBirthCertificate;
     private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
     private RadioGroup rgExList;
-    private ArrayAdapter<String> perPolishStationAdapter, prePolishStationAdapter;
+    private ArrayAdapter<String> perPolishStationAdapter, prePolishStationAdapter,disBirthAdapter,disCountryAdater,professionAdapter,validPhotoIdAdapter,realationAdapter;
     private List<String> listPerPs = null, listPrePs = null;
     private SpinnerDbController spinnerDbController;
     private MyLeadDbController myLeadDbController;
@@ -564,21 +564,21 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         spinnerPrePoliceStation.setAdapter(prePolishStationAdapter);
 
 
-        ArrayAdapter<String> disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
+         disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerDistOfBirth.setAdapter(disBirthAdapter);
         spinnerDistOfBirth.setThreshold(1);
 
-        ArrayAdapter<String> disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCountryString());
+         disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCountryString());
         spinnerCountOfBirth.setAdapter(disCountryAdater);
 
-        ArrayAdapter<String> professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
+        professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
         spinnerProfession.setAdapter(professionAdapter);
 
-        ArrayAdapter<String> realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
+        realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
         spinnerRelationship.setAdapter(realationAdapter);
 
 
-        ArrayAdapter<String> validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
+         validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhotoType.setAdapter(validPhotoIdAdapter);
         try {
             spinnerCountOfBirth.setSelection(disCountryAdater.getPosition("Bangladesh"));
@@ -637,84 +637,100 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         });
 
         if (coApplicantActivity.getDataFromApplicant() != null) {
-            CoApplicant coApplicant = coApplicantActivity.getDataFromApplicant();
-            etName.setText(coApplicant.getName());
             cbExist.setVisibility(View.GONE);
-            if (!MasumCommonUtils.isNullStr(coApplicant.getDateOfBirth())) {
-                etDateOfBirth.setText(coApplicant.getDateOfBirth());
-                long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(coApplicant.getDateOfBirth());
-                etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+            CoApplicant coApplicant = coApplicantActivity.getDataFromApplicant();
+            setData(coApplicant);
+
+        }
+    }
+
+
+    public void setDataFromSearch(CoApplicant coApplicant){
+        if (coApplicant!=null){
+            setData(coApplicant);
+        }
+
+    }
+
+
+
+    private void setData(CoApplicant coApplicant){
+        etName.setText(coApplicant.getName());
+        if (!MasumCommonUtils.isNullStr(coApplicant.getDateOfBirth())) {
+            etDateOfBirth.setText(coApplicant.getDateOfBirth());
+            long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(coApplicant.getDateOfBirth());
+            etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
+        }
+
+        if (coApplicant.getExceptionList() == 0) {
+            exList = 0;
+            radioButtonNO.setChecked(true);
+            radioButtonYes.setChecked(false);
+        } else {
+            exList = 1;
+            radioButtonNO.setChecked(false);
+            radioButtonYes.setChecked(true);
+        }
+
+        etDesignation.setText(coApplicant.getDesignation());
+        etETin.setText(coApplicant.geteTin());
+        etFatherName.setText(coApplicant.getfName());
+        etMotherName.setText(coApplicant.getmName());
+        etSpouseName.setText(coApplicant.getsName());
+        if (coApplicant.getPhotoIdIssueDate() != null) {
+            etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
+        }
+        etCompanyName.setText(coApplicant.getCompanyName());
+        etPermanentAddress.setText(coApplicant.getPermanentAddress());
+        etPresentAddress.setText(coApplicant.getPresentAddress());
+        etNoYrsInCurrentJob.setText(coApplicant.getNoOfYrsInCurrentJob());
+        etMobileNumber.setText(coApplicant.getMobileNo());
+        getphotoIdNumber(coApplicant.getPhotoIdType());
+        etPhotoId.setText(coApplicant.getPhotoIdNo());
+
+        if (!MasumCommonUtils.isNullStr(coApplicant.getDistrictOfBirth())) {
+            spinnerDistOfBirth.setText(coApplicant.getDistrictOfBirth());
+            districtOfBirth = coApplicant.getDistrictOfBirth();
+        }
+        if (!MasumCommonUtils.isNullStr(coApplicant.getCountryOfBirth())) {
+            try {
+                spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(coApplicant.getCountryOfBirth()));
+
+            } catch (final IllegalStateException e) {
+
             }
+        }
+        if (!MasumCommonUtils.isNullStr(coApplicant.getPhotoIdType())) {
+            String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(coApplicant.getPhotoIdType()));
+            photoIdcode = Integer.parseInt(coApplicant.getPhotoIdType());
+            try {
+                spinnerValidPhotoType.setSelection(validPhotoIdAdapter.getPosition(pIdTypeStr));
+                getphotoIdNumber(pIdTypeStr);
 
-            if (coApplicant.getExceptionList() == 0) {
-                exList = 0;
-                radioButtonNO.setChecked(true);
-                radioButtonYes.setChecked(false);
-            } else {
-                exList = 1;
-                radioButtonNO.setChecked(false);
-                radioButtonYes.setChecked(true);
+            } catch (IllegalStateException er) {
+
             }
+        } else {
+            liPhotoIdNo.setVisibility(View.GONE);
+        }
 
-            etDesignation.setText(coApplicant.getDesignation());
-            etETin.setText(coApplicant.geteTin());
-            etFatherName.setText(coApplicant.getfName());
-            etMotherName.setText(coApplicant.getmName());
-            etSpouseName.setText(coApplicant.getsName());
-            if (coApplicant.getPhotoIdIssueDate() != null) {
-                etPhotoIdDate.setText(coApplicant.getPhotoIdIssueDate());
+        if (!MasumCommonUtils.isNullStr(coApplicant.getProfession())) {
+            try {
+                spinnerProfession.setSelection(professionAdapter.getPosition(coApplicant.getProfession()));
+
+            } catch (final IllegalStateException ignored) {
+
             }
-            etCompanyName.setText(coApplicant.getCompanyName());
-            etPermanentAddress.setText(coApplicant.getPermanentAddress());
-            etPresentAddress.setText(coApplicant.getPresentAddress());
-            etNoYrsInCurrentJob.setText(coApplicant.getNoOfYrsInCurrentJob());
-            etMobileNumber.setText(coApplicant.getMobileNo());
-            getphotoIdNumber(coApplicant.getPhotoIdType());
-            etPhotoId.setText(coApplicant.getPhotoIdNo());
+        }
 
-            if (!MasumCommonUtils.isNullStr(coApplicant.getDistrictOfBirth())) {
-                spinnerDistOfBirth.setText(coApplicant.getDistrictOfBirth());
-                districtOfBirth = coApplicant.getDistrictOfBirth();
+        if (!MasumCommonUtils.isNullStr(coApplicant.getRelationWithApplicant())) {
+            try {
+                spinnerRelationship.setSelection(realationAdapter.getPosition(coApplicant.getRelationWithApplicant()));
+            } catch (final IllegalStateException ignored) {
+
             }
-            if (!MasumCommonUtils.isNullStr(coApplicant.getCountryOfBirth())) {
-                try {
-                    spinnerCountOfBirth.setSelection(disCountryAdater.getPosition(coApplicant.getCountryOfBirth()));
-
-                } catch (final IllegalStateException e) {
-
-                }
-            }
-            if (!MasumCommonUtils.isNullStr(coApplicant.getPhotoIdType())) {
-                String pIdTypeStr = localSetting.getPhotoIdTypeStrByCode(Integer.parseInt(coApplicant.getPhotoIdType()));
-                photoIdcode = Integer.parseInt(coApplicant.getPhotoIdType());
-                try {
-                    spinnerValidPhotoType.setSelection(validPhotoIdAdapter.getPosition(pIdTypeStr));
-                    getphotoIdNumber(pIdTypeStr);
-
-                } catch (IllegalStateException er) {
-
-                }
-            } else {
-                liPhotoIdNo.setVisibility(View.GONE);
-            }
-
-            if (!MasumCommonUtils.isNullStr(coApplicant.getProfession())) {
-                try {
-                    spinnerProfession.setSelection(professionAdapter.getPosition(coApplicant.getProfession()));
-
-                } catch (final IllegalStateException ignored) {
-
-                }
-            }
-
-            if (!MasumCommonUtils.isNullStr(coApplicant.getRelationWithApplicant())) {
-                try {
-                    spinnerRelationship.setSelection(realationAdapter.getPosition(coApplicant.getRelationWithApplicant()));
-                } catch (final IllegalStateException ignored) {
-
-                }
-            }
-            //city android polish station
+        }
+        //city android polish station
 
        /*     if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressCity())) {
                 try {
@@ -744,48 +760,39 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
 
                 }
             }*/
-            if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressCity())) {
-                preCity = coApplicant.getPresentAddressCity();
-                spinnerPreCity.setText(coApplicant.getPresentAddressCity());
-                if (!listPrePs.isEmpty())
-                    listPrePs.clear();
-                listPrePs.addAll(localSetting.getpsListByCityCode(coApplicant.getPresentAddressCity()));
-                prePolishStationAdapter.notifyDataSetChanged();
-            }
-            if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressPS())) {
-                prePoliceStation = coApplicant.getPresentAddressPS();
-                try {
-                    spinnerPrePoliceStation.setSelection(prePolishStationAdapter.getPosition(coApplicant.getPresentAddressPS()));
-                } catch (final IllegalStateException ignored) {
-
-                }
-            }
-            if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressCity())) {
-                perCity = coApplicant.getPermanentAddressCity();
-                spinnerPerCity.setText(coApplicant.getPermanentAddressCity());
-                if (!listPerPs.isEmpty())
-                    listPerPs.clear();
-                listPerPs.addAll(localSetting.getpsListByCityCode(coApplicant.getPermanentAddressCity()));
-                perPolishStationAdapter.notifyDataSetChanged();
-            }
-            if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressPS())) {
-                perPoliceStation = coApplicant.getPermanentAddressPS();
-                try {
-                    spinnerPerPoliceStation.setSelection(perPolishStationAdapter.getPosition(coApplicant.getPermanentAddressPS()));
-                } catch (final IllegalStateException ignored) {
-
-                }
-            }
-
-
+        if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressCity())) {
+            preCity = coApplicant.getPresentAddressCity();
+            spinnerPreCity.setText(coApplicant.getPresentAddressCity());
+            if (!listPrePs.isEmpty())
+                listPrePs.clear();
+            listPrePs.addAll(localSetting.getpsListByCityCode(coApplicant.getPresentAddressCity()));
+            prePolishStationAdapter.notifyDataSetChanged();
         }
-    }
+        if (!MasumCommonUtils.isNullStr(coApplicant.getPresentAddressPS())) {
+            prePoliceStation = coApplicant.getPresentAddressPS();
+            try {
+                spinnerPrePoliceStation.setSelection(prePolishStationAdapter.getPosition(coApplicant.getPresentAddressPS()));
+            } catch (final IllegalStateException ignored) {
 
-
-    public void setDataFromSearch(CoApplicant coApplicant){
-        if (coApplicant!=null){
-
+            }
         }
+        if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressCity())) {
+            perCity = coApplicant.getPermanentAddressCity();
+            spinnerPerCity.setText(coApplicant.getPermanentAddressCity());
+            if (!listPerPs.isEmpty())
+                listPerPs.clear();
+            listPerPs.addAll(localSetting.getpsListByCityCode(coApplicant.getPermanentAddressCity()));
+            perPolishStationAdapter.notifyDataSetChanged();
+        }
+        if (!MasumCommonUtils.isNullStr(coApplicant.getPermanentAddressPS())) {
+            perPoliceStation = coApplicant.getPermanentAddressPS();
+            try {
+                spinnerPerPoliceStation.setSelection(perPolishStationAdapter.getPosition(coApplicant.getPermanentAddressPS()));
+            } catch (final IllegalStateException ignored) {
+
+            }
+        }
+
 
     }
 

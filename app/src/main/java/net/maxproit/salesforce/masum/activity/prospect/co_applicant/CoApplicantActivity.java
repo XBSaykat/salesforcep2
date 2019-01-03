@@ -245,7 +245,7 @@ public class CoApplicantActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         CoApplicantActivity.ViewPagerAdapter adapter = new CoApplicantActivity.ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CoApplicantProductAndCustomerDetailsFragment(), "Product & Customer Details");
+        adapter.addFragment(coApplicantProductAndCustomerDetailsFragment, "Product & Customer Details");
         adapter.addFragment(new CoApplicantFinancialFragment(), "Financials");
         viewPager.setAdapter(adapter);
     }
@@ -283,7 +283,7 @@ public class CoApplicantActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data !=null){
-            CoApplicant coApplicant = null;
+            CoApplicant coApplicant = (CoApplicant) data.getSerializableExtra(AppConstant.INTENT_KEY);
             coApplicantProductAndCustomerDetailsFragment.setDataFromSearch(coApplicant);
 
         }

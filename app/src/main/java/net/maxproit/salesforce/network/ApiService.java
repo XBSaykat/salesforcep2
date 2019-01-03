@@ -1,6 +1,7 @@
 package net.maxproit.salesforce.network;
 
 
+import net.maxproit.salesforce.masum.model.api.GetExistingCoApplicant;
 import net.maxproit.salesforce.masum.model.api.GetLeadIndex;
 import net.maxproit.salesforce.masum.model.api.cibcif.CibCifResponse;
 import net.maxproit.salesforce.masum.model.api.dashboarddetail.GetdashboardDetailData;
@@ -82,6 +83,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Contains all API call declarations
@@ -145,6 +147,10 @@ public interface ApiService {
 
     @GET("CdLead/LeadPopulate/{LeadIndexID}/{timestamp}")
     Call<GetLeadIndex> getLeadDataByLeadIndex(@Path("LeadIndexID") int LeadIndexID, @Path("timestamp") String random);
+
+
+    @GET("CdProspect/CoApplicant/customerId/{timestamp}")
+    Call<GetExistingCoApplicant> getCoApplicantDataByIndex(@Path("timestamp") String random,@Query("customerId") int LeadIndexID);
 
 
     //rbm data

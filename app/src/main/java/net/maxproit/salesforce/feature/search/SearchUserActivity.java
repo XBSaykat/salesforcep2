@@ -17,9 +17,11 @@ import net.maxproit.salesforce.databinding.ActivitySearchUserBinding;
 import net.maxproit.salesforce.feature.search.adapter.SearchAdapter;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.model.api.GetExistingCoApplicant;
 import net.maxproit.salesforce.masum.model.api.GetLeadIndex;
 import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
@@ -152,6 +154,34 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
                 }
             });
         }else {
+
+            getApiService().getCoApplicantDataByIndex(random,id).enqueue(new Callback<GetExistingCoApplicant>() {
+                @Override
+                public void onResponse(Call<GetExistingCoApplicant> call, Response<GetExistingCoApplicant> response) {
+                    if (response.body().getCode().equals(getString(R.string.success_code))){
+                        CoApplicant coApplicant=new CoApplicant();
+                        coApplicant.setcoApplicantDatafromServer(response.body().getData());
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(AppConstant.INTENT_KEY, coApplicant);
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtras(bundle);
+                        setResult(RESULT_OK, returnIntent);
+                        finish();
+
+                    }
+                    else {
+                        Log.e("","");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GetExistingCoApplicant> call, Throwable t) {
+                    Log.e("","");
+                }
+            });
+
+
+
 
         }
 /*        Intent intent = new Intent();
