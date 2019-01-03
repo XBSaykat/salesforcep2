@@ -494,4 +494,16 @@ public class CoApplicant implements Serializable {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
+
+
+
+
+
+
+    public void setcoApplicantDatafromServer(net.maxproit.salesforce.model.myprospect.updatemyprospect.CoApplicant coApplicantServer){
+
+        
+
+    }
+
 }
