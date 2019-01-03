@@ -171,6 +171,9 @@ public class FragmentUpComingList extends BaseFragment {
                         myLeadAdapter.notifyDataSetChanged();
 
                     }
+                    else if (response.body().getCode().equals("404")){
+                        showEmptyView();
+                    }
 
                 }
 

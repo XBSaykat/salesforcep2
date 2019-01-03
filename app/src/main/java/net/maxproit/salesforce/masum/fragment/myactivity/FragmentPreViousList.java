@@ -349,6 +349,9 @@ public class FragmentPreViousList extends BaseFragment {
                         ActivityUtils.invokVisitPlanDetail(getActivity(), VisitPLanDetailsActivity.class, visitPlan);
 
                     }
+                    else if (response.body().getCode().equals("404")){
+                        showEmptyView();
+                    }
                 }
 
                 @Override

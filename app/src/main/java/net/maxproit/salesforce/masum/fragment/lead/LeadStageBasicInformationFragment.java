@@ -333,7 +333,6 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
                         }
 
-
                         if (!listPs.isEmpty())
                             listPs.clear();
                         listPs.addAll(mLocalSettting.getpsListByCityCode(visitPlan.getCity()));

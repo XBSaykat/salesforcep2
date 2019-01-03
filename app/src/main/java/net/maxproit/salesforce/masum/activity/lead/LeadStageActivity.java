@@ -71,6 +71,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private int activityPosition;
     public static int myLeadPosition = -1;
     private VisitPlan visitPlan = null;
+    private int existingCustomerId = 0;
 
     @Override
     protected int getLayoutResourceId() {
@@ -80,7 +81,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
     @Override
     protected void initComponents() {
-        localCash().put(SharedPreferencesEnum.Key.SEARCH_TYPE,"Lead");
+        localCash().put(SharedPreferencesEnum.Key.SEARCH_TYPE, "Lead");
         initLoader();
         showLoader();
         splashThread();
@@ -324,6 +325,10 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             myLeadApi.setAddressId(0);
             myLeadApi.setMobileNumberId(0);
             myLeadApi.setVisitId(0);
+        }
+
+        if (existingCustomerId > 0) {
+            myLeadApi.setCustomerId(existingCustomerId);
         }
         myLeadApi.setProfession(profession);
         myLeadApi.setOrganization(organization);
@@ -776,6 +781,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             MyNewLead myNewLead = (MyNewLead) data.getSerializableExtra(AppConstant.INTENT_KEY);
             Bundle bundle = new Bundle();
             bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+            existingCustomerId = myNewLead.getCusId();
             leadStageBasicInformationFragment.setDataFromSearch(bundle);
 
         }

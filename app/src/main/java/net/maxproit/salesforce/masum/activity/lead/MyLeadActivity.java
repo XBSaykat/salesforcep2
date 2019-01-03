@@ -190,9 +190,15 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
                 public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
-                            leadListDataFromApi.addAll(response.body().getData());
-                            myLeadAdapter.notifyDataSetChanged();
-                            hideProgressDialog();
+                            if (response.body().getData() !=null) {
+                                leadListDataFromApi.addAll(response.body().getData());
+                                myLeadAdapter.notifyDataSetChanged();
+                                hideProgressDialog();
+                            }
+                            else {
+                                hideProgressDialog();
+                                showEmptyView();
+                            }
 
                         } else {
                             hideProgressDialog();

@@ -285,7 +285,12 @@ public class FragmentCurrentActivity extends BaseFragment {
                             showEmptyView();
 
                         }
-                    } else {
+                    }
+                    else if (response.body().getCode().equals("404")){
+                        showEmptyView();
+                    }
+
+                    else {
                         showAlertDialog("Error", response.body().getMessage());
                         showEmptyView();
                     }
