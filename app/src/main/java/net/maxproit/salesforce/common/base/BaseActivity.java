@@ -392,7 +392,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 showToast(
                                         "CURRENT App v." + versionName + "\nServer App v." + verNameUpdate);
                                 if (verNameUpdate > versionName || verCodeUpdate > versionCode) {
-                                    appUpdateAlertDialog(response.body().getData().getUrl());
+                                    appUpdateAlertDialog(response.body().getData().getUrl(),versionCode,versionName);
                                 } else {
                                     initSplash(activity);
                                 }
@@ -431,7 +431,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private void appUpdateAlertDialog(String url) {
+    private void appUpdateAlertDialog(String url,int vc,int vn) {
 
         android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -440,7 +440,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             builder = new android.app.AlertDialog.Builder(getContext());
         }
         builder.setTitle("Update Available");
-        builder.setMessage("New Update Available for download. Please Download the latest version of the app.");
+        builder.setMessage("New Update Available for download. Please Download the latest version of the app.,"+"\nCURRENT App v." + vn + "\nServer App v." + vc);
         builder.setIcon(R.drawable.ic_download);
         builder.setCancelable(false);
         builder.setPositiveButton("OK", (dialog, which) -> downloadApp(url));
