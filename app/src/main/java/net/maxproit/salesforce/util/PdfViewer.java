@@ -8,6 +8,7 @@ import com.github.barteksc.pdfviewer.PDFView;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -17,8 +18,8 @@ import java.net.URL;
 
 public class PdfViewer extends BaseActivity {
 
-    private static final String INTENT_KEY = "intent";
-    private static final String PDF_URL = "pdfurl";
+
+
 
     WebView webView;
     PDFView pdfView;
@@ -38,7 +39,7 @@ public class PdfViewer extends BaseActivity {
     protected void getIntentData() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            String pdfUrl = bundle.getString(PDF_URL);
+            String pdfUrl = bundle.getString(AppConstant.PDF_URL_INTENT_KEY);
             new RetrievePdf().execute(pdfUrl);
         }
     }

@@ -95,6 +95,7 @@ public class AppConstant {
     public static final int SERCH_REQ_CODE = 500;
 
     public static final int APPROVED = 101;
+    public static final String PDF_URL_INTENT_KEY = "pdfurl";
 
     public static ArrayList<CoApplicant> coAppLicantStaticList=new ArrayList<>();
 

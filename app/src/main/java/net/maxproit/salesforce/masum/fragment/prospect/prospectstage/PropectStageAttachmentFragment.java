@@ -39,6 +39,7 @@ import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 import net.maxproit.salesforce.masum.utility.ImageUtils;
+import net.maxproit.salesforce.util.PdfViewer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -185,14 +186,12 @@ public class PropectStageAttachmentFragment extends BaseFragment {
         } else {
            /* Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(getDoc(position).getURL()));
             getContext().startActivity(intent);*/
-
-            Intent target = new Intent(Intent.ACTION_VIEW);
-            target.setDataAndType(Uri.parse(getDoc(position).getURL()),"application/pdf");
-            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-            Intent intent = Intent.createChooser(target, "Open File");
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstant.PDF_URL_INTENT_KEY,getDoc(position).getURL());
+            Intent target = new Intent(getActivity(), PdfViewer.class);
+            target.putExtras(bundle);
             try {
-                startActivity(intent);
+                startActivity(target);
             } catch (ActivityNotFoundException e) {
                 // Instruct the user to install a PDF reader here, or something
             }
