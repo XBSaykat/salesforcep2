@@ -140,6 +140,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
         if (myNewLead != null) {
             etUserName.setText(myNewLead.getUserName());
+            etAddress.setText(myNewLead.getAddress());
             if (!MasumCommonUtils.isNullStr(myNewLead.getCity())) {
                 try {
                     city = myNewLead.getCity();

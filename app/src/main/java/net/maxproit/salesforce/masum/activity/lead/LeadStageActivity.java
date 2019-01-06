@@ -71,7 +71,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private int activityPosition;
     public static int myLeadPosition = -1;
     private VisitPlan visitPlan = null;
-    private int existingCustomerId = 0;
+    private int existingCustomerId = 0, existingAddressId=0 ;
 
     @Override
     protected int getLayoutResourceId() {
@@ -329,6 +329,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
         if (existingCustomerId > 0) {
             myLeadApi.setCustomerId(existingCustomerId);
+        }  if (existingAddressId > 0) {
+            myLeadApi.setAddressId(existingAddressId);
         }
         myLeadApi.setProfession(profession);
         myLeadApi.setOrganization(organization);
@@ -782,6 +784,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             Bundle bundle = new Bundle();
             bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
             existingCustomerId = myNewLead.getCusId();
+            existingAddressId = myNewLead.getAddressId();
             leadStageBasicInformationFragment.setDataFromSearch(bundle);
 
         }

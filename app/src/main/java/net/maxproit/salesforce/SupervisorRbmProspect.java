@@ -187,7 +187,7 @@ public class SupervisorRbmProspect extends BaseActivity {
             getApiService().getRbmData(userName, random).enqueue(new Callback<GetRbmData>() {
                 @Override
                 public void onResponse(Call<GetRbmData> call, Response<GetRbmData> response) {
-                    if (isNetworkAvailable()) {
+                    if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
                             MyProspect myProspect = new MyProspect();
                             prospectArrayList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
@@ -207,7 +207,7 @@ public class SupervisorRbmProspect extends BaseActivity {
                             hideProgressDialog();
                         }
                     } else {
-                        showAlertDialog("Error", "Network Error");
+                        showAlertDialog("Error", response.message()+"\n"+response.errorBody().toString());
                         hideProgressDialog();
                     }
                 }
