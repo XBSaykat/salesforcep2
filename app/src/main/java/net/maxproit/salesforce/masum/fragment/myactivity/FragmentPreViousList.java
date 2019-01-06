@@ -330,8 +330,7 @@ public class FragmentPreViousList extends BaseFragment {
             getApiService().getActivityByJournalId(journalId, random).enqueue(new Callback<MyActivityGetByJournalIdApi>() {
                 @Override
                 public void onResponse(Call<MyActivityGetByJournalIdApi> call, Response<MyActivityGetByJournalIdApi> response) {
-                    Log.e("", "");
-                    if (response.body().getCode().equals("200")) {
+                    if (response.body().getCode().equals(getString(R.string.success_code))) {
                         Data data = response.body().getData();
 
                         String followupDate = null;
@@ -356,7 +355,7 @@ public class FragmentPreViousList extends BaseFragment {
 
                 @Override
                 public void onFailure(Call<MyActivityGetByJournalIdApi> call, Throwable t) {
-                    showAlertDialog("ERROR", t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
 
                 }
             });

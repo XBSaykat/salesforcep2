@@ -650,7 +650,7 @@ public class ProspectStageActivity extends BaseActivity {
         getApiService().myprospectApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
-                if (response.body().getCode().equals( getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase("ok")) {
+                if (response.body().getCode().equals(getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase("ok")) {
                     hideProgressDialog();
                     errorAlert(getString(R.string.succes_txt), getString(R.string.prospect_approved));
 

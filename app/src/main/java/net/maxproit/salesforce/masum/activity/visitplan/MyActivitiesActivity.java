@@ -29,12 +29,10 @@ import java.util.List;
 public class MyActivitiesActivity extends BaseActivity {
 
 
-    private android.support.v7.widget.Toolbar toolbar;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private LinearLayout linearLayoutToolbar;
-    private TextView btnSave;
-    private MyLeadDbController myLeadDbController;
+
     private ImageView backButton, addButton;
     private SearchView searchView;
     private static FragmentCurrentActivity currentActivity;
@@ -50,28 +48,22 @@ public class MyActivitiesActivity extends BaseActivity {
     @Override
     protected void initComponents() {
 
-        linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
-        viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
+        viewPager =  findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
         viewPager.setOffscreenPageLimit(3);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout_my_activity);
+        tabLayout = findViewById(R.id.tab_layout_my_activity);
         tabLayout.setupWithViewPager(viewPager);
         backButton = findViewById(R.id.btn_back);
         addButton = findViewById(R.id.btn_add);
         searchView = findViewById(R.id.search_view);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        backButton.setOnClickListener(view-> {
                 MyActivitiesActivity.super.onBackPressed();
-            }
         });
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        addButton.setOnClickListener(view-> {
                 alertDialog();
 
-            }
+
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -169,8 +161,8 @@ public class MyActivitiesActivity extends BaseActivity {
         builder.setTitle(getString(R.string.my_activity));
         builder.setMessage(getString(R.string.create_activity));
         builder.setIcon(R.drawable.lead);
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             startActivity(new Intent(MyActivitiesActivity.this, VisitPLanDetailsActivity.class));
 
         });
