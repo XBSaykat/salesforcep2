@@ -27,16 +27,12 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initComponents() {
         binding = (ActivitySplashBinding) getBinding();
-
-
         if (isNetworkAvailable() && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                 (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
             checkAppVersion(this);
         } else {
            initSplash(this);
         }
-
-
     }
 
     @Override
@@ -50,16 +46,13 @@ public class SplashActivity extends BaseActivity {
             startActivity(DashboardSalesOfficerActivity.class, true);
             // startActivity(LocationTestActivity.class, true);
 
-
         } else if (uT.equals("2")) {
             localCash().put(SharedPreferencesEnum.Key.ROLLUSER, uT);
             startActivity(MainDashboardSupervisorActivity.class, true);
 
-
         } else if (uT.equals("3")) {
             localCash().put(SharedPreferencesEnum.Key.ROLLUSER, uT);
             startActivity(DashboardVirifierActivity.class, true);
-
 
         }
 
