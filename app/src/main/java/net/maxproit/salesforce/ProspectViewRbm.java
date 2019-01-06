@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.login.LoginActivity;
@@ -50,7 +48,7 @@ public class ProspectViewRbm extends BaseActivity {
     private TextView tvApproval, tvReject, tvReturn, tvProdecutCategory, tvProductDetail, tvBranchName, tvUserName, tvSegment, tvAge,
             tvBirthDistrict, tvBirthCountry, tvValidPhotoId, tvPhotoIssudate, tvEtin, tvFatherName, tvMotherName, tvSpouseName,
             tvProfession, tvCompanyName, tvDesignation, tvCurrentJobYear, tvRelationshipWithApplicant, tvPermanentAddress,
-            tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
+            tvPresentAddress, tvMobileNumber, tvMonthlySalary, tvSalaryAmount, tvMonthlyBusinessIncome, tvAgricultureIncome, tvtution, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
             tvFee, tvDateOfBorth, tvMultiApartmentIncome, tvSemipakaIncome, tvCifInfo, tvRuleInfo, tvOfficeCommercialSpace, tvWarehouseFactoryIncome, tvTakeApproval;
 
@@ -115,7 +113,7 @@ public class ProspectViewRbm extends BaseActivity {
         tvSalaryAmount = (TextView) findViewById(R.id.tv_salar_amount);
         tvMonthlyBusinessIncome = (TextView) findViewById(R.id.tv_business_income);
         tvAgricultureIncome = (TextView) findViewById(R.id.tv_agriculture_income);
-        tvOtherIncome = (TextView) findViewById(R.id.tv_other_income);
+        tvtution = (TextView) findViewById(R.id.tv_other_income);
         tvRemittance = (TextView) findViewById(R.id.tv_remittance);
         tvFdr = (TextView) findViewById(R.id.tv_fdr);
         tvFamilyExpenditure = (TextView) findViewById(R.id.tv_family_expenditure);
@@ -290,7 +288,7 @@ public class ProspectViewRbm extends BaseActivity {
 
     /*
             ,
-            tvRentalIncome, tvAgricultureIncome, tvOtherIncome, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
+            tvRentalIncome, tvAgricultureIncome, tvtution, tvRemittance, tvFdr, tvFamilyExpenditure, tvEmi, tvSecurityValue,
             tvBrandName, tvManufacturingYear, tvManufacturingCountry, tvVehicleType, tvLoanRequired, tvLoanTerm, tvInteresterRate,
             tvFee;*/
     private void sentDataToCoApplicant(int position) {
@@ -402,7 +400,7 @@ public class ProspectViewRbm extends BaseActivity {
         tvOfficeCommercialSpace.setText(getDataFromProspect().getOfficeSpaceINcome());
         tvWarehouseFactoryIncome.setText(getDataFromProspect().getWireHouseINcome());
         tvAgricultureIncome.setText(getDataFromProspect().getAg_Income());
-        tvOtherIncome.setText(getDataFromProspect().getEmiOther());
+        tvtution.setText(getDataFromProspect().getTution());
         tvRemittance.setText(getDataFromProspect().getRemitance());
         tvFdr.setText(getDataFromProspect().getInFdr());
         tvFamilyExpenditure.setText(getDataFromProspect().getfExpense());

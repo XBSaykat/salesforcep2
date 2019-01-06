@@ -193,7 +193,16 @@ public class SupervisorRbmProspect extends BaseActivity {
                             prospectArrayList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
                             myAdapter.notifyDataSetChanged();
                             hideProgressDialog();
-                        } else {
+                        }
+                        else if (response.body().getCode().equals("404")){
+                            initLoader();
+                            hideProgressDialog();
+                            showEmptyView();
+
+                        }
+
+
+                        else {
                             showAlertDialog("Error", response.body().getMessage());
                             hideProgressDialog();
                         }

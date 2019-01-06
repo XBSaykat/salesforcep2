@@ -78,7 +78,7 @@
             android:layout_below="@+id/appbar"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true" />
-
+<include layout="@layout/view_common_loader"/>
     </RelativeLayout>
 
 
