@@ -37,14 +37,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyLeadActivity extends BaseActivity implements AdapterInfo {
-    private static final String TAG = "MyLeadActivity";
-    public static final int APPROVED = 101;
 
     ActivityMyLeadBinding binding;
     MyLeadAdapter myLeadAdapter;
     MyLeadDbController myLeadDbController;
     LocalLogin localLogin;
-    MyNewProspect myNewLead;
     ArrayList<LeadLeastDataFromApi> leadListDataFromApi, filterList;
     String username;
     ArrayList<MyNewProspect> leadList;
@@ -92,16 +89,14 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
         myLeadAdapter.notifyDataSetChanged();
 
 
-        myLeadAdapter.setItemClickListener(new OnItemClickListener() {
-            @Override
-            public void itemClickListener(View view, int position) {
-                loadFilterData();
-                switch (view.getId()) {
-                    case R.id.clLeadItem:
-                        sentDataToDetail(position);
-                        break;
-                }
+        myLeadAdapter.setItemClickListener((view, position) -> {
+            loadFilterData();
+            switch (view.getId()) {
+                case R.id.clLeadItem:
+                    sentDataToDetail(position);
+                    break;
             }
+
         });
     }
 
@@ -334,7 +329,7 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // When an Image is picked
-        if (requestCode == APPROVED && resultCode == RESULT_OK && null != data) {
+        if (requestCode == AppConstant.APPROVED && resultCode == RESULT_OK && null != data) {
             startActivity(MyLeadActivity.class, true);
         }
 

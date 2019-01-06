@@ -571,8 +571,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         } else {
             builder = new android.app.AlertDialog.Builder(LeadStageActivity.this);
         }
-        builder.setTitle("Proceed");
-        builder.setMessage(getResources().getString(R.string.save_alert));
+        builder.setTitle(getString(R.string.proceed_txt));
+        builder.setMessage(getResources().getString(R.string.proceed_alert));
         builder.setNegativeButton(getResources().getString(R.string.no), null);
         builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             MyLeadDataModelApi myLeadDataModelApi = getDataFromFragment(myNewLead);

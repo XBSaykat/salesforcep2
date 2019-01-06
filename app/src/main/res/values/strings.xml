@@ -265,6 +265,7 @@
     <string name="Proceed_is_not_available">Proceed is not available without internet,PLease connect to the internet</string>
     <string name="create_lead">Create Lead</string>
     <string name="save_alert">Do you want to save details?</string>
+    <string name="proceed_alert">Do you want to proceed?</string>
     <string name="alert">Alert</string>
     <string name="save_txt">Save</string>
     <string name="no">No</string>
@@ -281,6 +282,9 @@
     <string name="otp_success"><![CDATA[otp code sent successfully,please check your phone for otp code & enter the code]]></string>
     <string name="proceed_unavailable">Proceed is not available without internet,PLease connect to the internet</string>
     <string name="proceed_not_valid">Proceed is not valid for</string>
+    <string name="proceed_txt">Proceed</string>
+    <string name="prospect_approved">Prospect Approved</string>
+    <string name="reqired">enter required field</string>
 
 
 </resources>
