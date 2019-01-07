@@ -489,7 +489,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="NO. of months in current job: "
+                        android:text="Work/Business Experience(In months): "
                         android:textStyle="bold" />
 
                     <TextView
@@ -1152,7 +1152,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Cib Info:"
+                        android:text="CIB Info:"
                         android:textStyle="bold" />
 
                     <TextView

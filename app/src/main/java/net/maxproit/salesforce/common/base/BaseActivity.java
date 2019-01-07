@@ -402,7 +402,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             initSplash(activity);
                         }
                     } else {
-                        showAlertDialog(getStringFromResource(R.string.error_text) + "" + response.body().getCode(), response.body().getMessage());
+                        showAlertDialog(getStringFromResource(R.string.error_text) + "" , response.message());
                         initSplash(activity);
                     }
                 }

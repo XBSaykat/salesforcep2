@@ -258,7 +258,7 @@
     <string name="create_activity">Do you want to create a new activity?</string>
     <string name="remove">complete</string>
     <string name="Reject">complete</string>
-    <string name="reject_item">Are you sure,want to complete this?</string>
+    <string name="reject_item">Are you sure,want to remove coApplicant?</string>
     <string name="reject_plan">Are you sure,want to reject this visit plan?</string>
     <string name="my_activity">My Activity</string>
     <string name="date_of_birth">Date of birth :</string>

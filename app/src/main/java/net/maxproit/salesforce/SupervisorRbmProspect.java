@@ -78,6 +78,7 @@ public class SupervisorRbmProspect extends BaseActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rvProspect.setLayoutManager(mLayoutManager);
         rvProspect.setAdapter(myAdapter);
+        myAdapter.isChangedFieldName(true);
         initListener();
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +172,7 @@ public class SupervisorRbmProspect extends BaseActivity {
 //        filterList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_RBM));
         if (isNetworkAvailable()) {
             callApi();
-        } else showAlertDialog("Error", "Network isn't connected");
+        } else showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
 
 
     }
@@ -188,7 +189,7 @@ public class SupervisorRbmProspect extends BaseActivity {
                 @Override
                 public void onResponse(Call<GetRbmData> call, Response<GetRbmData> response) {
                     if (response.isSuccessful()) {
-                        if (response.body().getCode().equals("200")) {
+                        if (response.body().getCode().equals(getString(R.string.success_code))) {
                             MyProspect myProspect = new MyProspect();
                             prospectArrayList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
                             myAdapter.notifyDataSetChanged();
@@ -203,24 +204,24 @@ public class SupervisorRbmProspect extends BaseActivity {
 
 
                         else {
-                            showAlertDialog("Error", response.body().getMessage());
+                            showAlertDialog(getString(R.string.error_text), response.body().getMessage());
                             hideProgressDialog();
                         }
                     } else {
-                        showAlertDialog("Error", response.message()+"\n"+response.errorBody().toString());
+                        showAlertDialog(getString(R.string.error_text), response.message()+"\n"+response.errorBody().toString());
                         hideProgressDialog();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<GetRbmData> call, Throwable t) {
-                    showAlertDialog("Error", t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
                     hideProgressDialog();
 
                 }
             });
         } else {
-            showAlertDialog("Error", "Network isn't connected");
+            showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
 
         }
 
@@ -234,7 +235,7 @@ public class SupervisorRbmProspect extends BaseActivity {
             getApiService().getRbmDataByRef(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
                 @Override
                 public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
-                    if (response.body().getCode().equals("200")) {
+                    if (response.body().getCode().equals(getString(R.string.success_code))) {
                         hideProgressDialog();
                         OldProspect oldProspect = response.body();
                         MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
@@ -242,7 +243,7 @@ public class SupervisorRbmProspect extends BaseActivity {
 
 
                     } else {
-                        showAlertDialog("ERROR", response.body().getMessage());
+                        showAlertDialog(getString(R.string.error_text), response.body().getMessage());
                         hideProgressDialog();
                     }
 
@@ -250,11 +251,11 @@ public class SupervisorRbmProspect extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<OldProspect> call, Throwable t) {
-                    showAlertDialog("ERROR", t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
                     hideProgressDialog();
                 }
             });
-        } else showAlertDialog("ERROR", "internet not available,please connect to the internet");
+        } else showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
 
     }
 
@@ -268,8 +269,8 @@ public class SupervisorRbmProspect extends BaseActivity {
         builder.setTitle(getString(R.string.logout_title));
         builder.setMessage(getString(R.string.logout_message));
         builder.setIcon(R.drawable.logout_icon);
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             startActivity(new Intent(SupervisorRbmProspect.this, LoginActivity.class));
             localCash().put(SharedPreferencesEnum.Key.ROLLUSER, "");
         });

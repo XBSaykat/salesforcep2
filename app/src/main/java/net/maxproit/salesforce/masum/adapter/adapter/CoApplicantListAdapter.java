@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.maxproit.salesforce.R;
@@ -43,9 +44,9 @@ public class CoApplicantListAdapter extends RecyclerView.Adapter<CoApplicantList
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        int i=position+1;
+        int i = position + 1;
         holder.tvName.setText(coApplicantsList.get(position).getName());
-        holder.tvNumber.setText("Co-Applicant "+i+"");
+        holder.tvNumber.setText("Co-Applicant " + i + "");
 
     }
 
@@ -58,6 +59,7 @@ public class CoApplicantListAdapter extends RecyclerView.Adapter<CoApplicantList
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ArrayList<CoApplicant> coApplicantsList;
         TextView tvName, tvNumber;
+        ImageView btnReject;
         Context context;
 
 
@@ -67,15 +69,19 @@ public class CoApplicantListAdapter extends RecyclerView.Adapter<CoApplicantList
             this.coApplicantsList = coApplicantsList;
             tvName = itemView.findViewById(R.id.tv_co_applicant_listview_name);
             tvNumber = itemView.findViewById(R.id.tv_co_number);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mListener.itemClickListener(view, getLayoutPosition());
-                }
+            btnReject = itemView.findViewById(R.id.btn_reject);
+            itemView.setOnClickListener(view -> {
+                mListener.itemClickListener(view, getLayoutPosition());
+
+            });
+
+            btnReject.setOnClickListener(view -> {
+                mListener.itemClickListener(view, getLayoutPosition());
             });
 
         }
     }
+
     public void setItemClickListener(OnItemClickListener mListener) {
         this.mListener = mListener;
     }
