@@ -146,15 +146,12 @@ public class SupervisorRbmProspect extends BaseActivity {
 
     private void initListener() {
 
-        myAdapter.setItemClickListener(new OnItemClickListener() {
-            @Override
-            public void itemClickListener(View view, int position) {
-                loadFilterData();
-                switch (view.getId()) {
-                    default:
-                        sentDataToDetail(position);
-                        break;
-                }
+        myAdapter.setItemClickListener((view, position) -> {
+            loadFilterData();
+            switch (view.getId()) {
+                default:
+                    sentDataToDetail(position);
+                    break;
             }
         });
 
@@ -169,12 +166,8 @@ public class SupervisorRbmProspect extends BaseActivity {
             prospectArrayList.clear();
         }
 
-//        filterList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_RBM));
-        if (isNetworkAvailable()) {
-            callApi();
-        } else showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
 
-
+        callApi();
     }
 
     private void callApi() {
@@ -194,21 +187,17 @@ public class SupervisorRbmProspect extends BaseActivity {
                             prospectArrayList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
                             myAdapter.notifyDataSetChanged();
                             hideProgressDialog();
-                        }
-                        else if (response.body().getCode().equals("404")){
+                        } else if (response.body().getCode().equals("404")) {
                             initLoader();
                             hideProgressDialog();
                             showEmptyView();
 
-                        }
-
-
-                        else {
+                        } else {
                             showAlertDialog(getString(R.string.error_text), response.body().getMessage());
                             hideProgressDialog();
                         }
                     } else {
-                        showAlertDialog(getString(R.string.error_text), response.message()+"\n"+response.errorBody().toString());
+                        showAlertDialog(getString(R.string.error_text), response.message() + "\n" + response.errorBody().toString());
                         hideProgressDialog();
                     }
                 }
@@ -255,7 +244,8 @@ public class SupervisorRbmProspect extends BaseActivity {
                     hideProgressDialog();
                 }
             });
-        } else showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
+        } else
+            showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
 
     }
 

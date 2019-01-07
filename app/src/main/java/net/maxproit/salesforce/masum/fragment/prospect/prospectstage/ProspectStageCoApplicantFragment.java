@@ -207,7 +207,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                         @Override
                         public void onResponse(Call<DeleteCoApplicantresponse> call, Response<DeleteCoApplicantresponse> response) {
                             if (response.isSuccessful()) {
-                                if (response.body().getCode().equals("200")) {
+                                if (response.body().getCode().equals(getString(R.string.success_code))) {
                                     AppConstant.coAppLicantStaticList.remove(position);
                                     coApplicantList.remove(position);
                                     coApplicantAdapter.notifyDataSetChanged();
@@ -219,13 +219,13 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
                                 }
 
                             } else {
-                                showAlertDialog("Error",response.message());
+                                showAlertDialog(getString(R.string.error_text),response.message());
                             }
                         }
 
                         @Override
                         public void onFailure(Call<DeleteCoApplicantresponse> call, Throwable t) {
-                            showAlertDialog("Error",t.getMessage());
+                            showAlertDialog(getString(R.string.error_text),t.getMessage());
                         }
                     });
 

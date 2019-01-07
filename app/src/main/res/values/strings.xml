@@ -23,7 +23,7 @@
     <string name="pdf_dir">/PDFfiles</string>
     <string name="pdf_type">application/pdf</string>
     <string name="logout_title">Logout</string>
-    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="logout_message">Are you sure,you want to logout?</string>
     <string name="st_cancle">Cancle</string>
     <string name="st_ok">Ok</string>
     <string name="api_unsuccess_message">No data found</string>
