@@ -4,24 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
-
-import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.api.lead.LeadLeastDataFromApi;
 import net.maxproit.salesforce.masum.model.api.rbm.Datum;
 import net.maxproit.salesforce.masum.model.api.rbm.GetRbmData;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
@@ -29,10 +19,7 @@ import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.model.myprospect.Data;
 import net.maxproit.salesforce.model.myprospect.MyProspect;
 import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
-import net.maxproit.salesforce.model.search.Search;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -46,18 +33,12 @@ public class SupervisorRbmProspect extends BaseActivity {
     private ImageView btnBack;
     private SearchView searchView;
 
-    ArrayList<Data> prospectArrayList, filterList;
+    private ArrayList<Data> prospectArrayList, filterList;
 
-    MyNewProspectAdapter myAdapter;
+    private MyNewProspectAdapter myAdapter;
     //    String userName;
-    MyLeadDbController myLeadDbController;
     //    Bundle extras;
-    RecyclerView rvProspect;
-
-    //    Button btnAddProspect;
-
-    //    ArrayList<MyNewLead> followUpList, filterList;
-    //
+    private RecyclerView rvProspect;
 
     @Override
     protected int getLayoutResourceId() {
@@ -156,12 +137,9 @@ public class SupervisorRbmProspect extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        myLeadDbController = new MyLeadDbController(this);
         if (!prospectArrayList.isEmpty()) {
             prospectArrayList.clear();
         }
-
-
         callApi();
     }
 
