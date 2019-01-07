@@ -81,18 +81,13 @@ public class SupervisorRbmProspect extends BaseActivity {
         myAdapter.isChangedFieldName(true);
         initListener();
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
+        btnLogout.setOnClickListener(view -> {
+            logout();
+
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+        btnBack.setOnClickListener(view -> {
+            onBackPressed();
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
