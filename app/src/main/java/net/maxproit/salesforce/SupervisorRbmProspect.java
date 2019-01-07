@@ -206,7 +206,6 @@ public class SupervisorRbmProspect extends BaseActivity {
             });
         } else {
             showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
-
         }
 
     }
@@ -224,7 +223,6 @@ public class SupervisorRbmProspect extends BaseActivity {
                         OldProspect oldProspect = response.body();
                         MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
                         ActivityUtils.invokProspectRbmViewStage(SupervisorRbmProspect.this, myNewProspect, prospectListData);
-
 
                     } else {
                         showAlertDialog(getString(R.string.error_text), response.body().getMessage());
