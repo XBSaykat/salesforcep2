@@ -392,7 +392,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 showToast(
                                         "CURRENT App v." + versionName + "\nServer App v." + verNameUpdate);
                                 if (verNameUpdate > versionName || verCodeUpdate > versionCode) {
-                                    appUpdateAlertDialog(response.body().getData().getUrl(),versionCode,versionName);
+                                    appUpdateAlertDialog(response.body().getData().getUrl(),verNameUpdate,versionName);
                                 } else {
                                     initSplash(activity);
                                 }
