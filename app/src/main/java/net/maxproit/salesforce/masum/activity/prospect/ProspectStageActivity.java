@@ -626,11 +626,11 @@ public class ProspectStageActivity extends BaseActivity {
                 }
 
 
-                int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+               /* int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
 
                 if (update > 0) {
 
-                }
+                }*/
             }
 
         });
