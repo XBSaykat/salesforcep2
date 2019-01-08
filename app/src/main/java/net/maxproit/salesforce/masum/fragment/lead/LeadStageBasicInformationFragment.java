@@ -136,7 +136,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
     public void setDataFromSearch(Bundle bundle) {
 
-       MyNewLead myNewLead= (MyNewLead) bundle.getSerializable(AppConstant.INTENT_KEY);
+        MyNewLead myNewLead = (MyNewLead) bundle.getSerializable(AppConstant.INTENT_KEY);
 
         if (myNewLead != null) {
             etUserName.setText(myNewLead.getUserName());
@@ -180,6 +180,13 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
                 profession = s;
+                if (etPhone.getText().toString() != null) {
+                    if (!s.contains("NRB")) {
+                        MasumCommonUtils.mobileNumberValidation(etPhone, etPhone.getText().toString());
+                    } else {
+                        etPhone.setError("");
+                    }
+                }
             }
         });
 
@@ -255,15 +262,13 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(mobileNo);
-                if (!mobileNo.isEmpty() && matcher.matches()) {
-
+                if (profession != null) {
+                    if (!profession.contains("NRB")) {
+                        MasumCommonUtils.mobileNumberValidation(etPhone, charSequence);
+                    }
                 } else {
-                    etPhone.setError("You entered invalid mobile no.");
+                    MasumCommonUtils.mobileNumberValidation(etPhone, charSequence);
                 }
-
 
 //                Toast.makeText(getContext(), charSequence.toString(), Toast.LENGTH_SHORT).show();
             }
