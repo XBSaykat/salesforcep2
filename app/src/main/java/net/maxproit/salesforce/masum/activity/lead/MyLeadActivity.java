@@ -36,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyLeadActivity extends BaseActivity implements AdapterInfo {
+public class MyLeadActivity extends BaseActivity {
 
     ActivityMyLeadBinding binding;
     MyLeadAdapter myLeadAdapter;
@@ -104,67 +104,20 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     @Override
     protected void onResume() {
         super.onResume();
-        showProgressDialog();
+
         if (!leadList.isEmpty()) {
             leadList.clear();
         }
         if (!leadListDataFromApi.isEmpty()) {
             leadListDataFromApi.clear();
         }
-        Bundle extraDetail = getIntent().getExtras();
-        if (extraDetail != null) {
-            int status = extraDetail.getInt(AppConstant.STATUS_INTENT_KEY, -1);
-            if (status == 1) {
-                binding.searchView.setQueryHint("search pending lead");
-                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_NEW));
-                binding.rvMyLead.setClickable(false);
-                hideProgressDialog();
-            } else if (status == 2) {
-                binding.searchView.setQueryHint("search proceeded lead");
-                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
-                binding.rvMyLead.setClickable(false);
-                hideProgressDialog();
-            } else if (status == 3) {
-                binding.searchView.setQueryHint("search closed lead");
-                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.LEAD_STATUS_REJECT));
-                binding.rvMyLead.setClickable(false);
-                hideProgressDialog();
-            } else if (status == 4) {
-                binding.searchView.setQueryHint("search Prospect ");
-                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_NEW_PROSPECT));
-                binding.rvMyLead.setClickable(false);
-                hideProgressDialog();
-            } else if (status == 5) {
-                binding.searchView.setQueryHint("search Proceeded Prospect");
-                leadList.addAll(myLeadDbController.myNewLeadGetAllData(AppConstant.STATUS_RBM));
-                binding.rvMyLead.setClickable(false);
-                hideProgressDialog();
-            } else {
-
-                if (isNetworkAvailable()) {
-                    getDataFromServer();
-                } else {
-
-                    leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
-                    myLeadAdapter.notifyDataSetChanged();
-                    if (leadListDataFromApi.isEmpty()) {
-                        hideProgressDialog();
-                        showEmptyView();
-                    } else {
-                        hideLoader();
-                        hideProgressDialog();
-                    }
-
-                }
-            }
+        if (isNetworkAvailable()) {
+            showProgressDialog();
+            getDataFromServer();
         } else {
 
-            if (isNetworkAvailable()) {
-                getDataFromServer();
-            } else {
-                leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
-                myLeadAdapter.notifyDataSetChanged();
-            }
+            leadListDataFromApi.addAll(myLeadDbController.getLeadListData());
+            myLeadAdapter.notifyDataSetChanged();
             if (leadListDataFromApi.isEmpty()) {
                 hideProgressDialog();
                 showEmptyView();
@@ -180,13 +133,13 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
     private void getDataFromServer() {
         String random = UUID.randomUUID().toString();
         if (isNetworkAvailable()) {
-
             getApiService().getLeadData(username, random).enqueue(new Callback<MyGetLeadApi>() {
                 @Override
                 public void onResponse(Call<MyGetLeadApi> call, Response<MyGetLeadApi> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getCode().equals("200")) {
                             hideProgressDialog();
+
                             leadListDataFromApi.addAll(response.body().getData());
                             myLeadAdapter.notifyDataSetChanged();
 
@@ -335,33 +288,4 @@ public class MyLeadActivity extends BaseActivity implements AdapterInfo {
 
     }
 
-    @Override
-    public void adShowProgressDialog() {
-
-    }
-
-    @Override
-    public void adHideProgressDialog() {
-
-    }
-
-    @Override
-    public void adSuccess(String message) {
-
-    }
-
-    @Override
-    public void adFailed(String message) {
-
-    }
-
-    @Override
-    public void startActivity(boolean self, Bundle bundle) {
-
-    }
-
-    @Override
-    public void startActivity(boolean self, Bundle bundle, int code) {
-
-    }
 }
