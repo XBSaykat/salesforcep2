@@ -778,7 +778,6 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("activity_data", "result:" + data);
         if (data != null) {
             MyNewLead myNewLead = (MyNewLead) data.getSerializableExtra(AppConstant.INTENT_KEY);
             Bundle bundle = new Bundle();

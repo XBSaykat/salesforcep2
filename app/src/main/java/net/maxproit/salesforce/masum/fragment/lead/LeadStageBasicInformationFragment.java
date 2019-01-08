@@ -184,7 +184,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                     if (!s.contains("NRB")) {
                         MasumCommonUtils.mobileNumberValidation(etPhone, etPhone.getText().toString());
                     } else {
-                        etPhone.setError("");
+                        etPhone.setError(null);
                     }
                 }
             }

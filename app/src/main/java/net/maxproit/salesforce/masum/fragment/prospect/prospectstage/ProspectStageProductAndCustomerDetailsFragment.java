@@ -477,6 +477,13 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onItemSelected(int i, String s) {
                 profession = s;
+                if (s != null) {
+                    if (!s.contains("NRB")) {
+                        MasumCommonUtils.mobileNumberValidation(etMobileNumber, s);
+                    }
+                } else {
+                    MasumCommonUtils.mobileNumberValidation(etMobileNumber, s);
+                }
             }
         });
 
@@ -522,13 +529,12 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(mobileNo);
-                if (!mobileNo.isEmpty() && matcher.matches()) {
-
+                if (profession != null) {
+                    if (!profession.contains("NRB")) {
+                        MasumCommonUtils.mobileNumberValidation(etMobileNumber, charSequence);
+                    }
                 } else {
-                    etMobileNumber.setError("You entered invalid mobile no.");
+                    MasumCommonUtils.mobileNumberValidation(etMobileNumber, charSequence);
                 }
             }
 
