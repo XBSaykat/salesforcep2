@@ -260,6 +260,10 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
                             myProspectAdapter.notifyDataSetChanged();
                             hideProgressDialog();
                         }
+                        else if (response.body().getCode().equals("404")){
+                            initLoader();showEmptyView();
+                            hideProgressDialog();
+                        }
 
                     } else {
                         hideProgressDialog();
@@ -303,12 +307,11 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
 
     @Override
     public void adShowProgressDialog() {
-        showProgressDialog();
     }
 
     @Override
     public void adHideProgressDialog() {
-        hideProgressDialog();
+
 
     }
 
