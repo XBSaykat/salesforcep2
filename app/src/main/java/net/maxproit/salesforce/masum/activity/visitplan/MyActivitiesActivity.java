@@ -164,6 +164,7 @@ public class MyActivitiesActivity extends BaseActivity {
         builder.setNegativeButton(getString(R.string.no), null);
         builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             startActivity(new Intent(MyActivitiesActivity.this, VisitPLanDetailsActivity.class));
+            finish();
 
         });
         AlertDialog dialog = builder.create();

@@ -391,7 +391,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             builder = new AlertDialog.Builder(LeadStageActivity.this);
         }
         builder.setTitle(getString(R.string.Reject));
-        builder.setMessage(getString(R.string.reject_item));
+        builder.setMessage(getString(R.string.reject_lead));
         builder.setNegativeButton(getResources().getString(R.string.no), null);
         builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
