@@ -823,11 +823,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
                 valid = true;
             } else {
-                isVAlidText = getResources().getString(R.string.proceed_not_valid) + sPurposeOfVisitStr;
+                isVAlidText = getResources().getString(R.string.proceed_not_valid)+" " + sPurposeOfVisitStr;
                 valid = false;
             }
         } else {
-            isVAlidText = getString(R.string.proceed_not_valid) + spinerClientTypeStr;
+            isVAlidText = getString(R.string.proceed_not_valid)+" "  + spinerClientTypeStr;
             valid = false;
         }
 
