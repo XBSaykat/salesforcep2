@@ -28,7 +28,7 @@ public class ImageCompress {
             return new Compressor(context)
                     .setMaxWidth(640)
                     .setMaxHeight(480)
-                    .setQuality(50)
+                    .setQuality(80)
                     .setCompressFormat(Bitmap.CompressFormat.WEBP)
                     .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_PICTURES).getAbsolutePath())
