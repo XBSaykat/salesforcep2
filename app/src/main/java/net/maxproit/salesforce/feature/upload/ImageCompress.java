@@ -20,7 +20,6 @@ public class ImageCompress {
             e.printStackTrace();
             return null;
         }
-
     }
 
     public static File customCompressImage(Context context, File file) {
@@ -37,7 +36,6 @@ public class ImageCompress {
             e.printStackTrace();
             return null;
         }
-
     }
 
 
