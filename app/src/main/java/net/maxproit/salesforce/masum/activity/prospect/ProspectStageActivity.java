@@ -34,6 +34,7 @@ import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
+import net.maxproit.salesforce.masum.utility.MapUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.masum.model.api.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
@@ -78,6 +79,8 @@ public class ProspectStageActivity extends BaseActivity {
     private TextView buttonSave, btnProceed, btnReject;
     private LinearLayout mLayout;
 
+    MapUtils mapUtils;
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_lead_stage;
@@ -99,6 +102,7 @@ public class ProspectStageActivity extends BaseActivity {
         carLoanDbController = new CarLoanDbController(ProspectStageActivity.this);
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         userCode = localCash().getString(SharedPreferencesEnum.Key.USER_CODE);
+        mapUtils = new MapUtils(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +156,8 @@ public class ProspectStageActivity extends BaseActivity {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                mapUtils.gpsChecker();
+//                mapUtils.getLatLong();
                 alertDialogProceed();
             }
         });
@@ -159,7 +165,8 @@ public class ProspectStageActivity extends BaseActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                mapUtils.gpsChecker();
+//                mapUtils.getLatLong();
                 alertDialogSave();
             }
 

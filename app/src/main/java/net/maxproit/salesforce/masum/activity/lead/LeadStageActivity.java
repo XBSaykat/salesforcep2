@@ -37,6 +37,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MapUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.masum.model.api.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
@@ -70,6 +71,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private int activityPosition;
     public static int myLeadPosition = -1;
     private VisitPlan visitPlan = null;
+
+    MapUtils mapUtils;
 
     @Override
     protected int getLayoutResourceId() {
@@ -109,6 +112,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         mLayout = findViewById(R.id.btn_layout_lead);
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
         btnReject = findViewById(R.id.tv_activity_details_rejected);
+        mapUtils = new MapUtils(this);
         getDataFromIntent();
     }
 
@@ -251,6 +255,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                mapUtils.gpsChecker();
+//                mapUtils.getLatLong();
                 if (isNetworkAvailable())
                     alertDialogProceed(finalMyNewLead);
                 else
@@ -263,6 +269,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                mapUtils.gpsChecker();
+//                mapUtils.getLatLong();
                 alertDialogSave(finalMyNewLead);
             }
         });

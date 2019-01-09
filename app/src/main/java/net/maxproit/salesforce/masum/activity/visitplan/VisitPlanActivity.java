@@ -41,6 +41,7 @@ import net.maxproit.salesforce.masum.model.api.visitPlan.Data;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.MapUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -97,6 +98,8 @@ public class VisitPlanActivity extends BaseActivity {
     DatePickerDialog.OnDateSetListener date;
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
 
+    MapUtils mapUtils;
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_visit_plan;
@@ -112,6 +115,7 @@ public class VisitPlanActivity extends BaseActivity {
         dbController = new VisitPlanDbController(VisitPlanActivity.this);
         spinnerDbController = new SpinnerDbController(VisitPlanActivity.this);
         mLocalSetting = new LocalSetting(this);
+        mapUtils= new MapUtils(this);
         initView();
 
         txtMobileNo.addTextChangedListener(new TextWatcher() {
@@ -335,6 +339,8 @@ public class VisitPlanActivity extends BaseActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                mapUtils.gpsChecker();
+//                mapUtils.getLatLong();
                 clientName = txtClientName.getText().toString().trim();
                 mobileNo = txtMobileNo.getText().toString().trim();
                 dateOfvisit = tvVisitDT.getText().toString().trim();

@@ -45,6 +45,7 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
+import net.maxproit.salesforce.masum.utility.MapUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -100,6 +101,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     static final String INDIVIDUAL = "Individual";
     private ArrayAdapter<String> polishStationAdapter;
     private String clientType, productType, purposeOfVisit;
+    MapUtils mapUtils;
 
 
     @Override
@@ -122,6 +124,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
     private void initVariable() {
         localSetting = new LocalSetting(this);
+        mapUtils= new MapUtils(this);
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
         visitPlanDbController = new VisitPlanDbController(this);
@@ -359,6 +362,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         });
 
         tvProceedToLead.setOnClickListener(view -> {
+//            mapUtils.gpsChecker();
+//            mapUtils.getLatLong();
             if (isNetworkAvailable()) {
                 alertDialogProceed();
             } else
@@ -373,6 +378,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         });
 
         tvSave.setOnClickListener(view -> {
+//            mapUtils.gpsChecker();
+//            mapUtils.getLatLong();
+
             if (isValidForProceed()) {
                 if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                         !TextUtils.isEmpty(etNewRemark.getText())) {
