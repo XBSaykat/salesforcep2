@@ -11,6 +11,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -364,6 +365,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         tvProceedToLead.setOnClickListener(view -> {
 //            mapUtils.gpsChecker();
 //            mapUtils.getLatLong();
+
+            if (!isValid()){
+                return;
+            }
+
             if (isNetworkAvailable()) {
                 if (isValidForProceed()) {
                     alertDialogProceed();
@@ -385,8 +391,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         tvSave.setOnClickListener(view -> {
 //            mapUtils.gpsChecker();
 //            mapUtils.getLatLong();
+            if (!isValid()){
+                return;
+            }
 
-            if (isValidForProceed()) {
+            if (!isValidForProceed()) {
                 if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                         !TextUtils.isEmpty(etNewRemark.getText())) {
                     alertDialogSave();
@@ -1051,27 +1060,28 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
     }
 
-//    private boolean isValid() {
-//        boolean valid = true;
-//
-//        if(clientType == null || purposeOfVisit == null || productType == null ){
-//
-//            android.app.AlertDialog.Builder builder;
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-//            } else {
-//                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
-//            }
-//            builder.setIcon(R.drawable.ic_required);
-//            builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
-//            builder.setNegativeButton("OK", null);
-//            android.app.AlertDialog dialog = builder.create();
-//            dialog.show();
-//            valid = false;
-//        }
-//
-//        return valid;
-//    }
+    private boolean isValid() {
+        boolean valid = true;
+
+        if(spinerClientTypeStr == null || sPurposeOfVisitStr == null || sProductTypeString == null ){
+
+            android.app.AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+            } else {
+                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+            }
+            builder.setIcon(R.drawable.ic_required);
+            builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
+            builder.setNegativeButton("OK", null);
+            android.app.AlertDialog dialog = builder.create();
+            dialog.show();
+            valid = false;
+        }
+        else valid=true;
+
+        return valid;
+    }
 
 
 }
