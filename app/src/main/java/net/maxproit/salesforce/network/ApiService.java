@@ -1,8 +1,10 @@
 package net.maxproit.salesforce.network;
 
 
+import net.maxproit.salesforce.masum.model.api.GetExistingCoApplicant;
 import net.maxproit.salesforce.masum.model.api.GetLeadIndex;
 import net.maxproit.salesforce.masum.model.api.cibcif.CibCifResponse;
+import net.maxproit.salesforce.masum.model.api.coapplicant.DeleteCoApplicantresponse;
 import net.maxproit.salesforce.masum.model.api.dashboarddetail.GetdashboardDetailData;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationResponse;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationresponse.DeviationPostRespose;
@@ -82,6 +84,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Contains all API call declarations
@@ -147,6 +150,10 @@ public interface ApiService {
     Call<GetLeadIndex> getLeadDataByLeadIndex(@Path("LeadIndexID") int LeadIndexID, @Path("timestamp") String random);
 
 
+    @GET("CdProspect/CoApplicant/customerId/{timestamp}")
+    Call<GetExistingCoApplicant> getCoApplicantDataByIndex(@Path("timestamp") String random,@Query("customerId") int LeadIndexID);
+
+
     //rbm data
     @GET("CdProspect/ProspectsForAapproval/{userName}/{timestamp}")
     Call<GetRbmData> getRbmData(@Path("userName") String user, @Path("timestamp") String random);
@@ -162,21 +169,12 @@ public interface ApiService {
 
     @GET("MyDashBoardDetail/{ItemType}/{SupItemType}/{userName}/{timestamp}")
     Call<GetdashboardDetailData> getDashboardDetailDataList(@Path("ItemType") String itemType,@Path("SupItemType") String subItem,@Path("userName") String userName,@Path("timestamp") String random);
-    /*
-     Lead Api
-    */
 
-    // Lead Step 1. Create new Lead
-    @POST("lead")
-    Call<OldLead> createNewLead(@Body NewLead newLead);
 
-    // Lead Step 2. My lead
-    @GET("MyLead/{user}/{random}")
-    Call<Mylead> getMyLead(@Path("user") String user, @Path("random") String random);
+    //delete co aplicant
+    @GET("CdProspect/DeleteCoApplicant/{leadReferenceNo}/customerId")
+    Call<DeleteCoApplicantresponse> deleteCoApplicant(@Path("leadReferenceNo") String refNo, @Query("customerId") int customerId);
 
-    // Lead Step 3. Lead Approval
-//    @POST("proceedLead")
-//    Call<ApprovalResponce> myleadApproval(@Body MyLeadApproval myLeadApproval);
 
     @POST("CdApproval/proceedprospect")
     Call<ApprovalResponce> myprospectApproval(@Body Approval myLeadApproval);
@@ -359,7 +357,6 @@ public interface ApiService {
 
     // Cif Search
     @POST("CIF")
-
     Call<SearchList> searchUserInfo(@Body Search search);
 
     // Get Lead

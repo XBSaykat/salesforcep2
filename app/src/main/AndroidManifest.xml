@@ -121,6 +121,7 @@
         <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity" />
         <activity android:name=".CoApplicantRbmView" />
         <activity android:name=".masum.activity.prospect.MyProspectFragmentActivity" />
+        <activity android:name="net.maxproit.salesforce.util.PdfViewer" />
 
         <receiver
             android:name=".masum.reciever.NetworkMonitor"

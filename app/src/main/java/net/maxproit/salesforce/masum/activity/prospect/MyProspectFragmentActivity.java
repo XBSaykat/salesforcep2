@@ -29,13 +29,11 @@ import java.util.List;
 public class MyProspectFragmentActivity extends BaseActivity implements AdapterInfo {
 
 
-    private android.support.v7.widget.Toolbar toolbar;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private LinearLayout linearLayoutToolbar;
-    private TextView btnSave;
-    private MyLeadDbController myLeadDbController;
-    private ImageView backButton, addButton;
+
+    private ImageView backButton;
     private SearchView searchView;
     private FragmentProspectPendingList fragmentProspectPendingList;
     private FragmentProspectreturn prospectreturn;
@@ -49,7 +47,6 @@ public class MyProspectFragmentActivity extends BaseActivity implements AdapterI
     @Override
     protected void initComponents() {
         AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED, false);
-        linearLayoutToolbar = findViewById(R.id.linear_layout_my_activity_toolbar);
         viewPager = (ViewPager) findViewById(R.id.vp_my_activity);
         setupViewPager(viewPager);
         viewPager.setOffscreenPageLimit(2);

@@ -23,7 +23,7 @@
     <string name="pdf_dir">/PDFfiles</string>
     <string name="pdf_type">application/pdf</string>
     <string name="logout_title">Logout</string>
-    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="logout_message">Are you sure,you want to logout?</string>
     <string name="st_cancle">Cancle</string>
     <string name="st_ok">Ok</string>
     <string name="api_unsuccess_message">No data found</string>
@@ -257,14 +257,16 @@
     <string name="create_plan">Do you want to create a new plan?</string>
     <string name="create_activity">Do you want to create a new activity?</string>
     <string name="remove">complete</string>
-    <string name="Reject">complete</string>
-    <string name="reject_item">Are you sure,want to complete this?</string>
+    <string name="Reject">Reject</string>
+    <string name="reject_item">Are you sure,want to remove coApplicant?</string>
+    <string name="reject_lead">Are you sure,want to reject this lead?</string>
     <string name="reject_plan">Are you sure,want to reject this visit plan?</string>
     <string name="my_activity">My Activity</string>
     <string name="date_of_birth">Date of birth :</string>
     <string name="Proceed_is_not_available">Proceed is not available without internet,PLease connect to the internet</string>
     <string name="create_lead">Create Lead</string>
     <string name="save_alert">Do you want to save details?</string>
+    <string name="proceed_alert">Do you want to proceed?</string>
     <string name="alert">Alert</string>
     <string name="save_txt">Save</string>
     <string name="no">No</string>
@@ -277,10 +279,13 @@
     <string name="proceed_succesfull">Proceed Successfully</string>
     <string name="response_code_200">200</string>
     <string name="error_text">Error</string>
-    <string name="internet_not_available">Internet not available please connect to the internet</string>
+    <string name="internet_not_available">Internet not available, please connect to the internet</string>
     <string name="otp_success"><![CDATA[otp code sent successfully,please check your phone for otp code & enter the code]]></string>
     <string name="proceed_unavailable">Proceed is not available without internet,PLease connect to the internet</string>
     <string name="proceed_not_valid">Proceed is not valid for</string>
+    <string name="proceed_txt">Proceed</string>
+    <string name="prospect_approved">Prospect Approved</string>
+    <string name="reqired">enter required field</string>
 
 
 </resources>

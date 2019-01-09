@@ -152,8 +152,8 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
 
             MyNewProspect myNewLead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
 
-            etSecurityValue.setText(myNewLead.getsValue());
-            etLoanRequired.setText(myNewLead.getLoanReq());
+             MasumCommonUtils.commaSeperator(etSecurityValue,myNewLead.getsValue());
+             MasumCommonUtils.commaSeperator(etLoanRequired,myNewLead.getLoanReq());
             etProposedInterest.setText(myNewLead.getOrInterest());
             etLoanTerm.setText(myNewLead.getLoanTerm());
             etFee.setText(myNewLead.getOpFee());
@@ -268,21 +268,7 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etSecurityValue.removeTextChangedListener(this);
-                try {
-
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern(AppConstant.numberPattern);
-                    String formattedString = formatter.format(longVal);
-
-                    etSecurityValue.setText(formattedString);
-                    etSecurityValue.setSelection(etSecurityValue.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
+                MasumCommonUtils.commaSeperator(etSecurityValue,editable.toString());
                 etSecurityValue.addTextChangedListener(this);
             }
         });
@@ -301,20 +287,8 @@ public class ProspectStageLoanAndSecurityDetailFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etLoanRequired.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etLoanRequired,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern(AppConstant.numberPattern);
-                    String formattedString = formatter.format(longVal);
-                    etLoanRequired.setText(formattedString);
-                    etLoanRequired.setSelection(etLoanRequired.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etLoanRequired.addTextChangedListener(this);
             }
         });

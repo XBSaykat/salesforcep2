@@ -55,10 +55,6 @@ public class ProspectStageActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private MyLeadDbController myLeadDbController;
-    private CarLoanDbController carLoanDbController;
-    private AttachmentDbController attachmentDbController;
-    private CoApplicantDBController coApplicantDBController;
-    public static int CO_APPLICANT_REQUEST_CODE = 1;
     private String userName = null,userCode=null;
     private int exceptionListValue = 0;
     private PropectStageAttachmentFragment propectStageAttachmentFragment;
@@ -91,15 +87,12 @@ public class ProspectStageActivity extends BaseActivity {
         initLoader();
         showLoader();
         initFragment();
-        coApplicantDBController = new CoApplicantDBController(this);
-        attachmentDbController = new AttachmentDbController(ProspectStageActivity.this);
+        localCash().put(SharedPreferencesEnum.Key.SEARCH_TYPE,"Prospect");
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
         btnReject = findViewById(R.id.tv_activity_details_rejected);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Prospect Stage");
         setSupportActionBar(toolbar);
-        myLeadDbController = new MyLeadDbController(ProspectStageActivity.this);
-        carLoanDbController = new CarLoanDbController(ProspectStageActivity.this);
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         userCode = localCash().getString(SharedPreferencesEnum.Key.USER_CODE);
         mapUtils = new MapUtils(this);
@@ -279,8 +272,8 @@ public class ProspectStageActivity extends BaseActivity {
         }
         builder.setTitle(getString(R.string.Reject));
         builder.setMessage(getString(R.string.reject_item));
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
             ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, MyLeadActivity.class, true);
         });
@@ -291,7 +284,6 @@ public class ProspectStageActivity extends BaseActivity {
     public MyNewProspect getDataFromProspect() {
 
         MyNewProspect myNewLead = null;
-        CarLoan carLoan = null;
         Bundle extraDetail = getIntent().getExtras();
         if (extraDetail != null) {
             Bundle bundle = new Bundle();
@@ -299,26 +291,14 @@ public class ProspectStageActivity extends BaseActivity {
             bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
             mLayout.setVisibility(View.VISIBLE);
         }
-//        myNewLead.setDateOfBirth(CommonUtil.jsonToDate(myNewLead.getDateOfBirth()));
         myNewLead.setFollowUp(CommonUtil.jsonToDate(myNewLead.getFollowUp()));
 
         return myNewLead;
     }
 
 
-//    public MyNewProspect getDataFromCoApplicant() {
-//        MyNewProspect myNewProspect = null;
-//        Bundle extraDetail = getIntent().getExtras();
-//        if (extraDetail != null) {
-//            myNewProspect = (MyNewProspect) extraDetail.getSerializable(AppConstant.CO_APPLICANT_BUNDLE_KEY);
-//        }
-//
-//        return myNewProspect;
-//
-//    }
-
     private boolean isValid() {
-        boolean validation = true;
+        boolean validation=true;
         if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) ||
                 MasumCommonUtils.isNullStr(segment) || MasumCommonUtils.isNullStr(productCat) || MasumCommonUtils.isNullStr(productDetails)
                 || MasumCommonUtils.isNullStr(mybranchName) || MasumCommonUtils.isNullStr(name) || MasumCommonUtils.isNullStr(dateOfBirth)
@@ -326,7 +306,8 @@ public class ProspectStageActivity extends BaseActivity {
                 || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoId)
                 || MasumCommonUtils.isNullStr(fatherName) || MasumCommonUtils.isNullStr(motherName) || MasumCommonUtils.isNullStr(profession)
                 || MasumCommonUtils.isNullStr(mobileNumber) || MasumCommonUtils.isNullStr(permanentCity)
-                || MasumCommonUtils.isNullStr(presentCity) || MasumCommonUtils.isNullStr(permanentPs) || MasumCommonUtils.isNullStr(presentPs)) {
+                || MasumCommonUtils.isNullStr(presentCity) || MasumCommonUtils.isNullStr(permanentPs) || MasumCommonUtils.isNullStr(presentPs)
+                || MasumCommonUtils.isNullStr(monthlyFamilyExpenditure)) {
             validation = false;
         } else {
             validation = true;
@@ -409,10 +390,10 @@ public class ProspectStageActivity extends BaseActivity {
         } else {
             builder = new android.app.AlertDialog.Builder(ProspectStageActivity.this);
         }
-        builder.setTitle("Save");
-        builder.setMessage("Do you want to save details?");
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setTitle(getString(R.string.save_txt));
+        builder.setMessage(getString(R.string.save_alert));
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             getDataFromFragment();
 
             if (getDataFromProspect() != null) {
@@ -477,7 +458,7 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setPermAddressPs(permanentPs);
                 myNewProspect.setSubCode(producSubCode);
                 if (!isValid()) {
-                    showAlertDialog("Alert", "Enter required values");
+                    showAlertDialog(getString(R.string.alert), getString(R.string.reqired));
                     return;
                 }
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
@@ -492,13 +473,13 @@ public class ProspectStageActivity extends BaseActivity {
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
-                            if (response.body().getCode().equals("200")) {
+                            if (response.body().getCode().equals(getString(R.string.success_code))) {
                                 if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                     coApplicantList.clear();
                                     AppConstant.coAppLicantStaticList.clear();
                                 }
                                 hideProgressDialog();
-                                errorAlert("Success", "save successfully");
+                                errorAlert(getString(R.string.save_txt), "save successfully");
 
                             } else {
                                 if (!AppConstant.coAppLicantStaticList.isEmpty()) {
@@ -537,10 +518,10 @@ public class ProspectStageActivity extends BaseActivity {
         } else {
             builder = new android.app.AlertDialog.Builder(ProspectStageActivity.this);
         }
-        builder.setTitle("Proceed");
-        builder.setMessage("Do you want to proceed?");
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setTitle(getString(R.string.proceed_txt));
+        builder.setMessage(getString(R.string.proceed_alert));
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             getDataFromFragment();
             if (getDataFromProspect() != null) {
                 String ref = getDataFromProspect().getRefNumber();
@@ -610,7 +591,7 @@ public class ProspectStageActivity extends BaseActivity {
                 ArrayList<CoApplicant> coApplicantList = AppConstant.coAppLicantStaticList;
                 newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
                 if (!isValid()) {
-                    showAlertDialog("Alert", "Enter required values");
+                    showAlertDialog(getString(R.string.alert), getString(R.string.reqired));
                     return;
                 }
                 if (isNetworkAvailable()) {
@@ -618,7 +599,7 @@ public class ProspectStageActivity extends BaseActivity {
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
-                            if (response.body().getCode().equals("200")) {
+                            if (response.body().getCode().equals(getString(R.string.success_code))) {
                                 net.maxproit.salesforce.masum.model.prospectmodel.Data data = response.body().getData();
                                 leadApprove(data, newProspectUpdate.getProductId());
                                 if (!AppConstant.coAppLicantStaticList.isEmpty()) {
@@ -652,18 +633,19 @@ public class ProspectStageActivity extends BaseActivity {
                 }
 
 
-                int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
+               /* int update = myLeadDbController.upDateProspectData(myNewProspect, getDataFromProspect().getId());
 
                 if (update > 0) {
 
-                }
+                }*/
             }
 
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
-
+//String approvalType, String referenceNo, int approvalSetID, int currentLevel,
+// String status, String remark, String user, String branch, int productId
 
     private void leadApprove(net.maxproit.salesforce.masum.model.prospectmodel.Data data, int productId) {
         Approval myLeadApproval = new Approval(AppConstant.APPROVAL_PROSPECT,
@@ -675,9 +657,9 @@ public class ProspectStageActivity extends BaseActivity {
         getApiService().myprospectApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
-                if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                if (response.body().getCode().equals(getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase("ok")) {
                     hideProgressDialog();
-                    errorAlert("Success", "Prospect Approved");
+                    errorAlert(getString(R.string.succes_txt), getString(R.string.prospect_approved));
 
                 } else {
                     hideProgressDialog();
@@ -690,7 +672,7 @@ public class ProspectStageActivity extends BaseActivity {
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
                 hideProgressDialog();
-                errorAlert("Error", t.getMessage());
+                errorAlert(getString(R.string.error_text), t.getMessage());
 
             }
         });

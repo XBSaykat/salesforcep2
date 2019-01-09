@@ -1,12 +1,15 @@
 package net.maxproit.salesforce.masum.fragment.prospect.prospectstage;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.Button;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseFragment;
+import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
 import net.maxproit.salesforce.masum.activity.prospect.co_applicant.CoApplicantActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.CoApplicantListAdapter;
@@ -22,6 +26,7 @@ import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
+import net.maxproit.salesforce.masum.model.api.coapplicant.DeleteCoApplicantresponse;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
@@ -30,6 +35,12 @@ import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.UUID;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -57,7 +68,7 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     //    private MyNewLead mylead;
     String refId = null;
     int size = 0;
-
+    MyNewProspect mylead = null;
     int leadIdForCoApplicant;
 
     private OnFragmentInteractionListener mListener;
@@ -102,20 +113,19 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
         btnCoApplicant = view.findViewById(R.id.btn_prospect_stage_co_applicant);
         rvCoapplicantList = view.findViewById(R.id.rv_prospect_stage_co_applicant);
         coApplicantDBController = new CoApplicantDBController(getActivity());
-        if (getArguments() !=null){
+        if (getArguments() != null) {
             MyNewProspect mylead = (MyNewProspect) getArguments().getSerializable(AppConstant.INTENT_KEY);
             if (mylead.getCoApplicantList() != null) {
                 AppConstant.coAppLicantStaticList.addAll(mylead.getCoApplicantList());
 
             }
-            refId =mylead.getRefNumber();
+            refId = mylead.getRefNumber();
             leadIdForCoApplicant = mylead.getId();
             coApplicantList = new ArrayList<>();
             filteredList = new ArrayList<>();
             coApplicantAdapter = new CoApplicantListAdapter(getContext(), coApplicantList);
             initListener(mylead);
         }
-
 
 
         return view;
@@ -159,26 +169,76 @@ public class ProspectStageCoApplicantFragment extends BaseFragment {
     private void initListener(MyNewProspect myNewLead) {
 
 
-        btnCoApplicant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
-
-                intent.putExtras(getAddress());
-                startActivityForResult(intent, 1);
-
-            }
+        btnCoApplicant.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), CoApplicantActivity.class);
+            intent.putExtras(getAddress());
+            startActivityForResult(intent, 1);
         });
 
-        coApplicantAdapter.setItemClickListener(new OnItemClickListener() {
-            @Override
-            public void itemClickListener(View view, int position) {
-                sentDataToCoApplicant(position);
-
+        coApplicantAdapter.setItemClickListener((view, position) -> {
+            switch (view.getId()) {
+                case R.id.btn_reject:
+                    alertDialog(position, myNewLead.getRefNumber());
+                    break;
+                default:
+                    sentDataToCoApplicant(position);
+                    break;
             }
 
+        });
+    }
+
+
+    private void alertDialog(int position, String refNumber) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(getActivity());
+        }
+        builder.setTitle(getString(R.string.Reject));
+        builder.setMessage(getString(R.string.reject_item));
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+            if (isNetworkAvailable()) {
+                int cusId = AppConstant.coAppLicantStaticList.get(position).getCustomerId();
+                if (AppConstant.coAppLicantStaticList.get(position).getCustomerId() > 0) {
+                    getApiService().deleteCoApplicant(refNumber, cusId).enqueue(new Callback<DeleteCoApplicantresponse>() {
+                        @Override
+                        public void onResponse(Call<DeleteCoApplicantresponse> call, Response<DeleteCoApplicantresponse> response) {
+                            if (response.isSuccessful()) {
+                                if (response.body().getCode().equals(getString(R.string.success_code))) {
+                                    AppConstant.coAppLicantStaticList.remove(position);
+                                    coApplicantList.remove(position);
+                                    coApplicantAdapter.notifyDataSetChanged();
+                                    showAlertDialog(response.body().getCode(),response.body().getMessage());
+
+                                } else {
+                                    showAlertDialog(response.body().getCode(),response.body().getMessage());
+
+                                }
+
+                            } else {
+                                showAlertDialog(getString(R.string.error_text),response.message());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DeleteCoApplicantresponse> call, Throwable t) {
+                            showAlertDialog(getString(R.string.error_text),t.getMessage());
+                        }
+                    });
+
+                } else {
+                    AppConstant.coAppLicantStaticList.remove(position);
+                    coApplicantList.remove(position);
+                    coApplicantAdapter.notifyDataSetChanged();
+                }
+            }
 
         });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private Bundle getAddress() {

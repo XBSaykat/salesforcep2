@@ -1,9 +1,11 @@
 package net.maxproit.salesforce.feature.search;
 
-import android.app.Activity;
+
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.GsonBuilder;
@@ -14,9 +16,12 @@ import net.maxproit.salesforce.common.base.Clicklistener;
 import net.maxproit.salesforce.databinding.ActivitySearchUserBinding;
 import net.maxproit.salesforce.feature.search.adapter.SearchAdapter;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
+import net.maxproit.salesforce.masum.model.api.GetExistingCoApplicant;
 import net.maxproit.salesforce.masum.model.api.GetLeadIndex;
 import net.maxproit.salesforce.masum.model.api.lead.Data;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
+import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
@@ -110,38 +115,75 @@ public class SearchUserActivity extends BaseActivity implements Clicklistener {
     public void viewClick(int i) {
         String random = UUID.randomUUID().toString();
         int id = Integer.parseInt(list.get(i).getIndexID());
-        getApiService().getLeadDataByLeadIndex(id, random).enqueue(new Callback<GetLeadIndex>() {
-            @Override
-            public void onResponse(Call<GetLeadIndex> call, Response<GetLeadIndex> response) {
-                if (response.body().getCode().equals("200")) {
-                    if (response.body().getData() != null) {
-                        net.maxproit.salesforce.masum.model.api.Data data = response.body().getData();
-                        String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
-                        String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
-                        String loanAmount = MasumCommonUtils.isNotZero(data.getLoanAmount());
-                        String interestRate = MasumCommonUtils.isNotZero(data.getOfferedInterestRate());
-                        String opfee = MasumCommonUtils.isNotZero(data.getOfferedProcessFee());
-                        MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
-                                data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
-                                data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
-                                data.getProductSubCategory(), loanAmount, interestRate, opfee, disDate,
-                                followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
-                        myNewLead.setPs(data.getPs());
-                        myNewLead.setCity(data.getCity());
-                        ActivityUtils.invokLeadDetailForLeadStage(SearchUserActivity.this, myNewLead);
-                        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.DONUT) {
-                            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        if (localCash().getString(SharedPreferencesEnum.Key.SEARCH_TYPE).equalsIgnoreCase("lead")) {
+            getApiService().getLeadDataByLeadIndex(id, random).enqueue(new Callback<GetLeadIndex>() {
+                @Override
+                public void onResponse(Call<GetLeadIndex> call, Response<GetLeadIndex> response) {
+                    if (response.body().getCode().equals("200")) {
+                        if (response.body().getData() != null) {
+                            net.maxproit.salesforce.masum.model.api.Data data = response.body().getData();
+                            String disDate = CommonUtil.jsonToDate(data.getDisbursementDate());
+                            String followUpDate = CommonUtil.jsonToDate(data.getFollowUpDate());
+                            String loanAmount = MasumCommonUtils.isNotZero(data.getLoanAmount());
+                            String interestRate = MasumCommonUtils.isNotZero(data.getOfferedInterestRate());
+                            String opfee = MasumCommonUtils.isNotZero(data.getOfferedProcessFee());
+                            MyNewLead myNewLead = new MyNewLead(data.getUserName(), data.getLeadReferenceNo(), data.getCustomerId(), data.getMobileNumberId(), data.getAddressId(),
+                                    data.getVisitId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), 0, data.getBranchName(), data.getCustomerName(), data.getProfession(), data.getOrganization(),
+                                    data.getDesignation(), data.getMobileNumber(), data.getAddress(), data.getSourceOfReference(), data.getProduct(),
+                                    data.getProductSubCategory(), loanAmount, interestRate, opfee, disDate,
+                                    followUpDate, data.getFollowUp(), data.getRemark(), data.getStatus(), "");
+                            myNewLead.setPs(data.getPs());
+                            myNewLead.setCity(data.getCity());
+
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtras(bundle);
+                            setResult(RESULT_OK, returnIntent);
+                            Log.e("activity_data", "search:" + myNewLead.getUserName());
+
+                            finish();
+                            hideProgressDialog();
                         }
-                        hideProgressDialog();
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<GetLeadIndex> call, Throwable t) {
+                @Override
+                public void onFailure(Call<GetLeadIndex> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }else {
+
+            getApiService().getCoApplicantDataByIndex(random,id).enqueue(new Callback<GetExistingCoApplicant>() {
+                @Override
+                public void onResponse(Call<GetExistingCoApplicant> call, Response<GetExistingCoApplicant> response) {
+                    if (response.body().getCode().equals(getString(R.string.success_code))){
+                        CoApplicant coApplicant=new CoApplicant();
+                        coApplicant.setcoApplicantDatafromServer(response.body().getData());
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(AppConstant.INTENT_KEY, coApplicant);
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtras(bundle);
+                        setResult(RESULT_OK, returnIntent);
+                        finish();
+
+                    }
+                    else {
+                        Log.e("","");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GetExistingCoApplicant> call, Throwable t) {
+                    Log.e("","");
+                }
+            });
+
+
+
+
+        }
 /*        Intent intent = new Intent();
         intent.putExtra(LEAD_INDEX_ID, list.get(i).getIndexID());
         intent.putExtra(CIF_ID, list.get(i).getCIF());

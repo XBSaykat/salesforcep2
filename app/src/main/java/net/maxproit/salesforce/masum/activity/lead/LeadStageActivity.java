@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -67,10 +68,11 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private LinearLayout mLayout;
     private MyLeadDataModelApi myLeadDataModelApi = null;
     private String branchName = null, profession = null, name = null, organization = null, designation = null, phone = null, address = null, loanAmount = null, interest = null, fee = null, ref = null, productType = null, subCat = null, disDate = null, visitDate = null, remark = null, followUp = null, city = null, polishStationl = null;
-    private String userName = null,userCode=null;
+    private String userName = null, userCode = null;
     private int activityPosition;
     public static int myLeadPosition = -1;
     private VisitPlan visitPlan = null;
+    private int existingCustomerId = 0, existingAddressId=0 ;
 
     MapUtils mapUtils;
 
@@ -82,6 +84,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
     @Override
     protected void initComponents() {
+        localCash().put(SharedPreferencesEnum.Key.SEARCH_TYPE, "Lead");
         initLoader();
         showLoader();
         splashThread();
@@ -246,8 +249,6 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             leadStageBasicInformationFragment.setArguments(bundle);
             leadStageLoanDetailFragment.setArguments(bundle);
-
-
         }
 
 
@@ -333,6 +334,12 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             myLeadApi.setMobileNumberId(0);
             myLeadApi.setVisitId(0);
         }
+
+        if (existingCustomerId > 0) {
+            myLeadApi.setCustomerId(existingCustomerId);
+        }  if (existingAddressId > 0) {
+            myLeadApi.setAddressId(existingAddressId);
+        }
         myLeadApi.setProfession(profession);
         myLeadApi.setOrganization(organization);
         myLeadApi.setDesignation(designation);
@@ -392,7 +399,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             builder = new AlertDialog.Builder(LeadStageActivity.this);
         }
         builder.setTitle(getString(R.string.Reject));
-        builder.setMessage(getString(R.string.reject_item));
+        builder.setMessage(getString(R.string.reject_lead));
         builder.setNegativeButton(getResources().getString(R.string.no), null);
         builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
@@ -552,7 +559,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 if (response.body().getCode().equals("200")) {
                     hideProgressDialog();
                     Toast.makeText(LeadStageActivity.this, getResources().getString(R.string.proceed_succesfull), Toast.LENGTH_SHORT).show();
-                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this,MyLeadActivity.class,true);
+                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
                 }
 
             }
@@ -574,8 +581,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         } else {
             builder = new android.app.AlertDialog.Builder(LeadStageActivity.this);
         }
-        builder.setTitle("Proceed");
-        builder.setMessage(getResources().getString(R.string.save_alert));
+        builder.setTitle(getString(R.string.proceed_txt));
+        builder.setMessage(getResources().getString(R.string.proceed_alert));
         builder.setNegativeButton(getResources().getString(R.string.no), null);
         builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             MyLeadDataModelApi myLeadDataModelApi = getDataFromFragment(myNewLead);
@@ -717,7 +724,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
             @Override
             public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
-                showAlertDialog(getResources().getString(R.string.error_text),t.getMessage());
+                showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
                 hideProgressDialog();
             }
         });
@@ -751,7 +758,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             @Override
             public void onFailure(Call<ApprovalResponce> call, Throwable t) {
                 hideProgressDialog();
-                errorAlert(getResources().getString(R.string.error_text),getResources().getString(R.string.approved_falied));
+                errorAlert(getResources().getString(R.string.error_text), getResources().getString(R.string.approved_falied));
 
             }
         });
@@ -776,4 +783,29 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data != null) {
+            MyNewLead myNewLead = (MyNewLead) data.getSerializableExtra(AppConstant.INTENT_KEY);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+            existingCustomerId = myNewLead.getCusId();
+            existingAddressId = myNewLead.getAddressId();
+            leadStageBasicInformationFragment.setDataFromSearch(bundle);
+
+        }
+
+   /*     if (requestCode==AppConstant.SERCH_REQ_CODE){
+            Bundle bundle=new Bundle();
+            MyNewLead myNewLead= (MyNewLead) data.getSerializableExtra(AppConstant.INTENT_KEY);
+            bundle.putSerializable(AppConstant.INTENT_KEY, myNewLead);
+            bundle.putInt(AppConstant.STATUS_INTENT_KEY, 1);
+            Log.e("activity_data","result:"+myNewLead.getUserName());
+            leadStageBasicInformationFragment.setArguments(bundle);
+
+        }*/
+    }
+
+
 }

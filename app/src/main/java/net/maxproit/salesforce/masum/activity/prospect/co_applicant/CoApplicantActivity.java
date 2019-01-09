@@ -35,6 +35,7 @@ public class CoApplicantActivity extends BaseActivity {
     private TextView btnSave;
     private CoApplicantDBController coApplicantDBController;
     String leadId = null;
+    int customerId = 0, preAddId = 0, perAddId = 0;
     public static String pr, pe, perCity, perPs, preCity, prePs;
     CoApplicantProductAndCustomerDetailsFragment coApplicantProductAndCustomerDetailsFragment;
     CoApplicantFinancialFragment coApplicantFinancialFragment;
@@ -203,6 +204,15 @@ public class CoApplicantActivity extends BaseActivity {
                     coApplicant.setPresentAddressId(0);
                     coApplicant.setPermanentAddressId(0);
                     coApplicant.setContactId(0);
+                    if (customerId > 0) {
+                        coApplicant.setCustomerId(customerId);
+                    }
+                    if (preAddId > 0) {
+                        coApplicant.setPresentAddressId(preAddId);
+                    }
+                    if (perAddId > 0) {
+                        coApplicant.setPermanentAddressId(perAddId);
+                    }
                     if (position >= 0) {
                         AppConstant.coAppLicantStaticList.set(position, coApplicant);
                     } else {
@@ -245,7 +255,7 @@ public class CoApplicantActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         CoApplicantActivity.ViewPagerAdapter adapter = new CoApplicantActivity.ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CoApplicantProductAndCustomerDetailsFragment(), "Product & Customer Details");
+        adapter.addFragment(coApplicantProductAndCustomerDetailsFragment, "Product & Customer Details");
         adapter.addFragment(new CoApplicantFinancialFragment(), "Financials");
         viewPager.setAdapter(adapter);
     }
@@ -280,4 +290,15 @@ public class CoApplicantActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data != null) {
+            CoApplicant coApplicant = (CoApplicant) data.getSerializableExtra(AppConstant.INTENT_KEY);
+            customerId = coApplicant.getCustomerId();
+            perAddId = coApplicant.getPermanentAddressId();
+            preAddId = coApplicant.getPresentAddressId();
+            coApplicantProductAndCustomerDetailsFragment.setDataFromSearch(coApplicant);
+
+        }
+    }
 }

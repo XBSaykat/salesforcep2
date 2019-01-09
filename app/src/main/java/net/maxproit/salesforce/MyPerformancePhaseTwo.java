@@ -25,8 +25,7 @@ public class MyPerformancePhaseTwo extends BaseActivity implements View.OnClickL
 
     private ActivityMyPerformancePhaseTwoBinding mBinding;
 
-    MyPerformanceItemAdapter myActivityAdapter, myLeadAdapter, myProspectAdapter;
-    private ArrayList<MyPerformanceModel> activity;
+    MyPerformanceItemAdapter myLeadAdapter;
 
 
     @Override
@@ -91,16 +90,6 @@ public class MyPerformancePhaseTwo extends BaseActivity implements View.OnClickL
 
     private void initVariable() {
         mBinding = (ActivityMyPerformancePhaseTwoBinding) getBinding();
-        activity = new ArrayList<>();
-     /*   leadDbController = new MyLeadDbController(this);
-        visitPlanDbController = new VisitPlanDbController(this);
-        allVisitPlanList = new ArrayList<>();
-        upComingPLanList = new ArrayList<>();
-        Log.e("after date", DateUtils.afterAMonth());
-        Log.e("before date", DateUtils.beforeAMonth());
-        visitPlanDbController.getDateBetween(DateUtils.beforeAMonth(), DateUtils.afterAMonth());*/
-
-
         callApi();
 
     }
@@ -126,9 +115,8 @@ public class MyPerformancePhaseTwo extends BaseActivity implements View.OnClickL
                             showAlertDialog(response.body().getStatus(), response.body().getMessage());
                             hideProgressDialog();
                         }
-                    }
-                    else{
-                        showAlertDialog("Error", response.errorBody().toString());
+                    } else {
+                        showAlertDialog(getString(R.string.error_text), response.errorBody().toString());
                         hideProgressDialog();
 
                     }
@@ -137,10 +125,12 @@ public class MyPerformancePhaseTwo extends BaseActivity implements View.OnClickL
 
                 @Override
                 public void onFailure(Call<Getperformance> call, Throwable t) {
-                    showAlertDialog("Error",t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
                     hideProgressDialog();
                 }
             });
+        } else {
+            showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
         }
     }
 

@@ -18,6 +18,7 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
     private Context context;
     public ArrayList<Data> leadList;
     public static OnItemClickListener mListener;
+    boolean isChanged=false;
 
 
 
@@ -31,7 +32,7 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
 
         Context context;
         ArrayList<Data> leadList;
-        private TextView tvId,tvName,tvBranch,tvStatus;
+        private TextView tvId,tvName,tvBranch,tvStatus,statusField;
 
 
         public CustomViewHolder(View itemView, Context context, ArrayList<Data> leadList) {
@@ -42,6 +43,7 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
             tvName=itemView.findViewById(R.id.tvName);
             tvBranch=itemView.findViewById(R.id.tvBranch);
             tvStatus=itemView.findViewById(R.id.tvStatus);
+            statusField=itemView.findViewById(R.id.status);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +73,9 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
         holder.tvName.setText(leadList.get(position).getName());
         holder.tvBranch.setText(leadList.get(position).getBranch());
         holder.tvStatus.setText(leadList.get(position).getStatus());
+        if (isChanged==true){
+            holder.statusField.setText("RM Name :");
+        }
 
     }
     public void setFilter(ArrayList<Data> newDataList) {
@@ -92,5 +97,11 @@ public class MyNewProspectAdapter  extends RecyclerView.Adapter<MyNewProspectAda
         this.mListener = mListener;
     }
 
+
+    public void isChangedFieldName(boolean isChanged){
+        this.isChanged=isChanged;
+        notifyDataSetChanged();
+
+    }
 
 }

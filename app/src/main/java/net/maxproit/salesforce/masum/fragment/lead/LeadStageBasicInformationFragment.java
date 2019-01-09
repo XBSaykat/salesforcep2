@@ -65,7 +65,6 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     public LinearLayout liChif;
     private LocalSetting mLocalSettting;
     private ArrayAdapter<String> polishStationAdapter;
-    public static final int SERCH_CODE = 500;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -135,6 +134,37 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     }
 
 
+    public void setDataFromSearch(Bundle bundle) {
+
+        MyNewLead myNewLead = (MyNewLead) bundle.getSerializable(AppConstant.INTENT_KEY);
+
+        if (myNewLead != null) {
+            etUserName.setText(myNewLead.getUserName());
+            etAddress.setText(myNewLead.getAddress());
+            if (!MasumCommonUtils.isNullStr(myNewLead.getCity())) {
+                try {
+                    city = myNewLead.getCity();
+                    spinnerCity.setText(myNewLead.getCity());
+                } catch (final IllegalStateException ignored) {
+                }
+
+
+                if (!listPs.isEmpty())
+                    listPs.clear();
+                listPs.addAll(mLocalSettting.getpsListByCityCode(myNewLead.getCity()));
+                polishStationAdapter.notifyDataSetChanged();
+            }
+
+            if (!MasumCommonUtils.isNullStr(myNewLead.getPs())) {
+                try {
+                    spinnerPoliceStation.setSelection(polishStationAdapter.getPosition(myNewLead.getPs()));
+                } catch (final IllegalStateException ignored) {
+                }
+            }
+
+        }
+    }
+
     private void initListener() {
 
         spinnerBranchName.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
@@ -150,6 +180,13 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             @Override
             public void onItemSelected(int i, String s) {
                 profession = s;
+                if (etPhone.getText().toString() != null) {
+                    if (!s.contains("NRB")) {
+                        MasumCommonUtils.mobileNumberValidation(etPhone, etPhone.getText().toString());
+                    } else {
+                        etPhone.setError(null);
+                    }
+                }
             }
         });
 
@@ -206,7 +243,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
         etChif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), SearchUserActivity.class), SERCH_CODE);
+                startActivityForResult(new Intent(getContext(), SearchUserActivity.class), AppConstant.SERCH_REQ_CODE);
             }
         });
 
@@ -225,15 +262,13 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                String mobileNo = charSequence.toString(), regex = "01[3|5|6|7|8|9][0-9]{8}";
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(mobileNo);
-                if (!mobileNo.isEmpty() && matcher.matches()) {
-
+                if (profession != null) {
+                    if (!profession.contains("NRB")) {
+                        MasumCommonUtils.mobileNumberValidation(etPhone, charSequence);
+                    }
                 } else {
-                    etPhone.setError("You entered invalid mobile no.");
+                    MasumCommonUtils.mobileNumberValidation(etPhone, charSequence);
                 }
-
 
 //                Toast.makeText(getContext(), charSequence.toString(), Toast.LENGTH_SHORT).show();
             }
@@ -291,8 +326,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
                     }
                 }
-            }
-            else if(status==2){
+            } else if (status == 2) {
                 Data visitPlan = (Data) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (visitPlan != null) {
                     etUserName.setText(visitPlan.getCustomerName());
@@ -304,7 +338,6 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                         } catch (IllegalStateException i) {
 
                         }
-
 
                         if (!listPs.isEmpty())
                             listPs.clear();
@@ -318,12 +351,11 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
 
                     }
                 }
-            }
-
-            else {
+            } else {
                 initLoader();
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
+                    cbExist.setVisibility(View.GONE);
                     etUserName.setText(myNewLead.getUserName());
                     etPhone.setText(myNewLead.getPhone());
                     etAddress.setText(myNewLead.getAddress());

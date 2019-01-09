@@ -181,18 +181,17 @@ public class CoApplicantFinancialFragment extends Fragment {
                 }
             }
 
-            etMonthlySalaryAmount.setText(myNewLead.getMonthSalaryAmount());
-            etMonthlyBusinessIncome.setText(myNewLead.getMonthBusinessIncomeAmount());
-            etApartmentIncomeAmount.setText(myNewLead.getMonthApartmentIncomeAmount());
-            etSemipakaIncome.setText(myNewLead.getMonthSemipakaIncomeAmount());
-            etOfficeSpaceIncome.setText(myNewLead.getMonthOfficeSpaceIncomeAmount());
-            etWarehouseIncome.setText(myNewLead.getMonthWareHouseAmount());
-            etAgriculturalIncome.setText(myNewLead.getMonthAgricultureIncomeAmount());
-            etPracticeConsultancyTuition.setText(myNewLead.getMonthTuitionIncomeAmount());
-            etRemittance.setText(myNewLead.getRemittance());
-            etInterestIncome.setText(myNewLead.getInterestFDRIncomeAmount());
-            etMonthlyFamilyExpenditure.setText(myNewLead.getMonthFamilyExpenditure());
-            etEMIOfOtherLoans.setText(myNewLead.getEmiOfOtherLoans());
+            MasumCommonUtils.commaSeperator(etMonthlySalaryAmount, myNewLead.getMonthSalaryAmount());
+            MasumCommonUtils.commaSeperator(etMonthlyBusinessIncome, myNewLead.getMonthBusinessIncomeAmount());
+            MasumCommonUtils.commaSeperator(etApartmentIncomeAmount, myNewLead.getMonthApartmentIncomeAmount());
+            MasumCommonUtils.commaSeperator(etSemipakaIncome, myNewLead.getMonthSemipakaIncomeAmount());
+            MasumCommonUtils.commaSeperator(etOfficeSpaceIncome, myNewLead.getMonthOfficeSpaceIncomeAmount());
+            MasumCommonUtils.commaSeperator(etWarehouseIncome, myNewLead.getMonthWareHouseAmount());
+            MasumCommonUtils.commaSeperator(etAgriculturalIncome, myNewLead.getMonthAgricultureIncomeAmount());
+            MasumCommonUtils.commaSeperator(etPracticeConsultancyTuition, myNewLead.getMonthTuitionIncomeAmount());
+            MasumCommonUtils.commaSeperator(etRemittance, myNewLead.getRemittance());
+            MasumCommonUtils.commaSeperator(etInterestIncome, myNewLead.getInterestFDRIncomeAmount());
+
         }
 
 
@@ -252,21 +251,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etMonthlySalaryAmount.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etMonthlySalaryAmount,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etMonthlySalaryAmount.setText(formattedString);
-                    etMonthlySalaryAmount.setSelection(etMonthlySalaryAmount.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etMonthlySalaryAmount.addTextChangedListener(this);
             }
         });
@@ -285,21 +271,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etMonthlyBusinessIncome.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etMonthlyBusinessIncome,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etMonthlyBusinessIncome.setText(formattedString);
-                    etMonthlyBusinessIncome.setSelection(etMonthlyBusinessIncome.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etMonthlyBusinessIncome.addTextChangedListener(this);
             }
         });
@@ -318,21 +291,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etApartmentIncomeAmount.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etApartmentIncomeAmount,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etApartmentIncomeAmount.setText(formattedString);
-                    etApartmentIncomeAmount.setSelection(etApartmentIncomeAmount.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etApartmentIncomeAmount.addTextChangedListener(this);
             }
         });
@@ -351,21 +311,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etSemipakaIncome.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etSemipakaIncome,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etSemipakaIncome.setText(formattedString);
-                    etSemipakaIncome.setSelection(etSemipakaIncome.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etSemipakaIncome.addTextChangedListener(this);
             }
         });
@@ -384,21 +331,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etOfficeSpaceIncome.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etOfficeSpaceIncome,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etOfficeSpaceIncome.setText(formattedString);
-                    etOfficeSpaceIncome.setSelection(etOfficeSpaceIncome.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etOfficeSpaceIncome.addTextChangedListener(this);
             }
         });
@@ -417,21 +351,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etWarehouseIncome.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etWarehouseIncome,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etWarehouseIncome.setText(formattedString);
-                    etWarehouseIncome.setSelection(etWarehouseIncome.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etWarehouseIncome.addTextChangedListener(this);
             }
         });
@@ -450,21 +371,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etAgriculturalIncome.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etAgriculturalIncome,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etAgriculturalIncome.setText(formattedString);
-                    etAgriculturalIncome.setSelection(etAgriculturalIncome.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etAgriculturalIncome.addTextChangedListener(this);
             }
         });
@@ -483,21 +391,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etPracticeConsultancyTuition.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etPracticeConsultancyTuition,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etPracticeConsultancyTuition.setText(formattedString);
-                    etPracticeConsultancyTuition.setSelection(etPracticeConsultancyTuition.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etPracticeConsultancyTuition.addTextChangedListener(this);
             }
         });
@@ -516,21 +411,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etRemittance.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etRemittance,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etRemittance.setText(formattedString);
-                    etRemittance.setSelection(etRemittance.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etRemittance.addTextChangedListener(this);
             }
         });
@@ -549,27 +431,14 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etInterestIncome.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etInterestIncome,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etInterestIncome.setText(formattedString);
-                    etInterestIncome.setSelection(etInterestIncome.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etInterestIncome.addTextChangedListener(this);
             }
         });
 
         ViewGroup.LayoutParams marginEtInterestIncome = (LinearLayout.LayoutParams) etInterestIncome.getLayoutParams();
-        ((LinearLayout.LayoutParams) marginEtInterestIncome).setMargins(0,0,0,120);
+        ((LinearLayout.LayoutParams) marginEtInterestIncome).setMargins(0, 0, 0, 120);
         etInterestIncome.setLayoutParams(marginEtInterestIncome);
 
         etMonthlyFamilyExpenditure.addTextChangedListener(new TextWatcher() {
@@ -586,21 +455,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etMonthlyFamilyExpenditure.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etMonthlyFamilyExpenditure,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etMonthlyFamilyExpenditure.setText(formattedString);
-                    etMonthlyFamilyExpenditure.setSelection(etMonthlyFamilyExpenditure.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etMonthlyFamilyExpenditure.addTextChangedListener(this);
             }
         });
@@ -619,21 +475,8 @@ public class CoApplicantFinancialFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 etEMIOfOtherLoans.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etEMIOfOtherLoans,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etEMIOfOtherLoans.setText(formattedString);
-                    etEMIOfOtherLoans.setSelection(etEMIOfOtherLoans.getText().length());
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etEMIOfOtherLoans.addTextChangedListener(this);
             }
         });

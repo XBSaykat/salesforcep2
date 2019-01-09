@@ -86,7 +86,7 @@ public class MyProspect {
            data.setApprovalSetID(rbmList.get(i).getApprovalSetID());
            data.setBranch(rbmList.get(i).getBranch());
            data.setName(rbmList.get(i).getName());
-           data.setStatus(rbmList.get(i).getCurrentLevel());
+           data.setStatus(rbmList.get(i).getProduct());
            data.setReference(rbmList.get(i).getReference());
            data.setCurrentLevel(rbmList.get(i).getCurrentLevel());
            dataList.add(data);

@@ -5,18 +5,43 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.util.TypedValue;
+import android.widget.EditText;
 
 import net.maxproit.salesforce.masum.activity.lead.LeadStageActivity;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MasumCommonUtils {
 
 
-    public static int dpToPx(int dp,Context mContext) {
+    public static int dpToPx(int dp, Context mContext) {
         Resources r = mContext.getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+
+    public static void mobileNumberValidation(EditText et,CharSequence charSequence) {
+        String mobileNo = charSequence.toString(), regex = "01[3|4|5|6|7|8|9][0-9]{8}";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(mobileNo);
+        if(!mobileNo.isEmpty()&&matcher.matches())
+
+        {
+
+        } else
+
+        {
+            et.setError("You entered invalid mobile no.");
+        }
+
+    }
+
+
 
 
     public static void statusAlert(String title, String text, Activity activity) {
@@ -84,6 +109,28 @@ public class MasumCommonUtils {
         String ages = ageInt.toString();
 
         return ages;
+    }
+
+
+    public static void commaSeperator(EditText et,String number){
+        try {
+
+
+            number = number.contains(",") ? number.replaceAll(",", "") : number;
+            Long longVal = Long.parseLong(number);
+
+            DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
+            formatter.applyPattern("#,###,###,###");
+            String formattedString = formatter.format(longVal);
+
+            et.setText(formattedString);
+            et.setSelection(et.getText().length());
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+        catch (NullPointerException n){
+
+        }
     }
 
 }

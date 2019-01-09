@@ -52,6 +52,7 @@
                 android:background="@color/transparent"
                 android:text="Log out"
                 android:textAllCaps="false"
+                android:visibility="gone"
                 android:textColor="@color/white" />
 
 
@@ -489,7 +490,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="NO. of months in current job: "
+                        android:text="Work/Business Experience(In months): "
                         android:textStyle="bold" />
 
                     <TextView
@@ -1122,6 +1123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@color/greyWhite"
                     android:padding="@dimen/size_4dp">
 
                     <TextView
@@ -1129,7 +1131,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rule Engine Info"
+                        android:text="Rule Engine Info:"
                         android:textStyle="bold" />
                     <TextView
                         android:id="@+id/tv_rule_info"
@@ -1151,31 +1153,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Cif Info"
+                        android:text="CIB Info:"
                         android:textStyle="bold" />
 
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/size_4dp">
-
-                    <TextView
-                        style="@style/TextViewQuestion"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Co Applicants"
-                        android:textStyle="bold" />
                     <TextView
                         android:id="@+id/tv_cif_info"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -1186,7 +1172,9 @@
 
                    <Button
                        android:id="@+id/btn_rbm_prospect_view_coaplicant"
-                       android:layout_margin="@dimen/size_20dp"
+                       android:layout_marginTop="@dimen/size_20dp"
+                       android:layout_marginLeft="@dimen/size_20dp"
+                       android:layout_marginRight="@dimen/size_20dp"
                        style="@style/ButtonStyle"
                        android:layout_weight="1"
                        android:layout_width="0dp"

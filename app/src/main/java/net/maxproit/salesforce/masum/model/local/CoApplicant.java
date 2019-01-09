@@ -1,6 +1,8 @@
 package net.maxproit.salesforce.masum.model.local;
 
 
+import net.maxproit.salesforce.masum.utility.DateUtils;
+
 import java.io.Serializable;
 
 public class CoApplicant implements Serializable {
@@ -494,4 +496,49 @@ public class CoApplicant implements Serializable {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
+
+
+
+
+
+
+    public void setcoApplicantDatafromServer(net.maxproit.salesforce.model.myprospect.updatemyprospect.CoApplicant coApplicantServer){
+
+        setName(coApplicantServer.getCustomerName());
+        setCustomerId(coApplicantServer.getCustomerId());
+        setPermanentAddress(coApplicantServer.getPermanentAddress());
+        setPermanentAddressId(coApplicantServer.getPermanentAddressId());
+        setPresentAddress(coApplicantServer.getPresentAddress());
+        setPresentAddressId(coApplicantServer.getPresentAddressId());
+        setPermanentAddressCity(coApplicantServer.getPermanentAddressCity());
+        setPermanentAddressPS(coApplicantServer.getPermanentAddressPS());
+        setPresentAddressCity(coApplicantServer.getPresentAddressCity());
+        setPresentAddressPS(coApplicantServer.getPresentAddressPS());
+
+
+        setCompanyName(coApplicantServer.getCompany());
+        if (coApplicantServer.getDateOfBirth() !=null)
+        setDateOfBirth(DateUtils.getDateFormateEt(DateUtils.jsonToDate(coApplicantServer.getDateOfBirth())));
+        setPhotoIdIssueDate(DateUtils.getDateFormateEt(DateUtils.jsonToDate(coApplicantServer.getPhotoIdIssueDate())));
+        setPhotoIdCode(coApplicantServer.getPhotoIdTypeCode());
+        setPhotoIdType(String.valueOf(coApplicantServer.getPhotoIdTypeCode()));
+        setPhotoIdNo(coApplicantServer.getPhotoIdNumber());
+        setExceptionList(coApplicantServer.getExceptionList());
+        if (coApplicantServer.getPhotoIdIssueDate() !=null)
+            setPhotoIdIssueDate(DateUtils.getDateFormateEt(DateUtils.jsonToDate(coApplicantServer.getPhotoIdIssueDate())));
+        setCountryOfBirth(coApplicantServer.getCountryOfBirth());
+        setDistrictOfBirth(coApplicantServer.getDistrictOfBirth());
+        setfName(coApplicantServer.getFatherName());
+        setmName(coApplicantServer.getMotherName());
+        setsName(coApplicantServer.getSpouseName());
+        setMobileNoId(coApplicantServer.getMobileNoId());
+        setMobileNo(coApplicantServer.getMobile());
+        setContactId(coApplicantServer.getContactId());
+        setProfession(coApplicantServer.getProfession());
+
+
+
+
+    }
+
 }

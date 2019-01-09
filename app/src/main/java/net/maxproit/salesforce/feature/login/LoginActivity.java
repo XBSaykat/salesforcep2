@@ -22,6 +22,7 @@ import net.maxproit.salesforce.databinding.ActivityLoginBinding;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardVirifierActivity;
 import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervisorActivity;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
@@ -45,34 +46,6 @@ import retrofit2.Response;
 public class LoginActivity extends BaseActivity {
     ActivityLoginBinding binding;
     private static final String TAG = "LoginActivity";
-    SpinnerDbController spinnerDbController;
-    String clientType[] = null;
-    String purposeOfVisit[] = null;
-    String city[] = null;
-    String dhakaNorthPoliceStation[] = null;
-    String dhakaSouthPoliceStation[] = null;
-    String narayanganjPoliceStation[] = null;
-    String branch[] = null;
-    String profession[] = null;
-    String sourceOfReference[] = null;
-    String productType[] = null;
-    String productSubcategoryHomeLoan[] = null;
-    String productSubcategoryCarLoan[] = null;
-    String productSubcategoryPersonalLoan[] = null;
-    String followUp[] = null;
-    String remarks[] = null;
-    String productCategory[] = null;
-    String segment[] = null;
-    String birthDistrict[] = null;
-    String birthCountry[] = null;
-    String relationshipWithApplicant[] = null;
-    String monthlySalary[] = null;
-    String monthlyRentalIncome[] = null;
-    String brandName[] = null;
-    String manufacturingYear[] = null;
-    String manufacturingCountry[] = null;
-    String vehicleType[] = null;
-    String validPhoto[] = null;
     String phoneIMEINumber;
     private MyLeadDbController myLeadDbController;
 
@@ -97,17 +70,13 @@ public class LoginActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivityLoginBinding) getBinding();
         binding.setModel(new Login());
+        AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN,false);
 
 //
 //        String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
 //        if (st.isEmpty()) {
         if (isNetworkAvailable()) {
             callSetting();
-        } else {
-            String roll = localCash().getString(SharedPreferencesEnum.Key.ROLLUSER);
-            if (!roll.isEmpty()) {
-                gotoBoard(roll);
-            }
         }
 
 //        } else {
@@ -153,13 +122,17 @@ public class LoginActivity extends BaseActivity {
                             if (lr.getCode().equals("401")) {
                                 showToast("Invalid UserId or Password");
                             } else {
-
-                                gotoBoard(lr.getData().getUserTypeId());
-                                String lg = toJson(response.body());
-                                localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);
-                                localCash().put(SharedPreferencesEnum.Key.USER_NAME, binding.etUsername.getText().toString());
-                                localCash().put(SharedPreferencesEnum.Key.USER_CODE, response.body().getData().getUserCode());
-
+                                if(lr.getData() !=null) {
+                                    AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN, true);
+                                    gotoBoard(lr.getData().getUserTypeId());
+                                    String lg = toJson(response.body());
+                                    localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);
+                                    localCash().put(SharedPreferencesEnum.Key.USER_NAME, binding.etUsername.getText().toString());
+                                    localCash().put(SharedPreferencesEnum.Key.USER_CODE, response.body().getData().getUserCode());
+                                }
+                                else{
+                                    showToast("Invalid UserId or Password");
+                                }
                             }
 
                         } else
@@ -186,8 +159,8 @@ public class LoginActivity extends BaseActivity {
                 .withPermissions(
                         Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_PHONE_STATE)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {

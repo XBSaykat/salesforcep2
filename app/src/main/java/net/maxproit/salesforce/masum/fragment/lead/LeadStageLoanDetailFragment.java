@@ -264,22 +264,8 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             public void afterTextChanged(Editable editable) {
 
                 etLoanAmount.removeTextChangedListener(this);
-                try {
+                MasumCommonUtils.commaSeperator(etLoanAmount,editable.toString());
 
-                    String originalTentativeLoanAmount = editable.toString();
-                    originalTentativeLoanAmount = originalTentativeLoanAmount.contains(",") ? originalTentativeLoanAmount.replaceAll(",", "") : originalTentativeLoanAmount;
-                    Long longVal = Long.parseLong(originalTentativeLoanAmount);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.ENGLISH);
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longVal);
-
-                    etLoanAmount.setText(formattedString);
-                    etLoanAmount.setSelection(etLoanAmount.getText().length());
-                    tvTentativeNumberToWord.setText(formattedString.isEmpty() ? "" : NumberToWords.convert(longVal));
-                } catch (NumberFormatException nfe) {
-                    nfe.printStackTrace();
-                }
                 etLoanAmount.addTextChangedListener(this);
             }
         });
@@ -359,7 +345,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             } else {
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-                    etLoanAmount.setText("" + myNewLead.getLoanAmount());
+                    MasumCommonUtils.commaSeperator(etLoanAmount,myNewLead.getLoanAmount());
                     etInterest.setText("" + myNewLead.getOrInterest());
                     etDisbursementDate.setText(DateUtils.getDateFormateEt(myNewLead.getDisDate()));
                     etFee.setText("" + myNewLead.getOpFee());
@@ -399,6 +385,9 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                             spinnerSubCategory.setSelection(productSubAdapter.
                                     getPosition(myNewLead.getProductSubcategory()));
                         } catch (IllegalStateException ignored) {
+                        }
+                        catch (NullPointerException e){
+
                         }
 
 

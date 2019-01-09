@@ -66,6 +66,7 @@
                     android:background="@color/transparent"
                     android:text="Log out"
                     android:textAllCaps="false"
+                    android:visibility="gone"
                     android:textColor="@color/white" />
 
             </RelativeLayout>
@@ -78,7 +79,7 @@
             android:layout_below="@+id/appbar"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true" />
-
+<include layout="@layout/view_common_loader"/>
     </RelativeLayout>
 
 

@@ -622,7 +622,7 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No. of months In Current job" />
+                    android:text="Work/Business Experience(In months)" />
 
                 <EditText
                     android:id="@+id/input_current_job_years"
@@ -849,8 +849,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/size_60dp"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="11"
+                    android:inputType="phone"
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp" />

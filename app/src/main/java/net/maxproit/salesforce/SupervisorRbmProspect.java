@@ -4,24 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
-
-import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.listener.OnItemClickListener;
-import net.maxproit.salesforce.masum.model.api.lead.LeadLeastDataFromApi;
 import net.maxproit.salesforce.masum.model.api.rbm.Datum;
 import net.maxproit.salesforce.masum.model.api.rbm.GetRbmData;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
@@ -29,10 +19,7 @@ import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.model.myprospect.Data;
 import net.maxproit.salesforce.model.myprospect.MyProspect;
 import net.maxproit.salesforce.model.myprospect.updatemyprospect.OldProspect;
-import net.maxproit.salesforce.model.search.Search;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -46,18 +33,12 @@ public class SupervisorRbmProspect extends BaseActivity {
     private ImageView btnBack;
     private SearchView searchView;
 
-    ArrayList<Data> prospectArrayList, filterList;
+    private ArrayList<Data> prospectArrayList, filterList;
 
-    MyNewProspectAdapter myAdapter;
+    private MyNewProspectAdapter myAdapter;
     //    String userName;
-    MyLeadDbController myLeadDbController;
     //    Bundle extras;
-    RecyclerView rvProspect;
-
-    //    Button btnAddProspect;
-
-    //    ArrayList<MyNewLead> followUpList, filterList;
-    //
+    private RecyclerView rvProspect;
 
     @Override
     protected int getLayoutResourceId() {
@@ -78,20 +59,16 @@ public class SupervisorRbmProspect extends BaseActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rvProspect.setLayoutManager(mLayoutManager);
         rvProspect.setAdapter(myAdapter);
+        myAdapter.isChangedFieldName(true);
         initListener();
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
+        btnLogout.setOnClickListener(view -> {
+            logout();
+
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+        btnBack.setOnClickListener(view -> {
+            onBackPressed();
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -145,15 +122,12 @@ public class SupervisorRbmProspect extends BaseActivity {
 
     private void initListener() {
 
-        myAdapter.setItemClickListener(new OnItemClickListener() {
-            @Override
-            public void itemClickListener(View view, int position) {
-                loadFilterData();
-                switch (view.getId()) {
-                    default:
-                        sentDataToDetail(position);
-                        break;
-                }
+        myAdapter.setItemClickListener((view, position) -> {
+            loadFilterData();
+            switch (view.getId()) {
+                default:
+                    sentDataToDetail(position);
+                    break;
             }
         });
 
@@ -163,17 +137,10 @@ public class SupervisorRbmProspect extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        myLeadDbController = new MyLeadDbController(this);
         if (!prospectArrayList.isEmpty()) {
             prospectArrayList.clear();
         }
-
-//        filterList.addAll(myLeadDbController.myNewProspectGetAllData(AppConstant.STATUS_RBM));
-        if (isNetworkAvailable()) {
-            callApi();
-        } else showAlertDialog("Error", "Network isn't connected");
-
-
+        callApi();
     }
 
     private void callApi() {
@@ -187,32 +154,36 @@ public class SupervisorRbmProspect extends BaseActivity {
             getApiService().getRbmData(userName, random).enqueue(new Callback<GetRbmData>() {
                 @Override
                 public void onResponse(Call<GetRbmData> call, Response<GetRbmData> response) {
-                    if (isNetworkAvailable()) {
-                        if (response.body().getCode().equals("200")) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals(getString(R.string.success_code))) {
                             MyProspect myProspect = new MyProspect();
                             prospectArrayList.addAll(myProspect.setRbmDataModelList((ArrayList<Datum>) response.body().getData()));
                             myAdapter.notifyDataSetChanged();
                             hideProgressDialog();
+                        } else if (response.body().getCode().equals("404")) {
+                            initLoader();
+                            hideProgressDialog();
+                            showEmptyView();
+
                         } else {
-                            showAlertDialog("Error", response.body().getMessage());
+                            showAlertDialog(getString(R.string.error_text), response.body().getMessage());
                             hideProgressDialog();
                         }
                     } else {
-                        showAlertDialog("Error", "Network Error");
+                        showAlertDialog(getString(R.string.error_text), response.message() + "\n" + response.errorBody().toString());
                         hideProgressDialog();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<GetRbmData> call, Throwable t) {
-                    showAlertDialog("Error", t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
                     hideProgressDialog();
 
                 }
             });
         } else {
-            showAlertDialog("Error", "Network isn't connected");
-
+            showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
         }
 
     }
@@ -225,15 +196,14 @@ public class SupervisorRbmProspect extends BaseActivity {
             getApiService().getRbmDataByRef(ref, UUID.randomUUID().toString()).enqueue(new Callback<OldProspect>() {
                 @Override
                 public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
-                    if (response.body().getCode().equals("200")) {
+                    if (response.body().getCode().equals(getString(R.string.success_code))) {
                         hideProgressDialog();
                         OldProspect oldProspect = response.body();
                         MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
                         ActivityUtils.invokProspectRbmViewStage(SupervisorRbmProspect.this, myNewProspect, prospectListData);
 
-
                     } else {
-                        showAlertDialog("ERROR", response.body().getMessage());
+                        showAlertDialog(getString(R.string.error_text), response.body().getMessage());
                         hideProgressDialog();
                     }
 
@@ -241,11 +211,12 @@ public class SupervisorRbmProspect extends BaseActivity {
 
                 @Override
                 public void onFailure(Call<OldProspect> call, Throwable t) {
-                    showAlertDialog("ERROR", t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
                     hideProgressDialog();
                 }
             });
-        } else showAlertDialog("ERROR", "internet not available,please connect to the internet");
+        } else
+            showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
 
     }
 
@@ -259,9 +230,10 @@ public class SupervisorRbmProspect extends BaseActivity {
         builder.setTitle(getString(R.string.logout_title));
         builder.setMessage(getString(R.string.logout_message));
         builder.setIcon(R.drawable.logout_icon);
-        builder.setNegativeButton("No", null);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             startActivity(new Intent(SupervisorRbmProspect.this, LoginActivity.class));
+            finish();
             localCash().put(SharedPreferencesEnum.Key.ROLLUSER, "");
         });
         AlertDialog dialog = builder.create();
