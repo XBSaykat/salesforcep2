@@ -400,7 +400,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                         !TextUtils.isEmpty(etNewRemark.getText())) {
                     alertDialogSave();
                 } else
-                    showAlertDialog(getResources().getString(R.string.alert), "Follow up date is mandatory for " + spinerClientTypeStr + " client & " + sPurposeOfVisitStr);
+                    showAlertDialog(getResources().getString(R.string.alert), "Follow up date and Remark is mandatory for " + spinerClientTypeStr + " client & " + sPurposeOfVisitStr);
 
             } else {
                 alertDialogSave();
@@ -740,7 +740,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         boolean valid = true;
         if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                 TextUtils.isEmpty(etNewRemark.getText())) {
-            etNewRemark.setError("please fill up new follow up remarks");
+            etNewRemark.setError("Please fill up new Follow up & Remarks");
             valid = false;
         }
         return valid;
@@ -1063,22 +1063,35 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     private boolean isValid() {
         boolean valid = true;
 
-        if(spinerClientTypeStr == null || sPurposeOfVisitStr == null || sProductTypeString == null ){
+//        if(spinerClientTypeStr == null || sPurposeOfVisitStr == null || sProductTypeString == null ){
+//
+//            android.app.AlertDialog.Builder builder;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+//            } else {
+//                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
+//            }
+//            builder.setIcon(R.drawable.ic_required);
+//            builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
+//            builder.setNegativeButton("OK", null);
+//            android.app.AlertDialog dialog = builder.create();
+//            dialog.show();
+//            valid = false;
+//        }
+//        else valid=true;
 
-            android.app.AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-            } else {
-                builder = new android.app.AlertDialog.Builder(VisitPLanDetailsActivity.this);
-            }
-            builder.setIcon(R.drawable.ic_required);
-            builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
-            builder.setNegativeButton("OK", null);
-            android.app.AlertDialog dialog = builder.create();
-            dialog.show();
-            valid = false;
+        if (spinerClientTypeStr==null){
+            showAlertDialog("Required", "Enter Client Type");
+            return false;
         }
-        else valid=true;
+        if (sPurposeOfVisitStr==null){
+            showAlertDialog("Required", "Enter Purpose of Visit");
+            return false;
+        }
+        if (sProductTypeString==null){
+            showAlertDialog("Required", "Enter Product Type");
+            return false;
+        }
 
         return valid;
     }

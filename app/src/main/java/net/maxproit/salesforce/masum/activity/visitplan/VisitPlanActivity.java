@@ -430,21 +430,43 @@ public class VisitPlanActivity extends BaseActivity {
         boolean valid = true;
 
 
-        if (clientType == null || purposeOfVisit == null || city == null || policeStation == null) {
+//        if (clientType == null || purposeOfVisit == null || city == null || policeStation == null) {
+//
+//            android.app.AlertDialog.Builder builder;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                builder = new android.app.AlertDialog.Builder(VisitPlanActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+//            } else {
+//                builder = new android.app.AlertDialog.Builder(VisitPlanActivity.this);
+//            }
+//            builder.setIcon(R.drawable.ic_required);
+//            builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
+//            builder.setNegativeButton("OK", null);
+//            android.app.AlertDialog dialog = builder.create();
+//            dialog.show();
+//            valid = false;
+//        }
 
-            android.app.AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new android.app.AlertDialog.Builder(VisitPlanActivity.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-            } else {
-                builder = new android.app.AlertDialog.Builder(VisitPlanActivity.this);
-            }
-            builder.setIcon(R.drawable.ic_required);
-            builder.setTitle(Html.fromHtml("<font color='#FF0000'>Enter required values</font>"));
-            builder.setNegativeButton("OK", null);
-            android.app.AlertDialog dialog = builder.create();
-            dialog.show();
-            valid = false;
+        if (clientType == null){
+            showAlertDialog("Required","Enter Client Type");
+            return false;
         }
+        if (purposeOfVisit == null){
+            showAlertDialog("Required","Enter Purpose of Visit");
+            return false;
+        }
+        if (city==null){
+            showAlertDialog("Required","Enter City");
+            return false;
+        }
+        if (policeStation==null){
+            showAlertDialog("Required","Enter Police Station");
+            return false;
+        }
+        if (dateOfvisit==null){
+            showAlertDialog("Required","Enter Date of visit");
+            return false;
+        }
+
 
         return valid;
     }
