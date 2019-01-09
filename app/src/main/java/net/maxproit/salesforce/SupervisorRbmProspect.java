@@ -233,6 +233,7 @@ public class SupervisorRbmProspect extends BaseActivity {
         builder.setNegativeButton(getString(R.string.no), null);
         builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
             startActivity(new Intent(SupervisorRbmProspect.this, LoginActivity.class));
+            finish();
             localCash().put(SharedPreferencesEnum.Key.ROLLUSER, "");
         });
         AlertDialog dialog = builder.create();

@@ -360,7 +360,12 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
         tvProceedToLead.setOnClickListener(view -> {
             if (isNetworkAvailable()) {
-                alertDialogProceed();
+                if (isValidForProceed()) {
+                    alertDialogProceed();
+                } else {
+                    showAlertDialog(getResources().getString(R.string.alert), isVAlidText);
+
+                }
             } else
                 showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.proceed_unavailable));
 
@@ -1022,20 +1027,20 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     }
 
     private void proceedToLeadDetail() {
-        if (isValidForProceed()) {
-            showProgressDialog();
-            Data data = null;
-            if (visitPlanModel != null) {
-                data = getDataFromField(visitPlanModel.getJournalId());
-                hideProgressDialog();
-                ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, data);
 
-            } else {
-                data = getDataFromField(0);
-                hideProgressDialog();
-                ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, data);
-            }
+        showProgressDialog();
+        Data data = null;
+        if (visitPlanModel != null) {
+            data = getDataFromField(visitPlanModel.getJournalId());
+            hideProgressDialog();
+            ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, data);
+
+        } else {
+            data = getDataFromField(0);
+            hideProgressDialog();
+            ActivityUtils.invokVisitPlanDetail(this, LeadStageActivity.class, data);
         }
+
     }
 
 //    private boolean isValid() {

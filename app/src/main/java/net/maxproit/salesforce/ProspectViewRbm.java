@@ -222,13 +222,13 @@ public class ProspectViewRbm extends BaseActivity {
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+     /*   btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
             }
         });
-
+*/
 
         setAllData();
 
@@ -444,7 +444,7 @@ public class ProspectViewRbm extends BaseActivity {
         return prospect;
     }
 
-    private void logout() {
+/*    private void logout() {
         android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new android.app.AlertDialog.Builder(ProspectViewRbm.this, android.R.style.Theme_Material_Light_Dialog_Alert);
@@ -461,7 +461,7 @@ public class ProspectViewRbm extends BaseActivity {
         });
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
-    }
+    }*/
 
     public SharedPreferencesEnum localCash() {
         return SharedPreferencesEnum.getInstance(getActivity());
