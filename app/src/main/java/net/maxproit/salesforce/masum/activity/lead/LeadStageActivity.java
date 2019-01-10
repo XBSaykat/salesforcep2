@@ -271,7 +271,9 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             public void onClick(View v) {
 //                mapUtils.gpsChecker();
 //                mapUtils.getLatLong();
-                alertDialogSave(finalMyNewLead);
+                if (isValid()){
+                    alertDialogSave(finalMyNewLead);
+                }
             }
         });
 
@@ -806,6 +808,21 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             leadStageBasicInformationFragment.setArguments(bundle);
 
         }*/
+    }
+
+    private boolean isValid() {
+        boolean valid = true;
+
+        if (MasumCommonUtils.isNullStr(LeadStageBasicInformationFragment.branchName)){
+            showAlertDialog("Required","Enter Branch Name");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(LeadStageLoanDetailFragment.spinnerRef.getSelectedItem())){
+            showAlertDialog("Required","Enter Source of Reference");
+            return false;
+        }
+
+        return valid;
     }
 
 
