@@ -151,6 +151,9 @@ public class ProspectStageActivity extends BaseActivity {
             public void onClick(View v) {
 //                mapUtils.gpsChecker();
 //                mapUtils.getLatLong();
+                if (!isValid()) {
+                    return;
+                }
                 alertDialogProceed();
             }
         });
@@ -160,6 +163,9 @@ public class ProspectStageActivity extends BaseActivity {
             public void onClick(View view) {
 //                mapUtils.gpsChecker();
 //                mapUtils.getLatLong();
+                if (!isValid()) {
+                    return;
+                }
                 alertDialogSave();
             }
 
@@ -295,27 +301,6 @@ public class ProspectStageActivity extends BaseActivity {
 
         return myNewLead;
     }
-
-
-    private boolean isValid() {
-        boolean validation=true;
-        if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) ||
-                MasumCommonUtils.isNullStr(segment) || MasumCommonUtils.isNullStr(productCat) || MasumCommonUtils.isNullStr(productDetails)
-                || MasumCommonUtils.isNullStr(mybranchName) || MasumCommonUtils.isNullStr(name) || MasumCommonUtils.isNullStr(dateOfBirth)
-                || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countOfBirth)
-                || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoId)
-                || MasumCommonUtils.isNullStr(fatherName) || MasumCommonUtils.isNullStr(motherName) || MasumCommonUtils.isNullStr(profession)
-                || MasumCommonUtils.isNullStr(mobileNumber) || MasumCommonUtils.isNullStr(permanentCity)
-                || MasumCommonUtils.isNullStr(presentCity) || MasumCommonUtils.isNullStr(permanentPs) || MasumCommonUtils.isNullStr(presentPs)
-                || MasumCommonUtils.isNullStr(monthlyFamilyExpenditure)) {
-            validation = false;
-        } else {
-            validation = true;
-        }
-
-        return validation;
-    }
-
 
     private void setupViewPager(ViewPager viewPager) {
         ProspectStageActivity.ViewPagerAdapter adapter = new ProspectStageActivity.ViewPagerAdapter(getSupportFragmentManager());
@@ -457,10 +442,7 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setPermAddressCity(permanentCity);
                 myNewProspect.setPermAddressPs(permanentPs);
                 myNewProspect.setSubCode(producSubCode);
-                if (!isValid()) {
-                    showAlertDialog(getString(R.string.alert), getString(R.string.reqired));
-                    return;
-                }
+
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
                 newProspectUpdate.getPRospectDAtaForPostAPi(myNewProspect);
                 String refNo = getDataFromProspect().getRefNumber();
@@ -590,10 +572,6 @@ public class ProspectStageActivity extends BaseActivity {
 
                 ArrayList<CoApplicant> coApplicantList = AppConstant.coAppLicantStaticList;
                 newProspectUpdate.setCoApplicants(newProspectUpdate.setCoApplicantsFromProspect(coApplicantList));
-                if (!isValid()) {
-                    showAlertDialog(getString(R.string.alert), getString(R.string.reqired));
-                    return;
-                }
                 if (isNetworkAvailable()) {
                     showProgressDialog();
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
@@ -697,4 +675,109 @@ public class ProspectStageActivity extends BaseActivity {
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    private boolean isValid() {
+        boolean validation=true;
+//        if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) ||
+//                MasumCommonUtils.isNullStr(segment) || MasumCommonUtils.isNullStr(productCat) || MasumCommonUtils.isNullStr(productDetails)
+//                || MasumCommonUtils.isNullStr(mybranchName) || MasumCommonUtils.isNullStr(name) || MasumCommonUtils.isNullStr(dateOfBirth)
+//                || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countOfBirth)
+//                || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoId)
+//                || MasumCommonUtils.isNullStr(fatherName) || MasumCommonUtils.isNullStr(motherName) || MasumCommonUtils.isNullStr(profession)
+//                || MasumCommonUtils.isNullStr(mobileNumber) || MasumCommonUtils.isNullStr(permanentCity)
+//                || MasumCommonUtils.isNullStr(presentCity) || MasumCommonUtils.isNullStr(permanentPs) || MasumCommonUtils.isNullStr(presentPs)
+//                || MasumCommonUtils.isNullStr(monthlyFamilyExpenditure)) {
+//            validation = false;
+//        } else {
+//            validation = true;
+//        }
+
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.productCat)){
+            showAlertDialog("Required","Enter Product Category");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.productSub)){
+            showAlertDialog("Required","Enter Product Sub Category");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.branchName)){
+            showAlertDialog("Required","Enter Branch Name");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString())){
+            showAlertDialog("Required","Enter Name");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.segment)){
+            showAlertDialog("Required","Enter Segment");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etDob.getText().toString())){
+            showAlertDialog("Required","Enter Date of Birth");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.districtOfBirth)){
+            showAlertDialog("Required","Enter District of Birth");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.countOfBirth)){
+            showAlertDialog("Required","Enter Country of Birth");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(String.valueOf(ProspectStageProductAndCustomerDetailsFragment.photoIdcode))){
+            showAlertDialog("Required","Enter Photo ID type");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString())){
+            showAlertDialog("Required","Enter Photo ID No.");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString())){
+            showAlertDialog("Required","Enter Father Name");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString())){
+            showAlertDialog("Required","Enter Mother Name");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.profession)){
+            showAlertDialog("Required","Enter Profession");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString())){
+            showAlertDialog("Required","Enter Permanent Address");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.perCity)){
+            showAlertDialog("Required","Enter Permanent City");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.perPoliceStation)){
+            showAlertDialog("Required","Enter Permanent Police Station");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString())){
+            showAlertDialog("Required","Enter Present Address");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.preCity)){
+            showAlertDialog("Required","Enter Present City");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.prePoliceStation)){
+            showAlertDialog("Required","Enter Present Police Station");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString())){
+            showAlertDialog("Required","Enter Mobile Number");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString())){
+            showAlertDialog("Required","Enter Monthly Family Expenditure");
+            return false;
+        }
+
+        return validation;
+    }
+
 }
