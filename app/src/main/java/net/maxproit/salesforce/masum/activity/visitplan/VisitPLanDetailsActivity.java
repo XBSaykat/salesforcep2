@@ -1092,7 +1092,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             showAlertDialog("Required", "Enter Product Type");
             return false;
         }
-        if (citySpn==null){
+        if (MasumCommonUtils.isNullStr(spinnerCity.getText().toString())){
             showAlertDialog("Required", "Enter City");
             return false;
         }
