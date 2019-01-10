@@ -626,7 +626,7 @@ public class VisitPlanActivity extends BaseActivity {
                                             mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                                             purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
                                     dbController.updateData(visitPlan);
-                                    sendGpsLocation(String.valueOf(response.body().getData().getActivityJournalID()),"Activity",userName,getltd(),getLng(),"",VisitPlanActivity.this);
+                                    sendGpsLocation(String.valueOf(response.body().getData().getActivityJournalID()),"Activity",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),VisitPlanActivity.this);
 
                                 }
                                 else if (response.body().getCode().equals("404")){
@@ -687,7 +687,7 @@ public class VisitPlanActivity extends BaseActivity {
                                         spinnerPoliceStation.getSelectedItem(),
                                         purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
                            */
-                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()),"Activity",userName,getltd(),getLng(),"",VisitPlanActivity.this);
+                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()),"Activity",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),VisitPlanActivity.this);
 
                                 Log.e("status", "save data into server and local" + response.body().getData().toString());
 

@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -39,6 +42,7 @@ import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.model.api.gpstracker.GetGpsResponse;
 import net.maxproit.salesforce.masum.utility.GPSTracker;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.appversion.AppVersionResponse;
 import net.maxproit.salesforce.network.ApiService;
 import net.maxproit.salesforce.network.RestClient;
@@ -47,6 +51,8 @@ import net.maxproit.salesforce.util.SharedPreferencesEnum;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -66,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private LinearLayout loadingView, noDataView;
     GPSTracker gps;
 
-    private double latitude,longitude;
+    private double latitude, longitude;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -188,9 +194,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void getGpsLocation() {
         gps = new GPSTracker(BaseActivity.this);
         if (gps.canGetLocation()) {
-             latitude = gps.getLatitude();
-             longitude = gps.getLongitude();
-           // Toast.makeText(this, "lt:" + latitude + "\n" + "lng:" + longitude, Toast.LENGTH_SHORT).show();
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+            // Toast.makeText(this, "lt:" + latitude + "\n" + "lng:" + longitude, Toast.LENGTH_SHORT).show();
 
         } else {
             gps.showSettingsAlert();
@@ -198,17 +204,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    public double getltd(){
+    public double getltd() {
         return latitude;
     }
 
-    public double getLng(){
+    public double getLng() {
         return longitude;
     }
 
 
-    public void sendGpsLocation(String refNo,String source,String userName,double latitude,double longitude,String info,Activity activity){
-        net.maxproit.salesforce.masum.model.api.gpstracker.Data data=new net.maxproit.salesforce.masum.model.api.gpstracker.Data();
+    public void sendGpsLocation(String refNo, String source, String userName, double latitude, double longitude, String info, Activity activity) {
+        net.maxproit.salesforce.masum.model.api.gpstracker.Data data = new net.maxproit.salesforce.masum.model.api.gpstracker.Data();
 
         data.setReferenceNo(refNo);
         data.setLatitude(latitude);
@@ -220,28 +226,57 @@ public abstract class BaseActivity extends AppCompatActivity {
         getApiService().sendltdlng(data).enqueue(new Callback<GetGpsResponse>() {
             @Override
             public void onResponse(Call<GetGpsResponse> call, Response<GetGpsResponse> response) {
-                if (response.isSuccessful()){
-                    if (response.body().getCode().equals("200")){
-                        if (activity !=null){
+                if (response.isSuccessful()) {
+                    if (response.body().getCode().equals("200")) {
+                        if (activity != null) {
+                            MasumCommonUtils.statusAlert(getString(R.string.succes_txt), getString(R.string.save_txt), activity);
+                        }
+                    } else {
+                        if (activity != null) {
                             activity.finish();
                         }
                     }
-                    activity.finish();
 
-                }
-                else {
-                    activity.finish();
+                } else {
+                    if (activity != null)
+                        activity.finish();
                 }
 
             }
 
             @Override
             public void onFailure(Call<GetGpsResponse> call, Throwable t) {
-                activity.finish();
+                if (activity != null)
+                    activity.finish();
 
             }
         });
     }
+
+
+    public String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                }
+                strAdd = strReturnedAddress.toString();
+
+            } else {
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strAdd;
+    }
+
 
     public Context getContext() {
         return this;

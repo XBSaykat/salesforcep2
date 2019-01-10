@@ -46,7 +46,7 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
-import net.maxproit.salesforce.masum.utility.MapUtils;
+
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -102,7 +102,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     static final String INDIVIDUAL = "Individual";
     private ArrayAdapter<String> polishStationAdapter;
     private String clientType, productType, purposeOfVisit;
-    MapUtils mapUtils;
+
 
 
     @Override
@@ -125,7 +125,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
     private void initVariable() {
         localSetting = new LocalSetting(this);
-        mapUtils= new MapUtils(this);
+
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
         visitPlanDbController = new VisitPlanDbController(this);
@@ -389,8 +389,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         });
 
         tvSave.setOnClickListener(view -> {
-//            mapUtils.gpsChecker();
-//            mapUtils.getLatLong();
+
+            getGpsLocation();
             if (!isValid()){
                 return;
             }
@@ -515,11 +515,20 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                 getApiService().createActivity(data).enqueue(new Callback<MyActivityApi>() {
                     @Override
                     public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
-                        if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
-                            Data data1 = response.body().getData();
-                            insertActivityData(data1);
-                            hideProgressDialog();
-                            MasumCommonUtils.statusAlert(response.body().getStatus(), response.body().getMessage(), VisitPLanDetailsActivity.this);
+                        hideProgressDialog();
+                        if (response.isSuccessful()) {
+                            if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
+                                Data data1 = response.body().getData();
+                                insertActivityData(data1);
+                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), "", VisitPLanDetailsActivity.this);
+
+                            }
+                            else{
+                                showAlertDialog(response.body().getCode(),response.body().getMessage());
+                            }
+                        }
+                        else {
+                            showAlertDialog(""+response.code(),response.errorBody().toString());
                         }
 
                     }
@@ -651,7 +660,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                             Data data1 = response.body().getData();
                             hideProgressDialog();
                             updateDataACtivity(data1);
-                            MasumCommonUtils.statusAlert(response.body().getStatus(), response.body().getMessage(), VisitPLanDetailsActivity.this);
+                            sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), getCompleteAddressString(getltd(),getLng()), VisitPLanDetailsActivity.this);
 
                         } else {
                             updateDataACtivity(data);
@@ -682,7 +691,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                             if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                 Data data1 = response.body().getData();
                                 updateDataACtivity(data1);
-                                MasumCommonUtils.statusAlert(response.body().getStatus(), response.body().getMessage(), VisitPLanDetailsActivity.this);
+                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), getCompleteAddressString(getltd(),getLng()), VisitPLanDetailsActivity.this);
 
                             } else {
                                 showAlertDialog(response.body().getStatus(), response.body().getMessage());
@@ -1098,6 +1107,10 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         }
         if (polisStattionSpn==null){
             showAlertDialog("Required", "Enter Police Station");
+            return false;
+        }
+
+        if (getltd()==0 && getLng()==0){
             return false;
         }
 
