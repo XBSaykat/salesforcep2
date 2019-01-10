@@ -13,6 +13,7 @@ import net.maxproit.salesforce.masum.model.api.deviation.queryapprovaltierfordev
 import net.maxproit.salesforce.masum.model.api.deviation.querydeviationpropertyresponce.QueryDeviationPropertyResponce;
 import net.maxproit.salesforce.masum.model.api.file.GetDocument;
 import net.maxproit.salesforce.masum.model.api.followup.FollowUpHistoryApi;
+import net.maxproit.salesforce.masum.model.api.gpstracker.GetGpsResponse;
 import net.maxproit.salesforce.masum.model.api.lead.MyGetLeadApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadByRefApi;
 import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
@@ -218,6 +219,12 @@ public interface ApiService {
 // @POST("CdProspect/Prospect")
 //    Call<OldPostpectResponse> myNewProspectData(@Body net.maxproit.salesforce.masum.model.prospectmodel.Data newProspectUpdate);
 
+
+    //gps location
+
+
+    @POST("GeoLocation")
+    Call<GetGpsResponse> sendltdlng(@Body net.maxproit.salesforce.masum.model.api.gpstracker.Data data);
 
     @GET("Prospect/{id}/{random}")
     Call<OleProspect> getProspect(@Path("id") String id, @Path("random") String random);

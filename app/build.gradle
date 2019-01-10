@@ -83,6 +83,7 @@ dependencies {
     implementation 'com.whiteelephant:monthandyearpicker:1.2.0'
     // Google Place
     implementation 'com.google.android.gms:play-services-places:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
 
     //Spinner
     implementation 'com.github.amlashi-sadra:AwesomeSpinner:1.0.7'

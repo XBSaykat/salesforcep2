@@ -37,6 +37,8 @@ import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.feature.splash.SplashActivity;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
+import net.maxproit.salesforce.masum.model.api.gpstracker.GetGpsResponse;
+import net.maxproit.salesforce.masum.utility.GPSTracker;
 import net.maxproit.salesforce.model.appversion.AppVersionResponse;
 import net.maxproit.salesforce.network.ApiService;
 import net.maxproit.salesforce.network.RestClient;
@@ -62,12 +64,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private ViewDataBinding binding;
     private LinearLayout loadingView, noDataView;
+    GPSTracker gps;
+
+    private double latitude,longitude;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, getLayoutResourceId());
         initComponents();
+
     }
 
 
@@ -177,6 +183,64 @@ public abstract class BaseActivity extends AppCompatActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    public void getGpsLocation() {
+        gps = new GPSTracker(BaseActivity.this);
+        if (gps.canGetLocation()) {
+             latitude = gps.getLatitude();
+             longitude = gps.getLongitude();
+           // Toast.makeText(this, "lt:" + latitude + "\n" + "lng:" + longitude, Toast.LENGTH_SHORT).show();
+
+        } else {
+            gps.showSettingsAlert();
+        }
+    }
+
+
+    public double getltd(){
+        return latitude;
+    }
+
+    public double getLng(){
+        return longitude;
+    }
+
+
+    public void sendGpsLocation(String refNo,String source,String userName,double latitude,double longitude,String info,Activity activity){
+        net.maxproit.salesforce.masum.model.api.gpstracker.Data data=new net.maxproit.salesforce.masum.model.api.gpstracker.Data();
+
+        data.setReferenceNo(refNo);
+        data.setLatitude(latitude);
+        data.setLongitude(longitude);
+        data.setUserName(userName);
+        data.setSource(source);
+        data.setLatitude(latitude);
+        data.setLocationInfo(info);
+        getApiService().sendltdlng(data).enqueue(new Callback<GetGpsResponse>() {
+            @Override
+            public void onResponse(Call<GetGpsResponse> call, Response<GetGpsResponse> response) {
+                if (response.isSuccessful()){
+                    if (response.body().getCode().equals("200")){
+                        if (activity !=null){
+                            activity.finish();
+                        }
+                    }
+                    activity.finish();
+
+                }
+                else {
+                    activity.finish();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<GetGpsResponse> call, Throwable t) {
+                activity.finish();
+
+            }
+        });
     }
 
     public Context getContext() {
@@ -385,14 +449,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
                     if (response.isSuccessful()) {
 
-                            if (response.body().getCode().equalsIgnoreCase(getString(R.string.response_code_200))) {
-                                if (response.body().getData() != null) {
+                        if (response.body().getCode().equalsIgnoreCase(getString(R.string.response_code_200))) {
+                            if (response.body().getData() != null) {
                                 verNameUpdate = Integer.parseInt(response.body().getData().getVersionName().replace(".", ""));
                                 verCodeUpdate = response.body().getData().getVersionCode();
                                 showToast(
                                         "CURRENT App v." + versionName + "\nServer App v." + verNameUpdate);
                                 if (verNameUpdate > versionName || verCodeUpdate > versionCode) {
-                                    appUpdateAlertDialog(response.body().getData().getUrl(),verNameUpdate,versionName);
+                                    appUpdateAlertDialog(response.body().getData().getUrl(), verNameUpdate, versionName);
                                 } else {
                                     initSplash(activity);
                                 }
@@ -402,7 +466,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             initSplash(activity);
                         }
                     } else {
-                        showAlertDialog(getStringFromResource(R.string.error_text) + "" , response.message());
+                        showAlertDialog(getStringFromResource(R.string.error_text) + "", response.message());
                         initSplash(activity);
                     }
                 }
@@ -431,7 +495,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private void appUpdateAlertDialog(String url,int vc,int vn) {
+    private void appUpdateAlertDialog(String url, int vc, int vn) {
 
         android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -440,7 +504,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             builder = new android.app.AlertDialog.Builder(getContext());
         }
         builder.setTitle("Update Available");
-        builder.setMessage("New Update Available for download. Please Download the latest version of the app.,"+"\nCURRENT App v." + vn + "\nServer App v." + vc);
+        builder.setMessage("New Update Available for download. Please Download the latest version of the app.," + "\nCURRENT App v." + vn + "\nServer App v." + vc);
         builder.setIcon(R.drawable.ic_download);
         builder.setCancelable(false);
         builder.setPositiveButton("OK", (dialog, which) -> downloadApp(url));

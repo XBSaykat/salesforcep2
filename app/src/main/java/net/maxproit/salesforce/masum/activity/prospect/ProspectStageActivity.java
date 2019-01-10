@@ -20,21 +20,16 @@ import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.masum.activity.lead.MyLeadActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
-import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
-import net.maxproit.salesforce.masum.appdata.sqlite.CarLoanDbController;
-import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.PropectStageAttachmentFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageCoApplicantFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageLoanAndSecurityDetailFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageProductAndCustomerDetailsFragment;
-import net.maxproit.salesforce.masum.model.local.CarLoan;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.model.prospectmodel.OldPostpectResponse;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.masum.utility.MapUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.masum.model.api.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
@@ -75,7 +70,7 @@ public class ProspectStageActivity extends BaseActivity {
     private TextView buttonSave, btnProceed, btnReject;
     private LinearLayout mLayout;
 
-    MapUtils mapUtils;
+
 
     @Override
     protected int getLayoutResourceId() {
@@ -95,7 +90,7 @@ public class ProspectStageActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         userCode = localCash().getString(SharedPreferencesEnum.Key.USER_CODE);
-        mapUtils = new MapUtils(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,11 +105,9 @@ public class ProspectStageActivity extends BaseActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         buttonSave = findViewById(R.id.btnSave);
-
         mLayout = findViewById(R.id.btn_layout_lead);
         initListener();
         splashThread();
-
         setArgumentForFragment();
 
 

@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -22,15 +23,11 @@ import net.maxproit.salesforce.databinding.ActivityLoginBinding;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardVirifierActivity;
 import net.maxproit.salesforce.feature.dashboard.supervisor.MainDashboardSupervisorActivity;
-import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.preference.AppPreference;
 import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.MyLeadDbController;
-import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
-import net.maxproit.salesforce.masum.model.api.lead.MyLeadDataModelApi;
-import net.maxproit.salesforce.masum.model.local.MyNewLead;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
-import net.maxproit.salesforce.masum.utility.DateUtils;
+import net.maxproit.salesforce.masum.utility.GPSTracker;
 import net.maxproit.salesforce.model.login.Login;
 import net.maxproit.salesforce.model.login.LoginResponse;
 import net.maxproit.salesforce.model.setting.GlobalSettings;
@@ -48,6 +45,8 @@ public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
     String phoneIMEINumber;
     private MyLeadDbController myLeadDbController;
+    GPSTracker gps;
+
 
     @Override
     protected int getLayoutResourceId() {
@@ -70,7 +69,7 @@ public class LoginActivity extends BaseActivity {
     protected void initComponents() {
         binding = (ActivityLoginBinding) getBinding();
         binding.setModel(new Login());
-        AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN,false);
+        AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN, false);
 
 //
 //        String st = localCash().getString(SharedPreferencesEnum.Key.SETTING);
@@ -89,7 +88,7 @@ public class LoginActivity extends BaseActivity {
 
 
         binding.tvForgotPass.setOnClickListener(v -> {
-            ActivityUtils.getInstance().invokeActivity(LoginActivity.this, RegistrationActivity.class, false);
+                    ActivityUtils.getInstance().invokeActivity(LoginActivity.this, RegistrationActivity.class, false);
 
                 }
         );
@@ -120,23 +119,27 @@ public class LoginActivity extends BaseActivity {
                             Log.d(TAG, ">>>>>: " + lr.toString());
 
                             if (lr.getCode().equals("401")) {
+
                                 showToast("Invalid UserId or Password");
                             } else {
-                                if(lr.getData() !=null) {
+                                if (lr.getData() != null) {
                                     AppPreference.getInstance(LoginActivity.this).setBoolean(PrefKey.IS_LOGIN, true);
                                     gotoBoard(lr.getData().getUserTypeId());
                                     String lg = toJson(response.body());
                                     localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);
                                     localCash().put(SharedPreferencesEnum.Key.USER_NAME, binding.etUsername.getText().toString());
                                     localCash().put(SharedPreferencesEnum.Key.USER_CODE, response.body().getData().getUserCode());
-                                }
-                                else{
+                                } else {
                                     showToast("Invalid UserId or Password");
+
+
+
+
                                 }
                             }
 
                         } else
-                            showAlertDialog("" + response.body().getCode(), "" + response.body().getMessage());
+                            showAlertDialog("" + response.code(), "" + response.message());
                     }
 
                     @Override
@@ -185,6 +188,8 @@ public class LoginActivity extends BaseActivity {
                 .check();
     }
 
+
+
     private void getPhoneIMEINo() {
         TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -193,16 +198,16 @@ public class LoginActivity extends BaseActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 try {
                     phoneIMEINumber = tm.getImei();
-                    showToast("Api Level: "+Build.VERSION.SDK_INT+": "+ phoneIMEINumber);
-                }catch (NullPointerException e){
-                    showToast("Oreo and above NPE: "+e.getLocalizedMessage());
+                    showToast("Api Level: " + Build.VERSION.SDK_INT + ": " + phoneIMEINumber);
+                } catch (NullPointerException e) {
+                    showToast("Oreo and above NPE: " + e.getLocalizedMessage());
                 }
-            }else {
+            } else {
                 try {
                     phoneIMEINumber = tm.getDeviceId();
-                    showToast("Api Level: "+Build.VERSION.SDK_INT+": "+ phoneIMEINumber);
-                }catch (NullPointerException e){
-                    showToast("Below oreo NPE: "+e.getLocalizedMessage());
+                    showToast("Api Level: " + Build.VERSION.SDK_INT + ": " + phoneIMEINumber);
+                } catch (NullPointerException e) {
+                    showToast("Below oreo NPE: " + e.getLocalizedMessage());
                 }
             }
             //    ActivityCompat#requestPermissions

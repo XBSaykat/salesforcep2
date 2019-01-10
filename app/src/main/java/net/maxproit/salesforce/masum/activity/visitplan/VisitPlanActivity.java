@@ -7,7 +7,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -34,14 +33,16 @@ import com.isapanah.awesomespinner.AwesomeSpinner;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.common.base.Global;
+import net.maxproit.salesforce.feature.login.LoginActivity;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.SpinnerDbController;
 import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
+import net.maxproit.salesforce.masum.model.api.gpstracker.GetGpsResponse;
 import net.maxproit.salesforce.masum.model.api.visitPlan.Data;
 import net.maxproit.salesforce.masum.model.api.visitPlan.MyVisitPlanApi;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.DateUtils;
-import net.maxproit.salesforce.masum.utility.MapUtils;
+import net.maxproit.salesforce.masum.utility.GPSTracker;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -98,7 +99,7 @@ public class VisitPlanActivity extends BaseActivity {
     DatePickerDialog.OnDateSetListener date;
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
 
-    MapUtils mapUtils;
+
 
     @Override
     protected int getLayoutResourceId() {
@@ -115,7 +116,8 @@ public class VisitPlanActivity extends BaseActivity {
         dbController = new VisitPlanDbController(VisitPlanActivity.this);
         spinnerDbController = new SpinnerDbController(VisitPlanActivity.this);
         mLocalSetting = new LocalSetting(this);
-        mapUtils= new MapUtils(this);
+        GPSTracker gps;
+        double latitude,longitude;
         initView();
 
         txtMobileNo.addTextChangedListener(new TextWatcher() {
@@ -182,8 +184,22 @@ public class VisitPlanActivity extends BaseActivity {
 
 
         getDataFromVisitPlan();
+/*
+    public void getGpsLocation() {
+        gps = new GPSTracker(this);
+        if (gps.canGetLocation()) {
+             latitude = gps.getLatitude();
+             longitude = gps.getLongitude();
+            Toast.makeText(this, "lt:" + latitude + "\n" + "lng:" + longitude, Toast.LENGTH_SHORT).show();
 
+        } else {
+            gps.showSettingsAlert();
+        }
+    }*/
     }
+
+
+
 
     private void initView() {
         secMobileNo = (LinearLayout) findViewById(R.id.secinput_mobile_no);
@@ -336,22 +352,16 @@ public class VisitPlanActivity extends BaseActivity {
             }
         });
 
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mapUtils.gpsChecker();
-//                mapUtils.getLatLong();
+        buttonSave.setOnClickListener(view -> {
+                getGpsLocation();
                 clientName = txtClientName.getText().toString().trim();
                 mobileNo = txtMobileNo.getText().toString().trim();
                 dateOfvisit = tvVisitDT.getText().toString().trim();
                 remarks = txtRemarks.getText().toString();
-
                 if (isValid()) {
                     alertDialog();
                 }
 
-
-            }
         });
 
         spinnerClientType.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
@@ -444,6 +454,10 @@ public class VisitPlanActivity extends BaseActivity {
             android.app.AlertDialog dialog = builder.create();
             dialog.show();
             valid = false;
+        }
+
+        else if (getltd()==0 && getltd()==0){
+           valid=false;
         }
 
         return valid;
@@ -585,16 +599,35 @@ public class VisitPlanActivity extends BaseActivity {
                     getApiService().createVisitPlan(data).enqueue(new Callback<MyVisitPlanApi>() {
                         @Override
                         public void onResponse(Call<MyVisitPlanApi> call, Response<MyVisitPlanApi> response) {
+                            if (response.isSuccessful()){
+                                if (response.body().getCode().equals(getString(R.string.success_code))){
+                                    VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), visitPlanModel.getJournalId(), clientName, spinnerClientType.getSelectedItem(),
+                                            mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
+                                            purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
+                                    dbController.updateData(visitPlan);
+                                    sendGpsLocation(String.valueOf(response.body().getData().getActivityJournalID()),"Activity",userName,getltd(),getLng(),"",VisitPlanActivity.this);
 
-                            VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), visitPlanModel.getJournalId(), clientName, spinnerClientType.getSelectedItem(),
-                                    mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
-                                    purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
-                            dbController.updateData(visitPlan);
-                            finish();
+                                }
+                                else if (response.body().getCode().equals("404")){
+                                    showAlertDialog(response.body().getCode(),response.body().getMessage());
+                                }
+
+                                else {
+                                    showAlertDialog(response.body().getCode(),response.body().getMessage());
+                                }
+
+                            }
+                            else {
+                                showAlertDialog(getString(R.string.error_text),response.errorBody().toString());
+
+                            }
+
+
                         }
 
                         @Override
                         public void onFailure(Call<MyVisitPlanApi> call, Throwable t) {
+                            showAlertDialog(getString(R.string.error_text),t.getMessage());
 
                         }
                     });
@@ -632,8 +665,11 @@ public class VisitPlanActivity extends BaseActivity {
                                         mobileNo, spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                                         spinnerPoliceStation.getSelectedItem(),
                                         purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
-                           */     Log.e("status", "save data into server and local" + response.body().getData().toString());
-                                finish();
+                           */
+                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()),"Activity",userName,getltd(),getLng(),"",VisitPlanActivity.this);
+
+                                Log.e("status", "save data into server and local" + response.body().getData().toString());
+
                             }
 
                         }
@@ -657,6 +693,9 @@ public class VisitPlanActivity extends BaseActivity {
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+
+
 
 
 }

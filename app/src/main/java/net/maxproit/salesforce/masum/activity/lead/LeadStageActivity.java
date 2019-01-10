@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,7 +37,7 @@ import net.maxproit.salesforce.masum.appdata.sqlite.VisitPlanDbController;
 import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
-import net.maxproit.salesforce.masum.utility.MapUtils;
+import net.maxproit.salesforce.masum.utility.GPSTracker;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.masum.model.api.approval.Approval;
 import net.maxproit.salesforce.model.mylead.approvalresponce.ApprovalResponce;
@@ -72,9 +71,9 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private int activityPosition;
     public static int myLeadPosition = -1;
     private VisitPlan visitPlan = null;
-    private int existingCustomerId = 0, existingAddressId=0 ;
+    private int existingCustomerId = 0, existingAddressId = 0;
+    private GPSTracker gps;
 
-    MapUtils mapUtils;
 
     @Override
     protected int getLayoutResourceId() {
@@ -115,7 +114,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         mLayout = findViewById(R.id.btn_layout_lead);
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
         btnReject = findViewById(R.id.tv_activity_details_rejected);
-        mapUtils = new MapUtils(this);
+
         getDataFromIntent();
     }
 
@@ -337,7 +336,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
         if (existingCustomerId > 0) {
             myLeadApi.setCustomerId(existingCustomerId);
-        }  if (existingAddressId > 0) {
+        }
+        if (existingAddressId > 0) {
             myLeadApi.setAddressId(existingAddressId);
         }
         myLeadApi.setProfession(profession);
@@ -763,6 +763,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             }
         });
     }
+
 
 
     private void errorAlert(String title, String text) {

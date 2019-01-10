@@ -14,7 +14,6 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,7 +24,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -46,7 +44,6 @@ import net.maxproit.salesforce.masum.model.local.VisitPlan;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DateUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
-import net.maxproit.salesforce.masum.utility.MapUtils;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.model.setting.LocalSetting;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
@@ -102,7 +99,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     static final String INDIVIDUAL = "Individual";
     private ArrayAdapter<String> polishStationAdapter;
     private String clientType, productType, purposeOfVisit;
-    MapUtils mapUtils;
+
 
 
     @Override
@@ -125,7 +122,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
     private void initVariable() {
         localSetting = new LocalSetting(this);
-        mapUtils= new MapUtils(this);
         userName = localCash().getString(SharedPreferencesEnum.Key.USER_NAME);
         localCash().put(SharedPreferencesEnum.Key.USER_NAME_PER, userName);
         visitPlanDbController = new VisitPlanDbController(this);
@@ -395,7 +391,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                 return;
             }
 
-            if (!isValidForProceed()) {
+            if (isValidForProceed()) {
                 if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                         !TextUtils.isEmpty(etNewRemark.getText())) {
                     alertDialogSave();
