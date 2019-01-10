@@ -395,7 +395,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                 return;
             }
 
-            if (!isValidForProceed()) {
+            if (isValidForProceed()) {
                 if (!TextUtils.isEmpty(etNewFollowUpdate.getText()) &&
                         !TextUtils.isEmpty(etNewRemark.getText())) {
                     alertDialogSave();
@@ -1090,6 +1090,14 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         }
         if (sProductTypeString==null){
             showAlertDialog("Required", "Enter Product Type");
+            return false;
+        }
+        if (citySpn==null){
+            showAlertDialog("Required", "Enter City");
+            return false;
+        }
+        if (polisStattionSpn==null){
+            showAlertDialog("Required", "Enter Police Station");
             return false;
         }
 
