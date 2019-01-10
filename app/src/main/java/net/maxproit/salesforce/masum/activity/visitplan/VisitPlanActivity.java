@@ -397,7 +397,6 @@ public class VisitPlanActivity extends BaseActivity {
 
                 if (s.equals(PRE_DISBURSEMENT)) {
                     throwAlertDialogForCIF();
-
                 }
                 if (s.equals(POST_DISBURSEMENT)) {
                     throwAlertDialogForCIF();
@@ -438,8 +437,7 @@ public class VisitPlanActivity extends BaseActivity {
 
     private boolean isValid() {
         boolean valid = true;
-
-
+        
         if (clientType == null || purposeOfVisit == null || city == null || policeStation == null) {
 
             android.app.AlertDialog.Builder builder;
@@ -455,7 +453,6 @@ public class VisitPlanActivity extends BaseActivity {
             dialog.show();
             valid = false;
         }
-
         else if (getltd()==0 && getltd()==0){
            valid=false;
         }
