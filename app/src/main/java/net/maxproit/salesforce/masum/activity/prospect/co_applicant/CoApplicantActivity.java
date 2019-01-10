@@ -21,6 +21,8 @@ import net.maxproit.salesforce.masum.appdata.preference.PrefKey;
 import net.maxproit.salesforce.masum.appdata.sqlite.CoApplicantDBController;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantFinancialFragment;
 import net.maxproit.salesforce.masum.fragment.prospect.co_applicant.CoApplicantProductAndCustomerDetailsFragment;
+import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageFinancialFragment;
+import net.maxproit.salesforce.masum.fragment.prospect.prospectstage.ProspectStageProductAndCustomerDetailsFragment;
 import net.maxproit.salesforce.masum.model.local.CoApplicant;
 import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 
@@ -148,15 +150,21 @@ public class CoApplicantActivity extends BaseActivity {
                 monthFamilyExpenditure = CoApplicantFinancialFragment.etMonthlyFamilyExpenditure.getText().toString();
                 emiOfOtherLoans = CoApplicantFinancialFragment.etEMIOfOtherLoans.getText().toString();
 
-                if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) || MasumCommonUtils.isNullStr(name) ||
-                        MasumCommonUtils.isNullStr(dateOfBirth) || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countryOfBirth)
-                        || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoIdNo)
-                        || MasumCommonUtils.isNullStr(fName) || MasumCommonUtils.isNullStr(mName) || MasumCommonUtils.isNullStr(profession)
-                        || MasumCommonUtils.isNullStr(relationWithApplicant) || MasumCommonUtils.isNullStr(mobileNo) || MasumCommonUtils.isNullStr(perCity)
-                        || MasumCommonUtils.isNullStr(preCity) || MasumCommonUtils.isNullStr(perPs) || MasumCommonUtils.isNullStr(prePs)) {
-                    showAlertDialog("Error", "Enter required values");
+                // validation needed
+
+                if (!isValid()){
                     return;
                 }
+
+//                if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) || MasumCommonUtils.isNullStr(name) ||
+//                        MasumCommonUtils.isNullStr(dateOfBirth) || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countryOfBirth)
+//                        || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoIdNo)
+//                        || MasumCommonUtils.isNullStr(fName) || MasumCommonUtils.isNullStr(mName) || MasumCommonUtils.isNullStr(profession)
+//                        || MasumCommonUtils.isNullStr(relationWithApplicant) || MasumCommonUtils.isNullStr(mobileNo) || MasumCommonUtils.isNullStr(perCity)
+//                        || MasumCommonUtils.isNullStr(preCity) || MasumCommonUtils.isNullStr(perPs) || MasumCommonUtils.isNullStr(prePs)) {
+//                    showAlertDialog("Error", "Enter required values");
+//                    return;
+//                }
 
 //                if (dateOfBirth.isEmpty()){
 //                    showAlertDialog("Error", "Enter date of birth");
@@ -301,4 +309,93 @@ public class CoApplicantActivity extends BaseActivity {
 
         }
     }
+
+    private boolean isValid() {
+        boolean validation=true;
+//        if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) ||
+//                MasumCommonUtils.isNullStr(segment) || MasumCommonUtils.isNullStr(productCat) || MasumCommonUtils.isNullStr(productDetails)
+//                || MasumCommonUtils.isNullStr(mybranchName) || MasumCommonUtils.isNullStr(name) || MasumCommonUtils.isNullStr(dateOfBirth)
+//                || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countOfBirth)
+//                || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoId)
+//                || MasumCommonUtils.isNullStr(fatherName) || MasumCommonUtils.isNullStr(motherName) || MasumCommonUtils.isNullStr(profession)
+//                || MasumCommonUtils.isNullStr(mobileNumber) || MasumCommonUtils.isNullStr(permanentCity)
+//                || MasumCommonUtils.isNullStr(presentCity) || MasumCommonUtils.isNullStr(permanentPs) || MasumCommonUtils.isNullStr(presentPs)
+//                || MasumCommonUtils.isNullStr(monthlyFamilyExpenditure)) {
+//            validation = false;
+//        } else {
+//            validation = true;
+//        }
+
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString())){
+            showAlertDialog("Required","Enter Name");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etDateOfBirth.getText().toString())){
+            showAlertDialog("Required","Enter Date of Birth");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.districtOfBirth)){
+            showAlertDialog("Required","Enter District of Birth");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.countOfBirth)){
+            showAlertDialog("Required","Enter Country of Birth");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(String.valueOf(CoApplicantProductAndCustomerDetailsFragment.photoIdcode))){
+            showAlertDialog("Required","Enter Photo ID type");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPhotoId.getText().toString())){
+            showAlertDialog("Required","Enter Photo ID No.");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etFatherName.getText().toString())){
+            showAlertDialog("Required","Enter Father Name");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etMotherName.getText().toString())){
+            showAlertDialog("Required","Enter Mother Name");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.profession)){
+            showAlertDialog("Required","Enter Profession");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.relationship)){
+            showAlertDialog("Required","Enter Relationship with Applicant");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString())){
+            showAlertDialog("Required","Enter Permanent Address");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.spinnerPerCity.getText().toString())){
+            showAlertDialog("Required","Enter Permanent City");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.perPoliceStation)){
+            showAlertDialog("Required","Enter Permanent Police Station");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPresentAddress.getText().toString())){
+            showAlertDialog("Required","Enter Present Address");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.spinnerPreCity.getText().toString())){
+            showAlertDialog("Required","Enter Present City");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.prePoliceStation)){
+            showAlertDialog("Required","Enter Present Police Station");
+            return false;
+        }
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString())){
+            showAlertDialog("Required","Enter Mobile Number");
+            return false;
+        }
+
+        return validation;
+    }
+
 }
