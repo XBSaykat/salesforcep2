@@ -164,7 +164,7 @@ public class GPSTracker extends Service implements LocationListener {
         // Setting Dialog Title
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            alertDialog = new AlertDialog.Builder(mContext, android.R.style.Theme_Material_Light_Dialog_Alert);
+            alertDialog = new AlertDialog.Builder(mContext, android.R.style.Theme_Material_Dialog_Alert);
         } else {
             alertDialog = new AlertDialog.Builder(mContext);
         }
