@@ -24,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.isapanah.awesomespinner.AwesomeSpinner;
 
@@ -387,6 +388,8 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         tvSave.setOnClickListener(view -> {
 //            mapUtils.gpsChecker();
 //            mapUtils.getLatLong();
+
+            getGpsLocation();
             if (!isValid()){
                 return;
             }
@@ -1073,6 +1076,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             android.app.AlertDialog dialog = builder.create();
             dialog.show();
             valid = false;
+        }
+        else if (getltd()==0 && getltd()==0){
+            valid=false;
         }
         else valid=true;
 
