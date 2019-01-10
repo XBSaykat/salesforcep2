@@ -229,7 +229,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getCode().equals("200")) {
                         if (activity != null) {
-                            MasumCommonUtils.statusAlert(getString(R.string.succes_txt), getString(R.string.save_txt), activity);
+                            MasumCommonUtils.statusAlert(getString(R.string.succes_txt), getString(R.string.save_success), activity);
                         }
                     } else {
                         if (activity != null) {

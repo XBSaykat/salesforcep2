@@ -21,6 +21,7 @@ import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.feature.dashboard.DashboardSalesOfficerActivity;
 
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
+import net.maxproit.salesforce.masum.activity.visitplan.VisitPlanActivity;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageBasicInformationFragment;
 import net.maxproit.salesforce.masum.fragment.lead.LeadStageLoanDetailFragment;
@@ -269,8 +270,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mapUtils.gpsChecker();
-//                mapUtils.getLatLong();
+                getGpsLocation();
                 if (isValid()){
                     alertDialogSave(finalMyNewLead);
                 }
@@ -439,7 +439,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                         int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
                                                 designation, phone, address, ref, productType, subCat,
                                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
-                                        errorAlert(response.body().getStatus(), response.body().getMessage());
+                                        sendGpsLocation(String.valueOf(response.body().getData().getLeadReferenceNo()),"Lead",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),LeadStageActivity.this);
+//                                        errorAlert(response.body().getStatus(), response.body().getMessage());
                                     } else
                                         errorAlert(response.body().getStatus(), response.body().getMessage());
                                 } else {
@@ -561,7 +562,9 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 if (response.body().getCode().equals("200")) {
                     hideProgressDialog();
                     Toast.makeText(LeadStageActivity.this, getResources().getString(R.string.proceed_succesfull), Toast.LENGTH_SHORT).show();
-                    ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+                    sendGpsLocation(refNo,"Lead",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),LeadStageActivity.this);
+
+
                 }
 
             }
@@ -820,6 +823,10 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         if (MasumCommonUtils.isNullStr(LeadStageLoanDetailFragment.spinnerRef.getSelectedItem())){
             showAlertDialog("Required","Enter Source of Reference");
             return false;
+        }
+
+        else if (getltd()==0 && getltd()==0){
+            valid=false;
         }
 
         return valid;

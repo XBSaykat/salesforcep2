@@ -286,6 +286,7 @@
     <string name="proceed_txt">Proceed</string>
     <string name="prospect_approved">Prospect Approved</string>
     <string name="reqired">enter required field</string>
+    <string name="save_success">data save sucessfully</string>
 
 
 </resources>

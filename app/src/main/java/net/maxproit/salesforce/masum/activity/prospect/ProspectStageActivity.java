@@ -154,8 +154,7 @@ public class ProspectStageActivity extends BaseActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mapUtils.gpsChecker();
-//                mapUtils.getLatLong();
+                getGpsLocation();
                 if (!isValid()) {
                     return;
                 }
@@ -454,7 +453,8 @@ public class ProspectStageActivity extends BaseActivity {
                                     AppConstant.coAppLicantStaticList.clear();
                                 }
                                 hideProgressDialog();
-                                errorAlert(getString(R.string.save_txt), "save successfully");
+                                sendGpsLocation(String.valueOf(response.body().getData().getLeadReferenceNo()),"Prospect",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),ProspectStageActivity.this);
+//                                errorAlert(getString(R.string.save_txt), "save successfully");
 
                             } else {
                                 if (!AppConstant.coAppLicantStaticList.isEmpty()) {
@@ -768,6 +768,10 @@ public class ProspectStageActivity extends BaseActivity {
         if (MasumCommonUtils.isNullStr(ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString())){
             showAlertDialog("Required","Enter Monthly Family Expenditure");
             return false;
+        }
+
+        else if (getltd()==0 && getltd()==0){
+            validation=false;
         }
 
         return validation;

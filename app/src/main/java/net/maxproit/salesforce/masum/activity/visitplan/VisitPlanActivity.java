@@ -464,6 +464,12 @@ public class VisitPlanActivity extends BaseActivity {
             showAlertDialog("Required","Enter Purpose of Visit");
             return false;
         }
+        if (clientType.equalsIgnoreCase("INDIVIDUAL")){
+            if (MasumCommonUtils.isNullStr(productType)){
+                showAlertDialog("Required","Enter Product Type");
+                return false;
+            }
+        }
         if (city==null){
             showAlertDialog("Required","Enter City");
             return false;
