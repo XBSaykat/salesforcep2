@@ -170,11 +170,9 @@ public class ProspectStageActivity extends BaseActivity {
         });
 
 
-        btnReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnReject.setOnClickListener(view -> {
                 alertDialog(getDataFromProspect().getId());
-            }
+
         });
 
     }

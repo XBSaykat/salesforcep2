@@ -200,20 +200,25 @@ public class FragmentPreViousList extends BaseFragment {
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
                 @Override
                 public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
-                    if (response.body().getCode().equals("200")) {
-                        if (response.body().getData() != null) {
-                            hideLoader();
-                            for (int i = 0; i < response.body().getData().size(); i++) {
-                                if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_PREVIOUS_ACTIVITY)) {
-                                    visitPlanListApi.add(response.body().getData().get(i));
-                                }
-                            }
-                            myLeadAdapter.notifyDataSetChanged();
-                        } else showEmptyView();
-                    } else {
-                        showEmptyView();
-                        showAlertDialog("ERROR", response.body().getMessage());
-                    }
+                   if (response.isSuccessful()) {
+                       if (response.body().getCode().equals("200")) {
+                           if (response.body().getData() != null) {
+                               hideLoader();
+                               for (int i = 0; i < response.body().getData().size(); i++) {
+                                   if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_PREVIOUS_ACTIVITY)) {
+                                       visitPlanListApi.add(response.body().getData().get(i));
+                                   }
+                               }
+                               myLeadAdapter.notifyDataSetChanged();
+                           } else showEmptyView();
+                       } else {
+                           showEmptyView();
+                           showAlertDialog("ERROR", response.body().getMessage());
+                       }
+
+                   } else {
+                       showAlertDialog(getString(R.string.error_text)+" "+response.code(), response.message());
+                   }
 
                 }
 

@@ -266,6 +266,7 @@ public class FragmentCurrentActivity extends BaseFragment {
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
                 @Override
                 public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
+                    if (response.isSuccessful()){
                     if (response.body().getCode().equals("200")) {
                         if (response.body().getData() != null) {
 
@@ -295,6 +296,10 @@ public class FragmentCurrentActivity extends BaseFragment {
                         showEmptyView();
                     }
 
+                }
+                else {
+                        showAlertDialog(getString(R.string.error_text)+" "+response.code(), response.message());
+                    }
                 }
 
                 @Override

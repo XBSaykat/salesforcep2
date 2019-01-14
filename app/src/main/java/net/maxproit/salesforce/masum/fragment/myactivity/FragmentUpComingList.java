@@ -162,23 +162,27 @@ public class FragmentUpComingList extends BaseFragment {
             getApiService().getActivityData(username, random).enqueue(new Callback<MyActivityGetDataApi>() {
                 @Override
                 public void onResponse(Call<MyActivityGetDataApi> call, Response<MyActivityGetDataApi> response) {
-                    if (response.body().getCode().equals("200")) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_FUTURE_ACTIVITY)) {
-                                visitPlanApiList.add(response.body().getData().get(i));
+                    if (response.isSuccessful()) {
+                        if (response.body().getCode().equals("200")) {
+                            for (int i = 0; i < response.body().getData().size(); i++) {
+                                if (response.body().getData().get(i).getActivityType().equalsIgnoreCase(AppConstant.STATUS_FUTURE_ACTIVITY)) {
+                                    visitPlanApiList.add(response.body().getData().get(i));
+                                }
                             }
-                        }
-                        myLeadAdapter.notifyDataSetChanged();
+                            myLeadAdapter.notifyDataSetChanged();
 
-                    }
-                    else if (response.body().getCode().equals("404")){
-                        showEmptyView();
+                        } else if (response.body().getCode().equals("404")) {
+                            showEmptyView();
+                        }
+                    } else {
+                        showAlertDialog(getString(R.string.error_text) + " " + response.code(), response.message());
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<MyActivityGetDataApi> call, Throwable t) {
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
 
                 }
             });
