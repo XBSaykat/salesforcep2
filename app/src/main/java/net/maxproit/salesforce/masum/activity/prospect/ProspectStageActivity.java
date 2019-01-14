@@ -50,7 +50,7 @@ public class ProspectStageActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private MyLeadDbController myLeadDbController;
-    private String userName = null,userCode=null;
+    private String userName = null, userCode = null;
     private int exceptionListValue = 0;
     private PropectStageAttachmentFragment propectStageAttachmentFragment;
     private ProspectStageProductAndCustomerDetailsFragment prospectStageProductAndCustomerDetailsFragment;
@@ -71,7 +71,6 @@ public class ProspectStageActivity extends BaseActivity {
     private LinearLayout mLayout;
 
 
-
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_lead_stage;
@@ -82,7 +81,7 @@ public class ProspectStageActivity extends BaseActivity {
         initLoader();
         showLoader();
         initFragment();
-        localCash().put(SharedPreferencesEnum.Key.SEARCH_TYPE,"Prospect");
+        localCash().put(SharedPreferencesEnum.Key.SEARCH_TYPE, "Prospect");
         btnProceed = findViewById(R.id.tv_activity_details_proceed_to_prospect);
         btnReject = findViewById(R.id.tv_activity_details_rejected);
         toolbar = findViewById(R.id.toolbar);
@@ -111,12 +110,11 @@ public class ProspectStageActivity extends BaseActivity {
         setArgumentForFragment();
 
 
-
     }
 
     private void setArgumentForFragment() {
-        Bundle bundle=new Bundle();
-        bundle.putSerializable(AppConstant.INTENT_KEY,getDataFromProspect());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.INTENT_KEY, getDataFromProspect());
         propectStageAttachmentFragment.setArguments(bundle);
         prospectStageProductAndCustomerDetailsFragment.setArguments(bundle);
         prospectStageLoanAndSecurityDetailFragment.setArguments(bundle);
@@ -125,11 +123,11 @@ public class ProspectStageActivity extends BaseActivity {
     }
 
     private void initFragment() {
-        propectStageAttachmentFragment=new PropectStageAttachmentFragment();
-        prospectStageProductAndCustomerDetailsFragment=new ProspectStageProductAndCustomerDetailsFragment();
-        prospectStageLoanAndSecurityDetailFragment=new ProspectStageLoanAndSecurityDetailFragment();
-        prospectStageFinancialFragment=new ProspectStageFinancialFragment();
-        prospectStageCoApplicantFragment=new ProspectStageCoApplicantFragment();
+        propectStageAttachmentFragment = new PropectStageAttachmentFragment();
+        prospectStageProductAndCustomerDetailsFragment = new ProspectStageProductAndCustomerDetailsFragment();
+        prospectStageLoanAndSecurityDetailFragment = new ProspectStageLoanAndSecurityDetailFragment();
+        prospectStageFinancialFragment = new ProspectStageFinancialFragment();
+        prospectStageCoApplicantFragment = new ProspectStageCoApplicantFragment();
     }
 
     @Override
@@ -147,6 +145,11 @@ public class ProspectStageActivity extends BaseActivity {
                 if (!isValid()) {
                     return;
                 }
+
+                if (!isNetworkAvailable()){
+                    showAlertDialog(getString(R.string.error_text),getString(R.string.proceed_unavailable));
+                    return;
+                }
                 alertDialogProceed();
             }
         });
@@ -155,6 +158,9 @@ public class ProspectStageActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 getGpsLocation();
+                if (getltd()==0 && getLng()==0){
+                    return ;
+                }
                 if (!isValid()) {
                     return;
                 }
@@ -447,28 +453,34 @@ public class ProspectStageActivity extends BaseActivity {
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
-                            if (response.body().getCode().equals(getString(R.string.success_code))) {
-                                if (!AppConstant.coAppLicantStaticList.isEmpty()) {
-                                    coApplicantList.clear();
-                                    AppConstant.coAppLicantStaticList.clear();
-                                }
-                                hideProgressDialog();
-                                sendGpsLocation(String.valueOf(response.body().getData().getLeadReferenceNo()),"Prospect",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),ProspectStageActivity.this);
+                            if (response.isSuccessful()) {
+                                if (response.body().getCode().equals(getString(R.string.success_code))) {
+                                    if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                        coApplicantList.clear();
+                                        AppConstant.coAppLicantStaticList.clear();
+                                    }
+                                    hideProgressDialog();
+                                    sendGpsLocation(String.valueOf(response.body().getData().getLeadReferenceNo()), "Prospect", userName, getltd(), getLng(), getCompleteAddressString(getltd(), getLng()), ProspectStageActivity.this);
 //                                errorAlert(getString(R.string.save_txt), "save successfully");
 
-                            } else {
-                                if (!AppConstant.coAppLicantStaticList.isEmpty()) {
-                                    coApplicantList.clear();
-                                    AppConstant.coAppLicantStaticList.clear();
+                                } else {
+                                    if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                        coApplicantList.clear();
+                                        AppConstant.coAppLicantStaticList.clear();
+                                    }
+                                    hideProgressDialog();
+                                    errorAlert(getString(R.string.error_text) + " " + response.body().getCode(), response.body().getMessage());
                                 }
+                            } else {
+                                showAlertDialog(getString(R.string.error_text) + " " + response.code(), getString(R.string.prospect_save_failed) + "\n" + response.message());
                                 hideProgressDialog();
-                                errorAlert(response.body().getCode(), response.body().getMessage());
                             }
+
                         }
 
                         @Override
                         public void onFailure(Call<OldPostpectResponse> call, Throwable t) {
-                            errorAlert("Error", t.getMessage());
+                            errorAlert(getString(R.string.error_text), t.getMessage());
                             hideProgressDialog();
                             if (!AppConstant.coAppLicantStaticList.isEmpty()) {
                                 coApplicantList.clear();
@@ -476,6 +488,9 @@ public class ProspectStageActivity extends BaseActivity {
                             }
                         }
                     });
+                }
+                else {
+                    showAlertDialog(getString(R.string.error_text),getString(R.string.internet_not_available));
                 }
             }
 
@@ -570,23 +585,27 @@ public class ProspectStageActivity extends BaseActivity {
                     getApiService().myNewProspect(newProspectUpdate).enqueue(new Callback<OldPostpectResponse>() {
                         @Override
                         public void onResponse(Call<OldPostpectResponse> call, Response<OldPostpectResponse> response) {
-                            if (response.body().getCode().equals(getString(R.string.success_code))) {
-                                net.maxproit.salesforce.masum.model.prospectmodel.Data data = response.body().getData();
-                                leadApprove(data, newProspectUpdate.getProductId());
-                                if (!AppConstant.coAppLicantStaticList.isEmpty()) {
-                                    coApplicantList.clear();
-                                    AppConstant.coAppLicantStaticList.clear();
+                            if (response.isSuccessful()) {
+                                if (response.body().getCode().equals(getString(R.string.success_code))) {
+                                    net.maxproit.salesforce.masum.model.prospectmodel.Data data = response.body().getData();
+                                    leadApprove(data, newProspectUpdate.getProductId());
+                                    if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                        coApplicantList.clear();
+                                        AppConstant.coAppLicantStaticList.clear();
+                                    }
+
+
+                                } else {
+                                    errorAlert(response.body().getCode(), response.body().getMessage());
+                                    if (!AppConstant.coAppLicantStaticList.isEmpty()) {
+                                        coApplicantList.clear();
+                                        AppConstant.coAppLicantStaticList.clear();
+                                    }
+                                    hideProgressDialog();
+
                                 }
-
-
                             } else {
-                                errorAlert(response.body().getCode(), response.body().getMessage());
-                                if (!AppConstant.coAppLicantStaticList.isEmpty()) {
-                                    coApplicantList.clear();
-                                    AppConstant.coAppLicantStaticList.clear();
-                                }
-                                hideProgressDialog();
-
+                                showAlertDialog(getString(R.string.error_text) + " " + response.code(), getString(R.string.prospect_save_failed) + "\n " + response.message());
                             }
 
                         }
@@ -628,16 +647,17 @@ public class ProspectStageActivity extends BaseActivity {
         getApiService().myprospectApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
-                if (response.body().getCode().equals(getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase("ok")) {
-                    hideProgressDialog();
-                    errorAlert(getString(R.string.succes_txt), getString(R.string.prospect_approved));
+                if (response.isSuccessful()) {
+                    if (response.body().getCode().equals(getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase("ok")) {
+                        hideProgressDialog();
+                        errorAlert(getString(R.string.succes_txt), getString(R.string.prospect_approved));
 
-                } else {
-                    hideProgressDialog();
-                    errorAlert(response.body().getCode(), response.body().getMessage());
-
-
-                }
+                    } else {
+                        hideProgressDialog();
+                        errorAlert(response.body().getCode(), response.body().getMessage());
+                    }
+                } else
+                    errorAlert(getString(R.string.error_text) + " " + response.code(), getString(R.string.proceed_failed) + "\n" + response.message());
             }
 
             @Override
@@ -670,108 +690,91 @@ public class ProspectStageActivity extends BaseActivity {
     }
 
     private boolean isValid() {
-        boolean validation=true;
-//        if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) ||
-//                MasumCommonUtils.isNullStr(segment) || MasumCommonUtils.isNullStr(productCat) || MasumCommonUtils.isNullStr(productDetails)
-//                || MasumCommonUtils.isNullStr(mybranchName) || MasumCommonUtils.isNullStr(name) || MasumCommonUtils.isNullStr(dateOfBirth)
-//                || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countOfBirth)
-//                || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoId)
-//                || MasumCommonUtils.isNullStr(fatherName) || MasumCommonUtils.isNullStr(motherName) || MasumCommonUtils.isNullStr(profession)
-//                || MasumCommonUtils.isNullStr(mobileNumber) || MasumCommonUtils.isNullStr(permanentCity)
-//                || MasumCommonUtils.isNullStr(presentCity) || MasumCommonUtils.isNullStr(permanentPs) || MasumCommonUtils.isNullStr(presentPs)
-//                || MasumCommonUtils.isNullStr(monthlyFamilyExpenditure)) {
-//            validation = false;
-//        } else {
-//            validation = true;
-//        }
+        boolean validation = true;
 
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.productCat)){
-            showAlertDialog("Required","Enter Product Category");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.productCat)) {
+            showAlertDialog("Required", "Enter Product Category");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.productSub)){
-            showAlertDialog("Required","Enter Product Sub Category");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.productSub)) {
+            showAlertDialog("Required", "Enter Product Sub Category");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.branchName)){
-            showAlertDialog("Required","Enter Branch Name");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.branchName)) {
+            showAlertDialog("Required", "Enter Branch Name");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString())){
-            showAlertDialog("Required","Enter Name");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString())) {
+            showAlertDialog("Required", "Enter Name");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.segment)){
-            showAlertDialog("Required","Enter Segment");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.segment)) {
+            showAlertDialog("Required", "Enter Segment");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etDob.getText().toString())){
-            showAlertDialog("Required","Enter Date of Birth");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etDob.getText().toString())) {
+            showAlertDialog("Required", "Enter Date of Birth");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.districtOfBirth)){
-            showAlertDialog("Required","Enter District of Birth");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.districtOfBirth)) {
+            showAlertDialog("Required", "Enter District of Birth");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.countOfBirth)){
-            showAlertDialog("Required","Enter Country of Birth");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.countOfBirth)) {
+            showAlertDialog("Required", "Enter Country of Birth");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(String.valueOf(ProspectStageProductAndCustomerDetailsFragment.photoIdcode))){
-            showAlertDialog("Required","Enter Photo ID type");
+        if (MasumCommonUtils.isNullStr(String.valueOf(ProspectStageProductAndCustomerDetailsFragment.photoIdcode))) {
+            showAlertDialog("Required", "Enter Photo ID type");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString())){
-            showAlertDialog("Required","Enter Photo ID No.");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString())) {
+            showAlertDialog("Required", "Enter Photo ID No.");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString())){
-            showAlertDialog("Required","Enter Father Name");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString())) {
+            showAlertDialog("Required", "Enter Father Name");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString())){
-            showAlertDialog("Required","Enter Mother Name");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString())) {
+            showAlertDialog("Required", "Enter Mother Name");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.profession)){
-            showAlertDialog("Required","Enter Profession");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.profession)) {
+            showAlertDialog("Required", "Enter Profession");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString())){
-            showAlertDialog("Required","Enter Permanent Address");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString())) {
+            showAlertDialog("Required", "Enter Permanent Address");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.perCity)){
-            showAlertDialog("Required","Enter Permanent City");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.perCity)) {
+            showAlertDialog("Required", "Enter Permanent City");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.perPoliceStation)){
-            showAlertDialog("Required","Enter Permanent Police Station");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.perPoliceStation)) {
+            showAlertDialog("Required", "Enter Permanent Police Station");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString())){
-            showAlertDialog("Required","Enter Present Address");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString())) {
+            showAlertDialog("Required", "Enter Present Address");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.preCity)){
-            showAlertDialog("Required","Enter Present City");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.preCity)) {
+            showAlertDialog("Required", "Enter Present City");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.prePoliceStation)){
-            showAlertDialog("Required","Enter Present Police Station");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.prePoliceStation)) {
+            showAlertDialog("Required", "Enter Present Police Station");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString())){
-            showAlertDialog("Required","Enter Mobile Number");
+        if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString())) {
+            showAlertDialog("Required", "Enter Mobile Number");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString())){
-            showAlertDialog("Required","Enter Monthly Family Expenditure");
+        if (MasumCommonUtils.isNullStr(ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString())) {
+            showAlertDialog("Required", "Enter Monthly Family Expenditure");
             return false;
-        }
-
-        else if (getltd()==0 && getltd()==0){
-            validation=false;
         }
 
         return validation;

@@ -273,7 +273,7 @@
     <string name="yes">Yes</string>
     <string name="success_code">200</string>
     <string name="success_status">ok</string>
-    <string name="internet_not_available_local_save">Internet not available,please connect to the internet ,Data save seccessfully in device</string>
+    <string name="internet_not_available_local_save">Internet not available,please connect to the internet ,Data save successfully in device</string>
     <string name="succes_txt">Success</string>
     <string name="approved_falied">Approved Failed</string>
     <string name="proceed_succesfull">Proceed Successfully</string>
@@ -284,13 +284,16 @@
     <string name="proceed_unavailable">Proceed is not available without internet,PLease connect to the internet</string>
     <string name="proceed_not_valid">Proceed is not valid for</string>
     <string name="proceed_txt">Proceed</string>
-    <string name="prospect_approved">Prospect has been proceeded</string>
+    <string name="prospect_approved">Prospect has been proceeded successfully</string>
     <string name="reqired">enter required field</string>
-    <string name="save_success">data save sucessfully</string>
+    <string name="save_success">data save successfully</string>
     <string name="gps_setting">GPS settings</string>
     <string name="gps_settting_mesg">GPS is not enabled. Do you want to go to settings menu?</string>
     <string name="settings">Settings</string>
     <string name="cancel">Cancel</string>
+    <string name="proceed_failed">Prospect proceed failed</string>
+    <string name="prospect_save_failed">Prospect save failed</string>
+    <string name="activity_failed">Activity failed to create</string>
 
 
 </resources>

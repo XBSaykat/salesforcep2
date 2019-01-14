@@ -391,6 +391,9 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         tvSave.setOnClickListener(view -> {
 
             getGpsLocation();
+            if (getltd()==0 && getLng()==0){
+                return ;
+            }
             if (!isValid()){
                 return;
             }
@@ -1110,9 +1113,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             return false;
         }
 
-        if (getltd()==0 && getLng()==0){
-            return false;
-        }
+
 
         return valid;
     }

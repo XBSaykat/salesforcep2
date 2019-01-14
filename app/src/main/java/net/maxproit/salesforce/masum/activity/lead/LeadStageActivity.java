@@ -253,38 +253,32 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
 
         MyNewLead finalMyNewLead = myNewLead;
-        btnProceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                mapUtils.gpsChecker();
-//                mapUtils.getLatLong();
+        btnProceed.setOnClickListener(view -> {
                 if (isNetworkAvailable())
                     alertDialogProceed(finalMyNewLead);
                 else
                     showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.Proceed_is_not_available));
 
-            }
+
         });
 
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSave.setOnClickListener(view -> {
                 getGpsLocation();
-                if (isValid()){
+                if (getltd()==0 && getLng()==0){
+                    return ;
+                }
+                if (isValid()) {
                     alertDialogSave(finalMyNewLead);
                 }
-            }
         });
 
 
-        btnReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnReject.setOnClickListener(view -> {
                 if (finalMyNewLead != null) {
                     alertDialog(finalMyNewLead.getId());
                 }
-            }
+
         });
 
     }
@@ -321,7 +315,6 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
         if (!MasumCommonUtils.isNullStr(LeadStageBasicInformationFragment.branchCode))
             myLeadApi.setBranchCode(Integer.valueOf(LeadStageBasicInformationFragment.branchCode));
-
 
         myLeadApi.setCustomerName(name);
         if (myNewLead != null) {
@@ -439,7 +432,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                         int insert = myLeadDbController.updateLeadData(myNewLead.getId(), userName, myNewLead.getRefNumber(), data.getCustomerId(), data.getMobileNumberId(), data.getVisitId(), data.getAddressId(), data.getBranchCode(), data.getProductId(), data.getProductSubCategoryId(), branchName, name, profession, organization,
                                                 designation, phone, address, ref, productType, subCat,
                                                 loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_OK);
-                                        sendGpsLocation(String.valueOf(response.body().getData().getLeadReferenceNo()),"Lead",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),LeadStageActivity.this);
+                                        sendGpsLocation(String.valueOf(response.body().getData().getLeadReferenceNo()), "Lead", userName, getltd(), getLng(), getCompleteAddressString(getltd(), getLng()), LeadStageActivity.this);
 //                                        errorAlert(response.body().getStatus(), response.body().getMessage());
                                     } else
                                         errorAlert(response.body().getStatus(), response.body().getMessage());
@@ -453,7 +446,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                         designation, phone, address, ref, productType, subCat,
                                         loanAmount, interest, fee, disDate, visitDate, followUp, remark,
                                         AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                                errorAlert(response.body().getStatus(), response.body().getMessage());
+                                errorAlert("" + response.code(), response.message());
 
 
                             }
@@ -484,11 +477,13 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                     getApiService().createActivity(planeData).enqueue(new Callback<MyActivityApi>() {
                         @Override
                         public void onResponse(Call<MyActivityApi> call, Response<MyActivityApi> response) {
-                            if (response.body().getCode().equals(getResources().getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase(getResources().getString(R.string.success_status))) {
-                                net.maxproit.salesforce.masum.model.api.myactivity.Data data1 = response.body().getData();
-                                saveActivityDatatoLead(data1.getActivityJournalID(), myLeadDataModelApi);
+                            if (response.isSuccessful()) {
+                                if (response.body().getCode().equals(getResources().getString(R.string.success_code)) && response.body().getStatus().equalsIgnoreCase(getResources().getString(R.string.success_status))) {
+                                    net.maxproit.salesforce.masum.model.api.myactivity.Data data1 = response.body().getData();
+                                    saveActivityDatatoLead(data1.getActivityJournalID(), myLeadDataModelApi);
 
-                            }
+                                }
+                            } else showAlertDialog(getString(R.string.error_text)+" " + response.code(),getString(R.string.activity_failed)+"\n"+ response.message());
 
                         }
 
@@ -539,7 +534,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                             branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                    errorAlert(response.body().getStatus(), "Data save seccessfully in device");
+                    errorAlert(""+response.code(), getString(R.string.internet_not_available_local_save));
 
 
                 }
@@ -559,12 +554,14 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         getApiService().ActivityProceed(journalId, refNo).enqueue(new Callback<CompleteActivity>() {
             @Override
             public void onResponse(Call<CompleteActivity> call, Response<CompleteActivity> response) {
-                if (response.body().getCode().equals("200")) {
-                    hideProgressDialog();
-                    Toast.makeText(LeadStageActivity.this, getResources().getString(R.string.proceed_succesfull), Toast.LENGTH_SHORT).show();
-                    sendGpsLocation(refNo,"Lead",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),LeadStageActivity.this);
-
-
+                if (response.isSuccessful()) {
+                    if (response.body().getCode().equals("200")) {
+                        hideProgressDialog();
+                        Toast.makeText(LeadStageActivity.this, getResources().getString(R.string.proceed_succesfull), Toast.LENGTH_SHORT).show();
+                        sendGpsLocation(refNo, "Lead", userName, getltd(), getLng(), getCompleteAddressString(getltd(), getLng()), LeadStageActivity.this);
+                    }
+                } else {
+                    showAlertDialog("" + response.code(), response.message());
                 }
 
             }
@@ -770,7 +767,6 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     }
 
 
-
     private void errorAlert(String title, String text) {
 
         android.app.AlertDialog.Builder builder;
@@ -816,17 +812,13 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
     private boolean isValid() {
         boolean valid = true;
 
-        if (MasumCommonUtils.isNullStr(LeadStageBasicInformationFragment.branchName)){
-            showAlertDialog("Required","Enter Branch Name");
+        if (MasumCommonUtils.isNullStr(LeadStageBasicInformationFragment.branchName)) {
+            showAlertDialog("Required", "Enter Branch Name");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(LeadStageLoanDetailFragment.spinnerRef.getSelectedItem())){
-            showAlertDialog("Required","Enter Source of Reference");
+        if (MasumCommonUtils.isNullStr(LeadStageLoanDetailFragment.spinnerRef.getSelectedItem())) {
+            showAlertDialog("Required", "Enter Source of Reference");
             return false;
-        }
-
-        else if (getltd()==0 && getltd()==0){
-            valid=false;
         }
 
         return valid;
