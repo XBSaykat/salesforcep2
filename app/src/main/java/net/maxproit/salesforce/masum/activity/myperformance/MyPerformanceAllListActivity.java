@@ -71,14 +71,14 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
             @Override
             public boolean onQueryTextSubmit(String query) {
                 filterList = getFilterData(leadList, query);
-                //myProspectAdapter.setFilter(filterList);
+                myProspectAdapter.setFilter(filterList);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 filterList = getFilterData(leadList, newText);
-                // myProspectAdapter.setFilter(filterList);
+                myProspectAdapter.setFilter(filterList);
                 return true;
             }
         });
@@ -102,7 +102,7 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
     }
 
     private void sentDataToDetail(int position) {
-        String id = leadList.get(position).getID();
+        String id = filterList.get(position).getID();
         String head = getIntent().getStringExtra(AppConstant.INTENT_DATA1);
         if (head.equalsIgnoreCase("Prospect")) {
             callProspectData(id,head);
@@ -236,7 +236,7 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
         if (!filterList.isEmpty()) {
             filterList.clear();
         }
-        //  filterList.addAll(myProspectAdapter.getDataList());
+         filterList.addAll(myProspectAdapter.getDataList());
     }
 
 
