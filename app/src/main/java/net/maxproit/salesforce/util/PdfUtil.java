@@ -33,12 +33,12 @@ public class PdfUtil {
     private static final String TAG = "PdfUtil";
     Documentinfo documentinfo;
 
-    List<String> imgList;
+    List<Uri> imgList;
     Context context;
     String path;
     Image image;
 
-    public PdfUtil(List<String> imgList, Context context) {
+    public PdfUtil(List<Uri> imgList, Context context) {
         this.imgList = imgList;
         this.context = context;
         this.documentinfo = (Documentinfo) context;
@@ -85,14 +85,14 @@ public class PdfUtil {
                 PdfWriter.getInstance(document, new FileOutputStream(path));
                 document.open();
 
-                for (String mg : imgList) {
+                for (Uri mg : imgList) {
                     Bitmap bmp = MediaStore.Images.Media.getBitmap(
-                            context.getContentResolver(), Uri.fromFile(new File(mg)));
+                            context.getContentResolver(), mg);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.PNG, 80, stream);
 
 
-                    image = Image.getInstance(mg);
+                    image = Image.getInstance(String.valueOf(mg));
 
                    /*
 

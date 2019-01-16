@@ -19,15 +19,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseFragment;
-import net.maxproit.salesforce.feature.upload.UploadActivity;
+
 import net.maxproit.salesforce.feature.upload.UploadProspectActivity;
 import net.maxproit.salesforce.feature.upload.adapter.DocumentUploadAdapter;
-import net.maxproit.salesforce.masum.activity.prospect.ProspectStageActivity;
-import net.maxproit.salesforce.masum.adapter.adapter.MyNewProspectAdapter;
 import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.appdata.sqlite.AttachmentDbController;
 import net.maxproit.salesforce.masum.listener.OnItemClickListener;
@@ -35,13 +31,10 @@ import net.maxproit.salesforce.masum.model.api.file.Document;
 import net.maxproit.salesforce.masum.model.api.file.GetDocument;
 import net.maxproit.salesforce.masum.model.local.Attachment;
 import net.maxproit.salesforce.masum.model.local.MyNewLead;
-import net.maxproit.salesforce.masum.model.local.MyNewProspect;
 import net.maxproit.salesforce.masum.utility.ActivityUtils;
 import net.maxproit.salesforce.masum.utility.DividerItemDecoration;
-import net.maxproit.salesforce.masum.utility.ImageUtils;
 import net.maxproit.salesforce.util.PdfViewer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -49,17 +42,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.app.Activity.RESULT_OK;
-
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PropectStageAttachmentFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PropectStageAttachmentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PropectStageAttachmentFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,15 +53,9 @@ public class PropectStageAttachmentFragment extends BaseFragment {
     private String mParam2;
     private TextView btnDoc;
     private ArrayList<Document> docList;
-    public static ImageView imgAtach, imgIdCard, imgVisitingCard;
-    private Button btnImgCap, btnIDCardCap, btnVCardCap, btnChoosePP, btnChooseId, btnChooseVCard;
     private OnFragmentInteractionListener mListener;
-    private TextView tvID, tvPhoto, tvVCard;
-    private Uri filePathUri = null;
+
     RecyclerView recyclerView;
-    AttachmentDbController attachmentDbController;
-    ArrayList<Attachment> attachmentArrayList;
-    public static Bitmap attachPp = null, attachIdcard = null, attachvCard = null;
     Context context;
 
     public PropectStageAttachmentFragment() {
@@ -160,9 +136,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
             ActivityUtils.getInstance().invokeActivity(getActivity(), UploadProspectActivity.class, false);
         });
 
-        documentUploadAdapter.setItemClickListener(new OnItemClickListener() {
-            @Override
-            public void itemClickListener(View view, int position) {
+        documentUploadAdapter.setItemClickListener((view, position) -> {
                 switch (view.getId()) {
                     case R.id.btn_view:
                         sentDataToDetail(position);
@@ -175,7 +149,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
                         sentDataToDetail(position);
                         break;
                 }
-            }
+
         });
     }
 
@@ -187,7 +161,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
            /* Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(getDoc(position).getURL()));
             getContext().startActivity(intent);*/
             Bundle bundle = new Bundle();
-            bundle.putString(AppConstant.PDF_URL_INTENT_KEY,getDoc(position).getURL());
+            bundle.putString(AppConstant.PDF_URL_INTENT_KEY, getDoc(position).getURL());
             Intent target = new Intent(getActivity(), PdfViewer.class);
             target.putExtras(bundle);
             try {
@@ -236,12 +210,10 @@ public class PropectStageAttachmentFragment extends BaseFragment {
                             }
 
                         } else {
-
-                            showAlertDialog("Error", response.body().getMessage());
-
+                            showAlertDialog(getString(R.string.error_text), response.body().getMessage());
                         }
                     } else {
-                        showAlertDialog("Error", response.message());
+                        showAlertDialog(getString(R.string.error_text) + " " + response.code(), response.message());
 
                     }
 
@@ -249,7 +221,7 @@ public class PropectStageAttachmentFragment extends BaseFragment {
 
                 @Override
                 public void onFailure(Call<GetDocument> call, Throwable t) {
-                    showAlertDialog("Error", t.getMessage());
+                    showAlertDialog(getString(R.string.error_text), t.getMessage());
 
                 }
             });

@@ -75,7 +75,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     private LinearLayout liPhotoIdNo, liPassport, liDrivingLicense, liBirthCertificate;
     private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
     private RadioGroup rgExList;
-    private ArrayAdapter<String> perPolishStationAdapter, prePolishStationAdapter,disBirthAdapter,disCountryAdater,professionAdapter,validPhotoIdAdapter,realationAdapter;
+    private ArrayAdapter<String> perPolishStationAdapter, prePolishStationAdapter, disBirthAdapter, disCountryAdater, professionAdapter, validPhotoIdAdapter, realationAdapter;
     private List<String> listPerPs = null, listPrePs = null;
     private SpinnerDbController spinnerDbController;
     private MyLeadDbController myLeadDbController;
@@ -309,21 +309,19 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public void initListener() {
         name = etName.getText().toString();
 
-        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                int mYear = calendar.get(Calendar.YEAR);
-                int mMonth = calendar.get(Calendar.MONTH);
-                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialogCalculate = new DatePickerDialog(getView().getContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        datepickerListner, mYear, mMonth, mDay);
+        etDateOfBirth.setOnClickListener(view -> {
+            final Calendar calendar = Calendar.getInstance();
+            int mYear = calendar.get(Calendar.YEAR);
+            int mMonth = calendar.get(Calendar.MONTH);
+            int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialogCalculate = new DatePickerDialog(getView().getContext(),
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    datepickerListner, mYear, mMonth, mDay);
 //                datePickerDialogCalculate.getDatePicker().setMaxDate(new Date().getTime());
-                datePickerDialogCalculate.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                datePickerDialogCalculate.getDatePicker().setMaxDate(System.currentTimeMillis());
-                datePickerDialogCalculate.show();
-            }
+            datePickerDialogCalculate.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            datePickerDialogCalculate.getDatePicker().setMaxDate(System.currentTimeMillis());
+            datePickerDialogCalculate.show();
+
         });
 
 
@@ -570,11 +568,11 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         spinnerPrePoliceStation.setAdapter(prePolishStationAdapter);
 
 
-         disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
+        disBirthAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCityStringList());
         spinnerDistOfBirth.setAdapter(disBirthAdapter);
         spinnerDistOfBirth.setThreshold(1);
 
-         disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCountryString());
+        disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCountryString());
         spinnerCountOfBirth.setAdapter(disCountryAdater);
 
         professionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getProfessionString());
@@ -584,11 +582,11 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         spinnerRelationship.setAdapter(realationAdapter);
 
 
-         validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
+        validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhotoType.setAdapter(validPhotoIdAdapter);
         try {
             spinnerCountOfBirth.setSelection(disCountryAdater.getPosition("Bangladesh"));
-            countOfBirth="Bangladesh";
+            countOfBirth = "Bangladesh";
         } catch (IllegalStateException er) {
         }
         cbAddress.setOnClickListener(new View.OnClickListener() {
@@ -651,16 +649,15 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     }
 
 
-    public void setDataFromSearch(CoApplicant coApplicant){
-        if (coApplicant!=null){
+    public void setDataFromSearch(CoApplicant coApplicant) {
+        if (coApplicant != null) {
             setData(coApplicant);
         }
 
     }
 
 
-
-    private void setData(CoApplicant coApplicant){
+    private void setData(CoApplicant coApplicant) {
         etName.setText(coApplicant.getName());
         if (!MasumCommonUtils.isNullStr(coApplicant.getDateOfBirth())) {
             etDateOfBirth.setText(coApplicant.getDateOfBirth());

@@ -739,7 +739,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                 AppConstant.APPROVAL_SET_ID_0,
                 AppConstant.APPROVAL_CURRWENT_LEVEL_1,
                 AppConstant.APPROVAL_STATUS_YES, "",
-                data.getUserName(), data.getBranchName(), data.getProductId());
+                userName, data.getBranchName(), data.getProductId());
         getApiService().myleadApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {

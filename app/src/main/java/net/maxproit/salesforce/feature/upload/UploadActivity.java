@@ -25,7 +25,7 @@ import java.util.List;
 public class UploadActivity extends BaseActivity implements Documentinfo {
     private static final String TAG = "UploadActivity";
     ActivityUploadBinding binding;
-    List<String> imgList = new ArrayList<>();
+    List<Uri> imgList = new ArrayList<>();
     List<String> mPaths;
     String pdfNUmber;
 
@@ -145,17 +145,17 @@ public class UploadActivity extends BaseActivity implements Documentinfo {
                 Log.d("TAG", ">>> Castom Size =: " + ImageCompress.getReadableFileSize(f.length()));
 
                 //  imgList.add("file://"+f.getPath());
-                imgList.add(lp);
+               // imgList.add(lp);
 
 
             }
-            if (imgList.size() > 0) {
+         /*   if (imgList.size() > 0) {
                 binding.ivCamera1.setImageURI(Uri.parse(imgList.get(0)));
                 binding.tvImgSize.setText("" + imgList.size());
                 binding.btnPdf.setVisibility(View.VISIBLE);
 
 
-            }
+            }*/
 
 
         }

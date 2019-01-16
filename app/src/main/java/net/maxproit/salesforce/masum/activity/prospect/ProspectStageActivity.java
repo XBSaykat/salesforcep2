@@ -641,7 +641,7 @@ public class ProspectStageActivity extends BaseActivity {
                 AppConstant.APPROVAL_SET_ID_0,
                 AppConstant.APPROVAL_CURRWENT_LEVEL_1,
                 AppConstant.APPROVAL_PROSPECT_STATUS_YES, "",
-                data.getUserName(), data.getBranchName(), productId);
+                userName, data.getBranchName(), productId);
         getApiService().myprospectApproval(myLeadApproval).enqueue(new Callback<ApprovalResponce>() {
             @Override
             public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
