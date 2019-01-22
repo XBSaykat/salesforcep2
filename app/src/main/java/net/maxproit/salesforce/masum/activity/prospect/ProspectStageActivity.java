@@ -159,6 +159,7 @@ public class ProspectStageActivity extends BaseActivity {
             public void onClick(View view) {
                 getGpsLocation();
                 if (getltd()==0 && getLng()==0){
+                    showAlertDialog("Required", "Please wait... gps is not enabled");
                     return ;
                 }
                 if (!isValid()) {

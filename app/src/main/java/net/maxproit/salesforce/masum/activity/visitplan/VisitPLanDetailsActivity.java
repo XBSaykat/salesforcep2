@@ -104,7 +104,6 @@ public class VisitPLanDetailsActivity extends BaseActivity {
     private String clientType, productType, purposeOfVisit;
 
 
-
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_activity_details;
@@ -366,7 +365,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 //            mapUtils.gpsChecker();
 //            mapUtils.getLatLong();
 
-            if (!isValid()){
+            if (!isValid()) {
                 return;
             }
 
@@ -391,10 +390,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         tvSave.setOnClickListener(view -> {
 
             getGpsLocation();
-            if (getltd()==0 && getLng()==0){
-                return ;
+            if (getltd() == 0 && getLng() == 0) {
+                showAlertDialog("Required", "Please wait... gps is not enabled");
+                return;
             }
-            if (!isValid()){
+            if (!isValid()) {
                 return;
             }
 
@@ -525,13 +525,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                                 insertActivityData(data1);
                                 sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), "", VisitPLanDetailsActivity.this);
 
+                            } else {
+                                showAlertDialog(response.body().getCode(), response.body().getMessage());
                             }
-                            else{
-                                showAlertDialog(response.body().getCode(),response.body().getMessage());
-                            }
-                        }
-                        else {
-                            showAlertDialog(""+response.code(),response.errorBody().toString());
+                        } else {
+                            showAlertDialog("" + response.code(), response.errorBody().toString());
                         }
 
                     }
@@ -663,7 +661,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                             Data data1 = response.body().getData();
                             hideProgressDialog();
                             updateDataACtivity(data1);
-                            sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), getCompleteAddressString(getltd(),getLng()), VisitPLanDetailsActivity.this);
+                            sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), getCompleteAddressString(getltd(), getLng()), VisitPLanDetailsActivity.this);
 
                         } else {
                             updateDataACtivity(data);
@@ -694,7 +692,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
                             if (response.body().getCode().equals("200") && response.body().getStatus().equalsIgnoreCase("ok")) {
                                 Data data1 = response.body().getData();
                                 updateDataACtivity(data1);
-                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), getCompleteAddressString(getltd(),getLng()), VisitPLanDetailsActivity.this);
+                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), getCompleteAddressString(getltd(), getLng()), VisitPLanDetailsActivity.this);
 
                             } else {
                                 showAlertDialog(response.body().getStatus(), response.body().getMessage());
@@ -835,11 +833,11 @@ public class VisitPLanDetailsActivity extends BaseActivity {
             if (sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.LEAD_GENERATION) || sPurposeOfVisitStr.equalsIgnoreCase(AppConstant.FRESH)) {
                 valid = true;
             } else {
-                isVAlidText = getResources().getString(R.string.proceed_not_valid)+" " + sPurposeOfVisitStr;
+                isVAlidText = getResources().getString(R.string.proceed_not_valid) + " " + sPurposeOfVisitStr;
                 valid = false;
             }
         } else {
-            isVAlidText = getString(R.string.proceed_not_valid)+" "  + spinerClientTypeStr;
+            isVAlidText = getString(R.string.proceed_not_valid) + " " + spinerClientTypeStr;
             valid = false;
         }
 
@@ -1092,27 +1090,26 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 //        }
 //        else valid=true;
 
-        if (spinerClientTypeStr==null){
+        if (spinerClientTypeStr == null) {
             showAlertDialog("Required", "Enter Client Type");
             return false;
         }
-        if (sPurposeOfVisitStr==null){
+        if (sPurposeOfVisitStr == null) {
             showAlertDialog("Required", "Enter Purpose of Visit");
             return false;
         }
-        if (sProductTypeString==null){
+        if (sProductTypeString == null) {
             showAlertDialog("Required", "Enter Product Type");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(spinnerCity.getText().toString())){
+        if (MasumCommonUtils.isNullStr(spinnerCity.getText().toString())) {
             showAlertDialog("Required", "Enter City");
             return false;
         }
-        if (polisStattionSpn==null){
+        if (polisStattionSpn == null) {
             showAlertDialog("Required", "Enter Police Station");
             return false;
         }
-
 
 
         return valid;

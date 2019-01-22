@@ -254,30 +254,31 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
         MyNewLead finalMyNewLead = myNewLead;
         btnProceed.setOnClickListener(view -> {
-                if (isNetworkAvailable())
-                    alertDialogProceed(finalMyNewLead);
-                else
-                    showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.Proceed_is_not_available));
+            if (isNetworkAvailable())
+                alertDialogProceed(finalMyNewLead);
+            else
+                showAlertDialog(getResources().getString(R.string.error_text), getResources().getString(R.string.Proceed_is_not_available));
 
 
         });
 
 
         btnSave.setOnClickListener(view -> {
-                getGpsLocation();
-                if (getltd()==0 && getLng()==0){
-                    return ;
-                }
-                if (isValid()) {
-                    alertDialogSave(finalMyNewLead);
-                }
+            getGpsLocation();
+            if (getltd() == 0 && getLng() == 0) {
+                showAlertDialog("Required", "Please wait... gps is not enabled");
+                return;
+            }
+            if (isValid()) {
+                alertDialogSave(finalMyNewLead);
+            }
         });
 
 
         btnReject.setOnClickListener(view -> {
-                if (finalMyNewLead != null) {
-                    alertDialog(finalMyNewLead.getId());
-                }
+            if (finalMyNewLead != null) {
+                alertDialog(finalMyNewLead.getId());
+            }
 
         });
 
@@ -483,7 +484,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                                     saveActivityDatatoLead(data1.getActivityJournalID(), myLeadDataModelApi);
 
                                 }
-                            } else showAlertDialog(getString(R.string.error_text)+" " + response.code(),getString(R.string.activity_failed)+"\n"+ response.message());
+                            } else
+                                showAlertDialog(getString(R.string.error_text) + " " + response.code(), getString(R.string.activity_failed) + "\n" + response.message());
 
                         }
 
@@ -534,7 +536,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                             branchName, name, profession, organization,
                             designation, phone, address, ref, productType, subCat,
                             loanAmount, interest, fee, disDate, visitDate, followUp, remark, AppConstant.LEAD_STATUS_NEW, AppConstant.SYNC_STATUS_WAIT);
-                    errorAlert(""+response.code(), getString(R.string.internet_not_available_local_save));
+                    errorAlert("" + response.code(), getString(R.string.internet_not_available_local_save));
 
 
                 }

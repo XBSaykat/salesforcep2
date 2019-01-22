@@ -3,6 +3,7 @@ package net.maxproit.salesforce.masum.utility;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 
+
 import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+
 import net.maxproit.salesforce.R;
 
 
@@ -157,7 +159,7 @@ public class GPSTracker extends Service implements LocationListener {
      * On pressing Settings button will lauch Settings Options
      * */
     public void showSettingsAlert(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder alertDialog;
         // Setting Dialog Title
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -165,13 +167,13 @@ public class GPSTracker extends Service implements LocationListener {
         } else {
             alertDialog = new AlertDialog.Builder(mContext);
         }
-        alertDialog.setTitle(getString(R.string.gps_setting));
+        alertDialog.setTitle("Setting");
 
         // Setting Dialog Message
-        alertDialog.setMessage(getString(R.string.gps_settting_mesg));
+        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
 
         // On pressing Settings button
-        alertDialog.setPositiveButton(getString(R.string.settings), new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Setting", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
@@ -179,7 +181,7 @@ public class GPSTracker extends Service implements LocationListener {
         });
 
         // on pressing cancel button
-        alertDialog.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }

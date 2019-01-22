@@ -72,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private LinearLayout loadingView, noDataView;
     GPSTracker gps;
 
-    private double latitude, longitude;
+    private double latitude=0, longitude=0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -192,7 +192,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void getGpsLocation() {
-        gps = new GPSTracker(BaseActivity.this);
+        gps = new GPSTracker(this);
         if (gps.canGetLocation()) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();

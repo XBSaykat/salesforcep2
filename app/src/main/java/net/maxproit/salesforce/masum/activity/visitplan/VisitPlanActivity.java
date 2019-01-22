@@ -101,7 +101,6 @@ public class VisitPlanActivity extends BaseActivity {
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
 
 
-
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_visit_plan;
@@ -118,7 +117,7 @@ public class VisitPlanActivity extends BaseActivity {
         spinnerDbController = new SpinnerDbController(VisitPlanActivity.this);
         mLocalSetting = new LocalSetting(this);
         GPSTracker gps;
-        double latitude,longitude;
+        double latitude, longitude;
         initView();
 
         txtMobileNo.addTextChangedListener(new TextWatcher() {
@@ -198,8 +197,6 @@ public class VisitPlanActivity extends BaseActivity {
         }
     }*/
     }
-
-
 
 
     private void initView() {
@@ -354,14 +351,14 @@ public class VisitPlanActivity extends BaseActivity {
         });
 
         buttonSave.setOnClickListener(view -> {
-                getGpsLocation();
-                clientName = txtClientName.getText().toString().trim();
-                mobileNo = txtMobileNo.getText().toString().trim();
-                dateOfvisit = tvVisitDT.getText().toString().trim();
-                remarks = txtRemarks.getText().toString();
-                if (isValid()) {
-                    alertDialog();
-                }
+            getGpsLocation();
+            clientName = txtClientName.getText().toString().trim();
+            mobileNo = txtMobileNo.getText().toString().trim();
+            dateOfvisit = tvVisitDT.getText().toString().trim();
+            remarks = txtRemarks.getText().toString();
+            if (isValid()) {
+                alertDialog();
+            }
 
         });
 
@@ -455,36 +452,35 @@ public class VisitPlanActivity extends BaseActivity {
 //            dialog.show();
 //            valid = false;
 //        }
-
-        if (clientType == null){
-            showAlertDialog("Required","Enter Client Type");
+        if (getltd() == 0 && getltd() == 0) {
+            showAlertDialog("Required", "Please wait... gps is not enabled");
             return false;
         }
-        if (purposeOfVisit == null){
-            showAlertDialog("Required","Enter Purpose of Visit");
+        if (clientType == null) {
+            showAlertDialog("Required", "Enter Client Type");
             return false;
         }
-        if (clientType.equalsIgnoreCase("INDIVIDUAL")){
-            if (MasumCommonUtils.isNullStr(productType)){
-                showAlertDialog("Required","Enter Product Type");
+        if (purposeOfVisit == null) {
+            showAlertDialog("Required", "Enter Purpose of Visit");
+            return false;
+        }
+        if (clientType.equalsIgnoreCase("INDIVIDUAL")) {
+            if (MasumCommonUtils.isNullStr(productType)) {
+                showAlertDialog("Required", "Enter Product Type");
                 return false;
             }
         }
-        if (city==null){
-            showAlertDialog("Required","Enter City");
+        if (city == null) {
+            showAlertDialog("Required", "Enter City");
             return false;
         }
-        if (policeStation==null){
-            showAlertDialog("Required","Enter Police Station");
+        if (policeStation == null) {
+            showAlertDialog("Required", "Enter Police Station");
             return false;
         }
-        if (dateOfvisit==null){
-            showAlertDialog("Required","Enter Date of visit");
+        if (dateOfvisit == null) {
+            showAlertDialog("Required", "Enter Date of visit");
             return false;
-        }
-
-        else if (getltd()==0 && getltd()==0){
-           valid=false;
         }
 
         return valid;
@@ -626,26 +622,22 @@ public class VisitPlanActivity extends BaseActivity {
                     getApiService().createVisitPlan(data).enqueue(new Callback<MyVisitPlanApi>() {
                         @Override
                         public void onResponse(Call<MyVisitPlanApi> call, Response<MyVisitPlanApi> response) {
-                            if (response.isSuccessful()){
-                                if (response.body().getCode().equals(getString(R.string.success_code))){
+                            if (response.isSuccessful()) {
+                                if (response.body().getCode().equals(getString(R.string.success_code))) {
                                     VisitPlan visitPlan = new VisitPlan(visitPlanModel.getId(), visitPlanModel.getJournalId(), clientName, spinnerClientType.getSelectedItem(),
                                             mobileNo, spinnerPoliceStation.getSelectedItem(), spinnerProductType.getSelectedItem(), spinnerCity.getText().toString(),
                                             purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
                                     dbController.updateData(visitPlan);
-                                    sendGpsLocation(String.valueOf(response.body().getData().getActivityJournalID()),"Activity",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),VisitPlanActivity.this);
+                                    sendGpsLocation(String.valueOf(response.body().getData().getActivityJournalID()), "Activity", userName, getltd(), getLng(), getCompleteAddressString(getltd(), getLng()), VisitPlanActivity.this);
 
-                                }
-                                else if (response.body().getCode().equals("404")){
-                                    showAlertDialog(response.body().getCode(),response.body().getMessage());
-                                }
-
-                                else {
-                                    showAlertDialog(response.body().getCode(),response.body().getMessage());
+                                } else if (response.body().getCode().equals("404")) {
+                                    showAlertDialog(response.body().getCode(), response.body().getMessage());
+                                } else {
+                                    showAlertDialog(response.body().getCode(), response.body().getMessage());
                                 }
 
-                            }
-                            else {
-                                showAlertDialog(getString(R.string.error_text),response.errorBody().toString());
+                            } else {
+                                showAlertDialog(getString(R.string.error_text), response.errorBody().toString());
 
                             }
 
@@ -654,7 +646,7 @@ public class VisitPlanActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<MyVisitPlanApi> call, Throwable t) {
-                            showAlertDialog(getString(R.string.error_text),t.getMessage());
+                            showAlertDialog(getString(R.string.error_text), t.getMessage());
 
                         }
                     });
@@ -693,7 +685,7 @@ public class VisitPlanActivity extends BaseActivity {
                                         spinnerPoliceStation.getSelectedItem(),
                                         purposeOfVisit, dateOfvisit, remarks, AppConstant.LEAD_STATUS_New_PLAN, AppConstant.SYNC_STATUS_OK);
                            */
-                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()),"Activity",userName,getltd(),getLng(),getCompleteAddressString(getltd(),getLng()),VisitPlanActivity.this);
+                                sendGpsLocation(String.valueOf(data1.getActivityJournalID()), "Activity", userName, getltd(), getLng(), getCompleteAddressString(getltd(), getLng()), VisitPlanActivity.this);
 
                                 Log.e("status", "save data into server and local" + response.body().getData().toString());
 
@@ -720,9 +712,6 @@ public class VisitPlanActivity extends BaseActivity {
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-
-
 
 
 }
