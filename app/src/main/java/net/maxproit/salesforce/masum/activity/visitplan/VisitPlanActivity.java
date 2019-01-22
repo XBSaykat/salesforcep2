@@ -351,7 +351,7 @@ public class VisitPlanActivity extends BaseActivity {
         });
 
         buttonSave.setOnClickListener(view -> {
-            getGpsLocation();
+            //  getGpsLocation();
             clientName = txtClientName.getText().toString().trim();
             mobileNo = txtMobileNo.getText().toString().trim();
             dateOfvisit = tvVisitDT.getText().toString().trim();
@@ -453,7 +453,7 @@ public class VisitPlanActivity extends BaseActivity {
 //            valid = false;
 //        }
         if (getltd() == 0 && getltd() == 0) {
-            showAlertDialog("Required", "Please wait... gps is not enabled");
+            showAlertDialog("Required", "Please wait... gps is not enabled,please enable your device gps");
             return false;
         }
         if (clientType == null) {
