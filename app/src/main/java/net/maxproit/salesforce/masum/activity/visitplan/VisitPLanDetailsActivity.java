@@ -391,7 +391,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
             getGpsLocation();
             if (getltd() == 0 && getLng() == 0) {
-                showAlertDialog("Required", "Please wait... gps is not enabled");
+                showAlertDialog(getString(R.string.reqired_txt), getString(R.string.enable_location));
                 return;
             }
             if (!isValid()) {
@@ -1091,23 +1091,23 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 //        else valid=true;
 
         if (spinerClientTypeStr == null) {
-            showAlertDialog("Required", "Enter Client Type");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Client Type");
             return false;
         }
         if (sPurposeOfVisitStr == null) {
-            showAlertDialog("Required", "Enter Purpose of Visit");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Purpose of Visit");
             return false;
         }
         if (sProductTypeString == null) {
-            showAlertDialog("Required", "Enter Product Type");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Product Type");
             return false;
         }
         if (MasumCommonUtils.isNullStr(spinnerCity.getText().toString())) {
-            showAlertDialog("Required", "Enter City");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter City");
             return false;
         }
         if (polisStattionSpn == null) {
-            showAlertDialog("Required", "Enter Police Station");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Police Station");
             return false;
         }
 

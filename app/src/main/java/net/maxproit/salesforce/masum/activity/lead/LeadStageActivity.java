@@ -266,7 +266,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         btnSave.setOnClickListener(view -> {
             getGpsLocation();
             if (getltd() == 0 && getLng() == 0) {
-                showAlertDialog("Required", "Please wait... gps is not enabled");
+                showAlertDialog(getString(R.string.reqired_txt), getString(R.string.enable_location));
                 return;
             }
             if (isValid()) {
@@ -815,11 +815,11 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         boolean valid = true;
 
         if (MasumCommonUtils.isNullStr(LeadStageBasicInformationFragment.branchName)) {
-            showAlertDialog("Required", "Enter Branch Name");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Branch Name");
             return false;
         }
         if (MasumCommonUtils.isNullStr(LeadStageLoanDetailFragment.spinnerRef.getSelectedItem())) {
-            showAlertDialog("Required", "Enter Source of Reference");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Source of Reference");
             return false;
         }
 

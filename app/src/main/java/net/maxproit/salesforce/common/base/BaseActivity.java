@@ -198,9 +198,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             longitude = gps.getLongitude();
             // Toast.makeText(this, "lt:" + latitude + "\n" + "lng:" + longitude, Toast.LENGTH_SHORT).show();
 
-        } else {
+        } /*else {
             gps.showSettingsAlert();
-        }
+        }*/
     }
 
 

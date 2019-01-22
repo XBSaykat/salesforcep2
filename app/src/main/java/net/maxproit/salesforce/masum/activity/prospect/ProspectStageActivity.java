@@ -159,7 +159,7 @@ public class ProspectStageActivity extends BaseActivity {
             public void onClick(View view) {
                 getGpsLocation();
                 if (getltd()==0 && getLng()==0){
-                    showAlertDialog("Required", "Please wait... gps is not enabled");
+                    showAlertDialog(getString(R.string.reqired_txt), getString(R.string.enable_location));
                     return ;
                 }
                 if (!isValid()) {
@@ -692,87 +692,87 @@ public class ProspectStageActivity extends BaseActivity {
         boolean validation = true;
 
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.productCat)) {
-            showAlertDialog("Required", "Enter Product Category");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Product Category");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.productSub)) {
-            showAlertDialog("Required", "Enter Product Sub Category");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Product Sub Category");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.branchName)) {
-            showAlertDialog("Required", "Enter Branch Name");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Branch Name");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etName.getText().toString())) {
-            showAlertDialog("Required", "Enter Name");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Name");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.segment)) {
-            showAlertDialog("Required", "Enter Segment");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Segment");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etDob.getText().toString())) {
-            showAlertDialog("Required", "Enter Date of Birth");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Date of Birth");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.districtOfBirth)) {
-            showAlertDialog("Required", "Enter District of Birth");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter District of Birth");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.countOfBirth)) {
-            showAlertDialog("Required", "Enter Country of Birth");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Country of Birth");
             return false;
         }
         if (MasumCommonUtils.isNullStr(String.valueOf(ProspectStageProductAndCustomerDetailsFragment.photoIdcode))) {
-            showAlertDialog("Required", "Enter Photo ID type");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Photo ID type");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPhotoId.getText().toString())) {
-            showAlertDialog("Required", "Enter Photo ID No.");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Photo ID No.");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etFatherName.getText().toString())) {
-            showAlertDialog("Required", "Enter Father Name");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Father Name");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etMotherName.getText().toString())) {
-            showAlertDialog("Required", "Enter Mother Name");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Mother Name");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.profession)) {
-            showAlertDialog("Required", "Enter Profession");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Profession");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString())) {
-            showAlertDialog("Required", "Enter Permanent Address");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Permanent Address");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.perCity)) {
-            showAlertDialog("Required", "Enter Permanent City");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Permanent City");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.perPoliceStation)) {
-            showAlertDialog("Required", "Enter Permanent Police Station");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Permanent Police Station");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etPresentAddress.getText().toString())) {
-            showAlertDialog("Required", "Enter Present Address");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Present Address");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.preCity)) {
-            showAlertDialog("Required", "Enter Present City");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Present City");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.prePoliceStation)) {
-            showAlertDialog("Required", "Enter Present Police Station");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Present Police Station");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageProductAndCustomerDetailsFragment.etMobileNumber.getText().toString())) {
-            showAlertDialog("Required", "Enter Mobile Number");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Mobile Number");
             return false;
         }
         if (MasumCommonUtils.isNullStr(ProspectStageFinancialFragment.etMonthlyFamilyExpenditure.getText().toString())) {
-            showAlertDialog("Required", "Enter Monthly Family Expenditure");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Monthly Family Expenditure");
             return false;
         }
 

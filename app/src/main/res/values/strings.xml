@@ -294,6 +294,8 @@
     <string name="proceed_failed">Prospect proceed failed</string>
     <string name="prospect_save_failed">Prospect save failed</string>
     <string name="activity_failed">Activity failed to create</string>
+    <string name="enable_location">Please wait... GPS is not enabled,please enable your device location.Data save is not valid without your device location.</string>
+    <string name="reqired_txt">Required</string>
 
 
 </resources>

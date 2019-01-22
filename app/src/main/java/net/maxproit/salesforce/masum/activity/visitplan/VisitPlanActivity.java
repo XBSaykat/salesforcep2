@@ -351,7 +351,7 @@ public class VisitPlanActivity extends BaseActivity {
         });
 
         buttonSave.setOnClickListener(view -> {
-            //  getGpsLocation();
+            getGpsLocation();
             clientName = txtClientName.getText().toString().trim();
             mobileNo = txtMobileNo.getText().toString().trim();
             dateOfvisit = tvVisitDT.getText().toString().trim();
@@ -453,33 +453,33 @@ public class VisitPlanActivity extends BaseActivity {
 //            valid = false;
 //        }
         if (getltd() == 0 && getltd() == 0) {
-            showAlertDialog("Required", "Please wait... gps is not enabled,please enable your device gps");
+            showAlertDialog(getString(R.string.reqired_txt), getString(R.string.enable_location));
             return false;
         }
         if (clientType == null) {
-            showAlertDialog("Required", "Enter Client Type");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Client Type");
             return false;
         }
         if (purposeOfVisit == null) {
-            showAlertDialog("Required", "Enter Purpose of Visit");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Purpose of Visit");
             return false;
         }
         if (clientType.equalsIgnoreCase("INDIVIDUAL")) {
             if (MasumCommonUtils.isNullStr(productType)) {
-                showAlertDialog("Required", "Enter Product Type");
+                showAlertDialog(getString(R.string.reqired_txt), "Enter Product Type");
                 return false;
             }
         }
         if (city == null) {
-            showAlertDialog("Required", "Enter City");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter City");
             return false;
         }
         if (policeStation == null) {
-            showAlertDialog("Required", "Enter Police Station");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Police Station");
             return false;
         }
         if (dateOfvisit == null) {
-            showAlertDialog("Required", "Enter Date of visit");
+            showAlertDialog(getString(R.string.reqired_txt), "Enter Date of visit");
             return false;
         }
 
