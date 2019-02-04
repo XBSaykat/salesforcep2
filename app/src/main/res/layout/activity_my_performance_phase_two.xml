@@ -2,120 +2,49 @@
 <layout>
 
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/size_50dp"
+            android:background="@color/colorPrimary">
 
-            <RelativeLayout
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_50dp"
-                android:background="@color/colorPrimary">
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:padding="@dimen/size_8dp"
+                android:src="@drawable/ic_back" />
 
-                <ImageView
-                    android:id="@+id/btnBack"
-                    android:layout_width="@dimen/size_40dp"
-                    android:layout_height="@dimen/size_40dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/size_8dp"
-                    android:layout_marginLeft="@dimen/size_8dp"
-                    android:padding="@dimen/size_8dp"
-                    android:src="@drawable/ic_back" />
-
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="My Perfomance"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_20sp"
-                    android:textStyle="bold" />
-
-
-            </RelativeLayout>
-
-
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/toolbar">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycleView_my_performace"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </android.support.v7.widget.RecyclerView>
-
-<!--
-
-                <LinearLayout
-                    android:id="@+id/grid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical"
-                    android:padding="@dimen/size_16dp">
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/size_20dp"
-                        android:layout_marginRight="@dimen/size_20dp"
-                        android:text="My Plan"
-                        android:visibility="gone" />
-                    &lt;!&ndash;
-
-                                    <include
-                                        android:visibility="gone"
-                                        layout="@layout/my_plan_performance" />
-                    &ndash;&gt;
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/size_20dp"
-                        android:layout_marginTop="@dimen/size_20dp"
-                        android:layout_marginRight="@dimen/size_20dp"
-                        android:text="Activity" />
-
-                    <include
-                        android:id="@+id/activity_performance"
-                        layout="@layout/my_activity_performance" />
-
-
-                    &lt;!&ndash;1st&ndash;&gt;
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/size_20dp"
-                        android:layout_marginTop="@dimen/size_20dp"
-                        android:layout_marginRight="@dimen/size_20dp"
-                        android:text="Lead" />
-
-                    <include
-                        android:id="@+id/lead_performace"
-                        layout="@layout/lead__performance" />
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/size_20dp"
-                        android:layout_marginTop="@dimen/size_20dp"
-                        android:layout_marginRight="@dimen/size_20dp"
-                        android:text="My Propect" />
-
-                    <include
-                        android:id="@+id/propect_performace"
-                        layout="@layout/prospect_performance_layout" />
-                </LinearLayout>-->
-            </android.support.v4.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="My Perfomance"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20sp"
+                android:textStyle="bold" />
         </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView_my_performace"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
 
 
 </layout>
