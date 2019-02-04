@@ -812,6 +812,9 @@ public class NewProspectUpdate {
             coApplicant.setPresentAddressId(coApplicanLocalList.get(i).getPresentAddressId());
             coApplicant.setPermanentAddressId(coApplicanLocalList.get(i).getPermanentAddressId());
             coApplicant.setPermanentAddressPS(coApplicanLocalList.get(i).getPermanentAddressPS());
+            if (coApplicanLocalList.get(i).getPhotoIdCode() > 0) {
+                coApplicant.setPhotoIdTypeCode(Integer.valueOf(coApplicanLocalList.get(i).getPhotoIdCode()));
+            }
 
             if (!MasumCommonUtils.isNullStr(coApplicanLocalList.get(i).getPhotoIdType()))
                 coApplicant.setPhotoIdTypeCode(Integer.valueOf(coApplicanLocalList.get(i).getPhotoIdType()));
