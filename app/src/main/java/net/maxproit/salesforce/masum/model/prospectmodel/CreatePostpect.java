@@ -129,43 +129,43 @@ public class CreatePostpect {
     private String netSalaryType;
     @SerializedName("netSalary")
     @Expose
-    private double netSalary;
+    private Integer netSalary;
     @SerializedName("businessIncome")
     @Expose
-    private double businessIncome;
+    private Integer businessIncome;
     @SerializedName("apartmentIncome")
     @Expose
-    private double apartmentIncome;
+    private Integer apartmentIncome;
     @SerializedName("semipakaIncome")
     @Expose
-    private double semipakaIncome;
+    private Integer semipakaIncome;
     @SerializedName("commercialSpaceIncome")
     @Expose
-    private double commercialSpaceIncome;
+    private Integer commercialSpaceIncome;
     @SerializedName("factoryIncome")
     @Expose
-    private double factoryIncome;
+    private Integer factoryIncome;
     @SerializedName("agriculturalIncome")
     @Expose
-    private double agriculturalIncome;
+    private Integer agriculturalIncome;
     @SerializedName("tutionIncome")
     @Expose
-    private double tutionIncome;
+    private Integer tutionIncome;
     @SerializedName("remittanceIncome")
     @Expose
-    private double remittanceIncome;
+    private Integer remittanceIncome;
     @SerializedName("interestIncomeOfFDR")
     @Expose
-    private double interestIncomeOfFDR;
+    private Integer interestIncomeOfFDR;
     @SerializedName("familyExpenditure")
     @Expose
-    private double familyExpenditure;
+    private Integer familyExpenditure;
     @SerializedName("emiOfOtherLoan")
     @Expose
-    private double emiOfOtherLoan;
+    private Integer emiOfOtherLoan;
     @SerializedName("securityValue")
     @Expose
-    private double securityValue;
+    private Integer securityValue;
     @SerializedName("assetTypeId")
     @Expose
     private Integer assetTypeId;
@@ -192,10 +192,10 @@ public class CreatePostpect {
     private Integer loanTerm;
     @SerializedName("intersetRate")
     @Expose
-    private double intersetRate;
+    private Integer intersetRate;
     @SerializedName("fee")
     @Expose
-    private double fee;
+    private Integer fee;
     @SerializedName("coApplicants")
     @Expose
     private List<CoApplicant> coApplicants = null;
@@ -520,47 +520,47 @@ public class CreatePostpect {
         this.netSalaryType = netSalaryType;
     }
 
-    public double getNetSalary() {
+    public Integer getNetSalary() {
         return netSalary;
     }
 
-    public void setNetSalary(double netSalary) {
+    public void setNetSalary(Integer netSalary) {
         this.netSalary = netSalary;
     }
 
-    public double getBusinessIncome() {
+    public Integer getBusinessIncome() {
         return businessIncome;
     }
 
-    public void setBusinessIncome(double businessIncome) {
+    public void setBusinessIncome(Integer businessIncome) {
         this.businessIncome = businessIncome;
     }
 
-    public double getApartmentIncome() {
+    public Integer getApartmentIncome() {
         return apartmentIncome;
     }
 
-    public void setApartmentIncome(double apartmentIncome) {
+    public void setApartmentIncome(Integer apartmentIncome) {
         this.apartmentIncome = apartmentIncome;
     }
 
-    public double getSemipakaIncome() {
+    public Integer getSemipakaIncome() {
         return semipakaIncome;
     }
 
-    public void setSemipakaIncome(double semipakaIncome) {
+    public void setSemipakaIncome(Integer semipakaIncome) {
         this.semipakaIncome = semipakaIncome;
     }
 
-    public double getCommercialSpaceIncome() {
+    public Integer getCommercialSpaceIncome() {
         return commercialSpaceIncome;
     }
 
-    public void setCommercialSpaceIncome(double commercialSpaceIncome) {
+    public void setCommercialSpaceIncome(Integer commercialSpaceIncome) {
         this.commercialSpaceIncome = commercialSpaceIncome;
     }
 
-    public double getFactoryIncome() {
+    public Integer getFactoryIncome() {
         return factoryIncome;
     }
 
@@ -568,55 +568,55 @@ public class CreatePostpect {
         this.factoryIncome = factoryIncome;
     }
 
-    public double getAgriculturalIncome() {
+    public Integer getAgriculturalIncome() {
         return agriculturalIncome;
     }
 
-    public void setAgriculturalIncome(double agriculturalIncome) {
+    public void setAgriculturalIncome(Integer agriculturalIncome) {
         this.agriculturalIncome = agriculturalIncome;
     }
 
-    public double getTutionIncome() {
+    public Integer getTutionIncome() {
         return tutionIncome;
     }
 
-    public void setTutionIncome(double tutionIncome) {
+    public void setTutionIncome(Integer tutionIncome) {
         this.tutionIncome = tutionIncome;
     }
 
-    public double getRemittanceIncome() {
+    public Integer getRemittanceIncome() {
         return remittanceIncome;
     }
 
-    public void setRemittanceIncome(double remittanceIncome) {
+    public void setRemittanceIncome(Integer remittanceIncome) {
         this.remittanceIncome = remittanceIncome;
     }
 
-    public double getInterestIncomeOfFDR() {
+    public Integer getInterestIncomeOfFDR() {
         return interestIncomeOfFDR;
     }
 
-    public void setInterestIncomeOfFDR(double interestIncomeOfFDR) {
+    public void setInterestIncomeOfFDR(Integer interestIncomeOfFDR) {
         this.interestIncomeOfFDR = interestIncomeOfFDR;
     }
 
-    public double getFamilyExpenditure() {
+    public Integer getFamilyExpenditure() {
         return familyExpenditure;
     }
 
-    public void setFamilyExpenditure(double familyExpenditure) {
+    public void setFamilyExpenditure(Integer familyExpenditure) {
         this.familyExpenditure = familyExpenditure;
     }
 
-    public double getEmiOfOtherLoan() {
+    public Integer getEmiOfOtherLoan() {
         return emiOfOtherLoan;
     }
 
-    public void setEmiOfOtherLoan(double emiOfOtherLoan) {
+    public void setEmiOfOtherLoan(Integer emiOfOtherLoan) {
         this.emiOfOtherLoan = emiOfOtherLoan;
     }
 
-    public double getSecurityValue() {
+    public Integer getSecurityValue() {
         return securityValue;
     }
 
@@ -688,19 +688,19 @@ public class CreatePostpect {
         this.loanTerm = loanTerm;
     }
 
-    public double getIntersetRate() {
+    public Integer getIntersetRate() {
         return intersetRate;
     }
 
-    public void setIntersetRate(double intersetRate) {
+    public void setIntersetRate(Integer intersetRate) {
         this.intersetRate = intersetRate;
     }
 
-    public double getFee() {
+    public Integer getFee() {
         return fee;
     }
 
-    public void setFee(double fee) {
+    public void setFee(Integer fee) {
         this.fee = fee;
     }
 

@@ -797,46 +797,46 @@ public class NewProspectUpdate {
 
             try {
 
-                coApplicant.setAgriculturalIncome(Double.valueOf(coApplicanLocalList.get(i).getMonthAgricultureIncomeAmount().replace(",", "")));
+                coApplicant.setAgriculturalIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthAgricultureIncomeAmount().replace(",", "")));
             } catch (NumberFormatException e) {
 
             }
             try {
 
-                coApplicant.setApartmentIncome(Double.valueOf(coApplicanLocalList.get(i).getMonthApartmentIncomeAmount().replace(",", "")));
+                coApplicant.setApartmentIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthApartmentIncomeAmount().replace(",", "")));
             } catch (NumberFormatException e) {
 
             }
             try {
-                coApplicant.setBusinessIncome(Double.valueOf(coApplicanLocalList.get(i).getMonthBusinessIncomeAmount().replace(",", "")));
+                coApplicant.setBusinessIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthBusinessIncomeAmount().replace(",", "")));
             } catch (NumberFormatException e) {
             }
             try {
-                coApplicant.setCommercialSpaceIncome(Double.valueOf(coApplicanLocalList.get(i).getMonthOfficeSpaceIncomeAmount().replace(",", "")));
+                coApplicant.setCommercialSpaceIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthOfficeSpaceIncomeAmount().replace(",", "")));
             } catch (NumberFormatException e) {
             }
             try {
-                coApplicant.setFactoryIncome(Double.valueOf(coApplicanLocalList.get(i).getMonthWareHouseAmount().replace(",", "")));
+                coApplicant.setFactoryIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthWareHouseAmount().replace(",", "")));
             } catch (NumberFormatException e) {
             }
             try {
-                coApplicant.setInterestIncomeOfFDR(Double.valueOf(coApplicanLocalList.get(i).getInterestFDRIncomeAmount().replace(",", "")));
+                coApplicant.setInterestIncomeOfFDR(Integer.valueOf(coApplicanLocalList.get(i).getInterestFDRIncomeAmount().replace(",", "")));
             } catch (NumberFormatException e) {
             }
             try {
-                coApplicant.setNetSalary(Double.valueOf(coApplicanLocalList.get(i).getMonthSalaryAmount().replace(",", "")));
+                coApplicant.setNetSalary(Integer.valueOf(coApplicanLocalList.get(i).getMonthSalaryAmount().replace(",", "")));
             } catch (NumberFormatException e) {
             }
             try {
-                coApplicant.setRemittanceIncome(Double.valueOf(coApplicanLocalList.get(i).getRemittance().replace(",", "")));
+                coApplicant.setRemittanceIncome(Integer.valueOf(coApplicanLocalList.get(i).getRemittance().replace(",", "")));
             } catch (NumberFormatException e) {
             }
             try {
-                coApplicant.setSemipakaIncome(Double.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
+                coApplicant.setSemipakaIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthSemipakaIncomeAmount().replace(",", "")));
             } catch (NumberFormatException e) {
             }
             try {
-                coApplicant.setTutionIncome(Double.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
+                coApplicant.setTutionIncome(Integer.valueOf(coApplicanLocalList.get(i).getMonthTuitionIncomeAmount().replace(",", "")));
             } catch (NumberFormatException ex) {
 
             }

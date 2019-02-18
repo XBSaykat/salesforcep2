@@ -2,7 +2,6 @@
 package net.maxproit.salesforce.masum.model.prospectmodel;
 
 import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,10 +9,10 @@ public class Data {
 
     @SerializedName("agriculturalIncome")
     @Expose
-    private double agriculturalIncome;
+    private Integer agriculturalIncome;
     @SerializedName("apartmentIncome")
     @Expose
-    private double apartmentIncome;
+    private Integer apartmentIncome;
     @SerializedName("assetType")
     @Expose
     private String assetType;
@@ -28,13 +27,13 @@ public class Data {
     private String branchName;
     @SerializedName("businessIncome")
     @Expose
-    private double businessIncome;
+    private Integer businessIncome;
     @SerializedName("coApplicants")
     @Expose
     private List<CoApplicant> coApplicants = null;
     @SerializedName("commercialSpaceIncome")
     @Expose
-    private double commercialSpaceIncome;
+    private Integer commercialSpaceIncome;
     @SerializedName("company")
     @Expose
     private String company;
@@ -53,10 +52,6 @@ public class Data {
     @SerializedName("customerName")
     @Expose
     private String customerName;
-    @SerializedName("customerTitle")
-    @Expose
-    private String customerTitle;
-
     @SerializedName("dateOfBirth")
     @Expose
     private String dateOfBirth;
@@ -71,25 +66,22 @@ public class Data {
     private String eTin;
     @SerializedName("emiOfOtherLoan")
     @Expose
-    private double emiOfOtherLoan;
+    private Integer emiOfOtherLoan;
     @SerializedName("factoryIncome")
     @Expose
-    private double factoryIncome;
+    private Integer factoryIncome;
     @SerializedName("familyExpenditure")
     @Expose
-    private double familyExpenditure;
+    private Integer familyExpenditure;
     @SerializedName("fatherName")
     @Expose
     private String fatherName;
-    @SerializedName("fatherTitle")
-    @Expose
-    private String fatherTitle;
     @SerializedName("fee")
     @Expose
     private Float fee;
     @SerializedName("interestIncomeOfFDR")
     @Expose
-    private double interestIncomeOfFDR;
+    private Integer interestIncomeOfFDR;
     @SerializedName("intersetRate")
     @Expose
     private Float intersetRate;
@@ -98,10 +90,10 @@ public class Data {
     private String leadReferenceNo;
     @SerializedName("loanRequired")
     @Expose
-    private double loanRequired;
+    private Integer loanRequired;
     @SerializedName("loanTerm")
     @Expose
-    private double loanTerm;
+    private Integer loanTerm;
     @SerializedName("manufacturerName")
     @Expose
     private String manufacturerName;
@@ -123,12 +115,9 @@ public class Data {
     @SerializedName("motherName")
     @Expose
     private String motherName;
-    @SerializedName("motherTitle")
-    @Expose
-    private String motherTitle;
     @SerializedName("netSalary")
     @Expose
-    private double netSalary;
+    private Integer netSalary;
     @SerializedName("netSalaryType")
     @Expose
     private String netSalaryType;
@@ -185,7 +174,7 @@ public class Data {
     private String relationshipWithApplicant;
     @SerializedName("remittanceIncome")
     @Expose
-    private double remittanceIncome;
+    private Integer remittanceIncome;
     @SerializedName("rmCode")
     @Expose
     private String rmCode;
@@ -197,36 +186,33 @@ public class Data {
     private String segment;
     @SerializedName("semipakaIncome")
     @Expose
-    private double semipakaIncome;
+    private Integer semipakaIncome;
     @SerializedName("spouseName")
     @Expose
     private String spouseName;
-    @SerializedName("spouseTitle")
-    @Expose
-    private String spouseTitle;
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("tutionIncome")
     @Expose
-    private double tutionIncome;
+    private Integer tutionIncome;
     @SerializedName("userName")
     @Expose
     private String userName;
 
-    public double getAgriculturalIncome() {
+    public Integer getAgriculturalIncome() {
         return agriculturalIncome;
     }
 
-    public void setAgriculturalIncome(double agriculturalIncome) {
+    public void setAgriculturalIncome(Integer agriculturalIncome) {
         this.agriculturalIncome = agriculturalIncome;
     }
 
-    public double getApartmentIncome() {
+    public Integer getApartmentIncome() {
         return apartmentIncome;
     }
 
-    public void setApartmentIncome(double apartmentIncome) {
+    public void setApartmentIncome(Integer apartmentIncome) {
         this.apartmentIncome = apartmentIncome;
     }
 
@@ -262,11 +248,11 @@ public class Data {
         this.branchName = branchName;
     }
 
-    public double getBusinessIncome() {
+    public Integer getBusinessIncome() {
         return businessIncome;
     }
 
-    public void setBusinessIncome(double businessIncome) {
+    public void setBusinessIncome(Integer businessIncome) {
         this.businessIncome = businessIncome;
     }
 
@@ -278,11 +264,11 @@ public class Data {
         this.coApplicants = coApplicants;
     }
 
-    public double getCommercialSpaceIncome() {
+    public Integer getCommercialSpaceIncome() {
         return commercialSpaceIncome;
     }
 
-    public void setCommercialSpaceIncome(double commercialSpaceIncome) {
+    public void setCommercialSpaceIncome(Integer commercialSpaceIncome) {
         this.commercialSpaceIncome = commercialSpaceIncome;
     }
 
@@ -366,27 +352,27 @@ public class Data {
         this.eTin = eTin;
     }
 
-    public double getEmiOfOtherLoan() {
+    public Integer getEmiOfOtherLoan() {
         return emiOfOtherLoan;
     }
 
-    public void setEmiOfOtherLoan(double emiOfOtherLoan) {
+    public void setEmiOfOtherLoan(Integer emiOfOtherLoan) {
         this.emiOfOtherLoan = emiOfOtherLoan;
     }
 
-    public double getFactoryIncome() {
+    public Integer getFactoryIncome() {
         return factoryIncome;
     }
 
-    public void setFactoryIncome(double factoryIncome) {
+    public void setFactoryIncome(Integer factoryIncome) {
         this.factoryIncome = factoryIncome;
     }
 
-    public double getFamilyExpenditure() {
+    public Integer getFamilyExpenditure() {
         return familyExpenditure;
     }
 
-    public void setFamilyExpenditure(double familyExpenditure) {
+    public void setFamilyExpenditure(Integer familyExpenditure) {
         this.familyExpenditure = familyExpenditure;
     }
 
@@ -406,11 +392,11 @@ public class Data {
         this.fee = fee;
     }
 
-    public double getInterestIncomeOfFDR() {
+    public Integer getInterestIncomeOfFDR() {
         return interestIncomeOfFDR;
     }
 
-    public void setInterestIncomeOfFDR(double interestIncomeOfFDR) {
+    public void setInterestIncomeOfFDR(Integer interestIncomeOfFDR) {
         this.interestIncomeOfFDR = interestIncomeOfFDR;
     }
 
@@ -430,15 +416,15 @@ public class Data {
         this.leadReferenceNo = leadReferenceNo;
     }
 
-    public double getLoanRequired() {
+    public Integer getLoanRequired() {
         return loanRequired;
     }
 
-    public void setLoanRequired(double loanRequired) {
+    public void setLoanRequired(Integer loanRequired) {
         this.loanRequired = loanRequired;
     }
 
-    public double getLoanTerm() {
+    public Integer getLoanTerm() {
         return loanTerm;
     }
 
@@ -502,11 +488,11 @@ public class Data {
         this.motherName = motherName;
     }
 
-    public double getNetSalary() {
+    public Integer getNetSalary() {
         return netSalary;
     }
 
-    public void setNetSalary(double netSalary) {
+    public void setNetSalary(Integer netSalary) {
         this.netSalary = netSalary;
     }
 
@@ -654,11 +640,11 @@ public class Data {
         this.relationshipWithApplicant = relationshipWithApplicant;
     }
 
-    public double getRemittanceIncome() {
+    public Integer getRemittanceIncome() {
         return remittanceIncome;
     }
 
-    public void setRemittanceIncome(double remittanceIncome) {
+    public void setRemittanceIncome(Integer remittanceIncome) {
         this.remittanceIncome = remittanceIncome;
     }
 
@@ -686,11 +672,11 @@ public class Data {
         this.segment = segment;
     }
 
-    public double getSemipakaIncome() {
+    public Integer getSemipakaIncome() {
         return semipakaIncome;
     }
 
-    public void setSemipakaIncome(double semipakaIncome) {
+    public void setSemipakaIncome(Integer semipakaIncome) {
         this.semipakaIncome = semipakaIncome;
     }
 
@@ -710,11 +696,11 @@ public class Data {
         this.status = status;
     }
 
-    public double getTutionIncome() {
+    public Integer getTutionIncome() {
         return tutionIncome;
     }
 
-    public void setTutionIncome(double tutionIncome) {
+    public void setTutionIncome(Integer tutionIncome) {
         this.tutionIncome = tutionIncome;
     }
 
@@ -726,43 +712,4 @@ public class Data {
         this.userName = userName;
     }
 
-    public String getCustomerTitle() {
-        return customerTitle;
-    }
-
-    public void setCustomerTitle(String customerTitle) {
-        this.customerTitle = customerTitle;
-    }
-
-    public String geteTin() {
-        return eTin;
-    }
-
-    public void seteTin(String eTin) {
-        this.eTin = eTin;
-    }
-
-    public String getFatherTitle() {
-        return fatherTitle;
-    }
-
-    public void setFatherTitle(String fatherTitle) {
-        this.fatherTitle = fatherTitle;
-    }
-
-    public String getMotherTitle() {
-        return motherTitle;
-    }
-
-    public void setMotherTitle(String motherTitle) {
-        this.motherTitle = motherTitle;
-    }
-
-    public String getSpouseTitle() {
-        return spouseTitle;
-    }
-
-    public void setSpouseTitle(String spouseTitle) {
-        this.spouseTitle = spouseTitle;
-    }
 }
