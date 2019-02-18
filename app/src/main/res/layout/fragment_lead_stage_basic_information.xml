@@ -109,14 +109,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="1">
 
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:focusable="true" android:focusableInTouchMode="true"
+                        android:layout_width="0px" android:layout_height="0px"/>
                     <AutoCompleteTextView
                         android:id="@+id/et_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:hint="title"
+                        android:nextFocusUp="@+id/et_title" android:nextFocusLeft="@+id/et_title"
                         android:maxLines="1" />
 
                     <EditText

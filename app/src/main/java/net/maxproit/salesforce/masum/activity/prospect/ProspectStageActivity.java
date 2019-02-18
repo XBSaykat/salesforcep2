@@ -670,6 +670,7 @@ public class ProspectStageActivity extends BaseActivity {
                     }
                 } else
                     errorAlert(getString(R.string.error_text) + " " + response.code(), getString(R.string.proceed_failed) + "\n" + response.message());
+                hideProgressDialog();
             }
 
             @Override
