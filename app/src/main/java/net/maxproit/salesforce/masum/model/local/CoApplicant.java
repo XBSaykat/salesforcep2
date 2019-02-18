@@ -16,7 +16,8 @@ public class CoApplicant implements Serializable {
             monthBusinessIncomeAmount, monthWareHouseAmount, monthOfficeSpaceIncomeAmount,
             monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
             monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
-            emiOfOtherLoans, permanentAddressCity, permanentAddressPS, presentAddressCity, presentAddressPS;
+            emiOfOtherLoans, permanentAddressCity, permanentAddressPS, presentAddressCity, presentAddressPS,
+            titleName, titlefName, titlemName, titlesName;
     private int exceptionList;
 
     public CoApplicant() {
@@ -125,6 +126,38 @@ public class CoApplicant implements Serializable {
         this.interestFDRIncomeAmount = interestFDRIncomeAmount;
         this.monthFamilyExpenditure = monthFamilyExpenditure;
         this.emiOfOtherLoans = emiOfOtherLoans;
+    }
+
+    public String getTitleName() {
+        return titleName;
+    }
+
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
+    }
+
+    public String getTitlefName() {
+        return titlefName;
+    }
+
+    public void setTitlefName(String titlefName) {
+        this.titlefName = titlefName;
+    }
+
+    public String getTitlemName() {
+        return titlemName;
+    }
+
+    public void setTitlemName(String titlemName) {
+        this.titlemName = titlemName;
+    }
+
+    public String getTitlesName() {
+        return titlesName;
+    }
+
+    public void setTitlesName(String titlesName) {
+        this.titlesName = titlesName;
     }
 
     public int getPhotoIdCode() {
@@ -498,11 +531,7 @@ public class CoApplicant implements Serializable {
     }
 
 
-
-
-
-
-    public void setcoApplicantDatafromServer(net.maxproit.salesforce.model.myprospect.updatemyprospect.CoApplicant coApplicantServer){
+    public void setcoApplicantDatafromServer(net.maxproit.salesforce.model.myprospect.updatemyprospect.CoApplicant coApplicantServer) {
 
         setName(coApplicantServer.getCustomerName());
         setCustomerId(coApplicantServer.getCustomerId());
@@ -517,14 +546,14 @@ public class CoApplicant implements Serializable {
 
 
         setCompanyName(coApplicantServer.getCompany());
-        if (coApplicantServer.getDateOfBirth() !=null)
-        setDateOfBirth(DateUtils.getDateFormateEt(DateUtils.jsonToDate(coApplicantServer.getDateOfBirth())));
+        if (coApplicantServer.getDateOfBirth() != null)
+            setDateOfBirth(DateUtils.getDateFormateEt(DateUtils.jsonToDate(coApplicantServer.getDateOfBirth())));
         setPhotoIdIssueDate(DateUtils.getDateFormateEt(DateUtils.jsonToDate(coApplicantServer.getPhotoIdIssueDate())));
         setPhotoIdCode(coApplicantServer.getPhotoIdTypeCode());
         setPhotoIdType(String.valueOf(coApplicantServer.getPhotoIdTypeCode()));
         setPhotoIdNo(coApplicantServer.getPhotoIdNumber());
         setExceptionList(coApplicantServer.getExceptionList());
-        if (coApplicantServer.getPhotoIdIssueDate() !=null)
+        if (coApplicantServer.getPhotoIdIssueDate() != null)
             setPhotoIdIssueDate(DateUtils.getDateFormateEt(DateUtils.jsonToDate(coApplicantServer.getPhotoIdIssueDate())));
         setCountryOfBirth(coApplicantServer.getCountryOfBirth());
         setDistrictOfBirth(coApplicantServer.getDistrictOfBirth());
@@ -535,8 +564,6 @@ public class CoApplicant implements Serializable {
         setMobileNo(coApplicantServer.getMobile());
         setContactId(coApplicantServer.getContactId());
         setProfession(coApplicantServer.getProfession());
-
-
 
 
     }

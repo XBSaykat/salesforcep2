@@ -42,6 +42,10 @@ public class CoApplicant {
     @SerializedName("customerName")
     @Expose
     private String customerName;
+    @SerializedName("customerTitle")
+    @Expose
+    private String customerTitle;
+
     @SerializedName("dateOfBirth")
     @Expose
     private String dateOfBirth;
@@ -60,6 +64,9 @@ public class CoApplicant {
     @SerializedName("fatherName")
     @Expose
     private String fatherName;
+    @SerializedName("fatherTitle")
+    @Expose
+    private String fatherTitle;
     @SerializedName("interestIncomeOfFDR")
     @Expose
     private Integer interestIncomeOfFDR;
@@ -69,6 +76,9 @@ public class CoApplicant {
     @SerializedName("motherName")
     @Expose
     private String motherName;
+    @SerializedName("motherTitle")
+    @Expose
+    private String motherTitle;
     @SerializedName("netSalary")
     @Expose
     private Integer netSalary;
@@ -123,6 +133,10 @@ public class CoApplicant {
     @SerializedName("spouseName")
     @Expose
     private String spouseName;
+
+    @SerializedName("spouseTitle")
+    @Expose
+    private String spouseTitle;
     @SerializedName("tutionIncome")
     @Expose
     private Integer tutionIncome;
@@ -139,6 +153,46 @@ public class CoApplicant {
 
     public void setExceptionList(Integer exceptionList) {
         this.exceptionList = exceptionList;
+    }
+
+    public String getCustomerTitle() {
+        return customerTitle;
+    }
+
+    public void setCustomerTitle(String customerTitle) {
+        this.customerTitle = customerTitle;
+    }
+
+    public String geteTin() {
+        return eTin;
+    }
+
+    public void seteTin(String eTin) {
+        this.eTin = eTin;
+    }
+
+    public String getFatherTitle() {
+        return fatherTitle;
+    }
+
+    public void setFatherTitle(String fatherTitle) {
+        this.fatherTitle = fatherTitle;
+    }
+
+    public String getMotherTitle() {
+        return motherTitle;
+    }
+
+    public void setMotherTitle(String motherTitle) {
+        this.motherTitle = motherTitle;
+    }
+
+    public String getSpouseTitle() {
+        return spouseTitle;
+    }
+
+    public void setSpouseTitle(String spouseTitle) {
+        this.spouseTitle = spouseTitle;
     }
 
     public Integer getMobileNoId() {

@@ -107,7 +107,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public static EditText etName, etDateOfBirth, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
-    public static AutoCompleteTextView spinnerPreCity, spinnerPerCity, spinnerDistOfBirth;
+    public static AutoCompleteTextView spinnerPreCity, spinnerPerCity, spinnerDistOfBirth, etTitleName, etTitlefName, etTitlemName, etTitlesName;
     private LinearLayout llAddress;
     private CheckBox cbAddress;
 
@@ -115,7 +115,7 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
     public static String prePoliceStation = "", perPoliceStation = "", productCat, productDetails, branchName, segment, countOfBirth, districtOfBirth, profession,
             relationship, name, dateOfBirth, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
             companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto;
-    private String preCity = "", perCity = "";
+    private String preCity = "", perCity = "", titleName, titleF, titleM, titleS;
     private LinearLayout proCatSec, proDetailSec, branchSec, segmentSec;
     public static int photoIdcode;
     private CoApplicantActivity coApplicantActivity;
@@ -185,7 +185,10 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etPresentAddress = view.findViewById(R.id.input_present_address);
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
-
+        etTitleName = view.findViewById(R.id.et_title_name);
+        etTitlefName = view.findViewById(R.id.et_title_f_name);
+        etTitlemName = view.findViewById(R.id.et_title_m_name);
+        etTitlesName = view.findViewById(R.id.et_title_s_name);
         cbExist = view.findViewById(R.id.cb_exist);
         etChif = view.findViewById(R.id.etChif);
         liChif = view.findViewById(R.id.liChif);
@@ -508,6 +511,31 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
+        etTitlesName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleName = String.valueOf(etTitlesName.getAdapter().getItem(i));
+            }
+        });
+        etTitlefName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleF = String.valueOf(etTitlefName.getAdapter().getItem(i));
+            }
+        });
+        etTitlemName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleM = String.valueOf(etTitlemName.getAdapter().getItem(i));
+            }
+        });
+        etTitlesName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleS = String.valueOf(etTitlesName.getAdapter().getItem(i));
+            }
+        });
+
 
     }
 
@@ -581,6 +609,21 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         realationAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getIdlcRelationTypeStringList());
         spinnerRelationship.setAdapter(realationAdapter);
 
+        ArrayAdapter<String> titleNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAllTitle());
+        etTitleName.setAdapter(titleNameAdapter);
+        etTitleName.setThreshold(1);
+
+        ArrayAdapter<String> titlefNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAllTitle());
+        etTitlefName.setAdapter(titlefNameAdapter);
+        etTitlefName.setThreshold(1);
+
+        ArrayAdapter<String> titlemNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAllTitle());
+        etTitlemName.setAdapter(titlemNameAdapter);
+        etTitlemName.setThreshold(1);
+
+        ArrayAdapter<String> titlesNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAllTitle());
+        etTitlesName.setAdapter(titlesNameAdapter);
+        etTitlesName.setThreshold(1);
 
         validPhotoIdAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getphotoIDTypestring());
         spinnerValidPhotoType.setAdapter(validPhotoIdAdapter);
@@ -690,6 +733,12 @@ public class CoApplicantProductAndCustomerDetailsFragment extends Fragment {
         etMobileNumber.setText(coApplicant.getMobileNo());
         getphotoIdNumber(coApplicant.getPhotoIdType());
         etPhotoId.setText(coApplicant.getPhotoIdNo());
+
+        // title
+        etTitleName.setText(coApplicant.getTitleName());
+        etTitlefName.setText(coApplicant.getTitlefName());
+        etTitlemName.setText(coApplicant.getTitlemName());
+        etTitlesName.setText(coApplicant.getTitlesName());
 
         if (!MasumCommonUtils.isNullStr(coApplicant.getDistrictOfBirth())) {
             spinnerDistOfBirth.setText(coApplicant.getDistrictOfBirth());

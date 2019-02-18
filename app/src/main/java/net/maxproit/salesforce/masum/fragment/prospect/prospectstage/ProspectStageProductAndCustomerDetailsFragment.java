@@ -66,23 +66,10 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
     public static int exception = 0;
     private RadioButton radioButtonYes, radioButtonNO;
 
-    private LinearLayout liNid, liPassport, liDrivingLicense, liBirthCertificate;
-    private EditText etNid, etPassport, etDrivingLicense, etBirthCertificate;
-
-    private SpinnerDbController spinnerDbController;
-
-    private List<String> listProductCategory = null;
-    private List<String> listPoroductDetail = null;
     private List<String> listCarloan = null;
     private List<String> listHomeloan = null;
     private List<String> listPersonalloan = null;
-    private List<String> listBranch = null;
-    private List<String> listSegment = null;
-    private List<String> listBirthDistric = null;
-    private List<String> listBirthCountry = null;
-    private List<String> listProfession = null;
-    private List<String> listRelationshipWithApplicant = null;
-    private List<String> listValidphoto = null;
+
 
 //    Spinner productCategory;
 //    Spinner productDetail;
@@ -92,15 +79,15 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             spinnerCountOfBirth, spinnerProfession, spinnerRelationship, spinnerValidPhoto, spinnerPrePoliceStation, spinnerPerPoliceStation;
     private LinearLayout liPhotoIdNo;
     private TextView tvPhotoIdNo;
-    private AutoCompleteTextView spinnerPreCity, spinnerPerCity, spinnerDistOfBirth;
+    private AutoCompleteTextView spinnerPreCity, spinnerPerCity, spinnerDistOfBirth, etTitleName, etTitlefName, etTitlemName, etTitlesName;
 
     public static EditText etName, etDob, etAge, etPhotoId, etPhotoIdDate, etETin, etFatherName, etMotherName,
             etSpouseName, etCompanyName, etDesignation, etNoYrsInCurrentJob, etPresentAddress,
             etPermanentAddress, etMobileNumber;
     public EditText etProductCat;
     public static String productCat, productSub, branchName, branchCode = null, segment, countOfBirth, districtOfBirth, profession,
-            relationship, name, age, photoIdType, photoId, photoIdDate, eTin, fatherName, motherName, spouseName,
-            companyName, designation, noYrsInCureentJob, presentAddress, permanentAddress, mobileNumber, validPhoto, photoType, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
+            relationship, name, age, photoIdType, titleName, titleF, titleM, titleS, eTin, fatherName, motherName, spouseName,
+            designation, presentAddress, permanentAddress, mobileNumber, validPhoto, preCity = "", prePoliceStation = "", perCity = "", perPoliceStation = "";
 
     public static int productTypeCode = 0, photoIdcode = 0, productSubCatCode = 0;
     private LinearLayout llAddress, llRelationship;
@@ -164,6 +151,11 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         etPermanentAddress = view.findViewById(R.id.input_permanent_address);
         etMobileNumber = view.findViewById(R.id.input_mobile_no);
         etDob = view.findViewById(R.id.input_date_of_birth);
+        etTitleName = view.findViewById(R.id.et_title_name);
+        etTitlefName = view.findViewById(R.id.et_title_f_name);
+        etTitlemName = view.findViewById(R.id.et_title_m_name);
+        etTitlesName = view.findViewById(R.id.et_title_s_name);
+
         etProductCat = view.findViewById(R.id.et_product_cat);
         tvPhotoIdNo = view.findViewById(R.id.tv_photo_id_no);
         llAddress = (LinearLayout) view.findViewById(R.id.ll_address);
@@ -178,7 +170,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         listCarloan = new ArrayList<String>();
         listHomeloan = new ArrayList<String>();
         listPersonalloan = new ArrayList<String>();
-        listValidphoto = new ArrayList<String>();
+
 
         listCarloan.addAll(localSetting.getProductSubCategorystring(9));
         listHomeloan.addAll(localSetting.getProductSubCategorystring(8));
@@ -189,7 +181,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerSub = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_product_detail);
         spinnerBranchName = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_branch);
         spinnerSegment = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_segment);
-        spinnerDistOfBirth =view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
+        spinnerDistOfBirth = view.findViewById(R.id.awe_spinner_prospect_stage_district_of_birth);
         spinnerCountOfBirth = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_country_of_birth);
         spinnerProfession = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_profession);
         spinnerRelationship = (AwesomeSpinner) view.findViewById(R.id.awe_spinner_prospect_stage_relation_with_applicant);
@@ -507,6 +499,32 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             }
         });
 
+
+        etTitleName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleName = String.valueOf(etTitleName.getAdapter().getItem(i));
+            }
+        });
+        etTitlefName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleF = String.valueOf(etTitlefName.getAdapter().getItem(i));
+            }
+        });
+        etTitlemName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleM = String.valueOf(etTitlemName.getAdapter().getItem(i));
+            }
+        });
+        etTitlesName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleS = String.valueOf(etTitlesName.getAdapter().getItem(i));
+            }
+        });
+
         rgExList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -584,6 +602,22 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerDistOfBirth.setAdapter(disBirthAdapter);
         spinnerDistOfBirth.setThreshold(1);
 
+        ArrayAdapter<String> titleNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAllTitle());
+        etTitleName.setAdapter(titleNameAdapter);
+        etTitleName.setThreshold(1);
+
+        ArrayAdapter<String> titlefNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAllTitle());
+        etTitlefName.setAdapter(titlefNameAdapter);
+        etTitlefName.setThreshold(1);
+
+        ArrayAdapter<String> titlemNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAllTitle());
+        etTitlemName.setAdapter(titlemNameAdapter);
+        etTitlemName.setThreshold(1);
+
+        ArrayAdapter<String> titlesNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getAllTitle());
+        etTitlesName.setAdapter(titlesNameAdapter);
+        etTitlesName.setThreshold(1);
+
         ArrayAdapter<String> disCountryAdater = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, localSetting.getCountryString());
         spinnerCountOfBirth.setAdapter(disCountryAdater);
 
@@ -597,7 +631,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
         spinnerValidPhoto.setAdapter(validPhotoIdAdapter);
         try {
             spinnerCountOfBirth.setSelection(disCountryAdater.getPosition("Bangladesh"));
-            countOfBirth="Bangladesh";
+            countOfBirth = "Bangladesh";
         } catch (IllegalStateException er) {
         }
         if (getArguments() != null) {
@@ -611,6 +645,17 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etMobileNumber.setText(myNewLead.getPhone());
             etCompanyName.setText(myNewLead.getOrganization());
             etNoYrsInCurrentJob.setText(myNewLead.getCurrentJob());
+
+            etTitleName.setText(myNewLead.getTitleName());
+            etTitlefName.setText(myNewLead.getTitlefName());
+            etTitlemName.setText(myNewLead.getTitlemName());
+            etTitlesName.setText(myNewLead.getTitlesName());
+
+            titleName = myNewLead.getTitleName();
+            titleF = myNewLead.getTitlefName();
+            titleM = myNewLead.getTitlemName();
+            titleS = myNewLead.getTitlesName();
+
 
             if (myNewLead.getExceptionList() == 0) {
                 exception = 0;
@@ -631,8 +676,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
                     long timeinMIlis = DateUtils.getDateStringtoTimeInMinlis(dateOfBirth);
                     etAge.setText(MasumCommonUtils.calcutateAge(timeinMIlis));
                 }
-            }
-            catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
             }
 
@@ -642,7 +686,7 @@ public class ProspectStageProductAndCustomerDetailsFragment extends Fragment {
             etSpouseName.setText(myNewLead.getsName());
             etPhotoIdDate.setText(DateUtils.getDateFormateEt(myNewLead.getpIssueDate()));
             if (!MasumCommonUtils.isNullStr(myNewLead.getDob())) {
-                districtOfBirth=myNewLead.getDob();
+                districtOfBirth = myNewLead.getDob();
                 spinnerDistOfBirth.setText(myNewLead.getDob());
             }
             if (!MasumCommonUtils.isNullStr(myNewLead.getCob()))

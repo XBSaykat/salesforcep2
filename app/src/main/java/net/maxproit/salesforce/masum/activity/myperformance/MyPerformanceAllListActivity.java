@@ -114,14 +114,13 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
 
     private void callProspectData(String id, String random) {
         showProgressDialog();
-        getApiService().getNewProspect(id, random).enqueue(new Callback<OldProspect>() {
+        getApiService().getRbmDataByRef(id, random).enqueue(new Callback<OldProspect>() {
             @Override
             public void onResponse(Call<OldProspect> call, Response<OldProspect> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getCode().equals("200")) {
                         if (response.body().getData() != null) {
                             hideProgressDialog();
-
                             OldProspect oldProspect = response.body();
                             MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
                             ActivityUtils.invokProspectRbmViewStage(MyPerformanceAllListActivity.this, myNewProspect,null);

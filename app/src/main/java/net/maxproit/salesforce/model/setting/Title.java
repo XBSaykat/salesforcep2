@@ -50,5 +50,4 @@ public class Title {
     public void setTitleName(String titleName) {
         this.titleName = titleName;
     }
-
 }

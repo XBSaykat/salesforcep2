@@ -54,9 +54,9 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
     private MyLeadDbController myLeadDbController;
     private ArrayList<MyNewLead> myNewLeadArrayList;
     private AwesomeSpinner spinnerBranchName, spinnerProfession, spinnerPoliceStation;
-    private AutoCompleteTextView spinnerCity;
+    private AutoCompleteTextView spinnerCity, etTitle;
     public static EditText etUserName, etUserOrganization, etDesignattion, etPhone, etAddress;
-    public static String profession = "", branchName = "", branchCode = "", city = "", policeStation = "";
+    public static String profession = "", branchName = "", branchCode = "", city = "", titleName = "", policeStation = "";
     private List<String> listPs = null;
     private List<String> listProfessionArray = null;
     private SpinnerDbController spinnerDbController;
@@ -202,6 +202,13 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
             }
         });
 
+        etTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                titleName = String.valueOf(etTitle.getAdapter().getItem(i));
+            }
+        });
+
 
         spinnerPoliceStation.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
             @Override
@@ -224,6 +231,7 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
         etDesignattion = rootView.findViewById(R.id.et_lead_designation);
         etPhone = rootView.findViewById(R.id.et_lead_phone);
         etAddress = rootView.findViewById(R.id.et_lead_address);
+        etTitle = rootView.findViewById(R.id.et_title);
 
         cbExist = rootView.findViewById(R.id.cb_exist);
         etChif = rootView.findViewById(R.id.etChif);
@@ -297,6 +305,12 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getCityStringList());
         spinnerCity.setAdapter(cityAdapter);
         spinnerCity.setThreshold(1);
+
+        ArrayAdapter<String> titleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mLocalSettting.getAllTitle());
+        etTitle.setAdapter(titleAdapter);
+        etTitle.setThreshold(1);
+
+
         if (getArguments() != null) {
             int status = getArguments().getInt(AppConstant.STATUS_INTENT_KEY);
 
@@ -367,6 +381,11 @@ public class LeadStageBasicInformationFragment extends BaseFragment {
                         } catch (final IllegalStateException ignored) {
                         } catch (NullPointerException e) {
                         }
+                    }
+
+                    if (!MasumCommonUtils.isNullStr(myNewLead.getTitleName())) {
+                        etTitle.setText(myNewLead.getTitleName());
+                        titleName = myNewLead.getTitleName();
                     }
                     if (!MasumCommonUtils.isNullStr(myNewLead.getProfession())) {
                         try {

@@ -64,7 +64,7 @@ public class ProspectStageActivity extends BaseActivity {
             companyName = null, designation = null, noYrsInCureentJob = null, presentAddress = null, permanentAddress = null, mobileNumber = null, brandName = null, year = null, country = null, vehicleType = null, securityValue = null, loanRequired = null, loanTerm = null, proposedInterest = null,
             fee = null, dateOfBirth = null, photoIdType = null, presentCity = null, presentPs = null, permanentCity = null, permanentPs = null, rmCode, monthlyNetSalaryType = null, businessIncome = null, monthlySalaryAmount = null, monthlyBusinessIncome = null, semiPakaIncome = null,
             officeIncome = null, wireHouseIncome = null, apartmentIncome = null, agriculturalIncome = null, practiceConsultancyTution = null, remittance = null, interestIncome = null,
-            monthlyFamilyExpenditure = null, emiOfOtherLoans = null, validateString = null;
+            monthlyFamilyExpenditure = null, emiOfOtherLoans = null, validateString = null, titleName, titlefName = null, titlemName = null, titlesName = null;
 
 
     private TextView buttonSave, btnProceed, btnReject;
@@ -146,8 +146,8 @@ public class ProspectStageActivity extends BaseActivity {
                     return;
                 }
 
-                if (!isNetworkAvailable()){
-                    showAlertDialog(getString(R.string.error_text),getString(R.string.proceed_unavailable));
+                if (!isNetworkAvailable()) {
+                    showAlertDialog(getString(R.string.error_text), getString(R.string.proceed_unavailable));
                     return;
                 }
                 alertDialogProceed();
@@ -158,9 +158,9 @@ public class ProspectStageActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 getGpsLocation();
-                if (getltd()==0 && getLng()==0){
+                if (getltd() == 0 && getLng() == 0) {
                     showAlertDialog(getString(R.string.reqired_txt), getString(R.string.enable_location));
-                    return ;
+                    return;
                 }
                 if (!isValid()) {
                     return;
@@ -172,7 +172,7 @@ public class ProspectStageActivity extends BaseActivity {
 
 
         btnReject.setOnClickListener(view -> {
-                alertDialog(getDataFromProspect().getId());
+            alertDialog(getDataFromProspect().getId());
 
         });
 
@@ -250,6 +250,11 @@ public class ProspectStageActivity extends BaseActivity {
         permanentCity = ProspectStageProductAndCustomerDetailsFragment.perCity;
         permanentPs = ProspectStageProductAndCustomerDetailsFragment.perPoliceStation;
         exceptionListValue = ProspectStageProductAndCustomerDetailsFragment.exception;
+
+        titleName = ProspectStageProductAndCustomerDetailsFragment.titleName;
+        titlefName = ProspectStageProductAndCustomerDetailsFragment.titleF;
+        titlemName = ProspectStageProductAndCustomerDetailsFragment.titleM;
+        titlesName = ProspectStageProductAndCustomerDetailsFragment.titleS;
 
 
         brandName = ProspectStageLoanAndSecurityDetailFragment.brandName;
@@ -419,6 +424,11 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setManufacturingNameId(ProspectStageLoanAndSecurityDetailFragment.manufactureNameID);
                 myNewProspect.setExceptionList(exceptionListValue);
 
+                myNewProspect.setTitleName(titleName);
+                myNewProspect.setTitlefName(titlefName);
+                myNewProspect.setTitlemName(titlemName);
+                myNewProspect.setTitlesName(titlesName);
+
 
                 try {
                     if (ProspectStageProductAndCustomerDetailsFragment.branchCode != null)
@@ -487,9 +497,8 @@ public class ProspectStageActivity extends BaseActivity {
                             }
                         }
                     });
-                }
-                else {
-                    showAlertDialog(getString(R.string.error_text),getString(R.string.internet_not_available));
+                } else {
+                    showAlertDialog(getString(R.string.error_text), getString(R.string.internet_not_available));
                 }
             }
 
@@ -573,6 +582,10 @@ public class ProspectStageActivity extends BaseActivity {
                 myNewProspect.setPresAddressPs(presentPs);
                 myNewProspect.setPermAddressCity(permanentCity);
                 myNewProspect.setPermAddressPs(permanentPs);
+                myNewProspect.setTitleName(titleName);
+                myNewProspect.setTitlefName(titlefName);
+                myNewProspect.setTitlemName(titlemName);
+                myNewProspect.setTitlesName(titlesName);
 
                 NewProspectUpdate newProspectUpdate = new NewProspectUpdate();
                 newProspectUpdate.getPRospectDAtaForPostAPi(myNewProspect);

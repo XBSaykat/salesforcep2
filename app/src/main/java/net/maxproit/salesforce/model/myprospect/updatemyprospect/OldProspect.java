@@ -141,6 +141,12 @@ public class OldProspect {
         myNewProspect.setAssetTypeId(data.getAssetTypeId());
         myNewProspect.setManufacturingYear(data.getManufacturingYear());
         myNewProspect.setManufacturingCountry(data.getManufacturingCountry());
+
+        myNewProspect.setTitleName(data.getCustomerTitle());
+        myNewProspect.setTitlefName(data.getFatherTitle());
+        myNewProspect.setTitlemName(data.getMotherTitle());
+        myNewProspect.setTitlesName(data.getSpouseTitle());
+
         List<net.maxproit.salesforce.masum.model.local.CoApplicant> coApplicantList = new ArrayList<>();
         if (!data.getCoApplicants().isEmpty()) {
 
@@ -186,6 +192,12 @@ public class OldProspect {
                 coApplicant.setsName(data.getCoApplicants().get(i).getSpouseName());
                 coApplicant.setRemittance(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getRemittanceIncome()));
                 coApplicant.setMonthTuitionIncomeAmount(MasumCommonUtils.isNotZero(data.getCoApplicants().get(i).getTutionIncome()));
+
+                //title
+                coApplicant.setTitleName(data.getCoApplicants().get(i).getCustomerTitle());
+                coApplicant.setTitlefName(data.getCoApplicants().get(i).getFatherTitle());
+                coApplicant.setTitlemName(data.getCoApplicants().get(i).getMotherTitle());
+                coApplicant.setTitlesName(data.getCoApplicants().get(i).getSpouseTitle());
                 coApplicantList.add(coApplicant);
             }
 

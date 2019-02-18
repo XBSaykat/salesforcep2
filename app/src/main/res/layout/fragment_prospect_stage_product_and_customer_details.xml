@@ -179,17 +179,33 @@
                     android:drawableRight="@drawable/ic_required"
                     android:text="Name" />
 
-                <EditText
-                    android:id="@+id/input_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:focusedByDefault="false"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/et_title_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:hint="title" />
+
+                    <EditText
+                        android:id="@+id/input_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:focusable="true"
+                        android:focusedByDefault="false"
+                        android:hint="full name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -447,15 +463,32 @@
                     android:drawableRight="@drawable/ic_required"
                     android:text="Father's Name" />
 
-                <EditText
-                    android:id="@+id/input_father_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/et_title_f_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:hint=" title" />
+
+                    <EditText
+                        android:id="@+id/input_father_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:hint="full name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text=""
+
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -471,16 +504,33 @@
                     android:drawableRight="@drawable/ic_required"
                     android:text="Mother's Name" />
 
-                <EditText
-                    android:id="@+id/input_mother_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/et_title_m_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:hint="title" />
+
+                    <EditText
+                        android:id="@+id/input_mother_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:focusable="true"
+                        android:hint="full name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text=""
+
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -495,16 +545,33 @@
                     android:layout_height="wrap_content"
                     android:text="Spouse Name" />
 
-                <EditText
-                    android:id="@+id/input_spouse_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/et_title_s_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:hint="title" />
+
+                    <EditText
+                        android:id="@+id/input_spouse_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:focusable="true"
+                        android:hint="full name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text=""
+
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

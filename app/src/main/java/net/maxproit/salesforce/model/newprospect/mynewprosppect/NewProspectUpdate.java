@@ -214,6 +214,59 @@ public class NewProspectUpdate {
     @Expose
     private Integer exceptionList;
 
+    @SerializedName("spouseTitle")
+    @Expose
+    private String spouseTitle;
+    @SerializedName("motherTitle")
+    @Expose
+    private String motherTitle;
+    @SerializedName("fatherTitle")
+    @Expose
+    private String fatherTitle;
+    @SerializedName("customerTitle")
+    @Expose
+    private String customerTitle;
+
+    public String geteTin() {
+        return eTin;
+    }
+
+    public void seteTin(String eTin) {
+        this.eTin = eTin;
+    }
+
+    public String getSpouseTitle() {
+        return spouseTitle;
+    }
+
+    public void setSpouseTitle(String spouseTitle) {
+        this.spouseTitle = spouseTitle;
+    }
+
+    public String getMotherTitle() {
+        return motherTitle;
+    }
+
+    public void setMotherTitle(String motherTitle) {
+        this.motherTitle = motherTitle;
+    }
+
+    public String getFatherTitle() {
+        return fatherTitle;
+    }
+
+    public void setFatherTitle(String fatherTitle) {
+        this.fatherTitle = fatherTitle;
+    }
+
+    public String getCustomerTitle() {
+        return customerTitle;
+    }
+
+    public void setCustomerTitle(String customerTitle) {
+        this.customerTitle = customerTitle;
+    }
+
     public Integer getExceptionList() {
         return exceptionList;
     }
@@ -826,6 +879,12 @@ public class NewProspectUpdate {
             coApplicant.setRelationshipWithApplicant(coApplicanLocalList.get(i).getRelationWithApplicant());
             coApplicant.setSpouseName(coApplicanLocalList.get(i).getsName());
 
+            //title
+            coApplicant.setCustomerTitle(coApplicanLocalList.get(i).getTitleName());
+            coApplicant.setFatherTitle(coApplicanLocalList.get(i).getTitlefName());
+            coApplicant.setMotherTitle(coApplicanLocalList.get(i).getTitlemName());
+            coApplicant.setSpouseTitle(coApplicanLocalList.get(i).getTitlesName());
+
             coApplicantsList.add(coApplicant);
         }
 
@@ -999,6 +1058,11 @@ public class NewProspectUpdate {
         setProductSubCategoryId(myNewProspect.getSubCode());
         setProfession(myNewProspect.getProfession());
         setRelationshipWithApplicant(myNewProspect.getApplicant());
+
+        setCustomerTitle(myNewProspect.getTitleName());
+        setFatherTitle(myNewProspect.getTitlefName());
+        setMotherTitle(myNewProspect.getTitlemName());
+        setSpouseTitle(myNewProspect.getTitlesName());
 
         setSpouseName(myNewProspect.getsName());
         setUserName(myNewProspect.getUserID());

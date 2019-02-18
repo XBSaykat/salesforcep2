@@ -2,6 +2,7 @@
 package net.maxproit.salesforce.model.setting;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -89,6 +90,7 @@ public class Data {
         this.clientType = clientType;
     }
 
+
     @SerializedName("profession")
     @Expose
     private List<Profession> profession = null;
@@ -96,6 +98,7 @@ public class Data {
     public List<Profession> getProfession() {
         return profession;
     }
+
     @SerializedName("manufacturerNames")
     @Expose
     private List<ManufacturerName> manufacturerNames = null;
@@ -107,6 +110,7 @@ public class Data {
     public void setManufacturerNames(List<ManufacturerName> manufacturerNames) {
         this.manufacturerNames = manufacturerNames;
     }
+
     public void setProfession(List<Profession> profession) {
         this.profession = profession;
     }
@@ -146,6 +150,7 @@ public class Data {
     public void setProductSubCategory(List<ProductSubCategory> productSubCategory) {
         this.productSubCategory = productSubCategory;
     }
+
     @SerializedName("segments")
     @Expose
     private List<Segment> segments = null;
@@ -169,6 +174,7 @@ public class Data {
     public void setSourceOfReference(List<SourceOfReference> sourceOfReference) {
         this.sourceOfReference = sourceOfReference;
     }
+
     @SerializedName("netSalaryTypes")
     @Expose
     private List<NetSalaryType> netSalaryTypes = null;

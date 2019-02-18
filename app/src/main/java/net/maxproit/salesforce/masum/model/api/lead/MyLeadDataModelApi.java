@@ -27,6 +27,9 @@ public class MyLeadDataModelApi {
     @SerializedName("customerId")
     @Expose
     private Integer customerId;
+    @SerializedName("customerTitle")
+    @Expose
+    private String customerTitle;
     @SerializedName("profession")
     @Expose
     private String profession;
@@ -107,7 +110,13 @@ public class MyLeadDataModelApi {
     public void setBranchCode(Integer branchCode) {
         this.branchCode = branchCode;
     }
+    public String getCustomerTitle() {
+        return customerTitle;
+    }
 
+    public void setCustomerTitle(String customerTitle) {
+        this.customerTitle = customerTitle;
+    }
     public String getCity() {
         return city;
     }

@@ -424,8 +424,7 @@ public class ProspectViewRbm extends BaseActivity {
             prospectListData = (Data) extraDetail.getSerializable(AppConstant.PROSPECT_RBM_LIST_DATA_INTENT_KEY);
 
             if (prospectListData==null){
-                tvCifInfo.setVisibility(View.GONE);
-                tvRuleInfo.setVisibility(View.GONE);
+
                 tvApproval.setVisibility(View.GONE);
                 tvReject.setVisibility(View.GONE);
                 tvReturn.setVisibility(View.GONE);

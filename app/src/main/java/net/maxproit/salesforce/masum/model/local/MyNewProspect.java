@@ -19,7 +19,7 @@ public class MyNewProspect extends MyNewLead implements Serializable {
     private int branchCode, assetTypeId, manufacturingNameId, contactId, permAddressId, presAddressId;
     private String manufacturingName, manufacturingCountry,
             manufacturingYear, assetType, PermAddressCity, PermAddressPs,
-            PresAddressCity, PresAddressPs, brandName;
+            PresAddressCity, PresAddressPs, brandName,titlefName,titlemName,titlesName;
 
     public List<CoApplicant> getCoApplicantList() {
         return coApplicantList;
@@ -50,6 +50,30 @@ public class MyNewProspect extends MyNewLead implements Serializable {
 
     public MyNewProspect() {
 
+    }
+
+    public String getTitlefName() {
+        return titlefName;
+    }
+
+    public void setTitlefName(String titlefName) {
+        this.titlefName = titlefName;
+    }
+
+    public String getTitlemName() {
+        return titlemName;
+    }
+
+    public void setTitlemName(String titlemName) {
+        this.titlemName = titlemName;
+    }
+
+    public String getTitlesName() {
+        return titlesName;
+    }
+
+    public void setTitlesName(String titlesName) {
+        this.titlesName = titlesName;
     }
 
     public int getExceptionList() {

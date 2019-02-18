@@ -107,7 +107,7 @@ public class CoApplicantActivity extends BaseActivity {
                         monthBusinessIncomeAmount, monthWareHouseAmount, monthOfficeSpaceIncomeAmount,
                         monthSemipakaIncomeAmount, monthApartmentIncomeAmount, monthAgricultureIncomeAmount,
                         monthTuitionIncomeAmount, remittance, interestFDRIncomeAmount, monthFamilyExpenditure,
-                        emiOfOtherLoans;
+                        emiOfOtherLoans, titleName, titlefName, titlemName, titlesName;
                 int exList;
                 AppPreference.getInstance(getActivity()).setBoolean(PrefKey.IS_LOADED, true);
                 name = CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString();
@@ -135,6 +135,10 @@ public class CoApplicantActivity extends BaseActivity {
                 prePs = CoApplicantProductAndCustomerDetailsFragment.prePoliceStation;
                 perCity = CoApplicantProductAndCustomerDetailsFragment.spinnerPerCity.getText().toString();
                 perPs = CoApplicantProductAndCustomerDetailsFragment.perPoliceStation;
+                titleName = CoApplicantProductAndCustomerDetailsFragment.etTitleName.getText().toString();
+                titlefName = CoApplicantProductAndCustomerDetailsFragment.etTitlefName.getText().toString();
+                titlemName = CoApplicantProductAndCustomerDetailsFragment.etTitlemName.getText().toString();
+                titlesName = CoApplicantProductAndCustomerDetailsFragment.etTitlesName.getText().toString();
 
                 monthSalaryType = CoApplicantFinancialFragment.monthlyNetSalary;
                 monthSalaryAmount = CoApplicantFinancialFragment.etMonthlySalaryAmount.getText().toString();
@@ -152,29 +156,10 @@ public class CoApplicantActivity extends BaseActivity {
 
                 // validation needed
 
-                if (!isValid()){
+                if (!isValid()) {
                     return;
                 }
 
-//                if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) || MasumCommonUtils.isNullStr(name) ||
-//                        MasumCommonUtils.isNullStr(dateOfBirth) || MasumCommonUtils.isNullStr(districtOfBirth) || MasumCommonUtils.isNullStr(countryOfBirth)
-//                        || MasumCommonUtils.isNullStr(photoIdType) || MasumCommonUtils.isNullStr(photoIdNo)
-//                        || MasumCommonUtils.isNullStr(fName) || MasumCommonUtils.isNullStr(mName) || MasumCommonUtils.isNullStr(profession)
-//                        || MasumCommonUtils.isNullStr(relationWithApplicant) || MasumCommonUtils.isNullStr(mobileNo) || MasumCommonUtils.isNullStr(perCity)
-//                        || MasumCommonUtils.isNullStr(preCity) || MasumCommonUtils.isNullStr(perPs) || MasumCommonUtils.isNullStr(prePs)) {
-//                    showAlertDialog("Error", "Enter required values");
-//                    return;
-//                }
-
-//                if (dateOfBirth.isEmpty()){
-//                    showAlertDialog("Error", "Enter date of birth");
-//                    return;
-//                }
-//
-//                if (photoIdIssueDate.isEmpty()){
-//                    showAlertDialog("Error", "Enter photo issue date");
-//                    return;
-//                }
 
                 CoApplicant coApplicant = new CoApplicant(leadId, name, dateOfBirth, age, districtOfBirth, countryOfBirth, photoIdType, photoIdNo,
                         photoIdIssueDate, eTin, fName, mName, sName, profession, exList, companyName,
@@ -190,6 +175,11 @@ public class CoApplicantActivity extends BaseActivity {
                 coApplicant.setPermanentAddressCity(perCity);
                 coApplicant.setPermanentAddressPS(perPs);
                 coApplicant.setPhotoIdCode(CoApplicantProductAndCustomerDetailsFragment.photoIdcode);
+
+                coApplicant.setTitleName(titleName);
+                coApplicant.setTitlefName(titlefName);
+                coApplicant.setTitlemName(titlemName);
+                coApplicant.setTitlesName(titlesName);
 
 
                 int update = 0;
@@ -311,7 +301,7 @@ public class CoApplicantActivity extends BaseActivity {
     }
 
     private boolean isValid() {
-        boolean validation=true;
+        boolean validation = true;
 //        if (MasumCommonUtils.isNullStr(permanentAddress) || MasumCommonUtils.isNullStr(presentAddress) ||
 //                MasumCommonUtils.isNullStr(segment) || MasumCommonUtils.isNullStr(productCat) || MasumCommonUtils.isNullStr(productDetails)
 //                || MasumCommonUtils.isNullStr(mybranchName) || MasumCommonUtils.isNullStr(name) || MasumCommonUtils.isNullStr(dateOfBirth)
@@ -326,72 +316,72 @@ public class CoApplicantActivity extends BaseActivity {
 //            validation = true;
 //        }
 
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString())){
-            showAlertDialog("Required","Enter Name");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etName.getText().toString())) {
+            showAlertDialog("Required", "Enter Name");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etDateOfBirth.getText().toString())){
-            showAlertDialog("Required","Enter Date of Birth");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etDateOfBirth.getText().toString())) {
+            showAlertDialog("Required", "Enter Date of Birth");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.districtOfBirth)){
-            showAlertDialog("Required","Enter District of Birth");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.districtOfBirth)) {
+            showAlertDialog("Required", "Enter District of Birth");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.countOfBirth)){
-            showAlertDialog("Required","Enter Country of Birth");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.countOfBirth)) {
+            showAlertDialog("Required", "Enter Country of Birth");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(String.valueOf(CoApplicantProductAndCustomerDetailsFragment.photoIdcode))){
-            showAlertDialog("Required","Enter Photo ID type");
+        if (MasumCommonUtils.isNullStr(String.valueOf(CoApplicantProductAndCustomerDetailsFragment.photoIdcode))) {
+            showAlertDialog("Required", "Enter Photo ID type");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPhotoId.getText().toString())){
-            showAlertDialog("Required","Enter Photo ID No.");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPhotoId.getText().toString())) {
+            showAlertDialog("Required", "Enter Photo ID No.");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etFatherName.getText().toString())){
-            showAlertDialog("Required","Enter Father Name");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etFatherName.getText().toString())) {
+            showAlertDialog("Required", "Enter Father Name");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etMotherName.getText().toString())){
-            showAlertDialog("Required","Enter Mother Name");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etMotherName.getText().toString())) {
+            showAlertDialog("Required", "Enter Mother Name");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.profession)){
-            showAlertDialog("Required","Enter Profession");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.profession)) {
+            showAlertDialog("Required", "Enter Profession");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.relationship)){
-            showAlertDialog("Required","Enter Relationship with Applicant");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.relationship)) {
+            showAlertDialog("Required", "Enter Relationship with Applicant");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString())){
-            showAlertDialog("Required","Enter Permanent Address");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPermanentAddress.getText().toString())) {
+            showAlertDialog("Required", "Enter Permanent Address");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.spinnerPerCity.getText().toString())){
-            showAlertDialog("Required","Enter Permanent City");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.spinnerPerCity.getText().toString())) {
+            showAlertDialog("Required", "Enter Permanent City");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.perPoliceStation)){
-            showAlertDialog("Required","Enter Permanent Police Station");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.perPoliceStation)) {
+            showAlertDialog("Required", "Enter Permanent Police Station");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPresentAddress.getText().toString())){
-            showAlertDialog("Required","Enter Present Address");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etPresentAddress.getText().toString())) {
+            showAlertDialog("Required", "Enter Present Address");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.spinnerPreCity.getText().toString())){
-            showAlertDialog("Required","Enter Present City");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.spinnerPreCity.getText().toString())) {
+            showAlertDialog("Required", "Enter Present City");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.prePoliceStation)){
-            showAlertDialog("Required","Enter Present Police Station");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.prePoliceStation)) {
+            showAlertDialog("Required", "Enter Present Police Station");
             return false;
         }
-        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString())){
-            showAlertDialog("Required","Enter Mobile Number");
+        if (MasumCommonUtils.isNullStr(CoApplicantProductAndCustomerDetailsFragment.etMobileNumber.getText().toString())) {
+            showAlertDialog("Required", "Enter Mobile Number");
             return false;
         }
 

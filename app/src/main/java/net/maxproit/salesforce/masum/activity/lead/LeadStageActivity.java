@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -348,7 +349,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         myLeadApi.setProduct(productType);
         myLeadApi.setProductSubCategoryId(LeadStageLoanDetailFragment.productSubCatCode);
         myLeadApi.setProductSubCategory(subCat);
-        if (loanAmount != null)
+        myLeadApi.setCustomerTitle(leadStageBasicInformationFragment.titleName);
+        if (!MasumCommonUtils.isNullStr(loanAmount))
             try {
                 myLeadApi.setLoanAmount(Double.valueOf(loanAmount.replace(",", "")));
             } catch (NumberFormatException e) {
@@ -356,7 +358,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             }
         else
             myLeadApi.setLoanAmount(0.0);
-        if (interest != null)
+        if (!MasumCommonUtils.isNullStr(interest))
             try {
                 myLeadApi.setOfferedInterestRate((Double) Double.valueOf(interest));
             } catch (NumberFormatException e) {
@@ -364,7 +366,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
             }
         else
             myLeadApi.setOfferedInterestRate(0.0);
-        if (fee != null)
+        if (!MasumCommonUtils.isNullStr(fee))
             try {
                 myLeadApi.setOfferedProcessFee((Double) Double.valueOf(fee));
             } catch (NumberFormatException e) {
@@ -515,6 +517,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
 
     private void saveActivityDatatoLead(int journalId, MyLeadDataModelApi myLeadDataModelApi) {
+        Log.e("model", toJson(myLeadDataModelApi));
         getApiService().createMyLead(myLeadDataModelApi).enqueue(new Callback<MyOldLeadApi>() {
             @Override
             public void onResponse(Call<MyOldLeadApi> call, Response<MyOldLeadApi> response) {

@@ -25,6 +25,9 @@ public class Data implements Serializable {
     @SerializedName("customerName")
     @Expose
     private String customerName;
+    @SerializedName("customerTitle")
+    @Expose
+    private String customerTitle;
     @SerializedName("designation")
     @Expose
     private String designation;
@@ -100,6 +103,16 @@ public class Data implements Serializable {
     @SerializedName("ps")
     @Expose
     private String ps;
+
+
+
+    public String getCustomerTitle() {
+        return customerTitle;
+    }
+
+    public void setCustomerTitle(String customerTitle) {
+        this.customerTitle = customerTitle;
+    }
 
     public String getCity() {
         return city;

@@ -203,6 +203,7 @@ public class MyLeadActivity extends BaseActivity {
                                 myNewLead.setUserCode(data.getRmCode());
                                 myNewLead.setPs(data.getPs());
                                 myNewLead.setCity(data.getCity());
+                                myNewLead.setTitleName(data.getCustomerTitle());
                                 ActivityUtils.invokLeadDetailForLeadStage(MyLeadActivity.this, myNewLead);
                                 if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.DONUT) {
                                     overridePendingTransition(R.anim.fadein, R.anim.fadeout);
