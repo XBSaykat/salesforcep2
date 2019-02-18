@@ -14,16 +14,16 @@ public class CoApplicant {
 
     @SerializedName("agriculturalIncome")
     @Expose
-    private Integer agriculturalIncome;
+    private double agriculturalIncome;
     @SerializedName("apartmentIncome")
     @Expose
-    private Integer apartmentIncome;
+    private double apartmentIncome;
     @SerializedName("businessIncome")
     @Expose
-    private Integer businessIncome;
+    private double businessIncome;
     @SerializedName("commercialSpaceIncome")
     @Expose
-    private Integer commercialSpaceIncome;
+    private double commercialSpaceIncome;
     @SerializedName("company")
     @Expose
     private String company;
@@ -60,7 +60,7 @@ public class CoApplicant {
     private String eTin;
     @SerializedName("factoryIncome")
     @Expose
-    private Integer factoryIncome;
+    private double factoryIncome;
     @SerializedName("fatherName")
     @Expose
     private String fatherName;
@@ -69,7 +69,7 @@ public class CoApplicant {
     private String fatherTitle;
     @SerializedName("interestIncomeOfFDR")
     @Expose
-    private Integer interestIncomeOfFDR;
+    private double interestIncomeOfFDR;
     @SerializedName("mobile")
     @Expose
     private String mobile;
@@ -81,7 +81,7 @@ public class CoApplicant {
     private String motherTitle;
     @SerializedName("netSalary")
     @Expose
-    private Integer netSalary;
+    private double netSalary;
     @SerializedName("netSalaryType")
     @Expose
     private String netSalaryType;
@@ -126,10 +126,10 @@ public class CoApplicant {
     private String relationshipWithApplicant;
     @SerializedName("remittanceIncome")
     @Expose
-    private Integer remittanceIncome;
+    private double remittanceIncome;
     @SerializedName("semipakaIncome")
     @Expose
-    private Integer semipakaIncome;
+    private double semipakaIncome;
     @SerializedName("spouseName")
     @Expose
     private String spouseName;
@@ -139,7 +139,7 @@ public class CoApplicant {
     private String spouseTitle;
     @SerializedName("tutionIncome")
     @Expose
-    private Integer tutionIncome;
+    private double tutionIncome;
     @SerializedName("mobileNoId")
     @Expose
     private Integer mobileNoId;
@@ -203,35 +203,35 @@ public class CoApplicant {
         this.mobileNoId = mobileNoId;
     }
 
-    public Integer getAgriculturalIncome() {
+    public double getAgriculturalIncome() {
         return agriculturalIncome;
     }
 
-    public void setAgriculturalIncome(Integer agriculturalIncome) {
+    public void setAgriculturalIncome(double agriculturalIncome) {
         this.agriculturalIncome = agriculturalIncome;
     }
 
-    public Integer getApartmentIncome() {
+    public double getApartmentIncome() {
         return apartmentIncome;
     }
 
-    public void setApartmentIncome(Integer apartmentIncome) {
+    public void setApartmentIncome(double apartmentIncome) {
         this.apartmentIncome = apartmentIncome;
     }
 
-    public Integer getBusinessIncome() {
+    public double getBusinessIncome() {
         return businessIncome;
     }
 
-    public void setBusinessIncome(Integer businessIncome) {
+    public void setBusinessIncome(double businessIncome) {
         this.businessIncome = businessIncome;
     }
 
-    public Integer getCommercialSpaceIncome() {
+    public double getCommercialSpaceIncome() {
         return commercialSpaceIncome;
     }
 
-    public void setCommercialSpaceIncome(Integer commercialSpaceIncome) {
+    public void setCommercialSpaceIncome(double commercialSpaceIncome) {
         this.commercialSpaceIncome = commercialSpaceIncome;
     }
 
@@ -315,11 +315,11 @@ public class CoApplicant {
         this.eTin = eTin;
     }
 
-    public Integer getFactoryIncome() {
+    public double getFactoryIncome() {
         return factoryIncome;
     }
 
-    public void setFactoryIncome(Integer factoryIncome) {
+    public void setFactoryIncome(double factoryIncome) {
         this.factoryIncome = factoryIncome;
     }
 
@@ -331,11 +331,11 @@ public class CoApplicant {
         this.fatherName = fatherName;
     }
 
-    public Integer getInterestIncomeOfFDR() {
+    public double getInterestIncomeOfFDR() {
         return interestIncomeOfFDR;
     }
 
-    public void setInterestIncomeOfFDR(Integer interestIncomeOfFDR) {
+    public void setInterestIncomeOfFDR(double interestIncomeOfFDR) {
         this.interestIncomeOfFDR = interestIncomeOfFDR;
     }
 
@@ -355,11 +355,11 @@ public class CoApplicant {
         this.motherName = motherName;
     }
 
-    public Integer getNetSalary() {
+    public double getNetSalary() {
         return netSalary;
     }
 
-    public void setNetSalary(Integer netSalary) {
+    public void setNetSalary(double netSalary) {
         this.netSalary = netSalary;
     }
 
@@ -475,19 +475,19 @@ public class CoApplicant {
         this.relationshipWithApplicant = relationshipWithApplicant;
     }
 
-    public Integer getRemittanceIncome() {
+    public double getRemittanceIncome() {
         return remittanceIncome;
     }
 
-    public void setRemittanceIncome(Integer remittanceIncome) {
+    public void setRemittanceIncome(double remittanceIncome) {
         this.remittanceIncome = remittanceIncome;
     }
 
-    public Integer getSemipakaIncome() {
+    public double getSemipakaIncome() {
         return semipakaIncome;
     }
 
-    public void setSemipakaIncome(Integer semipakaIncome) {
+    public void setSemipakaIncome(double semipakaIncome) {
         this.semipakaIncome = semipakaIncome;
     }
 
@@ -499,11 +499,11 @@ public class CoApplicant {
         this.spouseName = spouseName;
     }
 
-    public Integer getTutionIncome() {
+    public double getTutionIncome() {
         return tutionIncome;
     }
 
-    public void setTutionIncome(Integer tutionIncome) {
+    public void setTutionIncome(double tutionIncome) {
         this.tutionIncome = tutionIncome;
     }
 

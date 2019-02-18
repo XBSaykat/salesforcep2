@@ -126,11 +126,9 @@ public class FragmentProspectPendingList extends BaseFragment {
                                 showAlertDialog("Error", "Server Error");
                                 hideLoader();
                             }
-                        }
-                        else if(response.body().getCode().equals("404")){
+                        } else if (response.body().getCode().equals("404")) {
                             showEmptyView();
-                        }
-                        else {
+                        } else {
                             showAlertDialog("Error", response.body().getMessage());
                             hideLoader();
                         }
@@ -148,7 +146,7 @@ public class FragmentProspectPendingList extends BaseFragment {
                     hideLoader();
                 }
             });
-        } else showAlertDialog("Error", "No Internet,please connect to the internet");
+        } else showAlertDialog("Error", getString(R.string.internet_not_available));
     }
 
     @Override

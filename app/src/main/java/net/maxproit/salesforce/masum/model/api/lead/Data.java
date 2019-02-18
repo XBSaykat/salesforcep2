@@ -45,7 +45,7 @@ public class Data implements Serializable {
     private String leadReferenceNo;
     @SerializedName("loanAmount")
     @Expose
-    private Integer loanAmount;
+    private double loanAmount;
     @SerializedName("mobileNumber")
     @Expose
     private String mobileNumber;
@@ -103,7 +103,6 @@ public class Data implements Serializable {
     @SerializedName("ps")
     @Expose
     private String ps;
-
 
 
     public String getCustomerTitle() {
@@ -218,11 +217,11 @@ public class Data implements Serializable {
         this.leadReferenceNo = leadReferenceNo;
     }
 
-    public Integer getLoanAmount() {
+    public double getLoanAmount() {
         return loanAmount;
     }
 
-    public void setLoanAmount(Integer loanAmount) {
+    public void setLoanAmount(double loanAmount) {
         this.loanAmount = loanAmount;
     }
 

@@ -264,7 +264,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             public void afterTextChanged(Editable editable) {
 
                 etLoanAmount.removeTextChangedListener(this);
-                MasumCommonUtils.commaSeperator(etLoanAmount,editable.toString());
+                MasumCommonUtils.commaSeperator(etLoanAmount, editable.toString());
 
                 etLoanAmount.addTextChangedListener(this);
             }
@@ -345,7 +345,7 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
             } else {
                 MyNewLead myNewLead = (MyNewLead) getArguments().getSerializable(AppConstant.INTENT_KEY);
                 if (myNewLead != null) {
-                    MasumCommonUtils.commaSeperator(etLoanAmount,myNewLead.getLoanAmount());
+                    MasumCommonUtils.commaSeperator(etLoanAmount, myNewLead.getLoanAmount());
                     etInterest.setText("" + myNewLead.getOrInterest());
                     etDisbursementDate.setText(DateUtils.getDateFormateEt(myNewLead.getDisDate()));
                     etFee.setText("" + myNewLead.getOpFee());
@@ -380,17 +380,17 @@ public class LeadStageLoanDetailFragment extends BaseFragment {
                             spinnerSubCategory.setAdapter(productSubAdapter);
 
                         }
+                        if (!MasumCommonUtils.isNullStr(myNewLead.getProductSubcategory())) {
 
-                        try {
-                            spinnerSubCategory.setSelection(productSubAdapter.
-                                    getPosition(myNewLead.getProductSubcategory()));
-                        } catch (IllegalStateException ignored) {
+                            try {
+                                spinnerSubCategory.setSelection(productSubAdapter.
+                                        getPosition(myNewLead.getProductSubcategory()));
+                            } catch (IllegalStateException ignored) {
+                            } catch (NullPointerException e) {
+
+                            }
+
                         }
-                        catch (NullPointerException e){
-
-                        }
-
-
                     }
 
                 }

@@ -90,6 +90,14 @@ public class MasumCommonUtils {
 
         return data;
     }
+    public static String isNotZero(double amount) {
+        String data = null;
+        if (amount > 0) {
+            data = String.valueOf(amount);
+        } else data = "";
+
+        return data;
+    }
 
 
     public static String calcutateAge(long date) {
