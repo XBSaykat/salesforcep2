@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -12,17 +13,17 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clLeadItem"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/size_4dp"
-        android:background="@color/greyWhite"
-        android:layout_height="wrap_content">
+        android:background="@color/greyWhite">
 
 
         <TextView
             android:id="@+id/id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginStart="@dimen/size_8dp"
+            android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginTop="@dimen/size_8dp"
             android:text="Exception area :"
             android:textStyle="bold"
@@ -33,11 +34,11 @@
             android:id="@+id/tvId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="@dimen/size_8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="@dimen/size_8dp"
+            android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginTop="@dimen/size_8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:maxLines="3"
             android:text="@{model.deviationCategory}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,8 +62,8 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginStart="@dimen/size_8dp"
+            android:layout_marginLeft="@dimen/size_8dp"
             android:maxLines="3"
             android:text="@{model.deviationAccountHead}"
             app:layout_constraintStart_toEndOf="@+id/name"
@@ -96,13 +97,14 @@
             android:id="@+id/tvLtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="@dimen/size_8dp"
+            android:layout_marginBottom="8dp"
             android:text="LTV :"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvLoan"
-            app:layout_constraintTop_toBottomOf="@+id/tvLoan" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLoan"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvLtvAmount"
@@ -114,6 +116,54 @@
             android:text="@{model.lTV}"
             app:layout_constraintStart_toEndOf="@+id/tvLtv"
             app:layout_constraintTop_toTopOf="@+id/tvLoanAmount" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Status :"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tvLtv"
+            app:layout_constraintTop_toBottomOf="@+id/tvLtv" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Approver :"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView32"
+            app:layout_constraintTop_toBottomOf="@+id/textView32"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@{model.status}"
+            app:layout_constraintBottom_toTopOf="@+id/textView36"
+            app:layout_constraintStart_toEndOf="@+id/textView32" />
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@{model.approvalTier}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView36"
+            app:layout_constraintStart_toEndOf="@+id/textView36"
+            app:layout_constraintTop_toBottomOf="@+id/textView37"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </android.support.constraint.ConstraintLayout>
