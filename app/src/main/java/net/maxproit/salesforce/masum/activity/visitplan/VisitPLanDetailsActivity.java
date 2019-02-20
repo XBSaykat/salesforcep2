@@ -1027,6 +1027,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         builder.setMessage(getResources().getString(R.string.save_alert));
         builder.setNegativeButton(getResources().getString(R.string.no), null);
         builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
+
             setUpdatedData();
 
         });
@@ -1046,6 +1047,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
             //processToLeadDetails();
+            showProgressDialog();
             proceedToLeadDetail();
 
         });
@@ -1055,7 +1057,7 @@ public class VisitPLanDetailsActivity extends BaseActivity {
 
     private void proceedToLeadDetail() {
 
-        showProgressDialog();
+
         Data data = null;
         if (visitPlanModel != null) {
             data = getDataFromField(visitPlanModel.getJournalId());

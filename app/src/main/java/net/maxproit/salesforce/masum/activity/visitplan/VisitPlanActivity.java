@@ -602,6 +602,7 @@ public class VisitPlanActivity extends BaseActivity {
         builder.setNegativeButton("No", null);
         builder.setPositiveButton("Yes", (dialog, which) -> {
             int insert = 0;
+            showProgressDialog();
             if (visitPlanModel != null) {
                 Data data = new Data();
                 data.setActivityDate(DateUtils.getDateFormateForSqlite(dateOfvisit));
@@ -696,7 +697,7 @@ public class VisitPlanActivity extends BaseActivity {
                         @Override
                         public void onFailure(Call<MyVisitPlanApi> call, Throwable t) {
                             getAlertDialog("ERROR", t.getMessage());
-
+                            hideProgressDialog();
                         }
                     });
                 } else {

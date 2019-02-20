@@ -247,7 +247,7 @@ public class ProspectViewRbm extends BaseActivity {
             coApplicantList.clear();
         }
 
-        if (getDataFromProspect().getCoApplicantList()!=null){
+        if (getDataFromProspect().getCoApplicantList() != null) {
             coApplicantList.addAll(getDataFromProspect().getCoApplicantList());
         }
 
@@ -296,7 +296,7 @@ public class ProspectViewRbm extends BaseActivity {
         CoApplicant coApplicant = new CoApplicant(coApplicantList.get(position).getId(),
                 coApplicantList.get(position).getLeadId(),
                 coApplicantList.get(position).getName(),
-               coApplicantList.get(position).getDateOfBirth(),
+                coApplicantList.get(position).getDateOfBirth(),
                 coApplicantList.get(position).getAge(),
                 coApplicantList.get(position).getDistrictOfBirth(),
                 coApplicantList.get(position).getCountryOfBirth(),
@@ -331,7 +331,7 @@ public class ProspectViewRbm extends BaseActivity {
                 coApplicantList.get(position).getEmiOfOtherLoans()
         );
 
-        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this, CoApplicantRbmView.class, coApplicant, -1,null);
+        ActivityUtils.invokCoApplicantViewStage(ProspectViewRbm.this, CoApplicantRbmView.class, coApplicant, -1, null);
 
     }
 
@@ -382,7 +382,7 @@ public class ProspectViewRbm extends BaseActivity {
         tvPermanentAddress.setText(getDataFromProspect().getpAddress());
         tvPresentAddress.setText(getDataFromProspect().getAddress());
         tvMobileNumber.setText(getDataFromProspect().getPhone());
-        if (getDataFromProspect().getDateOfBirth()!=null) {
+        if (getDataFromProspect().getDateOfBirth() != null) {
             String dateob = DateUtils.getDateFormateEt(getDataFromProspect().getDateOfBirth());
             tvDateOfBorth.setText(dateob);
 
@@ -423,7 +423,7 @@ public class ProspectViewRbm extends BaseActivity {
             prospect = (MyNewProspect) extraDetail.getSerializable(AppConstant.INTENT_KEY);
             prospectListData = (Data) extraDetail.getSerializable(AppConstant.PROSPECT_RBM_LIST_DATA_INTENT_KEY);
 
-            if (prospectListData==null){
+            if (prospectListData == null) {
 
                 tvApproval.setVisibility(View.GONE);
                 tvReject.setVisibility(View.GONE);
@@ -489,8 +489,12 @@ public class ProspectViewRbm extends BaseActivity {
                 public void onResponse(Call<ApprovalResponce> call, Response<ApprovalResponce> response) {
                     if (response.isSuccessful()) {
 
-                        startActivityshowAlertDialog("Message:", "" + response.body().getMessage(), SupervisorRbmProspect.class, true);
+                        if (response.body().getCode().equals("200")) {
+                            startActivityshowAlertDialog("Message:", "" + response.body().getMessage(), SupervisorRbmProspect.class, true);
+                        } else {
+                            showAlertDialog("Message:", "" + response.body().getMessage());
 
+                        }
                         if (approval.getStatus().equals(RETURN_TO_RM) && response.body().getCode().equals("200")) {
                             myLeadDbController.updateLeadDataStatus(getDataFromProspect().getId(), AppConstant.STATUS_RETURN_RBM);
                         }

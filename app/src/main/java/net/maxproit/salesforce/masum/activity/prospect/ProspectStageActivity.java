@@ -281,9 +281,9 @@ public class ProspectStageActivity extends BaseActivity {
         builder.setTitle(getString(R.string.Reject));
         builder.setMessage(getString(R.string.reject_item));
         builder.setNegativeButton(getString(R.string.no), null);
-        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {/*
             myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
-            ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, MyLeadActivity.class, true);
+            ActivityUtils.getInstance().invokeActivity(ProspectStageActivity.this, MyLeadActivity.class, true);*/
         });
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -468,7 +468,6 @@ public class ProspectStageActivity extends BaseActivity {
                                         coApplicantList.clear();
                                         AppConstant.coAppLicantStaticList.clear();
                                     }
-                                    hideProgressDialog();
                                     sendGpsLocation(String.valueOf(response.body().getData().getLeadReferenceNo()), "Prospect", userName, getltd(), getLng(), getCompleteAddressString(getltd(), getLng()), ProspectStageActivity.this);
 //                                errorAlert(getString(R.string.save_txt), "save successfully");
 

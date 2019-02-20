@@ -72,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private LinearLayout loadingView, noDataView;
     GPSTracker gps;
 
-    private double latitude=0, longitude=0;
+    private double latitude = 0, longitude = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -241,6 +241,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     if (activity != null)
                         activity.finish();
                 }
+                hideProgressDialog();
 
             }
 
@@ -248,6 +249,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             public void onFailure(Call<GetGpsResponse> call, Throwable t) {
                 if (activity != null)
                     activity.finish();
+
+                hideProgressDialog();
 
             }
         });

@@ -400,8 +400,8 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         builder.setMessage(getString(R.string.reject_lead));
         builder.setNegativeButton(getResources().getString(R.string.no), null);
         builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
-            myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
-            ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);
+/*            myLeadDbController.updateLeadDataStatus(id, AppConstant.LEAD_STATUS_REJECT);
+            ActivityUtils.getInstance().invokeActivity(LeadStageActivity.this, MyLeadActivity.class, true);*/
         });
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -420,6 +420,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         builder.setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
             MyLeadDataModelApi myLeadDataModelApi = getDataFromFragment(myNewLead);
 
+            showProgressDialog();
             if (myNewLead != null) {
                 if (isNetworkAvailable()) {
                     //api call
@@ -494,6 +495,7 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
                         @Override
                         public void onFailure(Call<MyActivityApi> call, Throwable t) {
                             showAlertDialog(getResources().getString(R.string.error_text), t.getMessage());
+                            hideProgressDialog();
                         }
                     });
 
@@ -544,12 +546,13 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
 
                 }
 
+
             }
 
             @Override
             public void onFailure(Call<MyOldLeadApi> call, Throwable t) {
                 errorAlert(getResources().getString(R.string.error_text), t.getMessage());
-
+                hideProgressDialog();
             }
         });
 
