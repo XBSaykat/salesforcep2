@@ -68,7 +68,7 @@ public class MyLeadDataModelApi {
     private String productSubCategory;
     @SerializedName("loanAmount")
     @Expose
-    private Double loanAmount;
+    private Integer loanAmount;
     @SerializedName("offeredInterestRate")
     @Expose
     private Double offeredInterestRate;
@@ -278,11 +278,11 @@ public class MyLeadDataModelApi {
         this.productSubCategory = productSubCategory;
     }
 
-    public Double getLoanAmount() {
+    public Integer getLoanAmount() {
         return loanAmount;
     }
 
-    public void setLoanAmount(Double loanAmount) {
+    public void setLoanAmount(Integer loanAmount) {
         this.loanAmount = loanAmount;
     }
 
@@ -362,7 +362,7 @@ public class MyLeadDataModelApi {
         myLeadApi.setProduct(myNewLead.getProductType());
         myLeadApi.setProductSubCategoryId(myNewLead.getSubCode());
         myLeadApi.setProductSubCategory(myNewLead.getProductSubcategory());
-        myLeadApi.setLoanAmount(Double.valueOf(myNewLead.getLoanAmount().replace(",", "")));
+        myLeadApi.setLoanAmount(Integer.valueOf(myNewLead.getLoanAmount().replace(",", "")));
         myLeadApi.setOfferedInterestRate(Double.valueOf(myNewLead.getOrInterest()));
         myLeadApi.setOfferedProcessFee(Double.valueOf(myNewLead.getOpFee()));
         myLeadApi.setDisbursementDate(DateUtils.getDateFormateForSqlite(myNewLead.getDisDate()));

@@ -352,12 +352,12 @@ public class LeadStageActivity extends BaseActivity implements AdapterInfo {
         myLeadApi.setCustomerTitle(leadStageBasicInformationFragment.titleName);
         if (!MasumCommonUtils.isNullStr(loanAmount))
             try {
-                myLeadApi.setLoanAmount(Double.valueOf(loanAmount.replace(",", "")));
+                myLeadApi.setLoanAmount(Integer.valueOf(loanAmount.replace(",", "")));
             } catch (NumberFormatException e) {
 
             }
         else
-            myLeadApi.setLoanAmount(0.0);
+            myLeadApi.setLoanAmount( 0);
         if (!MasumCommonUtils.isNullStr(interest))
             try {
                 myLeadApi.setOfferedInterestRate((Double) Double.valueOf(interest));
