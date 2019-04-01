@@ -19,12 +19,6 @@ public class PostDeviation {
     @SerializedName("makerName")
     @Expose
     private String makerName;
-    @SerializedName("remark")
-    @Expose
-    private String remark;
-    @SerializedName("branch")
-    @Expose
-    private String branch;
     @SerializedName("deviationDetails")
     @Expose
     private List<DeviationDetail> deviationDetails = null;
@@ -51,22 +45,6 @@ public class PostDeviation {
 
     public void setMakerName(String makerName) {
         this.makerName = makerName;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getBranch() {
-        return branch;
-    }
-
-    public void setBranch(String branch) {
-        this.branch = branch;
     }
 
     public List<DeviationDetail> getDeviationDetails() {

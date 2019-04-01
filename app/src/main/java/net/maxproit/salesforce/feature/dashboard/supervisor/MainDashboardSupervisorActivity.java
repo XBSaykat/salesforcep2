@@ -2,6 +2,7 @@ package net.maxproit.salesforce.feature.dashboard.supervisor;
 
 import android.app.AlertDialog;
 import android.os.Build;
+import android.view.View;
 
 import net.maxproit.salesforce.MyPerformancePhaseTwo;
 import net.maxproit.salesforce.R;
@@ -9,6 +10,7 @@ import net.maxproit.salesforce.SupervisorRbmProspect;
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMainDashboardSupervisorBinding;
 import net.maxproit.salesforce.feature.login.LoginActivity;
+import net.maxproit.salesforce.masum.utility.MasumCommonUtils;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 public class MainDashboardSupervisorActivity extends BaseActivity {
@@ -29,7 +31,27 @@ public class MainDashboardSupervisorActivity extends BaseActivity {
         binding.prospect.setOnClickListener(v -> startActivity(SupervisorRbmProspect.class, false));
         binding.dashboard.setOnClickListener(v -> startActivity(MyPerformancePhaseTwo.class, false));
 
+        setProfileData();
     }
+
+
+    private void setProfileData() {
+        String name = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.FULL_NAME);
+        String branch = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.BRANCH);
+        String svName = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.RBM_NAME);
+        String rmCode = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_CODE);
+
+        binding.profile.tvName.setText(name);
+        binding.profile.tvBranch.setText(branch);
+
+        if (!MasumCommonUtils.isNullStr(svName)) {
+            binding.profile.tvSuper.setText(svName);
+        } else {
+            binding.profile.lnSup.setVisibility(View.GONE);
+        }
+        binding.profile.tvRmCode.setText(rmCode);
+    }
+
 
     private void logout() {
         AlertDialog.Builder builder;

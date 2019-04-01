@@ -94,11 +94,6 @@ public class NewDeviationActivity extends BaseActivity {
         PostDeviation postDeviation = new PostDeviation();
         postDeviation.setProspectReferenceNo(referrenceid);
         postDeviation.setMakerName(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
-
-
-
-        postDeviation.setRemark("");
-        postDeviation.setBranch(localCash().getString(SharedPreferencesEnum.Key.USER_BRANCH));
         postDeviation.setDeviationDetails(list);
 
         showProgressDialog();

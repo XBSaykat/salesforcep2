@@ -8,25 +8,24 @@ import com.google.gson.annotations.SerializedName;
  * mehedipy@gmail.com
  */
 public class DeviationList {
-
+    @SerializedName("LTV")
+    @Expose
+    private String lTV;
+    @SerializedName("LoanAmount")
+    @Expose
+    private String loanAmount;
     @SerializedName("DeviationSetID")
     @Expose
     private String deviationSetID;
-    @SerializedName("DeviationDetailID")
-    @Expose
-    private String deviationDetailID;
-    @SerializedName("DeviationAccountHead")
-    @Expose
-    private String deviationAccountHead;
     @SerializedName("DeviationCategory")
     @Expose
     private String deviationCategory;
-    @SerializedName("CurrentValue")
+    @SerializedName("DeviationAccountHead")
     @Expose
-    private String currentValue;
-    @SerializedName("ProposedValue")
+    private String deviationAccountHead;
+    @SerializedName("RiskCategory")
     @Expose
-    private String proposedValue;
+    private String riskCategory;
     @SerializedName("Status")
     @Expose
     private String status;
@@ -36,27 +35,34 @@ public class DeviationList {
     @SerializedName("MakeDate")
     @Expose
     private String makeDate;
-    @SerializedName("Remark")
+    @SerializedName("CurrentApprover")
     @Expose
-    private String remark;
-    @SerializedName("LTV")
+    private String currentApprover;
+    @SerializedName("FinalApprover")
     @Expose
-    private String lTV;
-    @SerializedName("LoanAmount")
+    private String finalApprover;
+    @SerializedName("ApproverRemark")
     @Expose
-    private String loanAmount;
-    @SerializedName("ProductCategoryID")
+    private String approverRemark;
+    @SerializedName("LastApprovalDate")
     @Expose
-    private String productCategoryID;
-    @SerializedName("ProductSubCategoryID")
-    @Expose
-    private String productSubCategoryID;
-    @SerializedName("ApprovalTier")
-    @Expose
-    private String approvalTier;
-    @SerializedName("JustificationID")
-    @Expose
-    private String justificationID;
+    private String lastApprovalDate;
+
+    public String getLTV() {
+        return lTV;
+    }
+
+    public void setLTV(String lTV) {
+        this.lTV = lTV;
+    }
+
+    public String getLoanAmount() {
+        return loanAmount;
+    }
+
+    public void setLoanAmount(String loanAmount) {
+        this.loanAmount = loanAmount;
+    }
 
     public String getDeviationSetID() {
         return deviationSetID;
@@ -64,22 +70,6 @@ public class DeviationList {
 
     public void setDeviationSetID(String deviationSetID) {
         this.deviationSetID = deviationSetID;
-    }
-
-    public String getDeviationDetailID() {
-        return deviationDetailID;
-    }
-
-    public void setDeviationDetailID(String deviationDetailID) {
-        this.deviationDetailID = deviationDetailID;
-    }
-
-    public String getDeviationAccountHead() {
-        return deviationAccountHead;
-    }
-
-    public void setDeviationAccountHead(String deviationAccountHead) {
-        this.deviationAccountHead = deviationAccountHead;
     }
 
     public String getDeviationCategory() {
@@ -90,20 +80,20 @@ public class DeviationList {
         this.deviationCategory = deviationCategory;
     }
 
-    public String getCurrentValue() {
-        return currentValue;
+    public String getDeviationAccountHead() {
+        return deviationAccountHead;
     }
 
-    public void setCurrentValue(String currentValue) {
-        this.currentValue = currentValue;
+    public void setDeviationAccountHead(String deviationAccountHead) {
+        this.deviationAccountHead = deviationAccountHead;
     }
 
-    public String getProposedValue() {
-        return proposedValue;
+    public String getRiskCategory() {
+        return riskCategory;
     }
 
-    public void setProposedValue(String proposedValue) {
-        this.proposedValue = proposedValue;
+    public void setRiskCategory(String riskCategory) {
+        this.riskCategory = riskCategory;
     }
 
     public String getStatus() {
@@ -130,60 +120,35 @@ public class DeviationList {
         this.makeDate = makeDate;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getCurrentApprover() {
+        return currentApprover;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setCurrentApprover(String currentApprover) {
+        this.currentApprover = currentApprover;
     }
 
-    public String getLTV() {
-        return lTV;
+    public String getFinalApprover() {
+        return finalApprover;
     }
 
-    public void setLTV(String lTV) {
-        this.lTV = lTV;
+    public void setFinalApprover(String finalApprover) {
+        this.finalApprover = finalApprover;
     }
 
-    public String getLoanAmount() {
-        return loanAmount;
+    public String getApproverRemark() {
+        return approverRemark;
     }
 
-    public void setLoanAmount(String loanAmount) {
-        this.loanAmount = loanAmount;
+    public void setApproverRemark(String approverRemark) {
+        this.approverRemark = approverRemark;
     }
 
-    public String getProductCategoryID() {
-        return productCategoryID;
+    public String getLastApprovalDate() {
+        return lastApprovalDate;
     }
 
-    public void setProductCategoryID(String productCategoryID) {
-        this.productCategoryID = productCategoryID;
+    public void setLastApprovalDate(String lastApprovalDate) {
+        this.lastApprovalDate = lastApprovalDate;
     }
-
-    public String getProductSubCategoryID() {
-        return productSubCategoryID;
-    }
-
-    public void setProductSubCategoryID(String productSubCategoryID) {
-        this.productSubCategoryID = productSubCategoryID;
-    }
-
-    public String getApprovalTier() {
-        return approvalTier;
-    }
-
-    public void setApprovalTier(String approvalTier) {
-        this.approvalTier = approvalTier;
-    }
-
-    public String getJustificationID() {
-        return justificationID;
-    }
-
-    public void setJustificationID(String justificationID) {
-        this.justificationID = justificationID;
-    }
-
 }

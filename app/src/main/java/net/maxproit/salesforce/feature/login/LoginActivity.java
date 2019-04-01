@@ -129,6 +129,9 @@ public class LoginActivity extends BaseActivity {
                                     localCash().put(SharedPreferencesEnum.Key.LOCA_LLOGIN, lg);
                                     localCash().put(SharedPreferencesEnum.Key.USER_NAME, binding.etUsername.getText().toString());
                                     localCash().put(SharedPreferencesEnum.Key.USER_CODE, response.body().getData().getUserCode());
+                                    localCash().put(SharedPreferencesEnum.Key.RBM_NAME, response.body().getData().getSpervisorName());
+                                    localCash().put(SharedPreferencesEnum.Key.FULL_NAME, lr.getData().getFullName());
+                                    localCash().put(SharedPreferencesEnum.Key.BRANCH, lr.getData().getBranch());
                                 } else {
                                     showToast("Invalid UserId or Password");
 

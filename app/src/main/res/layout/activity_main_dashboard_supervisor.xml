@@ -71,7 +71,9 @@
                 android:orientation="vertical"
                 android:padding="@dimen/size_16dp">
 
-
+                <include
+                    android:id="@+id/profile"
+                    layout="@layout/profile" />
                 <LinearLayout
                     android:id="@+id/prospect"
                     android:layout_width="match_parent"

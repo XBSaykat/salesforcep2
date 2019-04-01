@@ -33,7 +33,7 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
 
         Bundle mBundle = new Bundle();
         mBundle.putString("ROOT", "new");
-
+        setProfileData();
         binding.visitPlan.setOnClickListener(v -> startActivity(VisitPlanActivity.class, false));
         //binding.newLead.setOnClickListener(v -> startActivity(NewLeadActivity.class, false, mBundle));
         binding.newLead.setOnClickListener(v -> startActivity(LeadStageActivity.class, false, mBundle));
@@ -59,6 +59,19 @@ public class DashboardSalesOfficerActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+
+    private void setProfileData() {
+        String name = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.FULL_NAME);
+        String branch = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.BRANCH);
+        String svName = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.RBM_NAME);
+        String rmCode = SharedPreferencesEnum.getInstance(getContext()).getString(SharedPreferencesEnum.Key.USER_CODE);
+
+        binding.profile.tvName.setText(name);
+        binding.profile.tvBranch.setText(branch);
+        binding.profile.tvSuper.setText(svName);
+        binding.profile.tvRmCode.setText(rmCode);
     }
 
 

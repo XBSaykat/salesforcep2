@@ -165,11 +165,11 @@ public interface ApiService {
 
     //performace api
 
-    @GET("DashBoard/{userName}/{timestamp}")
-    Call<Getperformance> getPerformaceCountData(@Path("userName") String userName, @Path("timestamp") String random);
+    @GET("DashBoard/{userName}/{fromDate}/{toDate}/{timestamp}")
+    Call<Getperformance> getPerformanceCountData(@Path("userName") String userName, @Path("fromDate") String fromDate, @Path("toDate") String toDate, @Path("timestamp") String random);
 
-    @GET("MyDashBoardDetail/{ItemType}/{SupItemType}/{userName}/{timestamp}")
-    Call<GetdashboardDetailData> getDashboardDetailDataList(@Path("ItemType") String itemType,@Path("SupItemType") String subItem,@Path("userName") String userName,@Path("timestamp") String random);
+    @GET("MyDashBoardDetail/{ItemType}/{SupItemType}/{userName}/{fromDate}/{toDate}/{timestamp}")
+    Call<GetdashboardDetailData> getDashboardDetailDataList(@Path("ItemType") String itemType,@Path("SupItemType") String subItem,@Path("userName") String userName,@Path("fromDate") String fromDate,@Path("toDate") String toDate,@Path("timestamp") String random);
 
 
     //delete co aplicant

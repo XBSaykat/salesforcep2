@@ -29,48 +29,55 @@
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
-
-        <TextView
-            android:id="@+id/btnAdd"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/appbar"
-            android:layout_margin="@dimen/size_8dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="@dimen/size_16dp"
-            android:text="Add Deviation Request"
-            android:textColor="@color/white" />
+            >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btnAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_8dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="@dimen/size_16dp"
+                android:text="Add Deviation Request"
+                android:textColor="@color/white" />
 
             />
 
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvCib"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnAdd"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvCib"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/btnAdd" />
-
-        <TextView
-            android:id="@+id/addRequest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/rvCib"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="@dimen/size_16dp"
-            android:text="Send Request"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:layout_margin="@dimen/size_8dp"
-            android:layout_alignParentRight="true" />
-
-
+            <TextView
+                android:id="@+id/addRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rvCib"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/size_8dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="@dimen/size_16dp"
+                android:text="Send Request"
+                android:textColor="@color/white"
+                android:visibility="gone" />
     </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
 </layout>
 
 

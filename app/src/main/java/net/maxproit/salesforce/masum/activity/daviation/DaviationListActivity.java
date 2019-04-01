@@ -16,8 +16,11 @@ import net.maxproit.salesforce.masum.activity.daviation.adapter.DaviationAdapter
 import net.maxproit.salesforce.feature.supervisor.adapter.AdapterInfo;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationList;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationResponse;
+import net.maxproit.salesforce.masum.utility.SortDeviationList;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,19 +63,15 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
         binding.btnAdd.setOnClickListener(v -> startActivity(NewDeviationActivity.class, false, bundle));
 
 
-
-
-
 //        setupCifAdapter();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (isNetworkAvailable()){
-
+        if (isNetworkAvailable()) {
             getCibData();
-        }else{
+        } else {
             showAlertDialog("NETWORK ERROR!", "Internet Connection is turned off!");
         }
 
@@ -92,6 +91,8 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
                     if (!cibList.isEmpty())
                         cibList.clear();
                     cibList = response.body().getData();
+                    binding.tvLtv.setText(cibList.get(0).getLTV());
+                    binding.tvLoanAmount.setText(cibList.get(0).getLoanAmount());
                     setupCifAdapter();
                 } else {
                     showToast("Try again!");
@@ -107,6 +108,7 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
     }
 
     private void setupCifAdapter() {
+        //Collections.sort(cibList, new SortDeviationList());
         adapter = new DaviationAdapter(this, cibList, referrenceid);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.rvCib.setLayoutManager(mLayoutManager);
@@ -170,7 +172,7 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            startActivity(DaviationListActivity.class,true);
+            startActivity(DaviationListActivity.class, true);
         }
     }
 }

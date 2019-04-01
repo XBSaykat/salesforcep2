@@ -60,6 +60,32 @@ public class CommonUtil {
         }
     }
 
+
+    public static String currentDate(Calendar c) {
+        int yy, mm, dd;
+        yy = c.get(Calendar.YEAR);
+        mm = c.get(Calendar.MONTH);
+        dd = c.get(Calendar.DAY_OF_MONTH);
+
+        return (yy + "-" + (mm + 1) + "-" + dd) ;
+    }
+    public static String getFirstDayOfCurrentMonth(Calendar c) {
+        int yy, mm, dd;
+        yy = c.get(Calendar.YEAR);
+        mm = c.get(Calendar.MONTH);
+
+
+        return (yy + "-" + (mm + 1) + "-" + 1) ;
+    }
+    public static String getFirstDayOfCurrentYear(Calendar c) {
+        int yy, mm, dd;
+        yy = c.get(Calendar.YEAR);
+//        mm = c.get(Calendar.MONTH);
+//        dd = c.get(Calendar.DAY_OF_MONTH);
+
+        return (yy + "-" + 1 + "-" + 1) ;
+    }
+
     /**
      * Shows a Alert Dialog with title and message and a OK button
      *

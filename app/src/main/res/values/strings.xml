@@ -297,6 +297,12 @@
     <string name="enable_location">Please wait... GPS is not enabled,please enable your device location.Data save is not valid without your device location.</string>
     <string name="reqired_txt">Required</string>
 
+    <string-array name="filter_date_array">
+        <item>Today</item>
+        <item>This Month</item>
+        <item>This Year</item>
+        <item>Date Range</item>
+    </string-array>
 
 </resources>
 

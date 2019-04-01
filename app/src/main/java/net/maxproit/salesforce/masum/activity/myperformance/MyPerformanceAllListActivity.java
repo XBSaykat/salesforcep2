@@ -105,7 +105,7 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
         String id = filterList.get(position).getID();
         String head = getIntent().getStringExtra(AppConstant.INTENT_DATA1);
         if (head.equalsIgnoreCase("Prospect")) {
-            callProspectData(id,head);
+            callProspectData(id, head);
         } else {
             ActivityUtils.getInstance().invokeActivity(MyPerformanceAllListActivity.this, MyPerformanceAllDetailActivity.class, false, head, id);
         }
@@ -123,7 +123,7 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
                             hideProgressDialog();
                             OldProspect oldProspect = response.body();
                             MyNewProspect myNewProspect = oldProspect.getMyNewProspect();
-                            ActivityUtils.invokProspectRbmViewStage(MyPerformanceAllListActivity.this, myNewProspect,null);
+                            ActivityUtils.invokProspectRbmViewStage(MyPerformanceAllListActivity.this, myNewProspect, null);
                         } else {
                             showAlertDialog("Error", "Server Error");
                             hideProgressDialog();
@@ -235,7 +235,7 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
         if (!filterList.isEmpty()) {
             filterList.clear();
         }
-         filterList.addAll(myProspectAdapter.getDataList());
+        filterList.addAll(myProspectAdapter.getDataList());
     }
 
 
@@ -250,7 +250,7 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
                 leadList.clear();
             }
             showProgressDialog();
-            getApiService().getDashboardDetailDataList(head, subTitle, userName, random).enqueue(new Callback<GetdashboardDetailData>() {
+            getApiService().getDashboardDetailDataList(head, subTitle, userName, AppConstant.fromDate, AppConstant.toDate, random).enqueue(new Callback<GetdashboardDetailData>() {
                 @Override
                 public void onResponse(Call<GetdashboardDetailData> call, Response<GetdashboardDetailData> response) {
                     if (response.isSuccessful()) {
@@ -258,9 +258,9 @@ public class MyPerformanceAllListActivity extends BaseActivity implements Adapte
                             leadList.addAll(response.body().getData());
                             myProspectAdapter.notifyDataSetChanged();
                             hideProgressDialog();
-                        }
-                        else if (response.body().getCode().equals("404")){
-                            initLoader();showEmptyView();
+                        } else if (response.body().getCode().equals("404")) {
+                            initLoader();
+                            showEmptyView();
                             hideProgressDialog();
                         }
 

@@ -1,20 +1,24 @@
 package net.maxproit.salesforce;
 
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
+
+import com.isapanah.awesomespinner.AwesomeSpinner;
 
 import net.maxproit.salesforce.common.base.BaseActivity;
 import net.maxproit.salesforce.databinding.ActivityMyPerformancePhaseTwoBinding;
 import net.maxproit.salesforce.masum.adapter.myperformacecountadapter.MyPerformanceItemAdapter;
+import net.maxproit.salesforce.masum.appdata.AppConstant;
 import net.maxproit.salesforce.masum.model.api.performance.Datum;
 import net.maxproit.salesforce.masum.model.api.performance.Getperformance;
-import net.maxproit.salesforce.masum.model.local.MyPerformanceModel;
+import net.maxproit.salesforce.util.CommonUtil;
 import net.maxproit.salesforce.util.SharedPreferencesEnum;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -23,10 +27,10 @@ import retrofit2.Response;
 
 public class MyPerformancePhaseTwo extends BaseActivity {
 
+
     private ActivityMyPerformancePhaseTwoBinding mBinding;
-
-    MyPerformanceItemAdapter myLeadAdapter;
-
+    private MyPerformanceItemAdapter myLeadAdapter;
+    private Calendar calendar;
 
     @Override
     protected int getLayoutResourceId() {
@@ -35,10 +39,11 @@ public class MyPerformancePhaseTwo extends BaseActivity {
 
     @Override
     protected void initComponents() {
-        initVariable();
-        //initView();
+        mBinding = (ActivityMyPerformancePhaseTwoBinding) getBinding();
+        calendar = Calendar.getInstance();
+
+        filterData();
         initListener();
-        //setAllData();
     }
 
     @Override
@@ -47,19 +52,16 @@ public class MyPerformancePhaseTwo extends BaseActivity {
     }
 
 
-    private void initVariable() {
-        mBinding = (ActivityMyPerformancePhaseTwoBinding) getBinding();
-        callApi();
+    private void callApi(String fromDate, String toDate) {
 
-    }
-
-    private void callApi() {
+        AppConstant.fromDate=fromDate;
+        AppConstant.toDate=toDate;
 
         if (isNetworkAvailable()) {
             String username = SharedPreferencesEnum.getInstance(getApplicationContext()).getString(SharedPreferencesEnum.Key.USER_NAME);
             String random = UUID.randomUUID().toString();
             showProgressDialog();
-            getApiService().getPerformaceCountData(username, random).enqueue(new Callback<Getperformance>() {
+            getApiService().getPerformanceCountData(username, fromDate, toDate, random).enqueue(new Callback<Getperformance>() {
                 @Override
                 public void onResponse(Call<Getperformance> call, Response<Getperformance> response) {
                     if (response.isSuccessful()) {
@@ -100,6 +102,87 @@ public class MyPerformancePhaseTwo extends BaseActivity {
         });
 
 
+    }
+
+    private void filterData() {
+
+        ArrayAdapter<String> filterAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.filter_date_array));
+        mBinding.spFilter.setAdapter(filterAdapter);
+        mBinding.spFilter.setSelection(1);
+        mBinding.spFilter.setOnSpinnerItemClickListener(new AwesomeSpinner.onSpinnerItemClickListener<String>() {
+            @Override
+            public void onItemSelected(int i, String s) {
+
+                String fromDate, toDate;
+
+                switch (i) {
+
+                    case 0:
+                        dateFilterLayoutVisible(false);
+                        fromDate = CommonUtil.currentDate(calendar);
+                        toDate = CommonUtil.currentDate(calendar);
+                        callApi(fromDate, toDate);
+                        break;
+
+                    case 1:
+                        dateFilterLayoutVisible(false);
+                        fromDate = CommonUtil.getFirstDayOfCurrentMonth(calendar);
+                        toDate = CommonUtil.currentDate(calendar);
+                        callApi(fromDate, toDate);
+                        break;
+
+                    case 2:
+                        dateFilterLayoutVisible(false);
+                        fromDate = CommonUtil.getFirstDayOfCurrentYear(calendar);
+                        toDate = CommonUtil.currentDate(calendar);
+                        callApi(fromDate, toDate);
+                        break;
+
+                    case 3:
+                        selectDateRange();
+                        break;
+
+                    default:
+                        dateFilterLayoutVisible(false);
+                        fromDate = CommonUtil.getFirstDayOfCurrentMonth(calendar);
+                        toDate = CommonUtil.currentDate(calendar);
+                        callApi(fromDate, toDate);
+                        break;
+                }
+            }
+        });
+
+
+    }
+
+    void dateFilterLayoutVisible(boolean visibility) {
+        if (visibility) {
+            mBinding.dateFilterLayout.setVisibility(View.VISIBLE);
+        } else
+            mBinding.dateFilterLayout.setVisibility(View.GONE);
+    }
+
+    private void selectDateRange() {
+
+        dateFilterLayoutVisible(true);
+
+        mBinding.etDateFrom.setOnClickListener(v -> {
+            CommonUtil.showDatePicker(getContext(), mBinding.etDateFrom, calendar);
+        });
+        mBinding.etDateTo.setOnClickListener(v -> {
+            CommonUtil.showDatePicker(getContext(), mBinding.etDateTo, calendar);
+        });
+
+
+        mBinding.btnFilter.setOnClickListener(v -> {
+            if ((!TextUtils.isEmpty(mBinding.etDateFrom.getText())) && ((!TextUtils.isEmpty(mBinding.etDateTo.getText())))) {
+
+                callApi(mBinding.etDateFrom.getText().toString(), mBinding.etDateTo.getText().toString());
+            } else {
+                showToast("please select both dates");
+            }
+
+        });
     }
 
 

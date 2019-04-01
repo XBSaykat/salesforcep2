@@ -1,10 +1,14 @@
 package net.maxproit.salesforce.masum.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -40,18 +44,20 @@ public class DeviationActivity extends BaseActivity {
     String dvHead = "";
     String riskCat = "";
     String loanAmount = "";
-    String lTV ="";
+    String lTV = "";
     String justification = "";
     int justificationId = 0;
     String approvalTier;
+    ArrayList<String> selectedjustificationList = new ArrayList<>();
 
     UtilSpinner exceptionAreaAdapter;
     UtilSpinner exceptionParametersAdapter;
     UtilSpinner justificationAdapter;
     List<DeviationCategory> deviationlist;
     List<LstDeviationJustification> justificationList;
-    List<String> justifiList;
+    List<DeviationJustification> justificationPostList = new ArrayList<>();
 
+    List<String> justifiList;
 
 
     public static String KEY_REFERRENCE_ID = "KEY_REFERRENCE_ID";
@@ -91,13 +97,10 @@ public class DeviationActivity extends BaseActivity {
         exceptionAreaLoadList(deviationCatList);
 
 
-
-
         binding.btnSubmit.setOnClickListener(v -> {
             nextRequest();
 
         });
-
 
 
     }
@@ -109,12 +112,12 @@ public class DeviationActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 binding.exceptionArea.setSelection(position);
-                if (position > 0){
+                if (position > 0) {
                     position = position - 1;
                     if (deviationlist.get(position) != null) {
                         dvCategoryId = deviationlist.get(position).getDeviationCategoryID();
                         dvcategory = deviationlist.get(position).getDeviationCategory();
-                        if (isNetworkAvailable()){
+                        if (isNetworkAvailable()) {
                             showProgressDialog();
 
                             getApiService().deviationHeadById("" + deviationlist.get(position).getDeviationCategoryID(), UUID.randomUUID().toString()).enqueue(new Callback<DevAccountHeadEntities>() {
@@ -133,7 +136,7 @@ public class DeviationActivity extends BaseActivity {
                                                 @Override
                                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                                     binding.exceptionParameters.setSelection(position);
-                                                    if (position > 0){
+                                                    if (position > 0) {
                                                         position = position - 1;
                                                         if (response.body().getData().get(position) != null) {
                                                             dvHedId = response.body().getData().get(position).getDevAccountHeadCode();
@@ -143,7 +146,7 @@ public class DeviationActivity extends BaseActivity {
                                                             callQueryApprovalTierForDeviation(riskCat);
                                                             callQueryDeviationPropertyApi();
                                                         }
-                                                    }else{
+                                                    } else {
 
                                                     }
 
@@ -166,12 +169,12 @@ public class DeviationActivity extends BaseActivity {
 
                                 }
                             });
-                        }else{
+                        } else {
                             hideProgressDialog();
                             showAlertDialog("Network ! ", "Network not available");
                         }
                     }
-                }else{
+                } else {
                     showToast("select exception area");
                 }
 
@@ -196,7 +199,7 @@ public class DeviationActivity extends BaseActivity {
 
     private void callQueryDeviationPropertyApi() {
 
-        getApiService().queryDeviationProperty(""+referrenceid, UUID.randomUUID().toString()).enqueue(new Callback<QueryDeviationPropertyResponce>() {
+        getApiService().queryDeviationProperty("" + referrenceid, UUID.randomUUID().toString()).enqueue(new Callback<QueryDeviationPropertyResponce>() {
             @Override
             public void onResponse(Call<QueryDeviationPropertyResponce> call, Response<QueryDeviationPropertyResponce> response) {
                 if (response.isSuccessful()) {
@@ -223,31 +226,39 @@ public class DeviationActivity extends BaseActivity {
 
     private void callQueryApprovalTierForDeviation(String riskCat) {
 
-    getApiService().queryforApprovalTier(""+referrenceid, ""+riskCat, UUID.randomUUID().toString()).enqueue(new Callback<QueryApprovalTier>() {
-        @Override
-        public void onResponse(Call<QueryApprovalTier> call, Response<QueryApprovalTier> response) {
-            if (response.isSuccessful()){
-                if (response.body().getCode().equals("200")){
+        getApiService().queryforApprovalTier("" + referrenceid, "" + riskCat, UUID.randomUUID().toString()).enqueue(new Callback<QueryApprovalTier>() {
+            @Override
+            public void onResponse(Call<QueryApprovalTier> call, Response<QueryApprovalTier> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getCode().equals("200")) {
 
-                    approvalTier = response.body().getData().get(0).getApprovalTier();
-                    binding.etApproverTier.setText(approvalTier);
+                        approvalTier = response.body().getData().get(0).getApprovalTier();
+                        binding.etApproverTier.setText(approvalTier);
 
 
+                    }
                 }
             }
-        }
 
-        @Override
-        public void onFailure(Call<QueryApprovalTier> call, Throwable t) {
-            hideProgressDialog();
-        }
-    });
+            @Override
+            public void onFailure(Call<QueryApprovalTier> call, Throwable t) {
+                hideProgressDialog();
+            }
+        });
 
     }
 
     private void loadJustificationSpinner() {
         binding.spJustification.setEnabled(true);
-        justificationAdapter = new UtilSpinner(DeviationActivity.this, justifiList);
+
+        binding.spJustification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectJustificationDialog();
+                Toast.makeText(DeviationActivity.this, "click", Toast.LENGTH_SHORT).show();
+            }
+        });
+      /*  justificationAdapter = new UtilSpinner(DeviationActivity.this, justifiList);
         binding.spJustification.setEnabled(true);
         binding.spJustification.setAdapter(justificationAdapter);
         binding.spJustification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -271,22 +282,98 @@ public class DeviationActivity extends BaseActivity {
 
             }
 
-        });
+        });*/
     }
 
+
+    protected void showSelectJustificationDialog() {
+
+        boolean[] checkedJustifications = new boolean[justifiList.size()];
+        android.app.AlertDialog.Builder builder;
+        int count = justifiList.size();
+
+        for (int i = 0; i < count; i++)
+
+            checkedJustifications[i] = selectedjustificationList.contains(justifiList.get(i));
+
+        DialogInterface.OnMultiChoiceClickListener justicationDialuge = new DialogInterface.OnMultiChoiceClickListener() {
+
+            @Override
+
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                if (isChecked) {
+                    selectedjustificationList.add(justifiList.get(which));
+                } else {
+
+                    selectedjustificationList.remove(justifiList.get(which));
+
+                }
+                onChangeSelectedColours();
+
+            }
+
+        };
+
+        CharSequence ss[] = justifiList.toArray(new CharSequence[0]);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(getContext());
+        }
+        builder.setTitle("Select Justification");
+
+        builder.setMultiChoiceItems(ss, checkedJustifications, justicationDialuge);
+
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+
+    protected void onChangeSelectedColours() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (CharSequence colour : selectedjustificationList)
+
+            stringBuilder.append(colour + ",");
+
+        binding.spJustification.setText(stringBuilder.toString());
+
+    }
 
     private void nextRequest() {
 
         PostDeviation postDeviation = new PostDeviation();
         DeviationDetail deviationDetail = new DeviationDetail();
-        DeviationJustification deviationJustification = new DeviationJustification();
+
+        for (int i = 0; i < selectedjustificationList.size(); i++) {
+            for (int j = 0; j < justificationList.size(); j++) {
+                if (selectedjustificationList.get(i).equalsIgnoreCase(justificationList.get(j).getJustification())) {
+                    DeviationJustification deviationJustification = new DeviationJustification();
+                    deviationJustification.setJustificationID(justificationList.get(j).getJustificationID());
+                    deviationJustification.setJustification(justificationList.get(j).getJustification());
+                    justificationPostList.add(deviationJustification);
+                }
+            }
+        }
         DeviationHead deviationHead = new DeviationHead();
         net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationCategory deviationCategory = new net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationCategory();
 
         postDeviation.setProspectReferenceNo(referrenceid);
         postDeviation.setDeviationSetID(0);
         postDeviation.setMakerName(localCash().getString(SharedPreferencesEnum.Key.USER_NAME));
-        postDeviation.setRemark(binding.etRemark.getText().toString());
+
 
         deviationDetail.setDeviationDetailID(0);
         deviationCategory.setDeviationCategory(dvcategory);
@@ -298,25 +385,11 @@ public class DeviationActivity extends BaseActivity {
         deviationHead.setRiskCategory(riskCat);
         deviationDetail.setDeviationHead(deviationHead);
 
-        deviationJustification.setJustification(justification);
-        deviationJustification.setJustificationID(justificationId);
 
-        deviationDetail.setDeviationJustification(deviationJustification);
+        deviationDetail.setDeviationJustifications(justificationPostList);
 
-        deviationDetail.setBranch(localCash().getString(SharedPreferencesEnum.Key.USER_BRANCH));
         deviationDetail.setApprovalTier(binding.etApproverTier.getText().toString());
         deviationDetail.setRemark(binding.etRemark.getText().toString());
-
-
-
-
-
-
-
-
-
-
-
 
 
 //        DeviationPost deviationPost = new DeviationPost();
@@ -339,7 +412,6 @@ public class DeviationActivity extends BaseActivity {
 //        if (!StringUtils.isEmpty((binding.etPrppese.getText().toString()))) {
 //            deviationDetail.setProposedValue(Integer.parseInt(binding.etPrppese.getText().toString()));
 //        }
-
 
 
         deviationDetail.setRemark(binding.etRemark.getText().toString());

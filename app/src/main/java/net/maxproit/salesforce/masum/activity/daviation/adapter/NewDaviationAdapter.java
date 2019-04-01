@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.databinding.NewDaviationRequestRowBinding;
 import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationDetail;
+import net.maxproit.salesforce.masum.model.api.deviation.postdeviation.DeviationJustification;
 import net.maxproit.salesforce.model.login.LocalLogin;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class NewDaviationAdapter extends RecyclerView.Adapter<NewDaviationAdapte
     /**
      * Returns adapter instance
      *
-     * @param context the context calling this adapter
+     * @param context  the context calling this adapter
      * @param dataList array list containing path of files
      */
     public NewDaviationAdapter(Context context, List<DeviationDetail> dataList, String referrenceid) {
@@ -57,6 +58,11 @@ public class NewDaviationAdapter extends RecyclerView.Adapter<NewDaviationAdapte
     @Override
     public void onBindViewHolder(ViewFilesHolder holder, int position) {
         holder.binding.setModel(list.get(position));
+        StringBuilder stringBuilder = new StringBuilder();
+        for (DeviationJustification justification : list.get(position).getDeviationJustifications()) {
+            stringBuilder.append(justification.getJustification() + ",");
+        }
+        holder.binding.textView28.setText(stringBuilder);
     }
 
 
@@ -78,6 +84,7 @@ public class NewDaviationAdapter extends RecyclerView.Adapter<NewDaviationAdapte
         public ViewFilesHolder(final NewDaviationRequestRowBinding itemBinding) {
             super(itemBinding.getRoot());
             this.binding = itemBinding;
+
         }
     }
 

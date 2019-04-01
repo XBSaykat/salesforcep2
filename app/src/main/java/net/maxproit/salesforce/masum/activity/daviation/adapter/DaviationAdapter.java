@@ -2,6 +2,7 @@ package net.maxproit.salesforce.masum.activity.daviation.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -11,7 +12,10 @@ import net.maxproit.salesforce.databinding.DaviationRequestRowBinding;
 import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.DeviationList;
 import net.maxproit.salesforce.model.login.LocalLogin;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static net.maxproit.salesforce.util.MyApplication.getContext;
 
 
 public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.ViewFilesHolder> {
@@ -21,12 +25,16 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
     private List<DeviationList> list;
     private LayoutInflater layoutInflater;
     private String referrenceid;
+    private String tempDeviationSetId;
+    private int color = 0;
+    private int colorPostion = 0;
+    ArrayList<Integer> colorArray;
 
 
     /**
      * Returns adapter instance
      *
-     * @param context the context calling this adapter
+     * @param context  the context calling this adapter
      * @param dataList array list containing path of files
      */
     public DaviationAdapter(Context context, List<DeviationList> dataList, String referrenceid) {
@@ -34,6 +42,12 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
         this.list = dataList;
         localLogin = new LocalLogin(context);
         this.referrenceid = referrenceid;
+        tempDeviationSetId = list.get(0).getDeviationSetID();
+        colorArray = new ArrayList<>();
+        colorArray.add(ContextCompat.getColor(context, R.color.grey));
+        colorArray.add(ContextCompat.getColor(context, R.color.rb_blue));
+        colorArray.add(ContextCompat.getColor(context, R.color.blue_clicked));
+        color = colorArray.get(0);
 
         layoutInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,9 +67,14 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
 
     @Override
     public void onBindViewHolder(ViewFilesHolder holder, int position) {
+
+        if (tempDeviationSetId.equals(list.get(position).getDeviationSetID())) {
+            holder.binding.clLeadItem.setBackgroundColor(color);
+
+        } else {
+            color = colorArray.get(1);
+        }
         holder.binding.setModel(list.get(position));
-
-
     }
 
 

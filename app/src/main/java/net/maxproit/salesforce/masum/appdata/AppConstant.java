@@ -116,4 +116,7 @@ public class AppConstant {
     public static final int ACTIVITY_RESULLT_400 = 400 ;
 
 
+    public static String fromDate=null;
+    public static String toDate=null;
+
 }

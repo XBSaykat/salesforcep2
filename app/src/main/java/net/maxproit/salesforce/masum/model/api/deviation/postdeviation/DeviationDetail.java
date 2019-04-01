@@ -3,6 +3,8 @@ package net.maxproit.salesforce.masum.model.api.deviation.postdeviation;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by Md. Mehedi Hasan on 12/11/2018.
  * mehedipy@gmail.com
@@ -17,12 +19,9 @@ public class DeviationDetail {
     @SerializedName("deviationHead")
     @Expose
     private DeviationHead deviationHead;
-    @SerializedName("deviationJustification")
+    @SerializedName("deviationJustifications")
     @Expose
-    private DeviationJustification deviationJustification;
-    @SerializedName("branch")
-    @Expose
-    private String branch;
+    private List<DeviationJustification> deviationJustifications = null;
     @SerializedName("remark")
     @Expose
     private String remark;
@@ -54,20 +53,12 @@ public class DeviationDetail {
         this.deviationHead = deviationHead;
     }
 
-    public DeviationJustification getDeviationJustification() {
-        return deviationJustification;
+    public List<DeviationJustification> getDeviationJustifications() {
+        return deviationJustifications;
     }
 
-    public void setDeviationJustification(DeviationJustification deviationJustification) {
-        this.deviationJustification = deviationJustification;
-    }
-
-    public String getBranch() {
-        return branch;
-    }
-
-    public void setBranch(String branch) {
-        this.branch = branch;
+    public void setDeviationJustifications(List<DeviationJustification> deviationJustifications) {
+        this.deviationJustifications = deviationJustifications;
     }
 
     public String getRemark() {

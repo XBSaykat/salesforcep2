@@ -30,17 +30,133 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="My Perfomance"
+                android:text="My Performance"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
+        <LinearLayout
+            android:layout_margin="@dimen/size_8dp"
+            android:layout_below="@id/toolbar"
+            android:id="@+id/filterLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filtered By" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/spFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:layout_marginBottom="@dimen/size_8dp"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_8dp"
+                android:id="@+id/dateFilterLayout"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+
+
+                <!--1st-->
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--(1)No of Leads-->
+                    <LinearLayout
+                        android:id="@+id/dateFrom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:layout_weight="1"
+                        android:elevation="@dimen/size_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/size_4dp">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="From" />
+                        <EditText
+                            android:id="@+id/etDateFrom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="date"
+                            android:maxLines="1"
+                            android:focusable="false"
+                            android:hint="Select Date"
+                            android:textSize="16sp"
+
+                            />
+
+
+                    </LinearLayout>
+                    <!--(2)No of Prospects-->
+                    <LinearLayout
+                        android:id="@+id/dateTo"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:layout_weight="1"
+                        android:elevation="@dimen/size_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/size_4dp">
+
+                        <TextView
+                            style="@style/TextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="To" />
+                        <EditText
+                            android:id="@+id/etDateTo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="date"
+                            android:maxLines="1"
+                            android:focusable="false"
+                            android:hint="Select Date"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btnFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/size_4dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/size_8dp"
+                    android:paddingBottom="@dimen/size_8dp"
+                    android:text="SEARCH"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleView_my_performace"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar">
+            android:layout_below="@+id/filterLayout">
 
         </android.support.v7.widget.RecyclerView>
 
