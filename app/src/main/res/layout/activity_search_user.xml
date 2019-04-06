@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.search.Search" />
+            type="net.maxproit.salesforce.model.search.Search" />
 
     </data>
 

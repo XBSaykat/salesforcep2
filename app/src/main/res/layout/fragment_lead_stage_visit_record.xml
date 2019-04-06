@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LeadStageVisitRecordFragment">
+    tools:context=".masum.fragment.LeadStageVisitRecordFragment">
 
     <ScrollView
         android:layout_marginTop="?attr/actionBarSize"
@@ -35,13 +35,13 @@
                     android:text="Follow up" />
 
                 <!--<Spinner android:id="@+id/spinner_follow_up"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:textSize="20sp"-->
-                    <!--android:entries="@array/decision_array"/>-->
-               <!---->
+                <!--android:drawSelectorOnTop="true"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0"-->
+                <!--android:textSize="20sp"-->
+                <!--android:entries="@array/decision_array"/>-->
+                <!---->
 
                 <com.isapanah.awesomespinner.AwesomeSpinner
                     android:id="@+id/awe_spinner_lead_follow_up"
@@ -54,7 +54,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/FollowupDateLayout"
+                android:id="@+id/follow_date_layout"
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,8 +68,9 @@
                     android:text="Date of Visit" />
 
                 <EditText android:id="@+id/dtpVisitDT"
-                    android:drawableRight="@drawable/ic_calender"
+                    android:drawableRight="@drawable/ic_datepicker_calender"
                     android:layout_width="match_parent"
+
                     android:inputType="text"
                     android:layout_height="wrap_content"
                     android:focusable="false"
@@ -85,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="?attr/actionBarSize"
-
+                android:id="@+id/et_remarks_layout"
                 android:orientation="vertical">
 
                 <TextView
@@ -104,6 +105,28 @@
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:id="@+id/sp_remarks_layout"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remarks" />
+
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/sp_remarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Remarks" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

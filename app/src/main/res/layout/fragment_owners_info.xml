@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.newprospect.ProprietorsInfo" />
+            type="net.maxproit.salesforce.model.newprospect.ProprietorsInfo" />
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -326,6 +326,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLines="1"
+                    android:maxLength="11"
                     android:text="@={model.mobilenumber}"
                     android:textSize="@dimen/text_size_16sp" />
             </LinearLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IDLC Salesforce</string>
+    <string name="app_name">IDLC Salesforce: CD</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Sells Officer</string>
@@ -18,12 +18,12 @@
 
     <string name="google_place_api_key">AIzaSyDgeGFfb30M5w85K0q3nOtRM41FUGDDLl0</string>
 
-
+    <string name="empty_result">No data found!</string>
     <string name="pdf_ext">.pdf</string>
     <string name="pdf_dir">/PDFfiles</string>
     <string name="pdf_type">application/pdf</string>
     <string name="logout_title">Logout</string>
-    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="logout_message">Are you sure,you want to logout?</string>
     <string name="st_cancle">Cancle</string>
     <string name="st_ok">Ok</string>
     <string name="api_unsuccess_message">No data found</string>
@@ -62,6 +62,30 @@
 
     </string-array>
 
+    <string-array name="city_array">
+        <item>Dhaka North</item>
+        <item>Dhaka South</item>
+        <item>Narayanganj</item>
+    </string-array>
+
+    <string-array name="dhaka_north_police_station_array">
+        <item>Tejgaon I/A</item>
+        <item>Gulshan</item>
+        <item>Kalabagan</item>
+    </string-array>
+
+    <string-array name="dhaka_south_police_station_array">
+        <item>Sutrapur</item>
+        <item>Sabujbagh</item>
+        <item>Newmarket</item>
+    </string-array>
+
+    <string-array name="narayanganj_police_station_array">
+        <item>Siddirganj</item>
+        <item>Fatullah</item>
+        <item>Bandar</item>
+    </string-array>
+
     <string-array name="upazilla_array">
         <item>Select upazilla</item>
 
@@ -83,7 +107,7 @@
         <item>Vendor</item>
         <item>Existing Client</item>
         <item>Walk-in</item>
-        <item>Others-open</item>
+        <item>Others</item>
     </string-array>
 
     <string-array name="decision_array">
@@ -96,6 +120,17 @@
         <item>Branch 2</item>
         <item>Branch 3</item>
     </string-array>
+
+
+    <string-array name="branch_name_array">
+        <item>Mirpur</item>
+        <item>SegunBagicha</item>
+        <item>Polton </item>
+        <item>Dhanmondi </item>
+        <item>Azimpur</item>
+
+    </string-array>
+
     <string-array name="profession_array">
         <item>Profession 1</item>
         <item>Profession 2</item>
@@ -172,6 +207,14 @@
         <item>Corporate House</item>
     </string-array>
 
+    <string-array name="purpose_of_visit">
+        <item>Fresh</item>
+        <item>Lead Generation</item>
+        <item>Relationship Mgt</item>
+        <item>Pre- Disbursement</item>
+        <item>Post- Disbursement</item>
+    </string-array>
+
     <string-array name="years">
         <item>2015</item>
         <item>2016</item>
@@ -191,6 +234,76 @@
         <item>Private Car</item>
         <item>CNG</item>
     </string-array>
+
+    <string-array name="remarks_arr">
+        <item>Remarks 1</item>
+        <item>Remarks 2</item>
+        <item>Remarks 3</item>
+    </string-array>
+
+    <string-array name="valid_photo_id_list">
+        <item>NID</item>
+        <item>Passport</item>
+        <item>Driving License</item>
+        <item>Birth Certificate with attested picture</item>
+    </string-array>
+
+    <string name="title_activity_my_activity">MyActivityActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="visit_plan">visit plan</string>
+    <string name="create_plan">Do you want to create a new plan?</string>
+    <string name="create_activity">Do you want to create a new activity?</string>
+    <string name="remove">complete</string>
+    <string name="Reject">Reject</string>
+    <string name="reject_item">Are you sure,want to remove coApplicant?</string>
+    <string name="reject_lead">Are you sure,want to reject this lead?</string>
+    <string name="reject_plan">Are you sure,want to reject this visit plan?</string>
+    <string name="my_activity">My Activity</string>
+    <string name="date_of_birth">Date of birth :</string>
+    <string name="Proceed_is_not_available">Proceed is not available without internet,PLease connect to the internet</string>
+    <string name="create_lead">Create Lead</string>
+    <string name="save_alert">Do you want to save details?</string>
+    <string name="proceed_alert">Do you want to proceed?</string>
+    <string name="alert">Alert</string>
+    <string name="save_txt">Save</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="success_code">200</string>
+    <string name="success_status">ok</string>
+    <string name="internet_not_available_local_save">Internet not available,please connect to the internet ,Data save successfully in device</string>
+    <string name="succes_txt">Success</string>
+    <string name="approved_falied">Approved Failed</string>
+    <string name="proceed_succesfull">Proceed Successfully</string>
+    <string name="response_code_200">200</string>
+    <string name="error_text">Error</string>
+    <string name="internet_not_available">Internet not available, please connect to the internet</string>
+    <string name="otp_success"><![CDATA[otp code sent successfully,please check your phone for otp code & enter the code]]></string>
+    <string name="proceed_unavailable">Proceed is not available without internet,PLease connect to the internet</string>
+    <string name="proceed_not_valid">Proceed is not valid for</string>
+    <string name="proceed_txt">Proceed</string>
+    <string name="prospect_approved">Prospect has been proceeded successfully</string>
+    <string name="reqired">enter required field</string>
+    <string name="save_success">data save successfully</string>
+    <string name="gps_setting">GPS settings</string>
+    <string name="gps_settting_mesg">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="settings">Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="proceed_failed">Prospect proceed failed</string>
+    <string name="prospect_save_failed">Prospect save failed</string>
+    <string name="activity_failed">Activity failed to create</string>
+    <string name="enable_location">Please wait... GPS is not enabled,please enable your device location.Data save is not valid without your device location.</string>
+    <string name="reqired_txt">Required</string>
+
+    <string-array name="filter_date_array">
+        <item>Today</item>
+        <item>This Month</item>
+        <item>This Year</item>
+        <item>Date Range</item>
+    </string-array>
+
 </resources>
 
 

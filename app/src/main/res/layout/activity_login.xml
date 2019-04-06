@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.login.Login" />
+            type="net.maxproit.salesforce.model.login.Login" />
 
     </data>
 
@@ -66,8 +66,34 @@
                         android:layout_height="wrap_content" />
 
                 </android.support.design.widget.TextInputLayout>
-
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/size_15dp"
+                    android:weightSum="1">
+                    <TextView
+                        android:id="@+id/tv_new_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="First Time Login?"
+                        android:textColor="@color/blue"
+                        android:layout_weight=".5"
+                        android:padding="@dimen/size_5dp"
+                        android:background="@drawable/ripple"
+                        android:textSize="@dimen/size_12dp"/>
+                    <TextView
+                        android:id="@+id/tv_forgot_pass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Forgot Password?"
+                        android:gravity="end"
+                        android:padding="@dimen/size_5dp"
+                        android:layout_weight=".5"
+                        android:background="@drawable/ripple"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/size_12dp"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

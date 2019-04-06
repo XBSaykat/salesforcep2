@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.newlead.Document" />
+            type="net.maxproit.salesforce.model.newlead.Document" />
     </data>
 
     <RelativeLayout

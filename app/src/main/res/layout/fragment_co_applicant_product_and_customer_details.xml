@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<FrameLayout
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_marginBottom="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".masum.fragment.prospect.co_applicant.CoApplicantProductAndCustomerDetailsFragment">
+
+
+    <LinearLayout
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Product Category" />
+
+            <!--<Spinner android:id="@+id/spinner_product_category"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:textSize="20sp"-->
+            <!--android:entries="@array/product_categories_array"/>-->
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_co_applicant_product_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Product" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Detail" />
+
+            <!--<Spinner android:id="@+id/spinner_product_detail"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:textSize="20sp"/>-->
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_co_applicant_product_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Product Detail" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Branch" />
+
+            <!--<Spinner android:id="@+id/spinner_branch"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:textSize="20sp"-->
+            <!--android:entries="@array/branch_array"/>-->
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_co_applicant_branch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Branch" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Segment" />
+
+            <!--<Spinner android:id="@+id/spinner_segment"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:textSize="20sp"-->
+            <!--android:entries="@array/segment_array"/>-->
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_co_applicant_segment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Segment" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Age" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="District of Birth" />
+
+            <!--<Spinner android:id="@+id/spinner_district_of_birth"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:textSize="20sp"/>-->
+
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_co_applicant_district_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select District" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country of Birth" />
+
+            <!--<Spinner android:id="@+id/spinner_country_of_birth"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:textSize="20sp"/>-->
+
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_co_applicant_country_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Country" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Valid Photo ID No." />
+
+            <EditText
+                android:id="@+id/et_co_applicant_valid_photo_id_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Valid Photo ID issue Date" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_valid_photo_id_issue_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:textSize="@dimen/text_size_16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E-TIN" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_etin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Father's Name" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_father_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mother's Name" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_mother_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Spouse Name" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_spouse_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Profession" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_co_applicant_profession"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Profession" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Exception List" />
+
+            <RadioGroup
+                android:id="@+id/rg_co_applicant_exception_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/rb_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="YES"/>
+
+                <RadioButton
+                    android:id="@+id/rb_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NO" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Company Name" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Designation" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_designation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No. of Yrs. In Current job" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_current_job_years"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Relationship with applicant" />
+
+            <!--<Spinner android:id="@+id/spinner_relationship_with_applicant"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:textSize="20sp"/>-->
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_co_applicant_relation_with_applicant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Relationship" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Permanent Address" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_permanent_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Present Address" />
+
+            <EditText
+                android:id="@+id/et_co_applicant_present_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="?actionBarSize"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mobile No." />
+
+            <EditText
+                android:id="@+id/et_co_applicant_mobile_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
+</ScrollView>
+

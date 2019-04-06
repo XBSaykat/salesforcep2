@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_150dp"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/size_10dp"
+    android:background="@color/black_overlay_2"
+    android:weightSum="1">
+    <TextView
+        android:id="@+id/tv_id_text"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="@dimen/size_2dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="ID Card"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_18dp" />
+    <ImageView
+        android:id="@+id/img_atach_id_card"
+        android:layout_width="@dimen/size_160dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:scaleType="fitCenter"
+        android:layout_weight=".9" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_weight=".2"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_atach_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_15dp"
+            android:text="Capture" />
+
+        <Button
+            android:id="@+id/btn_choose_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_15dp"
+            android:text="choose" />
+    </LinearLayout>
+
+</LinearLayout>

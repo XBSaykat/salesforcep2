@@ -4,191 +4,295 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LeadStageLoanDetailFragment">
+    tools:context=".masum.fragment.lead.LeadStageLoanDetailFragment">
 
     <ScrollView
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+
         <LinearLayout
+            style="@style/LayoutQuestion"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_required"
+                android:text="Source of Reference"
 
-            <LinearLayout
-                style="@style/LayoutQuestion"
+                />
+
+            <!--<Spinner-->
+            <!--android:id="@+id/spinner_reference"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:entries="@array/source_of_reference_array"-->
+            <!--android:textSize="20sp" />-->
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_lead_reference"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Reference" />
 
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
-                    android:text="Source of Reference" />
+        </LinearLayout>
 
-                <!--<Spinner-->
-                    <!--android:id="@+id/spinner_reference"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/source_of_reference_array"-->
-                    <!--android:textSize="20sp" />-->
-                <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_lead_reference"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Reference" />
+        <LinearLayout
+            android:id="@+id/secinput_mobile_no"
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/secinput_mobile_no"
-                style="@style/LayoutQuestion"
+            <TextView
+                style="@style/TextViewQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="Product Type" />
 
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Product Type" />
+            <!--<Spinner-->
+            <!--android:id="@+id/spinner_product_type"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:entries="@array/product_type_array"-->
+            <!--android:textSize="20sp" />-->
 
-                <!--<Spinner-->
-                    <!--android:id="@+id/spinner_product_type"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/product_type_array"-->
-                    <!--android:textSize="20sp" />-->
-
-                <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_lead_product_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Product Type" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/LayoutQuestion"
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_lead_product_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Product Type" />
+        </LinearLayout>
 
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Product Subcategory" />
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-                <!--<Spinner-->
-                    <!--android:id="@+id/spinner_product_subcategory"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/product_type_array"-->
-                    <!--android:textSize="20sp" />-->
-
-                <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_lead_product_sub_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Subcategory" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/LayoutQuestion"
+            <TextView
+                style="@style/TextViewQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="Product Subcategory" />
 
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tentative Loan Amount" />
+            <!--<Spinner-->
+            <!--android:id="@+id/spinner_product_subcategory"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0"-->
+            <!--android:drawSelectorOnTop="true"-->
+            <!--android:entries="@array/product_type_array"-->
+            <!--android:textSize="20sp" />-->
 
-                <EditText
-                    android:id="@+id/et_load_amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/LayoutQuestion"
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/awe_spinner_lead_product_sub_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:spinnerDirection="ltr"
+                app:spinnerHint="Select Subcategory" />
+        </LinearLayout>
 
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Offered Rate of Interest" />
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tentative Loan Amount" />
+
+            <EditText
+                android:id="@+id/et_load_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size_16sp" />
+
+            <TextView
+                android:id="@+id/tv_tentative_number_to_word"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Offered Rate of Interest" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/et_interest"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/LayoutQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?attr/actionBarSize"
-
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Offered Processing Fee" />
-
-                <EditText
-                    android:id="@+id/et_fee"
-                    android:layout_width="match_parent"
+                    android:layout_width="258dp"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:imeOptions="actionNext"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:text=""
-                    android:textSize="@dimen/text_size_16sp"
+                    android:textSize="@dimen/text_size_16sp" />
 
-                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="%" />
             </LinearLayout>
 
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+        <!--style="@style/LayoutQuestion"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+        <!--style="@style/TextViewQuestion"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Offered Processing Fee" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/et_fee"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:focusable="true"-->
+        <!--android:imeOptions="actionNext"-->
+        <!--android:inputType="numberDecimal"-->
+        <!--android:maxLines="1"-->
+        <!--android:text=""-->
+        <!--android:textSize="@dimen/text_size_16sp"/>-->
+        <!--</LinearLayout>-->
+
+
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Offered Processing Fee" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_fee"
+                    android:layout_width="258dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="%" />
+            </LinearLayout>
 
         </LinearLayout>
 
 
+        <LinearLayout
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Disbursement Date" />
+
+
+            <EditText
+                android:id="@+id/et_disbursement_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_datepicker_calender"
+                android:focusable="false"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/et_remarks_layout"
+            style="@style/LayoutQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_100dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remarks" />
+
+            <EditText
+                android:id="@+id/input_remarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeOptions="actionNext"
+                android:inputType="textMultiLine"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="@dimen/text_size_16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
     </ScrollView>
 
 </FrameLayout>

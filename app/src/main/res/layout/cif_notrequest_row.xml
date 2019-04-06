@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.cif.notRequestedCIF.NotRequestedCif" />
+            type="net.maxproit.salesforce.model.cif.notRequestedCIF.NotRequestedCif" />
     </data>
 
     <android.support.constraint.ConstraintLayout

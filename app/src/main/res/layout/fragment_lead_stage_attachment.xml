@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LeadStageAttachmentFragment">
+    tools:context=".masum.fragment.lead.LeadStageBasicInformationFragment">
 
-    <ImageView
+    <LinearLayout
+        android:paddingTop="@dimen/size_20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_camera"/>
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="@dimen/size_50dp">
+        <Button
+            android:id="@+id/btndoc1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_margin="@dimen/size_20dp"
+            android:layout_gravity="center"
+            android:text="Document List"
+            android:visibility="gone"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/size_50dp"
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
 </FrameLayout>

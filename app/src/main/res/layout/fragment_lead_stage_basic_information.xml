@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LeadStageBasicInformationFragment">
+    tools:context=".masum.fragment.lead.LeadStageBasicInformationFragment">
 
     <ScrollView
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,6 +26,48 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <CheckBox
+                    android:id="@+id/cb_exist"
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Existing Client" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/liChif"
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/etChif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:drawableRight="@drawable/ic_search"
+                    android:focusable="false"
+                    android:hint="Search CIF"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:padding="@dimen/size_4dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="@dimen/text_size_16sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <TextView
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
@@ -34,19 +76,19 @@
                     android:text="Branch" />
 
                 <!--<Spinner-->
-                    <!--android:id="@+id/spinner_lead_branch_name"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:textSize="20sp" />-->
+                <!--android:id="@+id/spinner_lead_branch_name"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0"-->
+                <!--android:drawSelectorOnTop="true"-->
+                <!--android:textSize="20sp" />-->
 
                 <com.isapanah.awesomespinner.AwesomeSpinner
-                android:id="@+id/awe_spinner_lead_branch_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:spinnerDirection="ltr"
-                app:spinnerHint="Select Branch" />
+                    android:id="@+id/awe_spinner_lead_branch_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Branch" />
 
 
             </LinearLayout>
@@ -63,16 +105,37 @@
                     android:layout_height="wrap_content"
                     android:text="Name" />
 
-                <EditText
-                    android:id="@+id/et_lead_user_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:orientation="horizontal"
+
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:focusable="true" android:focusableInTouchMode="true"
+                        android:layout_width="0px" android:layout_height="0px"/>
+                    <AutoCompleteTextView
+                        android:id="@+id/et_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:hint="title"
+                        android:nextFocusUp="@+id/et_title" android:nextFocusLeft="@+id/et_title"
+                        android:maxLines="1" />
+
+                    <EditText
+                        android:id="@+id/et_lead_user_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:focusable="true"
+                        android:hint="full name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textSize="@dimen/text_size_16sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -88,13 +151,13 @@
                     android:text="Profession" />
 
                 <!--<Spinner-->
-                    <!--android:id="@+id/spinner_lead_profession"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/profession_array"-->
-                    <!--android:textSize="20sp" />-->
+                <!--android:id="@+id/spinner_lead_profession"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0"-->
+                <!--android:drawSelectorOnTop="true"-->
+                <!--android:entries="@array/profession_array"-->
+                <!--android:textSize="20sp" />-->
 
                 <com.isapanah.awesomespinner.AwesomeSpinner
                     android:id="@+id/awe_spinner_lead_profession"
@@ -171,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
+                    android:inputType="phone"
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp" />
@@ -181,8 +244,6 @@
                 style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="?attr/actionBarSize"
-
                 android:orientation="vertical">
 
                 <TextView
@@ -206,19 +267,67 @@
 
             </LinearLayout>
 
+
             <LinearLayout
+                style="@style/LayoutQuestion"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
+                    android:text="City" />
 
-                <EditText
+                <!--<Spinner-->
+                <!--android:id="@+id/spinner_area"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0"-->
+                <!--android:drawSelectorOnTop="true"-->
+                <!--android:textSize="20sp" />-->
+                <AutoCompleteTextView
+                    android:id="@+id/awe_spinner_visit_plan_city"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:hint="search city" />
+
+
             </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_150dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_required"
+                    android:text="Police Station" />
+
+                <!--<Spinner-->
+                <!--android:id="@+id/spinner_area"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0"-->
+                <!--android:drawSelectorOnTop="true"-->
+                <!--android:textSize="20sp" />-->
+                <com.isapanah.awesomespinner.AwesomeSpinner
+                    android:id="@+id/awe_spinner_visit_plan_police_station"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spinnerDirection="ltr"
+                    app:spinnerHint="Select Police Station" />
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

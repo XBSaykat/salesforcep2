@@ -15,15 +15,15 @@
             android:layout_height="@dimen/size_50dp"
             android:background="@color/colorPrimary">
 
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="@dimen/size_40dp"
-                android:layout_height="@dimen/size_40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/size_8dp"
-                android:layout_marginStart="@dimen/size_8dp"
-                android:padding="@dimen/size_8dp"
-                android:src="@drawable/ic_back" />
+            <!--<ImageView-->
+                <!--android:id="@+id/btnBack"-->
+                <!--android:layout_width="@dimen/size_40dp"-->
+                <!--android:layout_height="@dimen/size_40dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginStart="@dimen/size_8dp"-->
+                <!--android:layout_marginLeft="@dimen/size_8dp"-->
+                <!--android:padding="@dimen/size_8dp"-->
+                <!--android:src="@drawable/ic_back" />-->
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="Sales Officer"
+                android:text="RM"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_20sp"
                 android:textStyle="bold" />
@@ -43,10 +43,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/size_10dp"
-                android:layout_marginLeft="@dimen/size_8dp"
-                android:layout_marginRight="@dimen/size_10dp"
                 android:layout_marginStart="@dimen/size_8dp"
+                android:layout_marginLeft="@dimen/size_8dp"
+                android:layout_marginEnd="@dimen/size_10dp"
+                android:layout_marginRight="@dimen/size_10dp"
                 android:background="@color/transparent"
                 android:text="Log out"
                 android:textAllCaps="false"
@@ -68,7 +68,10 @@
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
                 android:padding="@dimen/size_16dp">
-
+                <include
+                    android:id="@+id/profile"
+                    layout="@layout/profile"
+                    />
                 <LinearLayout
                     android:id="@+id/visitPlan"
                     android:layout_width="match_parent"
@@ -82,14 +85,14 @@
                         android:layout_width="@dimen/size_50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/size_16dp"
                         android:layout_marginStart="@dimen/size_16dp"
+                        android:layout_marginEnd="@dimen/size_16dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/prospect" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -98,6 +101,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/myVisit"
                     android:layout_width="match_parent"
@@ -112,19 +116,19 @@
                         android:layout_width="@dimen/size_50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/size_16dp"
                         android:layout_marginStart="@dimen/size_16dp"
+                        android:layout_marginEnd="@dimen/size_16dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/lead" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:padding="@dimen/size_4dp"
-                        android:text="My Visit"
+                        android:text="My Activities"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
@@ -137,20 +141,21 @@
                     android:layout_margin="@dimen/size_8dp"
                     android:background="@drawable/dashboard_item"
                     android:elevation="@dimen/size_4dp"
+                    android:visibility="gone"
                     android:padding="@dimen/size_16dp">
 
                     <ImageView
                         android:layout_width="@dimen/size_50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/size_16dp"
                         android:layout_marginStart="@dimen/size_16dp"
+                        android:layout_marginEnd="@dimen/size_16dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/prospect" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -174,14 +179,14 @@
                         android:layout_width="@dimen/size_50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/size_16dp"
                         android:layout_marginStart="@dimen/size_16dp"
+                        android:layout_marginEnd="@dimen/size_16dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/lead" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -205,14 +210,14 @@
                         android:layout_width="@dimen/size_50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/size_16dp"
                         android:layout_marginStart="@dimen/size_16dp"
+                        android:layout_marginEnd="@dimen/size_16dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/lead" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -224,39 +229,7 @@
 
                 <LinearLayout
 
-                android:id="@+id/verification"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/size_8dp"
-                android:background="@drawable/dashboard_item"
-                android:elevation="@dimen/size_4dp"
-                android:orientation="horizontal"
-                android:padding="@dimen/size_16dp">
-
-                <ImageView
-                    android:layout_width="@dimen/size_50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/size_16dp"
-                    android:layout_marginStart="@dimen/size_16dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/verification" />
-
-
-                <net.maxproit.idlc.custom.textView.RobotoRegularTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:padding="@dimen/size_4dp"
-                    android:text="My Performance"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_20sp" />
-
-            </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/upload"
+                    android:id="@+id/verification"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/size_8dp"
@@ -269,23 +242,55 @@
                         android:layout_width="@dimen/size_50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/size_16dp"
                         android:layout_marginStart="@dimen/size_16dp"
+                        android:layout_marginEnd="@dimen/size_16dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/upload" />
+                        android:src="@drawable/verification" />
 
 
-                    <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:padding="@dimen/size_4dp"
-                        android:text="Disbursement Request"
+                        android:text="My Performance"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
 
                 </LinearLayout>
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/upload"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_margin="@dimen/size_8dp"-->
+                    <!--android:background="@drawable/dashboard_item"-->
+                    <!--android:elevation="@dimen/size_4dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:padding="@dimen/size_16dp">-->
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="@dimen/size_50dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:layout_marginStart="@dimen/size_16dp"-->
+                        <!--android:layout_marginEnd="@dimen/size_16dp"-->
+                        <!--android:adjustViewBounds="true"-->
+                        <!--android:scaleType="fitCenter"-->
+                        <!--android:src="@drawable/upload" />-->
+
+
+                    <!--<net.maxproit.idlc.custom.textView.RobotoRegularTextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:padding="@dimen/size_4dp"-->
+                        <!--android:text="Disbursement Request"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:textSize="@dimen/text_size_20sp" />-->
+
+                <!--</LinearLayout>-->
 
                 <!--2nd-->
 
@@ -312,7 +317,7 @@
                         android:visibility="invisible">
 
 
-                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                             android:id="@+id/des1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

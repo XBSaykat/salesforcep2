@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.folowup.Followup" />
+            type="net.maxproit.salesforce.model.folowup.Followup" />
     </data>
 
     <android.support.constraint.ConstraintLayout

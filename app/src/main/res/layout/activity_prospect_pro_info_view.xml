@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.idlc.model.myprospect.updateProspect.ProprietorsInfo" />
+            type="net.maxproit.salesforce.model.myprospect.updateProspect.ProprietorsInfo" />
     </data>
 
     <LinearLayout

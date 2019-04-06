@@ -12,6 +12,7 @@
     </style>
 
 
+
     <style name="AppThemeDialog" parent="AppTheme"></style>
 
 
@@ -78,6 +79,9 @@
         <item name="android:padding">@dimen/size_8dp</item>
         <item name="android:elevation">@dimen/size_4dp</item>
     </style>
+    <style name="SearchView" parent="AppTheme.PopupOverlay">
+        <item name="android:colorPrimary">@color/black</item>
+    </style>
 
     <style name="RadioButtonStyle" parent="android:Widget.CompoundButton.RadioButton">
         <item name="fontPath">fonts/Roboto-Regular.ttf</item>
@@ -117,5 +121,10 @@
         <item name="fontPath">fonts/Roboto-Regular.ttf</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
+    </style>
+    <style name="WallSearchView" parent="Widget.AppCompat.SearchView">
+        ...
+        <item name="iconifiedByDefault">false</item>
+        <item name="colorControlActivated">#FFffffff</item>
     </style>
 </resources>

@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="Supervisor"
+                android:text="RBM"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_20sp"
                 android:textStyle="bold" />
@@ -71,7 +71,9 @@
                 android:orientation="vertical"
                 android:padding="@dimen/size_16dp">
 
-
+                <include
+                    android:id="@+id/profile"
+                    layout="@layout/profile" />
                 <LinearLayout
                     android:id="@+id/prospect"
                     android:layout_width="match_parent"
@@ -87,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -101,10 +103,9 @@
                     </LinearLayout>
 
 
-                </LinearLayout>
 
 
-                <LinearLayout
+                </LinearLayout><LinearLayout
                     android:id="@+id/dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -119,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <net.maxproit.idlc.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -133,7 +134,41 @@
                     </LinearLayout>
 
 
+
+
                 </LinearLayout>
+
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/dashboard"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_margin="@dimen/size_8dp"-->
+                    <!--android:background="@drawable/dashboard_item"-->
+                    <!--android:elevation="@dimen/size_4dp"-->
+                    <!--android:padding="@dimen/size_16dp">-->
+
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<net.maxproit.salesforce.custom.textView.RobotoRegularTextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="@dimen/size_4dp"-->
+                            <!--android:text="Dashboard"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="@dimen/text_size_20sp" />-->
+
+
+                    <!--</LinearLayout>-->
+
+
+                <!--</LinearLayout>-->
                 <!--4th-->
 
 

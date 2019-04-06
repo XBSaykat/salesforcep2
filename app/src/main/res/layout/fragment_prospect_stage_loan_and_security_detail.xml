@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_marginBottom="?attr/actionBarSize"
-        tools:context=".ProspectStageLoanAndSecurityDetailFragment">
+        tools:context=".masum.fragment.ProspectStageLoanAndSecurityDetailFragment">
 
 
         <LinearLayout
@@ -34,7 +34,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Security Value" />
 
                 <EditText
@@ -51,118 +50,26 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/brand_name_label"
-                style="@style/LayoutQuestion"
+                android:id="@+id/li_car_loan_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Brand Name" />
-
-                <!--<Spinner-->
-                    <!--android:id="@+id/spinner_brand_name"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/car_brands"-->
-                    <!--android:textSize="20sp" />-->
-
-                <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_prospect_stage_brand_name"
+                <LinearLayout
+                    android:id="@+id/vehicle_type_label"
+                    style="@style/LayoutQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Brand" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Asset Type" />
 
-            <LinearLayout
-                android:id="@+id/manufacturing_year_label"
-                style="@style/LayoutQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
-                    android:text="Manufacturing Year" />
-
-                <!--<Spinner-->
-                    <!--android:id="@+id/spinner_manufacturing_year"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/years"-->
-                    <!--android:textSize="20sp" />-->
-
-
-                <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_prospect_stage_manufacturing_year"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Year" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/manufacturing_country_label"
-                style="@style/LayoutQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
-                    android:text="Manufacturing Country" />
-
-                <!--<Spinner-->
-                    <!--android:id="@+id/spinner_manufacturing_country"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:drawSelectorOnTop="true"-->
-                    <!--android:entries="@array/countries"-->
-                    <!--android:textSize="20sp" />-->
-
-                <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_prospect_stage_manufacturing_country"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    app:spinnerHint="Select country" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/vehicle_type_label"
-                style="@style/LayoutQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
-                    android:text="Vehicle Type" />
-
-                <!--<Spinner-->
+                    <!--<Spinner-->
                     <!--android:id="@+id/spinner_vehicle_type"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
@@ -171,12 +78,88 @@
                     <!--android:entries="@array/vehicle_types"-->
                     <!--android:textSize="20sp" />-->
 
-                <com.isapanah.awesomespinner.AwesomeSpinner
-                    android:id="@+id/awe_spinner_prospect_stage_vehicle_type"
+                    <com.isapanah.awesomespinner.AwesomeSpinner
+                        android:id="@+id/awe_spinner_prospect_stage_vehicle_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:spinnerDirection="ltr"
+                        app:spinnerHint="Select Asset Type" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/brand_name_label"
+                    style="@style/LayoutQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:spinnerDirection="ltr"
-                    app:spinnerHint="Select Vehicle" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manufacturer Name" />
+
+                    <!--<Spinner-->
+                    <!--android:id="@+id/spinner_brand_name"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:drawSelectorOnTop="true"-->
+                    <!--android:entries="@array/car_brands"-->
+                    <!--android:textSize="20sp" />-->
+
+                    <com.isapanah.awesomespinner.AwesomeSpinner
+                        android:id="@+id/awe_spinner_prospect_stage_brand_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:spinnerDirection="ltr"
+                        app:spinnerHint="Select Manufacturer" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/manufacturing_year_label"
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manufacturing Year" />
+
+
+                    <EditText
+                        android:id="@+id/awe_spinner_prospect_stage_manufacturing_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/manufacturing_country_label"
+                    style="@style/LayoutQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewQuestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manufacturing Country" />
+
+                    <EditText
+                        android:id="@+id/awe_spinner_prospect_stage_manufacturing_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -191,7 +174,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Loan Required" />
 
                 <EditText
@@ -199,7 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:text=""
                     android:textSize="@dimen/text_size_16sp" />
@@ -216,7 +198,6 @@
                     style="@style/TextViewQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_required"
                     android:text="Loan Term(Month)" />
 
                 <EditText
@@ -241,16 +222,27 @@
                     android:layout_height="wrap_content"
                     android:text="Proposed Interest Rate/ROI" />
 
-                <EditText
-                    android:id="@+id/input_proposed_interest_rate"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/input_proposed_interest_rate"
+                        android:layout_width="258dp"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="%" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -265,39 +257,29 @@
                     android:layout_height="wrap_content"
                     android:text="Fee" />
 
-                <EditText
-                    android:id="@+id/input_fee"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/input_fee"
+                        android:layout_width="258dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="?attr/actionBarSize"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="%" />
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/LayoutQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?attr/actionBarSize"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextViewQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Monthly Installment/ EMI" />
-
-                <EditText
-                    android:id="@+id/input_calculated_emi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textSize="@dimen/text_size_16sp" />
-            </LinearLayout>
 
         </LinearLayout>
     </FrameLayout>

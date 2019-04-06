@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="net.maxproit.idlc">
+    package="net.maxproit.salesforce">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
 
     <application
         android:name=".App"
@@ -39,11 +42,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
-        <activity
-            android:name=".feature.login.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".feature.salesOfficer.newlead.NewLeadActivity" />
-        <activity android:name=".feature.salesOfficer.newProspect.NewProspectActivity" />
+        <activity android:name=".feature.login.LoginActivity" />
         <activity android:name=".feature.upload.UploadActivity" />
         <activity android:name=".feature.dashboard.DashboardVirifierActivity" />
         <activity android:name=".feature.dashboard.supervisor.DashboardSupervisorActivity" />
@@ -52,12 +51,12 @@
             android:name=".feature.search.SearchUserActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
-            android:name=".feature.salesOfficer.mylead.MyLeadActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-        <activity
-            android:name=".feature.salesOfficer.myProspect.MyProspectActivity"
+            android:name=".masum.activity.lead.MyLeadActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity"></activity>
+        <activity
+            android:name=".masum.activity.myperformance.MyPerformanceAllListActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity" />
         <activity android:name=".feature.supervisor.SupervisorVisitsActivity" />
         <activity android:name=".feature.supervisor.SupervisorSanctionActivity" />
         <activity android:name=".feature.supervisor.SupervisorDisbursementActivity" />
@@ -73,8 +72,9 @@
         <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomancFollowUpCallsActivity" />
         <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceSanctionActivity" />
         <activity android:name=".feature.salesOfficer.myPerfomance.MyPerformanceVisitsActivity" />
+        <activity android:name=".masum.activity.CibCifRequestActivity" />
         <activity
-            android:name=".feature.salesOfficer.parallelprocess.DeviationActivity"
+            android:name=".masum.activity.DeviationActivity"
             android:label="Deviation Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth" />
         <activity android:name=".feature.virifier.VirifierListActivity" />
@@ -89,19 +89,8 @@
             android:label="Cif Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity android:name=".feature.upload.UploadProspectActivity" />
-        <activity android:name=".feature.salesOfficer.parallelprocess.daviation.DaviationListActivity" />
+        <activity android:name=".masum.activity.daviation.DaviationListActivity" />
         <activity android:name=".feature.supervisor.prospectview.ProspectViewActivity" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.guarantorinfo.GuarantorInfoActivity"
-            android:label="Guarantor Info"
-            android:theme="@style/AppThemeDialog" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.guarantorinfo.GuarantorAddressActivity"
-            android:label=""
-            android:theme="@style/AppThemeDialog" />
-        <activity
-            android:name=".feature.salesOfficer.newProspect.ownersinfo.OwnersInfoActivity"
-            android:theme="@style/AppThemeDialog" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -111,23 +100,43 @@
             android:value="AIzaSyAGtDC-bNybal6562n0HfNhxM1nzWiRbuQ" />
 
         <activity
-            android:name=".feature.salesOfficer.newProspect.ownersinfo.PersonalAssetsActivity"
-            android:theme="@style/AppThemeDialog" />
-        <activity
             android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementSearchActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
             android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementsActivity"
             android:theme="@style/AppThemeDialog" />
         <activity android:name=".feature.dashboard.supervisor.MainDashboardSupervisorActivity" />
-        <activity android:name=".feature.salesOfficer.parallelprocess.daviation.NewDeviationActivity" />
+        <activity android:name=".masum.activity.daviation.NewDeviationActivity" />
         <activity android:name=".feature.supervisor.SupervisorFollowUpActivity" />
         <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
         <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
-        <activity android:name=".feature.salesOfficer.VisitPlanActivity" />
-        <activity android:name=".LeadStageActivity"></activity>
-        <activity android:name=".feature.salesOfficer.myProspect.ProspectStageActivity" />
-        <activity android:name=".feature.masum.MyVisitPlanListActivity"></activity>
+        <activity android:name=".masum.activity.visitplan.VisitPlanActivity" />
+        <activity android:name=".masum.activity.lead.LeadStageActivity" />
+        <activity android:name=".masum.activity.prospect.ProspectStageActivity" />
+        <activity android:name=".masum.activity.visitplan.MyActivitiesActivity" />
+        <activity android:name=".masum.activity.visitplan.VisitPLanDetailsActivity" />
+        <activity android:name=".ProspectViewRbm" />
+        <activity android:name=".MyPerformancePhaseTwo" />
+        <activity android:name=".SupervisorRbmProspect" />
+        <activity android:name=".masum.activity.visitplan.VisitPlanListActivity" />
+        <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity" />
+        <activity android:name=".CoApplicantRbmView" />
+        <activity android:name=".masum.activity.prospect.MyProspectFragmentActivity" />
+        <activity android:name="net.maxproit.salesforce.util.PdfViewer" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
+        <receiver
+            android:name=".masum.reciever.NetworkMonitor"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".feature.login.RegistrationActivity" />
+        <activity android:name=".feature.login.PasswordActivity" />
+        <activity android:name=".masum.activity.myperformance.MyPerformanceAllDetailActivity"></activity>
     </application>
 
 </manifest>
