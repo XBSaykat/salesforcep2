@@ -62,7 +62,12 @@ public class NewDaviationAdapter extends RecyclerView.Adapter<NewDaviationAdapte
         for (DeviationJustification justification : list.get(position).getDeviationJustifications()) {
             stringBuilder.append(justification.getJustification() + ",");
         }
-        holder.binding.textView28.setText(stringBuilder);
+
+        // need to remove comma
+        String str = stringBuilder.toString();
+        str = str.replaceAll(",$", "");
+
+        holder.binding.textView28.setText(str);
     }
 
 

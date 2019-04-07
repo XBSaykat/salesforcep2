@@ -13,7 +13,9 @@ import net.maxproit.salesforce.masum.model.api.deviation.deviationlist.Deviation
 import net.maxproit.salesforce.model.login.LocalLogin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static net.maxproit.salesforce.util.MyApplication.getContext;
 
@@ -29,6 +31,12 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
     private int color = 0;
     private int colorPostion = 0;
     ArrayList<Integer> colorArray;
+
+    boolean color1 = true;
+    boolean color2 = false;
+
+
+    private Map<String, Integer> clr = new HashMap<>();
 
 
     /**
@@ -51,6 +59,9 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
 
         layoutInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
+        colorSet();
     }
 
     @Override
@@ -68,13 +79,11 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
     @Override
     public void onBindViewHolder(ViewFilesHolder holder, int position) {
 
-        if (tempDeviationSetId.equals(list.get(position).getDeviationSetID())) {
-            holder.binding.clLeadItem.setBackgroundColor(color);
-
-        } else {
-            color = colorArray.get(1);
-        }
         holder.binding.setModel(list.get(position));
+
+        holder.binding.clLeadItem.setBackgroundColor(clr.get(list.get(position).getDeviationSetID()));
+
+
     }
 
 
@@ -88,6 +97,10 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
         return position;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     public class ViewFilesHolder extends RecyclerView.ViewHolder {
 
@@ -96,8 +109,49 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
         public ViewFilesHolder(final DaviationRequestRowBinding itemBinding) {
             super(itemBinding.getRoot());
             this.binding = itemBinding;
+
         }
     }
 
+    private void colorSet() {
+
+
+        for (int pos = 0; pos < list.size(); pos++) {
+
+            if (tempDeviationSetId.equals(list.get(pos).getDeviationSetID())) {
+
+
+                if (color1) {
+
+                    clr.put(list.get(pos).getDeviationSetID(), colorArray.get(0));
+
+                }
+                if (color2) {
+                    clr.put(list.get(pos).getDeviationSetID(), colorArray.get(1));
+
+                }
+
+
+            } else {
+
+                color1 = !color1;
+                color2 = !color2;
+
+
+                if (color1) {
+
+                    clr.put(list.get(pos).getDeviationSetID(), colorArray.get(0));
+
+                }
+                if (color2) {
+                    clr.put(list.get(pos).getDeviationSetID(), colorArray.get(1));
+
+                }
+
+            }
+
+            tempDeviationSetId = list.get(pos).getDeviationSetID();
+        }
+    }
 
 }
