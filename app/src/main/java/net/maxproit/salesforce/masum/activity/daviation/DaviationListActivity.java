@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import net.maxproit.salesforce.R;
 import net.maxproit.salesforce.common.base.BaseActivity;
@@ -90,10 +91,17 @@ public class DaviationListActivity extends BaseActivity implements AdapterInfo {
                     Log.d(TAG, "onResponse: " + toJson(response.body()));
                     if (!cibList.isEmpty())
                         cibList.clear();
-                    cibList = response.body().getData();
-                    binding.tvLtv.setText(cibList.get(0).getLTV());
-                    binding.tvLoanAmount.setText(cibList.get(0).getLoanAmount());
-                    setupCifAdapter();
+                    if (response.body().getData() !=null) {
+                        cibList = response.body().getData();
+                        binding.tvLtv.setText(cibList.get(0).getLTV());
+                        binding.tvLoanAmount.setText(cibList.get(0).getLoanAmount());
+                        setupCifAdapter();
+
+                    }
+                    else {
+                        binding.ln.setVisibility(View.GONE);
+                    }
+
                 } else {
                     showToast("Try again!");
                 }
