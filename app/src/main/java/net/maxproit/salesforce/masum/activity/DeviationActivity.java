@@ -348,7 +348,12 @@ public class DeviationActivity extends BaseActivity {
 
             stringBuilder.append(colour + ",");
 
-        binding.spJustification.setText(stringBuilder.toString());
+        // need to remove comma
+        String str = stringBuilder.toString();
+        str = str.replaceAll(",$", "");
+
+        // binding.spJustification.setText(stringBuilder.toString());
+        binding.spJustification.setText(str);
 
     }
 
