@@ -52,8 +52,8 @@ public class DaviationAdapter extends RecyclerView.Adapter<DaviationAdapter.View
         this.referrenceid = referrenceid;
         tempDeviationSetId = list.get(0).getDeviationSetID();
         colorArray = new ArrayList<>();
-        colorArray.add(ContextCompat.getColor(context, R.color.grey));
-        colorArray.add(ContextCompat.getColor(context, R.color.rb_blue));
+        colorArray.add(ContextCompat.getColor(context, R.color.black_overlay_2));
+        colorArray.add(ContextCompat.getColor(context, R.color.blueGrey));
         colorArray.add(ContextCompat.getColor(context, R.color.blue_clicked));
         color = colorArray.get(0);
 
