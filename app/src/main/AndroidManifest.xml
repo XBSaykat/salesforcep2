@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="net.maxproit.salesforce">
+    package="net.maxproit.salesforce2">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -23,7 +23,7 @@
 
 
     <application
-        android:name=".App"
+        android:name="net.maxproit.salesforce2.App"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,7 +33,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".feature.splash.SplashActivity"
+            android:name="net.maxproit.salesforce2.feature.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,56 +41,56 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.dashboard.DashboardSalesOfficerActivity" />
-        <activity android:name=".feature.login.LoginActivity" />
-        <activity android:name=".feature.upload.UploadActivity" />
-        <activity android:name=".feature.dashboard.DashboardVirifierActivity" />
-        <activity android:name=".feature.dashboard.supervisor.DashboardSupervisorActivity" />
-        <activity android:name=".feature.supervisor.SupervisorProspectActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.dashboard.DashboardSalesOfficerActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.login.LoginActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.upload.UploadActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.dashboard.DashboardVirifierActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.dashboard.supervisor.DashboardSupervisorActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.SupervisorProspectActivity" />
         <activity
-            android:name=".feature.search.SearchUserActivity"
+            android:name="net.maxproit.salesforce2.feature.search.SearchUserActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
-            android:name=".masum.activity.lead.MyLeadActivity"
+            android:name="net.maxproit.salesforce2.masum.activity.lead.MyLeadActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".masum.activity.myperformance.MyPerformanceAllListActivity"
+            android:name="net.maxproit.salesforce2.masum.activity.myperformance.MyPerformanceAllListActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".feature.supervisor.lead.SupervisorLeadActivity" />
-        <activity android:name=".feature.supervisor.SupervisorVisitsActivity" />
-        <activity android:name=".feature.supervisor.SupervisorSanctionActivity" />
-        <activity android:name=".feature.supervisor.SupervisorDisbursementActivity" />
-        <activity android:name=".feature.supervisor.SupervisorSalesofficerCifActivity" />
-        <activity android:name=".feature.supervisor.SupervisorSalesofficerNameActivity" />
-        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceActivity" />
-        <activity android:name=".feature.salesOfficer.parallelprocess.cif.CifActivity" />
-        <activity android:name=".feature.salesOfficer.parallelprocess.cib.CibActivity" />
-        <activity android:name=".feature.salesOfficer.parallelprocess.cib.CibActivityNew" />
-        <activity android:name=".feature.salesOfficer.myPerfomance.disbursement.MyPerfomanceDisbursementsActivity" />
-        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceProspectActivity" />
-        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceLeadActivity" />
-        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomancFollowUpCallsActivity" />
-        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerfomanceSanctionActivity" />
-        <activity android:name=".feature.salesOfficer.myPerfomance.MyPerformanceVisitsActivity" />
-        <activity android:name=".masum.activity.CibCifRequestActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.lead.SupervisorLeadActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.SupervisorVisitsActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.SupervisorSanctionActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.SupervisorDisbursementActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.SupervisorSalesofficerCifActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.SupervisorSalesofficerNameActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.MyPerfomanceActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.parallelprocess.cif.CifActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.parallelprocess.cib.CibActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.parallelprocess.cib.CibActivityNew" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.disbursement.MyPerfomanceDisbursementsActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.MyPerfomanceProspectActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.MyPerfomanceLeadActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.MyPerfomancFollowUpCallsActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.MyPerfomanceSanctionActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.MyPerformanceVisitsActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.CibCifRequestActivity" />
         <activity
-            android:name=".masum.activity.DeviationActivity"
+            android:name="net.maxproit.salesforce2.masum.activity.DeviationActivity"
             android:label="Deviation Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth" />
-        <activity android:name=".feature.virifier.VirifierListActivity" />
-        <activity android:name=".feature.virifier.VerifierActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.virifier.VirifierListActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.virifier.VerifierActivity" />
         <activity
-            android:name=".feature.salesOfficer.parallelprocess.cib.CibDialog"
+            android:name="net.maxproit.salesforce2.feature.salesOfficer.parallelprocess.cib.CibDialog"
             android:label="Cib Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".feature.salesOfficer.parallelprocess.cif.CifActivityNew" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.parallelprocess.cif.CifActivityNew" />
         <activity
-            android:name=".feature.salesOfficer.parallelprocess.cif.CifDialog"
+            android:name="net.maxproit.salesforce2.feature.salesOfficer.parallelprocess.cif.CifDialog"
             android:label="Cif Request"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".feature.upload.UploadProspectActivity" />
-        <activity android:name=".masum.activity.daviation.DaviationListActivity" />
-        <activity android:name=".feature.supervisor.prospectview.ProspectViewActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.upload.UploadProspectActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.daviation.DaviationListActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.prospectview.ProspectViewActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -100,33 +100,33 @@
             android:value="AIzaSyAGtDC-bNybal6562n0HfNhxM1nzWiRbuQ" />
 
         <activity
-            android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementSearchActivity"
+            android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.disbursement.DisbursementSearchActivity"
             android:theme="@style/AppThemeDialog" />
         <activity
-            android:name=".feature.salesOfficer.myPerfomance.disbursement.DisbursementsActivity"
+            android:name="net.maxproit.salesforce2.feature.salesOfficer.myPerfomance.disbursement.DisbursementsActivity"
             android:theme="@style/AppThemeDialog" />
-        <activity android:name=".feature.dashboard.supervisor.MainDashboardSupervisorActivity" />
-        <activity android:name=".masum.activity.daviation.NewDeviationActivity" />
-        <activity android:name=".feature.supervisor.SupervisorFollowUpActivity" />
-        <activity android:name=".feature.salesOfficer.SalesOfficerDisbursementActivity" />
-        <activity android:name=".feature.supervisor.SupervisorMaiProspectActivity" />
-        <activity android:name=".masum.activity.visitplan.VisitPlanActivity" />
-        <activity android:name=".masum.activity.lead.LeadStageActivity" />
-        <activity android:name=".masum.activity.prospect.ProspectStageActivity" />
-        <activity android:name=".masum.activity.visitplan.MyActivitiesActivity" />
-        <activity android:name=".masum.activity.visitplan.VisitPLanDetailsActivity" />
-        <activity android:name=".ProspectViewRbm" />
-        <activity android:name=".MyPerformancePhaseTwo" />
-        <activity android:name=".SupervisorRbmProspect" />
-        <activity android:name=".masum.activity.visitplan.VisitPlanListActivity" />
-        <activity android:name=".masum.activity.prospect.co_applicant.CoApplicantActivity" />
-        <activity android:name=".CoApplicantRbmView" />
-        <activity android:name=".masum.activity.prospect.MyProspectFragmentActivity" />
-        <activity android:name="net.maxproit.salesforce.util.PdfViewer" />
+        <activity android:name="net.maxproit.salesforce2.feature.dashboard.supervisor.MainDashboardSupervisorActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.daviation.NewDeviationActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.SupervisorFollowUpActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.salesOfficer.SalesOfficerDisbursementActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.supervisor.SupervisorMaiProspectActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.visitplan.VisitPlanActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.lead.LeadStageActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.prospect.ProspectStageActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.visitplan.MyActivitiesActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.visitplan.VisitPLanDetailsActivity" />
+        <activity android:name="net.maxproit.salesforce2.ProspectViewRbm" />
+        <activity android:name="net.maxproit.salesforce2.MyPerformancePhaseTwo" />
+        <activity android:name="net.maxproit.salesforce2.SupervisorRbmProspect" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.visitplan.VisitPlanListActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.prospect.co_applicant.CoApplicantActivity" />
+        <activity android:name="net.maxproit.salesforce2.CoApplicantRbmView" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.prospect.MyProspectFragmentActivity" />
+        <activity android:name="net.maxproit.salesforce2.util.PdfViewer" />
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
         <receiver
-            android:name=".masum.reciever.NetworkMonitor"
+            android:name="net.maxproit.salesforce2.masum.reciever.NetworkMonitor"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -134,9 +134,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".feature.login.RegistrationActivity" />
-        <activity android:name=".feature.login.PasswordActivity" />
-        <activity android:name=".masum.activity.myperformance.MyPerformanceAllDetailActivity"></activity>
+        <activity android:name="net.maxproit.salesforce2.feature.login.RegistrationActivity" />
+        <activity android:name="net.maxproit.salesforce2.feature.login.PasswordActivity" />
+        <activity android:name="net.maxproit.salesforce2.masum.activity.myperformance.MyPerformanceAllDetailActivity"></activity>
     </application>
 
 </manifest>

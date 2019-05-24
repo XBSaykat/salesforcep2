@@ -7,7 +7,7 @@
     android:background="#fFF">
 
 
-    <net.maxproit.salesforce.custom.textView.RobotoBoldTextView
+    <net.maxproit.salesforce2.custom.textView.RobotoBoldTextView
         android:id="@+id/addresTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.supervisor.visits.Datum" />
+            type="net.maxproit.salesforce2.model.supervisor.visits.Datum" />
     </data>
 
     <android.support.constraint.ConstraintLayout

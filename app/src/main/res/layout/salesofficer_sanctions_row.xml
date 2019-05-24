@@ -4,7 +4,7 @@
     <data>
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.supervisor.sanctions.Datum" />
+            type="net.maxproit.salesforce2.model.supervisor.sanctions.Datum" />
     </data>
 
     <android.support.constraint.ConstraintLayout

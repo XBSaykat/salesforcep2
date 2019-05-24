@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.newprospect.Address" />
+            type="net.maxproit.salesforce2.model.newprospect.Address" />
 
     </data>
 

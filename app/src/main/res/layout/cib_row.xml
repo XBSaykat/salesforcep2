@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.cib.CibRequestDtl" />
+            type="net.maxproit.salesforce2.model.cib.CibRequestDtl" />
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -4,7 +4,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.newprospect.ProprietorsAddressInfo" />
+            type="net.maxproit.salesforce2.model.newprospect.ProprietorsAddressInfo" />
     </data>
 
     <android.support.v4.widget.NestedScrollView

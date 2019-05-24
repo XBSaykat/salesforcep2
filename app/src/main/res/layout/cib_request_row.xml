@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.cib.requestedCIB.RequestedCIB" />
+            type="net.maxproit.salesforce2.model.cib.requestedCIB.RequestedCIB" />
     </data>
 
     <android.support.constraint.ConstraintLayout

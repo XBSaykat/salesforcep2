@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -154,7 +154,7 @@
                         <!--android:layout_height="wrap_content"-->
                         <!--android:orientation="vertical">-->
 
-                        <!--<net.maxproit.salesforce.custom.textView.RobotoRegularTextView-->
+                        <!--<salesforce22.custom.textView.RobotoRegularTextView-->
                             <!--android:layout_width="match_parent"-->
                             <!--android:layout_height="wrap_content"-->
                             <!--android:layout_gravity="center_vertical"-->

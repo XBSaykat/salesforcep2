@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.mylead.Data" />
+            type="net.maxproit.salesforce2.model.mylead.Data" />
     </data>
 
     <RelativeLayout

@@ -20,7 +20,7 @@
             android:padding="@dimen/size_4dp">
 
 
-            <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+            <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -41,7 +41,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                         android:id="@+id/tv_unex_plan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:padding="@dimen/size_4dp">
 
 
-            <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+            <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -91,7 +91,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                         android:id="@+id/tv_up_plan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                         android:textColor="@color/greyWhite"
                         android:textSize="@dimen/text_size_12sp" />
 
-                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"

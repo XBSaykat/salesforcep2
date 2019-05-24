@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.search.Search" />
+            type="net.maxproit.salesforce2.model.search.Search" />
 
     </data>
 

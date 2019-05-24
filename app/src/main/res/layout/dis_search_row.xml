@@ -4,7 +4,7 @@
     <data>
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.search.searchlist.disbursementsearch.DisbursementSearchResponce" />
+            type="net.maxproit.salesforce2.model.search.searchlist.disbursementsearch.DisbursementSearchResponce" />
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -85,7 +85,7 @@
                     android:src="@drawable/prospect" />
 
 
-                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                     android:id="@+id/tvNewLead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

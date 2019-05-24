@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.supervisor.dashboard.Data" />
+            type="net.maxproit.salesforce2.model.supervisor.dashboard.Data" />
 
     </data>
 
@@ -77,7 +77,7 @@
                         android:padding="@dimen/size_4dp">
 
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -97,14 +97,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="No. of File"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -133,7 +133,7 @@
                         android:padding="@dimen/size_4dp">
 
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -152,14 +152,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="No. of File"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -174,14 +174,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="Amount"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -213,7 +213,7 @@
                         android:orientation="vertical"
                         android:padding="@dimen/size_4dp">
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -232,14 +232,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="No. of File"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -254,14 +254,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="Amount"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -287,7 +287,7 @@
                         android:orientation="vertical"
                         android:padding="@dimen/size_4dp">
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -307,14 +307,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="No. of File"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -329,14 +329,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="Amount"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -369,7 +369,7 @@
                         android:orientation="vertical"
                         android:padding="@dimen/size_4dp">
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -388,14 +388,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text=""/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -410,14 +410,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text=""/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -444,7 +444,7 @@
                         android:orientation="vertical"
                         android:padding="@dimen/size_4dp">
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -464,14 +464,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="Customer"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -486,14 +486,14 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:textSize="@dimen/text_size_12sp"
                                     android:textColor="@color/greyWhite"
                                     android:text="No. of visit"/>
-                                <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                                <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -569,7 +569,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -578,7 +578,7 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_20sp" />
 
-                        <net.maxproit.salesforce.custom.textView.RobotoCondensedBoldTextView
+                        <net.maxproit.salesforce2.custom.textView.RobotoCondensedBoldTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -628,7 +628,7 @@
                         android:src="@drawable/name" />
 
 
-                    <net.maxproit.salesforce.custom.textView.RobotoRegularTextView
+                    <net.maxproit.salesforce2.custom.textView.RobotoRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

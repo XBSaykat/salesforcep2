@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.myprospect.Data" />
+            type="net.maxproit.salesforce2.model.myprospect.Data" />
     </data>
 
     <android.support.constraint.ConstraintLayout

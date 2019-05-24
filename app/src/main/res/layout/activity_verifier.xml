@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.newprospect.Verification" />
+            type="net.maxproit.salesforce2.model.newprospect.Verification" />
     </data>
 
     <RelativeLayout

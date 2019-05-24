@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="net.maxproit.salesforce.model.newprospect.ProprietorsInfo" />
+            type="net.maxproit.salesforce2.model.newprospect.ProprietorsInfo" />
     </data>
 
     <android.support.constraint.ConstraintLayout
